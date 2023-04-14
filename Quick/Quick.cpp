@@ -1,0 +1,209 @@
+// Quick.cpp : 응용 프로그램에 대한 클래스 동작을 정의합니다.
+//
+
+#include "stdafx.h"
+#include "Quick.h"
+#include "MainFrm.h"
+
+#include "QuickDoc.h"
+#include "QuickView.h"
+#include "DummyView.h"
+#include "afxwin.h"
+#include "LogonDlg.h"
+#include "DebugReporter.h"
+#include "ShareReportRateDlg.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW 
+#endif
+
+
+// CQuickApp
+
+BEGIN_MESSAGE_MAP(CQuickApp, CWinApp)
+	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
+	// 표준 파일을 기초로 하는 문서 명령입니다.
+	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
+	ON_COMMAND(ID_FILE_OPEN, CWinApp::OnFileOpen)
+END_MESSAGE_MAP()
+
+
+// CQuickApp 생성
+
+CQuickApp::CQuickApp()
+{
+	m_pMkDb = NULL;
+}
+
+CQuickApp::~CQuickApp()
+{
+	delete LU;
+}
+
+
+// 유일한 CQuickApp 개체입니다.
+
+CQuickApp theApp;
+ULONG_PTR m_gdiplusToken;
+
+// CQuickApp 초기화
+BOOL CQuickApp::InitInstance()
+{
+	if (!AfxOleInit())
+	{
+		AfxMessageBox(IDP_OLE_INIT_FAILED);
+		return FALSE;
+	}
+
+//	afxAmbientActCtx = FALSE;
+
+	SetRegistryKey(_T("Logisoft"));
+	AfxInitRichEdit2();
+	AfxEnableControlContainer();
+	CXTPWinDwmWrapper().SetProcessDPIAware();
+
+	LF = new CLogiFunc;
+
+	LU = new CLogiUtil;
+	LU->Init();
+	LU->InstallMalgunFont();
+	LU->LoadSkinManager();
+	LU->CheckDebugLogMode();
+
+	CString strSubKey = "Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
+	::WriteRegistryInt(HKEY_CURRENT_USER, strSubKey, "Quick.exe", 11000);
+
+	if(!LU->SetServerInfo())
+		return FALSE;
+
+	Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+	Gdiplus::GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, NULL);
+
+	char szID[50] = { 0 };
+	char szLogiCode[50] = { 0 };
+	char szLogiNo[50] = { 0 };
+
+	if(!LU->CheckCommandLine(szID, szLogiCode, szLogiNo))
+		return FALSE;
+
+	//CMkCommand pCmd(m_pMkDb, "test_test");
+	//CMkParameter *pParOut = pCmd.AddParameter(typeInt, typeReturn, sizeof(int), 0);
+	//pCmd.AddParameter(0);
+	//if(pCmd.Execute())
+	//{
+	//	CString str;
+	//	str.Format("RET=%d\n", pParOut->GetLong());
+	//	MessageBox(NULL, str, str, MB_OK);
+	//}
+
+	//return FALSE;
+
+
+	if(!LU->Logon(szID))
+		return FALSE;
+
+	LU->SetSystemTimeLikeServer();
+
+#ifndef _DEBUG
+//	if(m_ui.bBlankPassword)
+//		SetCrashHandlerFilter(&TheCrashHandlerFunction);
+//	else
+		SetCrashHandlerFilter(&TheCrashHandlerNormalFunction);
+#endif 
+
+	if(!LU->ShowShareReportDlg())
+		return FALSE;
+
+#ifndef _DEBUG
+	if(!m_ui.bDeveloper)
+		LU->SetClearType();
+#endif 
+
+	LU->CheckRegistryInfo();
+	LoadStdProfileSettings(4);  // MRU를 포함하여 표준 INI 파일 옵션을 로드합니다.
+
+	// 응용 프로그램의 문서 템플릿을 등록합니다. 문서 템플릿은
+	// 문서, 프레임 창 및 뷰 사이의 연결 역할을 합니다.
+	CSingleDocTemplate* pDocTemplate;
+	pDocTemplate = new CSingleDocTemplate(
+		IDR_MAINFRAME,
+		RUNTIME_CLASS(CQuickDoc),
+		RUNTIME_CLASS(CMainFrame),       // 주 SDI 프레임 창입니다.
+		RUNTIME_CLASS(CQuickView));
+	AddDocTemplate(pDocTemplate);
+	// 표준 셸 명령, DDE, 파일 열기에 대한 명령줄을 구문 분석합니다.
+	CCommandLineInfo cmdInfo;
+	ParseCommandLine(cmdInfo);
+	// 명령줄에 지정된 명령을 디스패치합니다. 응용 프로그램이 /RegServer, /Register, /Unregserver 또는 /Unregister로 시작된 경우 FALSE를 반환합니다.
+	if(!ProcessShellCommand(cmdInfo))
+		return FALSE;
+	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
+
+	LU->ShowMemberChargeDlg(  TRUE);
+	m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
+	m_pMainWnd->UpdateWindow();
+
+	// 접미사가 있을 경우에만 DragAcceptFiles를 호출합니다.
+	// SDI 응용 프로그램에서는 ProcessShellCommand 후에 이러한 호출이 발생해야 합니다.
+	return TRUE;
+}
+
+// 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
+
+class CAboutDlg : public CMyDialog
+{
+public:
+	CAboutDlg();
+
+// 대화 상자 데이터
+	enum { IDD = IDD_ABOUTBOX };
+
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원
+
+// 구현
+protected:
+	DECLARE_MESSAGE_MAP()
+public:
+	CStatic m_VersionStatic;
+	CString m_strVersion;
+	afx_msg void OnBnClickedCrashBtn();
+};
+
+CAboutDlg::CAboutDlg() : CMyDialog(CAboutDlg::IDD)
+{
+}
+
+
+void CAboutDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CMyDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_VERSION_STATIC, m_VersionStatic);
+	DDX_Text(pDX, IDC_VERSION_STATIC, m_strVersion);
+}
+
+BEGIN_MESSAGE_MAP(CAboutDlg, CMyDialog)
+	ON_BN_CLICKED(IDC_CRASH_BTN, &CAboutDlg::OnBnClickedCrashBtn)
+END_MESSAGE_MAP()
+
+// 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
+void CQuickApp::OnAppAbout()
+{
+	CAboutDlg aboutDlg;
+	aboutDlg.m_strVersion.Format("로지소프트 스마트Q ⓥ%s", LF->GetMyFileVersion());
+	aboutDlg.DoModal();
+}
+
+int CQuickApp::ExitInstance()
+{
+	DELETE_OBJECT(LU);
+
+	Gdiplus::GdiplusShutdown(m_gdiplusToken);
+	return CWinApp::ExitInstance();
+}
+
+void CAboutDlg::OnBnClickedCrashBtn()
+{
+	/*char *p = 0;
+	*p = 1;*/
+}

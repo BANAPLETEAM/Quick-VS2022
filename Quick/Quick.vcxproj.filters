@@ -1,0 +1,4577 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Charge">
+      <UniqueIdentifier>{e1182c16-b30d-41be-a629-e2b07f43142c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{2e5d99b1-a0bb-48c3-b66f-3404d9b8547a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{da0bbfdd-8339-46c7-b9a7-2b965cb539de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Control\BranchControl">
+      <UniqueIdentifier>{73bc4d55-acbf-458f-bcb7-36dd57e38e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Control\Messenger">
+      <UniqueIdentifier>{e9ff5643-c6c5-4c32-86b2-8a94f0313490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CTI">
+      <UniqueIdentifier>{38e0e729-9b10-44cc-b722-0c3ee5df70b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CustomerView">
+      <UniqueIdentifier>{d6edf619-2eae-4e3f-9ef6-a8221cb40b0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graph">
+      <UniqueIdentifier>{ce9c3561-02b6-497e-a6fe-7be519317e29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HomeView">
+      <UniqueIdentifier>{51b3b4f8-325f-4dac-ad6e-45fff210807b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IncomeView">
+      <UniqueIdentifier>{05d2ac65-6c38-464d-a5c4-594f8cd5d63c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{3fb43375-3514-495f-999d-387baae1af8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Option">
+      <UniqueIdentifier>{67afb350-cbcd-4b74-a60b-3e36e7609790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="POIData">
+      <UniqueIdentifier>{fbc243c0-74b5-4bf0-b52f-f2f5ae9d4e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rcp">
+      <UniqueIdentifier>{9a2eaba3-cf3e-49d5-8918-3737d80df9ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RcpInsung">
+      <UniqueIdentifier>{d69a7f68-88ce-4d6a-be3b-593c58164005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ReportRiderView">
+      <UniqueIdentifier>{63b22392-7139-4da4-8856-d3459d87c6be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ReportView">
+      <UniqueIdentifier>{ece69ccb-7995-4ff1-ae1c-3812e74c9a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{4788153d-d9a8-4d86-9ee9-26a06d202d60}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest</Extensions>
+    </Filter>
+    <Filter Include="ShareReportRate">
+      <UniqueIdentifier>{b687eb9f-fe09-4883-8aaf-26955f8c72fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sms">
+      <UniqueIdentifier>{53ee785e-424c-4a74-ae69-91abdd58bbc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMTP">
+      <UniqueIdentifier>{372e0478-2c66-4a5f-975b-aa935e513853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaffView">
+      <UniqueIdentifier>{dc455830-768e-48ea-a485-b39638fc12ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StatView">
+      <UniqueIdentifier>{f1f62835-2791-4ecf-ad8c-d82396f44a0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tlh">
+      <UniqueIdentifier>{aa72d6d5-371d-420d-8c6d-3a72676494b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{2b94dc9b-240f-4975-856f-072ae0d1db7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\BugsLayerUtil">
+      <UniqueIdentifier>{fdc663ab-845b-4c49-9889-f4375a7b27d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\CallPass">
+      <UniqueIdentifier>{6cc445e8-b289-4f12-99ee-c64d7038e501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Json">
+      <UniqueIdentifier>{df9da09e-3a0c-412a-b822-7e46a3b83f2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\LogiDbInc_3">
+      <UniqueIdentifier>{3ae1121f-62ac-44c3-8c73-ab21e3f78037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\TalMapX_1">
+      <UniqueIdentifier>{1c4da976-fa6f-46da-8b3c-763411aa527c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\TinyXml">
+      <UniqueIdentifier>{cb04dd50-50a0-47b4-910b-18ddf2233d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\tlh">
+      <UniqueIdentifier>{73d73805-7ee6-4cdf-aa64-37c05326a966}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\voip">
+      <UniqueIdentifier>{ced065f0-f436-4e6f-bc0c-49a0855568d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\POIDataLib">
+      <UniqueIdentifier>{b553379e-0311-42d1-9c30-99b664a88cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Json\JSONDefs">
+      <UniqueIdentifier>{be3a5709-b9f2-4e9c-9d7f-9cf101525298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\TalMapX_1\MAP">
+      <UniqueIdentifier>{90a5ca5e-f4b8-44ae-ad5f-189de749421c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\TalMapX_1\SR">
+      <UniqueIdentifier>{7e87e778-cbfe-41e3-a571-9f333e98da92}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Graph\Graph.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph\GraphDataColor.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph\GraphDataSet.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph\GraphLegend.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph\GraphLegendSet.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph\GraphPieLabel.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph\GraphSeries.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Bytes.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\d3des.c">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\DataBindDlg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Excel.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\excel9.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\FileToReportControl.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\GeoCoordConv.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\GlobalFontManager.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\GlobalHandleManager.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\INI.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\KingoHttp.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\LogiFunc.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MakeRcpPower.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MentAddDlg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MentDlg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MkLock.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MmsImageView.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MyDialog.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MyResizeDialog.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\SmsBaseDlg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\SmsDefine.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\SpecialCharDlg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\WindowMagnetic.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\CustomerData.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\DaumHttpParser.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\HttpParser.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\JusoGoKr.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\NaverHttpParser.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\POIData.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\RoadAddress.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\SearchPOIDlg.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="POIData\SearchPOISetupDlg.cpp">
+      <Filter>POIData</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\EksysPath.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\INaviPathSearch.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\JibunData.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\LogiMapBase.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\LogiMapCns.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\LogiMapNew.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\RcpMapCtrl.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\RegionSelectAdvancedDlg.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\RiderMapCtrl.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\RiderSubInfo.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\RiderTraceCtrl.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\SearchRegionSimpleDlg.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\SimpleMapDlg.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\AddCallHotNumberDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\AddManagerDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\AddRcpNoticeDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\AutoGenerateDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\Charge.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CIDSelectDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\ConsignDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\ConsignLinkDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\ConsignModiDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CountMileageLogDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CountMileageLogSubDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CreditHistoryDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CTIFormSetupDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CustomerDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CustomerDlgSub1.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CustomerDlgSub2.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CustomerDlgSub3.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\CustomerSelectChangeDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\DepositRateDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\EditItemDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\EMailDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\HistoryDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\IPass.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\JinsangTelRegDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\MyCall.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\OPStatePaintManager.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\OpStatePaintManagerEx.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\OrderPassDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\OrderProcessStateDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\PayCashDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\PersonOptionDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\ProperChargeDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpCopyData.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpDlgBase.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpDlgMapDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpDlgSetupDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpMapSetupDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpMultiStateChange.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPageCTIForm.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPageInfoForm.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPageMapForm.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPageMemoForm.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPageMissingCallForm.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPageRecordFileForm.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPageWCountForm.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPlaceInfo.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPowerDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpPowerSetDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpSearchCarTypeDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpSearchPayTypeDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpSearchTruckTypeDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpView.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RcpViewBase.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\ReceiptPrint.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RecFileSelectDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RecPlayerDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RegionSelectDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\RegisterWNoDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\ReserveOrderDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\SaveMentDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\SearchManagerDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\SelectChargeDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\SetRcpPageDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\ShowRcpNotice.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\SignDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\SimpleSearchDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\TransInfoDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\VirtualRecord.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\VRPreDate.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="Rcp\WebOrderDlg.cpp">
+      <Filter>Rcp</Filter>
+    </ClCompile>
+    <ClCompile Include="option\AddBoxChargeDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\ChargeChangeHelpDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\GeneralAppRegisterDlg2.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\GeneralOpenAPIRegisterDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\GenerateAppStateDlg2.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\GenerateOpenAPIStateDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\IcBannerPreViewDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\ImageHtmlView.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\ImageViewDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\MainOptionDlg2011.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\MyCallDepositDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgCharge.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgCID.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgGeneral2.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgInterCall2.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgLogiContract.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgMobileNew.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgPersonalInfo.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgSmartQ.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgSmartQuick.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionDlgSMS3.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionTipDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\OptionWorkTimeDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\PenaltySetDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchRegionDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\SetAppRcpTimeDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\SetCountMileageDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\SmartCallBoardAddDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\SmartCallBoardDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\SmartCallEventReqLogDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\TankTypeQDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="option\UpChargeSetDlg.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\BCMenu.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\BitmapButtonEdit.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\BtnST.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\ChargePaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\CheckBitmap.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\ColorListCtrl.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\ColumnSelDlg.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\CommonDateDlg.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\CommonDateDlg1.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\CommonDateDlg2.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\CommonDlg1.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\CommonDlg2.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\DataBox.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\DateButton.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\DateButtonOneDay.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\DateSelectDlg.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\EditCell.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\explorer.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FlatButton.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FlatButtonTheme.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FlatComboBox.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FlatComboBoxInsung.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FlatEdit2.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FlatEditInsung.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FlatStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FocusEditCtrl2.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\FormViewDlg.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\GdipButton.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\GdipCheckBtn.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\GlobalPaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\GlobalXTPListCtrl.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\GlobalXTPReportRecord.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\GradientReportPaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\ListCtrl.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\ListCtrlWithCustomDraw.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MacButtons.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MarkupStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyButton.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyCheckBtn.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyCheckButton.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyDrawButton.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyFormView.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyGiveStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyListCtrl.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyListCtrl4.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyListCtrl9.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyMarkupStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyPaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyReportControl.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyReportPaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyStaticBlue.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyStaticGreen.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyStaticRed.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyStaticText.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyStaticTri.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyStaticWhite.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyTakeStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyTestView.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyTestView1.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyTestView2.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyTitleStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyXTPReportView.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\MyXTPTaskPanelPaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\NewRadioBtn.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\ProperChargePaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\ReportMultilinePaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\RoundStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\SmsComboBox.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\SortHeaderCtrl.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\SortListCtrl.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\TransparentStatic.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\WCountPaintManager.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\XTPListCtrl2.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\XTPListCtrl_Branch.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\BranchListDlg.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\BranchMainBtn.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\BranchMainListDlg.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\BranchSel.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\BranchSubBtn.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\BranchSubListDlg.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\ComboBranchListDlg.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\FlatBranchEdit.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\FlatMainEdit.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\FlatSubEdit.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\MainBranchCombo.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchControl\MakeBranchCombo.cpp">
+      <Filter>Control\BranchControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\AddHotMsgDlg.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\DalsuRichEdit.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\MessageRecord.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\MkMessenger.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\MsgNoteDlg.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\MsgPowerDlg.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\MyMkMessenger.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\NewConnListDlg.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\NewMsgDlg.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger\SelectMsgSendTypeDlg.cpp">
+      <Filter>Control\Messenger</Filter>
+    </ClCompile>
+    <ClCompile Include="CTI\Call.cpp">
+      <Filter>CTI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTI\Md5.cpp">
+      <Filter>CTI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTI\MyCallMessage.cpp">
+      <Filter>CTI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTI\TSocket.cpp">
+      <Filter>CTI</Filter>
+    </ClCompile>
+    <ClCompile Include="HomeView\FAQHtmlView.cpp">
+      <Filter>HomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="HomeView\HomeForm1.cpp">
+      <Filter>HomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="HomeView\HomeView.cpp">
+      <Filter>HomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\AfterReportDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\DeleteGroupReportDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\GroupIncomeDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\GroupReportView.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\GroupSearchDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\MakeDepositJobNewDlg1.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\MakeFixedDepositDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\MakeGroupReportDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\MakeGroupReportNewDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\MakeGroupReportSendDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\OrderSeeDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReceiveMoneyDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReGroupReportDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm1.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm10.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm19.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm21.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm23.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm24.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm27.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm28.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm31.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm34.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm35.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm51.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportForm52.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\ReportView.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\UnBillDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\WebGroupReportDetailDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\WebGroupReportDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\WebPage.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\WebPrintDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\WebPrintDlg1.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportView\WithdrawManualDlg.cpp">
+      <Filter>ReportView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm13.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm2.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm20.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm25.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm26.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm29.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm32.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm33.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm4.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportForm8.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportRiderView\ReportRiderView.cpp">
+      <Filter>ReportRiderView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\AllocateLimitAllApplyDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\AllocateLimitDlg1.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\CallBackPhoneRoleDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\ChangeAllocGroupInfoDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\ChangeAllocGroupInfoLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\DriverDetailAddDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\DriverDetailDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\ElapseLimitDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\EmployMentInsuranceDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\InDoorDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\InsertNewCardDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\InsuranceDateDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\LoadInsuranceAgreeDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\LoadInsuranceDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\LockAllocateDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\MoveRiderDlg1.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\PasswordDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\RiderCashLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\RiderColorDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\RiderDepositLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\RiderIncomeDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\RiderInfoLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\RiderInitLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\RiderOrderLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\ShareOrderAllocate.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\ShareOrderAllocate3.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\ShareRefuseExtendLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\SMSDocViewDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\SmsRegisterLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffForm13.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffForm14.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffForm27.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage10.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage11.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage15.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage16.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage17.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage18.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage19.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage2.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage20.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage21.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage4.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffPage7.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\StaffViewNew.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\TakerPage3.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\TimeLimitDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\WeatherDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\workStateChangeLogDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffView\WorkTimeDlg.cpp">
+      <Filter>StaffView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage1.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage11.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage12.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage13.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage14.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage15.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage16.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage17.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage18.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage2.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage3.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage4.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerPage5.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\CustomerView.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\GroupReportSettingDlg.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\MoveGroupDlg.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerView\NewCustomerSmsDlg.cpp">
+      <Filter>CustomerView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\AddRiderBalanceDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\DepositGroupDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\DepositJobDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\DepositJobLogDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\DepositJopUpdateLogDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\DepositStateButton.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\GroupSettingNewDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\HalfInsertFixedDepositDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm10.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm11.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm3.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm4.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm5.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm6.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm7.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm8.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeForm9.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\IncomeView.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\OtherAccountDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\RiderCreditDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\RiderDepositDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\RiderDepositEditHistoryDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\RiderDepositInfoDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\RiderDepositMsgDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\RiderReportDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\RiderReportOrderDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\RiderSelectDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\VRRiderLogListDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeView\WorkStopMemoDlg.cpp">
+      <Filter>IncomeView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\CustomerPage7.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\ReportForm11.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\ReportForm12.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\ReportForm14.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\ReportForm5.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatChildFormCustomerNew.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatForm10.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatForm2.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatForm3.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatForm5.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatForm6.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatForm7.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatForm9.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatTelserverRouteLog.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\StatView.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\TransferRiderDlg.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\XTPChartLogi.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="StatView\XTPListCtrlDiff.cpp">
+      <Filter>StatView</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\AddMmsImageDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\EmoticonDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SMSEditCtrl.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SMSFileUpload.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsMentDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsMentInsertDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsNewBulkConfirmDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsNewBulkDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsNewBulkFilterDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsNewBulkMentDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsNewBulkTestDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SMSRegister.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SmsRegisterManagerDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Sms\SMSStateDlg.cpp">
+      <Filter>Sms</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeAdd.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeContainer.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeDistanceDlg2.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeDistanceType.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeDongButton.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeDongDlg2.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeDongDlg3.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeDongNewDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeDongSettingDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeDongUDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeForRiderDetailDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeForRiderDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeForRiderLogDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeForRiderTransferDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeHistoryMemDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeInsertDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeListDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeListSetDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeMemberDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargenameNewDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeSectionTypeDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeSimpleListDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\ChargeWorkDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\LineDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\SearchCustomerDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\SelectChargeType.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="Charge\WebChargeListDlg.cpp">
+      <Filter>Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\BranchReportLogDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\BranchReportMainDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\BranchReportTransferDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\BranchReportWantTransferDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\CorpOrderDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\MyAllianceManagerDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\RequestDrawingDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportAuthPhoneDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportBranchSetDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportMyRequestDetailDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportRateDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportRateDlg1.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportRateDlg2.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportRateDlg3.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportRateDlg6.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportRateLogDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportTransferDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareReportWantTransferDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareTansferMyRequest.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareTranferRequestDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareTransferCancelDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareReportRate\ShareTransferRequestDetailDlg.cpp">
+      <Filter>ShareReportRate</Filter>
+    </ClCompile>
+    <ClCompile Include="RcpInsung\AddPhoneDlg.cpp">
+      <Filter>RcpInsung</Filter>
+    </ClCompile>
+    <ClCompile Include="RcpInsung\historyInsungDlg.cpp">
+      <Filter>RcpInsung</Filter>
+    </ClCompile>
+    <ClCompile Include="RcpInsung\InsungCustomerDlg.cpp">
+      <Filter>RcpInsung</Filter>
+    </ClCompile>
+    <ClCompile Include="RcpInsung\RcpInsungDlg.cpp">
+      <Filter>RcpInsung</Filter>
+    </ClCompile>
+    <ClCompile Include="RcpInsung\SearchCustomerInsungDlg.cpp">
+      <Filter>RcpInsung</Filter>
+    </ClCompile>
+    <ClCompile Include="RcpInsung\SearchCustomerInsungRcpDlg.cpp">
+      <Filter>RcpInsung</Filter>
+    </ClCompile>
+    <ClCompile Include="RcpInsung\SearchDongInsungDlg.cpp">
+      <Filter>RcpInsung</Filter>
+    </ClCompile>
+    <ClCompile Include="RcpInsung\SearchDongInsungJibunDlg.cpp">
+      <Filter>RcpInsung</Filter>
+    </ClCompile>
+    <ClCompile Include="SMTP\base64.cpp">
+      <Filter>SMTP</Filter>
+    </ClCompile>
+    <ClCompile Include="SMTP\CSmtp.cpp">
+      <Filter>SMTP</Filter>
+    </ClCompile>
+    <ClCompile Include="SMTP\md5_smtp.cpp">
+      <Filter>SMTP</Filter>
+    </ClCompile>
+    <ClCompile Include="AddCustomerDlg.cpp" />
+    <ClCompile Include="AddGroupDlg.cpp" />
+    <ClCompile Include="AddGroupMemberDlg.cpp" />
+    <ClCompile Include="AddRiderShareInfoDlg.cpp" />
+    <ClCompile Include="AllocateBoardDlg.cpp" />
+    <ClCompile Include="AllocateBoardDynDlg.cpp" />
+    <ClCompile Include="AllocateBoardSettingDlg.cpp" />
+    <ClCompile Include="AllocateBoardTRSDlg.cpp" />
+    <ClCompile Include="AllocateBoardTRSSetDlg.cpp" />
+    <ClCompile Include="AllocateDlg.cpp" />
+    <ClCompile Include="AllocateGroupDlg.cpp" />
+    <ClCompile Include="AllocateGroupNew.cpp" />
+    <ClCompile Include="AllocatePaneDlg.cpp" />
+    <ClCompile Include="AllocateReportPaintManager.cpp" />
+    <ClCompile Include="AllocateSMSFSettingDlg.cpp" />
+    <ClCompile Include="AllocateTRSReportPaintManager.cpp" />
+    <ClCompile Include="AllocGroupListDlg.cpp" />
+    <ClCompile Include="AuthLogDlg.cpp" />
+    <ClCompile Include="AuthManageDlg.cpp" />
+    <ClCompile Include="AuthManageLogDlg.cpp" />
+    <ClCompile Include="BCCardFunc.cpp" />
+    <ClCompile Include="BillDlg.cpp" />
+    <ClCompile Include="BranchFormView.cpp" />
+    <ClCompile Include="BranchNameDlg.cpp" />
+    <ClCompile Include="CallCountDlg.cpp" />
+    <ClCompile Include="CallPhoneDlg.cpp" />
+    <ClCompile Include="CancelDlg.cpp" />
+    <ClCompile Include="CaptureUpload.cpp" />
+    <ClCompile Include="CardPayLogDlg.cpp" />
+    <ClCompile Include="CardVerifyDlg.cpp" />
+    <ClCompile Include="CertificationRegiDlg.cpp" />
+    <ClCompile Include="CeXDib.cpp" />
+    <ClCompile Include="ChangeColorDlg.cpp" />
+    <ClCompile Include="ChangeHistoryNameDlg.cpp" />
+    <ClCompile Include="CheckGroupReportDlg.cpp" />
+    <ClCompile Include="CidDlg.cpp" />
+    <ClCompile Include="CidGroupDlg.cpp" />
+    <ClCompile Include="ColorDlg.cpp" />
+    <ClCompile Include="CompanyBranchListDlg1.cpp" />
+    <ClCompile Include="CompanyInfo.cpp" />
+    <ClCompile Include="CompleteAfterEditDlg.cpp" />
+    <ClCompile Include="ConnListDlg2.cpp" />
+    <ClCompile Include="ConsignSettingDlg.cpp" />
+    <ClCompile Include="CorporationDlg.cpp" />
+    <ClCompile Include="CrashDlg.cpp" />
+    <ClCompile Include="CusSmsDlg.cpp" />
+    <ClCompile Include="CustomerCacheInfoDlg.cpp" />
+    <ClCompile Include="CustomerGroup.cpp" />
+    <ClCompile Include="CustomerMileageDlg.cpp" />
+    <ClCompile Include="CustomerSmsDlg.cpp" />
+    <ClCompile Include="CustomerSmsDlg2.cpp" />
+    <ClCompile Include="CustomMyAfxMessgagebox.cpp" />
+    <ClCompile Include="DebugReporter.cpp" />
+    <ClCompile Include="DelayOrderDlg2.cpp" />
+    <ClCompile Include="DirectChargeInputDlg1.cpp" />
+    <ClCompile Include="DummyView.cpp" />
+    <ClCompile Include="EmptyCarDlg1.cpp" />
+    <ClCompile Include="EtcDlg.cpp" />
+    <ClCompile Include="ExceptionHandler.cpp" />
+    <ClCompile Include="FakeDlg.cpp" />
+    <ClCompile Include="FileUpload.cpp" />
+    <ClCompile Include="FoodCompleteDlg.cpp" />
+    <ClCompile Include="FunctionTableDlg.cpp" />
+    <ClCompile Include="GeneralReceiptLogDlg.cpp" />
+    <ClCompile Include="GeneralRecepitDlg.cpp" />
+    <ClCompile Include="GlobalDef.cpp" />
+    <ClCompile Include="GroupChatDlg.cpp" />
+    <ClCompile Include="HelpGroupReportDlg.cpp" />
+    <ClCompile Include="HolidayDeliveryInfoDlg.cpp" />
+    <ClCompile Include="InsStaffDlg1.cpp" />
+    <ClCompile Include="InsuranceInfoDlg.cpp" />
+    <ClCompile Include="IntercallNoticeDlg.cpp" />
+    <ClCompile Include="LoadInsurance.cpp" />
+    <ClCompile Include="LogiUtil.cpp" />
+    <ClCompile Include="LogonDlg.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MainUtil.cpp" />
+    <ClCompile Include="MakeHtmlTable.cpp" />
+    <ClCompile Include="MakeRiderStat.cpp" />
+    <ClCompile Include="MenuEtcUserDlg.cpp" />
+    <ClCompile Include="MFECToolTip.cpp" />
+    <ClCompile Include="MileageBalanceDlg.cpp" />
+    <ClCompile Include="MileageInfo.cpp" />
+    <ClCompile Include="MoveOrderLogDlg.cpp" />
+    <ClCompile Include="MoveOrderPaintManager.cpp" />
+    <ClCompile Include="MoveRiderNewDlg.cpp" />
+    <ClCompile Include="NewCertifyDlg.cpp" />
+    <ClCompile Include="NotHasPowerForm.cpp" />
+    <ClCompile Include="NotifierContainer.cpp" />
+    <ClCompile Include="OrderChangeRequestDlg.cpp" />
+    <ClCompile Include="OrderInsertDlg.cpp" />
+    <ClCompile Include="OrderLogDetailDlg.cpp" />
+    <ClCompile Include="OtherRegionBranchDlg.cpp" />
+    <ClCompile Include="OtherRiderDlg.cpp" />
+    <ClCompile Include="OtherRiderFindDlg.cpp" />
+    <ClCompile Include="OtherRiderTransferDlg.cpp" />
+    <ClCompile Include="OtherRiderTransferLogDlg.cpp" />
+    <ClCompile Include="PPDrawManager.cpp" />
+    <ClCompile Include="PPHtmlDrawer.cpp" />
+    <ClCompile Include="PPTooltip.cpp" />
+    <ClCompile Include="PSListCtrl.cpp" />
+    <ClCompile Include="QueryChargeDlg.cpp" />
+    <ClCompile Include="Quick.cpp" />
+    <ClCompile Include="QuickDoc.cpp" />
+    <ClCompile Include="QuickView.cpp" />
+    <ClCompile Include="RecvCidDlg.cpp" />
+    <ClCompile Include="RemoteAddrDlg.cpp" />
+    <ClCompile Include="ReservationListDlg.cpp" />
+    <ClCompile Include="RGSPaintManager.cpp" />
+    <ClCompile Include="RiderAdviceDlg2010.cpp" />
+    <ClCompile Include="RiderAllocateDlg.cpp" />
+    <ClCompile Include="RiderBoardAddDlg.cpp" />
+    <ClCompile Include="RiderBoardDlg.cpp" />
+    <ClCompile Include="RiderCancelLogDlg.cpp" />
+    <ClCompile Include="RiderDepositGroupDlg.cpp" />
+    <ClCompile Include="RiderGpsSignalDlg.cpp" />
+    <ClCompile Include="RiderMapDlg.cpp" />
+    <ClCompile Include="RiderMapNormalForm.cpp" />
+    <ClCompile Include="RiderMapSetDlg.cpp" />
+    <ClCompile Include="RiderMsgAllDlg2.cpp" />
+    <ClCompile Include="RiderMsgDlg.cpp" />
+    <ClCompile Include="RiderShareBoardDlg.cpp" />
+    <ClCompile Include="RiderSMSDlg.cpp" />
+    <ClCompile Include="RiderTraceMapDlg.cpp" />
+    <ClCompile Include="ScheduleOrderDlg.cpp" />
+    <ClCompile Include="ScheduleOrderListDlg.cpp" />
+    <ClCompile Include="SearchGroupDlg.cpp" />
+    <ClCompile Include="SearchRegionHolidayDlg.cpp" />
+    <ClCompile Include="SearchRegionNewDlg.cpp" />
+    <ClCompile Include="SearchRiderDlg.cpp" />
+    <ClCompile Include="SecurityLogDlg.cpp" />
+    <ClCompile Include="SendOtherRiderMsgDlg.cpp" />
+    <ClCompile Include="SetPoiDlg.cpp" />
+    <ClCompile Include="ShareOrderDlg.cpp" />
+    <ClCompile Include="ShareProgDlg.cpp" />
+    <ClCompile Include="ShareRcpPageView.cpp" />
+    <ClCompile Include="ShareRcpSubPageDlg.cpp" />
+    <ClCompile Include="ShowRiderInfoDlg.cpp" />
+    <ClCompile Include="SmallTalkEditDlg.cpp" />
+    <ClCompile Include="SplitterControl.cpp" />
+    <ClCompile Include="StartbarNotifier.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="SubwayAbsentDlg.cpp" />
+    <ClCompile Include="SumCnoDlg.cpp" />
+    <ClCompile Include="SumCNoNewDlg.cpp" />
+    <ClCompile Include="SumCustomerDlg.cpp" />
+    <ClCompile Include="TaskbarNotifier.cpp" />
+    <ClCompile Include="TaskFrame.cpp" />
+    <ClCompile Include="TelserverDIDRouteDlg.cpp" />
+    <ClCompile Include="TestDlg.cpp" />
+    <ClCompile Include="TestVirtualCIDDlg.cpp" />
+    <ClCompile Include="TransactionListDlg.cpp" />
+    <ClCompile Include="TransferRiderDlg.cpp" />
+    <ClCompile Include="TransferSBSLogDlg.cpp" />
+    <ClCompile Include="TransferSmsBetweenShareBalanceDlg.cpp" />
+    <ClCompile Include="TRSInsertRiderDlg.cpp" />
+    <ClCompile Include="TRSRiderDlg.cpp" />
+    <ClCompile Include="TRSRiderMsgDlg.cpp" />
+    <ClCompile Include="UserDongPos.cpp" />
+    <ClCompile Include="VarietyDlg.cpp" />
+    <ClCompile Include="VarietyDlg1.cpp" />
+    <ClCompile Include="VarietyDlg2.cpp" />
+    <ClCompile Include="VarietyDlg3.cpp" />
+    <ClCompile Include="ViewPrintPreview.cpp" />
+    <ClCompile Include="WebIDPWDDlg.cpp" />
+    <ClCompile Include="WebUploadDlg.cpp" />
+    <ClCompile Include="Wql.cpp" />
+    <ClCompile Include="..\Include\CallPass\CallPassFunc.cpp">
+      <Filter>Include\CallPass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\CallPass\EnumProc.cpp">
+      <Filter>Include\CallPass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\CallPass\InsungCallPass.cpp">
+      <Filter>Include\CallPass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\Json\jsoncpp.cpp">
+      <Filter>Include\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\BanaLog.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\d3des.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\d3des2.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\DisplayBar.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\DisplayBarThread.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\EncProfile.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\MkCommand.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\MkDatabase.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\MkRecordset.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\QSocket.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\QueryLogDlg.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\TextProgressCtrl.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\LogiDbInc_3\UploadingDlg.cpp">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\POIDataLib\MakePOIData.cpp">
+      <Filter>Include\POIDataLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\POIDataLib\POIBoundary.cpp">
+      <Filter>Include\POIDataLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\POIDataLib\POIDataAddress.cpp">
+      <Filter>Include\POIDataLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\POIDataLib\POIDataNew.cpp">
+      <Filter>Include\POIDataLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\POIDataLib\POIUnit.cpp">
+      <Filter>Include\POIDataLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\POIDataLib\SearchPOI.cpp">
+      <Filter>Include\POIDataLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\TinyXml\tinystr.cpp">
+      <Filter>Include\TinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\TinyXml\tinyxml.cpp">
+      <Filter>Include\TinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\TinyXml\tinyxmlerror.cpp">
+      <Filter>Include\TinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\TinyXml\tinyxmlparser.cpp">
+      <Filter>Include\TinyXml</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Graph\Graph.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph\GraphDataColor.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph\GraphDataSet.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph\GraphLegend.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph\GraphLegendSet.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph\GraphPieLabel.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph\GraphSeries.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Bytes.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\d3des.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DataBindDlg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Excel.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\excel9.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\FileToReportControl.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\GeoCoordConv.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\GlobalFontManager.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\GlobalHandleManager.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\INI.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\KingoHttp.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\ListSize.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\LogiFunc.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MakeRcpPower.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MentAddDlg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MentDlg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MkLock.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MmsImageView.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MyDialog.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MyDialogDef.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MyResizeDialog.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\SmsBaseDlg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\SmsDefine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\SpecialCharDlg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\UTF8Conv.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\WindowMagnetic.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\CustomerData.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\CustomerDataDef.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\DaumHttpParser.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\HttpParser.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\JusoGoKr.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\NaverHttpParser.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\POIData.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\POIReportControl.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\RoadAddress.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\SearchPOIDlg.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\SearchPOIRecord.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="POIData\SearchPOISetupDlg.h">
+      <Filter>POIData</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\EksysPath.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\INaviPathSearch.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\JibunData.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\LogiMapBase.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\LogiMapCns.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\LogiMapNew.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\RcpMapCtrl.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\RegionSelectAdvancedDlg.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\RiderMapCtrl.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\RiderSubInfo.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\RiderTraceCtrl.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\SearchRegionSimpleDlg.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\SimpleMapDlg.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\TalMapInc.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\AddCallHotNumberDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\AddManagerDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\AddRcpNoticeDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\AutoGenerateDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CallListRecord.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\Charge.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CIDSelectDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\ConsignDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\ConsignLinkDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\ConsignModiDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CountMileageLogDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CountMileageLogSubDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CreditHistoryDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CTIFormSetupDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CustomerDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CustomerDlgSub1.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CustomerDlgSub2.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CustomerDlgSub3.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\CustomerSelectChangeDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\DepositRateDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\EditItemDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\EMailDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\HistoryDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\IPass.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\JinsangTelRegDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\MyCall.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\OpStatePaintManager.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\OpStatePaintManagerEx.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\OrderPassDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\OrderProcessStateDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\PayCashDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\PersonOptionDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\ProperChargeDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpCopyData.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpDlgBase.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpDlgMapDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpDlgSetupDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpMapSetupDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpMultiStateChange.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPageCTIForm.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPageInfoForm.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPageMapForm.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPageMemoForm.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPageMissingCallForm.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPageRecordFileForm.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPageWCountForm.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPlaceInfo.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPowerDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpPowerSetDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpSearchCarTypeDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpSearchPayTypeDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpSearchTruckTypeDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpView.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpViewBase.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RcpViewDef.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\ReceiptPrint.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RecFileSelectDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RecPlayerDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RegionSelectDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\RegisterWNoDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\ReserveOrderDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\SaveMentDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\SearchManagerDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\SelectChargeDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\SetRcpPageDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\ShowRcpNotice.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\SignDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\SimpleSearchDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\TransInfoDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\VirtualRecord.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\VRPreDate.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="Rcp\WebOrderDlg.h">
+      <Filter>Rcp</Filter>
+    </ClInclude>
+    <ClInclude Include="option\AddBoxChargeDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\ChargeChangeHelpDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\GeneralAppRegisterDlg2.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\GeneralOpenAPIRegisterDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\GenerateOpenAPIStateDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\IcBannerPreViewDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\ImageHtmlView.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\ImageViewDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\MainOptionDlg2011.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\MyCallDepositDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgCharge.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgCID.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgGeneral2.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgInterCall2.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgLogiContract.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgMobileNew.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgPersonalInfo.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgSmartQ.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgSmartQuick.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionDlgSMS3.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionTipDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\OptionWorkTimeDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\PenaltySetDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchRegionDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\SetAppRcpTimeDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\SetCountMileageDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\SmartCallBoardAddDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\SmartCallBoardDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\SmartCallEventReqLogDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\TankTypeQDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="option\UpChargeSetDlg.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\BCMenu.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\BitmapButtonEdit.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\BtnST.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\ChargePaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\CheckBitmap.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\ColorListCtrl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\ColumnSelDlg.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\CommonDateDlg.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\CommonDateDlg1.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\CommonDateDlg2.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\CommonDlg1.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\CommonDlg2.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\DataBox.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\DateButton.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\DateButtonOneDay.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\DateSelectDlg.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\EditCell.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\explorer.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FlatButton.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FlatButtonTheme.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FlatComboBox.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FlatComboBoxInsung.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FlatEdit2.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FlatEditInsung.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FlatStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FocusEditCtrl2.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\FormViewDlg.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\GdipButton.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\GdipCheckBtn.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\GdiPlusBitmap.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\GdipMemDC.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\GlobalPaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\GlobalXTPListCtrl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\GlobalXTPReportRecord.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\GradientReportPaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\ListCtrl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\ListCtrlWithCustomDraw.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MacButtons.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MarkupStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyButton.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyCheckBtn.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyCheckButton.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyDrawButton.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyFormView.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyGiveStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyListCtrl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyListCtrl4.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyListCtrl9.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyMarkupStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyPaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyReportControl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyReportPaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyStaticBlue.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyStaticGreen.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyStaticRed.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyStaticText.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyStaticTri.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyStaticWhite.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyTakeStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyTestView.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyTestView1.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyTestView2.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyTitleStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyXTPReportView.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\MyXTPTaskPanelPaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\NewRadioBtn.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\ProperChargePaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\ReportMultilinePaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\RoundStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\SmsComboBox.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\SortHeaderCtrl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\SortListCtrl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\TransparentStatic.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\WCountPaintManager.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\XTPListCtrl2.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\XTPListCtrl_Branch.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\BranchListDlg.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\BranchMainBtn.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\BranchMainListDlg.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\BranchSel.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\BranchSubBtn.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\BranchSubListDlg.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\ComboBranchListDlg.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\FlatBranchEdit.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\FlatMainEdit.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\FlatSubEdit.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\MainBranchCombo.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="BranchControl\MakeBranchCombo.h">
+      <Filter>Control\BranchControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\AddHotMsgDlg.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\DalsuRichEdit.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\MessageRecord.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\MkMessenger.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\MsgNoteDlg.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\MsgPowerDlg.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\MyMkMessenger.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\NewConnListDlg.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\NewMsgDlg.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger\SelectMsgSendTypeDlg.h">
+      <Filter>Control\Messenger</Filter>
+    </ClInclude>
+    <ClInclude Include="CTI\Call.h">
+      <Filter>CTI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTI\Global.h">
+      <Filter>CTI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTI\Md5.h">
+      <Filter>CTI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTI\MyCallMessage.h">
+      <Filter>CTI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTI\TPacket.h">
+      <Filter>CTI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTI\TSocket.h">
+      <Filter>CTI</Filter>
+    </ClInclude>
+    <ClInclude Include="HomeView\FAQHtmlView.h">
+      <Filter>HomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="HomeView\HomeForm1.h">
+      <Filter>HomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="HomeView\HomeView.h">
+      <Filter>HomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\AfterReportDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\DeleteGroupReportDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\GroupIncomeDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\GroupReportView.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\GroupSearchDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\MakeDepositJobNewDlg1.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\MakeFixedDepositDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\MakeGroupReportDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\MakeGroupReportNewDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\MakeGroupReportSendDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\OrderSeeDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReceiveMoneyDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReGroupReportDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm1.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm10.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm19.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm21.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm23.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm24.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm27.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm28.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm31.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm34.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm35.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm51.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportForm52.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\ReportView.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\UnBillDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\WebGroupReportDetailDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\WebGroupReportDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\WebPage.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\WebPrintDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\WebPrintDlg1.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportView\WithdrawManualDlg.h">
+      <Filter>ReportView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm13.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm2.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm20.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm25.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm26.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm29.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm32.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm33.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm4.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportForm8.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportRiderView\ReportRiderView.h">
+      <Filter>ReportRiderView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\AllocateLimitAllApplyDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\AllocateLimitDlg1.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\CallBackPhoneRoleDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\ChangeAllocGroupInfoDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\ChangeAllocGroupInfoLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\DriverDetailAddDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\DriverDetailDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\ElapseLimitDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\EmployMentInsuranceDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\InDoorDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\InsertNewCardDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\InsuranceDateDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\LoadInsuranceAgreeDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\LoadInsuranceDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\LockAllocateDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\MoveRiderDlg1.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\PasswordDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\RiderCashLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\RiderColorDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\RiderDepositLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\RiderIncomeDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\RiderInfoLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\RiderInitLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\RiderOrderLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\ShareOrderAllocate.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\ShareOrderAllocate3.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\ShareRefuseExtendLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\SMSDocViewDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\SmsRegisterLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffForm13.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffForm14.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffForm27.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage10.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage11.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage15.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage16.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage17.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage18.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage19.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage2.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage20.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage21.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage4.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffPage7.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\StaffViewNew.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\TakerPage3.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\TimeLimitDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\WeatherDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\workStateChangeLogDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffView\WorkTimeDlg.h">
+      <Filter>StaffView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage1.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage11.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage12.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage13.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage14.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage15.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage16.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage17.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage18.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage2.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage3.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage4.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerPage5.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\CustomerView.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\GroupReportSettingDlg.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\MoveGroupDlg.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerView\NewCustomerSmsDlg.h">
+      <Filter>CustomerView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\AddRiderBalanceDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\DepositGroupDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\DepositJobDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\DepositJobLogDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\DepositJopUpdateLogDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\DepositStateButton.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\GroupSettingNewDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\HalfInsertFixedDepositDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm10.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm11.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm3.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm4.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm5.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm6.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm7.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm8.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeForm9.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\IncomeView.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\OtherAccountDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\RiderCreditDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\RiderDepositDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\RiderDepositEditHistoryDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\RiderDepositInfoDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\RiderDepositMsgDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\RiderReportDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\RiderReportOrderDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\RiderSelectDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\VRRiderLogListDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeView\WorkStopMemoDlg.h">
+      <Filter>IncomeView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\CustomerPage7.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\ReportForm11.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\ReportForm12.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\ReportForm14.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\ReportForm5.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatChildFormCustomerNew.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatForm10.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatForm2.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatForm3.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatForm5.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatForm6.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatForm7.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatForm9.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatTelserverRouteLog.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\StatView.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\TransferRiderDlg.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\XTPChartLogi.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="StatView\XTPListCtrlDiff.h">
+      <Filter>StatView</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\AddMmsImageDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\EmoticonDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SMSEditCtrl.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SMSFileUpload.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsMentDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsMentInsertDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsNewBulkConfirmDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsNewBulkDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsNewBulkFilterDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsNewBulkMentDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsNewBulkTestDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SMSRegister.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SmsRegisterManagerDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Sms\SMSStateDlg.h">
+      <Filter>Sms</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeAdd.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeContainer.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeDistanceDlg2.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeDistanceType.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeDongButton.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeDongDlg2.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeDongDlg3.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeDongNewDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeDongSettingDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeDongUDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeForRiderDetailDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeForRiderDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeForRiderLogDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeForRiderTransferDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeHistoryMemDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeInsertDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeListDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeListSetDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeMemberDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargenameNewDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeSectionTypeDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeSimpleListDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\ChargeWorkDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\LineDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\SearchCustomerDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\SelectChargeType.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="Charge\WebChargeListDlg.h">
+      <Filter>Charge</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\BranchReportLogDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\BranchReportMainDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\BranchReportTransferDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\BranchReportWantTransferDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\CorpOrderDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\MyAllianceManagerDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\RequestDrawingDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportAuthPhoneDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportBranchSetDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportMyRequestDetailDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportRateDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportRateDlg1.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportRateDlg2.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportRateDlg3.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportRateDlg6.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportRateLogDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportTransferDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareReportWantTransferDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareTansferMyRequest.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareTranferRequestDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareTransferCancelDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareReportRate\ShareTransferRequestDetailDlg.h">
+      <Filter>ShareReportRate</Filter>
+    </ClInclude>
+    <ClInclude Include="RcpInsung\AddPhoneDlg.h">
+      <Filter>RcpInsung</Filter>
+    </ClInclude>
+    <ClInclude Include="RcpInsung\historyInsungDlg.h">
+      <Filter>RcpInsung</Filter>
+    </ClInclude>
+    <ClInclude Include="RcpInsung\InsungCustomerDlg.h">
+      <Filter>RcpInsung</Filter>
+    </ClInclude>
+    <ClInclude Include="RcpInsung\RcpInsungDlg.h">
+      <Filter>RcpInsung</Filter>
+    </ClInclude>
+    <ClInclude Include="RcpInsung\SearchCustomerInsungDlg.h">
+      <Filter>RcpInsung</Filter>
+    </ClInclude>
+    <ClInclude Include="RcpInsung\SearchCustomerInsungRcpDlg.h">
+      <Filter>RcpInsung</Filter>
+    </ClInclude>
+    <ClInclude Include="RcpInsung\SearchDongInsungDlg.h">
+      <Filter>RcpInsung</Filter>
+    </ClInclude>
+    <ClInclude Include="RcpInsung\SearchDongInsungJibunDlg.h">
+      <Filter>RcpInsung</Filter>
+    </ClInclude>
+    <ClInclude Include="SMTP\base64.h">
+      <Filter>SMTP</Filter>
+    </ClInclude>
+    <ClInclude Include="SMTP\CSmtp.h">
+      <Filter>SMTP</Filter>
+    </ClInclude>
+    <ClInclude Include="SMTP\md5_smtp.h">
+      <Filter>SMTP</Filter>
+    </ClInclude>
+    <ClInclude Include="AddCustomerDlg.h" />
+    <ClInclude Include="AddGroupDlg.h" />
+    <ClInclude Include="AddGroupMemberDlg.h" />
+    <ClInclude Include="AddRiderShareInfoDlg.h" />
+    <ClInclude Include="AllocateBoardDlg.h" />
+    <ClInclude Include="AllocateBoardDynDlg.h" />
+    <ClInclude Include="AllocateBoardSettingDlg.h" />
+    <ClInclude Include="AllocateBoardTRSDlg.h" />
+    <ClInclude Include="AllocateBoardTRSSetDlg.h" />
+    <ClInclude Include="AllocateDlg.h" />
+    <ClInclude Include="AllocateGroupDlg.h" />
+    <ClInclude Include="AllocateGroupNew.h" />
+    <ClInclude Include="AllocatePaneDlg.h" />
+    <ClInclude Include="AllocateReportPaintManager.h" />
+    <ClInclude Include="AllocateSMSFSettingDlg.h" />
+    <ClInclude Include="AllocateTRSReportPaintManager.h" />
+    <ClInclude Include="AllocGroupListDlg.h" />
+    <ClInclude Include="AuthLogDlg.h" />
+    <ClInclude Include="AuthManageDlg.h" />
+    <ClInclude Include="AuthManageLogDlg.h" />
+    <ClInclude Include="BCCardFunc.h" />
+    <ClInclude Include="BillDlg.h" />
+    <ClInclude Include="BranchFormView.h" />
+    <ClInclude Include="BranchNameDlg.h" />
+    <ClInclude Include="CallCountDlg.h" />
+    <ClInclude Include="CallPhoneDlg.h" />
+    <ClInclude Include="CancelDlg.h" />
+    <ClInclude Include="CaptureUpload.h" />
+    <ClInclude Include="CardPayLogDlg.h" />
+    <ClInclude Include="CardVerifyDlg.h" />
+    <ClInclude Include="CertificationRegiDlg.h" />
+    <ClInclude Include="CeXDib.h" />
+    <ClInclude Include="ChangeColorDlg.h" />
+    <ClInclude Include="ChangeHistoryNameDlg.h" />
+    <ClInclude Include="CheckGroupReportDlg.h" />
+    <ClInclude Include="CidDlg.h" />
+    <ClInclude Include="CidGroupDlg.h" />
+    <ClInclude Include="ColorDlg.h" />
+    <ClInclude Include="CompanyBranchListDlg1.h" />
+    <ClInclude Include="CompanyInfo.h" />
+    <ClInclude Include="CompleteAfterEditDlg.h" />
+    <ClInclude Include="ConnListDlg2.h" />
+    <ClInclude Include="ConsignSettingDlg.h" />
+    <ClInclude Include="CorporationDlg.h" />
+    <ClInclude Include="CrashDlg.h" />
+    <ClInclude Include="CusSmsDlg.h" />
+    <ClInclude Include="CustomerCacheInfoDlg.h" />
+    <ClInclude Include="CustomerGroup.h" />
+    <ClInclude Include="CustomerMileageDlg.h" />
+    <ClInclude Include="CustomerSmsDlg.h" />
+    <ClInclude Include="CustomerSmsDlg2.h" />
+    <ClInclude Include="CustomMyAfxMessgagebox.h" />
+    <ClInclude Include="DebugReporter.h" />
+    <ClInclude Include="DelayOrderDlg2.h" />
+    <ClInclude Include="DirectChargeInputDlg1.h" />
+    <ClInclude Include="DummyView.h" />
+    <ClInclude Include="EmptyCarDlg1.h" />
+    <ClInclude Include="EtcDlg.h" />
+    <ClInclude Include="ExceptionHandler.h" />
+    <ClInclude Include="FakeDlg.h" />
+    <ClInclude Include="FileUpload.h" />
+    <ClInclude Include="FoodCompleteDlg.h" />
+    <ClInclude Include="FunctionTableDlg.h" />
+    <ClInclude Include="GeneralReceiptLogDlg.h" />
+    <ClInclude Include="GeneralRecepitDlg.h" />
+    <ClInclude Include="GlobalDef.h" />
+    <ClInclude Include="Common\GlobalDefType.h" />
+    <ClInclude Include="Json\JSONDefs\GNU_C.h" />
+    <ClInclude Include="GroupChatDlg.h" />
+    <ClInclude Include="HelpGroupReportDlg.h" />
+    <ClInclude Include="HolidayDeliveryInfoDlg.h" />
+    <ClInclude Include="InsStaffDlg1.h" />
+    <ClInclude Include="InsuranceInfoDlg.h" />
+    <ClInclude Include="IntercallNoticeDlg.h" />
+    <ClInclude Include="JSCall.h" />
+    <ClInclude Include="libjson.h" />
+    <ClInclude Include="LoadInsurance.h" />
+    <ClInclude Include="LogiUtil.h" />
+    <ClInclude Include="LogonDlg.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MakeHtmlTable.h" />
+    <ClInclude Include="MakeRiderStat.h" />
+    <ClInclude Include="MemDC.h" />
+    <ClInclude Include="MenuEtcUserDlg.h" />
+    <ClInclude Include="MFECToolTip.h" />
+    <ClInclude Include="MileageBalanceDlg.h" />
+    <ClInclude Include="MileageInfo.h" />
+    <ClInclude Include="MoveOrderLogDlg.h" />
+    <ClInclude Include="MoveOrderPaintManager.h" />
+    <ClInclude Include="MoveRiderNewDlg.h" />
+    <ClInclude Include="NewCertifyDlg.h" />
+    <ClInclude Include="NotHasPowerForm.h" />
+    <ClInclude Include="NotifierContainer.h" />
+    <ClInclude Include="OrderChangeRequestDlg.h" />
+    <ClInclude Include="OrderInsertDlg.h" />
+    <ClInclude Include="OrderLogDetailDlg.h" />
+    <ClInclude Include="OtherRegionBranchDlg.h" />
+    <ClInclude Include="OtherRiderDlg.h" />
+    <ClInclude Include="OtherRiderFindDlg.h" />
+    <ClInclude Include="OtherRiderTransferDlg.h" />
+    <ClInclude Include="OtherRiderTransferLogDlg.h" />
+    <ClInclude Include="port32.h" />
+    <ClInclude Include="PPDrawManager.h" />
+    <ClInclude Include="PPHtmlDrawer.h" />
+    <ClInclude Include="PPTooltip.h" />
+    <ClInclude Include="PSListCtrl.h" />
+    <ClInclude Include="QueryChargeDlg.h" />
+    <ClInclude Include="Quick.h" />
+    <ClInclude Include="QuickDoc.h" />
+    <ClInclude Include="QuickView.h" />
+    <ClInclude Include="RecvCidDlg.h" />
+    <ClInclude Include="RemoteAddrDlg.h" />
+    <ClInclude Include="ReservationListDlg.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="RGSPaintManager.h" />
+    <ClInclude Include="RiderAdviceDlg2010.h" />
+    <ClInclude Include="RiderAllocateDlg.h" />
+    <ClInclude Include="RiderBoardAddDlg.h" />
+    <ClInclude Include="RiderBoardDlg.h" />
+    <ClInclude Include="RiderCancelLogDlg.h" />
+    <ClInclude Include="RiderDepositGroupDlg.h" />
+    <ClInclude Include="RiderGpsSignalDlg.h" />
+    <ClInclude Include="RiderMapDlg.h" />
+    <ClInclude Include="RiderMapNormalForm.h" />
+    <ClInclude Include="RiderMapSetDlg.h" />
+    <ClInclude Include="RiderMsgAllDlg2.h" />
+    <ClInclude Include="RiderMsgDlg.h" />
+    <ClInclude Include="RiderShareBoardDlg.h" />
+    <ClInclude Include="RiderSMSDlg.h" />
+    <ClInclude Include="RiderTraceMapDlg.h" />
+    <ClInclude Include="ScheduleOrderDlg.h" />
+    <ClInclude Include="ScheduleOrderListDlg.h" />
+    <ClInclude Include="SearchGroupDlg.h" />
+    <ClInclude Include="SearchRegionHolidayDlg.h" />
+    <ClInclude Include="SearchRegionNewDlg.h" />
+    <ClInclude Include="SearchRiderDlg.h" />
+    <ClInclude Include="SecurityLogDlg.h" />
+    <ClInclude Include="SendOtherRiderMsgDlg.h" />
+    <ClInclude Include="SetPoiDlg.h" />
+    <ClInclude Include="ShareOrderDlg.h" />
+    <ClInclude Include="ShareProgDlg.h" />
+    <ClInclude Include="ShareRcpPageView.h" />
+    <ClInclude Include="ShareRcpSubPageDlg.h" />
+    <ClInclude Include="ShowRiderInfoDlg.h" />
+    <ClInclude Include="SmallTalkEditDlg.h" />
+    <ClInclude Include="SplitterControl.h" />
+    <ClInclude Include="StartbarNotifier.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Json\JSONDefs\Strings_Defs.h" />
+    <ClInclude Include="SubwayAbsentDlg.h" />
+    <ClInclude Include="SumCnoDlg.h" />
+    <ClInclude Include="SumCNoNewDlg.h" />
+    <ClInclude Include="SumCustomerDlg.h" />
+    <ClInclude Include="TaskbarNotifier.h" />
+    <ClInclude Include="TaskFrame.h" />
+    <ClInclude Include="TelserverDIDRouteDlg.h" />
+    <ClInclude Include="TestDlg.h" />
+    <ClInclude Include="TestVirtualCIDDlg.h" />
+    <ClInclude Include="TransactionListDlg.h" />
+    <ClInclude Include="TransferRiderDlg.h" />
+    <ClInclude Include="TransferSBSLogDlg.h" />
+    <ClInclude Include="TransferSmsBetweenShareBalanceDlg.h" />
+    <ClInclude Include="TRSInsertRiderDlg.h" />
+    <ClInclude Include="TRSRiderDlg.h" />
+    <ClInclude Include="TRSRiderMsgDlg.h" />
+    <ClInclude Include="Json\JSONDefs\Unknown_C.h" />
+    <ClInclude Include="UserDongPos.h" />
+    <ClInclude Include="VarietyDlg.h" />
+    <ClInclude Include="VarietyDlg1.h" />
+    <ClInclude Include="VarietyDlg2.h" />
+    <ClInclude Include="VarietyDlg3.h" />
+    <ClInclude Include="ViewPrintPreview.h" />
+    <ClInclude Include="Json\JSONDefs\Visual_C.h" />
+    <ClInclude Include="WebIDPWDDlg.h" />
+    <ClInclude Include="WebUploadDlg.h" />
+    <ClInclude Include="winio.h" />
+    <ClInclude Include="Wql.h" />
+    <ClInclude Include="..\Include\BugsLayerUtil\BugslayerUtil.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\BugslayerUtilMC.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\CrashHandler.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\CriticalSection.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\cvconst.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\DecodedType.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\DiagAssert.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JButton.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JComboBox.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JFX.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JGDI.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JImageList.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JListBox.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JListView.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JMenu.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JModalDlg.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JRegistry.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JSimpleColl.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JStatusBar.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JString.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JTabControl.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JTrayNotification.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JWinApp.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\JWnd.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\Layout.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\MemDumperValidator.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\MemStress.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\MiniDump.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\ResString.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\SuperAssert.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\SymbolEngine.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BugsLayerUtil\VariableInfo.h">
+      <Filter>Include\BugsLayerUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\CallPass\CallPassFunc.h">
+      <Filter>Include\CallPass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\CallPass\EnumProc.h">
+      <Filter>Include\CallPass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\CallPass\InsungCallPass.h">
+      <Filter>Include\CallPass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\json.h">
+      <Filter>Include\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\JSONAllocator.h">
+      <Filter>Include\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\JSONDefs.h">
+      <Filter>Include\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\json-forwards.h">
+      <Filter>Include\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\JSONOptions.h">
+      <Filter>Include\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\stdint.h">
+      <Filter>Include\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\JSONDefs\GNU_C.h">
+      <Filter>Include\Json\JSONDefs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\JSONDefs\Strings_Defs.h">
+      <Filter>Include\Json\JSONDefs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\JSONDefs\Unknown_C.h">
+      <Filter>Include\Json\JSONDefs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Json\JSONDefs\Visual_C.h">
+      <Filter>Include\Json\JSONDefs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\BanaLog.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\d3des.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\d3des2.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\DisplayBar.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\DisplayBarThread.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\EncProfile.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\MkCommand.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\MkDatabase.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\MkQuery.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\MkRecordset.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\MkType.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\QPacket.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\QSocket.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\QueryLogDlg.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\TextProgressCtrl.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LogiDbInc_3\UploadingDlg.h">
+      <Filter>Include\LogiDbInc_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\POIDataLib\MakePOIData.h">
+      <Filter>Include\POIDataLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\POIDataLib\POIBoundary.h">
+      <Filter>Include\POIDataLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\POIDataLib\POICompareFunc.h">
+      <Filter>Include\POIDataLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\POIDataLib\POIDataAddress.h">
+      <Filter>Include\POIDataLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\POIDataLib\POIDataDef.h">
+      <Filter>Include\POIDataLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\POIDataLib\POIDataNew.h">
+      <Filter>Include\POIDataLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\POIDataLib\POIUnit.h">
+      <Filter>Include\POIDataLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\POIDataLib\SearchPOI.h">
+      <Filter>Include\POIDataLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\SR\CSmartSRXCtrl.h">
+      <Filter>Include\TalMapX_1\SR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\SR\CXCoordSys.h">
+      <Filter>Include\TalMapX_1\SR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\SR\CXPoint.h">
+      <Filter>Include\TalMapX_1\SR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\SR\CXRouteInfo3.h">
+      <Filter>Include\TalMapX_1\SR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\SR\CXRouteInfo4.h">
+      <Filter>Include\TalMapX_1\SR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\SR\CXRouteMan.h">
+      <Filter>Include\TalMapX_1\SR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CITalMapXCtrlEvents.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CTalMapXCtrl.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXAdminItem.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXAdminMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXApplication.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXBaseMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXCarMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXControlState.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXCoordSys0.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXCtrlMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXCtrlRect.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXGPS_Info.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXGPS_Pos.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXGPS_Satellite.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXGPSMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXGuideMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXImageMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXIndexMap.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXIntIntegerMap.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXIntStringMap.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayer.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerBase.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerBaseMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerCircle.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerCustomList.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerDensity.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerFont.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerObject.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerPolygon.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerShape.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerStyle.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerTrackLog.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerTraffic.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXLayerTrafficLink.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMagicGDI.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMagicImage.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMagicImageList.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMagicImagePanel.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMagicImageText.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMapChartBar.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMapChartBase.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMapChartPie.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMapMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMapPos.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMapPos3D.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMapPosList.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMapRect.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXMasterControlState.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXObjectBase.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXObjectList.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXObjectState.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPOIBase.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPOIBaseMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPOIGroup.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPOIItem.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPOIMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPoint0.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPointList.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPOIStyle.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPOIStyleDraw.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPopupMenu.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXPopupMenuItem.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXRasterMapMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXRect.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXRouteCost.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXRouteFlag.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXRouteItem.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXRouteMan0.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXShape.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXShapeItem.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXShapeMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXSize.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXSKMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXSKRouteItem.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXSoundMaster.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXStrIntegerMap.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXStrStringMap.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXThemeMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXThemeMapMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXTHMI_Class.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXTHMI_Polygon.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXTHMI_PolyStyle.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXTHMI_Text.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXTHMI_TextStyle.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXToolTip.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIAlertBase.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIAlertCircle.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIBaseMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIButton.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUICheckBox.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIImage.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIImageList.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIImageText.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIMan.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIMapPanel.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIObj.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIPanel.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUIStaticText.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXUtility.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXValue.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXVector.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXVectorList.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TalMapX_1\MAP\CXVisibleState.h">
+      <Filter>Include\TalMapX_1\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TinyXml\tinystr.h">
+      <Filter>Include\TinyXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TinyXml\tinyxml.h">
+      <Filter>Include\TinyXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\BaseCaller.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\LogiVoipLib.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\MyCaller4Send.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\MyCallerRecv.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\PlaySound.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\QLog2.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\RecordSound.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\TSocket.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\VoicePacket.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\WalkieTalkieDlg.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\voip\WriteSound.h">
+      <Filter>Include\voip</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AllocateGroupNew.htm">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="res\cursor1.cur">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="res\cursor3.cur">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="res\hand.cur">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="res\MoveHold.cur">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="res\Quick.rc2">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="res\로지소프트.SLC">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="로지소프트.SLC">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="tlh\msado27.tlh">
+      <Filter>tlh</Filter>
+    </None>
+    <None Include="tlh\msado27.tli">
+      <Filter>tlh</Filter>
+    </None>
+    <None Include="tlh\msxml3.tlh">
+      <Filter>tlh</Filter>
+    </None>
+    <None Include="InsStaffDlg2.htm" />
+    <None Include="UpdateHistory.xlsx" />
+    <None Include="DlgVerCheck.htm" />
+    <None Include="resource.hm" />
+    <None Include="..\Include\tlh\msado27.tlh">
+      <Filter>Include\tlh</Filter>
+    </None>
+    <None Include="..\Include\tlh\msado27.tli">
+      <Filter>Include\tlh</Filter>
+    </None>
+    <None Include="..\Include\tlh\msxml3.tlh">
+      <Filter>Include\tlh</Filter>
+    </None>
+    <None Include="..\Include\tlh\readme.md">
+      <Filter>Include\tlh</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\alloc.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap12.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap13.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap18.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap19.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap1_copy.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap20.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap22.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap24.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap25.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap26.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap27.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bitmap28.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00001.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00002.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00003.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00004.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00005.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00006.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00007.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00008.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00009.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmp00010.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\bmreport.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\btn_calllist_01.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\btn_calllist_02.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\btn_calllist_03.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\center4.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\checkboxes.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\close_bt.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\close_btn.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\close_btn2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\close_up.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\collect_error.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\cross.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\daeri_login_btn_cancel_down.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\daeri_login_btn_cancel_up.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\daeri_login_btn_enter_down.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\daeri_login_btn_enter_up.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\date.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\driver.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\drivergroup.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\flag.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\group.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\GROUP_MAN.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\Help.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\help2.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\help_btn.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\help_btn2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\HelpBtn.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\HelpBtn1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\ico00002.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\icon2.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\icon3.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\Icons.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\INTEGRATION.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\letter.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\list1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\list1_copy.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\list2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\list_new.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\Logisoft.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\logisoft_msn.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\man.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\manager 2008.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\manager.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\manager2011_login.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\manager2011_login.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\manager_login_cell_btn_down.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\manager_login_cell_btn_up.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\manager_login_remote_btn_down.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\manager_login_remote_btn_up.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\manager_login_x_btn_down.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\manager_login_x_btn_up.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\menu_too.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\msgbar_allocation.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\msgbar_attend.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\msn_status.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\OK.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\plus_minus.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\QFormView.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\quick.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\Quick.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\QuickDoc.ico">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\ridersta.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\riderstate.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\schedule.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\scrollO.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\scrollX.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\skin_msg.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\skinmsn.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\small_icon_list1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\LoginImage\smartq_login.BMP">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\sms_bulk.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\sms_lms1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\sms_mms1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\sms_mms2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\sms_opti.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\sms_send.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\sms_sms1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\sms_sms2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\toolbar1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\toolbar2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\toolbarhi.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\tree1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\TRS_ICON.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\wcount.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\wdown.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\wnew.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\worker_state.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\wstay.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\wup.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\X.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\연동툴.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\연동툴2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\인증정보.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\인증정보2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\임시.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\차량작은아이콘리스트.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\차량작은아이콘리스트2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\취소.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\취소2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\확인.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\확인2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\휴대폰인증1.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\휴대폰인증2.bmp">
+      <Filter>resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\Allocate.wav">
+      <Filter>resource</Filter>
+    </Media>
+    <Media Include="res\Notify.wav">
+      <Filter>resource</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\Quick.manifest">
+      <Filter>resource</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Quick.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="option\GenerateAppStateDlg2.h">
+      <Filter>Option</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

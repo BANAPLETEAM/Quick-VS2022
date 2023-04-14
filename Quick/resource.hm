@@ -1,0 +1,4 @@
+// Microsoft Visual C++ generated Help ID include file.
+// Used by Quick.rc
+//
+#define HIDC_REFRESH_CMB                0x82bc05cd    // IDD_DELAY_ORDER_DLG
