@@ -413,14 +413,14 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	GetCommandBars()->GetCommandBarsOptions()->szLargeIcons = CSize(16, 16);
 	GetCommandBars()->GetCommandBarsOptions()->bShowExpandButtonAlways = FALSE;
 
-	//LU->SetWindowTitleWithVersion();
-	//InitControl();
+	LU->SetWindowTitleWithVersion();
+	InitControl();
 
 	PostMessage(WM_SYSCOLORCHANGE);
-	//LU->StartMessenger();
+	LU->StartMessenger();
 	SetForegroundWindow();
 
-	//SetTimer(UPLOAD_TIMER, 5000, NULL);
+	SetTimer(UPLOAD_TIMER, 5000, NULL);
 
 #ifndef _DEBUG
 	ShowHolidayDeliveryDlg(FALSE);
@@ -521,7 +521,7 @@ CXTPDockingPane* CMainFrame::CreatePane(CRuntimeClass* pNewViewClass,
 
 BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
-	//LU->CreateSplitter(this, pContext);
+	LU->CreateSplitter(this, pContext);
 	return TRUE;
 }
 

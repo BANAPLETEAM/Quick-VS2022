@@ -289,7 +289,21 @@ void CRcpPageCTIForm::OnInitialUpdate()
 	bShowLastPhoneNumber = TRUE;
 #endif
 
-	if(GetCurBranchInfo()->bIPPBXType)
+	m_wndOPReport.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
+	m_wndOPReport.SetTreeIndent(10);
+	m_wndOPReport.GetPaintManager()->m_strNoItems = "";
+	m_wndOPReport.GetReportHeader()->AllowColumnRemove(FALSE);
+	m_wndOPReport.GetReportHeader()->AllowColumnResize(FALSE);
+	m_wndOPReport.GetReportHeader()->SetAutoColumnSizing(TRUE);
+	m_wndOPReport.AllowEdit(FALSE);
+	m_wndOPReport.FocusSubItems(FALSE);
+	m_wndOPReport.GetPaintManager()->SetGridStyle(FALSE, xtpGridNoLines);
+	m_wndOPReport.SetGridColor(RGB(150, 150, 180));
+	m_wndOPReport.ShowHeader(FALSE);
+	m_wndOPReport.EnableToolTips(FALSE);
+	m_wndOPReport.GetPaintManager()->m_bHideSelection = TRUE;
+
+	if (GetCurBranchInfo()->bIPPBXType)
 	{
 		m_pOPPaintManagerEx = new COPStatePaintManagerEx;
 		m_pOPPaintManagerEx->m_bShowLastPhoneNumber = bShowLastPhoneNumber;
@@ -307,7 +321,7 @@ void CRcpPageCTIForm::OnInitialUpdate()
 		m_tooltip.SetDelayTime(PPTOOLTIP_TIME_FADEOUT, 10);
 
 		//m_tooltip.AddTool(&m_wndOPReport, ""); choe
-		m_tooltip.SetColorBk(RGB(255,255,0));
+		m_tooltip.SetColorBk(RGB(255, 255, 0));
 	}
 	else
 	{
@@ -315,21 +329,6 @@ void CRcpPageCTIForm::OnInitialUpdate()
 		m_pOPPaintManager->m_bShowLastPhoneNumber = bShowLastPhoneNumber;
 		m_wndOPReport.SetPaintManager(m_pOPPaintManager);
 	}
-
-	m_wndOPReport.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
-	m_wndOPReport.SetTreeIndent(10);
-	m_wndOPReport.GetPaintManager()->m_strNoItems = "";
-	m_wndOPReport.GetReportHeader()->AllowColumnRemove(FALSE);
-	m_wndOPReport.GetReportHeader()->AllowColumnResize(FALSE);
-	m_wndOPReport.GetReportHeader()->SetAutoColumnSizing(TRUE);
-	m_wndOPReport.AllowEdit(FALSE);
-	m_wndOPReport.FocusSubItems(FALSE);
-	m_wndOPReport.GetPaintManager()->SetGridStyle(FALSE, xtpGridNoLines);
-	m_wndOPReport.SetGridColor(RGB(150, 150, 180));
-	m_wndOPReport.ShowHeader(FALSE);
-	m_wndOPReport.EnableToolTips(FALSE);
-	m_wndOPReport.GetPaintManager()->m_bHideSelection = TRUE;
-
 
 	m_call.SetDlg(this);
 	m_callSUB.SetDlg(this);

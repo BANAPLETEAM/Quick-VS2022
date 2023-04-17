@@ -49,17 +49,36 @@ ULONG_PTR m_gdiplusToken;
 // CQuickApp 초기화
 BOOL CQuickApp::InitInstance()
 {
+	// 애플리케이션 매니페스트가 ComCtl32.dll 버전 6 이상을 사용하여 비주얼 스타일을
+	// 사용하도록 지정하는 경우, Windows XP 상에서 반드시 InitCommonControlsEx()가 필요합니다. 
+	// InitCommonControlsEx()를 사용하지 않으면 창을 만들 수 없습니다.
+	INITCOMMONCONTROLSEX InitCtrls;
+	InitCtrls.dwSize = sizeof(InitCtrls);
+	// 응용 프로그램에서 사용할 모든 공용 컨트롤 클래스를 포함하도록
+	// 이 항목을 설정하십시오.
+	InitCtrls.dwICC = ICC_WIN95_CLASSES;
+	InitCommonControlsEx(&InitCtrls);
+
+	CWinApp::InitInstance();
+
+	// OLE 라이브러리를 초기화합니다.
 	if (!AfxOleInit())
 	{
 		AfxMessageBox(IDP_OLE_INIT_FAILED);
 		return FALSE;
 	}
 
-//	afxAmbientActCtx = FALSE;
-
-	SetRegistryKey(_T("Logisoft"));
-	AfxInitRichEdit2();
 	AfxEnableControlContainer();
+
+	EnableTaskbarInteraction(FALSE);
+
+	// RichEdit 컨트롤을 사용하려면 AfxInitRichEdit2()가 있어야 합니다.
+	AfxInitRichEdit2();
+
+//	afxAmbientActCtx = FALSE;
+	SetRegistryKey(_T("Logisoft"));
+	LoadStdProfileSettings(4);  // MRU를 포함하여 표준 INI 파일 옵션을 로드합니다.
+
 	CXTPWinDwmWrapper().SetProcessDPIAware();
 
 	LF = new CLogiFunc;
@@ -120,7 +139,6 @@ BOOL CQuickApp::InitInstance()
 #endif 
 
 	LU->CheckRegistryInfo();
-	LoadStdProfileSettings(4);  // MRU를 포함하여 표준 INI 파일 옵션을 로드합니다.
 
 	// 응용 프로그램의 문서 템플릿을 등록합니다. 문서 템플릿은
 	// 문서, 프레임 창 및 뷰 사이의 연결 역할을 합니다.
@@ -130,10 +148,16 @@ BOOL CQuickApp::InitInstance()
 		RUNTIME_CLASS(CQuickDoc),
 		RUNTIME_CLASS(CMainFrame),       // 주 SDI 프레임 창입니다.
 		RUNTIME_CLASS(CQuickView));
+
+	if (!pDocTemplate)
+		return FALSE;
 	AddDocTemplate(pDocTemplate);
+
 	// 표준 셸 명령, DDE, 파일 열기에 대한 명령줄을 구문 분석합니다.
 	CCommandLineInfo cmdInfo;
 	ParseCommandLine(cmdInfo);
+
+
 	// 명령줄에 지정된 명령을 디스패치합니다. 응용 프로그램이 /RegServer, /Register, /Unregserver 또는 /Unregister로 시작된 경우 FALSE를 반환합니다.
 	if(!ProcessShellCommand(cmdInfo))
 		return FALSE;
