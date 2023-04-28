@@ -17,7 +17,6 @@
 #define new DEBUG_NEW 
 #endif
 
-
 // CQuickApp
 
 BEGIN_MESSAGE_MAP(CQuickApp, CWinApp)
@@ -26,7 +25,6 @@ BEGIN_MESSAGE_MAP(CQuickApp, CWinApp)
 	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, CWinApp::OnFileOpen)
 END_MESSAGE_MAP()
-
 
 // CQuickApp »ý¼º
 

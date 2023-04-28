@@ -2120,6 +2120,9 @@
     <Image Include="res\LoginImage\smartq_login.BMP" />
     <Image Include="res\Logisoft.ico" />
     <Image Include="res\logisoft_msn.bmp" />
+    <Image Include="res\logi_progress_popup_button_down.bmp" />
+    <Image Include="res\logi_progress_popup_button_up.bmp" />
+    <Image Include="res\logi_progress_popup_rev1c.bmp" />
     <Image Include="res\man.bmp" />
     <Image Include="res\manager 2008.ico" />
     <Image Include="res\manager.ico" />

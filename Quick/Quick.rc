@@ -13,13 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 한국어 resources
+// 한국어(대한민국) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
-#ifdef _WIN32
 LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
 #pragma code_page(949)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -63,78 +61,144 @@ END
 //
 
 IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
 IDB_CANCEL_DOWN         BITMAP                  "res\\logi_progress_popup_button_down.bmp"
+
 IDB_CANCEL_UP           BITMAP                  "res\\logi_progress_popup_button_up.bmp"
+
 IDB_LIST                BITMAP                  "res\\list1.bmp"
+
 IDB_BRANCH_ARRAY        BITMAP                  "res\\bitmap2.bmp"
+
 IDB_SKIN_NOTICE         BITMAP                  "res\\logisoft_msn.bmp"
+
 IDB_DISPLAY_BAR_ROUND   BITMAP                  "res\\logi_progress_popup_rev1c.bmp"
+
 IDB_CLOSE_BTN           BITMAP                  "res\\close_btn.bmp"
+
 IDB_SKIN_MSG            BITMAP                  "res\\skin_msg.bmp"
+
 IDB_SKIN_ALLOC_NOTICE   BITMAP                  "res\\msgbar_allocation.bmp"
+
 IDB_PANE_ICONS          BITMAP                  "res\\Icons.bmp"
+
 IDB_SMALL_LIST1         BITMAP                  "res\\small_icon_list1.bmp"
+
 IDB_WEB_REFRESH_2       BITMAP                  "res\\bitmap18.bmp"
+
 IDB_WEB_BACK_1          BITMAP                  "res\\bitmap20.bmp"
+
 IDB_WEB_BACK_2          BITMAP                  "res\\bitmap22.bmp"
+
 IDB_WEB_FORWARD_1       BITMAP                  "res\\bitmap24.bmp"
+
 IDB_WEB_FORWARD_2       BITMAP                  "res\\bitmap26.bmp"
+
 IDB_WEB_REFRESH_1       BITMAP                  "res\\bitmap27.bmp"
+
 IDB_MSN_STATUS          BITMAP                  "res\\msn_status.bmp"
+
 IDB_BMREPORT            BITMAP                  "res\\bmreport.bmp"
+
 IDB_LIST_NEW            BITMAP                  "res\\list_new.bmp"
+
 IDR_MENU_TOOLBAR        BITMAP                  "res\\list1_copy.bmp"
+
 IDB_CAR_TYPE            BITMAP                  "res\\차량작은아이콘리스트2.bmp"
+
 IDB_SKIN_ATTEND_NOTICE  BITMAP                  "res\\msgbar_attend.bmp"
+
 IDB_HELP_BTN1           BITMAP                  "res\\HelpBtn1.bmp"
+
 IDB_HELP_BTN2           BITMAP                  "res\\help_btn2.bmp"
+
 IDR_SCHEDULE            BITMAP                  "res\\schedule.bmp"
+
 IDB_LOGIN_CANCEL_DOWN   BITMAP                  "res\\LoginImage\\daeri_login_btn_cancel_down.bmp"
+
 IDB_LOGIN_CANCEL_UP     BITMAP                  "res\\LoginImage\\daeri_login_btn_cancel_up.bmp"
+
 IDB_LOGIN_OK_DOWN       BITMAP                  "res\\LoginImage\\daeri_login_btn_enter_down.bmp"
+
 IDB_LOGIN_OK_UP         BITMAP                  "res\\LoginImage\\daeri_login_btn_enter_up.bmp"
+
 IDB_LOGIN_CELL_DOWN     BITMAP                  "res\\LoginImage\\manager_login_cell_btn_down.bmp"
+
 IDB_LOGIN_CELL_UP       BITMAP                  "res\\LoginImage\\manager_login_cell_btn_up.bmp"
+
 IDB_LOGIN_REMOTE_DOWN   BITMAP                  "res\\LoginImage\\manager_login_remote_btn_down.bmp"
+
 IDB_LOGIN_REMOTE_UP     BITMAP                  "res\\LoginImage\\manager_login_remote_btn_up.bmp"
+
 IDB_LOGIN_CLOSE_DOWN    BITMAP                  "res\\LoginImage\\manager_login_x_btn_down.bmp"
+
 IDB_LOGIN_CLOSE_UP      BITMAP                  "res\\LoginImage\\manager_login_x_btn_up.bmp"
+
 IDB_LOGIN_BG_SMARTQ     BITMAP                  "res\\LoginImage\\smartq_login.BMP"
+
 IDB_TRS                 BITMAP                  "res\\TRS_ICON.bmp"
+
 IDB_PLUS_MINUS          BITMAP                  "res\\plus_minus.bmp"
+
 IDB_SMS_BULK_PHONE_LONG BITMAP                  "res\\bitmap28.bmp"
+
 IDB_SMS_BULK_PHONE_SHORT BITMAP                  "res\\sms_bulk.bmp"
+
 IDB_SMS_OPTION1         BITMAP                  "res\\bmp00001.bmp"
+
 IDB_SMS_OPTION2         BITMAP                  "res\\sms_opti.bmp"
+
 IDB_SMS_OPTION3         BITMAP                  "res\\bmp00002.bmp"
+
 IDB_SMS_OPTION4         BITMAP                  "res\\bmp00003.bmp"
+
 IDB_SMS_OPTION_CHECK1   BITMAP                  "res\\bmp00004.bmp"
+
 IDB_SMS_OPTION_CHECK2   BITMAP                  "res\\bmp00005.bmp"
+
 IDB_SMS_OPTION_CHECK3   BITMAP                  "res\\bmp00006.bmp"
+
 IDB_SMS_OPTION_CHECK4   BITMAP                  "res\\bmp00007.bmp"
+
 IDB_SMS_SMS             BITMAP                  "res\\bmp00008.bmp"
+
 IDB_SMS_MMS             BITMAP                  "res\\sms_sms1.bmp"
+
 IDB_SMS_MMS1            BITMAP                  "res\\sms_mms1.bmp"
+
 IDB_SMS_LMS             BITMAP                  "res\\sms_mms2.bmp"
+
 IDB_SMS_LMS1            BITMAP                  "res\\sms_lms1.bmp"
+
 IDB_SMS_SMS1            BITMAP                  "res\\bmp00009.bmp"
+
 IDB_SMS_SEND            BITMAP                  "res\\sms_sms2.bmp"
+
 IDB_SMS_SEND_UP         BITMAP                  "res\\sms_send.bmp"
+
 IDB_CLOSE_UP            BITMAP                  "res\\close_bt.bmp"
+
 IDB_CLOSE_DOWN          BITMAP                  "res\\close_up.bmp"
+
 IDB_SMS_ABIL            BITMAP                  "res\\bmp00010.bmp"
+
 IDB_W_COUNT             BITMAP                  "res\\wcount.bmp"
+
 IDB_W_NEW               BITMAP                  "res\\wnew.bmp"
+
 IDB_W_UP                BITMAP                  "res\\wup.bmp"
+
 IDB_W_DOWN              BITMAP                  "res\\wdown.bmp"
+
 IDB_W_STAY              BITMAP                  "res\\wstay.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Toolbar
 //
 
-IDR_MAINFRAME TOOLBAR  16, 16
+IDR_MAINFRAME TOOLBAR 16, 16
 BEGIN
     BUTTON      IDM_VIEW_HOME
     SEPARATOR
@@ -159,7 +223,7 @@ BEGIN
     BUTTON      ID_CALC
 END
 
-IDR_MENU_TOOLBAR TOOLBAR  16, 18
+IDR_MENU_TOOLBAR TOOLBAR 16, 18
 BEGIN
     BUTTON      IDR_MENU_TOOLBAR
     BUTTON      ID_STATE_RCP
@@ -181,7 +245,7 @@ BEGIN
     BUTTON      ID_STATE_PICKUP1
 END
 
-IDR_SCHEDULE TOOLBAR  16, 18
+IDR_SCHEDULE TOOLBAR 16, 18
 BEGIN
     BUTTON      ID_REFRESH
     BUTTON      ID_SHOW_HISTORY
@@ -198,7 +262,7 @@ END
 // Menu
 //
 
-IDR_MAINFRAME MENU 
+IDR_MAINFRAME MENU
 BEGIN
     POPUP "파일(&F)"
     BEGIN
@@ -312,7 +376,7 @@ BEGIN
     END
 END
 
-IDR_QFORMVIEW_TMPL MENU 
+IDR_QFORMVIEW_TMPL MENU
 BEGIN
     POPUP "파일(&F)"
     BEGIN
@@ -351,7 +415,7 @@ BEGIN
     END
 END
 
-IDR_CONTEXT_MENU MENU 
+IDR_CONTEXT_MENU MENU
 BEGIN
     POPUP "fromservice list"
     BEGIN
@@ -757,7 +821,7 @@ BEGIN
     END
 END
 
-IDR_DATE_MENU MENU 
+IDR_DATE_MENU MENU
 BEGIN
     POPUP "Menu"
     BEGIN
@@ -773,7 +837,7 @@ BEGIN
     END
 END
 
-IDR_NEW_ALLOC_MENU MENU 
+IDR_NEW_ALLOC_MENU MENU
 BEGIN
     POPUP "Menu"
     BEGIN
@@ -784,7 +848,7 @@ BEGIN
     END
 END
 
-IDR_BRANCH_MENU MENU 
+IDR_BRANCH_MENU MENU
 BEGIN
     POPUP "Menu"
     BEGIN
@@ -793,7 +857,7 @@ BEGIN
     END
 END
 
-IDR_REPORT_COLUMN MENU 
+IDR_REPORT_COLUMN MENU
 BEGIN
     POPUP "&Report Control"
     BEGIN
@@ -821,7 +885,7 @@ BEGIN
     END
 END
 
-IDR_DATE_MENU2 MENU 
+IDR_DATE_MENU2 MENU
 BEGIN
     POPUP "Menu"
     BEGIN
@@ -830,7 +894,7 @@ BEGIN
     END
 END
 
-IDR_PHONE_MENU MENU 
+IDR_PHONE_MENU MENU
 BEGIN
     POPUP "전화번호"
     BEGIN
@@ -898,7 +962,7 @@ BEGIN
     END
 END
 
-IDR_GROUP_MENU MENU 
+IDR_GROUP_MENU MENU
 BEGIN
     POPUP "그룹셋팅"
     BEGIN
@@ -963,7 +1027,7 @@ BEGIN
     END
 END
 
-IDR_DEPOSIT_STATE MENU 
+IDR_DEPOSIT_STATE MENU
 BEGIN
     POPUP "상태변경"
     BEGIN
@@ -973,7 +1037,7 @@ BEGIN
     END
 END
 
-IDR_SMS_MENU MENU 
+IDR_SMS_MENU MENU
 BEGIN
     POPUP "고객SMS"
     BEGIN
@@ -984,7 +1048,7 @@ BEGIN
     END
 END
 
-IDR_GROUP_MENU1 MENU 
+IDR_GROUP_MENU1 MENU
 BEGIN
     POPUP "그륩"
     BEGIN
@@ -1017,7 +1081,7 @@ BEGIN
     END
 END
 
-IDR_MILEAGE_MENU MENU 
+IDR_MILEAGE_MENU MENU
 BEGIN
     POPUP "마일리지"
     BEGIN
@@ -1032,7 +1096,7 @@ BEGIN
     END
 END
 
-IDR_MENU_USERDONGPOS MENU 
+IDR_MENU_USERDONGPOS MENU
 BEGIN
     POPUP "UserDongPos"
     BEGIN
@@ -1043,7 +1107,7 @@ BEGIN
     END
 END
 
-IDR_PLACE_MENU MENU 
+IDR_PLACE_MENU MENU
 BEGIN
     POPUP "의뢰지이동"
     BEGIN
@@ -1093,7 +1157,7 @@ BEGIN
     END
 END
 
-IDR_COPY_FORM_MENU MENU 
+IDR_COPY_FORM_MENU MENU
 BEGIN
     POPUP "창복사"
     BEGIN
@@ -1102,7 +1166,7 @@ BEGIN
     END
 END
 
-IDR_CHECK_MENU MENU 
+IDR_CHECK_MENU MENU
 BEGIN
     POPUP "Menu"
     BEGIN
@@ -1123,7 +1187,7 @@ BEGIN
     END
 END
 
-IDR_GROUP_MENU2 MENU 
+IDR_GROUP_MENU2 MENU
 BEGIN
     POPUP "히스토리요금"
     BEGIN
@@ -1135,7 +1199,7 @@ BEGIN
     END
 END
 
-IDR_GROUP_MENU3 MENU 
+IDR_GROUP_MENU3 MENU
 BEGIN
     POPUP "히스토리요금2"
     BEGIN
@@ -1147,7 +1211,7 @@ BEGIN
     END
 END
 
-IDR_CONTEXT_MENU_1 MENU 
+IDR_CONTEXT_MENU_1 MENU
 BEGIN
     POPUP "차량"
     BEGIN
@@ -1309,7 +1373,7 @@ END
 // Accelerator
 //
 
-IDR_MAINFRAME ACCELERATORS 
+IDR_MAINFRAME ACCELERATORS
 BEGIN
     VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
     VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
@@ -1321,7 +1385,7 @@ BEGIN
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
 END
 
-IDR_CONTEXT_MENU ACCELERATORS 
+IDR_CONTEXT_MENU ACCELERATORS
 BEGIN
     "T",            ID_COPY_ORDER,          VIRTKEY, CONTROL, NOINVERT
     "R",            ID_MOVE_ORDER,          VIRTKEY, CONTROL, NOINVERT
@@ -1583,7 +1647,7 @@ BEGIN
     CONTROL         "",IDC_LIST_LEFT,"XTPGrid",WS_TABSTOP,0,38,86,373,WS_EX_STATICEDGE
 END
 
-IDD_QFORMVIEW DIALOG  0, 0, 320, 200
+IDD_QFORMVIEW DIALOG 0, 0, 320, 200
 STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -1848,7 +1912,7 @@ IDD_LOGON_DLG DIALOGEX 0, 0, 343, 228
 STYLE DS_SETFONT | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 10, "돋움", 400, 0, 0x0
 BEGIN
-    CONTROL         899,IDC_BACK_STATIC,"Static",SS_BITMAP | SS_REALSIZEIMAGE,0,0,343,228
+    CONTROL         IDB_BITMAP24,IDC_BACK_STATIC,"Static",SS_BITMAP | SS_REALSIZEIMAGE,0,0,343,228
     CONTROL         "인증",IDC_HPAUTH_BUTTON,"Button",BS_OWNERDRAW | BS_BITMAP | BS_FLAT,255,21,19,17
     EDITTEXT        IDC_ID_EDIT,221,46,66,16,ES_AUTOHSCROLL
     EDITTEXT        IDC_PW_EDIT,221,65,66,16,ES_PASSWORD | ES_AUTOHSCROLL
@@ -3825,7 +3889,7 @@ BEGIN
     CONTROL         "1시간이내 접속한\n기사만 표시함",IDC_SHOW_ONLY_CONN_RIDER,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,7,263,61,18
     CONTROL         "기사 접속 알림",IDC_NOTIFY_CONN_RIDER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,282,55,10
     CONTROL         "오토(짐받이)만",IDC_ONLY_AUTO_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,250,55,10
-    CONTROL         1040,IDC_STATIC,"Static",SS_BITMAP | SS_REALSIZEIMAGE,2,488,69,15
+    CONTROL         IDC_SHOW_DTP,IDC_STATIC,"Static",SS_BITMAP | SS_REALSIZEIMAGE,2,488,69,15
 END
 
 IDD_OPTION_DLG_CID DIALOGEX 0, 0, 355, 212
@@ -12320,8 +12384,8 @@ STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "대량 SMS/MMS발송"
 FONT 8, "맑은 고딕", 400, 0, 0x81
 BEGIN
-    CONTROL         1013,IDC_LONG_PIC,"Static",SS_BITMAP | NOT WS_VISIBLE,6,3,32,30
-    CONTROL         1014,IDC_SHORT_PIC,"Static",SS_BITMAP | NOT WS_VISIBLE,6,118,123,198
+    CONTROL         IDC_CONDITION_T,IDC_LONG_PIC,"Static",SS_BITMAP | NOT WS_VISIBLE,6,3,32,30
+    CONTROL         IDC_CONDITION_S,IDC_SHORT_PIC,"Static",SS_BITMAP | NOT WS_VISIBLE,6,118,123,198
     EDITTEXT        IDC_MENT_EDIT,18,168,99,70,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN
     COMBOBOX        IDC_CALL_BACK_COMBO,52,148,67,125,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "",IDC_BYTE_STATIC,67,240,49,11
@@ -14417,6 +14481,7 @@ END
 //
 
 IDR_MANIFEST            RT_MANIFEST             "res\\Quick.manifest"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -25971,8 +26036,11 @@ END
 //
 
 IDR_HTML_DLGVERCHECK    HTML                    "DlgVerCheck.htm"
+
 IDR_HTML_ALLOCATEGROUPNEW HTML                    "AllocateGroupNew.htm"
+
 IDR_HTML_INSSTAFFDLG2   HTML                    "InsStaffDlg2.htm"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -25982,12 +26050,19 @@ IDR_HTML_INSSTAFFDLG2   HTML                    "InsStaffDlg2.htm"
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\manager 2008.ico"
+
 IDI_HELP                ICON                    "res\\Help.ico"
+
 ID_MENU_TODAY           ICON                    "res\\date.ico"
+
 IDI_CLOSE               ICON                    "res\\ico00002.ico"
+
 IDI_CROSS               ICON                    "res\\cross.ico"
+
 IDI_FLAG                ICON                    "res\\flag.ico"
+
 IDI_LETTER              ICON                    "res\\letter.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -25995,7 +26070,9 @@ IDI_LETTER              ICON                    "res\\letter.ico"
 //
 
 IDR_NOTIFY_WAV          WAVE                    "res\\NOTIFY.WAV"
+
 IDR_ALLOCATE_WAV        WAVE                    "res\\ALLOCATE.WAV"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -26003,9 +26080,13 @@ IDR_ALLOCATE_WAV        WAVE                    "res\\ALLOCATE.WAV"
 //
 
 IDC_MOVEHOLD            CURSOR                  "res\\MoveHold.cur"
+
 IDC_HOLD_CURSOR         CURSOR                  "res\\hand.cur"
+
 IDC_MIDDLE              CURSOR                  "res\\cursor1.cur"
+
 IDC_VERTICAL            CURSOR                  "res\\cursor3.cur"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -26014,16 +26095,22 @@ IDC_VERTICAL            CURSOR                  "res\\cursor3.cur"
 
 IDR_MAP_SLC             SLC                     "로지소프트.SLC"
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // PNG
 //
 
 IDB_OP_MAKECALL_PNG     PNG                     "res\\btn_calllist_01.png"
+
 IDB_OP_PICKUP_PNG       PNG                     "res\\btn_calllist_02.png"
+
 IDB_OP_TRANSFER_PNG     PNG                     "res\\btn_calllist_03.png"
+
 IDB_SCROLL_O_PNG        PNG                     "res\\scrollO.png"
+
 IDB_SCROLL_X_PNG        PNG                     "res\\scrollX.png"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -26031,7 +26118,7 @@ IDB_SCROLL_X_PNG        PNG                     "res\\scrollX.png"
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_CUSTOMER_PAGE1, DIALOG
     BEGIN
@@ -26605,14 +26692,22 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
+BEGIN
+    // CSingleDocTemplate::SetDefaultTitle() { ENSURE(strDocName.LoadString(AFX_IDS_UNTITLED)); } 에서 에러 발생
+    // 리소스 언어가 vs2008 -> vs2022 로 변경시 미국->대한민국으로 변경되면서 발생한 문제로 추측
+    // 따라서 AFX_IDS_UNTITLED 의 string table을 추가함
+    AFX_IDS_UNTITLED "untitled"
+END
+
+STRINGTABLE
 BEGIN
     IDP_OLE_INIT_FAILED     "OLE를 초기화할 수 없습니다. OLE 라이브러리 버전이 올바른지 확인하십시오."
     ID_TOOLBOX_FOLDER       "공유설정"
     IDP_SOCKETS_INIT_FAILED "Windows 소켓을 초기화하지 못했습니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "Quick\n\nQuick\n\n\nQuick.Document\nQuick.Document"
     IDM_MANAGER             "직원"
@@ -26621,13 +26716,13 @@ BEGIN
     IDM_VIEW_PAY            "요금"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_APP_TITLE       "Quick"
     AFX_IDS_IDLEMESSAGE     "준비"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_INDICATOR_EXT        "EXT"
     ID_INDICATOR_CAPS       "CAP"
@@ -26637,7 +26732,7 @@ BEGIN
     ID_INDICATOR_REC        "REC"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_FILE_NEW             "새 문서를 만듭니다.\n새로 만들기"
     ID_FILE_OPEN            "기존 문서를 엽니다.\n열기"
@@ -26646,13 +26741,13 @@ BEGIN
     ID_FILE_SAVE_AS         "액티브 문서를 새 이름으로 저장합니다.\n다른 이름으로 저장"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_APP_ABOUT            "프로그램 정보, 버전 번호, 저작권을 표시합니다.\n정보"
     ID_APP_EXIT             "문서를 저장할지를 묻고 응용 프로그램을 끝냅니다.\n끝내기"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_FILE_MRU_FILE1       "현재 문서를 엽니다."
     ID_FILE_MRU_FILE2       "현재 문서를 엽니다."
@@ -26672,18 +26767,18 @@ BEGIN
     ID_FILE_MRU_FILE16      "현재 문서를 엽니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_NEXT_PANE            "다음 창으로 전환합니다.\n다음 창"
     ID_PREV_PANE            "이전 창으로 전환합니다.\n이전 창"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_WINDOW_SPLIT         "활성 창을 여러 개의 창으로 분할합니다.\n분할"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_EDIT_CLEAR           "선택 영역을 지웁니다.\n지우기"
     ID_EDIT_CLEAR_ALL       "모든 것을 지웁니다.\n모두 지우기"
@@ -26698,13 +26793,13 @@ BEGIN
     ID_EDIT_REDO            "이전에 실행 취소된 작업을 다시 실행합니다.\n다시 실행"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_VIEW_TOOLBAR         "도구 모음을 표시하거나 숨깁니다.\n도구 모음 설정/해제"
     ID_VIEW_STATUS_BAR      "상태 표시줄을 표시하거나 숨깁니다.\n상태 표시줄 설정/해제"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_SCSIZE          "창 크기를 변경합니다."
     AFX_IDS_SCMOVE          "창 위치를 변경합니다."
@@ -26715,13 +26810,13 @@ BEGIN
     AFX_IDS_SCCLOSE         "문서를 저장할 것인지 확인하고 활성 창을 닫습니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_SCRESTORE       "창을 보통 크기로 복원합니다."
     AFX_IDS_SCTASKLIST      "작업 목록 활성화"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_INDICATOR_MESSENGER  " "
     ID_INDICATOR_INTERCALL  "   "
@@ -26733,12 +26828,12 @@ BEGIN
     ID_MENU_GENERAL_OPENAPI_REGISTER "오픈API 등록"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_QFORMVIEW_TMPL      "QFormView\nQFormView\nQFormView\nQFormView Files (*.qfo)\nqfo\nQFormView.Document\nQFormView Document"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NUMBER_WRONG        "검색시 전화번호는 뒷자리 4자리 이거나, 지역번호를 제외한 풀넘버를 입력하셔야 합니다."
     IDS_DB_ERROR            "데이터베이스 오류로 트랙잭션이 실패하였습니다."
@@ -26753,14 +26848,14 @@ BEGIN
     IDS_STATE_CARRY         "이동중인 상태로 변경되었습니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_RCP_STATE           "접수상태로 변경되었습니다."
     IDS_EXPIRED_DATA_OF_EDIT "3일 지난 데이터는 보안상의 이유로, 수정을 허용하지 않습니다."
     ID_OPTION               "옵션"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     1172                    "개별배차를 지정합니다."
     1173                    "접수상태로 변경합니다."
@@ -26768,62 +26863,62 @@ BEGIN
     1177                    "주문을 취소합니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     210                     "현장에 물건에 대한 정보를 보냅니다."
     211                     "현장에서 물건 찾아서 이동중입니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDC_FINISH_BTN          "처리가 완료되서 오더가 완료되었습니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_WAIT_STATE           "PDA에 해당오더가 표시되지 않습니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDC_ALLOCATE_BTN2       "개별배차2입니다"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_PANE_NETWORK        "네트웍(통합)"
     IDR_PANE_CONNLIST       "접속리스트"
     IDR_PANE_SHARECALL      "공유콜조회"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDM_VIEW_REPORT         "정산"
     ID_VIEW_CID             "전화"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_MENU_MSG             "공지"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDM_VIEW_HOME           "홈"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_VIEW_INCOME          "입금"
     ID_VIEW_STAT            "통계"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDM_VIEW_CUSTOMER       "고객"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_MESSENGER            "메신저"
     ID_CALL_COUNT           "콜카운트"
@@ -26831,7 +26926,7 @@ BEGIN
     ID_RIDER_MAP            "기사관제"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ARRANGEBY           "Arrange By"
     IDS_COLUMNS             "Columns"
@@ -26840,36 +26935,36 @@ BEGIN
     IDS_ALIGNLEFT           "왼쪽정렬"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ALIGNRIGHT          "오른쪽정렬"
     IDS_ALIGNMENT           "정렬"
     IDS_BESTFIT             "적정간격"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_STATE_WAIT           "대기상태로 변경합니다."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDM_VIEW_REPORT_CUSTOMER "고객정산"
     IDM_VIEW_REPORT_RIDER   "기사정산"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_OTHER_REGION_BRANCH "타지역업체"
     ID_OTHER_REGION_BRANCH  "타지역업체"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_CALC                 "계산기"
 END
 
-#endif    // 한국어 resources
+#endif    // 한국어(대한민국) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

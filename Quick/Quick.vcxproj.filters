@@ -4550,6 +4550,15 @@
     <Image Include="res\휴대폰인증2.bmp">
       <Filter>resource</Filter>
     </Image>
+    <Image Include="res\logi_progress_popup_button_down.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\logi_progress_popup_button_up.bmp">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="res\logi_progress_popup_rev1c.bmp">
+      <Filter>resource</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\Allocate.wav">
