@@ -113,6 +113,9 @@
     <Filter Include="Include\TalMapX_1\SR">
       <UniqueIdentifier>{7e87e778-cbfe-41e3-a571-9f333e98da92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FRAME_WORK">
+      <UniqueIdentifier>{0d4f83c2-ba18-4a34-9155-594cb42de93e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph\Graph.cpp">
@@ -1841,6 +1844,18 @@
     </ClCompile>
     <ClCompile Include="..\Include\TinyXml\tinyxmlparser.cpp">
       <Filter>Include\TinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\XTPReportRecordItemTextUniCode.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\XTPReportColumnUniCode.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\XTPReportRecordItemUniCode.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\XTPReportRecordUniCode.cpp">
+      <Filter>Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4113,6 +4128,18 @@
       <Filter>Include\voip</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Control\XTPReportRecordItemTextUniCode.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\XTPReportColumnUniCode.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\XTPReportRecordItemUniCode.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\XTPReportRecordUniCode.h">
+      <Filter>Control</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="AllocateGroupNew.htm">

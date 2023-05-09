@@ -192,12 +192,6 @@ LONG CSearchDongInsungDlg::OnRecvWebRecord(WPARAM wParam, LPARAM lParam)
 		{
 			m_lstPoi.Populate();
 			m_lstDong.SetFocus();
-	/*		PopulateList(POI_NORMAL);
-
-			if(pQI->bPhoneSearchAutoComplete)
-				if(m_wndPOI.GetRecords()->GetCount() > 0)
-					if(OnSelectPOI((CSearchPOIRecord*)m_wndPOI.GetRecords()->GetAt(m_wndPOI.GetRecords()->GetCount() - 1), TRUE))
-						m_pParentWnd->PostMessage(WM_USER + 0x3333, (WPARAM)new CString(pQI->strKeyword), 0);*/
 		}
 
 		delete pQI;
@@ -210,11 +204,6 @@ LONG CSearchDongInsungDlg::OnRecvWebRecord(WPARAM wParam, LPARAM lParam)
 		{
 			long nItem = m_lstPoi.GetRecords()->GetCount();
 
-			//pPOI->m_szName);
-			//ReplaceTagBraket(pPOI->m_szSubName
-
-			//pRecord->pSearchPOI->pPOI->GetRegionName();
-
 			CString strName = pRecord->pSearchPOI->pPOI->GetPlaceName();
 			CString strItem = pRecord->pSearchPOI->pPOI->GetRegionName() + " " + pRecord->pSearchPOI->strAddress;
 
@@ -223,23 +212,9 @@ LONG CSearchDongInsungDlg::OnRecvWebRecord(WPARAM wParam, LPARAM lParam)
 			m_lstPoi.SetItemText(nItem, 2, strItem);
 			m_lstPoi.SetItemText(nItem, 3, "µ¿¼±ÅÃ");
 			m_lstPoi.SetItemData(nItem, (DWORD)pRecord->pSearchPOI);
-
-			//CSearchPOI *m_pSearchPOI;
-			//m_wndPOI.AddRecord(new CSearchPOIRecord(pRecord->pSearchPOI));
-			//pRecord->pSearchPOI->
-
-
-
-			//	AddItem(new CXTPGridRecordItemText(m_pSearchPOI->GetMarkupPOIName()));
-			//AddItem(new CXTPGridRecordItemText(m_pSearchPOI->GetMarkupRegionName()));
-			//AddItem(new CPOIDataNearNameItem());
-			//AddItem(new CPOIDataDistanceItem());
-			//AddItem(new CPOIDataPhoneItem()); 
-			//PopulateList(POI_NORMAL);
 		}
 		else
 		{
-			//g_bana_log->Print("RecvWeb SKIP: %s\n", pRecord->pSearchPOI->pPOI->GetPOIName());
 			delete pRecord->pSearchPOI;
 		}
 

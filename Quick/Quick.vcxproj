@@ -148,7 +148,7 @@
     <ClCompile>
       <AdditionalOptions>/MP -Zm121 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir)CTI;$(SolutionDir)Common;$(SolutionDir);$(SolutionDir)Control;$(SolutionDir)POIData;$(SolutionDir)Map;$(SolutionDir)Rcp;$(SolutionDir)BranchControl;$(SolutionDir)Option;$(SolutionDir)Messenger;$(SolutionDir)HomeView;$(SolutionDir)ReportView;$(SolutionDir)ReportRiderView;$(SolutionDir)StaffView;$(SolutionDir)CustomerView;$(SolutionDir)IncomeView;$(SolutionDir)StatView;$(SolutionDir)Sms;$(SolutionDir)Charge;$(SolutionDir)ShareReportRate;$(SolutionDir)RcpInsung;$(SolutionDir)Graph;$(SolutionDir)SMTP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir)CTI;$(SolutionDir)Common;$(SolutionDir)FRAME_WORK;$(SolutionDir);$(SolutionDir)Control;$(SolutionDir)POIData;$(SolutionDir)Map;$(SolutionDir)Rcp;$(SolutionDir)BranchControl;$(SolutionDir)Option;$(SolutionDir)Messenger;$(SolutionDir)HomeView;$(SolutionDir)ReportView;$(SolutionDir)ReportRiderView;$(SolutionDir)StaffView;$(SolutionDir)CustomerView;$(SolutionDir)IncomeView;$(SolutionDir)StatView;$(SolutionDir)Sms;$(SolutionDir)Charge;$(SolutionDir)ShareReportRate;$(SolutionDir)RcpInsung;$(SolutionDir)Graph;$(SolutionDir)SMTP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;JSON_DEBUG;_RCPPROJ;_QUICK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -196,7 +196,7 @@
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <OmitFramePointers>false</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir)CTI;$(SolutionDir)Common;$(SolutionDir);$(SolutionDir)Control;$(SolutionDir)POIData;$(SolutionDir)Map;$(SolutionDir)Rcp;$(SolutionDir)BranchControl;$(SolutionDir)Option;$(SolutionDir)Messenger;$(SolutionDir)HomeView;$(SolutionDir)ReportView;$(SolutionDir)ReportRiderView;$(SolutionDir)StaffView;$(SolutionDir)CustomerView;$(SolutionDir)IncomeView;$(SolutionDir)StatView;$(SolutionDir)Sms;$(SolutionDir)Charge;$(SolutionDir)ShareReportRate;$(SolutionDir)RcpInsung;$(SolutionDir)Graph;$(SolutionDir)SMTP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir)CTI;$(SolutionDir)Common;$(SolutionDir)FRAME_WORK;$(SolutionDir);$(SolutionDir)Control;$(SolutionDir)POIData;$(SolutionDir)Map;$(SolutionDir)Rcp;$(SolutionDir)BranchControl;$(SolutionDir)Option;$(SolutionDir)Messenger;$(SolutionDir)HomeView;$(SolutionDir)ReportView;$(SolutionDir)ReportRiderView;$(SolutionDir)StaffView;$(SolutionDir)CustomerView;$(SolutionDir)IncomeView;$(SolutionDir)StatView;$(SolutionDir)Sms;$(SolutionDir)Charge;$(SolutionDir)ShareReportRate;$(SolutionDir)RcpInsung;$(SolutionDir)Graph;$(SolutionDir)SMTP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_RCPPROJ;_QUICK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>false</MinimalRebuild>
@@ -654,6 +654,10 @@
     <ClCompile Include="Control\WCountPaintManager.cpp" />
     <ClCompile Include="Control\XTPListCtrl2.cpp" />
     <ClCompile Include="Control\XTPListCtrl_Branch.cpp" />
+    <ClCompile Include="Control\XTPReportColumnUniCode.cpp" />
+    <ClCompile Include="Control\XTPReportRecordItemTextUniCode.cpp" />
+    <ClCompile Include="Control\XTPReportRecordItemUniCode.cpp" />
+    <ClCompile Include="Control\XTPReportRecordUniCode.cpp" />
     <ClCompile Include="CorporationDlg.cpp" />
     <ClCompile Include="CrashDlg.cpp" />
     <ClCompile Include="CTI\Call.cpp" />
@@ -1521,6 +1525,10 @@
     <ClInclude Include="Control\WCountPaintManager.h" />
     <ClInclude Include="Control\XTPListCtrl2.h" />
     <ClInclude Include="Control\XTPListCtrl_Branch.h" />
+    <ClInclude Include="Control\XTPReportColumnUniCode.h" />
+    <ClInclude Include="Control\XTPReportRecordItemTextUniCode.h" />
+    <ClInclude Include="Control\XTPReportRecordItemUniCode.h" />
+    <ClInclude Include="Control\XTPReportRecordUniCode.h" />
     <ClInclude Include="CorporationDlg.h" />
     <ClInclude Include="CrashDlg.h" />
     <ClInclude Include="CTI\Call.h" />

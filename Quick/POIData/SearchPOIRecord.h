@@ -4,9 +4,13 @@
 #include "POIReportControl.h"
 #include "HttpParser.h"
 
+#include "XTPReportRecordUniCode.h"
+#include "XTPReportRecordItemUniCode.h"
+#include "XTPReportRecordItemTextUniCode.h"
+
 #define DONG_COL_COUNT 3
 
-class CSearchDongRecord : public CXTPGridRecord
+class CSearchDongRecord : public CXTPGridRecordUniCode
 {
 public:
 
@@ -22,12 +26,12 @@ public:
 		m_pPOI[m_nCount] = pPOI;
 		m_strMarkupRegionName[m_nCount] = strMarkup.GetLength() > 0 ? 
 strMarkup : pPOI->GetRegionName();
-		AddItem(new CXTPGridRecordItemText(m_strMarkupRegionName[m_nCount++]));
+		AddItem(new CXTPGridRecordItemTextUniCode(m_strMarkupRegionName[m_nCount++]));
 	}
 
 	void AddDummyItem()
 	{
-		AddItem(new CXTPGridRecordItemText(""));
+		AddItem(new CXTPGridRecordItemTextUniCode(""));
 	}
 
 	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
@@ -68,13 +72,13 @@ strMarkup : pPOI->GetRegionName();
 #define PARENT_RECORD() ((CSearchPOIRecord*)GetRecord())
 #define SEARCHPOI() PARENT_RECORD()->m_pSearchPOI
 
-class CSearchPOIRecord : public CXTPGridRecord
+class CSearchPOIRecord : public CXTPGridRecordUniCode
 {
 protected:
-	class CPOIDataPhoneItem : public CXTPGridRecordItem
+	class CPOIDataPhoneItem : public CXTPGridRecordItemUniCode
 	{
 	public:
-		CPOIDataPhoneItem() : CXTPGridRecordItem()
+		CPOIDataPhoneItem() : CXTPGridRecordItemUniCode()
 		{
 		}
 
@@ -91,10 +95,10 @@ protected:
 	};
 
 
-	class CPOIDataNearNameItem : public CXTPGridRecordItem
+	class CPOIDataNearNameItem : public CXTPGridRecordItemUniCode
 	{
 	public:
-		CPOIDataNearNameItem() : CXTPGridRecordItem()
+		CPOIDataNearNameItem() : CXTPGridRecordItemUniCode()
 		{
 		}
 
@@ -115,10 +119,10 @@ protected:
 		}
 	};
 
-	class CPOIDataDistanceItem : public CXTPGridRecordItem
+	class CPOIDataDistanceItem : public CXTPGridRecordItemUniCode
 	{
 	public:
-		CPOIDataDistanceItem() : CXTPGridRecordItem()
+		CPOIDataDistanceItem() : CXTPGridRecordItemUniCode()
 		{
 		}
 
@@ -172,8 +176,8 @@ public:
 			return;
 
 		m_pSearchPOI = pSearchPOI;
-		AddItem(new CXTPGridRecordItemText(m_pSearchPOI->GetMarkupPOIName()));
-		AddItem(new CXTPGridRecordItemText(m_pSearchPOI->GetMarkupRegionName()));
+		AddItem(new CXTPGridRecordItemTextUniCode(m_pSearchPOI->GetMarkupPOIName()));
+		AddItem(new CXTPGridRecordItemTextUniCode(m_pSearchPOI->GetMarkupRegionName()));
 		AddItem(new CPOIDataNearNameItem());
 		AddItem(new CPOIDataDistanceItem());
 		AddItem(new CPOIDataPhoneItem()); 
@@ -239,13 +243,13 @@ public:
 		m_strKeyword = strKeyword;
 		CXTPGridRecordItem *pItem = AddItem(new CXTPGridRecordItem);
 		pItem->SetIconIndex(IsParent() ? GetIconIndex() : XTP_GRID_NOICON);
-		AddItem(new CXTPGridRecordItemText(GetCompanyMU()));
-		AddItem(new CXTPGridRecordItemText(GetDepartMU()));
-		AddItem(new CXTPGridRecordItemText(GetManagerMU()));
-		AddItem(new CXTPGridRecordItemText(GetPhoneMU()));
-		AddItem(new CXTPGridRecordItemText(m_pscus->pData->szDong));
-		AddItem(new CXTPGridRecordItemText(GetUseExpiredDayString()));
-		AddItem(new CXTPGridRecordItemText(GetUseCountString()));
+		AddItem(new CXTPGridRecordItemTextUniCode(GetCompanyMU()));
+		AddItem(new CXTPGridRecordItemTextUniCode(GetDepartMU()));
+		AddItem(new CXTPGridRecordItemTextUniCode(GetManagerMU()));
+		AddItem(new CXTPGridRecordItemTextUniCode(GetPhoneMU()));
+		AddItem(new CXTPGridRecordItemTextUniCode(m_pscus->pData->szDong));
+		AddItem(new CXTPGridRecordItemTextUniCode(GetUseExpiredDayString()));
+		AddItem(new CXTPGridRecordItemTextUniCode(GetUseCountString()));
 
 	}
 
