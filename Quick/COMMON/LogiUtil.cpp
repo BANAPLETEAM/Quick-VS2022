@@ -14,7 +14,6 @@
 #include "RecvCidDlg.h"
 #include "RcpView.h"
 #include "VirtualRecord.h"
-#include "RecvCidDlg.h"
 #include "MyXTPTaskPanelPaintManager.h"
 #include "ChangeColorDlg.h" 
 #include "MakeRiderStat.h"

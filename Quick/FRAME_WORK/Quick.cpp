@@ -10,7 +10,6 @@
 #include "DummyView.h"
 #include "afxwin.h"
 #include "LogonDlg.h"
-#include "DebugReporter.h"
 #include "ShareReportRateDlg.h"
 
 #ifdef _DEBUG

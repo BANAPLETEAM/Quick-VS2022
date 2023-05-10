@@ -26032,18 +26032,6 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// HTML
-//
-
-IDR_HTML_DLGVERCHECK    HTML                    "DlgVerCheck.htm"
-
-IDR_HTML_ALLOCATEGROUPNEW HTML                    "AllocateGroupNew.htm"
-
-IDR_HTML_INSSTAFFDLG2   HTML                    "InsStaffDlg2.htm"
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // Icon
 //
 

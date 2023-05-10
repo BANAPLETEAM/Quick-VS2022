@@ -71,7 +71,6 @@
 #define IDD_CUSTOMER_PAGE1              106
 #define IDD_QUICK_MANAGER               107
 #define IDC_COPY_CLIP_BTN				108
-#define IDR_HTML_DLGVERCHECK            109
 #define IDD_REPORT_SHEET                110
 #define IDR_HTML_RCPDLG                 111
 #define IDD_QFORMVIEW                   113
@@ -97,12 +96,10 @@
 #define IDM_VIEW_RIDER                  138
 #define IDM_VIEW_PAY                    139
 #define IDR_HTML_FAQDLG                 140
-#define IDR_HTML_ALLOCATEGROUPNEW       141
 #define IDD_RCP_PAGE_MAP_FORM           142
 #define IDR_HTML_WALKIETALKIE           143
 #define IDD_AUTOLIST                    144
 #define IDD_DIALOG_CUSTOMERADD          145
-#define IDR_HTML_INSSTAFFDLG2           146
 #define IDD_CALL_BACK_PHONE_ROLE_DLG    147
 #define IDD_TAKER_PAGE3                 148
 #define IDM_VIEW_CUSTOMER               149
