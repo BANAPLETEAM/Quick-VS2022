@@ -664,6 +664,8 @@ void CMainFrame::InitControl()
 	SetTimer(9999, 2000, NULL);
 	//SetTimer(3, 5000, NULL);	//오더 변경체크
 
+	SetTimer(888, 100, NULL);	//update.exe 체크
+
 
 	if(m_ba.GetCount() > 1 && LU->m_pwndPaneNetwork)
 	{
@@ -1213,6 +1215,10 @@ void CMainFrame::OnTimer(UINT nIDEvent)
 		KillTimer(UPLOAD_TIMER);
 		CCaptureUpload cu;
 		SetTimer(UPLOAD_TIMER, cu.Run() * 1000, NULL);
+	}
+	else if (nIDEvent == 888) {
+		KillTimer(nIDEvent);
+		update_exe_check_.Start(); // update.exe 버젼체크 // 지역변수로 선언하면 안됨
 	}
 
 	CFrameWnd::OnTimer(nIDEvent);

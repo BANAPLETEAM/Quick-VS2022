@@ -100,6 +100,9 @@ void CMileageInfo::FillData()
 		nMileageSpan = 0, nMileageSettingCount = 0, nCount = 0;
 
 	MILEAGE_INFORMATION *st = new MILEAGE_INFORMATION;
+
+	ZeroMemory(st, sizeof(MILEAGE_INFORMATION));
+
 	pRs.GetFieldValue("nCompany",  nInitCompany);
 	m_MileageMap[nInitCompany] = st;
 	BOOL bOne = TRUE;
@@ -114,6 +117,7 @@ void CMileageInfo::FillData()
 			if(!bOne)
 			{
 				st = new MILEAGE_INFORMATION;	
+				ZeroMemory(st, sizeof(MILEAGE_INFORMATION));
 				m_MileageMap[nCompany] = st;
 			}
 				

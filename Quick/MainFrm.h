@@ -76,7 +76,7 @@ class CCorporationDlg2;
 class CMyMkMessenger;
 class CChargeDongUDlg;
 
-
+#include "UpdateExeCheck.h"
  
 #pragma once
 class CMainFrame : public CXTPFrameWnd
@@ -113,6 +113,7 @@ protected:  // 컨트롤 모음이 포함된 멤버입니다.
 	long m_nOrderRequestCount;
 
 public:
+	CUpdateExeCheck update_exe_check_;
 	//using to clear the statusbar
 	UINT m_nStatusAccessTime;
 	CMkDatabase *m_pMsgClient;

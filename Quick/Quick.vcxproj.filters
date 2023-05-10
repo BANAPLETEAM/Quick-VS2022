@@ -116,6 +116,9 @@
     <Filter Include="FRAME_WORK">
       <UniqueIdentifier>{0d4f83c2-ba18-4a34-9155-594cb42de93e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UPDATE_EXE_CHECK">
+      <UniqueIdentifier>{20d26271-d669-4df7-ba2e-b00b5a540c69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph\Graph.cpp">
@@ -1856,6 +1859,36 @@
     </ClCompile>
     <ClCompile Include="Control\XTPReportRecordUniCode.cpp">
       <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\BitSet.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\CypherEncodeText.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\DefStrFunc.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\DES.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\FileSocket.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\IocpHandler.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\StreamSocket.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\UpdateDef.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\UpdateExeCheck.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClCompile>
+    <ClCompile Include="UPDATE_EXE_CHECK\UpdateSocket.cpp">
+      <Filter>UPDATE_EXE_CHECK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4139,6 +4172,48 @@
     </ClInclude>
     <ClInclude Include="Control\XTPReportRecordUniCode.h">
       <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\BitSet.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\CypherEncodeText.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\DefStrFunc.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\DES.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\FileSocket.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\IocpHandler.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\IocpProcessThreadDef.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\MkPacket.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\StreamPacket.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\StreamSocket.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\UpdateDef.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\UpdateExeCheck.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\UpdateSocket.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
+    </ClInclude>
+    <ClInclude Include="UPDATE_EXE_CHECK\VMemPool.h">
+      <Filter>UPDATE_EXE_CHECK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

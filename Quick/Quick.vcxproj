@@ -148,7 +148,7 @@
     <ClCompile>
       <AdditionalOptions>/MP -Zm121 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir)CTI;$(SolutionDir)Common;$(SolutionDir)FRAME_WORK;$(SolutionDir);$(SolutionDir)Control;$(SolutionDir)POIData;$(SolutionDir)Map;$(SolutionDir)Rcp;$(SolutionDir)BranchControl;$(SolutionDir)Option;$(SolutionDir)Messenger;$(SolutionDir)HomeView;$(SolutionDir)ReportView;$(SolutionDir)ReportRiderView;$(SolutionDir)StaffView;$(SolutionDir)CustomerView;$(SolutionDir)IncomeView;$(SolutionDir)StatView;$(SolutionDir)Sms;$(SolutionDir)Charge;$(SolutionDir)ShareReportRate;$(SolutionDir)RcpInsung;$(SolutionDir)Graph;$(SolutionDir)SMTP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir)CTI;$(SolutionDir)Common;$(SolutionDir)FRAME_WORK;$(SolutionDir);$(SolutionDir)Control;$(SolutionDir)POIData;$(SolutionDir)Map;$(SolutionDir)Rcp;$(SolutionDir)BranchControl;$(SolutionDir)Option;$(SolutionDir)Messenger;$(SolutionDir)HomeView;$(SolutionDir)ReportView;$(SolutionDir)ReportRiderView;$(SolutionDir)StaffView;$(SolutionDir)CustomerView;$(SolutionDir)IncomeView;$(SolutionDir)StatView;$(SolutionDir)Sms;$(SolutionDir)Charge;$(SolutionDir)ShareReportRate;$(SolutionDir)RcpInsung;$(SolutionDir)Graph;$(SolutionDir)SMTP;$(SolutionDir)UPDATE_EXE_CHECK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;JSON_DEBUG;_RCPPROJ;_QUICK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -196,7 +196,7 @@
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <OmitFramePointers>false</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir)CTI;$(SolutionDir)Common;$(SolutionDir)FRAME_WORK;$(SolutionDir);$(SolutionDir)Control;$(SolutionDir)POIData;$(SolutionDir)Map;$(SolutionDir)Rcp;$(SolutionDir)BranchControl;$(SolutionDir)Option;$(SolutionDir)Messenger;$(SolutionDir)HomeView;$(SolutionDir)ReportView;$(SolutionDir)ReportRiderView;$(SolutionDir)StaffView;$(SolutionDir)CustomerView;$(SolutionDir)IncomeView;$(SolutionDir)StatView;$(SolutionDir)Sms;$(SolutionDir)Charge;$(SolutionDir)ShareReportRate;$(SolutionDir)RcpInsung;$(SolutionDir)Graph;$(SolutionDir)SMTP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir)CTI;$(SolutionDir)Common;$(SolutionDir)FRAME_WORK;$(SolutionDir);$(SolutionDir)Control;$(SolutionDir)POIData;$(SolutionDir)Map;$(SolutionDir)Rcp;$(SolutionDir)BranchControl;$(SolutionDir)Option;$(SolutionDir)Messenger;$(SolutionDir)HomeView;$(SolutionDir)ReportView;$(SolutionDir)ReportRiderView;$(SolutionDir)StaffView;$(SolutionDir)CustomerView;$(SolutionDir)IncomeView;$(SolutionDir)StatView;$(SolutionDir)Sms;$(SolutionDir)Charge;$(SolutionDir)ShareReportRate;$(SolutionDir)RcpInsung;$(SolutionDir)Graph;$(SolutionDir)SMTP;$(SolutionDir)UPDATE_EXE_CHECK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_RCPPROJ;_QUICK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>false</MinimalRebuild>
@@ -1136,6 +1136,16 @@
     <ClCompile Include="TRSInsertRiderDlg.cpp" />
     <ClCompile Include="TRSRiderDlg.cpp" />
     <ClCompile Include="TRSRiderMsgDlg.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\BitSet.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\CypherEncodeText.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\DefStrFunc.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\DES.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\FileSocket.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\IocpHandler.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\StreamSocket.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\UpdateDef.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\UpdateExeCheck.cpp" />
+    <ClCompile Include="UPDATE_EXE_CHECK\UpdateSocket.cpp" />
     <ClCompile Include="UserDongPos.cpp" />
     <ClCompile Include="VarietyDlg.cpp" />
     <ClCompile Include="VarietyDlg1.cpp" />
@@ -2017,6 +2027,20 @@
     <ClInclude Include="TRSInsertRiderDlg.h" />
     <ClInclude Include="TRSRiderDlg.h" />
     <ClInclude Include="TRSRiderMsgDlg.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\BitSet.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\CypherEncodeText.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\DefStrFunc.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\DES.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\FileSocket.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\IocpHandler.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\IocpProcessThreadDef.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\MkPacket.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\StreamPacket.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\StreamSocket.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\UpdateDef.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\UpdateExeCheck.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\UpdateSocket.h" />
+    <ClInclude Include="UPDATE_EXE_CHECK\VMemPool.h" />
     <ClInclude Include="UserDongPos.h" />
     <ClInclude Include="VarietyDlg.h" />
     <ClInclude Include="VarietyDlg1.h" />
