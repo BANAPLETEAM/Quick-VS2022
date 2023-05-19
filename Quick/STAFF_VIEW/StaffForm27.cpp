@@ -59,19 +59,16 @@ void CStaffForm27::OnInitialUpdate()
 	m_lstReport.InsertColumn(1, "지사명", LVCFMT_LEFT, 150);
 	m_lstReport.InsertColumn(2, "대표번호", LVCFMT_LEFT, 120);
 	m_lstReport.InsertColumn(3, "사업자번호(주민번호)", LVCFMT_LEFT, 160);
-	m_lstReport.InsertColumn(4, "대표자", LVCFMT_LEFT, 80);
-	m_lstReport.InsertColumn(5, "전화번호", LVCFMT_LEFT, 110);
-	m_lstReport.InsertColumn(6, "상호명", LVCFMT_LEFT, 110);
-	m_lstReport.InsertColumn(7, "사업장주소", LVCFMT_LEFT, 250);
-	m_lstReport.InsertColumn(8, "첨부파일", LVCFMT_CENTER, 80);
+	m_lstReport.InsertColumn(4, "대표자주민번호", LVCFMT_LEFT, 160);
+	m_lstReport.InsertColumn(5, "대표자", LVCFMT_LEFT, 80);
+	m_lstReport.InsertColumn(6, "전화번호", LVCFMT_LEFT, 110);
+	m_lstReport.InsertColumn(7, "상호명", LVCFMT_LEFT, 110);
+	m_lstReport.InsertColumn(8, "사업장주소", LVCFMT_LEFT, 250);
+	m_lstReport.InsertColumn(9, "첨부파일", LVCFMT_CENTER, 80);
 	m_lstReport.SetOrderIndexCol(0);
-
-	
 	m_lstReport.Populate();
 
-	//OnBnClickedRefreshBtn();
-
-	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	OnBnClickedRefreshBtn();
 }
 
 void CStaffForm27::OnBnClickedRefreshBtn()
@@ -79,7 +76,7 @@ void CStaffForm27::OnBnClickedRefreshBtn()
 	m_lstReport.DeleteAllItems();
 
 	CMkRecordset rs(m_pMkDb);
-	CMkCommand cmd(m_pMkDb, "select_company_info_empins_biz_no_branch");
+	CMkCommand cmd(m_pMkDb, "select_company_info_empins_biz_no_branch_1");
 	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
 	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
 	
@@ -89,27 +86,31 @@ void CStaffForm27::OnBnClickedRefreshBtn()
 	if(rs.Execute(&cmd)) {
 		while (!rs.IsEOF()) {
 			long nCompany;
-			CString strBizNo, strBizName, stBizOwner, strBizAddress, strTel, strImageUrl;
+			CString strBizNo, strBizName, strOwnerSSN, stBizOwner, strBizAddress, strTel, strImageUrl;
 
 			rs.GetFieldValue("nCompany", nCompany);
 			rs.GetFieldValue("sBizNo", strBizNo);
 			rs.GetFieldValue("sBizName", strBizName);
 			rs.GetFieldValue("sBizOwner", stBizOwner);
+			rs.GetFieldValue("sOwnerSSN", strOwnerSSN);
 			rs.GetFieldValue("sBizAddress", strBizAddress);
 			rs.GetFieldValue("sTel", strTel);
 			rs.GetFieldValue("sImageUrl", strImageUrl);
 
-			
+			if (strOwnerSSN.GetLength() == 13) {
+				strOwnerSSN = strOwnerSSN.Left(6) + "-" + strOwnerSSN.Right(7);
+			}
 
 			m_lstReport.InsertItem(col_index, "");
 			m_lstReport.SetItemText(col_index, 1, m_ci.GetBranchName(nCompany));
 			m_lstReport.SetItemText(col_index, 2, m_ci.GetPhone(nCompany));
 			m_lstReport.SetItemText(col_index, 3, strBizNo);
-			m_lstReport.SetItemText(col_index, 4, stBizOwner);
-			m_lstReport.SetItemText(col_index, 5, strTel);
-			m_lstReport.SetItemText(col_index, 6, strBizName);
-			m_lstReport.SetItemText(col_index, 7, strBizAddress);
-			m_lstReport.SetItemText(col_index, 8, strImageUrl.IsEmpty() ? "없음" : "보기");
+			m_lstReport.SetItemText(col_index, 4, strOwnerSSN);
+			m_lstReport.SetItemText(col_index, 5, stBizOwner);
+			m_lstReport.SetItemText(col_index, 6, strTel);
+			m_lstReport.SetItemText(col_index, 7, strBizName);
+			m_lstReport.SetItemText(col_index, 8, strBizAddress);
+			m_lstReport.SetItemText(col_index, 9, strImageUrl.IsEmpty() ? "없음" : "보기");
 
 			if(!strImageUrl.IsEmpty())
 				m_lstReport.ChangeItemTextColor(col_index, 8, RGB(0, 0, 255));
