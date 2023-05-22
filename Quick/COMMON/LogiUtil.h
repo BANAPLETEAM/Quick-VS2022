@@ -43,7 +43,6 @@ class CConnListDlg2;
 class CGroupChatDlg;
 class CMakeGroupReportNewDlg;
 class CTransInfoDlg;
-class CWebIDPWDDlg;
 class CLogiUtil
 {
 public:
@@ -87,9 +86,7 @@ public:
 	void OpenAllocateDlg(long nTNo, long nState, CString sTitle = "", long nRNo = 0, long nDeposit = 0, long nCarType = 0, BOOL bToRcpView = TRUE,CWnd *pParent = NULL);
 	void OpenOtherAllocateDlg(long nTNo, long nCompany, long nState, long nDeposit = 0, BOOL bToRcpView = TRUE,CWnd *pParent = NULL);
 	void DestorySearchPoiDlg();
-	void OnShowSecurityLog();
 	void OpenTranDlg(long nTNo, long nCompany);
-	void NoMemberPWDDlg(long nTNo,long nCNo, long nCompany);
 	CString GetCorpDomain();
 
 	CRcpView* GetRcpView();
@@ -268,7 +265,6 @@ protected:
 	CConsignLinkDlg			* m_pConsignLinkDlg;
 	CMakeGroupReportNewDlg	* m_pMakeGroupReportNewDlg[5];
 	CTransInfoDlg			* m_pTransInfoDlg;
-	CWebIDPWDDlg			* m_pWebIDPWDDlg;
 
 public:
 

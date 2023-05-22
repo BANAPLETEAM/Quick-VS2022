@@ -92,7 +92,7 @@ void CJusoGoKr::SearchJuso(CString strSearch)
 
 BOOL CJusoGoKr::ParseXml(char *sz)
 {
-	#define GET_ELEMENT_TEXT(x, y) UTF8ToANSI(x->FirstChildElement(y)->GetText());
+	#define GET_ELEMENT_TEXT(x, y) ::UTF8ToANSI(x->FirstChildElement(y)->GetText());
 
 	if(!sz)
 		return FALSE;

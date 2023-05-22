@@ -298,7 +298,7 @@ void CCustomerPage12::SetText()
 	m_EditStc[nItem++].SetWindowText(GetPrice(pc->nPriceGrade)); //가격등급
 	m_EditStc[nItem++].SetWindowText((CString)ltoa(pc->nIssueTaxBillDay , buffer, 10) + "일"); //계산서발행일
 	m_EditStc[nItem++].SetWindowText(pc->strUserID); //고객아이디
-	m_EditStc[nItem++].SetWindowText(GetGrade(pc->nCustomerGrade)); //고객등급
+	m_EditStc[nItem++].SetWindowText(::GetGrade(pc->nCustomerGrade)); //고객등급
 	m_EditStc[nItem++].SetWindowText(ltoa(pc->nUseCount, buffer, 10)); //이용횟수
 	m_EditStc[nItem++].SetWindowText(GetDiscountType(pc->nDiscountType)); //할인타입
 	m_EditStc[nItem++].SetWindowText(ltoa(pc->nDiscount, buffer, 10)); //할인액

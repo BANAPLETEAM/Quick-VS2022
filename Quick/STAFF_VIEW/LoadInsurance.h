@@ -19,7 +19,6 @@ public:
 	BOOL ParseXmlSearch(char *sz);
 	
 	void UTF8Conv(LPCTSTR lpsz);
-	char* UTF8ToANSI(const char *pszCode);	
 	CString ConvertReceivedDataToString(CByteArray & data);
 
 	static void CheckRiderStateChange(ST_RIDER_INFO *stRider, long bAdminTable, CString strSSN, long nCarType, CString strCarNo);

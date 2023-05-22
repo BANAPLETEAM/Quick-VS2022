@@ -42,15 +42,12 @@ CUserDongPos m_mapUDongPos;
 MAP_CHARGE_TYPE_NAME m_mapChargeType;
 MAP_MEMBER_CHARGE_CNO m_mapMemberCharge1;
 MAP_BANK m_mapBank;
-CStringArray m_saBranchName;
 CMkDatabase *m_pMkDb		= NULL;
 CMkDatabase *m_pMkDb2		= NULL;
 CMkDatabase *m_pMkDb4DrvLic = NULL;
 long m_nSearchPoiDlg = 0;
 HINSTANCE m_hCommondll;
 CEncProfile encProfile;
-char m_szLogPath[512];
-MAP_CHARGE2007 m_Charge2007Map;
 CGlobalFontManager m_FontManager;
 CGlobalHandleManager m_HandleManager;
 CMakeRcpPower m_pi;
@@ -66,9 +63,6 @@ MAP_CARD_VENDOR m_mapCardVendor;
 MAP_SPECIAL_TRUCK_CHARGE g_special_truck_charge;
 
 char* STR_PAY_TYPE[] = {"선불", "착불", "신용", "송금", "수금", "", "", "카드"};
-char* STR_CAR_TYPE[] = {"오토", "짐받이", "다마", "라보", "3밴", "트럭", "", "", "6밴", "1.4톤", 
-					"지하철", "", "", "", "", "", "", "", "", "",
-					"당일택배"};
 
 
 
@@ -1039,21 +1033,6 @@ void StatusText(UINT nPane, UINT nResource)
 	StatusText(nPane, string);
 }
 
-char* MAKESTRING(UINT nResource)
-{
-	CString string;
-	if (!string.LoadString(nResource)) {
-		TRACE(traceAppMsg, 0, 
-			"Error: failed to load message box prompt string 0x%04x.\n", 
-			nResource);
-		ASSERT(FALSE);
-	}
-
-	char *szMsg = new char[string.GetLength()];
-	strcpy(szMsg, (LPSTR)(LPCTSTR)string);
-	return szMsg;
-}
-
 /*
 // Prints the MAC address stored in a 6 byte array to stdout
 CString FormatMacAddress(unsigned char MACData[])
@@ -1284,45 +1263,6 @@ CString RemoveZero(CString strData)
 	else return strData;
 }	
 
-BOOL CreateShortcut(const CString Target, const CString LinkFileName)
-{
-	HRESULT hres;
-	char szPath[MAX_PATH];
-	CString Link;
-
-	SHGetSpecialFolderPath(NULL, szPath, CSIDL_DESKTOP, FALSE);
-	Link = szPath;
-	Link += "\\";
-	Link += LinkFileName;
-
-	IShellLink* psl;
-	hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*) &psl);
-	if (SUCCEEDED(hres))
-	{
-		IPersistFile* ppf;
-
-		psl->SetPath(Target);
-		hres = psl->QueryInterface( IID_IPersistFile, (LPVOID *) &ppf);
-
-		if (SUCCEEDED(hres))
-		{
-			CString Temp = Link;
-			Temp.MakeLower();
-			if (Temp.Find(".lnk")==-1)
-				Link += ".lnk";  // Important !!!
-			WORD wsz[MAX_PATH];
-			MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Link, -1, (LPWSTR)wsz,MAX_PATH);
-
-			hres = ppf->Save((LPCOLESTR)wsz, TRUE);
-
-			ppf->Release();
-		}
-		psl->Release();
-	}
-
-	return hres;
-}
-
 BOOL IsBrokenHangul(CString &strText)
 {
 	int nCount = 0;
@@ -1338,68 +1278,14 @@ BOOL IsBrokenHangul(CString &strText)
 		return TRUE;
 }
 
-CString GetPDATypeString(int nType)
-{
-	switch(nType)
-	{
-	case PDA_V100:
-		return "셀빅V100";
-	case PDA_XG:
-		return "셀빅XG";
-	case PDA_MITS330:
-		return "미츠330";
-	case PDA_MITS3300: 
-		return "미츠3300";
-	case PDA_MITS400:
-		return "미츠400";
-	case PDA_MITS4000: 
-		return "미츠4000";
-	case PDA_POZ_SKT:
-		return "포즈SKT";
-	case PDA_POZ_KTF:
-		return "포즈KTF";
-	case PDA_X301: 
-		return "포즈X301";
-	case PDA_SC8000:
-		return "SC8000";
-	case PDA_M500:
-		return "미츠500";
-	case PHONE_SKT:
-		return "SKT폰";
-	case PHONE_KTF:
-		return "KTF폰";
-	case PHONE_LGT:
-		return "LGT폰";
-	case PDA_KC8000_KTF:
-		return "KC8000";
-	case PDA_RW6100:
-		return "RW6100";
-	case PDA_AIV:
-		return "AIV+";
-	default:
-		return "N/A";
-	}
-}
-
 CBranchInfo* GetCurBranchInfo(BOOL bAllowVirtualCompany)
 {
 	if(m_pbiCur)
 	{
-//		if(bAllowVirtualCompany)
-//			return m_pbiCur;
-//		else
-//			return IsVC(m_pbiCur->nVirtualCompany) ? 
-//			m_pbiCur->pRealBranch : m_pbiCur;
 		return m_pbiCur;
 	}
 
 	return m_ba.GetAt(0);
-}
-
-CBranchInfo* GetRB(CBranchInfo *pBi)
-{
-	//return IsVC(pBi->nVirtualCompany) ? pBi->pRealBranch : pBi;
-	return pBi;
 }
 
 CString &StringMakeUpper(CString &str)
@@ -1442,42 +1328,6 @@ CString GetDepositAllocateTypeStringFromType(int nType)
 		return "후입금";
 	default:
 		return "UNKNOWN";
-	}
-}
-
-CString GetDepositStateString(int nState)
-{
-	switch(nState)
-	{
-	case  5:
-		return "(-)스케쥴작업 발생";   //---- 이부분추가
-	case  7:
-		return "(-)미수금 생성";
-	case 10:
-		return "(-)미수금 발생";
-	case 15:
-		return "***미수금 정리***";
-	case 20:
-		return "(+)미수금 입금";
-	case 11:
-		return "(-)일일정산 발생";
-	case 21:
-		return "(+)일일정산 입금";
-	case 30:
-		return "입금액 수정";
-	case 35:
-		return "(+)스케쥴작업 발생";   //---- 이부분추가
-	case 40:
-		return "(+)선입금";
-	case 45:
-		return "***선입금 정리***";
-	case 50:
-		return "***입금방식 변경***";
-	case 60:
-		return "선입금 수정";
-
-	default:
-		return "N/A";
 	}
 }
 
@@ -1596,26 +1446,6 @@ CString GetFixedDepositStateString(int nState)
 	}
 }
 
-int GetDepositTypeFromString(CString strType)
-{
-	if(strType == "" || strType == "후납")
-		return 0;
-	else if(strType == "선입금")
-		return 10;
-	else if(strType == "주납")
-		return 20;
-	else if(strType == "주납+공유비")
-		return 25;
-	else if(strType == "주납+공유비+과금")
-		return 25;
-	else if(strType == "주/공/과")
-		return 25;
-	else if(strType == "주납+과금")
-		return 27;
-
-	return 0;
-}
-
 int GetNoneCommaNumber(CString strNumber)
 {
 	strNumber.Remove(',');
@@ -1687,47 +1517,6 @@ int GetChargeType(int nStartType, int nDestType)
 	return nType;
 }
 
-CString GetChargeType(long nType)
-{ 
-	CString strView;
-
-	switch(nType)
-	{
-	case 0:
-		strView = "동->동";
-		break;
-	case 1:
-		strView = "동->구";
-		break;
-	case 2:
-		strView = "구->동";
-		break;
-	case 3:
-		strView = "구->구";
-		break;
-	case 4:
-		strView = "동->시";
-		break;
-	case 5:
-		strView = "구->시";
-		break;
-	case 6:
-		strView = "시->동";
-		break;
-	case 7:
-		strView = "시->구";
-		break;
-	case 8:
-		strView = "시->시";
-		break;
-	default:
-		strView = "이상요금";
-		break;
-	}
-
-	return strView;
-}
-
 ST_SMS_INFO GetSMSBalance(long nCompany)
 {
 	long nBarance = 0;
@@ -1747,22 +1536,6 @@ ST_SMS_INFO GetSMSBalance(long nCompany)
 
 	return smsi;
 } 
-
-BOOL IsChildVirtualCompany(long nVirtualCompany, long nCompany)
-{
-//	CHILD_COMPANY_MAP::iterator it = m_vcm.find(nCompany);
-//	if(it == m_vcm.end() || it->second != nVirtualCompany)
-//		return FALSE;
-//	else
-//		return TRUE;
-	return FALSE;
-}
-
-BOOL IsVC(long nVirtualCompany)
-{
-//	return nVirtualCompany >= 100000 ? TRUE : FALSE;
-	return FALSE;
-}
 
 CBranchInfo * GetBranchInfo(long nCompany)
 {
@@ -1851,38 +1624,6 @@ BOOL IsIntegrated(long nCompany)
 		return FALSE;
 }
 
-BOOL FileExistTest(CString strPath)
-{
-	BOOL bRet = FALSE;
-	HANDLE hFile;
-	hFile = CreateFile((LPSTR)(LPCTSTR)strPath, GENERIC_READ, 
-		FILE_SHARE_READ, NULL, 
-		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	if(INVALID_HANDLE_VALUE != hFile) {
-		bRet = TRUE;
-		CloseHandle(hFile);
-	}
-
-	return bRet;
-}
-
-long GetCharCount(CString sCommaString, char ch)
-{
-	long nCount=0, index=0;
-
-	while(1)
-	{
-		index = sCommaString.Find(ch, index + 1);
-
-		if(index == -1) break;
-
-		nCount++;
-	}
-
-	return nCount;
-}
-
 BOOL IsBranch(long nCompany)
 {
 	CBranchInfo *pBi = NULL;
@@ -1898,16 +1639,6 @@ BOOL IsBranch(long nCompany)
 	}
 	else
 		return FALSE;
-}
-
-CString GetGeneralCountDisplay(long nCount)
-{
-	char buffer[20];
-
-	if(nCount == 0)
-		return "-";
-	else 
-		return CString(ltoa(nCount, buffer, 10)) + "건";
 }
 
 void SetHanEngMode(HWND hWnd, BOOL bHan) 
@@ -2277,39 +2008,6 @@ CString EnCodeStr(CString ToCode)
 	return RetStr;
 }
 
-CString DeCodeStr(CString ToCode)
-{
-	CString RetStr,AddStr;
-	int i,max;
-	unsigned short asc;
-	unsigned char c;
-	max = (unsigned int)ToCode.GetLength();
-	for(i=0;i<max;)
-	{
-		c = ToCode[i];
-		asc = c;//(unsigned int)c;
-		if(asc==37)
-		{
-			AddStr=ToCode.Mid(i+1,2);
-			i+=3;
-			sscanf((LPCTSTR)AddStr,"%2x",&asc);
-			RetStr+=(char)asc;
-		}
-		else if(asc==43)
-		{
-			RetStr += ' ';
-			i++;
-		}
-		else
-		{
-			RetStr += c;
-			i++;
-		}
-	}
-	return RetStr;
-}
-
-
 typedef BOOL (WINAPI *SetLayer)(HWND hWnd, COLORREF crKey, BYTE bAlpha, DWORD dwFlags);
 #define LWA_COLORKEY            0x01
 #define LWA_ALPHA               0x02
@@ -2512,19 +2210,6 @@ BOOL IsCash(long nPayType)
 		return FALSE;
 }
  
-CString GetPrice(long nPrice)
-{
-	if(nPrice == 0)
-		return "A등급";
-	if(nPrice == 1)
-		return "B등급";
-	if(nPrice == 2)
-		return "C등급";
-	if(nPrice == 3)
-		return "D등급";
-	return "A등급";
-}
-
  CString GetGrade(long nGrade, BOOL bShowDefault)
 {
 	if(nGrade == 0)
@@ -2639,33 +2324,6 @@ BOOL IsThisCompany(CString strCompanyName, long nCompany, long nShareCode1)
 
 	return FALSE;
 } 
-
-BOOL IsCustomerHasOrder(long nCNo)
-{
-	CMkCommand pCmd(m_pMkDb, "select_cno_history");
-	CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(int), 0);
-	pCmd.AddParameter(nCNo);
-
-	if(pCmd.Execute() == FALSE) return FALSE;
-	
-	long nRet; parRet->GetValue(nRet);
-
-	return nRet;
-}
-
-CString GetLicenceTypeFromLong(long nLicenceType)
-{
-	if(nLicenceType == ZERO) return "";
-	else if(nLicenceType == ONE) return "1종대형";
-	else if(nLicenceType == 2) return "1종보통";
-	else if(nLicenceType == 3) return "2종보통";
-	else if(nLicenceType == 4) return "기타";
-	else if(nLicenceType == 5) return "무면허";
-	else if(nLicenceType == 6) return "원동기";
-	else if(nLicenceType == 7) return "2종소형";
-
-	return "";
-}
 
 CString GetDateTimeToString(COleDateTime dtDate,int nType,BOOL bShowDay)
 {
@@ -4228,81 +3886,6 @@ long GetCardRealPay(long nTNo)
 	pParCharge->GetValue(nCharge);
 
 	return nCharge;
-}
-
-CString GetShareAccountType(long nType)
-{
-	CString strTemp = "";
-	switch(nType)
-	{
-	case 1:
-		strTemp = "(*)출금이체완료";
-	case 2:
-		strTemp = "(*)기사출금이체완료";
-	case 3:
-		strTemp = "(*)본사정산실패";
-	case 4:
-		strTemp = "(*)지사정산실패";
-	case 5:
-		strTemp = "(*)기타";
-	case 6:
-		strTemp = "(*)출금요청오류";
-	case 7:
-		strTemp = "(*)잔액부족이체실패";
-
-	case 30:
-		strTemp = "(-)이체";
-	case 31:
-		strTemp = "(-)배차";
-	case 32:
-		strTemp = "(-)배차취소";
-	case 33:
-		strTemp = "(-)입금액수정";
-	case 34:
-		strTemp = "(-)외상정산";
-	case 35:
-		strTemp = "(-)외상정산취소";
-	case 36:
-		strTemp = "(-)외상정산수정";
-	case 37:
-		strTemp = "(-)출금요청중";
-	case 38:
-		strTemp = "(-)로지부담금";
-	case 39:
-		strTemp = "(-)로지지원금";
-
-	case 100:
-		strTemp = "(-)기타";
-
-
-	case 130:
-		strTemp = "(+)이체";
-	case 131:
-		strTemp = "(+)배차";
-	case 132:
-		strTemp = "(+)배차취소";
-	case 133:
-		strTemp = "(+)입금액수정";
-	case 134:
-		strTemp = "(+)외상정산";
-	case 135:
-		strTemp = "(+)외상정산취소";
-	case 136:
-		strTemp = "(+)외상정산수정";
-	case 137:
-		strTemp = "(+)출금취소";
-	case 138:
-		strTemp = "(+)로지부담금";
-	case 139:
-		strTemp = "(+)로지지원금";
-
-
-	case 200:
-		strTemp = "(+)기타";
-
-	}
-
-	return strTemp;
 }
 
 long GetShareLevel(long nShareCode1, long nShareCode2, long nShareCode3, long nShareCode4, long nShareCode5)

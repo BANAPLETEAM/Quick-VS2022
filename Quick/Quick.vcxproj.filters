@@ -202,9 +202,6 @@
     <ClCompile Include="Common\MkLock.cpp">
       <Filter>COMMON</Filter>
     </ClCompile>
-    <ClCompile Include="Common\MmsImageView.cpp">
-      <Filter>COMMON</Filter>
-    </ClCompile>
     <ClCompile Include="Common\MyDialog.cpp">
       <Filter>COMMON</Filter>
     </ClCompile>
@@ -1855,9 +1852,6 @@
     <ClCompile Include="SHARE_REPORT_RATE\ShareTransferRequestDetailDlg.cpp">
       <Filter>SHARE_REPORT_RATE</Filter>
     </ClCompile>
-    <ClCompile Include="SMS\AddMmsImageDlg.cpp">
-      <Filter>SMS</Filter>
-    </ClCompile>
     <ClCompile Include="SMS\EmoticonDlg.cpp">
       <Filter>SMS</Filter>
     </ClCompile>
@@ -2215,13 +2209,7 @@
     <ClCompile Include="COMMON\ShareProgDlg.cpp">
       <Filter>COMMON</Filter>
     </ClCompile>
-    <ClCompile Include="COMMON\WebIDPWDDlg.cpp">
-      <Filter>COMMON</Filter>
-    </ClCompile>
     <ClCompile Include="COMMON\MoveOrderLogDlg.cpp">
-      <Filter>COMMON</Filter>
-    </ClCompile>
-    <ClCompile Include="COMMON\OrderInsertDlg.cpp">
       <Filter>COMMON</Filter>
     </ClCompile>
     <ClCompile Include="COMMON\SetPoiDlg.cpp">
@@ -2299,9 +2287,6 @@
       <Filter>COMMON</Filter>
     </ClInclude>
     <ClInclude Include="Common\MkLock.h">
-      <Filter>COMMON</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\MmsImageView.h">
       <Filter>COMMON</Filter>
     </ClInclude>
     <ClInclude Include="Common\MyDialog.h">
@@ -4508,9 +4493,6 @@
     <ClInclude Include="SHARE_REPORT_RATE\ShareTransferRequestDetailDlg.h">
       <Filter>SHARE_REPORT_RATE</Filter>
     </ClInclude>
-    <ClInclude Include="SMS\AddMmsImageDlg.h">
-      <Filter>SMS</Filter>
-    </ClInclude>
     <ClInclude Include="SMS\EmoticonDlg.h">
       <Filter>SMS</Filter>
     </ClInclude>
@@ -4874,13 +4856,7 @@
     <ClInclude Include="COMMON\ShareProgDlg.h">
       <Filter>COMMON</Filter>
     </ClInclude>
-    <ClInclude Include="COMMON\WebIDPWDDlg.h">
-      <Filter>COMMON</Filter>
-    </ClInclude>
     <ClInclude Include="COMMON\MoveOrderLogDlg.h">
-      <Filter>COMMON</Filter>
-    </ClInclude>
-    <ClInclude Include="COMMON\OrderInsertDlg.h">
       <Filter>COMMON</Filter>
     </ClInclude>
     <ClInclude Include="COMMON\SetPoiDlg.h">

@@ -11,33 +11,6 @@
 
 #endif
 
-enum {
-	TEL_TYPE_GENERAL = 0,
-	TEL_TYPE_MAIN = 1,
-	TEL_TYPE_PHONE1 = 2,
-	TEL_TYPE_PHONE2 = 3,
-	TEL_TYPE_SMS = 4
-};
-
-enum {
-	STATE_INTERNET		= 2,
-	STATE_SITE			= 3,
-	STATE_CARRY			= 5,
-	STATE_WAIT			= 8,
-	STATE_RESERVED		= 9,
-	STATE_OK			= 10,
-	STATE_OK_ONLY_MAN	= 11,
-	STATE_ALLOCATED		= 30,
-	STATE_PICKUP		= 31,
-	STATE_FINISH		= 35,
-	STATE_CANCELED		= 40,
-	STATE_RECALL		= 50,
-	STATE_RIDER_CALL	= 51,
-	STATE_INQUIRY		= 60,
-	STATE_NOTICE		= 70
-};
-
-
 #include "Resource.h"
 #include "MkDatabase.h"
 #include "MkCommand.h"
@@ -55,12 +28,6 @@ enum {
 #include "SmsDefine.h"
 #include "CompanyInfo.h"
 #include "POIUnit.h" 
-
-extern CGlobalFontManager m_FontManager;
-extern CGlobalHandleManager m_HandleManager;
-extern CCompanyInfo m_ci;
-extern CSmsDefine m_sms;
-
 
 #include "MyStatic.h"
 #include "MyStaticTri.h"
@@ -82,6 +49,9 @@ extern CSmsDefine m_sms;
 extern inline CString GetMyNumberFormat(CString strNumber);
 extern inline CString GetMyNumberFormat(long nNumber);
 
+extern CCompanyInfo m_ci;
+extern CSmsDefine m_sms;
+
 #include "GlobalPaintManager.h"
 #include "GlobalXTPListCtrl.h"
 #include "GlobalXTPReportRecord.h"
@@ -91,35 +61,63 @@ extern inline CString GetMyNumberFormat(long nNumber);
 #pragma comment(lib, "gdiplus.lib")
 using namespace Gdiplus;
 
-enum {MINUS_ONE = -1, ZERO = 0, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN};
-enum {LINE_RECV_MODE = 0, LINE_PAUSE_MODE, LINE_UNUSE_MODE, LINE_WORKING_MODE};
-enum {UNMUTE_MODE = 0, MUTE_MODE, MUTE_HANGUP_MODE};
-enum {UNANSWER_RECPLAY_MODE = 0, ANSWER_RECPLAY_MODE, ANSWER_RECPLAY_HANG_MODE};
-enum {UNBLINDTRANSFER_MODE = 0, BLINDTRANSFER_MODE, BLINDTRANSFER_HANGUP_MODE};
-enum {PH_ANSWER = 0,PH_HANG_UP, PH_RING, PH_CALLBELL, PH_TRANSFER, PH_OUT_BOUND_CALL, PH_ARS_ANSWER};
+class CCustomerGroup;
+class CMileageInfo;
+class CPOIData;
+class CUserDongPos;
+class CLogiUtil;
+class CLogiFunc;
+class CPOIDataNew;
+class CCustomerData;
+//class CCompanyInfo;
 
-#define OFFICE_OK_ONLY_MAN 2
-#define OFFICE_ALLOCATED 16
-#define OFFICE_PICKUP 64
-#define OFFICE_FINISH 128
-#define RIDER_OK_ONLY_MAN 3
-#define RIDER_ALLOCATED	12
-#define RIDER_PICKUP 48
-#define RIDER_FINISH 192
 
-#define SECTION_MILEAGE 100000
-#define COUNT_MILEAGE 200000
-#define MAX_REGION_SELECT_COUNT 5
-
-#define ON_COMMAND_RANGE_SINGLE(x, y)  ON_COMMAND_RANGE(x, x, y)
-
+extern CGlobalFontManager m_FontManager;
+extern CGlobalHandleManager m_HandleManager;
 
 extern long		m_nSearchPoiDlg;
 
 extern HINSTANCE m_hCommondll;
 
-extern char* STR_CAR_TYPE[];
 extern char* STR_PAY_TYPE[];
+
+extern ARRAY_CALL_ROUTE_SIDO m_crs;
+extern CCustomerGroup m_cg;
+extern CMileageInfo m_mi;
+extern CPOIData m_poi;
+extern CUserDongPos m_mapUDongPos;
+extern MAP_STATE_MENT m_mapStateMent;
+extern ST_USER_INFO m_ui;
+extern ST_ETC_INFO m_ei;
+extern ST_SERVER_INFO m_si;
+extern ARRAY_BRANCH m_ba, m_ba2;
+extern MAP_CARD_VENDOR m_mapCardVendor;
+extern MAP_SPECIAL_TRUCK_CHARGE g_special_truck_charge;
+
+extern COMPANY_APPLY_FROM_CITY_MAP3 m_mapConCitySetting;
+extern MAP_RIDER m_rm;
+extern MAP_DEPOSIT_RATE m_dr;
+extern VEC_CHARGE_SECTION_TYPE m_cst;
+extern MAP_CHARGE_TYPE_NAME m_mapChargeType;
+extern MAP_MEMBER_CHARGE_CNO m_mapMemberCharge1;
+extern MAP_BANK m_mapBank;
+
+extern 	CEncProfile encProfile;
+extern CMkDatabase* m_pMkDb;
+extern CMkDatabase* m_pMkDb2;
+
+extern CLogiUtil* LU;
+extern CLogiFunc* LF;
+
+extern CBranchInfo* m_pbiCur;
+extern CURRENT_CODE_INFO m_CurCodeInfo;
+
+extern MAP_LINE_GROUP m_LineGroup;
+
+extern CPOIDataNew m_poiNew;
+
+extern CCustomerData m_cus;
+
 extern CString GetInternetReceiptType(int nReceiptType);
 extern inline CString GetStateString(UINT nState);
 extern inline int GetStateFromString(CString sState);
@@ -148,52 +146,20 @@ extern inline CString  GetNoneDashNumberRemoveDDD(CString strPhoneNumber);
 extern inline BOOL IsStringDigit(CString strText);
 extern CString GetWebUploadUrl(CString strUseage, LONG nTNo);
 extern inline BOOL IsPhoneNumber(CString strText);
-extern long GetCharCount(CString sCommaString, char ch);
 extern BOOL IsBranch(long nCompany);
 extern void MyTokenize(CString strInput, CString strDivide, BOOL bEpthyInsert, CStringArray &strArr);
 extern CString GetDiscountType(long nDiscount);
 extern CString GetGrade(long nGrade, BOOL bShowDefault = TRUE);
 extern int GetGradeColor(long nGrade);
-extern CString GetPrice(long nPrice);
 extern char* UTF8ToANSI(const char *pszCode);
 
-
 extern CString GetWeekChartTitle(COleDateTime dtDate);
-extern void xor_converter(char *src, char *dst, int nLen, int nKey);
 extern CString GetModuleFullPath();
 extern CString GetMyFileName();
 extern BOOL IsSoftIce95();
 extern BOOL IsSoftIceNT();
-extern long GetServiceType();
-extern void SetServiceType(long nType);
 extern CString GetLicenseStateString(int nType, BOOL *pbLicenseOK);
 extern long GetCommaCount(CString sCommaString);
-
-extern MAP_CHARGE2007 m_Charge2007Map;
-extern ARRAY_CALL_ROUTE_SIDO m_crs;
-class CCustomerGroup;
-extern CCustomerGroup m_cg;
-class CMileageInfo;
-extern CMileageInfo m_mi;
-class CPOIData;
-extern CPOIData m_poi;
-class CUserDongPos;
-extern CUserDongPos m_mapUDongPos;
-extern MAP_STATE_MENT m_mapStateMent;
-extern ST_USER_INFO m_ui;
-extern ST_ETC_INFO m_ei;
-extern ST_SERVER_INFO m_si;
-extern ARRAY_BRANCH m_ba, m_ba2;
-extern MAP_CARD_VENDOR m_mapCardVendor;
-extern MAP_SPECIAL_TRUCK_CHARGE g_special_truck_charge;
-
-extern COMPANY_APPLY_FROM_CITY_MAP3 m_mapConCitySetting;
-extern MAP_RIDER m_rm;
-extern MAP_DEPOSIT_RATE m_dr;
-extern VEC_CHARGE_SECTION_TYPE m_cst;
-extern MAP_CHARGE_TYPE_NAME m_mapChargeType;
-extern MAP_MEMBER_CHARGE_CNO m_mapMemberCharge1;
-extern MAP_BANK m_mapBank;
 
 extern int AFXAPI MsgBox(CString strMsg, CString strCaption = "확인", UINT nType = MB_ICONINFORMATION);
 extern int AFXAPI MsgBox(UINT nIDPrompt, CString strCaption = "확인", UINT nType = MB_ICONINFORMATION);
@@ -202,7 +168,6 @@ extern BOOL GetFileVersion(char *filename, VS_FIXEDFILEINFO *pvsf);
 extern BOOL RunProgram(CString strFileName, CString strArg);
 extern void StatusText(UINT nPane, CString strMsg);
 extern void StatusText(UINT nPane, UINT nResource);
-extern char* MAKESTRING(UINT nID);
 extern BOOL GetMacAddress(BOOL bShowMsg = FALSE);
 extern CString FormatString(const char* format, ...);
 extern void AddSecurityLog(long nCompany, long nType, long nStaffNo, 
@@ -214,41 +179,19 @@ extern int CheckSum(void *buffer, int nLen);
 extern CString RemoveZero(long nData);
 extern CString RemoveZero(CString strData);
 
-
-extern CStringArray m_saBranchName;
-extern 	CEncProfile encProfile;
-BOOL CreateShortcut(const CString Target, const CString LinkFileName);
-extern CMkDatabase *m_pMkDb;
-extern CMkDatabase *m_pMkDb2;
-extern char m_szLogPath[512];
 extern BOOL IsBrokenHangul(CString &strText);
-extern CString GetPDATypeString(int nType);
 extern CString GetHddId();
-extern inline BOOL IsChildVirtualCompany(long nVirtualCompany, long nCompany);
-extern inline BOOL IsVC(long nVirtualCompany);
 extern inline CBranchInfo* GetCurBranchInfo(BOOL bAllowVirtualCompany = FALSE);
-extern inline CBranchInfo* GetRB(CBranchInfo *pBi);	//real branch info
 extern CString &StringMakeUpper(CString &str);
 extern CString GetDepositTypeStringFromType(int nType);
 extern CString GetDepositAllocateTypeStringFromType(int nType);
-extern CString GetChargeType(long nType);
 extern ST_SMS_INFO GetSMSBalance(long nCompany);
 extern long GetNowBranchCode();
 
-extern int ReadDrivePortsInWin9X (void);
-extern int ReadPhysicalDriveInNT (void);
-extern int ReadIdeDriveAsScsiDriveInNT (void);
-
-extern int  HardDriveCount;
-extern char HardDriveSerialNumber[10][1024];
-
 extern CString GetHostName();
 
-extern CString GetDepositStateString(int nState);
 extern CString GetFixedDepositStateString(int nState);
-extern int GetDepositTypeFromString(CString strType);
 extern int GetNoneCommaNumber(CString strNumber);
-extern CString GetGeneralCountDisplay(long nCount);
 
 extern int GetChargeType(int nStartType, int nDestType);
 extern int GetChargeDongTypeInfo(long nDongID);
@@ -258,7 +201,6 @@ extern BOOL POWER_CHECK(long nPower, CString strPowerName = "", BOOL bDisplayMsg
 extern BOOL ChangeRiderWorkState(long nCompany, long nRNo, BOOL bIntegrated, CString strWorkTitle, CString strWorkMemo, BOOL bWorkStop);
 extern BOOL IsIntegrated(long nCompany = -1);  
 
-extern BOOL FileExistTest(CString strPath);
 extern void SetHanEngMode(HWND hWnd, BOOL bHan);
 
 extern long GetDepositTypeToComboSel(long nDepositType);
@@ -286,15 +228,6 @@ extern void GetOnlyDistance(long nStartPosX, long nStartPosY, long nDestPosX, lo
 extern CString GetCancelReason(long nReason);
 extern BOOL IsExceptionDetailDongUse(CPOIUnit *pDong);
 
-class CLogiUtil;
-extern CLogiUtil *LU;
-class CLogiFunc;
-extern CLogiFunc *LF;
-
-extern CBranchInfo *m_pbiCur;
-extern CURRENT_CODE_INFO m_CurCodeInfo;
-
-
 #ifndef _DEBUG
 extern LONG WINAPI TheCrashHandlerFunction(EXCEPTION_POINTERS * pExPtrs);
 extern LONG WINAPI TheCrashHandlerNormalFunction(EXCEPTION_POINTERS * pExPtrs);
@@ -302,21 +235,10 @@ extern LONG WINAPI TheCrashHandlerNormalFunction(EXCEPTION_POINTERS * pExPtrs);
 
 extern BOOL SendUpdateFile(CMkDatabase &db, CString strLocalPath, CString strServerPath);
 extern CString EnCodeStr(CString ToCode);
-extern CString DeCodeStr(CString ToCode);
-
-extern MAP_LINE_GROUP m_LineGroup;
-
-class CPOIDataNew;
-extern CPOIDataNew m_poiNew;
-
-class CCustomerData;
-extern CCustomerData m_cus;
 
 extern void SetEditText(CEdit *pEdit, CString strText, BOOL bFront); 
 extern BOOL IsCash(long nPayType);
 extern BOOL IsThisCompany(CString strCompanyName, long nCompany = 0, long nShareCode1 = 0);
-extern BOOL IsCustomerHasOrder(long nCNo);
-extern CString GetLicenceTypeFromLong(long nLicenceType);
 extern CString GetDateTimeToString(COleDateTime dtDate,int nType,BOOL bShowDay);
 extern CString GetMyDateString(COleDateTime dt, BOOL bDisplayCentury, BOOL *pbSpecialDate);
 extern CString GetValueByArg(CString& strDataSet, CString strArg);
@@ -371,7 +293,6 @@ extern CString GetMyNumberFadding(CString strNumber, int nLen = 4);
 extern CString GetDay(COleDateTime dt);
 extern BOOL IsCardCheckState(long nState, long nCancelType);
 extern long GetCardRealPay(long nTNo);
-extern CString GetShareAccountType(long nType);
 extern CString ChangeStringFromExcel(VARIANT varValue);
 extern long GetShareLevel(long nShareCode1, long nShareCode2, long nShareCode3, long nShareCode4, long nShareCode5);
 extern CString GetFolderDate(CString strFileName);

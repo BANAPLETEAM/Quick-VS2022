@@ -285,9 +285,7 @@ public:
 	UINT m_nCurView;
 
 public:
-
 	void CheckChargeForRider();
-	void OnOrderInsert();
 	void OnGeneralRecepitRequest();
 	void OnOrderRequest();
 	void SetStatusAccessTime(UINT nTickCount) { m_nStatusAccessTime = nTickCount; }

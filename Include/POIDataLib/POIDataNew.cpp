@@ -309,22 +309,6 @@ void CPOIDataNew::SortPOIVector(POI_VEC &vec)
 	sort(vec.begin(), vec.end(), POIKeyCompare());
 }
 
-
-CString CPOIDataNew::GetModuleFullPath()
-{
-	CString strFullPath;
-	TCHAR szFullPath[MAX_PATH];
-	if(GetModuleFileName(AfxGetInstanceHandle(), szFullPath, _MAX_PATH) > 0)
-	{
-		int nPos;
-		strFullPath = szFullPath;
-		if ((nPos = strFullPath.ReverseFind('\\')) != -1)
-			strFullPath = strFullPath.Mid(0, ++nPos);
-	}
-
-	return strFullPath;
-}
-
 LPWSTR CPOIDataNew::A2U(LPCSTR lpData)
 {
 	m_lpwstr[0] = 0;

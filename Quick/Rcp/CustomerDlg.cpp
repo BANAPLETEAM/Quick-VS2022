@@ -1077,12 +1077,6 @@ void CCustomerDlg::OnBnClickedDelBtn()
 		return;
 	}
 
-	//if(IsCustomerHasOrder(m_nCNo) == TRUE)
-	//{
-	//	MessageBox("접수 내역이 있는 고객을 삭제 하 실수 없습니다", "확인", MB_ICONINFORMATION);
-	//	return;
-	//}
-
 	if(MessageBox("해당 고객을 정말 삭제하시겠습니까?\r\n종속된 모든 번호가 삭제됩니다", 
 		"확인", MB_YESNO | MB_ICONINFORMATION) == IDYES)
 	{

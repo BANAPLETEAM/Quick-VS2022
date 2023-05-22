@@ -620,8 +620,6 @@ void COptionDlgPersonalInfo::OnInitialUpdate()
 
 	m_edtBizNo.SetEditMask("000-00-00000", LITERAL_BIZ_NO_NUMBER);
 	m_edtBizNo.SetPromptChar(' ');
-	//m_edtOwnerSSN.SetEditMask("000000-0000000", LITERAL_SSN_NUMBER);
-	//m_edtOwnerSSN.SetPromptChar(' ');
 	m_edtHomeZipCode.SetEditMask("000-000", LITERAL_ZIP_CODE_NUMBER);
 	m_edtHomeZipCode.SetPromptChar(' ');
  	m_edtCompanyZipCode.SetEditMask("000-000", LITERAL_ZIP_CODE_NUMBER);

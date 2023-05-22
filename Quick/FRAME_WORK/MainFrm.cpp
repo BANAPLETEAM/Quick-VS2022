@@ -91,7 +91,6 @@
 #include "OrderChangeRequestDlg.h"
 
 #include "..\Include\voip\WalkieTalkieDlg.h"
-#include "OrderInsertDlg.h"
 #include "OtherRiderTransferDlg.h"
 #include "CaptureUpload.h"
 
@@ -248,7 +247,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_FUNCTION_TABLE, &CMainFrame::OnFunctionTable)
 	ON_COMMAND(ID_REMAKE_CUSTOMER_DATA, &CMainFrame::OnRemakeCustomerData)
 	ON_COMMAND(ID_ORDER_REQUEST, OnOrderRequest)
-	ON_COMMAND(ID_ORDER_INSERT, OnOrderInsert)	
 	ON_COMMAND(ID_GENERAL_RECEPIT_REQUEST, OnGeneralRecepitRequest)	
 	ON_MESSAGE(WM_RECV_CID, OnRecvCid)
 	ON_COMMAND(ID_OTHER_RIDER_INCOME, OnOtherRiderIncome)
@@ -2402,18 +2400,6 @@ void CMainFrame::OnOtherRiderIncome()
 		return;
 
 	CREATE_AND_SHOW_MODALESS(COtherRiderTransferDlg, this);
-}
-
-void CMainFrame::OnOrderInsert()
-{
-	//if(m_ci.m_nCompanyCode != 10 && m_ci.m_nCompanyCode != 7400)
-	//{
-	//	MessageBox("준비중입니다", "확인", MB_ICONINFORMATION);
-	//	return;
-	//}
-
-	CREATE_MODALESS(COrderInsertDlg, this);
-	SHOW_MODALESS(COrderInsertDlg, this);
 }
 
 void CMainFrame::OnGeneralRecepitRequest()

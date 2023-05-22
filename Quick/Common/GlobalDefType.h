@@ -54,23 +54,63 @@ enum {ST_PHONE	= 0, ST_ID = 1, ST_COMPANY = 2, ST_COMPANY_MID = 3, ST_CNO = 4,
 	ST_WORD_RANGE1 = 5, ST_WORD_RANGE2  = 6, ST_WORD_RANGE3  = 7, ST_TEAM_NO = 8, ST_GROUP_NO = 9,
 	ST_DATE_RANGE	= 10, ST_PHONE_RANGE = 11, ST_NAME_DEPART = 12, ST_AUTO_DETECT  = 13};
 
+enum {
+	TEL_TYPE_GENERAL = 0,
+	TEL_TYPE_MAIN = 1,
+	TEL_TYPE_PHONE1 = 2,
+	TEL_TYPE_PHONE2 = 3,
+	TEL_TYPE_SMS = 4
+};
+
+enum {
+	STATE_INTERNET = 2,
+	STATE_SITE = 3,
+	STATE_CARRY = 5,
+	STATE_WAIT = 8,
+	STATE_RESERVED = 9,
+	STATE_OK = 10,
+	STATE_OK_ONLY_MAN = 11,
+	STATE_ALLOCATED = 30,
+	STATE_PICKUP = 31,
+	STATE_FINISH = 35,
+	STATE_CANCELED = 40,
+	STATE_RECALL = 50,
+	STATE_RIDER_CALL = 51,
+	STATE_INQUIRY = 60,
+	STATE_NOTICE = 70
+};
+
+enum { MINUS_ONE = -1, ZERO = 0, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN };
+enum { LINE_RECV_MODE = 0, LINE_PAUSE_MODE, LINE_UNUSE_MODE, LINE_WORKING_MODE };
+enum { UNMUTE_MODE = 0, MUTE_MODE, MUTE_HANGUP_MODE };
+enum { UNANSWER_RECPLAY_MODE = 0, ANSWER_RECPLAY_MODE, ANSWER_RECPLAY_HANG_MODE };
+enum { UNBLINDTRANSFER_MODE = 0, BLINDTRANSFER_MODE, BLINDTRANSFER_HANGUP_MODE };
+enum { PH_ANSWER = 0, PH_HANG_UP, PH_RING, PH_CALLBELL, PH_TRANSFER, PH_OUT_BOUND_CALL, PH_ARS_ANSWER };
+
+#define OFFICE_OK_ONLY_MAN 2
+#define OFFICE_ALLOCATED 16
+#define OFFICE_PICKUP 64
+#define OFFICE_FINISH 128
+#define RIDER_OK_ONLY_MAN 3
+
+#define SECTION_MILEAGE 100000
+#define COUNT_MILEAGE 200000
+#define MAX_REGION_SELECT_COUNT 5
+
+#define ON_COMMAND_RANGE_SINGLE(x, y)  ON_COMMAND_RANGE(x, x, y)
+
+
 #define LITERAL_CARD_NUMBER		"    -    -    -    "
-#define LITERAL_SSN_NUMBER		"      -       "
 #define LITERAL_BIZ_NO_NUMBER	"   -  -     "
 #define LITERAL_ZIP_CODE_NUMBER "   -   "
 #define	PST_NICE_REQUSET_OK  388	//카드 승인
 #define	PST_NICE_REQUSET_CANCEL  389	//승인 취소
 #define PST_NICE_REQUSET_PROTOCOL 392 //카드결제 이메일재발송, 현금영수증 관련
-enum { RESEND_EMAIL = 1, RECEPT_ISSUE = 2};
-#define SMS_TYPE_CUSTOMER 100
-//#define SMS_TYPE_HURRY 101  // 정산에서 사용하는 아이디 
-#define SMS_TYPE_HURRY 104  // 101 -> 104 변경
 #define SMS_TYPE_ALLOCATE 102
 #define SMS_TYPE_TEST 103
 #define SMS_TYPE_BULK 999
 
 #define WM_CHANGE_POI			(WM_USER + 500)
-#define WM_CHANGE_VIA			(WM_USER + 501)
 #define WM_CHANGE_BRANCH_CODE	WM_USER + 8001
 #define WM_REFRESH_RIDER_POS	WM_USER + 8002
 #define WM_REFRESH_DELAY_ORDER	WM_USER + 8003
@@ -78,25 +118,19 @@ enum { RESEND_EMAIL = 1, RECEPT_ISSUE = 2};
 
 #define WM_CLOSE_RCPDLG			WM_USER + 101
 #define WM_REFRESH_LIST			WM_USER + 102
-#define WM_PRlong_INVOICE		WM_USER + 103
-#define WM_MOVE_CLIENT			WM_USER + 104
 #define WM_RECV_CID				(WM_USER + 200)
 #define WM_RESERVE_ORDER		WM_USER + 201
 #define WM_FIRST_REFRESH		WM_USER + 686
 #define WM_SELECT_POI_ON_MAP	WM_USER + 687
-#define WM_DIALOG_MODE			WM_USER + 688
 #define WM_SAVE_RCP_LIST		WM_USER + 689
 #define WM_LOAD_RCP_LIST		WM_USER + 690
 #define WM_SAVE_CTI_LIST		WM_USER + 691
 #define WM_LOAD_CTI_LIST		WM_USER + 692
 
 
-#define WM_REFRESH_LIST			WM_USER + 102
 #define	WM_CLOSE_RIDER_DLG		WM_USER + 678
 #define WM_RIDER_ALLOCATE		WM_USER + 679
 #define WM_ALLOCATE_BOARD_DYN_CLOSE WM_USER + 990
-#define WM_ADD_LOGI_CHARGE		WM_USER + 1001
-
 
 #define WM_SEND_EMOTICON		WM_USER + 2000
 #define WM_CHANGE_MENT	WM_USER + 8002
@@ -118,37 +152,22 @@ enum { RESEND_EMAIL = 1, RECEPT_ISSUE = 2};
 #define FIRSTBRANCH(longegrated, company)	(longegrated ? company - company % 10: company) 
 #define LASTBRANCH(longegrated, company)		(longegrated ? company + 9 : company)
 
-#define MAX_DISPLAY_ROW		5000
 #define MINPAY_BOUND		300
 
-#define BILL_NOTICE		"[BILL]"
 #define MAKE_IDENTITY(x, y)	((x << 16) + y)
-#define MAKE_DEPOSIT_KEY(company, deposit)	company * 500000 + deposit
-#define RIDER_ADD_FORM 0
-#define RIDER_ALLOCATE_LIMIT_FORM 1
-#define RIDER_DETAIL_FORM 2
-#define RIDER_DEPOSIT_INFO_FORM 3
-#define INDOOR_ADD_FROM 4
-#define INDOOR_DEPOSIT_INFO_FROM 5
 
 #define MONTHLY_DEPOSIT_TYPE 20
 #define WEEKLY_DEPOSIT_TYPE 30
-#define DAILY_DEPOSIT_TYPE 40
-#define PERCENTAGE_DEPOSIT_TYPE 50
 
 #define MY_MAX_DEPOSIT 25
-#define OTHER_MAX_DEPOSIT 25
 
 #define MAX_REPORT_COUNT 100
-#define ONE_DAY_TO_TEN_MINUTE 144 // 하루를 10분 단위로 ;;;
 
 #define NICE_CARD_WAIT 14
 #define NICE_CARD_COMPLETE 114
-#define NICE_CARD_CANCEL 214
 
 #define NICE_CARD_WAIT_QUICKCALL 15
 #define NICE_CARD_COMPLETE_QUICKCALL 115
-#define NICE_CARD_CANCEL_QUICKCALL 215
 
 #define MAX_MMS_IMAGE_COUNT 3
 
@@ -159,16 +178,9 @@ enum { RESEND_EMAIL = 1, RECEPT_ISSUE = 2};
 
 //extern CQLog mkLog;
 #define LL_STATE	0
-#define LL_CLIENTS	1
-#define LL_longERR	0
-#define LL_longWARN	3
 #define LL_DEBUG	5
-#define LL_longINFO	9
-#define LL_ALL		10
 
 #define DEFINE_SMS_AMOUNT 17
-//Macros for sticking in the current file name
-//#define LOG(s)	(__FILE__ " : " s)
 #define LOG(s)  (s)
 #define BASE_HOUR	0
 
@@ -540,30 +552,6 @@ typedef struct {
 	BOOL bRcpIntMode1;
 
 } ST_SHARE_COMPANY_INFO;
-
-typedef struct {
-	long nCompany;
-	long nSameDong;
-	long nSameGu;
-	long nSameSiDiffGu;
-	long nDiffGu2;
-	long nDiffGu;
-	long nDiffSi;
-	long nDiffGuAddKm;
-	long nDiffGuAddAmount;
-	long nDiffGuSubKm;
-	long nDiffGuSubAmount;
-	long nDiffSiAddKm;
-	long nDiffSiAddAmount;
-	long nDiffSiSubKm;
-	long nDiffSiSubAmount;
-	long nDbSearch;
-
-	BOOL bInitCharge;
-
-	CString sDiffGuVariable;
-	CString sDiffSiVariable;
-} ST_CHARGE2007_INFO;
 
 typedef struct{
 	long nCompany;
@@ -1821,7 +1809,6 @@ typedef map<long, ST_MEMBER_CHARGE_CNO*> MAP_MEMBER_CHARGE_CNO;
 typedef map<long, ST_CHARGE_TYPE_NAME_INFO> MAP_CHARGE_TYPE_NAME;
 typedef map<long, ST_SHARE_COMPANY_INFO> MAP_SHARED_COMPANY;
 typedef map<long, long> MAP_CHILD_COMPANY;
-typedef map<long, ST_CHARGE2007_INFO> MAP_CHARGE2007;
 typedef map<pair<UINT, UINT>, UINT> MAP_DEPOSIT_RATE;
 typedef map<pair<long, long>, ST_ALLOC_RIDER> MAP_ALLOC_RIDER;
 typedef map<long, long> MAP_INTERCALL_CUSTOMER;

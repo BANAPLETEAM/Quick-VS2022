@@ -5112,7 +5112,7 @@ BOOL CRcpDlg::IsOrderAfterChangeDetail(long &nFinalDeposit, CString &sEtc)
 
 	if(::CCompleteAfterEditDlg::IsDifferentPayType(m_stPreInfo.nPayType, stCur.nPayType) == FALSE)
 	{
-		if(CCompleteAfterEditDlg::IsCash(m_stPreInfo.nPayType))//현금->신용
+		if(::IsCash(m_stPreInfo.nPayType))//현금->신용
 		{
 			sEtc += "[입금방식변경 현->외 " + ::GetMyNumberFormat(stCur.nChargeSum + stCur.nChargeTrans) + "] ";
 			nFinalDeposit += stCur.nChargeSum + stCur.nChargeTrans;
@@ -5125,7 +5125,7 @@ BOOL CRcpDlg::IsOrderAfterChangeDetail(long &nFinalDeposit, CString &sEtc)
 	}
 	else
 	{
-		if(!CCompleteAfterEditDlg::IsCash(m_stPreInfo.nPayType))//신용->신용
+		if(!::IsCash(m_stPreInfo.nPayType))//신용->신용
 		{
 			if(m_stPreInfo.nChargeSum != stCur.nChargeSum ||
 				m_stPreInfo.nChargeTrans != stCur.nChargeTrans)

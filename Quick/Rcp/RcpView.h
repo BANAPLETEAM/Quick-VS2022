@@ -133,7 +133,6 @@ public:
 	afx_msg LONG OnRecvCid(WPARAM wParam, LPARAM lParam);
 	afx_msg LONG OnReserveOrder(WPARAM wParam, LPARAM lParam);
 	afx_msg LONG OnRefreshList(WPARAM wParam, LPARAM lParam);
-	afx_msg LONG OnAddLogiCharge(WPARAM wParam, LPARAM lParam);
 	afx_msg int OnMouseActivate(CWnd* pDesktopWnd, UINT nHitTest, UINT message);
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 
@@ -322,8 +321,7 @@ public:
 	afx_msg void OnBnClickedShareOrder();
 	afx_msg void OnBnClickedCopyOrder();
 	afx_msg void OnBnClickedAddOrder();
-	afx_msg void OnBnClickedTransInfo();	
-	afx_msg void OnBnClickedNoMemberPWD();		
+	afx_msg void OnBnClickedTransInfo();			
 	afx_msg void OnReportItemSelChanged(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);

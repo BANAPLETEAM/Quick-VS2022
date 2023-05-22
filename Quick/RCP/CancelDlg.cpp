@@ -178,17 +178,11 @@ void CCancelDlg::OnBnClickedOk()
 			CRiderSMSDlg dlg;
 			dlg.m_nCompany = m_nOrderCompany;
 			dlg.m_strRiderPN = strPhone;
-			//dlg.m_strRecvPN = encProfile.GetString("sms", "callback", "");
-			//dlg.m_strRecvPN = strOfficePhone;
-			
-
 			dlg.m_strMsg.Format("[콜취소] %s->%s (사유:%s)", 
 					strStart, strDest, strCancel);
 
 			if(IDOK == dlg.DoModal())
 			{
-				//encProfile.WriteString("sms", "callback", dlg.m_strRecvPN);
-
 				dlg.m_strRecvPhone = GetNoneDashNumber(dlg.m_strRecvPhone);
 				dlg.m_strRiderPN = GetNoneDashNumber(dlg.m_strRiderPN);
 

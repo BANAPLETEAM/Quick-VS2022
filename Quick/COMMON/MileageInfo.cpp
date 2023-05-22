@@ -5,8 +5,6 @@
 #define  NO_MILEAGE_PERSON 10
 #define  MILEAGE_PERSON_PERSENT 1
 #define  MILEAGE_PERSON_AMOUNT 2
-#define SECTION_MILEAGE 100000
-#define COUNT_MILEAGE 200000
 
 CMileageInfo::CMileageInfo(void)
 {
@@ -196,7 +194,7 @@ long CMileageInfo::GetMileageVal(long nCompany, int nUiCarType, int nPersonMilea
 		else if(m_mi.GetMileData(nCompany)->nMileageSettingCount == SECTION_MILEAGE ||
 			m_mi.GetMileData(nCompany)->nMileageSettingCount == COUNT_MILEAGE)  // ±¸°£´ç
 		{
-			int nCarType = GetCarTypeForCharge(nUiCarType);
+			int nCarType = ::GetCarTypeForCharge(nUiCarType);
 			long nTermCount = m_mi.GetMileData(nCompany)->nTermCount[nCarType];
 			long nStartAmount, nDestAmount;
 			for(int i = 0; i < nTermCount; i++)
@@ -230,38 +228,6 @@ long CMileageInfo::GetMileageVal(long nCompany, int nUiCarType, int nPersonMilea
 
 	return nMileageValue;
 }
-
-
-long CMileageInfo::GetCarTypeForCharge(long nCarType)
-{
-	long nChargeCarType = 0;
-
-	switch(nCarType)
-	{
-	case CAR_AUTO:
-	case CAR_BIGBIKE:
-		nChargeCarType = 0;
-		break;
-	case CAR_DAMA:
-	case CAR_LABO:
-		nChargeCarType = 1;
-		break;
-	case CAR_VAN:
-		nChargeCarType = 2;
-		break;
-	case CAR_TRUCK:
-		nChargeCarType = 3;
-		break;
-	default:
-		break;
-	}
-
-	return nChargeCarType;
-	
-}
-
-
-
 
 BOOL CMileageInfo::IsBranchUseMile(long nCompany, int nMilegeType)
 {

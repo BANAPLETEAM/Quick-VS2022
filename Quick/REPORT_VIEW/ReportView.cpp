@@ -20,8 +20,6 @@
 #include "ReportForm52.h"
 #include "NotHasPowerForm.h"
 
-#define IDC_TABCONTROL 100
-
 // CReportView
 
 IMPLEMENT_DYNCREATE(CReportView, CView)

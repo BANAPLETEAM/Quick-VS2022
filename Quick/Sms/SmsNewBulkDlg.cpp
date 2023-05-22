@@ -13,8 +13,6 @@
 
 // CSmsNewBulkDlg 대화 상자입니다.
 
-#define IDC_TABCONTROL 100
-
 IMPLEMENT_DYNAMIC(CSmsNewBulkDlg, CSmsBaseDlg)
 
 CSmsNewBulkDlg::CSmsNewBulkDlg(CWnd* pParent /*=NULL*/)

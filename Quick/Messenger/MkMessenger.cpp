@@ -16,7 +16,6 @@
 #include "LogiUtil.h"
 
 #pragma comment(lib, "winmm.lib")
-#define MAKE_IDENTITY(x, y)	((x << 16) + y)
 #define MAX_BUFFER_SEND	30000
 
 char *MSG_CONNECTED	=	"메신저 온라인";

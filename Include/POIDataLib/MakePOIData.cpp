@@ -550,21 +550,6 @@ void CMakePOIData::MakeBoundaryInfo(BOOL bFromFile)
 	}
 }
 
-CString CMakePOIData::GetModuleFullPath()
-{
-	CString strFullPath;
-	TCHAR szFullPath[MAX_PATH];
-	if (GetModuleFileName(AfxGetInstanceHandle(), szFullPath, _MAX_PATH) > 0)
-	{
-		int nPos;
-		strFullPath = szFullPath;
-		if ((nPos = strFullPath.ReverseFind('\\')) != -1)
-			strFullPath = strFullPath.Mid(0, ++nPos);
-	}
-
-	return strFullPath;
-}
-
 BOOL CMakePOIData::StringDateToDate(CString strDate, COleDateTime &dtFileTime)
 {
 	if(strDate.GetLength() > 0)

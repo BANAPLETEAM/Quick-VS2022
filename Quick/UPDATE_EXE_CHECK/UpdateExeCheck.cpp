@@ -56,7 +56,7 @@ CString CUpdateExeCheck::GetUpdateExeVersion(CString exe)
 	CString fileName = GetUpdateExeName(exe);
 	VS_FIXEDFILEINFO pvsf;
 
-	if (GetFileVersion((LPSTR)(LPCTSTR)fileName, &pvsf))
+	if (::GetFileVersion((LPSTR)(LPCTSTR)fileName, &pvsf))
 	{
 		CString strVersion;
 		strVersion.Format("%d.%d%d",
@@ -68,24 +68,4 @@ CString CUpdateExeCheck::GetUpdateExeVersion(CString exe)
 	}
 
 	return "0.0";
-}
-
-BOOL CUpdateExeCheck::GetFileVersion(char* filename, VS_FIXEDFILEINFO* pvsf)
-{
-	DWORD dwHandle;
-	DWORD cchver = GetFileVersionInfoSize(filename, &dwHandle);
-	if (cchver == 0)
-		return FALSE;
-	char* pver = new char[cchver];
-	BOOL bret = GetFileVersionInfo(filename, dwHandle, cchver, pver);
-	if (!bret)
-		return FALSE;
-	UINT uLen;
-	void* pbuf;
-	bret = VerQueryValue(pver, "\\", &pbuf, &uLen);
-	if (!bret)
-		return FALSE;
-	memcpy(pvsf, pbuf, sizeof(VS_FIXEDFILEINFO));
-	delete[] pver;
-	return TRUE;
 }

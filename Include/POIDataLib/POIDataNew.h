@@ -38,7 +38,6 @@ public:
 	CPOIUnit* m_pPOICenterDefault;
 	DWORD* m_pDongCache;
 
-	static CString GetModuleFullPath();
 	static LPWSTR A2U(LPCSTR lpData);
 	static void A2U2(LPCSTR lpData, LPWSTR lpOut, int nBufferLen);
 	static LPSTR U2A(LPWSTR lpData);

@@ -48,7 +48,7 @@ void CSetPoiDlg::OnBnClickedClearPoiBtn()
 
 void CSetPoiDlg::OnBnClickedClearNewAddressBtn()
 {
-	CString strName = CPOIDataNew::GetModuleFullPath() + "RDATA.txt";
+	CString strName = ::GetModuleFullPath() + "RDATA.txt";
 	DeleteFile(strName);
 
 	if(m_poiNew.IsDataLoadOK())

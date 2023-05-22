@@ -27,7 +27,6 @@ public:
 
 	static BOOL IsDifferentPayType(long nPrePayType, long nPayType);
 	static BOOL IsDifferentState(long nPreState, long nState);
-	static BOOL IsCash(long nPayType);
 
 	CString GetLeftDate(COleDateTime dtDate);
 	CString GetRequestState(long nRequestState);

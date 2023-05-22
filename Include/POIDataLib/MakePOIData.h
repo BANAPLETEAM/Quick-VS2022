@@ -29,7 +29,6 @@ public:
 	CString GetRegionFileName(CString strFileName = "");
 	void MakeBoundaryInfo(BOOL bFromFile = FALSE);
 	BOOL CheckPOIVersion();
-	CString GetModuleFullPath();
 	BOOL StringDateToDate(CString strDate, COleDateTime &dtFileTime);
 	CString DateToStringDate(COleDateTime dtFileTime);
 	void FillDaeriDong(map<long, long> *pMap);

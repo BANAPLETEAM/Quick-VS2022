@@ -351,8 +351,8 @@ CString CSearchRegionHolidayDlg::ConvertStringToSendData(CByteArray *msg)
 
 BOOL CSearchRegionHolidayDlg::ParseXml(char *sz)
 {
-	CString s = UTF8ToANSI(sz);
-	#define GET_ELEMENT_TEXT(x, y) UTF8ToANSI(x->FirstChildElement(y)->GetText());
+	CString s = ::UTF8ToANSI(sz);
+	#define GET_ELEMENT_TEXT(x, y) ::UTF8ToANSI(x->FirstChildElement(y)->GetText());
 
 	if(!sz)
 		return FALSE;
@@ -405,26 +405,6 @@ BOOL CSearchRegionHolidayDlg::ParseXml(char *sz)
 
 	return TRUE;
 }
-
-char* CSearchRegionHolidayDlg::UTF8ToANSI(const char *pszCode)
-{
-	BSTR    bstrWide;
-	char*   pszAnsi;
-	int     nLength;
-
-	nLength = MultiByteToWideChar(CP_UTF8, 0, pszCode, lstrlen(pszCode) + 1, NULL, NULL);
-	bstrWide = SysAllocStringLen(NULL, nLength);
-
-	MultiByteToWideChar(CP_UTF8, 0, pszCode, lstrlen(pszCode) + 1, bstrWide, nLength);
-
-	nLength = WideCharToMultiByte(CP_ACP, 0, bstrWide, -1, NULL, 0, NULL, NULL);
-	pszAnsi = new char[nLength];
-
-	WideCharToMultiByte(CP_ACP, 0, bstrWide, -1, pszAnsi, nLength, NULL, NULL);
-	SysFreeString(bstrWide);
-
-	return pszAnsi;
-} 
 
 void CSearchRegionHolidayDlg::OnEnChangeDetailEdit()
 {

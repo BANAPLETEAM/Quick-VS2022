@@ -536,7 +536,6 @@
     <ClCompile Include="Common\MentDlg.cpp" />
     <ClCompile Include="COMMON\MileageInfo.cpp" />
     <ClCompile Include="Common\MkLock.cpp" />
-    <ClCompile Include="Common\MmsImageView.cpp" />
     <ClCompile Include="COMMON\MoveOrderLogDlg.cpp" />
     <ClCompile Include="Common\MyDialog.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_64|Win32'">Use</PrecompiledHeader>
@@ -545,7 +544,6 @@
     </ClCompile>
     <ClCompile Include="Common\MyResizeDialog.cpp" />
     <ClCompile Include="COMMON\NotHasPowerForm.cpp" />
-    <ClCompile Include="COMMON\OrderInsertDlg.cpp" />
     <ClCompile Include="COMMON\PPDrawManager.cpp" />
     <ClCompile Include="COMMON\PPHtmlDrawer.cpp" />
     <ClCompile Include="COMMON\PPTooltip.cpp" />
@@ -561,7 +559,6 @@
     <ClCompile Include="COMMON\VarietyDlg1.cpp" />
     <ClCompile Include="COMMON\VarietyDlg2.cpp" />
     <ClCompile Include="COMMON\VarietyDlg3.cpp" />
-    <ClCompile Include="COMMON\WebIDPWDDlg.cpp" />
     <ClCompile Include="Common\WindowMagnetic.cpp" />
     <ClCompile Include="COMMON\Wql.cpp" />
     <ClCompile Include="CONTROL\BCMenu.cpp" />
@@ -1020,7 +1017,6 @@
     <ClCompile Include="SHARE_REPORT_RATE\ShareTranferRequestDlg.cpp" />
     <ClCompile Include="SHARE_REPORT_RATE\ShareTransferCancelDlg.cpp" />
     <ClCompile Include="SHARE_REPORT_RATE\ShareTransferRequestDetailDlg.cpp" />
-    <ClCompile Include="SMS\AddMmsImageDlg.cpp" />
     <ClCompile Include="SMS\EmoticonDlg.cpp" />
     <ClCompile Include="SMS\SmsDlg.cpp" />
     <ClCompile Include="SMS\SMSEditCtrl.cpp" />
@@ -1410,13 +1406,11 @@
     <ClInclude Include="Common\MentDlg.h" />
     <ClInclude Include="COMMON\MileageInfo.h" />
     <ClInclude Include="Common\MkLock.h" />
-    <ClInclude Include="Common\MmsImageView.h" />
     <ClInclude Include="COMMON\MoveOrderLogDlg.h" />
     <ClInclude Include="Common\MyDialog.h" />
     <ClInclude Include="Common\MyDialogDef.h" />
     <ClInclude Include="Common\MyResizeDialog.h" />
     <ClInclude Include="COMMON\NotHasPowerForm.h" />
-    <ClInclude Include="COMMON\OrderInsertDlg.h" />
     <ClInclude Include="COMMON\PPDrawManager.h" />
     <ClInclude Include="COMMON\PPHtmlDrawer.h" />
     <ClInclude Include="COMMON\PPTooltip.h" />
@@ -1433,7 +1427,6 @@
     <ClInclude Include="COMMON\VarietyDlg1.h" />
     <ClInclude Include="COMMON\VarietyDlg2.h" />
     <ClInclude Include="COMMON\VarietyDlg3.h" />
-    <ClInclude Include="COMMON\WebIDPWDDlg.h" />
     <ClInclude Include="Common\WindowMagnetic.h" />
     <ClInclude Include="COMMON\Wql.h" />
     <ClInclude Include="CONTROL\BCMenu.h" />
@@ -1902,7 +1895,6 @@
     <ClInclude Include="SHARE_REPORT_RATE\ShareTranferRequestDlg.h" />
     <ClInclude Include="SHARE_REPORT_RATE\ShareTransferCancelDlg.h" />
     <ClInclude Include="SHARE_REPORT_RATE\ShareTransferRequestDetailDlg.h" />
-    <ClInclude Include="SMS\AddMmsImageDlg.h" />
     <ClInclude Include="SMS\EmoticonDlg.h" />
     <ClInclude Include="SMS\SmsDlg.h" />
     <ClInclude Include="SMS\SMSEditCtrl.h" />

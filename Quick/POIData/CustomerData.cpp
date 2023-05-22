@@ -52,11 +52,6 @@ CCustomerData::~CCustomerData(void)
 
 void CCustomerData::SetMainCusData()
 {
-	//m_cuslog.SetLevel(LL_ALL);
-	//m_cuslog.SetFile(GetModuleFullPath() + "CusLog.TXT", true);
-	//m_cuslog.SetMode(LU->IsDebugMode() ? (CBanaLog::ToFile | CBanaLog::ToConsole) : CBanaLog::ToFile);
-	//m_cuslog.Print("\n\n\n------------CCustomerData::Start-------------\n\n\n");
-
 	m_bIsSecondCusData = FALSE;
 
 	if(!m_pcusNew)

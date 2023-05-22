@@ -66,18 +66,6 @@ public:
 		return "A등급";
 	}
 
-	inline CString GetGrade(long nGrade)
-	{
-		if(nGrade == 0)
-			return "보통";
-		if(nGrade == 1)
-			return "우수";
-		if(nGrade == 2)
-			return "최우수";
-		if(nGrade == 3)
-			return "불량";
-		return "보통";
-	}
 
 	inline CString GetDiscountType(long nDiscount)
 	{

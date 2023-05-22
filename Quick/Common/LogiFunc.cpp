@@ -69,14 +69,6 @@ CString CLogiFunc::GetMyNumberFormat(long nNumber)
 	return GetMyNumberFormat(strNumber);
 }
 
-
-
-int CLogiFunc::GetNoneCommaNumber(CString strNumber)
-{
-	strNumber.Remove(',');
-	return atol(strNumber);
-}
-
 BOOL CLogiFunc::IsStringDigit(CString &strText)
 {
 	for(int i = 0; i < strText.GetLength() ; i++) 
@@ -99,37 +91,6 @@ CString CLogiFunc::GetNoneDashNumber(CString strPhoneNumber)
 	strPhoneNumber.Remove('-');
 	return strPhoneNumber;
 }
-
-long CLogiFunc::GetCommaCount(CString sCommaString)
-{
-	long nCount=0, index=0;
-	CStringW sCommaStringW(sCommaString);
-
-	while(1) 
-	{
-		index = sCommaStringW.Find(CStringW(","), index + 1);
-
-		if(index == -1) break;
-
-		nCount++;
-	}
-
-	return nCount;
-}
-
-CString& CLogiFunc::StringMakeUpper(CString &str)
-{
-	char *p = (char*)str.GetBuffer();
-	for(int i = 0; i < str.GetLength(); i++)
-	{
-		if(p[i] >= 'a' && p[i] <= 'z')
-		{
-			p[i] = p[i] - 32; 
-		}
-	}
-	return str;
-}
-
 
 void CLogiFunc::FillBackground(CDC *pDC, CWnd *pWnd, COLORREF clrTop, COLORREF clrBottom)
 {

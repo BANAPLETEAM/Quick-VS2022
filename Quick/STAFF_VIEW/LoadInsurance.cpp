@@ -7,8 +7,8 @@
 
 #define LOAD_INSRUANCE_URL "www.wingbody.kr"
 
-#define GET_ELEMENT_TEXT(x, y) UTF8ToANSI(x->FirstChildElement(y)->GetText());
-#define GET_ELEMENT_INT(x, y) atoi(UTF8ToANSI(x->FirstChildElement(y)->GetText()));
+#define GET_ELEMENT_TEXT(x, y) ::UTF8ToANSI(x->FirstChildElement(y)->GetText());
+#define GET_ELEMENT_INT(x, y) atoi(::UTF8ToANSI(x->FirstChildElement(y)->GetText()));
 
 CLoadInsurance::CLoadInsurance(long nType, CLoadInsuranceData *st, CString strEtc)
 {
@@ -222,27 +222,6 @@ void CLoadInsurance::UTF8Conv(LPCTSTR lpsz)
 	// Do something with utf8
 	//...
 }
-
-char* CLoadInsurance::UTF8ToANSI(const char *pszCode)
-{
-	BSTR    bstrWide;
-	char*   pszAnsi;
-	int     nLength;
-
-	nLength = MultiByteToWideChar(CP_UTF8, 0, pszCode, lstrlen(pszCode) + 1, NULL, NULL);
-	bstrWide = SysAllocStringLen(NULL, nLength);
-
-	MultiByteToWideChar(CP_UTF8, 0, pszCode, lstrlen(pszCode) + 1, bstrWide, nLength);
-
-	nLength = WideCharToMultiByte(CP_ACP, 0, bstrWide, -1, NULL, 0, NULL, NULL);
-	pszAnsi = new char[nLength];
-
-	WideCharToMultiByte(CP_ACP, 0, bstrWide, -1, pszAnsi, nLength, NULL, NULL);
-	SysFreeString(bstrWide);
-
-	return pszAnsi;
-} 
-
 
 CString CLoadInsurance::GetInsCarTypeString(long nCarType)
 {

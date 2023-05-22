@@ -12,8 +12,6 @@
 #include "RiderMsgDlg.h"
 #include "AllocateBoardDlg.h"
 
-#define IDC_TABCONTROL 100
-
 IMPLEMENT_DYNAMIC(CRiderMapDlg, CMyDialog)
 
 CRiderMapDlg::CRiderMapDlg(CWnd* pParent /*=NULL*/)

@@ -21,7 +21,6 @@ public:
 	
 	CString GetUpdateExeName(CString exe);
 	CString GetUpdateExeVersion(CString exe);
-	BOOL GetFileVersion(char* filename, VS_FIXEDFILEINFO* pvsf);
 
 	void Start();
 };

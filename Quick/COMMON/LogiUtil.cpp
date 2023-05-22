@@ -48,7 +48,6 @@
 #include "RoadAddress.h"
 #include "TransInfoDlg.h"
 #include "RiderBoardDlg.h"
-#include "WebIDPWDDlg.h"
 #include "ChargeForRiderLogDlg.h"
 #include "afxinet.h"
 #include "CSmtp.h"
@@ -114,7 +113,6 @@ CLogiUtil::CLogiUtil(void)
 	m_dtCur = COleDateTime::GetCurrentTime();
 	m_pConsignLinkDlg		= NULL;
 	m_pTransInfoDlg			= NULL;
-	m_pWebIDPWDDlg			= NULL;
 	for(int i = 0; i < 5; i++)
 		m_pMakeGroupReportNewDlg[i] = NULL;
 
@@ -2489,34 +2487,6 @@ void CLogiUtil::OpenTranDlg(long nTNo, long nCompany)
 	m_pTransInfoDlg->ShowWindow(SW_SHOW);
 
 }
-
-
-void CLogiUtil::NoMemberPWDDlg(long nTNo,long nCNo, long nCompany)
-{
-	if(m_pTransInfoDlg == NULL)
-	{
-		m_pWebIDPWDDlg = new CWebIDPWDDlg((CWnd*)m_pFrameWnd);
-		m_pWebIDPWDDlg->Create(IDD_NOMEMBER_DLG, m_pFrameWnd);		
-		m_pWebIDPWDDlg->SetForegroundWindow();
-		m_pWebIDPWDDlg->CenterWindow();
-	}
-	
-	
-	if(nTNo <= 0  ) return;
-	if(nCompany <= 0) return;
-	
-	m_pWebIDPWDDlg->UpdateData(TRUE);
-	m_pWebIDPWDDlg->Clear();
-	m_pWebIDPWDDlg->m_nTNo = nTNo;
-	m_pWebIDPWDDlg->m_nCompany = nCompany;	
-	m_pWebIDPWDDlg->m_nCNo = nCNo;
-	m_pWebIDPWDDlg->GetOrderData(nTNo, nCompany);
-	m_pWebIDPWDDlg->UpdateData(FALSE);
-	m_pWebIDPWDDlg->ShowWindow(SW_SHOW);
-
-}
-
-
 
 CConsignLinkDlg* CLogiUtil::OpenConsignLinkDlg(long nTNo,long nCompany, CRcpPlaceInfo *pStartPlaceInfo, 
 								   CRcpPlaceInfo *pDestPlaceInfo, long nConsignTNo,long nTerminalWayID,

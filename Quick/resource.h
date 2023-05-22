@@ -640,7 +640,6 @@
 #define IDD_SEARCH_REGION_DLG           964
 #define IDD_CARD_VERIFY_DLG             965
 #define IDD_CARD_PAY_LOG_DLG            967
-#define IDD_ORDER_INSERT_DLG            970
 #define IDD_SEND_TAX_EMAIL_DLG          975
 #define IDD_SHARE_PROG_DLG              978
 #define IDD_CID_SELECT_DLG              979
@@ -799,8 +798,6 @@
 #define IDC_DISCOUNT_EDT                1020
 #define IDC_IC_BANNER_EDIT              1020
 #define IDC_BILL_TOTAL_CHARGE_EDIT      1020
-#define IDD_DIALOG61                    1020
-#define IDD_ADD_MMS_IMAGE_DLG           1020
 #define IDC_TRUCK_WEATHER_ADD_EDIT      1020
 #define IDC_RIDER_COMPANY_NAME_EDIT     1020
 #define IDC_EDIT_CNO                    1021
@@ -6956,7 +6953,6 @@
 #define ID_33735                        33735
 #define ID_REFRESH_STATE                33736
 #define ID_33737                        33737
-#define ID_ORDER_INSERT                 33738
 #define ID_33739                        33739
 #define ID_33740                        33740
 #define ID_MAKE_REPORT                  33741
@@ -7113,7 +7109,6 @@
 #define ID_33895                        33895
 #define ID_LOG                          33896
 #define ID_33897                        33897
-#define ID_NO_MEMBER_PWD                33898
 #define ID_33899                        33899
 #define ID_33900                        33900
 #define ID_33901                        33901

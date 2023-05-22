@@ -312,13 +312,6 @@ void CCompleteAfterEditDlg::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /
 	}
 }
 
-BOOL CCompleteAfterEditDlg::IsCash(long nPayType)
-{	
-	if((nPayType == 0) || (nPayType == 1) || (nPayType == 4))
-		return TRUE;
-	else
-		return FALSE;
-}
 void CCompleteAfterEditDlg::OnSize(UINT nType, int cx, int cy)
 {
 	CMyDialog::OnSize(nType, cx, cy);

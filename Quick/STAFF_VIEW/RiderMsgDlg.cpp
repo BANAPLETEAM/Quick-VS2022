@@ -838,12 +838,6 @@ BOOL CRiderMsgDlg::SendRiderSMS(int nItem)
 	UpdateData(TRUE);
 	CString strEtc;
 
-	//if(nItem == 0)
-	//{
-	//	MessageBox("SMS 전직원전송은 아직 지원하지 않습니다.", "확인", MB_ICONINFORMATION);
-	//	return FALSE;
-	//}
-
 	long nCompany = (long)m_lstRider.GetItemData(nItem);
 	long nRNo = atol(m_lstRider.GetItemText(nItem, 0));
 	//CString strPhone = m_lstRider.GetItemText(nItem, m_bIntegrated ? 4 : 3);
@@ -857,9 +851,6 @@ BOOL CRiderMsgDlg::SendRiderSMS(int nItem)
 	CRiderSMSDlg dlg;
 	dlg.m_nCompany = nCompany;
 	dlg.m_strRiderPN = strPhone;
-	//dlg.m_strRecvPN = m_ci.m_strOfficePhone;
-	//encProfile.GetString("sms", "callback", "");
-
 	dlg.m_strMsg = m_strMsg;
 	if(IDOK == dlg.DoModal())
 	{
@@ -874,23 +865,6 @@ BOOL CRiderMsgDlg::SendRiderSMS(int nItem)
 			return FALSE;
 		}
 
-	/*
-
-		CMkCommand pCmd(m_pMkDb, "insert_sms_data2");
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCompany);
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), 555);
-		pCmd.AddParameter(typeString, typeInput, dlg.m_strRiderPN.GetLength(), dlg.m_strRiderPN);
-		pCmd.AddParameter(typeString, typeInput, dlg.m_strRecvPN.GetLength(), dlg.m_strRecvPN);
-		pCmd.AddParameter(typeString, typeInput, dlg.m_strMsg.GetLength(), dlg.m_strMsg);
-		pCmd.AddParameter(typeString, typeInput, strEtc.GetLength(), strEtc);
-		if(!pCmd.Execute()) 
-		{
-			MessageBox("SMS 전송 실패", "전송실패", MB_ICONINFORMATION);
-			return FALSE;
-		}
-
-		*/
-
 		return TRUE;
 	}
 
@@ -900,20 +874,6 @@ BOOL CRiderMsgDlg::SendRiderSMS(int nItem)
 
 void CRiderMsgDlg::OnTimer(UINT nIDEvent)
 {
-	/*int nItem = m_lstRider.GetNextItem(-1, LVNI_SELECTED);
-
-	if(nItem >= 0) {
-	long nCompany = (long)m_lstRider.GetItemData(nItem);
-	long nRNo = atol(m_lstRider.GetItemText(nItem, 0));
-
-	if(nRNo == 0) nRNo = 0xFFFF;
-
-	RefreshHistory(nCompany, nRNo);
-	OnEnChangeMsgEdit();
-	}
-
-	KillTimer(nIDEvent);*/
-
 	CMyDialog::OnTimer(nIDEvent);
 }
 
@@ -923,55 +883,13 @@ void CRiderMsgDlg::RefreshSelectCount()
 	int nItem = -1, nCount = 0;
 	CString strCount;
 	BOOL bAll = FALSE;
-
-	/*while((nItem = m_lstRider.GetNextItem(nItem, LVNI_SELECTED)) >= 0)
-	{
-		if((nItem == 0) && (m_lstRider.GetItemText(nItem, 1) == "전체그룹")) {
-			bAll = TRUE;
-			break;
-		}
-		nCount++;		
-	}*/
-
-	//nItem = m_lstRider.GetNextItem(nItem, LVNI_SELECTED);
 	nItem = m_lstRider.GetSelectedItem();//GetNextItem(nItem, LVNI_SELECTED);
-	//if(nItem == 0 && m_lstRider.GetSe)
-
 	if(nItem == 0)
 		bAll = TRUE;
 
 	strCount.Format("전송대상 기사 %d분", bAll ? m_lstRider.GetRows()->GetCount() - 1 : m_lstRider.GetSelectedRows()->GetCount());
 	m_stcSelectCount.SetWindowText(strCount);
 }
-
-//void CRiderMsgDlg::OnLvnDeleteallitemsHistoryList(NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-//
-//	for(int i = 0; i < m_lstHistory.GetItemCount(); i++)
-//	{
-//		CString *pstrMsg = (CString*)m_lstHistory.GetItemData(i);
-//		delete pstrMsg;
-//	}
-//
-//	*pResult = 0;
-//}
-
-
-
-//void CRiderMsgDlg::OnNMClickHistoryList(NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//
-//	int nItem = m_lstHistory.GetNextItem(-1, LVNI_SELECTED);
-//	
-//	if(nItem >= 0) {
-//		CString *pstrMsg = (CString*)m_lstHistory.GetItemData(nItem);
-//		m_edtMsg.SetWindowText(*pstrMsg);
-//		OnEnChangeMsgEdit();
-//	}
-//
-//	*pResult = 0;
-//}
 
 void CRiderMsgDlg::OnBnClickedDeleteSelBtn()
 {

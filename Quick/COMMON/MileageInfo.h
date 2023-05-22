@@ -29,7 +29,7 @@ public:
 	~CMileageInfo(void);
 private:
 	MILEAGE_INFORMATION_MAP m_MileageMap;
-	long GetCarTypeForCharge(long nCarType);
+
 public:
 	void FillData();	
 	void Clear();

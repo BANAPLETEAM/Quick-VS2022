@@ -395,7 +395,6 @@ BEGIN_MESSAGE_MAP(CRcpView, CRcpViewBase)
 	ON_MESSAGE(WM_RECV_CID, OnRecvCid)
 	ON_MESSAGE(WM_RESERVE_ORDER, OnReserveOrder)
 	ON_MESSAGE(WM_REFRESH_LIST, OnRefreshList)
-	ON_MESSAGE(WM_ADD_LOGI_CHARGE, OnAddLogiCharge)
 
 	ON_MESSAGE(WM_SAVE_RCP_LIST, OnSaveRcpList)
 	ON_MESSAGE(WM_LOAD_RCP_LIST, OnLoadRcpList)
@@ -418,7 +417,6 @@ BEGIN_MESSAGE_MAP(CRcpView, CRcpViewBase)
 	ON_BN_CLICKED(ID_COPY_ORDER, OnBnClickedCopyOrder)
 	ON_BN_CLICKED(ID_ADD_ORDER, OnBnClickedAddOrder)
 	ON_BN_CLICKED(ID_TRANS_INFO, OnBnClickedTransInfo)
-	ON_BN_CLICKED(ID_NO_MEMBER_PWD, OnBnClickedNoMemberPWD)
 	
 	ON_BN_CLICKED(ID_ORDER_MOVE, OnMoveOrder)
 	ON_BN_CLICKED(ID_OTHER_ALLOCATE, OnOtherAllocate)
@@ -962,36 +960,6 @@ LONG CRcpView::OnReserveOrder(WPARAM wParam, LPARAM lParam)
 	CreateRcpDlg(pBi, *pstrName, m_nLastSelItemNo, STATE_INTERNET);	
 
 	delete pstrName;
-	return 0;
-}
-
-LONG CRcpView::OnAddLogiCharge(WPARAM wParam, LPARAM lParam)
-{
-	long nCharge = (long)wParam;
-	long nTNo = (long)lParam;
-
-	CMkCommand cmd(m_pMkDb, "update_logi_charge_1");
-	cmd.AddParameter(0);
-	cmd.AddParameter(m_ui.nCompany);
-	cmd.AddParameter(m_ui.nWNo);
-	cmd.AddParameter(m_ui.strName);
-	cmd.AddParameter(nCharge);
-	cmd.AddParameter(nTNo);
-	cmd.AddParameter("사용자수정");
-	CMkParameter *parError = cmd.AddParameter(typeString, typeOutput, 100, "");
-
-	if(!cmd.Execute())
-		return 0;
-
-	CString strError; parError->GetValue(strError);
-
-	if(!strError.IsEmpty())
-	{
-		MessageBox(strError, "확인", MB_ICONINFORMATION);
-	}
-
-	RefreshList();
-
 	return 0;
 }
 
@@ -5193,27 +5161,6 @@ void CRcpView::OnBnClickedTransInfo()
 	LU->OpenTranDlg(nTNo, nCompany);
 
 }
-void CRcpView::OnBnClickedNoMemberPWD()
-{
-	CMkLock lock(&m_csOrder);
-
-	int nSelItem = m_xList.GetSelectedItem();
-
-	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
-		return;
-	}
-
-	long nTNo = GetItemTNo(nSelItem);
-	long nCompany = GetItemCompany(nSelItem);
-	long nCNo = GetItemCNo(nSelItem);
-
-	//LU->OpenTranDlg(nTNo, nCompany);
-	LU->NoMemberPWDDlg(nTNo,nCNo, nCompany);
-
-
-}
-
 
 void CRcpView::OnBnClickedCopyOrder()
 {
@@ -6572,18 +6519,12 @@ void CRcpView::SendSms(long nCompany, CString sPhone, bool bAllocate)
 	dlg.m_strCustomerPN = sPhone;
 	dlg.m_strRiderPN = strRiderPhone;
 	dlg.m_strCustomerPN = dlg.m_strCustomerPN.GetLength() > 0 ? GetNoneDashNumber(dlg.m_strCustomerPN) : "";
-	//dlg.m_strRecvPN = m_ci.m_strOfficePhone;
-	//dlg.m_strRecvPN = m_ci.m_strPhone;
 	dlg.m_nCompany = nCompany; //GetCurBranchInfo()->nCompanyCode;//m_ci.m_nCompanyCode;
 	dlg.m_nContent = bAllocate ? 2 : 0; //  2번 = 배차관련, 0번 = 임의 고객에 메세지전송
-	//dlg.m_strRecvPN = encProfile.GetString("sms", "callback", "");
-	//dlg.m_strMsg = 
 
 	if(IDOK == dlg.DoModal())
 	{
 		CString strEtc;
-		//encProfile.WriteString("sms", "callback", dlg.m_strRecvPN);
-
 		dlg.m_strRecvPhone = GetNoneDashNumber(dlg.m_strRecvPhone);
 		dlg.m_strCustomerPN = GetNoneDashNumber(dlg.m_strCustomerPN);
 

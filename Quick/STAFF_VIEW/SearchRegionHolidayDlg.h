@@ -51,7 +51,6 @@ public:
 	CString ConvertStringToSendData(CByteArray *msg);
 
 	BOOL ParseXml(char *sz);
-	char* UTF8ToANSI(const char *pszCode);
 	CEdit m_edtAddress;
 	CEdit m_edtDetail;
 

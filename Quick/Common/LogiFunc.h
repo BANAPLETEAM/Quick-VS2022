@@ -16,15 +16,10 @@ public:
 	
 	CString	GetMyNumberFormat(CString strNumber);
 	CString	GetMyNumberFormat(long nNumber);
-	CString	GetDashPhoneNumber(CString strPhoneNumber, BOOL bMasked = FALSE);
 	CString	GetNoneDashNumber(CString strPhoneNumber);
 	BOOL IsStringDigit(CString &strText);
 	BOOL IsPhoneNumber(CString &strText);
-	int	GetNoneCommaNumber(CString strNumber);
 	CString GetModuleFullPath();
-	CString GetMyFileName();
-	long GetCommaCount(CString sCommaString);
-	CString &StringMakeUpper(CString &str);
 	void FillBackground(CDC *pDC, CWnd *pWnd, 
 		COLORREF clrTop = COLOR_DEFAULT_TOP_WND, 
 		COLORREF clrBottom = COLOR_DEFAULT_DOWN_WND);

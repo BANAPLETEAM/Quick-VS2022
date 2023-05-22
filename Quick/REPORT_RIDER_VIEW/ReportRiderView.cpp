@@ -19,8 +19,6 @@
 #include "NotHasPowerForm.h"
 //#include "XTPTabControl.h"
 
-#define IDC_TABCONTROL 100
-
 // CReportRiderView
 
 IMPLEMENT_DYNCREATE(CReportRiderView, CView)

@@ -5,7 +5,6 @@
 #include "resource.h"
 #include "SmsBaseDlg.h"
 #include "SmsMentInsertDlg.h"
-#include "AddMmsImageDlg.h"
 #include "ReportMultilinePaintManager.h"
 #include "EmoticonDlg.h"
 #include "MainFrm.h"
@@ -514,34 +513,6 @@ void CSmsBaseDlg::OnBnClickedAddFileBtn()
 {
 	MessageBox("MMS전송은 준비중입니다", "확인", MB_ICONINFORMATION);
 	return;
-
-	CAddMmsImageDlg dlg;
-
-	dlg.m_nAddImageCount = m_nMMSImageCount;
-
-	for(int i=0; i<m_nMMSImageCount; i++)
-	{
-		dlg.m_strImage[i] = m_strImage[i];
-		dlg.m_nImageSize[i] = m_nImageSize[i];
-	}
-
-	if(dlg.DoModal() == IDOK)
-	{
-		m_nMMSImageCount = dlg.m_nAddImageCount;
-
-		for(int i=0; i<m_nMMSImageCount; i++) 
-		{
-			m_strImage[i] = dlg.m_strImage[i]; 
-			m_nImageSize[i] = dlg.m_nImageSize[i];
-		}
-
-		DisplayByte();
-
-		for(int i=0;i<dlg.m_strDeleteFileArry.GetSize(); i++)
-			m_strDeleteFileArry.Add(dlg.m_strDeleteFileArry.GetAt(i));
-
-	}
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
 void CSmsBaseDlg::OnDelete()

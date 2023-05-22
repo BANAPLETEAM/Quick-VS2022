@@ -1207,10 +1207,6 @@ BOOL CStaffForm14::GetRSData(CMkRecordset *pRs, ST_RIDER_INFO *info, long nIndex
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->bAdminTable == FALSE && info->dtOut.m_status != 2 ? info->dtOut.Format("%Y-%m-%d") : "");
 	m_lstReport.SetItemText(nIndex, nSubItem++, (info->strSSN1.IsEmpty() && info->strSSN2.IsEmpty()) ? "" : info->strSSN1 + "-" + info->strSSN2);
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strInnerMemo);
-
-	//CString strLicence;
-	//strLicence.Format("%s/%s", GetLicenceTypeFromLong(info->nLicenceType), info->strLicenceNo);
-	//m_lstReport.SetItemText(nIndex, nSubItem++, strLicence.GetLength() < 2 ? "" : strLicence);
 	m_lstReport.SetItemText(nIndex, nSubItem++, strWorkStop);
 
 	long nAllocGroup = max(info->nAllocGroup, 0);

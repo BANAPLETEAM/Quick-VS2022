@@ -30,7 +30,6 @@ void CCIDSelectDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CCIDSelectDlg, CMyDialog)
 	ON_EN_CHANGE(IDC_SEARCH_EDT, OnEnChangeSearchEdt)
-	//ON_MESSAGE(WM_CHANGE_BRANCH_CODE, OnChangeBrachCode)
 END_MESSAGE_MAP()
 
 

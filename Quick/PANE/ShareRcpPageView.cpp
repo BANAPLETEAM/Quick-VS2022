@@ -33,7 +33,6 @@ BEGIN_MESSAGE_MAP(CShareRcpPageView, CMyFormView)
 	ON_CBN_SELCHANGE(IDC_XTPLISTCTRL_COMBO, OnCbnSelchangeXtplistctrlCombo)
 END_MESSAGE_MAP()
 
-#define IDC_TABCONTROL 100
 // CShareRcpPageView 진단입니다.
 
 #ifdef _DEBUG

@@ -440,18 +440,12 @@ void CCorporationDlg2::OnMenuClickedCopyBtn()
 
 void CCorporationDlg2::DoResize1(int delta)
 {
-
 	CSplitterControl::ChangeWidth(&m_GroupList, delta);
-	//CSplitterControl::ChangeWidth(&m_stcOption, delta);
-
-	
 	CSplitterControl::ChangeWidth(&m_wndTabControl, -delta, CW_RIGHTALIGN);
-		//GetDlgItem(IDC_TABCONTROL);
 	CSplitterControl::ChangeWidth(&m_stcOption, -delta, CW_RIGHTALIGN);
 
 	Invalidate();
 	UpdateWindow();
-
 }
 
 LRESULT CCorporationDlg2::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
