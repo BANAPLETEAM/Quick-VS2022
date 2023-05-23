@@ -124,16 +124,16 @@ void CShareRcpSubPageDlg::InsertData(OrderRecord *record)
 	m_lstReport.InsertItem(nCount, m_ci.GetName(record->nCompany));
 	m_lstReport.SetItemText(nCount, 1, itoa(record->nTNo, buffer, 10));
 	m_lstReport.SetItemText(nCount, 2, record->dtRcp.Format("%m-%d %H:%M"));
-	m_lstReport.SetItemText(nCount, 3, ::GetStateString(record->nState));
+	m_lstReport.SetItemText(nCount, 3, LF->GetStateString(record->nState));
 	m_lstReport.SetItemText(nCount, 4, m_bTake == TRUE ? record->strCName.c_str() : "N/A");
 	m_lstReport.SetItemText(nCount, 5, record->strStart.c_str());
 	m_lstReport.SetItemText(nCount, 6, record->strDest.c_str());
-	m_lstReport.SetItemText(nCount, 7, ::GetMyNumberFormat(record->nCharge));
-	m_lstReport.SetItemText(nCount, 8, ::GetMyNumberFormat(record->nChargeTrans));
+	m_lstReport.SetItemText(nCount, 7, LF->GetMyNumberFormat(record->nCharge));
+	m_lstReport.SetItemText(nCount, 8, LF->GetMyNumberFormat(record->nChargeTrans));
 	m_lstReport.SetItemText(nCount, 9, record->dt3.Format("%H:%M:%S")); 
 	m_lstReport.SetItemText(nCount, 10, record->dtFinal.Format("%H:%M:%S"));
-	m_lstReport.SetItemText(nCount, 11, ::GetCarTypeFromLong(record->nCarType, TRUE));
-	m_lstReport.SetItemText(nCount, 12, ::GetPayTypeFromLong(record->nPayType, TRUE));
+	m_lstReport.SetItemText(nCount, 11, LF->GetCarTypeFromLong(record->nCarType, TRUE));
+	m_lstReport.SetItemText(nCount, 12, LF->GetPayTypeFromLong(record->nPayType, TRUE));
 	m_lstReport.SetItemText(nCount, 13, m_ci.GetName(record->nRiderCompany));
 	m_lstReport.SetItemText(nCount, 14, itoa(record->nRNo, buffer, 10));
 	m_lstReport.SetItemText(nCount, 15, record->strRName.c_str());
@@ -169,26 +169,26 @@ CString CShareRcpSubPageDlg::GetFooterData()
 		case 0:
 		case 1:
 			nCashCount++;
-			nCashCharge += GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 7));
+			nCashCharge += LF->GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 7));
 			break;
 		case 2:
 			nCreditCount++;
-			nCreditCharge += GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 7));
+			nCreditCharge += LF->GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 7));
 			break;
 		case 3:
 			nOnlineCount++;
-			nOnlineCharge += GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 7));
+			nOnlineCharge += LF->GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 7));
 			break;
 		}
 
-		if(GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 8)) > 0)
+		if(LF->GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 8)) > 0)
 		{
 			nTransCount++;
-			nTransCharge += GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 8));
+			nTransCharge += LF->GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 8));
 		}
 
 		nAllCountReal++;
-		nAllChargeReal += GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 7));
+		nAllChargeReal += LF->GetNoneCommaNumber(m_lstReport.GetItemText(pRecord, 7));
 
 	}      
 

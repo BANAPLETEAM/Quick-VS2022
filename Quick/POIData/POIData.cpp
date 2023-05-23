@@ -2140,7 +2140,7 @@ CString CPOIData::MakeGugunName(CString strGugun1, CString strGugun2)
 
 void CPOIData::ReplacePeseudoWord(CString &strWord)
 {
-	StringMakeUpper(strWord);
+	LF->StringMakeUpper(strWord);
 
 	int nPos = strWord.Find(">", 0);
 	if(nPos > 0) strWord = strWord.Left(nPos);

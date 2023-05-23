@@ -127,7 +127,7 @@ BOOL CAllocateDlg::OnInitDialog()
 void CAllocateDlg::InsertListData()
 {
 	if(m_rm.size() == 0)
-		FillVaildRiderData();
+		LF->FillVaildRiderData();
 
 	char buffer[10];
 
@@ -211,7 +211,7 @@ void CAllocateDlg::OnBnClickedAllocateBtn()
 			pInfo->nCompany = nCompany;
 			pInfo->nRNo = nRNo;
 			pInfo->strName = sRName;
-			pInfo->strPhone = ::GetRiderPhone(pInfo->nCompany, pInfo->nRNo);
+			pInfo->strPhone = LF->GetRiderPhone(pInfo->nCompany, pInfo->nRNo);
 
 			BOOL bInsert = ((CButton*)GetDlgItem(IDC_ORDER_INSERT_CHECK))->GetCheck();
 			m_pParent->SendMessage(WM_GET_ALLOCATE_RIDER, (WPARAM)pInfo, (LPARAM)bInsert);
@@ -265,17 +265,17 @@ void CAllocateDlg::RefreshList(long nAdminCode)
 		pRs.GetFieldValue("nEarnningPer", nEarnningPer);
 		pRs.GetFieldValue("nState", nState);
 		
-		m_List.InsertItem(cnt, ltoa(nRNo, buffer, 10), GetImageNumber(nState)); 
+		m_List.InsertItem(cnt, ltoa(nRNo, buffer, 10), LF->GetImageNumber(nState)); 
 		m_List.SetItemText(cnt, 1, strStart);
 		m_List.SetItemText(cnt, 2, strDest);
 		m_List.SetItemText(cnt, 3, dtFirst.Format("%H:%M:%S"));
 		m_List.SetItemText(cnt, 4, dtLast.Format("%H:%M:%S"));
 		m_List.SetItemText(cnt, 5, bDoc ? "¿Õº¹" : "");
 		m_List.SetItemText(cnt, 6, strRName);
-		m_List.SetItemText(cnt, 7, GetDashPhoneNumber(strTel));
+		m_List.SetItemText(cnt, 7, LF->GetDashPhoneNumber(strTel));
 		m_List.SetItemText(cnt, 8, ltoa(nCount, buffer, 10));
-		m_List.SetItemText(cnt, 9, GetMyNumberFormat(ltoa(nEarnning, buffer, 10)));
-		m_List.SetItemText(cnt, 10, GetMyNumberFormat(ltoa(nEarnningPer, buffer, 10)));
+		m_List.SetItemText(cnt, 9, LF->GetMyNumberFormat(ltoa(nEarnning, buffer, 10)));
+		m_List.SetItemText(cnt, 10, LF->GetMyNumberFormat(ltoa(nEarnningPer, buffer, 10)));
 
 		pRs.MoveNext();    
 	}
@@ -356,7 +356,7 @@ void CAllocateDlg::OnEnChangeRnoEdit()
 {
 	if(m_rm.size() == 0)
 	{
-		FillVaildRiderData();
+		LF->FillVaildRiderData();
 	}
 
 	int nSynonyNotSearchCheck = AfxGetApp()->GetProfileInt("AllocateDlg", "SynonyNotSearch", 0);

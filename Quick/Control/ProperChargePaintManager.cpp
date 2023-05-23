@@ -127,16 +127,16 @@ void CProperChargePaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* p
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(bHilightCol ? RGB(255, 255, 255) : RGB(0, 0, 0));
 		pDC->SelectObject(m_pfntLarge);
-		pDC->DrawText(::GetStringFromLong(nTotalCount), rcCount, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+		pDC->DrawText(LF->GetStringFromLong(nTotalCount), rcCount, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
 		rcCount.SetRect(rc.left + nCenterLeft + 2, rc.top+2, rc.right - 2, rc.bottom -4);
 		pDC->SelectObject(m_pfntNormal);
-		pDC->DrawText(::GetStringFromLong(nCancelCount), rcCount, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+		pDC->DrawText(LF->GetStringFromLong(nCancelCount), rcCount, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
 		/*
 		rcCount.SetRect(rc.left + nCenterLeft + 2, rc.top, rc.right - 2, rc.bottom - 10);
 		pDC->SelectObject(m_pfntNormal);
-		pDC->DrawText(fc.GetStringFromLong(nCancelCount), rcCount, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+		pDC->DrawText(fc.LF->GetStringFromLong(nCancelCount), rcCount, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 
 		rcCancel = rc;
 		rcCancel.DeflateRect(0, 23, 2, 2);

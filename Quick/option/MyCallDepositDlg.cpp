@@ -161,10 +161,10 @@ void CMyCallDepositDlg::RefreshList()
 			pRs.GetFieldValue("nAmount", nAmount);			
 			
 
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nNum) );
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nStartValue));
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nEndValue ));
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nAmount ));
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nNum) );
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nStartValue));
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nEndValue ));
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nAmount ));
 			m_ChargeList.InsertItemDataLong(nNum);
 			m_ChargeList.InsertItemDataLong2(nCompany);
 			m_ChargeList.EndItem();
@@ -173,7 +173,7 @@ void CMyCallDepositDlg::RefreshList()
 		else
 		{
 			
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nNum) );
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nNum) );
 			m_ChargeList.MyAddItem("");
 			m_ChargeList.MyAddItem("");
 			m_ChargeList.MyAddItem("");
@@ -402,14 +402,14 @@ BOOL CMyCallDepositDlg::ExceptionColumnString(CString sRow , int nCol , CString 
 		long nValue;
 
 		sValue.Replace(",", "");
-		if(!IsStringDigit(sValue))
+		if(!LF->IsStringDigit(sValue))
 		{
 			sExceptionString.Format("%s행 %d열의 %s값이 숫자가 아닙니다.", sRow, nCol, sValue);
 			throw sExceptionString;
 
 		}
 
-		nValue = GetNoneCommaNumber(sValue);
+		nValue = LF->GetNoneCommaNumber(sValue);
 		if(nCol >= 1 && nCol <= 2 && nValue >= 10000000)
 		{
 			throw "시작과 끝구간에 천만원 이상은 오류입니다.";
@@ -452,16 +452,16 @@ BOOL CMyCallDepositDlg::ExceptionRowString(CMyCallRiderRecord *pRecord ,  CStrin
 				return TRUE;
 
 
-			nStartValue = pRecord->GetItemValue(1).GetLength() <= 0 ? 0 :		GetNoneCommaNumber(pRecord->GetItemValue(1));
-			nEndValue = pRecord->GetItemValue(2).GetLength() <= 0 ? 0 :		GetNoneCommaNumber(pRecord->GetItemValue(2));
-			nAmountValue = pRecord->GetItemValue(3).GetLength() <= 0 ? 0 :	GetNoneCommaNumber(pRecord->GetItemValue(3));
+			nStartValue = pRecord->GetItemValue(1).GetLength() <= 0 ? 0 :		LF->GetNoneCommaNumber(pRecord->GetItemValue(1));
+			nEndValue = pRecord->GetItemValue(2).GetLength() <= 0 ? 0 :		LF->GetNoneCommaNumber(pRecord->GetItemValue(2));
+			nAmountValue = pRecord->GetItemValue(3).GetLength() <= 0 ? 0 :	LF->GetNoneCommaNumber(pRecord->GetItemValue(3));
 				
 
 
 			if( (nCol == 1) && (nStartValue > 0 || nEndValue > 0 || nAmountValue > 0 
 						|| nAmountValueA > 0 || nAmountValueB > 0 || nAmountValueC > 0 ) ) 
 			{
-				if(GetNoneCommaNumber(sPreEndValue) >= GetNoneCommaNumber(sValue) )
+				if(LF->GetNoneCommaNumber(sPreEndValue) >= LF->GetNoneCommaNumber(sValue) )
 				{
 					sPreException.Format("%s행 시작 부분이 이전행의 마지막 금액보다  더많아야 합니다.", sRowData );
 					MessageBox(sPreException, "확인", MB_ICONINFORMATION	 );
@@ -587,9 +587,9 @@ BOOL CMyCallDepositDlg::IsTermBlank(CMyCallRiderRecord *pRecord)
 	{
 		long nStartValue = 0, nEndValue = 0, nAmountValue = 0;
 		CMyCallRiderRecord *pChildRecord = (CMyCallRiderRecord *)m_ChargeList.GetRecords()->GetAt(i);
-		nStartValue =		pChildRecord->GetItemValue(1).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pChildRecord->GetItemValue(1));
-		nEndValue =		pChildRecord->GetItemValue(2).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pChildRecord->GetItemValue(2));
-		nAmountValue =	pChildRecord->GetItemValue(3).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pChildRecord->GetItemValue(3));
+		nStartValue =		pChildRecord->GetItemValue(1).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pChildRecord->GetItemValue(1));
+		nEndValue =		pChildRecord->GetItemValue(2).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pChildRecord->GetItemValue(2));
+		nAmountValue =	pChildRecord->GetItemValue(3).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pChildRecord->GetItemValue(3));
 	
 
 		if(nStartValue > 0 || nEndValue > 0 ) // || nAmountValue > 0 )
@@ -608,9 +608,9 @@ BOOL CMyCallDepositDlg::IsTermBlank(CMyCallRiderRecord *pRecord)
 	{
 		long nStartValue = 0, nEndValue = 0, nAmountValue = 0;
 		
-		nStartValue =		pRecord->GetItemValue(1).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pRecord->GetItemValue(1));
-		nEndValue =		pRecord->GetItemValue(2).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pRecord->GetItemValue(2));
-		nAmountValue =	pRecord->GetItemValue(3).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pRecord->GetItemValue(3));
+		nStartValue =		pRecord->GetItemValue(1).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pRecord->GetItemValue(1));
+		nEndValue =		pRecord->GetItemValue(2).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pRecord->GetItemValue(2));
+		nAmountValue =	pRecord->GetItemValue(3).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pRecord->GetItemValue(3));
 
 		if(nStartValue <= 0 && nEndValue <= 0 ) //&& nAmountValue <= 0 )
 		{
@@ -627,9 +627,9 @@ BOOL CMyCallDepositDlg::IsTermBlank(CMyCallRiderRecord *pRecord)
 //
 //	long nStartValue = 0, nEndValue = 0, nAmountValue = 0;
 //
-//	nStartValue =		pRecord->GetItemValue(1).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pRecord->GetItemValue(1));
-//	nEndValue =		pRecord->GetItemValue(2).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pRecord->GetItemValue(2));
-//	nAmountValue = pRecord->GetItemValue(3).GetLength() <= 0 ? 0 : GetNoneCommaNumber(pRecord->GetItemValue(3));
+//	nStartValue =		pRecord->GetItemValue(1).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pRecord->GetItemValue(1));
+//	nEndValue =		pRecord->GetItemValue(2).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pRecord->GetItemValue(2));
+//	nAmountValue = pRecord->GetItemValue(3).GetLength() <= 0 ? 0 : LF->GetNoneCommaNumber(pRecord->GetItemValue(3));
 //
 //	if(nStartValue > 0 || nEndValue > 0) // || nAmountValue > 0)
 //		return TRUE;

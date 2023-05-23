@@ -46,7 +46,7 @@ void COrderPassDlg::OnEnChangeRnoEdit()
 {
 	if(m_rm.size() == 0)
 	{
-		FillVaildRiderData();
+		LF->FillVaildRiderData();
 	}
 
 	BOOL bFirst = TRUE;
@@ -101,7 +101,7 @@ BOOL COrderPassDlg::OnInitDialog()
 void COrderPassDlg::InsertListData()
 {
 	if(m_rm.size() == 0)
-		FillVaildRiderData();
+		LF->FillVaildRiderData();
 
 	char buffer[10];
 

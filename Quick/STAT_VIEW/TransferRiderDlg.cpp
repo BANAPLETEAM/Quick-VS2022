@@ -69,7 +69,7 @@ void CTransferRiderDlg::OnBnClickedTransButton()
 	}
 
 	CString strTemp;
-	strTemp.Format("%d번 %s기사님에게 %s원을 이체요청 하시겠습니까?", m_nRNo, m_strRiderName, ::GetMyNumberFormat(_ttoi(strCharge)));
+	strTemp.Format("%d번 %s기사님에게 %s원을 이체요청 하시겠습니까?", m_nRNo, m_strRiderName, LF->GetMyNumberFormat(_ttoi(strCharge)));
 
 	if(MessageBox(strTemp, "확인", MB_OKCANCEL) != IDOK)
 		return;
@@ -100,7 +100,7 @@ BOOL CTransferRiderDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	MakeModaless();
+	LF->MakeModaless();
 	CenterWindow();
 
 	m_lstReport.InsertColumn(0, "요청날짜", LVCFMT_LEFT, 80);
@@ -161,12 +161,12 @@ void CTransferRiderDlg::RefreshList()
 		m_lstReport.SetItemText(i, 1, strToCompany);
 		m_lstReport.SetItemText(i, 2, sMemo);
 		m_lstReport.SetItemText(i, 3, ReturnType(nState));
-		m_lstReport.SetItemText(i, 4, ::GetMyNumberFormat(nRequestCharge));
+		m_lstReport.SetItemText(i, 4, LF->GetMyNumberFormat(nRequestCharge));
 
 		if(nState == 2 || nState == 4) //정상종료 
 		{
 			m_lstReport.SetItemText(i, 5, dtReceive.Format("%m-%d %H:%M"));
-			m_lstReport.SetItemText(i, 6, ::GetMyNumberFormat(nReceiveCharge));
+			m_lstReport.SetItemText(i, 6, LF->GetMyNumberFormat(nReceiveCharge));
 		}
 		else
 		{

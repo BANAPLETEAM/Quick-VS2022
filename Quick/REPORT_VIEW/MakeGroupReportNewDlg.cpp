@@ -284,12 +284,12 @@ void CMakeGroupReportNewDlg::LoadReport()
 
 	if(dtReportStart.m_status != COleDateTime::valid)
 	{
-		MsgBox("리포트의 시작일이 날자형식에 어긋납니다");
+		LF->MsgBox("리포트의 시작일이 날자형식에 어긋납니다");
 		return;
 	}
 	if(dtReportEnd.m_status != COleDateTime::valid)
 	{
-		MsgBox("리포트의 시작일이 날자형식에 어긋납니다");
+		LF->MsgBox("리포트의 시작일이 날자형식에 어긋납니다");
 		return;
 	}
 
@@ -318,15 +318,15 @@ void CMakeGroupReportNewDlg::LoadReport()
 	m_cmbAddTaxApplyType.SetCurSel(nAddTaxApplyType);
 
 	m_edtReportNo.SetWindowText(strReportID);
-	m_edtCredit.SetWindowText(GetMyNumberFormat(m_nCalculateSum));
-	m_edtDiscount.SetWindowText(GetMyNumberFormat(nDiscount));	
-	m_edtDiscountCharge.SetWindowText(GetMyNumberFormat(nDisCountCharge));	
-	m_edtSubToal.SetWindowText(GetMyNumberFormat(nSubSum));
-	m_edtTransCharge.SetWindowText(GetMyNumberFormat(m_nCalculateTrans));	
-	m_edtBillTotal.SetWindowText(GetMyNumberFormat(nBillTotal));
-	m_edtTax.SetWindowText(GetMyNumberFormat(nTax));
-	m_edtUncollection.SetWindowText(GetMyNumberFormat(nUncollection));
-	m_edtCount.SetWindowText(GetMyNumberFormat(m_nCalculateCount));
+	m_edtCredit.SetWindowText(LF->GetMyNumberFormat(m_nCalculateSum));
+	m_edtDiscount.SetWindowText(LF->GetMyNumberFormat(nDiscount));	
+	m_edtDiscountCharge.SetWindowText(LF->GetMyNumberFormat(nDisCountCharge));	
+	m_edtSubToal.SetWindowText(LF->GetMyNumberFormat(nSubSum));
+	m_edtTransCharge.SetWindowText(LF->GetMyNumberFormat(m_nCalculateTrans));	
+	m_edtBillTotal.SetWindowText(LF->GetMyNumberFormat(nBillTotal));
+	m_edtTax.SetWindowText(LF->GetMyNumberFormat(nTax));
+	m_edtUncollection.SetWindowText(LF->GetMyNumberFormat(nUncollection));
+	m_edtCount.SetWindowText(LF->GetMyNumberFormat(m_nCalculateCount));
 	
 
 	m_cmbReportFirst.SetCurSel(nFirstReportDay);
@@ -335,7 +335,7 @@ void CMakeGroupReportNewDlg::LoadReport()
 
 	m_edtGroupName.SetWindowText(strGroupName);
 	m_edtGroupManager.SetWindowText(strManager);
-	m_edtGroupManagerHP.SetWindowText(GetDashPhoneNumber(strManagerHP));
+	m_edtGroupManagerHP.SetWindowText(LF->GetDashPhoneNumber(strManagerHP));
 	m_edtEmail.SetWindowText(strEmail);
 	m_edtEtc.SetWindowText(strEtc);
 
@@ -362,10 +362,10 @@ void CMakeGroupReportNewDlg::ChangeReport()
 
 	m_edtDiscountCharge.GetWindowText(strDiscountCharge);
 	strDiscountCharge.Replace(",", "");
-	if(!IsNumeric(strDiscountCharge))
+	if(!LF->IsNumeric(strDiscountCharge))
 	{
 		m_edtDiscountCharge.SetWindowText("");
-		MsgBox("할인금액을 숫자로 입력하세요");
+		LF->MsgBox("할인금액을 숫자로 입력하세요");
 		return;
 	}
 
@@ -401,10 +401,10 @@ void CMakeGroupReportNewDlg::ChangeReport()
 
 	
 	
-	m_edtSubToal.SetWindowText(GetMyNumberFormat(nSubSum));	
-	m_edtBillTotal.SetWindowText(GetMyNumberFormat(nBillTotal));
-	m_edtTax.SetWindowText(GetMyNumberFormat(nTax));
-	m_edtUncollection.SetWindowText(GetMyNumberFormat(nUnCollection));
+	m_edtSubToal.SetWindowText(LF->GetMyNumberFormat(nSubSum));	
+	m_edtBillTotal.SetWindowText(LF->GetMyNumberFormat(nBillTotal));
+	m_edtTax.SetWindowText(LF->GetMyNumberFormat(nTax));
+	m_edtUncollection.SetWindowText(LF->GetMyNumberFormat(nUnCollection));
 
 }
 
@@ -476,16 +476,16 @@ void CMakeGroupReportNewDlg::MakeReport()
 		}		
 	}
 
-	m_edtCredit.SetWindowText(GetMyNumberFormat(m_nCalculateSum));
-	m_edtDiscountCharge.SetWindowText(GetMyNumberFormat(nDisCountCharge));	
-	m_edtSubToal.SetWindowText(GetMyNumberFormat(nSubSum));
-	m_edtTransCharge.SetWindowText(GetMyNumberFormat(m_nCalculateTrans));	
-	m_edtBillTotal.SetWindowText(GetMyNumberFormat(nBillTotal));
-	m_edtTax.SetWindowText(GetMyNumberFormat(nTax));
-	m_edtUncollection.SetWindowText(GetMyNumberFormat(nUncollection));
+	m_edtCredit.SetWindowText(LF->GetMyNumberFormat(m_nCalculateSum));
+	m_edtDiscountCharge.SetWindowText(LF->GetMyNumberFormat(nDisCountCharge));	
+	m_edtSubToal.SetWindowText(LF->GetMyNumberFormat(nSubSum));
+	m_edtTransCharge.SetWindowText(LF->GetMyNumberFormat(m_nCalculateTrans));	
+	m_edtBillTotal.SetWindowText(LF->GetMyNumberFormat(nBillTotal));
+	m_edtTax.SetWindowText(LF->GetMyNumberFormat(nTax));
+	m_edtUncollection.SetWindowText(LF->GetMyNumberFormat(nUncollection));
 
-	m_edtCount.SetWindowText(GetMyNumberFormat(m_nCalculateCount));
-	m_edtDiscount.SetWindowText(GetMyNumberFormat(nDisCount));
+	m_edtCount.SetWindowText(LF->GetMyNumberFormat(m_nCalculateCount));
+	m_edtDiscount.SetWindowText(LF->GetMyNumberFormat(nDisCount));
 
 	m_cmbReportFirst.SetCurSel(nFirstReportDay);
 	m_cmbAddTaxApplyType.SetCurSel(nAddTaxApplyType);
@@ -493,7 +493,7 @@ void CMakeGroupReportNewDlg::MakeReport()
 
 	m_edtGroupName.SetWindowText(strGroupName);
 	m_edtGroupManager.SetWindowText(strManager);
-	m_edtGroupManagerHP.SetWindowText(GetDashPhoneNumber(strManagerHP));
+	m_edtGroupManagerHP.SetWindowText(LF->GetDashPhoneNumber(strManagerHP));
 	m_edtEmail.SetWindowText(strEmail);
 	m_edtEtc.SetWindowText(strEtc);
 
@@ -590,16 +590,16 @@ void CMakeGroupReportNewDlg::RefreshList()
 		m_lstReport.SetItemText(i, REPORT_DATE_COLUMN, dtCreate.Format("%Y-%m-%d"));
 		nCol++;
 		m_lstReport.SetItemText(i, nCol++, dtReportStart.Format("%y-%m-%d") + " ~ " + dtReportEnd.Format("%y-%m-%d"));
-		m_lstReport.SetItemText(i, nCol++, ::GetReportState(nReportState));
+		m_lstReport.SetItemText(i, nCol++, LF->GetReportState(nReportState));
 		
-		m_lstReport.SetItemText(i, nCol++, GetMyNumberFormat(nCreditCount));
-		m_lstReport.SetItemText(i, nCol++, GetMyNumberFormat(nCreditCharge));
-		m_lstReport.SetItemText(i, nCol++, GetMyNumberFormat(nDiscountCharge));
-		m_lstReport.SetItemText(i, nCol++, GetMyNumberFormat(nTransCharge));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nCreditCount));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nCreditCharge));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nDiscountCharge));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nTransCharge));
 		
-		m_lstReport.SetItemText(i, nCol++, GetMyNumberFormat(nBillTotalCharge));
-		m_lstReport.SetItemText(i, nCol++, GetMyNumberFormat(nCreditTax));		
-		m_lstReport.SetItemText(i, nCol++, GetMyNumberFormat(nUnCollection));			
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nBillTotalCharge));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nCreditTax));		
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nUnCollection));			
 
 		m_lstReport.SetItemText(i, nCol++, sSendSMS);			
 		m_lstReport.SetItemText(i, nCol++, sSendEmail);			
@@ -687,16 +687,16 @@ void CMakeGroupReportNewDlg::OnBnClickedMakeBtn()
 	if(IsMake() )
 	{
 		if(bWithSend)
-			MsgBox("정산이 생성되었스며 동시발송작업이 완료되었습니다.", "확인", MB_ICONINFORMATION);
+			LF->MsgBox("정산이 생성되었스며 동시발송작업이 완료되었습니다.", "확인", MB_ICONINFORMATION);
 		else
-			MsgBox("정산이 생성되었습니다", "확인", MB_ICONINFORMATION);	
+			LF->MsgBox("정산이 생성되었습니다", "확인", MB_ICONINFORMATION);	
 	}
 	else
 	{
 		if(bWithSend)
-			MsgBox("정산이 수정되었스며 동시발송작업이 완료되었습니다.", "확인", MB_ICONINFORMATION);
+			LF->MsgBox("정산이 수정되었스며 동시발송작업이 완료되었습니다.", "확인", MB_ICONINFORMATION);
 		else
-			MsgBox("정산이 수정되었습니다", "확인", MB_ICONINFORMATION);
+			LF->MsgBox("정산이 수정되었습니다", "확인", MB_ICONINFORMATION);
 	}
 
 	
@@ -715,7 +715,7 @@ BOOL CMakeGroupReportNewDlg::SendKindReportCheckData(int nSendType)
 			strMsg = "핸드폰 번호";
 
 			m_edtGroupManagerHP.GetWindowText(strContent);
-			strContent = GetNoneDashNumber(strContent);
+			strContent = LF->GetNoneDashNumber(strContent);
 			if(strContent.GetLength() <= 9 )
 				throw "전화번호의 길이가 9자 이하입니다.";
 
@@ -738,13 +738,13 @@ BOOL CMakeGroupReportNewDlg::SendKindReportCheckData(int nSendType)
 
 		if(strContent.GetLength() < 5)
 		{
-			MsgBox("담당자의 " + strMsg  +"이(가) 없거나 번호기 길이가 5자이하 입니다");
+			LF->MsgBox("담당자의 " + strMsg  +"이(가) 없거나 번호기 길이가 5자이하 입니다");
 			return FALSE;
 		}
 
 		if(m_ui.strTaxUseEmail.GetLength() <= 0 )
 		{
-			MsgBox("옵션의 기타항목에 세금계산서 관련한 Email을 입력하여주세요");
+			LF->MsgBox("옵션의 기타항목에 세금계산서 관련한 Email을 입력하여주세요");
 			return FALSE;
 		}
 
@@ -754,7 +754,7 @@ BOOL CMakeGroupReportNewDlg::SendKindReportCheckData(int nSendType)
 	catch (char *str)
 	{
 
-		MsgBox(str);
+		LF->MsgBox(str);
 		return FALSE;
 	}
 	
@@ -785,7 +785,7 @@ BOOL CMakeGroupReportNewDlg::SendKindReport(int nSendType,  BOOL bReSend, BOOL n
 		if(!pCmd.Execute()) return FALSE;
 
 		if(!nAutoSend)
-			MsgBox("발송하였습니다");
+			LF->MsgBox("발송하였습니다");
 		int nSuccess = FALSE;
 		pPar->GetValue(nSuccess);
 	}
@@ -812,7 +812,7 @@ void CMakeGroupReportNewDlg::OnBnClickedSendTaxViewBtn()
 {
 	if(IsMake())
 	{
-		MsgBox("정산생성후 보실수 있습니다" );
+		LF->MsgBox("정산생성후 보실수 있습니다" );
 		return;
 	}
 	SendKindReportWeb(1, FALSE);
@@ -904,7 +904,7 @@ BOOL CMakeGroupReportNewDlg::CheckDate(COleDateTime dtFrom, COleDateTime dtTo, B
 		
 		if(sDate.GetLength() <= 0)
 		{
-			MsgBox("정산데이터의 날자가 없습니다");
+			LF->MsgBox("정산데이터의 날자가 없습니다");
 			return FALSE;
 		}
 
@@ -988,7 +988,7 @@ void CMakeGroupReportNewDlg::OnChangeDate()
 	CString sDate = m_lstReport.GetItemText(pRow->GetIndex(), REPORT_DATE_COLUMN+1);
 	if(sDate.GetLength() <= 0)
 	{
-		MsgBox("정산데이터의 날자가 없습니다");
+		LF->MsgBox("정산데이터의 날자가 없습니다");
 		return;
 	}
 	COleDateTime dtFrom(_ttoi("20" + sDate.Left(2)), _ttoi(sDate.Mid(3, 2)), _ttoi(sDate.Mid(6 ,2)), 0, 0, 0);
@@ -1068,7 +1068,7 @@ void CMakeGroupReportNewDlg::OnBnClickedEtcSaveBtn()
 	
 	if(m_nGNo <= 0)
 	{
-		MsgBox("그룹코드가 없습니다 다시시도하세요");
+		LF->MsgBox("그룹코드가 없습니다 다시시도하세요");
 		return;
 	}
 	CString strManager = "", strManagerHP = "", strManagerEmail = "",
@@ -1076,7 +1076,7 @@ void CMakeGroupReportNewDlg::OnBnClickedEtcSaveBtn()
 
 	if(IsMake() && strReportEtc.GetLength() > 0)
 	{
-		MsgBox("정산의 비고는 정산생성시 입력이 됩니다.");
+		LF->MsgBox("정산의 비고는 정산생성시 입력이 됩니다.");
 		
 		
 	}
@@ -1120,7 +1120,7 @@ BOOL CMakeGroupReportNewDlg::IsMake()
 void CMakeGroupReportNewDlg::OnBnClickedTestMailBtn()
 {
 
-	MsgBox("메일을 발송한것이 아니라 메일주소만 변경합니다.\n\r\n\r발송은 발송페이지에서 보냅니다.");
+	LF->MsgBox("메일을 발송한것이 아니라 메일주소만 변경합니다.\n\r\n\r발송은 발송페이지에서 보냅니다.");
 
 	m_edtEmail.SetWindowText(m_ui.strTaxUseEmail);
 	m_chkTestEmail.SetCheck(TRUE);
@@ -1140,7 +1140,7 @@ void CMakeGroupReportNewDlg::OnBnClickedGroupSettingBtn()
 {
 	if(	m_nGNo <= 0 )
 	{
-		MsgBox("그룹관련 정보가 없습니다.");
+		LF->MsgBox("그룹관련 정보가 없습니다.");
 		return;
 	}
 
@@ -1156,7 +1156,7 @@ void CMakeGroupReportNewDlg::OnBnClickedGroupSettingBtn()
 			nDiscount = dlg.m_nDirtyDiscount;
 			
 			nDiscountCharge = int(nCreditCharge * nDiscount * 0.1);			
-			m_edtDiscountCharge.SetWindowText(GetMyNumberFormat(nDiscountCharge));
+			m_edtDiscountCharge.SetWindowText(LF->GetMyNumberFormat(nDiscountCharge));
 
 			ChangeReport();
 			

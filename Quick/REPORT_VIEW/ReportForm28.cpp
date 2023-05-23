@@ -128,8 +128,8 @@ void CReportForm28::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_consign_company_income2");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 	pCmd.AddParameter(m_cmbSortType.GetCurSel());
@@ -181,30 +181,30 @@ void CReportForm28::RefreshList()
 
 		m_wndReport.MyAddItem(i);
 		m_wndReport.MyAddItem(nTNo);
-		m_wndReport.MyAddItem(GetCurBranchInfo(nCompany)->strBranchName);
+		m_wndReport.MyAddItem(LF->GetCurBranchInfo(nCompany)->strBranchName);
 		m_wndReport.MyAddItem(dt1.Format("%Y-%m-%d %H:%M"));
 		m_wndReport.MyAddItem(sConsignCity);
 		m_wndReport.MyAddItem(sName);
 		
 		m_wndReport.MyAddItem(sSName);
 		m_wndReport.MyAddItem(sDName);
-		m_wndReport.MyAddItem(GetCarTypeFromLong(nCarType));
-		m_wndReport.MyAddItem(GetPayTypeFromLong(nPayType));
-		m_wndReport.MyAddItem(GetStateString(nState));
-		m_wndReport.MyAddItem(GetStateString(nBackOrderState));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nChargeBasic));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nChargeAdd));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nChargeDis));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nChargeSum));		
+		m_wndReport.MyAddItem(LF->GetCarTypeFromLong(nCarType));
+		m_wndReport.MyAddItem(LF->GetPayTypeFromLong(nPayType));
+		m_wndReport.MyAddItem(LF->GetStateString(nState));
+		m_wndReport.MyAddItem(LF->GetStateString(nBackOrderState));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeBasic));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeAdd));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeDis));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeSum));		
 
-		m_wndReport.MyAddItem(GetMyNumberFormat(nChargeTrans));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nConsignCommission));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nBackOrderCharge));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nConsignSumCharge));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeTrans));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nConsignCommission));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nBackOrderCharge));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nConsignSumCharge));
 
-		m_wndReport.MyAddItem(GetMyNumberFormat(nBackOrderDeposit));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nConsignRate));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nConsignRateCharge));	
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nBackOrderDeposit));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nConsignRate));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nConsignRateCharge));	
 		m_wndReport.EndItem();
 
 		
@@ -234,16 +234,16 @@ void CReportForm28::RefreshList()
 	m_wndReport.MyAddItem("");
 	m_wndReport.MyAddItem("");	
 	m_wndReport.MyAddItem("");	
-	m_wndReport.MyAddItem(GetMyNumberFormat(nTotChargeTot));
+	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotChargeTot));
 	
-	m_wndReport.MyAddItem(GetMyNumberFormat(nTotChargeTrans));
-	m_wndReport.MyAddItem(GetMyNumberFormat(nTotConsignCommission));
-	m_wndReport.MyAddItem(GetMyNumberFormat(nTotOtherCharge));		
+	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotChargeTrans));
+	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotConsignCommission));
+	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotOtherCharge));		
 
-	m_wndReport.MyAddItem(GetMyNumberFormat(nTotConsignSumCharge));
-	m_wndReport.MyAddItem(GetMyNumberFormat(nTotBackOrderDeposit));
+	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotConsignSumCharge));
+	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotBackOrderDeposit));
 	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem(GetMyNumberFormat(nTotConsignRateCharge));	
+	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotConsignRateCharge));	
 	m_wndReport.EndItem();
 
 	pRs.Close();
@@ -297,10 +297,10 @@ void CReportForm28::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm28::OnViewExcel()
 {
-	if(!POWER_CHECK(4900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(4900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 312, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 312, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }
 
@@ -308,6 +308,6 @@ void CReportForm28::OnViewExcel()
 
 void CReportForm28::OnEnChangeSearchEdit()
 {
-	 m_wndReport.Filter(GetEditString(&m_edtSearch) );		 
+	 m_wndReport.Filter(LF->GetEditString(&m_edtSearch) );		 
 
 }

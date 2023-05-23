@@ -92,8 +92,8 @@ void CDepositRateDlg::RefreshList()
 	while(!pRs.IsEOF()) {
 		pRs.GetFieldValue("nPay", nPay);
 		pRs.GetFieldValue("nDeposit", nDeposit);
-		m_List.InsertItem(nItem, GetMyNumberFormat(nPay));
-		m_List.SetItemText(nItem++, 1, GetMyNumberFormat(nDeposit));
+		m_List.InsertItem(nItem, LF->GetMyNumberFormat(nPay));
+		m_List.SetItemText(nItem++, 1, LF->GetMyNumberFormat(nDeposit));
 		pRs.MoveNext();
 	}
 

@@ -173,7 +173,7 @@ BOOL CWebGroupReportDetailDlg::MakeFile(CString sHtml,CString sFileName)
 	BOOL bFind = findfile.FindFile(sFolder);
 	BOOL bFindFile = FALSE;
 
-	CreateDir("c:\\SmartQ\\±×·ìÁ¤»ê");
+	LF->CreateDir("c:\\SmartQ\\±×·ìÁ¤»ê");
 
 	if(bFind)
 	{
@@ -328,10 +328,10 @@ void CWebGroupReportDetailDlg::OnBnClickedExcelBtn()
 		return;
 	}
 
-	if(!POWER_CHECK(3900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(3900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 315, pRs.GetRecordCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 315, pRs.GetRecordCount());  
 	CMyExcel::ToExcel(&pRs);
 
 	pRs.Close();

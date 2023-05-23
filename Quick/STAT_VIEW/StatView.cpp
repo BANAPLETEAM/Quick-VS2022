@@ -73,35 +73,35 @@ int CStatView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LU->CreateFormViewTabControl(this, &m_wndTabControl);
 
-	if(POWER_CHECK(8010, "금일콜수예측"))
+	if(LF->POWER_CHECK(8010, "금일콜수예측"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatForm2), _T("금일콜수예측"), 0,CStatForm2::IDD);
-	if(POWER_CHECK(8020, "동분석"))
+	if(LF->POWER_CHECK(8020, "동분석"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage7), _T("동분석"), 0, CCustomerPage7::IDD);
-	if(POWER_CHECK(8030, "접수자통계"))
+	if(LF->POWER_CHECK(8030, "접수자통계"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatForm3), _T("접수자통계"), 0,CStatForm3::IDD);
-	if(POWER_CHECK(8040, "접수자통계_콜수"))
+	if(LF->POWER_CHECK(8040, "접수자통계_콜수"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatForm5), _T("접수자통계_콜수"), 0,CStatForm5::IDD);
-	if(POWER_CHECK(8050, "일별건수"))
+	if(LF->POWER_CHECK(8050, "일별건수"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm11), _T("일별건수"), 0,CReportForm11::IDD);
-	if(POWER_CHECK(8060, "지점간정산"))
+	if(LF->POWER_CHECK(8060, "지점간정산"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm5), _T("지점간정산"), 0,CReportForm5::IDD);
-	if(POWER_CHECK(8070, "SMS통계"))
+	if(LF->POWER_CHECK(8070, "SMS통계"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm12), _T("SMS통계보기"), 0,CReportForm12::IDD);
-	if(POWER_CHECK(8080, "공유콜"))
+	if(LF->POWER_CHECK(8080, "공유콜"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm14), _T("공유콜"), 0,CReportForm14::IDD);
-	if(POWER_CHECK(8090, "접수유형비율"))
+	if(LF->POWER_CHECK(8090, "접수유형비율"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatForm9), _T("접수유형비율"), 0,CStatForm9::IDD);
 		//LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm7), _T("접수유형비율"), 0,CReportForm7::IDD);
 	
-	if(POWER_CHECK(8100, "공유콜정산내역"))
+	if(LF->POWER_CHECK(8100, "공유콜정산내역"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatForm6), _T("공유콜정산내역"), 0, CStatForm6::IDD);
-	if(POWER_CHECK(8110, "SMS정산"))
+	if(LF->POWER_CHECK(8110, "SMS정산"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatForm7), _T("SMS정산"), 0, CStatForm7::IDD);
 
-	if(POWER_CHECK(8131, "오픈API"))
+	if(LF->POWER_CHECK(8131, "오픈API"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatForm10), _T("오픈API접수유형"), 0,CStatForm10::IDD);
 
-	if(POWER_CHECK(8200, "신규고객율"))
+	if(LF->POWER_CHECK(8200, "신규고객율"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatChildFormCustomerNew), _T("신규고객율"), 0,CStatChildFormCustomerNew::IDD);
 
 
@@ -113,7 +113,7 @@ int CStatView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	BOOL bIPPBX = pBI->bIPPBXType;
 
-	if(POWER_CHECK(8120, "텔서버라우팅") && bIPPBX)
+	if(LF->POWER_CHECK(8120, "텔서버라우팅") && bIPPBX)
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CStatTelserverRouteLog), _T("텔서버라우팅"), 0, CStatTelserverRouteLog::IDD);
 
 	if(m_wndTabControl.GetItemCount() == 0)
@@ -144,7 +144,7 @@ LONG CStatView::OnBranchClickEvent(UINT nBranch, LPARAM lParam)
 	CXTPTabManagerItem *pItem = m_wndTabControl.GetItem(m_wndTabControl.GetCurSel());
 	CMyFormView *pView = (CMyFormView*)CWnd::FromHandle(pItem->GetHandle());
 
-	if(m_CurCodeInfo[pView] != GetCurBranchInfo())
+	if(m_CurCodeInfo[pView] != LF->GetCurBranchInfo())
 	{
 		pView->FirstRefresh();
 	}

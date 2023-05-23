@@ -106,7 +106,7 @@ void CStaffPage10::OnBnClickedRegisterButton()
 	CShareOrderAllocate3 dlg;
 	dlg.m_nMode = 1;
 	dlg.m_nID = -1;
-	dlg.SetCompany(GetCurBranchInfo()->nCompanyCode);
+	dlg.SetCompany(LF->GetCurBranchInfo()->nCompanyCode);
 	if(dlg.DoModal() == IDOK)
 		RefreshList();
 }
@@ -164,8 +164,8 @@ void CStaffPage10::RefreshList()
 	nTempMNo = nTemplCode = -1;
 	CMkCommand pCmd(m_pMkDb, "select_share_order_my_allocate_list5", FALSE, TRUE);
 	CMkRecordset pRs(m_pMkDb);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 	if(!pRs.Execute(&pCmd))
 		return;
 
@@ -241,8 +241,8 @@ void CStaffPage10::RefreshList()
 
 	CMkCommand pCmd2(m_pMkDb, "select_share_order_other_allocate_list4", FALSE, TRUE);
 	CMkRecordset pRs2(m_pMkDb);
-	pCmd2.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd2.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd2.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd2.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 	if(!pRs2.Execute(&pCmd2))
 		return;
 
@@ -327,9 +327,9 @@ void CStaffPage10::OnBnClickedDeleteButton()
 	int nRNo = atoi(m_OtherList.GetItemText(pRecord,1));
 
 
-	if(GetCurBranchInfo()->bIntegrated == 0)
+	if(LF->GetCurBranchInfo()->bIntegrated == 0)
 	{
-		if(m_ci.GetName(GetCurBranchInfo()->nCompanyCode) != strCompanyName)
+		if(m_ci.GetName(LF->GetCurBranchInfo()->nCompanyCode) != strCompanyName)
 		{
 			MessageBox("°°Àº ¼Ò¼ÓÈ¸»ç¸¸ÀÌ Áö¿ï ¼ö ÀÖ½À´Ï´Ù.", "»èÁ¦È®ÀÎ", MB_ICONINFORMATION);
 			return;
@@ -344,8 +344,8 @@ void CStaffPage10::OnBnClickedDeleteButton()
 	pCmd.AddParameter(m_ui.nCompany);
 	pCmd.AddParameter(m_ui.nWNo);
 	pCmd.AddParameter(m_ui.strName);
-	//pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	//pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	//pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	//pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	if(!pRs.Execute(&pCmd))
 		return;
 
@@ -364,14 +364,14 @@ void CStaffPage10::OnBnClickedModifyButton()
 	long nRecordID = (long)m_OtherList.GetItemData(pRecord);
 	//long nCompany = atol(m_OtherList.GetItemText(pRecord, m_nOtherCompanyCol));
 	long nCompany = m_OtherList.GetItemLong(pRecord);
-	if(nCompany == GetCurBranchInfo()->nCompanyCode || 
-		(IsIntegrated() && IsBranch(nCompany) ) 	)
+	if(nCompany == LF->GetCurBranchInfo()->nCompanyCode || 
+		(LF->IsIntegrated() && LF->IsBranch(nCompany) ) 	)
 	{
 		CShareOrderAllocate3 dlg;
 		dlg.m_nMode = 0;
 		dlg.m_nID = nRecordID;
 		dlg.m_ModifyButtonEnable = TRUE;
-		dlg.SetCompany(GetCurBranchInfo()->nCompanyCode);
+		dlg.SetCompany(LF->GetCurBranchInfo()->nCompanyCode);
 		if(dlg.DoModal() == IDOK)
 			RefreshList();
 	}
@@ -433,19 +433,19 @@ void CStaffPage10::OnNMDblclkMyriderList(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CStaffPage10::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "Á÷¿ø ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(5900, "Á÷¿ø ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 409, m_OtherList.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 409, m_OtherList.GetItemCount());  
 	CMyExcel::ToExcel(&m_OtherList);
 }
 
 void CStaffPage10::OnViewExcel2()
 {
-	if(!POWER_CHECK(5900, "Á÷¿ø ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(5900, "Á÷¿ø ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 409, m_MyList.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 409, m_MyList.GetItemCount());  
 	CMyExcel::ToExcel(&m_MyList);
 }
 

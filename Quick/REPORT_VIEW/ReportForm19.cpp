@@ -183,8 +183,8 @@ void CReportForm19::OnBnClickedOrderSearchBtn()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_mileage_search_order3");	
-	pCmd.AddParameter(GetCurBranchInfo()->nDOrderTable);
-	pCmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);	
 	pCmd.AddParameter(m_cmbOption.GetCurSel());
@@ -217,7 +217,7 @@ void CReportForm19::OnBnClickedOrderSearchBtn()
 		pRs.GetFieldValue("sWName", strWName);
 
 		if(nState >= 30 && nState <= 35 && bOrder)
-			strState = GetStateString(nState);
+			strState = LF->GetStateString(nState);
 		else if(!bOrder && nState > 40)
 		{
 			switch(nState)
@@ -241,9 +241,9 @@ void CReportForm19::OnBnClickedOrderSearchBtn()
 		m_lstData.SetItemText(nItem, nCol++, strStart);
 		m_lstData.SetItemText(nItem, nCol++, strDest);
 		m_lstData.SetItemText(nItem, nCol++, strState);
-		m_lstData.SetItemText(nItem, nCol++, GetMyNumberFormat(nCharge));
-		m_lstData.SetItemText(nItem, nCol++, GetMyNumberFormat(nMileage));
-		m_lstData.SetItemText(nItem, nCol++, GetMyNumberFormat(nMileageBalance));
+		m_lstData.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nCharge));
+		m_lstData.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nMileage));
+		m_lstData.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nMileageBalance));
 		m_lstData.SetItemText(nItem, nCol++, strWName);
 		m_lstData.SetItemText(nItem, nCol++, bOrder?"1":"0");
 		m_lstData.SetItemData(nItem++, nCNo);
@@ -257,8 +257,8 @@ void CReportForm19::OnBnClickedOrderSearchBtn()
 
 	m_lstData.InsertItem(nItem, "");
 	m_lstData.SetItemText(nItem, 5, "합계:");
-	m_lstData.SetItemText(nItem, 7,GetMyNumberFormat(nTotalCharge) );
-	m_lstData.SetItemText(nItem, 8,GetMyNumberFormat(nTotalMileage) );
+	m_lstData.SetItemText(nItem, 7,LF->GetMyNumberFormat(nTotalCharge) );
+	m_lstData.SetItemText(nItem, 8,LF->GetMyNumberFormat(nTotalMileage) );
 	m_lstData.SetItemData(nItem, 0 );
 
 
@@ -307,7 +307,7 @@ void CReportForm19::SearchOnlyCustomerAlone(long nCNo)
 		pRs2.GetFieldValue("sWName", strWName);
 
 		if(nState >= 30 && nState <= 35 && bOrder)
-			strState = GetStateString(nState);
+			strState = LF->GetStateString(nState);
 		else if(!bOrder && nState > 40)
 		{
 			switch(nState)
@@ -334,9 +334,9 @@ void CReportForm19::SearchOnlyCustomerAlone(long nCNo)
 		m_lstData.SetItemText(nItem, nCol++, strStart);
 		m_lstData.SetItemText(nItem, nCol++, strDest);
 		m_lstData.SetItemText(nItem, nCol++, strState);
-		m_lstData.SetItemText(nItem, nCol++, GetMyNumberFormat(nCharge));
-		m_lstData.SetItemText(nItem, nCol++, GetMyNumberFormat(nMileage));
-		m_lstData.SetItemText(nItem, nCol++, GetMyNumberFormat(nMileageBalance));
+		m_lstData.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nCharge));
+		m_lstData.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nMileage));
+		m_lstData.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nMileageBalance));
 		m_lstData.SetItemText(nItem, nCol++, strWName);
 		m_lstData.SetItemText(nItem, nCol++, bOrder?"1":"0");
 		m_lstData.SetItemData(nItem++, nCNo);
@@ -352,8 +352,8 @@ void CReportForm19::SearchOnlyCustomerAlone(long nCNo)
 	pRs2.Close();
 	m_lstData.InsertItem(nItem, "");
 	m_lstData.SetItemText(nItem, 5, "합계:");
-	m_lstData.SetItemText(nItem, 7,GetMyNumberFormat(nTotalCharge) );
-	m_lstData.SetItemText(nItem, 8,GetMyNumberFormat(nTotalMileage) );
+	m_lstData.SetItemText(nItem, 7,LF->GetMyNumberFormat(nTotalCharge) );
+	m_lstData.SetItemText(nItem, 8,LF->GetMyNumberFormat(nTotalMileage) );
 	m_lstData.SetItemData(nItem, 0 );
 
 	m_lstData.Populate();
@@ -372,7 +372,7 @@ void CReportForm19::SearchEdit()
 		return;
 	}
 	long  nSearchType = FALSE;
-	if(IsStringDigit(strCustomer))
+	if(LF->IsStringDigit(strCustomer))
 	{
 		nSearchType = TRUE;
 		if(strCustomer.GetLength() < 6 || strCustomer.GetLength() > 12)
@@ -400,7 +400,7 @@ void CReportForm19::SearchEdit()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_mileage_search_customer2");
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), nSearchType);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);	
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);	
 	pCmd.AddParameter(typeString, typeInput, strCustomer.GetLength(), strCustomer);
 	
 	if(!pRs.Execute(&pCmd)) return;	
@@ -416,7 +416,7 @@ void CReportForm19::SearchEdit()
 		pRs.GetFieldValue("nMileageBalance", nMileageBalance);
 		pRs.GetFieldValue("nGNo", nGNo);
 
-		m_lstLeft.AddRecord(new CMileageRecord(strCompany, GetDashPhoneNumber(strTel1), GetDashPhoneNumber(strMobile), nGNo, nType, nUseCount, nMileageBalance, nCNo, ""));
+		m_lstLeft.AddRecord(new CMileageRecord(strCompany, LF->GetDashPhoneNumber(strTel1), LF->GetDashPhoneNumber(strMobile), nGNo, nType, nUseCount, nMileageBalance, nCNo, ""));
 		//,  sAddr, sAddrNo, bNoSMS, dtLastSentAdvertSMS, nAdvertCount, 
 		//	COleDateTime::GetCurrentTime(),COleDateTime::GetCurrentTime()));
 	
@@ -466,8 +466,8 @@ void CReportForm19::OnBnClickedMileageAllBtn()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_mileage_search_all_customer2");	
-	pCmd.AddParameter(::GetCurBranchInfo()->nCustomerTable);	
-	pCmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);	
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	CMkParameter *pPar = pCmd.AddParameter(typeInt, typeOutput, sizeof(int), 0);
 
 	if(!pRs.Execute(&pCmd)) return;	
@@ -547,7 +547,7 @@ void CReportForm19::OnLvnItemchangedListLeft(NMHDR * pNotifyStruct, LRESULT * /*
 
 void CReportForm19::OnBnClickedMileageModifyBtn()
 {
-	if(!POWER_CHECK(2040, "마일리지금액수정", TRUE))
+	if(!LF->POWER_CHECK(2040, "마일리지금액수정", TRUE))
 		return;
 
 	CString strMsg="";
@@ -566,7 +566,7 @@ void CReportForm19::OnBnClickedMileageModifyBtn()
 		MessageBox("마일리지 수정금액을 기입하세요", "확인", MB_ICONINFORMATION);
 		return;
 	}
-	if(!IsStringDigit(strModifyAmountHiphone))
+	if(!LF->IsStringDigit(strModifyAmountHiphone))
 	{
 		MessageBox("마일리지 시작 잔액에 숫자를 기입하세요", "확인", MB_ICONINFORMATION);
 		return;
@@ -629,12 +629,12 @@ void CReportForm19::OnBnClickedBalanceSearchBtn()
 		MessageBox("마일리지 시작 잔액에 숫자를 기입하세요", "확인", MB_ICONINFORMATION);
 		return;
 	}
-	if(!IsStringDigit(strHiphoneBalanceFrom))
+	if(!LF->IsStringDigit(strHiphoneBalanceFrom))
 	{
 		MessageBox("마일리지 시작 잔액에 숫자를 기입하세요", "확인", MB_ICONINFORMATION);
 		return;
 	}		
-	if(!IsStringDigit(strHiphoneBalanceTo))
+	if(!LF->IsStringDigit(strHiphoneBalanceTo))
 	{
 		MessageBox("마일리지 끝 잔액에 숫자를 기입하세요", "확인", MB_ICONINFORMATION);
 		return;
@@ -650,8 +650,8 @@ void CReportForm19::OnBnClickedBalanceSearchBtn()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_mileage_search_balance2");	
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);	
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);	
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), atol(strBalanceFrom));
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), atol(strBalanceTo));	
 
@@ -678,7 +678,7 @@ void CReportForm19::OnBnClickedBalanceSearchBtn()
 	
 		m_mapRow[i] = nCNo;
 				
-		m_lstLeft.AddRecord(new CMileageRecord(strCName, GetDashPhoneNumber(strTel1), GetDashPhoneNumber(strTel2), nGNo, nType, nUseCount, 	nMileageBalance, nCNo, ""));
+		m_lstLeft.AddRecord(new CMileageRecord(strCName, LF->GetDashPhoneNumber(strTel1), LF->GetDashPhoneNumber(strTel2), nGNo, nType, nUseCount, 	nMileageBalance, nCNo, ""));
 			nTotalMailage += nMileageBalance;
 		nCol =1;
 		i++;
@@ -718,7 +718,7 @@ void CReportForm19::MultiSelectBalance(int nType)
 			MessageBox("잔액을 입력하세요", "확인", MB_ICONINFORMATION);
 			return;
 		}
-		if(!IsStringDigit(sBalance))
+		if(!LF->IsStringDigit(sBalance))
 		{
 			MessageBox("숫자를 입력하세요","확인", MB_ICONINFORMATION);
 		}
@@ -766,7 +766,7 @@ void CReportForm19::MultiSelectBalance(int nType)
 
 void CReportForm19::OnBnClickedBalanceInitButton()
 {
-	if(!POWER_CHECK(2040, "마일리지금액수정", TRUE))
+	if(!LF->POWER_CHECK(2040, "마일리지금액수정", TRUE))
 		return;
 
 	int nRow = m_lstLeft.GetSelectedRows()->GetCount();
@@ -782,7 +782,7 @@ void CReportForm19::OnBnClickedBalanceInitButton()
 
 void CReportForm19::OnBnClickedBalanceModifyButton()
 {
-	if(!POWER_CHECK(2040, "마일리지금액수정", TRUE))
+	if(!LF->POWER_CHECK(2040, "마일리지금액수정", TRUE))
 		return;
 
 	if(m_lstLeft.GetSelectedRows()->GetCount() == 0)
@@ -877,8 +877,8 @@ void CReportForm19::SearchTypeCustomer(BOOL bType)
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_mileage_search_type_customer3");	
-	pCmd.AddParameter(::GetCurBranchInfo()->nCustomerTable);	
-	pCmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);	
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(nType);	
 	CMkParameter *pPar = pCmd.AddParameter(typeInt, typeOutput, sizeof(int), 0);
 
@@ -915,7 +915,7 @@ void CReportForm19::SearchTypeCustomer(BOOL bType)
 		else if(nMileageType == 10 && m_cmbSearch.GetCurSel() == 4)
 			strMileageType = "적용안함";
 		
-		m_lstLeft.AddRecord(new CMileageRecord(strCompany, GetDashPhoneNumber(strTel1), GetDashPhoneNumber(strTel2), nGNo, nType, nUseCount,nMileageBalance, nCNo, strMileageType));
+		m_lstLeft.AddRecord(new CMileageRecord(strCompany, LF->GetDashPhoneNumber(strTel1), LF->GetDashPhoneNumber(strTel2), nGNo, nType, nUseCount,nMileageBalance, nCNo, strMileageType));
 		
 		nTotalMailage += nMileageBalance;
 
@@ -932,7 +932,7 @@ void CReportForm19::SearchTypeCustomer(BOOL bType)
 
 void CReportForm19::OnBnClickedDirectModifyButton()
 {
-	if(!POWER_CHECK(2040, "마일리지금액수정", TRUE))
+	if(!LF->POWER_CHECK(2040, "마일리지금액수정", TRUE))
 		return;
 
 	int j = 0;
@@ -1035,7 +1035,7 @@ void CReportForm19::OnlstDataItemRClick(NMHDR * pNotifyStruct, LRESULT *)
 
 void CReportForm19::OnViewExcel()
 {
-	if(!POWER_CHECK(2010, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(2010, "엑셀변환", TRUE))
 		return;
 
 	CoInitialize(NULL);
@@ -1083,23 +1083,23 @@ void CReportForm19::OnViewExcel()
 		}
 	}
 	
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 320, rows);  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 320, rows);  
 
 	CMyExcel::ToExcel(sa, cols, rows);
 } 
 
 void CReportForm19::OnViewExcel2()
 {
-	if(!POWER_CHECK(2010, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(2010, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 320, m_lstData.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 320, m_lstData.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstData);	
 }
 
 void CReportForm19::OnBnClickedMialeageSmsBtn()
 {
-	if(GetCurBranchInfo()->bIntegrated) 
+	if(LF->GetCurBranchInfo()->bIntegrated) 
 	{
 		MessageBox("통합에서는 고객구분이 안되어 통합해서 보내실수없습니다.", "확인", MB_ICONINFORMATION);
 		return;

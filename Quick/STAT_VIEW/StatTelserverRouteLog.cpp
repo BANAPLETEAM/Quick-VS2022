@@ -89,8 +89,8 @@ void CStatTelserverRouteLog::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_New_Telserver_Stat_Route");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	//cmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	//cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 

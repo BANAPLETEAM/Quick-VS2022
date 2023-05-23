@@ -166,7 +166,7 @@ void COptionDlgInterCall2::OnInitialUpdate()
 	if(m_ui.strLogiStaffName.GetLength() > 0)
 		m_edtIntercallName.EnableWindow(TRUE);
 
-	if(!POWER_CHECK(1307, "Intercall"))
+	if(!LF->POWER_CHECK(1307, "Intercall"))
 		EnableWindow(FALSE);
 
 	UpdateData();
@@ -260,30 +260,30 @@ BOOL COptionDlgInterCall2::Save(long nCompany, BOOL bAll)
 
 	if(strWebInterReceiptStop_W.GetLength() > 50 && m_chkReceiptStop.GetCheck())
 	{
-		MsgBox("인터콜(웹) 의 사유가 50자 이상됩니다.");
+		LF->MsgBox("인터콜(웹) 의 사유가 50자 이상됩니다.");
 		return FALSE;
 	}
 	if(strWebInterReceiptStop.GetLength() <= 0 &&  m_chkReceiptStop.GetCheck())
 	{
-		MsgBox("인터콜(웹) 의 사유를 입력하여 주세요");
+		LF->MsgBox("인터콜(웹) 의 사유를 입력하여 주세요");
 		m_edtReciptStop.SetFocus();
 		return FALSE;
 	}
 
 
 
-	if(IsStringDigit(sWayAmount))
+	if(LF->IsStringDigit(sWayAmount))
 		nWayAddAmount = atol(sWayAmount);
 	else
 	{
-		MsgBox("편도,왕복에 금액을 입력하세요");
+		LF->MsgBox("편도,왕복에 금액을 입력하세요");
 		return FALSE;
 	}
-	if(IsStringDigit(sRunAmount))
+	if(LF->IsStringDigit(sRunAmount))
 		nRunAddAmount = atol(sRunAmount);
 	else
 	{
-		MsgBox("편도,왕복에 금액을 입력하세요");
+		LF->MsgBox("편도,왕복에 금액을 입력하세요");
 		return FALSE;
 	}
 
@@ -299,7 +299,7 @@ BOOL COptionDlgInterCall2::Save(long nCompany, BOOL bAll)
 	m_edtNightReceiptCallSMS.GetWindowText(sNightReceiptCallSMS);
 	if(m_chkInnerFrameUse.GetCheck()&&	(sFrameBgColor.GetLength() == 0 )) //|| sFrameFontColor.GetLength() == 0)		)
 	{
-		MsgBox("프레임 폰트및 백그라운드 컬러값을 입력하세요");
+		LF->MsgBox("프레임 폰트및 백그라운드 컬러값을 입력하세요");
 		return FALSE;
 	}	
 

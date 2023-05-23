@@ -8,7 +8,7 @@
 CPOIBoundary::CPOIBoundary(CPOIDataNew *poiNew, BOOL bAutoDelete, CString strSido, CString strsido2,
 						   CString strSido3, CString strSido4, CString strSido5)
 {
-	m_poiNew = poiNew;
+	m_poiBoundary = poiNew;
 	m_bSort = FALSE;
 	m_bAutoDelete = bAutoDelete;
 	AddSido(strSido, strsido2, strSido3, strSido4, strSido5);
@@ -35,7 +35,7 @@ void CPOIBoundary::AddSidoReal(CString strSido)
 
 	BOOL bIsDo = CPOIDataNew::IsDo(strSido);
 	POI_VEC_POINT::iterator it;
-	POI_VEC_POINT &vecSido = m_poiNew->m_vecSido;
+	POI_VEC_POINT &vecSido = m_poiBoundary->m_vecSido;
 
 	m_strSido += strSido + ",";
 
@@ -87,7 +87,7 @@ BOOL CPOIBoundary::Has(CPOIUnit *pPOI)
 
 BOOL CPOIBoundary::Has(long nDongID)
 {
-	return Has(m_poiNew->GetDongPOI(nDongID));
+	return Has(m_poiBoundary->GetDongPOI(nDongID));
 }
 
 BOOL CPOIBoundary::Has(CString strSido)
@@ -161,7 +161,7 @@ CPOIBoundary& CPOIBoundary::operator = (const CPOIBoundary &p)
 {
 	m_vecBoundary = p.m_vecBoundary;
 	m_strSido = p.m_strSido;
-	m_poiNew = p.m_poiNew;
+	m_poiBoundary = p.m_poiBoundary;
 	m_bSort = p.m_bSort;
 	m_bAutoDelete = p.m_bAutoDelete;
 	return (*this);

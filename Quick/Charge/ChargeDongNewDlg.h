@@ -65,7 +65,7 @@ public:
 
 		CString GetCaption(CXTPGridColumn* pColumn)
 		{
-			return RemoveZero(GetStringFromLong(GetCharge()));
+			return LF->RemoveZero(LF->GetStringFromLong(GetCharge()));
 		}
 
 		void OnEditChanged(XTP_REPORTRECORDITEM_ARGS* pItemArgs, LPCTSTR szText)
@@ -109,7 +109,7 @@ public:
 		for(int i=0; i<nColItem; i++) 
 		{
 			MAP_DONG::iterator it = pMap->find(i);
-			AddItem(new CXTPGridRecordItemText(GetRemoveLastDong(it->second.strDong)));
+			AddItem(new CXTPGridRecordItemText(LF->GetRemoveLastDong(it->second.strDong)));
 		}
 
 		m_nID = 0;

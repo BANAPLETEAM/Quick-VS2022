@@ -177,7 +177,7 @@ BOOL CCTIFormSetupDlg::LoadCTIInfoReg(CString strUserID)
 		GetDlgItem(IDC_AUTO_HANGUP_STATIC)->ShowWindow(SW_SHOW);
 	}
 
-	CBranchInfo *pBI = GetBranchInfo(m_ui.nCompany);
+	CBranchInfo *pBI = LF->GetBranchInfo(m_ui.nCompany);
 
 	if (pBI->bIPPBXType == FALSE)
 	{

@@ -102,8 +102,8 @@ void CReservationListDlg::RefreshList()
 		m_List.SetItemText(nItem, 1, sBranchName);
 		m_List.SetItemText(nItem, 2, dtGenerate.Format("%Y-%m-%d %H:%M:%S"));
 		m_List.SetItemText(nItem, 3, dtTran.Format("%Y-%m-%d %H:%M:%S"));
-		m_List.SetItemText(nItem, 4, GetMyNumberFormat(nCount));
-		m_List.SetItemText(nItem, 5, GetMyNumberFormat(nAmount));		
+		m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(nCount));
+		m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(nAmount));		
 		m_List.SetItemText(nItem, 6, ltoa(nCompany, buffer,10));		
 		m_List.SetItemData(nItem, (DWORD_PTR)obSms);
 

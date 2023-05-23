@@ -93,7 +93,7 @@ void CCustomerPage2::RefreshList()
 	m_MinCountCombo.GetWindowText(strMinCount);
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_excellent_customer5");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), ::GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), atol(strMinCount));
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
@@ -106,12 +106,12 @@ void CCustomerPage2::RefreshList()
 	}
 	else if(pRs.GetRecordCount() >= 2000) 
 	{
-		StatusText(0, "데이터가 더 존재하지만, 최대 2000개만 표시됩니다.");
+		LF->StatusText(0, "데이터가 더 존재하지만, 최대 2000개만 표시됩니다.");
 	}
 	else
 	{
 		strCount.Format("%d명의 고객이 검색되었습니다.", pRs.GetRecordCount());
-		StatusText(0, strCount);
+		LF->StatusText(0, strCount);
 	}
 
 	while(!pRs.IsEOF())
@@ -132,9 +132,9 @@ void CCustomerPage2::RefreshList()
 		{
 			m_lcData.InsertItem(index, ltoa(nID, buffer, 10));
 			m_lcData.SetItemText(index, 1, strCompany);
-			m_lcData.SetItemText(index, 2, GetDashPhoneNumber(strTel));
+			m_lcData.SetItemText(index, 2, LF->GetDashPhoneNumber(strTel));
 			m_lcData.SetItemText(index, 3, ltoa(cnt, buffer, 10));
-			m_lcData.SetItemText(index, 4, GetMyNumberFormat(ltoa(total, buffer, 10)));
+			m_lcData.SetItemText(index, 4, LF->GetMyNumberFormat(ltoa(total, buffer, 10)));
 			m_lcData.SetItemText(index, 5, strLocation);
 			m_lcData.SetItemData(index++, nCNo);
 		}
@@ -164,10 +164,10 @@ void CCustomerPage2::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage2::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(6900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 202, m_ui.nWNo, m_lcData.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 202, m_ui.nWNo, m_lcData.GetItemCount());  
 	CMyExcel::ToExcel(&m_lcData);
 }
 

@@ -141,7 +141,7 @@ BOOL CFileToReportControl::ReadExcel()
 
 		while (VARIANT_TRUE != Rs1->GetadoEOF())
 		{
-			strTemp = ::ChangeStringFromExcel(Rs1->Fields->GetItem(_variant_t((long)2))->Value);
+			strTemp = LF->ChangeStringFromExcel(Rs1->Fields->GetItem(_variant_t((long)2))->Value);
 
 			m_pCombo->AddString(strTemp);
 			Rs1->MoveNext();
@@ -237,10 +237,10 @@ void CFileToReportControl::ReadSheet()
 
 					ADODB::Field20Ptr pField2 = pListRecordset->GetFields()->GetItem(_variant_t((long)col) );										
 					pField2->get_Value(&val);										
-					strVal = ::ChangeStringFromExcel(val);
+					strVal = LF->ChangeStringFromExcel(val);
 					strVal.Replace("-", "");
 
-					if(::IsMobilePhoneNumber(strVal))
+					if(LF->IsMobilePhoneNumber(strVal))
 						m_pReportControl->InsertItem(nRow, strVal);
 				} // col 돌리기
 
@@ -286,7 +286,7 @@ void CFileToReportControl::LoadText()
 
 		while(ar.ReadString(strPhone))
 		{
-			if(::IsMobilePhoneNumber(strPhone))
+			if(LF->IsMobilePhoneNumber(strPhone))
 				m_pReportControl->InsertItem(nItem++, strPhone);
 		}
 
@@ -306,7 +306,7 @@ void CFileToReportControl::AddText()
 	CString strTemp;
 	m_pEdit->GetWindowText(strTemp);
 
-	if(!::IsMobilePhoneNumber(strTemp))
+	if(!LF->IsMobilePhoneNumber(strTemp))
 	{
 		AfxMessageBox("휴대폰 번호를 입력하세요", MB_ICONERROR);
 		return;

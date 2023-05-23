@@ -31,9 +31,6 @@
 //#define FTP_URL_ID_PICTURE "quick3/images/IDpicture/"
 #define FTP_URL_ID_PICTURE "/IDpicture"
 
-extern CMkDatabase *m_pMkDb4DrvLic;
-extern BOOL ConnectDrvLicSvr();
-
 IMPLEMENT_DYNCREATE(CStaffForm14, CMyFormView)
 
 #define ID_MENU_ADD_JOB 2000
@@ -324,7 +321,7 @@ void CStaffForm14::OnCardNumber(UINT nFlag)
 
 	CString strTemp = "";
 
-	if(UpdateRiderCardState(strCard, info->nCompany, info->nRNo, strTemp))
+	if(LF->UpdateRiderCardState(strCard, info->nCompany, info->nRNo, strTemp))
 	{
 		MessageBox("적용되었습니다", "확인", MB_ICONINFORMATION);
 		RefreshOneRider(pRecord, FALSE);
@@ -454,14 +451,14 @@ void CStaffForm14::SetDataFromMap()
 	char buffer[10];
 	m_strName = info->strName;
 	m_strRNo = itoa(info->nRNo, buffer, 10);
-	m_strMp = ::GetDashPhoneNumber(info->strMp);
-	m_strPhone = ::GetDashPhoneNumber(info->strPhone);
+	m_strMp = LF->GetDashPhoneNumber(info->strMp);
+	m_strPhone = LF->GetDashPhoneNumber(info->strPhone);
 	m_strRT = info->strRT;
 	m_strPDA = info->strID;
 	m_strBankOwner = info->strBankOwner;
 	m_strBankName = info->strBankName;
 	m_strBankAccount = info->strBankAccount; m_strBankAccount.Replace("-", "");
-	m_strMarketLine = ::RemoveZero(itoa(info->nMarketLine, buffer, 10));
+	m_strMarketLine = LF->RemoveZero(itoa(info->nMarketLine, buffer, 10));
 	m_dtEnter = info->dtEnter;
 	m_strSSN1 = info->strSSN1;
 	m_strSSN2 = info->strSSN2;
@@ -471,8 +468,8 @@ void CStaffForm14::SetDataFromMap()
 	m_strRtSerial = info->strRTSerial; 
 	m_strCarNo = info->strCarNo;
 
-	m_strTruckMyDepositRate = ::GetStringFromLong(info->nTruckMyDepositRate);
-	m_strTruckOtherDepositRate = ::GetStringFromLong(info->nTruckOtherDepositRate);
+	m_strTruckMyDepositRate = LF->GetStringFromLong(info->nTruckMyDepositRate);
+	m_strTruckOtherDepositRate = LF->GetStringFromLong(info->nTruckOtherDepositRate);
 
 	if(info->nAllocType == TWO)
 	{
@@ -487,7 +484,7 @@ void CStaffForm14::SetDataFromMap()
 		m_chkPDAAllocate.SetCheck(FALSE); m_chkSmsAllocate.SetCheck(FALSE);
 	}
 
-	::SetCarType(&m_cmbCarType, info->nCarType);
+	LF->SetCarType(&m_cmbCarType, info->nCarType);
 	m_cmbShareLimit.SetCurSel(info->nPanaltyTypeShowOrder);
 
 	if(info->nLockTime == ZERO || info->nLockCount >= 100)
@@ -531,9 +528,9 @@ void CStaffForm14::SetDataFromMap()
 		m_bAll = FALSE; 
 
 	m_cmbInsType.SetCurSel(info->nInsType);
-	m_cmbDepositType.SetCurSel(::GetDepositTypeToComboSel(info->nDepositType));
+	m_cmbDepositType.SetCurSel(LF->GetDepositTypeToComboSel(info->nDepositType));
 	OnCbnSelchangeDepositTypeCombo1();
-	m_cmbDepositAllocateType.SetCurSel(::GetDepositAllocateTypeToComboSel(info->nDepositAllocateType));
+	m_cmbDepositAllocateType.SetCurSel(LF->GetDepositAllocateTypeToComboSel(info->nDepositAllocateType));
 
 	m_chkMyCall.SetCheck(info->nMyCallRateType);
 	m_chkOtherCall.SetCheck(info->nOtherCallRateType);
@@ -566,17 +563,17 @@ void CStaffForm14::SetDataFromMap()
 
 	m_chkInsNotRegister.SetCheck(!info->bRegisterLoadIns);
 	m_bNotShowRightOrder = info->nThShareExceptType > ZERO ? TRUE : FALSE;
-	m_strDailyReportCharge = RemoveZero(::GetMyNumberFormat(info->nDailyDepositCharge));
-	m_strAllocMinCharge = RemoveZero(::GetMyNumberFormat(info->nAllocMinCharge));
+	m_strDailyReportCharge = LF->RemoveZero(LF->GetMyNumberFormat(info->nDailyDepositCharge));
+	m_strAllocMinCharge = LF->RemoveZero(LF->GetMyNumberFormat(info->nAllocMinCharge));
 
 	m_edtIncome.GetWindowText(m_strIncome);
 	m_edtIncomeMemo.GetWindowText(m_strIncomeMemo);
 	m_edtRNo.EnableWindow(FALSE);	
 	m_chkWithDrawType.SetCheck(info->nWithdrawType);
-	m_edtMaxWithDrawMoneyPerDay.SetWindowText(::RemoveZero(::GetMyNumberFormat(info->nMaxWithdrawMoneyPerDay)));
-	m_edtMinLeftMoneyForWithDraw.SetWindowText(::RemoveZero(::GetMyNumberFormat(info->nMinLeftMoneyForWithdraw)));
-	m_edtCardNumber.SetWindowText(::GetDashCardNumber(info->strCardNumber));
-	FillBankCode(FALSE, &m_cmbBankID, info->nBankID);	
+	m_edtMaxWithDrawMoneyPerDay.SetWindowText(LF->RemoveZero(LF->GetMyNumberFormat(info->nMaxWithdrawMoneyPerDay)));
+	m_edtMinLeftMoneyForWithDraw.SetWindowText(LF->RemoveZero(LF->GetMyNumberFormat(info->nMinLeftMoneyForWithdraw)));
+	m_edtCardNumber.SetWindowText(LF->GetDashCardNumber(info->strCardNumber));
+	LF->FillBankCode(FALSE, &m_cmbBankID, info->nBankID);
 	EnableShowControl();
 	UpdateData(FALSE);
 	ChangeSSNColor();
@@ -586,7 +583,7 @@ void CStaffForm14::SetDataFromMap()
 
 void CStaffForm14::EnableShowControl()
 {
-	/*BOOL bEnable = !(::GetCarType(&m_cmbCarType) == CAR_1_4_TON);
+	/*BOOL bEnable = !(LF->GetCarType(&m_cmbCarType) == CAR_1_4_TON);
 	m_chkAll.EnableWindow(bEnable);
 	m_chkAuto.EnableWindow(bEnable);
 	m_chkBigAuto.EnableWindow(bEnable);
@@ -603,22 +600,7 @@ void CStaffForm14::OnInitialUpdate()
 {
 	CMyFormView::OnInitialUpdate();
 
-
-	/*
-	m_cmbCarType.AddString("오토바이");
-	m_cmbCarType.AddString("짐받이");
-	m_cmbCarType.AddString("다마스");
-	m_cmbCarType.AddString("라보");
-	m_cmbCarType.AddString("3밴");
-	m_cmbCarType.AddString("6밴");
-	m_cmbCarType.AddString("트럭");
-	m_cmbCarType.AddString("1.4톤");
-	m_cmbCarType.AddString("지하철");
-	m_cmbCarType.AddString("당일택배");
-	*/
-
-
-	::MakeCarTypeCombo(&m_cmbCarType);
+	LF->MakeCarTypeCombo(&m_cmbCarType);
 
 	m_cmbIncome.SetCurSel(0);
 
@@ -673,7 +655,7 @@ void CStaffForm14::OnInitialUpdate()
 
 	m_lstReport.LoadReportOrder("CStaffForm14", "m_lstReport");
 
-	if(IsThisCompany("대전_나이스"))
+	if(LF->IsThisCompany("대전_나이스"))
 		m_lstReport.GetColumns()->GetAt(33)->SetVisible(TRUE);
 	else
 		m_lstReport.GetColumns()->GetAt(33)->SetVisible(FALSE);
@@ -724,7 +706,7 @@ void CStaffForm14::OnInitialUpdate()
 	//m_edtCardNumber.SetEditMask("0000-0000-0000-0000", LITERAL_CARD_NUMBER);
 	//m_edtCardNumber.SetPromptChar(' ');
 
-	FillBankCode(TRUE, &m_cmbBankID);
+	LF->FillBankCode(TRUE, &m_cmbBankID);
 	
 	InitControl();
 	MakeBranchCombo();
@@ -763,8 +745,8 @@ void CStaffForm14::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_worker30"); 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_cmbConWorking.GetCurSel());
 
 	if(!pRs.Execute(&pCmd)) return;
@@ -928,14 +910,14 @@ void CStaffForm14::OnBnClickedLicenseQueryButton()
 
 	if(sName.GetLength() < 4) 
 	{
-		MessageBox(GetLicenseStateString(-5,&bLicenseOK), "확인", MB_ICONINFORMATION);
+		MessageBox(LF->GetLicenseStateString(-5,&bLicenseOK), "확인", MB_ICONINFORMATION);
 		m_nLicenceValid = -5;
 		return;
 	}
 
 	if(sJumin1.GetLength() != 6 || sJumin2.GetLength() != 7 ) 
 	{
-		MessageBox(GetLicenseStateString(-6,&bLicenseOK), "확인", MB_ICONINFORMATION);
+		MessageBox(LF->GetLicenseStateString(-6,&bLicenseOK), "확인", MB_ICONINFORMATION);
 		m_nLicenceValid = -6;
 		return;
 	}
@@ -945,7 +927,7 @@ void CStaffForm14::OnBnClickedLicenseQueryButton()
 	int nLen2 = sLicense.GetLength();
 	if(nLen2 != 14)
 	{
-		MessageBox(GetLicenseStateString(-3,&bLicenseOK), "확인", MB_ICONINFORMATION);
+		MessageBox(LF->GetLicenseStateString(-3,&bLicenseOK), "확인", MB_ICONINFORMATION);
 		m_nLicenceValid = -3;
 		return;
 	}
@@ -953,7 +935,7 @@ void CStaffForm14::OnBnClickedLicenseQueryButton()
 	char szbuffer[50]={0,};
 	char szdata[1024]={0,};
 
-	BOOL bRet = ConnectDrvLicSvr();
+	BOOL bRet = LF->ConnectDrvLicSvr();
 
 	//STRCPY(szdata,ltoa(m_nRiderCompany,szbuffer,10),ltoa(m_nRNo,szbuffer,10),sName,sJumin1,sJumin2,sLicense,"0",VL_END);
 	STRCPY(szdata,ltoa(0,szbuffer,10),ltoa(0,szbuffer,10),sName,sJumin1,sJumin2,sLicense,"0",VL_END);
@@ -1197,9 +1179,9 @@ BOOL CStaffForm14::GetRSData(CMkRecordset *pRs, ST_RIDER_INFO *info, long nIndex
 
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strID);
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strName); 
-	m_lstReport.SetItemText(nIndex, nSubItem++, GetCarTypeFromLong(info->nCarType));
-	m_lstReport.SetItemText(nIndex, nSubItem++, GetDashPhoneNumber(info->strPhone));
-	m_lstReport.SetItemText(nIndex, nSubItem++, GetDashPhoneNumber(info->strMp));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetCarTypeFromLong(info->nCarType));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetDashPhoneNumber(info->strPhone));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetDashPhoneNumber(info->strMp));
 
 	CString strTemp = info->dtEnter.Format("%Y/%m/%d"); 
 
@@ -1213,22 +1195,22 @@ BOOL CStaffForm14::GetRSData(CMkRecordset *pRs, ST_RIDER_INFO *info, long nIndex
 	nAllocGroup = min(info->nAllocGroup, 9);
 	m_lstReport.SetItemText(nIndex, nSubItem++, LU->m_mapAllocateGroup[nAllocGroup]);
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->nThShareExceptType > ZERO ? "안봄" : "");
-	m_lstReport.SetItemText(nIndex, nSubItem++, ::RemoveZero(::GetMyNumberFormat(info->nBalance)));
-	m_lstReport.SetItemText(nIndex, nSubItem++, GetDepositTypeStringFromType(info->nDepositType));
-	m_lstReport.SetItemText(nIndex, nSubItem++, GetDepositAllocateTypeStringFromType(info->nDepositAllocateType));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->RemoveZero(LF->GetMyNumberFormat(info->nBalance)));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetDepositTypeStringFromType(info->nDepositType));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetDepositAllocateTypeStringFromType(info->nDepositAllocateType));
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strMyCallRateType);
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strOtherCallRateType);
-	m_lstReport.SetItemText(nIndex, nSubItem++, ::GetStringFromLong(info->nTruckMyDepositRate, FALSE));
-	m_lstReport.SetItemText(nIndex, nSubItem++, ::GetStringFromLong(info->nTruckOtherDepositRate, FALSE));
-	m_lstReport.SetItemText(nIndex, nSubItem++, ::RemoveZero(::GetMyNumberFormat(info->nDailyDepositCharge)));
-	m_lstReport.SetItemText(nIndex, nSubItem++, ::RemoveZero(::GetMyNumberFormat(info->nSaveSixMonth)));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetStringFromLong(info->nTruckMyDepositRate, FALSE));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetStringFromLong(info->nTruckOtherDepositRate, FALSE));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->RemoveZero(LF->GetMyNumberFormat(info->nDailyDepositCharge)));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->RemoveZero(LF->GetMyNumberFormat(info->nSaveSixMonth)));
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strMemo);
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strAddress);
-	m_lstReport.SetItemText(nIndex, nSubItem++, ::GetBankName(info->nBankID));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetBankName(info->nBankID));
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strBankAccount);
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strBankOwner);
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strRiderDepositGroup);
-	m_lstReport.SetItemText(nIndex, nSubItem++, ::GetDashCardNumber(info->strCardNumber));
+	m_lstReport.SetItemText(nIndex, nSubItem++, LF->GetDashCardNumber(info->strCardNumber));
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->strCarNo);
 	m_lstReport.SetItemText(nIndex, nSubItem++, info->bRegisterLoadIns ? "가입" : "");
 	m_lstReport.SetItemText(nIndex, nSubItem++, bLoadInsApply ? "적용중" : "");
@@ -1275,7 +1257,7 @@ void CStaffForm14::MakeBranchCombo()
 		int nIndex = m_cmbBranch.AddString(pBi->strBranchName + "(" + pBi->strPhone + ")");
 		m_cmbBranch.SetItemData(nIndex, pBi->nCompanyCode);
 
-		if(GetCurBranchInfo()->nCompanyCode == pBi->nCompanyCode)
+		if(LF->GetCurBranchInfo()->nCompanyCode == pBi->nCompanyCode)
 			m_cmbBranch.SetCurSel(nIndex);
 	}
 }
@@ -1437,9 +1419,9 @@ BOOL CStaffForm14::InsertUser()
 	pCmd.AddParameter((long)m_cmbBranch.GetItemData(m_cmbBranch.GetCurSel()));
 	pCmd.AddParameter(m_strName);
 	pCmd.AddParameter(atoi(m_strRNo));
-	pCmd.AddParameter(::GetNoneDashNumber(m_strMp));
-	pCmd.AddParameter(::GetNoneDashNumber(m_strPhone));
-	pCmd.AddParameter(::GetNoneDashNumber(m_strPDA));
+	pCmd.AddParameter(LF->GetNoneDashNumber(m_strMp));
+	pCmd.AddParameter(LF->GetNoneDashNumber(m_strPhone));
+	pCmd.AddParameter(LF->GetNoneDashNumber(m_strPDA));
 	pCmd.AddParameter(m_strBankOwner);
 	pCmd.AddParameter(m_strBankName);
 	pCmd.AddParameter(m_strBankAccount);
@@ -1458,7 +1440,7 @@ BOOL CStaffForm14::InsertUser()
 		nAllocType = ONE;
 
 	pCmd.AddParameter(nAllocType);
-	pCmd.AddParameter(::GetCarType(&m_cmbCarType));
+	pCmd.AddParameter(LF->GetCarType(&m_cmbCarType));
 	pCmd.AddParameter(m_cmbShareLimit.GetCurSel());
 
 	if(m_chkAllocateLimit.GetCheck())
@@ -1495,8 +1477,8 @@ BOOL CStaffForm14::InsertUser()
 	pCmd.AddParameter(atoi(m_strDailyReportCharge));
 	pCmd.AddParameter((long)m_cmbBankID.GetItemData(m_cmbBankID.GetCurSel()));
 	pCmd.AddParameter(m_chkWithDrawType.GetCheck());
-	pCmd.AddParameter(::GetWindowTextLong(&m_edtMaxWithDrawMoneyPerDay));
-	pCmd.AddParameter(::GetWindowTextLong(&m_edtMinLeftMoneyForWithDraw));
+	pCmd.AddParameter(LF->GetWindowTextLong(&m_edtMaxWithDrawMoneyPerDay));
+	pCmd.AddParameter(LF->GetWindowTextLong(&m_edtMinLeftMoneyForWithDraw));
 	pCmd.AddParameter(m_chkUseRiderTax.GetCheck());
 	pCmd.AddParameter(m_strRtSerial); 
 	pCmd.AddParameter(m_chkAuto.GetCheck());
@@ -1554,7 +1536,7 @@ BOOL CStaffForm14::InsertUser()
 
 			if(bRegister == FALSE || st.nWorkState == LOAD_INS_WORK_STATE_CANCEL) //보험에 등록되어 있지 않거나. 당일이후로 해지됨.
 			{	
-				long nCarType = ::GetCarType(&m_cmbCarType);
+				long nCarType = LF->GetCarType(&m_cmbCarType);
 
 				if(CLoadInsurance::IsAbleCarType(nCarType))
 				{					
@@ -1618,9 +1600,9 @@ BOOL CStaffForm14::UpdateUser()
 	pCmd.AddParameter(info->nCompany);
 	pCmd.AddParameter(m_strName);
 	pCmd.AddParameter(atoi(m_strRNo));
-	pCmd.AddParameter(::GetNoneDashNumber(m_strMp));
-	pCmd.AddParameter(::GetNoneDashNumber(m_strPhone));
-	pCmd.AddParameter(::GetNoneDashNumber(m_strPDA));
+	pCmd.AddParameter(LF->GetNoneDashNumber(m_strMp));
+	pCmd.AddParameter(LF->GetNoneDashNumber(m_strPhone));
+	pCmd.AddParameter(LF->GetNoneDashNumber(m_strPDA));
 	pCmd.AddParameter(m_strBankOwner);
 	pCmd.AddParameter(m_strBankName);
 	pCmd.AddParameter(m_strBankAccount);
@@ -1639,7 +1621,7 @@ BOOL CStaffForm14::UpdateUser()
 		nAllocType = ONE;
 
 	pCmd.AddParameter(nAllocType);
-	pCmd.AddParameter(::GetCarType(&m_cmbCarType));
+	pCmd.AddParameter(LF->GetCarType(&m_cmbCarType));
 	pCmd.AddParameter(m_cmbShareLimit.GetCurSel());
 
 	if(m_chkAllocateLimit.GetCheck())
@@ -1677,8 +1659,8 @@ BOOL CStaffForm14::UpdateUser()
 	pCmd.AddParameter(atoi(m_strDailyReportCharge));
 	pCmd.AddParameter((long)m_cmbBankID.GetItemData(m_cmbBankID.GetCurSel()));
 	pCmd.AddParameter(m_chkWithDrawType.GetCheck()); 
-	pCmd.AddParameter(::GetWindowTextLong(&m_edtMaxWithDrawMoneyPerDay));
-	pCmd.AddParameter(::GetWindowTextLong(&m_edtMinLeftMoneyForWithDraw));
+	pCmd.AddParameter(LF->GetWindowTextLong(&m_edtMaxWithDrawMoneyPerDay));
+	pCmd.AddParameter(LF->GetWindowTextLong(&m_edtMinLeftMoneyForWithDraw));
 	pCmd.AddParameter(m_cmbInsType.GetCurSel()); 
 	pCmd.AddParameter(m_chkUseRiderTax.GetCheck()); 
 	pCmd.AddParameter(m_strRtSerial); 
@@ -1730,7 +1712,7 @@ BOOL CStaffForm14::UpdateUser()
 	{
 		if(!(info->bAdminTable == FALSE && m_cmbWorkState.GetCurSel() == TWO))
 		{
-			long nCarType = ::GetCarType(&m_cmbCarType);
+			long nCarType = LF->GetCarType(&m_cmbCarType);
 			CLoadInsurance::CheckRiderStateChange(info, m_cmbWorkState.GetCurSel() < TWO ? TRUE : FALSE,
 				m_strSSN1 + m_strSSN2, nCarType, m_strCarNo);
 		}		
@@ -1758,7 +1740,7 @@ long CStaffForm14::GetDepositAllocateType()
 
 void CStaffForm14::OnBnClickedIncomeBtn()
 {
-	if(!POWER_CHECK(7031, "선입금충전전용", TRUE))
+	if(!LF->POWER_CHECK(7031, "선입금충전전용", TRUE))
 		return;
 
 	if(m_bAddRiderMode)
@@ -1935,7 +1917,7 @@ void CStaffForm14::OnBnClickedIncomeSettingBtn()
 
 void CStaffForm14::OnBnClickedButtonDelete()
 {
-	if(!POWER_CHECK(5012, "퇴사/삭제/재입사처리", TRUE))
+	if(!LF->POWER_CHECK(5012, "퇴사/삭제/재입사처리", TRUE))
 		return;
 
 	int nSelect = MessageBox("삭제를 하시면 데이타가 영구히 지워집니다.\n\n"\
@@ -1980,7 +1962,7 @@ void CStaffForm14::OnEnChangeSaerchEdit()
 	strText.Trim(); 
  
 	//if(pCombo->GetCurSel() == 9)
-	//	strText = fc.GetDashPhoneNumber(strText);
+	//	strText = fc.LF->GetDashPhoneNumber(strText);
 
 	int nTypeData;
 	if(pTypeCombo == NULL)
@@ -2048,7 +2030,7 @@ void CStaffForm14::OnContextMenu(CWnd* pWnd, CPoint point)
 
 	int nItemCount = pRMenu->GetMenuItemCount();
 
-	if(!IsThisCompany("대전_나이스"))
+	if(!LF->IsThisCompany("대전_나이스"))
 	{
 		pRMenu->RemoveMenu(--nItemCount, MF_BYPOSITION);
 		pRMenu->RemoveMenu(--nItemCount, MF_BYPOSITION);
@@ -2063,7 +2045,7 @@ void CStaffForm14::OnContextMenu(CWnd* pWnd, CPoint point)
 		CString strsCardNumber;
 		rs.GetFieldValue("sCardNumber", strsCardNumber);
 
-		pRMenu->SetMenuText(GetCardID(i), ::GetDashCardNumber(strsCardNumber), MF_BYCOMMAND);
+		pRMenu->SetMenuText(GetCardID(i), LF->GetDashCardNumber(strsCardNumber), MF_BYCOMMAND);
 		m_strCardNumber[i] = strsCardNumber;
 		nCount++;
 
@@ -2112,10 +2094,10 @@ long CStaffForm14::GetIndexFromCardID(long nID)
 
 void CStaffForm14::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(5900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 401, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 401, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 
@@ -2171,7 +2153,7 @@ void CStaffForm14::OnWorkOk()
 
 void CStaffForm14::OnMenuMsg()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	/*
@@ -2322,9 +2304,9 @@ void CStaffForm14::OnCbnSelchangeSearchCombo()
 void CStaffForm14::OnCbnSelchangeCarTypeCombo()
 {
 	// 아래 다시정리 // choe
-	int car_type = ::GetCarType(&m_cmbCarType);
+	int car_type = LF->GetCarType(&m_cmbCarType);
 
-	if(::IsCarTypeTruck(car_type)) {
+	if(LF->IsCarTypeTruck(car_type)) {
 		m_chkAuto.SetCheck(FALSE);
 		m_chkBigAuto.SetCheck(FALSE); 
 		m_chkDama.SetCheck(FALSE);
@@ -2459,8 +2441,8 @@ void CStaffForm14::OnBnClickedJobAddButton()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_schedule_job_not_me");
-	pCmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(info->nANo);
 
 	if(pRs.Execute(&pCmd))
@@ -2663,7 +2645,7 @@ void CStaffForm14::OnBnClicked6banCheck()
 
 void CStaffForm14::OnBnClickedChangeLogBtn()
 {
-	if(!POWER_CHECK(5015, "근무구분수정로그 보기", TRUE))
+	if(!LF->POWER_CHECK(5015, "근무구분수정로그 보기", TRUE))
 		return;
 
 	ST_RIDER_INFO *pInfo = GetCurSelRiderInfo();	
@@ -2685,7 +2667,7 @@ void CStaffForm14::OnCbnSelchangeConWorkingCombo()
 
 void CStaffForm14::OnBnClickedRiderInfoLog()
 {
-	if(!POWER_CHECK(5016, "기사정보수정로그 보기", TRUE))
+	if(!LF->POWER_CHECK(5016, "기사정보수정로그 보기", TRUE))
 		return;
 
 
@@ -2711,7 +2693,7 @@ void CStaffForm14::OnCardInsertNew()
 	if(dlg.DoModal() != IDOK)
 		return;
 	
-	if(InsertNewCard(dlg.m_strCardNumber, info->nCompany, info->nRNo))
+	if(LF->InsertNewCard(dlg.m_strCardNumber, info->nCompany, info->nRNo))
 	{
 		MessageBox("등록되었습니다", "확인", MB_ICONINFORMATION);
 		RefreshOneRider(pRecord);
@@ -2736,7 +2718,7 @@ void CStaffForm14::OnRiderIncome()
 	long nCount = pRows->GetCount();
 
 	CString strTemp = "";
-	strTemp.Format("[%d]명의 기사에게 [%s]원을 [%s]하시겠습니까?", nCount, ::GetMyNumberFormat(dlg.m_nIncome), dlg.m_nType > 10 && dlg.m_nType < 40 ? "입금" : "차감");
+	strTemp.Format("[%d]명의 기사에게 [%s]원을 [%s]하시겠습니까?", nCount, LF->GetMyNumberFormat(dlg.m_nIncome), dlg.m_nType > 10 && dlg.m_nType < 40 ? "입금" : "차감");
 
 	if(MessageBox(strTemp, "확인", MB_OKCANCEL) != IDOK)
 		return;
@@ -2771,7 +2753,7 @@ void CStaffForm14::OnCardRelease()
 
 	CString strTemp = "";	
 
-	if(UpdateRiderCardState(info->strCardNumber, 0, 0, strTemp))
+	if(LF->UpdateRiderCardState(info->strCardNumber, 0, 0, strTemp))
 	{ 
 		MessageBox("해지되었습니다", "확인", MB_ICONINFORMATION);
 		RefreshOneRider(pRecord, FALSE);
@@ -2790,7 +2772,7 @@ void CStaffForm14::ShowDepositLog(BOOL bShow)
 			return;
 	}
 
-	if(!POWER_CHECK(7020, "통장식로그", TRUE))
+	if(!LF->POWER_CHECK(7020, "통장식로그", TRUE))
 		return;
 
 	if(m_pRiderDepositDlg == NULL)
@@ -2826,7 +2808,7 @@ void CStaffForm14::OnEnChangeMemoEdit()
 
 void CStaffForm14::OnBnClickedInitLogBtn()
 {
-	if(!POWER_CHECK(5017, "초기화수정로그 보기", TRUE))
+	if(!LF->POWER_CHECK(5017, "초기화수정로그 보기", TRUE))
 		return;
 
 	ST_RIDER_INFO *info = GetCurSelRiderInfo();
@@ -3029,9 +3011,9 @@ BOOL CStaffForm14::CheckCarNo(CString strCarNo)
 
 BOOL CStaffForm14::InsertTRSRider()
 {
-	CString strOutboundCID = ::GetNoneDashNumber(m_strMp);
+	CString strOutboundCID = LF->GetNoneDashNumber(m_strMp);
 
-	if(!::IsPhoneNumber(strOutboundCID) || strOutboundCID.Left(2) != "01" || 
+	if(!LF->IsPhoneNumber(strOutboundCID) || strOutboundCID.Left(2) != "01" ||
 		(strOutboundCID.GetLength() < 10 || strOutboundCID.GetLength() > 12))
 	{
 		MessageBox("휴대폰 번호가 유효하지 않아 TRS 등록하지 못합니다.", "확인", MB_ICONINFORMATION);
@@ -3107,15 +3089,15 @@ void CStaffForm14::UpdateCancelType(long nCancelType)
 
 	if(nUpdateCount > 0)
 	{
-		MessageBox(::GetStringFromLong(nUpdateCount) + "명의 기사님에게 적용되었습니다", "확인", MB_ICONINFORMATION);
+		MessageBox(LF->GetStringFromLong(nUpdateCount) + "명의 기사님에게 적용되었습니다", "확인", MB_ICONINFORMATION);
 		m_lstReport.RedrawControl();
 	}
 }
 
 BOOL CStaffForm14::CheckRetireAble(int nRiderCompany, int nRNo, CString strSSN) 
 {
-	if(::GetCarType(&m_cmbCarType) != CAR_AUTO &&
-		::GetCarType(&m_cmbCarType) != CAR_BIGBIKE)
+	if(LF->GetCarType(&m_cmbCarType) != CAR_AUTO &&
+		LF->GetCarType(&m_cmbCarType) != CAR_BIGBIKE)
 		return TRUE;		
 
 	CMkCommand cmd(m_pMkDb, "check_retire_available");
@@ -3150,7 +3132,7 @@ void CStaffForm14::OnEnChangeSsnEdit2()
 
 void CStaffForm14::ChangeSSNColor()
 {
-	CString ssn = ::GetStringFromEdit(&m_edtSSN1) + ::GetStringFromEdit(&m_edtSSN2);
+	CString ssn = LF->GetStringFromEdit(&m_edtSSN1) + LF->GetStringFromEdit(&m_edtSSN2);
 
 	if (!LU->IsSSNOk(ssn) && ssn != "1111111111111") {
 		m_edtSSN1.SetUserOption(RGB(255, 255, 255), RGB(255, 0, 0), "주 민");

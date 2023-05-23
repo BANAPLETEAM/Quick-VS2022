@@ -85,7 +85,7 @@ void CSmartCallBoardAddDlg::OnBnClickedUploadBtn()
 void CSmartCallBoardAddDlg::OnBnClickedViewBtn()
 {
 	//CImageDlg dlg;
-	//CString strImage = fc.GetStringFromEdit(&m_edtUrl);
+	//CString strImage = fc.LF->GetStringFromEdit(&m_edtUrl);
 	CString strImage = m_strUrl;
 
 	if(strImage.IsEmpty())
@@ -98,7 +98,7 @@ void CSmartCallBoardAddDlg::OnBnClickedViewBtn()
 	dlg.m_strUrl = strImage;
 	dlg.DoModal();
 
-	//ShellExecute(NULL, "open", "iexplore.exe", fc.GetStringFromEdit(&m_edtUrl), "", SW_SHOW); 
+	//ShellExecute(NULL, "open", "iexplore.exe", fc.LF->GetStringFromEdit(&m_edtUrl), "", SW_SHOW); 
 }
 
 BOOL CSmartCallBoardAddDlg::OnInitDialog()
@@ -115,7 +115,7 @@ BOOL CSmartCallBoardAddDlg::OnInitDialog()
 		m_cmbMinUseCount.EnableWindow(FALSE);
 	}
 
-	m_cmbMinUseCount.SetWindowText(::GetStringFromLong(m_nMinUseCount));
+	m_cmbMinUseCount.SetWindowText(LF->GetStringFromLong(m_nMinUseCount));
 	m_edtUrl.SetWindowText(GetFileNameOnly(m_strUrl));
 
 	return TRUE;  // return TRUE unless you set the focus to a control

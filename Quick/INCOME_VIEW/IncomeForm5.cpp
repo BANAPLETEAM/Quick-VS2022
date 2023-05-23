@@ -158,13 +158,13 @@ void CIncomeForm5::RefreshList()
 
 	//if((m_ei.dtTodayBound - COleDateTimeSpan(0, -3, 0, 0)) > m_dtFrom)
 	//{
-	//	if(!POWER_CHECK(7021, "통장식로그 이전데이터 검색", TRUE))
+	//	if(!LF->POWER_CHECK(7021, "통장식로그 이전데이터 검색", TRUE))
 	//		return;
 	//}
 
 	CMkCommand pCmd(m_pMkDb, "select_rider_deposit_log_for_new_3");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), atol(m_strRNo));
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
@@ -208,16 +208,16 @@ void CIncomeForm5::FillReport(CMkRecordset *rs)
 
 		if((nState >= 40 && nState <= 63) || nState == 61 || nState == 70 || nState == 71
 			|| nState == 200 || nState == 201)
-			m_List.SetItemText(nItem, 3, nAmount == -1 ? "-" : GetMyNumberFormat(nAmount));
+			m_List.SetItemText(nItem, 3, nAmount == -1 ? "-" : LF->GetMyNumberFormat(nAmount));
 
 		if((nState >= 10 && nState <= 39) || nState == 100 || nState == 101)
-			m_List.SetItemText(nItem, 4, nAmount == -1 ? "-" : GetMyNumberFormat(nAmount));
+			m_List.SetItemText(nItem, 4, nAmount == -1 ? "-" : LF->GetMyNumberFormat(nAmount));
 
-		m_List.SetItemText(nItem, 5, GetFixedDepositStateString(nState));
+		m_List.SetItemText(nItem, 5, LF->GetFixedDepositStateString(nState));
 		m_List.SetItemText(nItem, 6, (nWNo == 100000) ? "서버" : ltoa(nWNo, buffer, 10));
 		m_List.SetItemText(nItem, 7, strEtc); 
 		m_List.SetItemText(nItem, 8, strOrderEtc);
-		m_List.SetItemText(nItem, 9, nBalance == -1 ? "-" : GetMyNumberFormat(nBalance));
+		m_List.SetItemText(nItem, 9, nBalance == -1 ? "-" : LF->GetMyNumberFormat(nBalance));
 		m_List.SetItemText(nItem, 10, nCount != 0 ? (CString)itoa(nCount, buffer, 10) + "회" : "");
 		m_List.SetItemText(nItem, 11, m_ci.GetShareCompanyName(nOrderCompanyR));
 		m_List.SetItemData(nItem, nState);
@@ -250,10 +250,10 @@ void CIncomeForm5::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CIncomeForm5::OnViewExcel()
 {
-	if(!POWER_CHECK(7900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(7900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 502, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 502, m_List.GetItemCount());  
 	m_List.ToExcel();
 }
 
@@ -336,7 +336,7 @@ void CIncomeForm5::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resul
 
 	CString sCName; long nState;
 
-	if(::IsCrossOrder(nOrderTNo, sCName, nState))
+	if(LF->IsCrossOrder(nOrderTNo, sCName, nState))
 	{ 
 		COrderLogDetailDlg DetailLog;
 		//DetailLog.m_pCurDb = IsSecondServerOrder(nSelItem) ? m_pMkSecondDb : m_pMkDb;
@@ -347,7 +347,7 @@ void CIncomeForm5::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resul
 		return;
 	}
 
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	if(LU->m_pRcpView)

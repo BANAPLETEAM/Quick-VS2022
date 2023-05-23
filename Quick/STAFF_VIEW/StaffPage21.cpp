@@ -114,7 +114,7 @@ void CStaffPage21::OnInitialUpdate()
 
 void CStaffPage21::InsertCombo()
 {	
-	if(::InsertAllocGroupCombo(&m_cmbType, ::GetCurBranchInfo()->nCompanyCode))
+	if(LF->InsertAllocGroupCombo(&m_cmbType, LF->GetCurBranchInfo()->nCompanyCode))
 	{
 		//10이상 안넘음
 		long nCount = m_cmbType.GetCount();
@@ -155,7 +155,7 @@ void CStaffPage21::RefreshList()
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_alloc_group_join_company_1");
 
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	CMkParameter *pPar = cmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
     
 	if(!rs.Execute(&cmd)) return;
@@ -207,7 +207,7 @@ void CStaffPage21::RefreshList()
 
 	m_lstGrade.Populate();
 	m_lstGrade.GetSelectedRows()->Clear();
-	m_stcHelp.SetWindowText("현재지사 : " + (CString)::GetCurBranchInfo()->strBranchName);
+	m_stcHelp.SetWindowText("현재지사 : " + (CString)LF->GetCurBranchInfo()->strBranchName);
 
 	m_lstRider.Populate();
 }
@@ -272,7 +272,7 @@ void CStaffPage21::RefreshRiderList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_rider_list_for_group_2");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 
 	if(!rs.Execute(&cmd)) return;
 
@@ -300,14 +300,14 @@ void CStaffPage21::RefreshRiderList()
 		rs.GetFieldValue("nGroupCompany", nGroupCompany);
 		
 		m_lstRider.InsertItem(i, m_ci.GetShareCompanyBranchName(nRiderCompany));
-		m_lstRider.SetItemText(i, 1, ::GetStringFromLong(nRNo));
+		m_lstRider.SetItemText(i, 1, LF->GetStringFromLong(nRNo));
 		m_lstRider.SetItemText(i, 2, strName);
 		m_lstRider.SetItemText(i, 3, nWorkState == 1 ? "중지" : "");
 
 		if(nGrade == 0)
 			m_lstRider.SetItemText(i, 4, "");
 		else
-			m_lstRider.SetItemText(i, 4, strGroupName + " [" + ::GetStringFromLong(nGrade) + "등급]");
+			m_lstRider.SetItemText(i, 4, strGroupName + " [" + LF->GetStringFromLong(nGrade) + "등급]");
 
 		if((bAutoDownGrade == TRUE) && (nAutoChangeGroupCode <= 0))
 		{
@@ -387,7 +387,7 @@ void CStaffPage21::OnReportBeginDrag(NMHDR * /*pNotifyStruct*/, LRESULT * /*resu
 
 void CStaffPage21::ChangeRiderGroup(ALLOC_GROUP st)
 {
-	//if(!POWER_CHECK(4920, "배차그룹수정", TRUE))
+	//if(!LF->POWER_CHECK(4920, "배차그룹수정", TRUE))
 	//	return;
 
 	CXTPGridSelectedRows *pSelectRows = m_lstRider.GetSelectedRows();
@@ -469,14 +469,14 @@ void CStaffPage21::RefreshRiderListOne(long nItem, long nRiderCompany, long nRNo
 	rs.GetFieldValue("nGroupCompany", nGroupCompany);
 
 	m_lstRider.SetItemText(nItem, 0, m_ci.GetShareCompanyBranchName(nRiderCompany));
-	m_lstRider.SetItemText(nItem, 1, ::GetStringFromLong(nRNo));
+	m_lstRider.SetItemText(nItem, 1, LF->GetStringFromLong(nRNo));
 	m_lstRider.SetItemText(nItem, 2, strName);
 	m_lstRider.SetItemText(nItem, 3, nWorkState == 1 ? "중지" : "");
 
 	if(nGrade == 0)
 		m_lstRider.SetItemText(nItem, 4, "");
 	else
-		m_lstRider.SetItemText(nItem, 4, strGroupName + " [" + ::GetStringFromLong(nGrade) + "등급]");
+		m_lstRider.SetItemText(nItem, 4, strGroupName + " [" + LF->GetStringFromLong(nGrade) + "등급]");
 
 	if((bAutoDownGrade == TRUE) && (nAutoChangeGroupCode <= 0))
 	{
@@ -536,7 +536,7 @@ void CStaffPage21::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resul
 
 	CChangeAllocGroupInfoDlg dlg;
 	dlg.m_nGroupAllocID = pRecord->m_stAlloc.nID;
-	dlg.m_nCompany = ::GetCurBranchInfo()->nCompanyCode;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 	if(dlg.DoModal() == IDOK)
 	{
 		CMkCommand cmd(m_pMkDb, "update_alloc_group_info_3");
@@ -615,12 +615,12 @@ BOOL CStaffPage21::PreTranslateMessage(MSG* pMsg)
 
 void CStaffPage21::OnBnClickedSendMsgBtn()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	CREATE_MODALESS(CRiderMsgDlg, this);
 	pDlg->SetIntegrated(1);
-	pDlg->SetCompanyCode(::GetCurBranchInfo()->nCompanyCode); 
+	pDlg->SetCompanyCode(LF->GetCurBranchInfo()->nCompanyCode); 
 
 	CXTPGridSelectedRows *pRows = m_lstRider.GetSelectedRows();
 

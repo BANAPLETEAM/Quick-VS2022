@@ -134,7 +134,7 @@ void CScheduleOrderListDlg::RefreshList()
 			m_List.SetItemText(nItem, 5, strStartDong);
 			m_List.SetItemText(nItem, 6, strDest);
 			m_List.SetItemText(nItem, 7, strDestDong);
-			m_List.SetItemText(nItem, 8, GetMyNumberFormat(nChargeSum));
+			m_List.SetItemText(nItem, 8, LF->GetMyNumberFormat(nChargeSum));
 			m_List.SetItemText(nItem, 9, bUse ? "사용" : "X");
 			m_List.SetItemText(nItem, 10, nNextWeekAdvance > 0 ? "O" : "X");
 			m_List.SetItemData(nItem, nTNo);
@@ -214,7 +214,7 @@ void CScheduleOrderListDlg::OnBnClickedAddBtn()
 		return;
 	}
 
-	CBranchInfo *pBranchInfo =GetCurBranchInfo();
+	CBranchInfo *pBranchInfo =LF->GetCurBranchInfo();
 	if(pBranchInfo)
 	{
 		LU->GetRcpView()->CreateRcpDlg(NULL, "정기오더 등록", -1, 0, "", FALSE, -10,GetTickCount(), 0, TRUE);
@@ -229,7 +229,7 @@ void CScheduleOrderListDlg::OnBnClickedEditOrderBtn()
 	{
 
 		long nCompany = m_List.GetItemLong(nItem);
-		CBranchInfo *pBranchInfo =GetBranchInfo(nCompany);
+		CBranchInfo *pBranchInfo = LF->GetBranchInfo(nCompany);
 		if(pBranchInfo)
 		{
 			if(!LU->GetRcpView() )

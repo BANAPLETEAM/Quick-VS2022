@@ -92,7 +92,7 @@ void CWorkStateChangeLogDlg::RefreshList(BOOL bAll)
 		rs.GetFieldValue("dtGenerate", dtGenerate);
 
 		m_lstReport.InsertItem(i, dtGenerate.Format("%y-%m-%d %H:%M"));
-		m_lstReport.SetItemText(i, 1, ::GetStringFromLong(nRNo));
+		m_lstReport.SetItemText(i, 1, LF->GetStringFromLong(nRNo));
 		m_lstReport.SetItemText(i, 2, strRName);
 		m_lstReport.SetItemText(i, 3, strWName);
 		m_lstReport.SetItemText(i, 4, strChange);

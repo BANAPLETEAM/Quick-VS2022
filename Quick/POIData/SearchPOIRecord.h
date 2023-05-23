@@ -279,7 +279,7 @@ public:
 		return m_pscus->pData;
 	}
 
-	CString GetPhoneNumber() { return GetNoneDashNumberRemoveDDD(m_pscus->strPhone); }
+	CString GetPhoneNumber() { return LF->GetNoneDashNumberRemoveDDD(m_pscus->strPhone); }
 	long GetTelID() { return m_pscus->nTelID; }
 	BOOL IsChild() { return m_pscus->bHasParentOrChild && m_pscus->nMainPhone == 0; }
 	BOOL IsParent() { return m_pscus->bHasParentOrChild && m_pscus->nMainPhone != 0; }
@@ -356,7 +356,7 @@ protected:
 
 	CString GetPhoneMU()
 	{
-		return CSearchPOI::GetMarkupReplaceWordSlash(GetDashPhoneNumber(m_pscus->strPhone), GetDashPhoneNumber(m_strKeyword));
+		return CSearchPOI::GetMarkupReplaceWordSlash(LF->GetDashPhoneNumber(m_pscus->strPhone), LF->GetDashPhoneNumber(m_strKeyword));
 	}
 
 	CString GetHeadSymbol()

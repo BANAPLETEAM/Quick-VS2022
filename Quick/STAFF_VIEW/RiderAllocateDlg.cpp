@@ -126,13 +126,13 @@ void CRiderAllocateDlg::SearchRiderList()
 	
 	if(strSearch.IsEmpty())
 	{
-		::MsgBox("검색어를 입력하세요");
+		LF->MsgBox("검색어를 입력하세요");
 		return;
 	}
 
-	if(::IsNumber(strSearch) == FALSE)
+	if(LF->IsNumber(strSearch) == FALSE)
 	{
-		::MsgBox("사번 조회만 가능합니다");
+		LF->MsgBox("사번 조회만 가능합니다");
 		return;
 	}
 
@@ -161,9 +161,9 @@ void CRiderAllocateDlg::SearchRiderList()
 		m_List.SetItemText(nCount, 2, m_ci.GetShareCompanyBranchName(nCompany));
 		m_List.SetItemText(nCount, 3, m_ci.GetShareCompanyOfficePhone(nCompany));
 		m_List.SetItemText(nCount, 4, m_ci.GetShareCompanyPhone(nCompany));
-		m_List.SetItemText(nCount, 5, ::GetStringFromLong(nMNo));
+		m_List.SetItemText(nCount, 5, LF->GetStringFromLong(nMNo));
 		m_List.SetItemText(nCount, 6, strID);
-		m_List.SetItemText(nCount, 7, ::GetDashPhoneNumber(strHp));
+		m_List.SetItemText(nCount, 7, LF->GetDashPhoneNumber(strHp));
 		m_List.SetItemText(nCount, 8, strName);
 
 		m_List.SetItemLong(nCount, nCompany);

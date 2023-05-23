@@ -72,28 +72,28 @@ int CReportRiderView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LU->CreateFormViewTabControl(this, &m_wndTabControl);
 
-	if(POWER_CHECK(4010, "기사정산"))
+	if(LF->POWER_CHECK(4010, "기사정산"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm2), _T("기사정산"), 0,CReportForm2::IDD);
-	if(POWER_CHECK(4020, "기사별건수"))
+	if(LF->POWER_CHECK(4020, "기사별건수"))
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm4), _T("기사별건수"), 0,CReportForm4::IDD);
 	}
-	if(POWER_CHECK(4030, "기사신용정산"))
+	if(LF->POWER_CHECK(4030, "기사신용정산"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm13), _T("기사신용정산"), 0,CReportForm13::IDD);
-	if(POWER_CHECK(4040, "기사마일리지"))
+	if(LF->POWER_CHECK(4040, "기사마일리지"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm20), _T("기사마일리지"), 0,CReportForm20::IDD);
-	if(POWER_CHECK(4050, "쿠폰정산"))
+	if(LF->POWER_CHECK(4050, "쿠폰정산"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm8), _T("쿠폰정산"), 0,CReportForm8::IDD);
-	if(POWER_CHECK(4060, "기사별건수(지입금)"))
+	if(LF->POWER_CHECK(4060, "기사별건수(지입금)"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm25), _T("기사별건수(지입금)"), 0,CReportForm25::IDD);
-	if(POWER_CHECK(4070, "영업팀정산"))
+	if(LF->POWER_CHECK(4070, "영업팀정산"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm26), _T("영업팀정산"), 0,CReportForm26::IDD);
-	if(POWER_CHECK(4080, "기사온라인출금"))
+	if(LF->POWER_CHECK(4080, "기사온라인출금"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm29), _T("기사온라인출금"), 0,CReportForm29::IDD);
 
-	if(POWER_CHECK(4090, "기사출금요청") && (::IsThisCompany("퀵콜") || ::IsThisCompany("로지")))
+	if(LF->POWER_CHECK(4090, "기사출금요청") && (LF->IsThisCompany("퀵콜") || LF->IsThisCompany("로지")))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm32), _T("기사출금요청"), 0,CReportForm32::IDD);
-	if(POWER_CHECK(4100, "단말기이력관리") && (::IsThisCompany("퀵콜") || ::IsThisCompany("로지")))
+	if(LF->POWER_CHECK(4100, "단말기이력관리") && (LF->IsThisCompany("퀵콜") || LF->IsThisCompany("로지")))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CReportForm33), _T("단말기이력관리"), 0,CReportForm33::IDD);
 
 	if(m_wndTabControl.GetItemCount() == 0)
@@ -125,7 +125,7 @@ LONG CReportRiderView::OnBranchClickEvent(UINT nBranch, LPARAM lParam)
 	CXTPTabManagerItem *pItem = m_wndTabControl.GetItem(m_wndTabControl.GetCurSel());
 	CMyFormView *pView = (CMyFormView*)CWnd::FromHandle(pItem->GetHandle());
 
-	if(m_CurCodeInfo[pView] != GetCurBranchInfo())
+	if(m_CurCodeInfo[pView] != LF->GetCurBranchInfo())
 	{
 		pView->RefreshList();
 	}

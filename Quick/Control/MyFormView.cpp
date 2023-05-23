@@ -217,13 +217,13 @@ void CMyFormView::SetResize(long nID, SIZING_TYPE st, int xMargin, int yMargin)
 void CMyFormView::RefreshList()
 {
 	if(FALSE == m_bInitialUpdateCalled ) return;
-	m_CurCodeInfo[this] = GetCurBranchInfo(TRUE);
+	m_CurCodeInfo[this] = LF->GetCurBranchInfo(TRUE);
 	m_bFirstRefreshList = TRUE;
 }
 
 void CMyFormView::RefreshList2()
 {
-	m_CurCodeInfo[this] = GetCurBranchInfo(TRUE);
+	m_CurCodeInfo[this] = LF->GetCurBranchInfo(TRUE);
 	m_bFirstRefreshList2 = TRUE;
 }
 

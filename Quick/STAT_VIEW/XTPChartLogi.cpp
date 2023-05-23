@@ -393,13 +393,6 @@ void CXTPChartLogi::ClearChart()
 	map_AxisLabel.clear();
 }
 
-CString CXTPChartLogi::RemoveComma(CString strText)
-{
-	CString strTemp = strText;
-	strTemp.Remove(',');
-	return strTemp;
-}
-
 void CXTPChartLogi::SetChartItem(CString strTitle, CString strText, int nSeriesNumber, int nIndex)
 {
 	CXTPChartSeries* pSeries = GetContent()->GetSeries()->GetAt(nSeriesNumber);
@@ -412,7 +405,7 @@ void CXTPChartLogi::SetChartItem(CString strTitle, CString strText, int nSeriesN
 
 	if (nSeriesNumber == 0)
 	{
-		pPoint = new CXTPChartSeriesPoint(strTitle, atof(RemoveComma(strText)), atof(RemoveComma(strText)));
+		pPoint = new CXTPChartSeriesPoint(strTitle, atof(LF->RemoveComma(strText)), atof(LF->RemoveComma(strText)));
 		pPoint->SetInternalArgumentValue(nIndex + 100);
 	}
 	else
@@ -420,7 +413,7 @@ void CXTPChartLogi::SetChartItem(CString strTitle, CString strText, int nSeriesN
 
 		CXTPChartSeriesPoint* pOriginPoint = GetContent()->GetSeries()->GetAt(0)->GetPoints()->GetAt(nIndex);
 		double dTemp = pOriginPoint->GetArgumentValue();
-		pPoint = new CXTPChartSeriesPoint(strTitle, atof(RemoveComma(strText)), atof(RemoveComma(strText)));
+		pPoint = new CXTPChartSeriesPoint(strTitle, atof(LF->RemoveComma(strText)), atof(LF->RemoveComma(strText)));
 	}
 
 	CXTPChartString strString;
@@ -507,13 +500,13 @@ void CXTPChartLogi::SetPieChartItem(CString strTitle, CString strText, int nSeri
 
 	if (nSeriesNumber == 0)
 	{
-		pPoint = new CXTPChartSeriesPoint(strTitle, atof(RemoveComma(strText)), atof(RemoveComma(strText)));
+		pPoint = new CXTPChartSeriesPoint(strTitle, atof(LF->RemoveComma(strText)), atof(LF->RemoveComma(strText)));
 	}
 	else
 	{
 		CXTPChartSeriesPoint* pOriginPoint = GetContent()->GetSeries()->GetAt(0)->GetPoints()->GetAt(nIndex);	
 		double dTemp = pOriginPoint->GetArgumentValue();
-		pPoint = new CXTPChartSeriesPoint(strTitle, atof(RemoveComma(strText)), atof(RemoveComma(strText)));
+		pPoint = new CXTPChartSeriesPoint(strTitle, atof(LF->RemoveComma(strText)), atof(LF->RemoveComma(strText)));
 	}
 
 	CXTPChartString strString;
@@ -534,7 +527,7 @@ void CXTPChartLogi::SetWeekChartItem(CString strTitle, CString strText, int nSer
 		return;
 	}
 
-	pPoint = new CXTPChartSeriesPoint(strTitle, atof(RemoveComma(strText)), atof(RemoveComma(strText)));
+	pPoint = new CXTPChartSeriesPoint(strTitle, atof(LF->RemoveComma(strText)), atof(LF->RemoveComma(strText)));
 
 	CXTPChartString strString;
 	strString.Format("%s %s\n%s\n%s", m_strTooltipText, GetLegendFormat(nSeriesNumber), strText, strTitle);

@@ -166,8 +166,8 @@ void CTakerPage3::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_smscallback_tel_customer_1");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_cmbTelType.GetCurSel());
 	if(!rs.Execute(&cmd)) return;
 
@@ -257,21 +257,21 @@ void CTakerPage3::RefreshSub(CMkRecordset *pRs, CXTPGridRecord *pRecord)
 	pTakerPage3->sRandChar			=  strRandChar;
 
 	m_lstReport.SetItemText(pRecord, 1, strBranchName);		
-	m_lstReport.SetItemText(pRecord, 2, ::GetDashPhoneNumber(strOriginalTel));
-	m_lstReport.SetItemText(pRecord, 3, ::GetDashPhoneNumber(strTel));
+	m_lstReport.SetItemText(pRecord, 2, LF->GetDashPhoneNumber(strOriginalTel));
+	m_lstReport.SetItemText(pRecord, 3, LF->GetDashPhoneNumber(strTel));
 	m_lstReport.SetItemText(pRecord, 4, strEtc);
-	m_lstReport.SetItemText(pRecord, 5, ::GetSMSTelUse(nUse));
-	m_lstReport.SetItemText(pRecord, 6, ::GetSMSFileStateType(nState));
-	m_lstReport.SetItemText(pRecord, 7, ::GetSMSTelCorp(nCorpType));
-	m_lstReport.SetItemText(pRecord, 8, ::GetSMSFileStateType(nTelecomState, nTelType));
-	m_lstReport.SetItemText(pRecord, 9, ::GetSMSFileStateType(nIdentityCardState, nTelType));
+	m_lstReport.SetItemText(pRecord, 5, LF->GetSMSTelUse(nUse));
+	m_lstReport.SetItemText(pRecord, 6, LF->GetSMSFileStateType(nState));
+	m_lstReport.SetItemText(pRecord, 7, LF->GetSMSTelCorp(nCorpType));
+	m_lstReport.SetItemText(pRecord, 8, LF->GetSMSFileStateType(nTelecomState, nTelType));
+	m_lstReport.SetItemText(pRecord, 9, LF->GetSMSFileStateType(nIdentityCardState, nTelType));
 	m_lstReport.SetItemText(pRecord, 10, strContactName);
 	m_lstReport.SetItemText(pRecord, 11, strContactNumber);
 
 	m_lstReport.SetItemLong(pRecord, nCompany);
 	m_lstReport.SetItemLong2(pRecord, nNo);
 	m_lstReport.SetItemLong3(pRecord, nState);
-	m_lstReport.SetItemDataText(pRecord,::GetSMSFileStateType(nState));
+	m_lstReport.SetItemDataText(pRecord, LF->GetSMSFileStateType(nState));
 	m_lstReport.SetItemDataText2(pRecord,strTelecomUrl);
 	m_lstReport.SetItemDataText3(pRecord,strIdentityCardUrl);
 
@@ -384,9 +384,9 @@ void CTakerPage3::FilterList()
 	strTelSearch.Replace("-", "");
 	
 	 
-	if( ::IsStringDigit(strTelSearch) && strTelSearch.GetLength() > 6 )
+	if( LF->IsStringDigit(strTelSearch) && strTelSearch.GetLength() > 6 )
 	{
-		strTelSearch = ::GetDashPhoneNumber(strTelSearch);
+		strTelSearch = LF->GetDashPhoneNumber(strTelSearch);
 		m_lstReport.Filter(strTelSearch);
 	}
 	else
@@ -399,10 +399,10 @@ void CTakerPage3::FilterList()
 
 void CTakerPage3::OnToExcel()
 {
-	if(!POWER_CHECK(5900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(5900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 404, m_ui.nWNo, m_lstReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 404, m_ui.nWNo, m_lstReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 

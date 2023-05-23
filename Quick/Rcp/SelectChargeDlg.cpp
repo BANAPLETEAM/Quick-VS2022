@@ -95,9 +95,9 @@ BOOL CSelectChargeDlg::OnInitDialog()
 			m_List.InsertItem(i, dt1.Format("%Y-%m-%d"));
 			m_List.SetItemText(i, 1, strStart);
 			m_List.SetItemText(i, 2, strDest);
-			m_List.SetItemText(i, 3, GetRunTypeFromLong(nRunType, 1));
-			m_List.SetItemText(i, 4, GetWayTypeFromLong(nWayType, 1));
-			m_List.SetItemText(i, 5, GetCarTypeFromLong(nCarType, 1));
+			m_List.SetItemText(i, 3, LF->GetRunTypeFromLong(nRunType, 1));
+			m_List.SetItemText(i, 4, LF->GetWayTypeFromLong(nWayType, 1));
+			m_List.SetItemText(i, 5, LF->GetCarTypeFromLong(nCarType, 1));
 			m_List.SetItemText(i, 6, ltoa(nBasic, buffer, 10));
 			m_List.SetItemText(i, 7, ltoa(nAdd, buffer, 10));
 			m_List.SetItemText(i, 8, ltoa(nDis, buffer, 10));
@@ -133,9 +133,9 @@ void CSelectChargeDlg::OnLvnItemchangedList1(NMHDR *pNMHDR, LRESULT *pResult)
 	if(!(pNMLV->uNewState & LVIS_SELECTED)) return;
 	int nItem = pNMLV->iItem;
 
-	m_nRunType = GetRunTypeFromString(m_List.GetItemText(nItem, 3));
-	m_nWayType = GetWayTypeFromString(m_List.GetItemText(nItem, 4));
-	m_nCarType = GetCarTypeFromString(m_List.GetItemText(nItem, 5));
+	m_nRunType = LF->GetRunTypeFromString(m_List.GetItemText(nItem, 3));
+	m_nWayType = LF->GetWayTypeFromString(m_List.GetItemText(nItem, 4));
+	m_nCarType = LF->GetCarTypeFromString(m_List.GetItemText(nItem, 5));
 	m_nChargeBasic = atol(m_List.GetItemText(nItem, 6));
 	m_nChargeAdd = atol(m_List.GetItemText(nItem, 7));
 	m_nChargeDis = atol(m_List.GetItemText(nItem, 8));
@@ -150,9 +150,9 @@ void CSelectChargeDlg::OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 	if((nItem = m_List.GetNextItem(-1, LVNI_SELECTED)) < 0) 
 		return;
 
-	m_nRunType = GetRunTypeFromString(m_List.GetItemText(nItem, 3));
-	m_nWayType = GetWayTypeFromString(m_List.GetItemText(nItem, 4));
-	m_nCarType = GetCarTypeFromString(m_List.GetItemText(nItem, 5));
+	m_nRunType = LF->GetRunTypeFromString(m_List.GetItemText(nItem, 3));
+	m_nWayType = LF->GetWayTypeFromString(m_List.GetItemText(nItem, 4));
+	m_nCarType = LF->GetCarTypeFromString(m_List.GetItemText(nItem, 5));
 	m_nChargeBasic = atol(m_List.GetItemText(nItem, 6));
 	m_nChargeAdd = atol(m_List.GetItemText(nItem, 7));
 	m_nChargeDis = atol(m_List.GetItemText(nItem, 8));

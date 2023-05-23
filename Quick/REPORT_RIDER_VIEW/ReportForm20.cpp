@@ -154,8 +154,8 @@ void CReportForm20::RefreshRider()
 	
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_list_mileage_balance");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	
 	if(!pRs.Execute(&pCmd))
 		return;
@@ -192,9 +192,9 @@ void CReportForm20::RefreshRider()
 		m_RiderList.MyAddItem(0,m_ci.GetBranchName(nCompany),"지사",65,FALSE,DT_LEFT);		
 		m_RiderList.MyAddItem(1,nMNo,		"사번",	45,FALSE,DT_CENTER);
 		m_RiderList.MyAddItem(2,strName,	"기사명",55,FALSE,DT_LEFT);
-		m_RiderList.MyAddItem(3,GetMyNumberFormat(nMyCompanyMileage),	"마일",45,FALSE,DT_RIGHT);		
-		m_RiderList.MyAddItem(4,GetMyNumberFormat(nMyCompanyCouphon),	"쿠폰",45,FALSE,DT_RIGHT);		
-		m_RiderList.MyAddItem(5,GetMyNumberFormat(nMarketCallCount),	"영업",45,FALSE,DT_RIGHT);		
+		m_RiderList.MyAddItem(3,LF->GetMyNumberFormat(nMyCompanyMileage),	"마일",45,FALSE,DT_RIGHT);		
+		m_RiderList.MyAddItem(4,LF->GetMyNumberFormat(nMyCompanyCouphon),	"쿠폰",45,FALSE,DT_RIGHT);		
+		m_RiderList.MyAddItem(5,LF->GetMyNumberFormat(nMarketCallCount),	"영업",45,FALSE,DT_RIGHT);		
 		m_RiderList.InsertItemDataLong(nCompany);
 		m_RiderList.EndItem();
 			
@@ -206,9 +206,9 @@ void CReportForm20::RefreshRider()
 	m_RiderList.MyAddItem(0,"","지사",65,FALSE,DT_LEFT);		
 	m_RiderList.MyAddItem(1,0,		"사번",	45,FALSE,DT_CENTER);
 	m_RiderList.MyAddItem(2,"합계",	"기사명",55,FALSE,DT_LEFT);
-	m_RiderList.MyAddItem(3,GetMyNumberFormat(nTotMyCompanyMileage),	"마일",45,FALSE,DT_RIGHT);		
-	m_RiderList.MyAddItem(4,GetMyNumberFormat(nTotMyCompanyCoupon),	"쿠폰",45,FALSE,DT_RIGHT);		
-	m_RiderList.MyAddItem(5,GetMyNumberFormat(nTotMarketCallCount),	"영업",45,FALSE,DT_RIGHT);		
+	m_RiderList.MyAddItem(3,LF->GetMyNumberFormat(nTotMyCompanyMileage),	"마일",45,FALSE,DT_RIGHT);		
+	m_RiderList.MyAddItem(4,LF->GetMyNumberFormat(nTotMyCompanyCoupon),	"쿠폰",45,FALSE,DT_RIGHT);		
+	m_RiderList.MyAddItem(5,LF->GetMyNumberFormat(nTotMarketCallCount),	"영업",45,FALSE,DT_RIGHT);		
 	m_RiderList.InsertItemDataLong(-1);
 	m_RiderList.EndItem();
 	m_RiderList.Populate();
@@ -257,7 +257,7 @@ void CReportForm20::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*
 	/*if(nBalance == 0 && nCol == 1)
 	{
 		m_OrderList.SetItemCheck(nRow,nCol,m_OrderList.GetItemCheck(nRow,nCol));
-		MsgBox("마일이 없는곳은 체크하실수 없습니다.");
+		LF->MsgBox("마일이 없는곳은 체크하실수 없습니다.");
 		return;
 	}*/
 
@@ -285,15 +285,15 @@ void CReportForm20::RefreshLogList()
 		COleDateTimeSpan span = m_dtLogTo - m_dtLogFrom;
 		if(span.GetDays() > 62 ) 
 		{
-			MsgBox("마일리지 로그의 전직원 조회는 2달까지만 적용됩니다");
+			LF->MsgBox("마일리지 로그의 전직원 조회는 2달까지만 적용됩니다");
 			return;
 		}
 	}
 	
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_mileage_log");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtLogFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtLogTo);	
 	pCmd.AddParameter(typeInt, typeInput, sizeof(int), m_nMNo);		
@@ -350,9 +350,9 @@ void CReportForm20::RefreshLogList()
 		m_LogList.MyAddItem(3, sName ,								"이름",	60, FALSE,DT_LEFT);		
 		m_LogList.MyAddItem(4, dtLog.Format("%y-%m-%d %H:%M") ,		"일시",	70, FALSE,DT_LEFT);
 		m_LogList.MyAddItem(5, sType ,								"상태",	50, FALSE,DT_LEFT);		
-		m_LogList.MyAddItem(6, bAdd ? GetMyNumberFormat(nAmount) : "" ,"입금",	50, FALSE,DT_RIGHT);
-		m_LogList.MyAddItem(7, bAdd == 0? GetMyNumberFormat(nAmount) : "" ,"출금",	50, FALSE,DT_RIGHT);
-		m_LogList.MyAddItem(8, GetMyNumberFormat(nBalance),			"잔액",		60, FALSE,DT_RIGHT);
+		m_LogList.MyAddItem(6, bAdd ? LF->GetMyNumberFormat(nAmount) : "" ,"입금",	50, FALSE,DT_RIGHT);
+		m_LogList.MyAddItem(7, bAdd == 0? LF->GetMyNumberFormat(nAmount) : "" ,"출금",	50, FALSE,DT_RIGHT);
+		m_LogList.MyAddItem(8, LF->GetMyNumberFormat(nBalance),			"잔액",		60, FALSE,DT_RIGHT);
 		m_LogList.MyAddItem(9, sWName ,								"작업자",	60, FALSE,DT_LEFT);		
 		m_LogList.MyAddItem(10, sEtc ,									"비고",	200, FALSE,DT_LEFT);
 		
@@ -397,8 +397,8 @@ void CReportForm20::RefreshList()
 	CWaitCursor wait;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_mileage_coupon_report");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-    pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+    pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_tmFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_tmTo);
 	pCmd.AddParameter(typeInt, typeInput, sizeof(int), nPayType);
@@ -508,18 +508,18 @@ void CReportForm20::RefreshList()
 				break;
 		}
 
-		m_OrderList.MyAddItem(12, GetPayTypeFromLong(nAPay),			"구분",50, FALSE,DT_CENTER);
-		m_OrderList.MyAddItem(13, GetMyNumberFormat(nBasic),			"기본",80, FALSE,DT_RIGHT);
-		m_OrderList.MyAddItem(14, GetMyNumberFormat(nAdd) ,				"추가",70, FALSE,DT_RIGHT);		
+		m_OrderList.MyAddItem(12, LF->GetPayTypeFromLong(nAPay),			"구분",50, FALSE,DT_CENTER);
+		m_OrderList.MyAddItem(13, LF->GetMyNumberFormat(nBasic),			"기본",80, FALSE,DT_RIGHT);
+		m_OrderList.MyAddItem(14, LF->GetMyNumberFormat(nAdd) ,				"추가",70, FALSE,DT_RIGHT);		
 		m_OrderList.MyAddItem(15, (nDis < 100 && nDis > 0) ? CString(ltoa(nDis, buffer, 10)) + "%" :	
-							GetMyNumberFormat(nDis) ,					"할인",70, FALSE,DT_RIGHT);
-		m_OrderList.MyAddItem(16, GetMyNumberFormat(nCon) ,				"탁송",70, FALSE,DT_RIGHT);
+							LF->GetMyNumberFormat(nDis) ,					"할인",70, FALSE,DT_RIGHT);
+		m_OrderList.MyAddItem(16, LF->GetMyNumberFormat(nCon) ,				"탁송",70, FALSE,DT_RIGHT);
 		m_OrderList.MyAddItem(17, "",									"추후할인",90, FALSE,DT_RIGHT);
-		m_OrderList.MyAddItem(18, GetMyNumberFormat(nTotal),			"합계",100, FALSE,DT_RIGHT);
-		m_OrderList.MyAddItem(19, GetMyNumberFormat(nCouponCharge),		"쿠폰",70, FALSE,DT_RIGHT);
-		m_OrderList.MyAddItem(20, GetMyNumberFormat(nChargeRiderAuto),	"마일",70, FALSE,DT_RIGHT);
+		m_OrderList.MyAddItem(18, LF->GetMyNumberFormat(nTotal),			"합계",100, FALSE,DT_RIGHT);
+		m_OrderList.MyAddItem(19, LF->GetMyNumberFormat(nCouponCharge),		"쿠폰",70, FALSE,DT_RIGHT);
+		m_OrderList.MyAddItem(20, LF->GetMyNumberFormat(nChargeRiderAuto),	"마일",70, FALSE,DT_RIGHT);
 		m_OrderList.MyAddItem(21, sManager ,							"담당자",60, FALSE,DT_LEFT);
-		m_OrderList.MyAddItem(22, GetStateString(nState) ,				"비고",80, FALSE,DT_LEFT);
+		m_OrderList.MyAddItem(22, LF->GetStateString(nState) ,				"비고",80, FALSE,DT_LEFT);
 		m_OrderList.EndItem();
 
 		nBasicT += nBasic;
@@ -543,8 +543,8 @@ void CReportForm20::RefreshList()
 	/*
 		m_OrderList.InsertItem(++i,"", FALSE);
 		m_OrderList.SetItemText(i,17, "합계:");
-		m_OrderList.SetItemText(i,18, GetMyNumberFormat(nTotalT));
-		m_OrderList.SetItemText(i,19, GetMyNumberFormat(nCouponChargeT) );
+		m_OrderList.SetItemText(i,18, LF->GetMyNumberFormat(nTotalT));
+		m_OrderList.SetItemText(i,19, LF->GetMyNumberFormat(nCouponChargeT) );
 		*/
 		
 	}	
@@ -589,7 +589,7 @@ void CReportForm20::OnBnClickedCalculateBtn()
 
 	if(m_RiderList.GetSelectedCount() == 0)
 	{
-		MsgBox("잔액정리를 하실 기사분을 선택하세요");
+		LF->MsgBox("잔액정리를 하실 기사분을 선택하세요");
 		return;
 	}
 
@@ -603,7 +603,7 @@ void CReportForm20::OnBnClickedCalculateBtn()
 		nAllRNo = atol(m_RiderList.GetItemText(nRow, 1));
 		if(nAllRNo == 999999)
 		{
-			MsgBox("전체기사는 잔액수정이 불가능합니다.");
+			LF->MsgBox("전체기사는 잔액수정이 불가능합니다.");
 			return;
 		}
 	}
@@ -614,7 +614,7 @@ void CReportForm20::OnBnClickedCalculateBtn()
 
 	CString sMsg = "";
 	sMsg.Format("%s으로 %d명의 기사님에 대해 잔액정리를 하시겠습니까?",sType, nSelectedCount);
-	if( MsgBox(sMsg,  "잔액정리", MB_ICONINFORMATION | MB_YESNO) == IDYES)
+	if( LF->MsgBox(sMsg,  "잔액정리", MB_ICONINFORMATION | MB_YESNO) == IDYES)
 	{
 		for(int i = 0; i < nSelectedCount; i++)
 		{
@@ -641,7 +641,7 @@ void CReportForm20::OnBnClickedReceiveBalanceBtn()
 {
 	if(m_RiderList.GetSelectedCount() == 0)
 	{
-		MsgBox("잔액차감을 하실 기사분을 선택하세요");
+		LF->MsgBox("잔액차감을 하실 기사분을 선택하세요");
 		return;
 	}
 
@@ -654,7 +654,7 @@ void CReportForm20::OnBnClickedReceiveBalanceBtn()
 		nAllRNo = atol(m_RiderList.GetItemText(nRow, 1));
 		if(nAllRNo == 999999 || nAllRNo == 0)
 		{
-			MsgBox("전체기사는 잔액수정이 불가능합니다.");
+			LF->MsgBox("전체기사는 잔액수정이 불가능합니다.");
 			return;
 		}
 	}
@@ -665,7 +665,7 @@ void CReportForm20::OnBnClickedReceiveBalanceBtn()
 
 	CString sMsg = "";
 	sMsg.Format("%s(으)로 %d명의 기사님에 대해 잔액을 차감 하시겠습니까?",sType,nSelectedCount);
-	if( MsgBox(sMsg,  "잔액차감", MB_ICONINFORMATION | MB_YESNO) == IDYES)
+	if( LF->MsgBox(sMsg,  "잔액차감", MB_ICONINFORMATION | MB_YESNO) == IDYES)
 	{
 		CVarietyDlg1 dlg;
 		dlg.m_sTitleDlg = "차감하실 금액을 입력하세요 금액에 -(음수)를 안붙여셔도 됩니다.";
@@ -676,12 +676,12 @@ void CReportForm20::OnBnClickedReceiveBalanceBtn()
 			long nAmount = atol(dlg.m_sValue);
 			if(nAmount <= 0)
 			{
-				MsgBox("금액이 0원 이하는 적용되지 않습니다");
+				LF->MsgBox("금액이 0원 이하는 적용되지 않습니다");
 				return;
 			}
 			if(nAmount > 1000000)
 			{
-				MsgBox("금액적용이 10000000원 이상은 적용되지 않습니다");
+				LF->MsgBox("금액적용이 10000000원 이상은 적용되지 않습니다");
 				return;
 			}
 
@@ -695,7 +695,7 @@ void CReportForm20::OnBnClickedReceiveBalanceBtn()
 
 				if(nRNo <= 0)
 				{
-					MsgBox("기사번호가 0 이하 입니다. 로지소프트로 문의하세요");
+					LF->MsgBox("기사번호가 0 이하 입니다. 로지소프트로 문의하세요");
 					return;
 				}
 				m_RiderList.CreateRsSetQuery("update_rider_mileage_balance_modify");
@@ -715,7 +715,7 @@ void CReportForm20::OnBnClickedReceiveBalanceBtn()
 				{
 					CString sMsg = "";
 					sMsg.Format("실행중 %d번째 행에서 차감하실 금액이 기사잔액보다 커서 멈춥니다. ", i+1);
-					MsgBox(sMsg);
+					LF->MsgBox(sMsg);
 					return;
 				}
 			}
@@ -730,7 +730,7 @@ void CReportForm20::OnBnClickedCalculateBtn3()
 {
 	if(m_RiderList.GetSelectedCount() == 0)
 	{
-		MsgBox("잔액 추가하실 기사분을 선택하세요");
+		LF->MsgBox("잔액 추가하실 기사분을 선택하세요");
 		return;
 	}
 
@@ -743,7 +743,7 @@ void CReportForm20::OnBnClickedCalculateBtn3()
 		nAllRNo = atol(m_RiderList.GetItemText(nRow, 1));
 		if(nAllRNo == 999999 || nAllRNo == 0)
 		{
-			MsgBox("전체기사는 잔액수정이 불가능합니다.");
+			LF->MsgBox("전체기사는 잔액수정이 불가능합니다.");
 			return;
 		}
 	}
@@ -757,7 +757,7 @@ void CReportForm20::OnBnClickedCalculateBtn3()
 
 	CString sMsg = "";
 	sMsg.Format("%s(으)로 %d명의 기사님에 대해 잔액을 추가 하시겠습니까?",sType, nSelectedCount);
-	if( MsgBox(sMsg,  "잔액차감", MB_ICONINFORMATION | MB_YESNO) == IDYES)
+	if( LF->MsgBox(sMsg,  "잔액차감", MB_ICONINFORMATION | MB_YESNO) == IDYES)
 	{
 		CVarietyDlg1 dlg;
 		dlg.m_sTitleDlg = "추가하실 금액을 입력하세요";
@@ -766,12 +766,12 @@ void CReportForm20::OnBnClickedCalculateBtn3()
 			long nAmount = atol(dlg.m_sValue);
 			if(nAmount <= 0)
 			{
-				MsgBox("금액이 0원 이하는 적용되지 않습니다");
+				LF->MsgBox("금액이 0원 이하는 적용되지 않습니다");
 				return;
 			}
 			if(nAmount > 1000000)
 			{
-				MsgBox("금액적용이 10000000원 이상은 적용되지 않습니다");
+				LF->MsgBox("금액적용이 10000000원 이상은 적용되지 않습니다");
 				return;
 			}
 
@@ -784,7 +784,7 @@ void CReportForm20::OnBnClickedCalculateBtn3()
 				CString sEtc = dlg.m_sValue2;
 				if(nRNo <= 0)
 				{
-					MsgBox("기사번호가 0 이하 입니다. 로지소프트로 문의하세요");
+					LF->MsgBox("기사번호가 0 이하 입니다. 로지소프트로 문의하세요");
 					return;
 				}
 
@@ -855,28 +855,28 @@ void CReportForm20::OnReportItemCustomRClick(NMHDR * pNotifyStruct, LRESULT * /*
 
 void CReportForm20::OnViewExcel()
 {
-	if(!POWER_CHECK(4900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(4900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 321, m_ui.nWNo, m_OrderList.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 321, m_ui.nWNo, m_OrderList.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_OrderList);
 }
 
 void CReportForm20::OnViewExcel2()
 {
-	if(!POWER_CHECK(4900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(4900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 321, m_ui.nWNo, m_LogList.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 321, m_ui.nWNo, m_LogList.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_LogList);
 }
 
 void CReportForm20::OnViewExcel3()
 {
-	if(!POWER_CHECK(4900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(4900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 321, m_ui.nWNo, m_LogList.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 321, m_ui.nWNo, m_LogList.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_RiderList);
 }
 

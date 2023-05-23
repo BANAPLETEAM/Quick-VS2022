@@ -7,8 +7,8 @@
 
 #define LOAD_INSRUANCE_URL "www.wingbody.kr"
 
-#define GET_ELEMENT_TEXT(x, y) ::UTF8ToANSI(x->FirstChildElement(y)->GetText());
-#define GET_ELEMENT_INT(x, y) atoi(::UTF8ToANSI(x->FirstChildElement(y)->GetText()));
+#define GET_ELEMENT_TEXT(x, y) LF->UTF8ToANSI(x->FirstChildElement(y)->GetText());
+#define GET_ELEMENT_INT(x, y) atoi(LF->UTF8ToANSI(x->FirstChildElement(y)->GetText()));
 
 CLoadInsurance::CLoadInsurance(long nType, CLoadInsuranceData *st, CString strEtc)
 {
@@ -19,12 +19,12 @@ CLoadInsurance::CLoadInsurance(long nType, CLoadInsuranceData *st, CString strEt
 	if(m_nType == LOAD_INS_INSERT)
 	{
 		m_strUrl.Format("rogi/_rogiL.php?proc=rogi_&rogiCompanyNum=10&a1=%s&a2=%s&a3=%s&a4=%s&a5=%s&a6=&a7=&a8=&a9=%d&a10=%s&a11=%s",
-			ConvertStringToSendData(st->strCompanyName), ::GetStringFromLong(st->nRNo), ConvertStringToSendData(st->strRiderName), st->strSSN, st->strPhone, st->nCarType, ConvertStringToSendData(st->strCarNo), "1");
+			LF->ConvertStringToSendData(st->strCompanyName), LF->GetStringFromLong(st->nRNo), LF->ConvertStringToSendData(st->strRiderName), st->strSSN, st->strPhone, st->nCarType, LF->ConvertStringToSendData(st->strCarNo), "1");
 	}
 	else if(m_nType == LOAD_INS_DELETE)
 	{
 		m_strUrl.Format("rogi/_rogiL.php?proc=rogi_&rogiCompanyNum=10&a1=%s&a2=%s&a3=%s&a4=%s&a5=%s&a6=&a7=&a8=&a9=%d&a10=%s&a11=%s",
-			ConvertStringToSendData(st->strCompanyName), ::GetStringFromLong(st->nRNo), ConvertStringToSendData(st->strRiderName), st->strSSN, st->strPhone, st->nCarType, ConvertStringToSendData(st->strCarNo), "2");
+			LF->ConvertStringToSendData(st->strCompanyName), LF->GetStringFromLong(st->nRNo), LF->ConvertStringToSendData(st->strRiderName), st->strSSN, st->strPhone, st->nCarType, LF->ConvertStringToSendData(st->strCarNo), "2");
 	}
 	else if(m_nType == LOAD_INS_SEARCH)
 	{

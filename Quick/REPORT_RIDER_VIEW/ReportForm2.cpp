@@ -178,8 +178,8 @@ void CReportForm2::RefreshRider()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_list_for_report2");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), 
 		m_ci.m_bRcpIntMode1 ? MAKE_SHARE_CODE(m_ci.GetShareCode1()) : -1);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int),
@@ -256,8 +256,8 @@ void CReportForm2::RefreshListAfterDisCount(long nParameterRNo)
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_income_report_after_simple4");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_tmFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_tmTo);
 	pCmd.AddParameter(typeInt, typeInput, sizeof(int), nPayType);
@@ -445,12 +445,12 @@ void CReportForm2::RefreshListAfterDisCount(long nParameterRNo)
 
 		//nTotal += nCon;
 	
-		m_lcData.SetItemText(nItem,12, GetPayTypeFromLong(nAPay));
-		m_lcData.SetItemText(nItem,13, GetMyNumberFormat(nBasic));
-		m_lcData.SetItemText(nItem,14, GetMyNumberFormat(nAdd));
+		m_lcData.SetItemText(nItem,12, LF->GetPayTypeFromLong(nAPay));
+		m_lcData.SetItemText(nItem,13, LF->GetMyNumberFormat(nBasic));
+		m_lcData.SetItemText(nItem,14, LF->GetMyNumberFormat(nAdd));
 		m_lcData.SetItemText(nItem,15, (nDis < 100 && nDis > 0) ? CString(ltoa(nDis, buffer, 10)) + "%" :
-							GetMyNumberFormat(nDis));
-		m_lcData.SetItemText(nItem,16, GetMyNumberFormat(nCon));
+							LF->GetMyNumberFormat(nDis));
+		m_lcData.SetItemText(nItem,16, LF->GetMyNumberFormat(nCon));
 		if(nDisCount == 0)
 		{
 			m_lcData.SetItemText(nItem,17, "");
@@ -460,27 +460,27 @@ void CReportForm2::RefreshListAfterDisCount(long nParameterRNo)
 			if(bCreditAfterDiscount)	
 				if(nDis != 0 && sDisCount.GetLength() > 0 )
 					m_lcData.SetItemText(nItem,13, (nDisCount > -99 && nDisCount < 100) ? "(주의:" + sDisCount +"%)"  :
-									"주의(" + GetMyNumberFormat(nDisCount) + ")" );
+									"주의(" + LF->GetMyNumberFormat(nDisCount) + ")" );
 				else
 					m_lcData.SetItemText(nItem,13, (nDisCount > -99 && nDisCount < 100) ? sDisCount +"%"  :
-									 GetMyNumberFormat(nDisCount) );
+									 LF->GetMyNumberFormat(nDisCount) );
 			else
 			{
 				if(nDis != 0 && sDisCount.GetLength() > 0)
 					m_lcData.SetItemText(nItem,13, (nDisCount > -99 && nDisCount < 100) ? "("+ sDisCount + "%)" :
-									"("+GetMyNumberFormat(nDisCount)+")");
+									"("+LF->GetMyNumberFormat(nDisCount)+")");
 					
 				else
 					m_lcData.SetItemText(nItem,13, (nDisCount > -99 && nDisCount < 100) ? sDisCount + "%" :
-									GetMyNumberFormat(nDisCount));
+									LF->GetMyNumberFormat(nDisCount));
 			}
 		}
 
-		m_lcData.SetItemText(nItem,18, GetMyNumberFormat(nTotal));
-		m_lcData.SetItemText(nItem,19, GetMyNumberFormat(nChargeDriving));
-		m_lcData.SetItemText(nItem,20, GetMyNumberFormat(nCouponCharge));
+		m_lcData.SetItemText(nItem,18, LF->GetMyNumberFormat(nTotal));
+		m_lcData.SetItemText(nItem,19, LF->GetMyNumberFormat(nChargeDriving));
+		m_lcData.SetItemText(nItem,20, LF->GetMyNumberFormat(nCouponCharge));
 		m_lcData.SetItemText(nItem,21, sManager);
-		m_lcData.SetItemText(nItem,22, GetStateString(nState));
+		m_lcData.SetItemText(nItem,22, LF->GetStateString(nState));
 		m_lcData.SetItemLong(nItem,0);
 		m_lcData.SetItemLong2(nItem++, nCompany);
 
@@ -530,24 +530,24 @@ void CReportForm2::RefreshListAfterDisCount(long nParameterRNo)
 
 		m_lcData.InsertItem(nItem,"");
 		m_lcData.SetItemText(nItem,5, "금액합계");
-		m_lcData.SetItemText(nItem,6, GetMyNumberFormat(nTemp + nConT + nCouponChargeT));
-		m_lcData.SetItemText(nItem,7, GetMyNumberFormat(nCredit));
-		m_lcData.SetItemText(nItem,8, GetMyNumberFormat(nCash));
+		m_lcData.SetItemText(nItem,6, LF->GetMyNumberFormat(nTemp + nConT + nCouponChargeT));
+		m_lcData.SetItemText(nItem,7, LF->GetMyNumberFormat(nCredit));
+		m_lcData.SetItemText(nItem,8, LF->GetMyNumberFormat(nCash));
 
-		m_lcData.SetItemText(nItem,9, GetMyNumberFormat(nOnline));
-		m_lcData.SetItemText(nItem,10, GetMyNumberFormat(nConT));
-		m_lcData.SetItemText(nItem,11, GetMyNumberFormat(nCouponChargeT));
-		m_lcData.SetItemText(nItem++,12, GetMyNumberFormat(nRealDepositT));
+		m_lcData.SetItemText(nItem,9, LF->GetMyNumberFormat(nOnline));
+		m_lcData.SetItemText(nItem,10, LF->GetMyNumberFormat(nConT));
+		m_lcData.SetItemText(nItem,11, LF->GetMyNumberFormat(nCouponChargeT));
+		m_lcData.SetItemText(nItem++,12, LF->GetMyNumberFormat(nRealDepositT));
 
 		m_lcData.InsertItem(nItem,"");
 		m_lcData.SetItemText(nItem,5, "건수");
-		m_lcData.SetItemText(nItem,6, GetMyNumberFormat(nCashCount + nCreditCount + nOnlineCount));
-		m_lcData.SetItemText(nItem,7, GetMyNumberFormat(nCreditCount));
-		m_lcData.SetItemText(nItem,8, GetMyNumberFormat(nCashCount));
-		m_lcData.SetItemText(nItem,9, GetMyNumberFormat(nOnlineCount));
-		m_lcData.SetItemText(nItem,10, GetMyNumberFormat(nTransCount));
-		m_lcData.SetItemText(nItem,11, GetMyNumberFormat(nCouponCount));
-		m_lcData.SetItemText(nItem++,12, GetMyNumberFormat(nCashCount + nCreditCount + nOnlineCount));
+		m_lcData.SetItemText(nItem,6, LF->GetMyNumberFormat(nCashCount + nCreditCount + nOnlineCount));
+		m_lcData.SetItemText(nItem,7, LF->GetMyNumberFormat(nCreditCount));
+		m_lcData.SetItemText(nItem,8, LF->GetMyNumberFormat(nCashCount));
+		m_lcData.SetItemText(nItem,9, LF->GetMyNumberFormat(nOnlineCount));
+		m_lcData.SetItemText(nItem,10, LF->GetMyNumberFormat(nTransCount));
+		m_lcData.SetItemText(nItem,11, LF->GetMyNumberFormat(nCouponCount));
+		m_lcData.SetItemText(nItem++,12, LF->GetMyNumberFormat(nCashCount + nCreditCount + nOnlineCount));
 
 		m_lcData.InsertItem(nItem,"");		
 		m_lcData.SetItemText(nItem,8,"신용할인율");
@@ -565,9 +565,9 @@ void CReportForm2::RefreshListAfterDisCount(long nParameterRNo)
 
 		m_lcData.InsertItem(nItem,"");
 		strTemp.Format("%d", nCredit * (100 - atol(m_strDisRate)) / 100 + nConT);
-		m_lcData.SetItemText(nItem,8, GetMyNumberFormat(strTemp));
+		m_lcData.SetItemText(nItem,8, LF->GetMyNumberFormat(strTemp));
 		strTemp.Format("%d", nCash * (100 - atol(m_strCashRate)) / 100 );
-		m_lcData.SetItemText(nItem++,9,GetMyNumberFormat(strTemp));
+		m_lcData.SetItemText(nItem++,9,LF->GetMyNumberFormat(strTemp));
 	}
 
 	m_lcData.Populate();
@@ -578,22 +578,22 @@ void CReportForm2::InsertDayTotal(long nTCash, long nTCredit, long nTBasic, long
 								  long nTSum, long nTChargeDriving, long nTDeposit, long nTRealDeposit, long nTCoupon, long nTBill, long nItem, BOOL bInsert)
 {
 	m_lcData.InsertItem(nItem, "");
-	m_lcData.SetItemText(nItem, 9, "현금 : " + ::GetMyNumberFormat(nTCash));
-	m_lcData.SetItemText(nItem, 10, "신용 : " + ::GetMyNumberFormat(nTCredit));
-	m_lcData.SetItemText(nItem, 11, "직/수 : " + ::GetMyNumberFormat(nTBill));
-	m_lcData.SetItemText(nItem, 13, ::GetMyNumberFormat(nTBasic));
-	m_lcData.SetItemText(nItem, 14, ::GetMyNumberFormat(nTAdd));
-	m_lcData.SetItemText(nItem, 15, ::GetMyNumberFormat(nTDis));
-	m_lcData.SetItemText(nItem, 16, ::GetMyNumberFormat(nTTrans));
+	m_lcData.SetItemText(nItem, 9, "현금 : " + LF->GetMyNumberFormat(nTCash));
+	m_lcData.SetItemText(nItem, 10, "신용 : " + LF->GetMyNumberFormat(nTCredit));
+	m_lcData.SetItemText(nItem, 11, "직/수 : " + LF->GetMyNumberFormat(nTBill));
+	m_lcData.SetItemText(nItem, 13, LF->GetMyNumberFormat(nTBasic));
+	m_lcData.SetItemText(nItem, 14, LF->GetMyNumberFormat(nTAdd));
+	m_lcData.SetItemText(nItem, 15, LF->GetMyNumberFormat(nTDis));
+	m_lcData.SetItemText(nItem, 16, LF->GetMyNumberFormat(nTTrans));
 
 	if(bInsert)
-		m_lcData.SetItemText(nItem, 17, ::GetMyNumberFormat(nTCredit));
+		m_lcData.SetItemText(nItem, 17, LF->GetMyNumberFormat(nTCredit));
 
-	m_lcData.SetItemText(nItem, 18, ::GetMyNumberFormat(nTSum));
-	m_lcData.SetItemText(nItem, 19, ::GetMyNumberFormat(nTChargeDriving));  
-	m_lcData.SetItemText(nItem, 20, ::GetMyNumberFormat(nTDeposit));  
-	m_lcData.SetItemText(nItem, 21, ::GetMyNumberFormat(nTRealDeposit));  
-	m_lcData.SetItemText(nItem, 22, ::GetMyNumberFormat(nTCoupon));  
+	m_lcData.SetItemText(nItem, 18, LF->GetMyNumberFormat(nTSum));
+	m_lcData.SetItemText(nItem, 19, LF->GetMyNumberFormat(nTChargeDriving));  
+	m_lcData.SetItemText(nItem, 20, LF->GetMyNumberFormat(nTDeposit));  
+	m_lcData.SetItemText(nItem, 21, LF->GetMyNumberFormat(nTRealDeposit));  
+	m_lcData.SetItemText(nItem, 22, LF->GetMyNumberFormat(nTCoupon));  
 	m_lcData.SetItemLong(nItem, 1);
 	m_lcData.SetItemLong2(nItem, 0);
 }
@@ -638,8 +638,8 @@ void CReportForm2::RefreshList(long nParameterRNo)
 	CWaitCursor wait; 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_income_report_simple10");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-    pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+    pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_tmFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_tmTo);
 	pCmd.AddParameter(typeInt, typeInput, sizeof(int), nPayType);
@@ -870,21 +870,21 @@ void CReportForm2::RefreshList(long nParameterRNo)
 
 
 
-		m_lcData.SetItemText(nItem,12, GetPayTypeFromLong(nAPay));
-		m_lcData.SetItemText(nItem,13, GetMyNumberFormat(nBasic));
-		m_lcData.SetItemText(nItem,14, GetMyNumberFormat(nAdd));
+		m_lcData.SetItemText(nItem,12, LF->GetPayTypeFromLong(nAPay));
+		m_lcData.SetItemText(nItem,13, LF->GetMyNumberFormat(nBasic));
+		m_lcData.SetItemText(nItem,14, LF->GetMyNumberFormat(nAdd));
 		m_lcData.SetItemText(nItem,15, (nDis < 100 && nDis > 0) ? CString(ltoa(nDis, buffer, 10)) + "%" :
-							GetMyNumberFormat(nDis));
-		m_lcData.SetItemText(nItem,16, GetMyNumberFormat(nCon));
+							LF->GetMyNumberFormat(nDis));
+		m_lcData.SetItemText(nItem,16, LF->GetMyNumberFormat(nCon));
 		
-		m_lcData.SetItemText(nItem,18, GetMyNumberFormat(nTotal));
-		m_lcData.SetItemText(nItem,19, GetMyNumberFormat(nChargeDriving));
-		m_lcData.SetItemText(nItem,20, GetMyNumberFormat(nDeposit));
-		m_lcData.SetItemText(nItem,21, GetMyNumberFormat(nRealDeposit));
-		m_lcData.SetItemText(nItem,22, GetMyNumberFormat(nChargeCompany));
-		m_lcData.SetItemText(nItem,23, GetMyNumberFormat(nCouponCharge));
+		m_lcData.SetItemText(nItem,18, LF->GetMyNumberFormat(nTotal));
+		m_lcData.SetItemText(nItem,19, LF->GetMyNumberFormat(nChargeDriving));
+		m_lcData.SetItemText(nItem,20, LF->GetMyNumberFormat(nDeposit));
+		m_lcData.SetItemText(nItem,21, LF->GetMyNumberFormat(nRealDeposit));
+		m_lcData.SetItemText(nItem,22, LF->GetMyNumberFormat(nChargeCompany));
+		m_lcData.SetItemText(nItem,23, LF->GetMyNumberFormat(nCouponCharge));
 		m_lcData.SetItemText(nItem,24, sManager);
-		m_lcData.SetItemText(nItem,25, GetStateString(nState));
+		m_lcData.SetItemText(nItem,25, LF->GetStateString(nState));
 		m_lcData.SetItemText(nItem,26, sEtc);
 		m_lcData.SetItemLong(nItem, 0);
 		m_lcData.SetItemLong2(nItem++, nCompany);
@@ -939,28 +939,28 @@ void CReportForm2::RefreshList(long nParameterRNo)
 
 		m_lcData.InsertItem(nItem,"");
 		m_lcData.SetItemText(nItem,5, "금액합계");
-		m_lcData.SetItemText(nItem,6, GetMyNumberFormat(nTemp + nCouponChargeT + nChargeCompanyTotal));
-		m_lcData.SetItemText(nItem,7, GetMyNumberFormat(nChargeCompanyTotal));
-		m_lcData.SetItemText(nItem,8, GetMyNumberFormat(nCredit));
-		m_lcData.SetItemText(nItem,9, GetMyNumberFormat(nCash));
-		m_lcData.SetItemText(nItem,10, GetMyNumberFormat(nOnline));
-		m_lcData.SetItemText(nItem,11, GetMyNumberFormat(nCard));
+		m_lcData.SetItemText(nItem,6, LF->GetMyNumberFormat(nTemp + nCouponChargeT + nChargeCompanyTotal));
+		m_lcData.SetItemText(nItem,7, LF->GetMyNumberFormat(nChargeCompanyTotal));
+		m_lcData.SetItemText(nItem,8, LF->GetMyNumberFormat(nCredit));
+		m_lcData.SetItemText(nItem,9, LF->GetMyNumberFormat(nCash));
+		m_lcData.SetItemText(nItem,10, LF->GetMyNumberFormat(nOnline));
+		m_lcData.SetItemText(nItem,11, LF->GetMyNumberFormat(nCard));
 
-		m_lcData.SetItemText(nItem,12, GetMyNumberFormat(nConT));
-		m_lcData.SetItemText(nItem,13, GetMyNumberFormat(nBillT));
-		m_lcData.SetItemText(nItem,14, GetMyNumberFormat(nCouponChargeT));
-		m_lcData.SetItemText(nItem,15, GetMyNumberFormat(nDepositT));
-		m_lcData.SetItemText(nItem++,16, GetMyNumberFormat(nRealDepositT));
+		m_lcData.SetItemText(nItem,12, LF->GetMyNumberFormat(nConT));
+		m_lcData.SetItemText(nItem,13, LF->GetMyNumberFormat(nBillT));
+		m_lcData.SetItemText(nItem,14, LF->GetMyNumberFormat(nCouponChargeT));
+		m_lcData.SetItemText(nItem,15, LF->GetMyNumberFormat(nDepositT));
+		m_lcData.SetItemText(nItem++,16, LF->GetMyNumberFormat(nRealDepositT));
 
 		m_lcData.InsertItem(nItem,"");
 		m_lcData.SetItemText(nItem,5, "건수");
-		m_lcData.SetItemText(nItem,6, GetMyNumberFormat(nCashCount + nCreditCount + nOnlineCount));
-		m_lcData.SetItemText(nItem,8, GetMyNumberFormat(nCreditCount));
-		m_lcData.SetItemText(nItem,9, GetMyNumberFormat(nCashCount));
-		m_lcData.SetItemText(nItem,10, GetMyNumberFormat(nOnlineCount));
-		m_lcData.SetItemText(nItem,11, GetMyNumberFormat(nCardCount));
-		m_lcData.SetItemText(nItem,12, GetMyNumberFormat(nTransCount));
-		m_lcData.SetItemText(nItem++,13, GetMyNumberFormat(nBillCount));
+		m_lcData.SetItemText(nItem,6, LF->GetMyNumberFormat(nCashCount + nCreditCount + nOnlineCount));
+		m_lcData.SetItemText(nItem,8, LF->GetMyNumberFormat(nCreditCount));
+		m_lcData.SetItemText(nItem,9, LF->GetMyNumberFormat(nCashCount));
+		m_lcData.SetItemText(nItem,10, LF->GetMyNumberFormat(nOnlineCount));
+		m_lcData.SetItemText(nItem,11, LF->GetMyNumberFormat(nCardCount));
+		m_lcData.SetItemText(nItem,12, LF->GetMyNumberFormat(nTransCount));
+		m_lcData.SetItemText(nItem++,13, LF->GetMyNumberFormat(nBillCount));
 
 		m_lcData.InsertItem(nItem,"");		
 		m_lcData.SetItemText(nItem,9,"신용할인율");
@@ -978,9 +978,9 @@ void CReportForm2::RefreshList(long nParameterRNo)
 
 		m_lcData.InsertItem(nItem,"");
 		//strTemp.Format("%d", nCredit * (100 - atol(m_strDisRate)) / 100 + nConT);
-		m_lcData.SetItemText(nItem,9, GetMyNumberFormat(nCredit + nOnline + nCard + nCreditTrans + nCardTrans + nChargeCompanyTotal));
+		m_lcData.SetItemText(nItem,9, LF->GetMyNumberFormat(nCredit + nOnline + nCard + nCreditTrans + nCardTrans + nChargeCompanyTotal));
 		strTemp.Format("%d", nCash * (100 - atol(m_strCashRate)) / 100 );
-		m_lcData.SetItemText(nItem++,10,GetMyNumberFormat(strTemp));
+		m_lcData.SetItemText(nItem++,10,LF->GetMyNumberFormat(strTemp));
 	}
 
 	m_lcData.Populate();
@@ -1056,10 +1056,10 @@ void CReportForm2::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm2::OnViewExcel()
 {
-	if(!POWER_CHECK(4900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(4900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 302, m_ui.nWNo, m_lcData.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 302, m_ui.nWNo, m_lcData.GetItemCount());  
 	CMyExcel::ToExcel(&m_lcData);
 }
 
@@ -1130,7 +1130,7 @@ void CReportForm2::OnSendSms()
 		}
 		else
 		{
-			::SendSmsNew(m_ci.m_nCompanyCode, 777, sHp, m_ci.m_strOfficePhone, sMsg, "접수프로그램(기사입금)", "", "", TRUE);	
+			LF->SendSmsNew(m_ci.m_nCompanyCode, 777, sHp, m_ci.m_strOfficePhone, sMsg, "접수프로그램(기사입금)", "", "", TRUE);
 		}		
 	}
 
@@ -1162,8 +1162,8 @@ void CReportForm2::RefreshSMSData()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_sms_data");
 
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(m_tmFrom);
 	pCmd.AddParameter(m_tmTo);
 
@@ -1202,19 +1202,19 @@ void CReportForm2::RefreshSMSData()
 		if(bUsePDA)
 		{
 			m_lcData.InsertCheckItem(i, "", -1, TRUE);
-			sHp = ::GetDashPhoneNumber(sID);
+			sHp = LF->GetDashPhoneNumber(sID);
 		}
 		else 
 		{
 			if((sRiderPhone.GetLength() >= 10) && (sRiderPhone.Left(2) == "01"))
 			{
 				m_lcData.InsertCheckItem(i, "", -1, TRUE);
-				sHp = ::GetDashPhoneNumber(sRiderPhone);
+				sHp = LF->GetDashPhoneNumber(sRiderPhone);
 			}
 			else if ((sID.GetLength() >= 10) && (sID.Left(2) == "01"))
 			{
 				m_lcData.InsertCheckItem(i, "", -1, TRUE);
-				sHp = ::GetDashPhoneNumber(sID);
+				sHp = LF->GetDashPhoneNumber(sID);
 			}
 			else
 			{
@@ -1280,10 +1280,10 @@ void CReportForm2::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resul
 	CXTPGridRecord *pRecord = pRow->GetRecord();
 
 	CString sOName = pRecord->GetItem(7)->GetCaption(NULL);
-	long nState = ::GetStateFromString(pRecord->GetItem(23)->GetCaption(NULL)); 
+	long nState = LF->GetStateFromString(pRecord->GetItem(23)->GetCaption(NULL));
 	long nTNo = _ttoi(pRecord->GetItem(1)->GetCaption(NULL));
 	long nCompany = m_lcData.GetItemLong2(pRecord);
-	CBranchInfo *pBranch = GetBranchInfo(nCompany);
+	CBranchInfo *pBranch = LF->GetBranchInfo(nCompany);
 
 	
 	if(LU->GetRcpView() == NULL)

@@ -97,10 +97,10 @@ void COtherRiderTransferLogDlg::RefreshList()
 
 		m_lstReport.InsertItem(i, dtGenerate.Format("%y-%m-%d %H:%M"));
 		m_lstReport.SetItemText(i, 1, m_ci.GetCompanyName(nRiderCompany));
-		m_lstReport.SetItemText(i, 2, ::GetStringFromLong(nRNo));
+		m_lstReport.SetItemText(i, 2, LF->GetStringFromLong(nRNo));
 		m_lstReport.SetItemText(i, 3, strRName);
 		m_lstReport.SetItemText(i, 4, m_ci.GetCompanyName(nCompany));
-		m_lstReport.SetItemText(i, 5, ::GetMyNumberFormat(nCharge));
+		m_lstReport.SetItemText(i, 5, LF->GetMyNumberFormat(nCharge));
 		m_lstReport.SetItemText(i, 6, strWName);
 		m_lstReport.SetItemText(i, 7, strEtc);
 		m_lstReport.SetItemLong(i, nRiderCompany);

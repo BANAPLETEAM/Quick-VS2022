@@ -393,7 +393,7 @@ void CShareReportBranchSetDlg::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT 
 
 void CShareReportBranchSetDlg::OnBnClickedDrawingBtn()
 {
-	if(!POWER_CHECK(1040, "출금요청", TRUE))
+	if(!LF->POWER_CHECK(1040, "출금요청", TRUE))
 		return;
 
 	CRequestDrawingDlg dlg;

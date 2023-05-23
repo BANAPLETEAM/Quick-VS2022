@@ -71,7 +71,7 @@ void CEditItemDlg::LoadItem()
 	CString strItem = AfxGetApp()->GetProfileString("CEditItemDlg", "Item", "서류봉투;소박스;중박스;대박스;컴퓨터;");
 
 	CStringArray strArry;
-	::GetItemCommaToArray(strItem, strArry);
+	LF->GetItemCommaToArray(strItem, strArry);
 
 	for(int i=0; i<strArry.GetCount(); i++)
 		m_lstItem.InsertItem(i, strArry.GetAt(i));
@@ -154,7 +154,7 @@ void CEditItemDlg::OnBnClickedSaveBtn()
 		CMkCommand pCmd(m_pMkDb, "update_item_info");
 		pCmd.AddParameter(m_nCompany);	
 		pCmd.AddParameter(m_chkIntegrated.GetCheck());
-		pCmd.AddParameter(GetBranchInfo(m_nCompany)->nShareCode1);
+		pCmd.AddParameter(LF->GetBranchInfo(m_nCompany)->nShareCode1);
 		pCmd.AddParameter(strItemArry);	
 		if(!pRs.Execute(&pCmd)) return ;
 

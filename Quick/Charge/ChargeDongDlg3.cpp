@@ -359,7 +359,7 @@ void CChargeDongDlg3::ChargeTypeNameRefresh()
 
 void CChargeDongDlg3::OnBnClickedDiscountCompanyBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CString sChargeName = "";
@@ -413,7 +413,7 @@ void CChargeDongDlg3::OnBnClickedDiscountCompanyBtn()
 
 void CChargeDongDlg3::OnBnClickedDiscountCompanyDelBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(m_cmbDiscountCompany.GetCount() <= 0 )
@@ -639,7 +639,7 @@ BOOL CChargeDongDlg3::IsUpdateOk()
 
 void CChargeDongDlg3::OnBnClickedEditBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	try 
@@ -693,12 +693,12 @@ void CChargeDongDlg3::OnBnClickedEditBtn()
 				pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetType(pStartRecord, pDestRecord));
 				pCmd.AddParameter(typeLong, typeInput, sizeof(int), pStartRecord->m_nID);
 				pCmd.AddParameter(typeLong, typeInput, sizeof(int), pDestRecord->m_nID);
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetLongFromEdit(&m_edtCharge11));
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetLongFromEdit(&m_edtCharge12));
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetLongFromEdit(&m_edtCharge13));
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetLongFromEdit(&m_edtCharge14));
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetLongFromEdit(&m_edtCharge15));
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetLongFromEdit(&m_edtCharge16));
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetLongFromEdit(&m_edtCharge11));
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetLongFromEdit(&m_edtCharge12));
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetLongFromEdit(&m_edtCharge13));
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetLongFromEdit(&m_edtCharge14));
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetLongFromEdit(&m_edtCharge15));
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetLongFromEdit(&m_edtCharge16));
 				pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_chkShuttle.GetCheck());
 				pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_chkGeneralMoto.GetCheck());
 				pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_chkGeneralDama.GetCheck());
@@ -730,22 +730,22 @@ void CChargeDongDlg3::OnBnClickedEditBtn()
 				{*/
 				 
 				if(m_chkGeneralMoto.GetCheck())
-					SetCharge(pDestRecord->m_nID,2, ::GetLongFromEdit(&m_edtCharge11)); 
+					SetCharge(pDestRecord->m_nID,2, LF->GetLongFromEdit(&m_edtCharge11)); 
 
 				if(m_chkGeneralDama.GetCheck())
-					SetCharge(pDestRecord->m_nID,3, ::GetLongFromEdit(&m_edtCharge12));
+					SetCharge(pDestRecord->m_nID,3, LF->GetLongFromEdit(&m_edtCharge12));
 
 				if(m_chkGeneralRabo.GetCheck())
-					SetCharge(pDestRecord->m_nID,4, ::GetLongFromEdit(&m_edtCharge13));
+					SetCharge(pDestRecord->m_nID,4, LF->GetLongFromEdit(&m_edtCharge13));
 
 				if(m_chkSpecificDama.GetCheck())
-					SetCharge(pDestRecord->m_nID,5, ::GetLongFromEdit(&m_edtCharge14));
+					SetCharge(pDestRecord->m_nID,5, LF->GetLongFromEdit(&m_edtCharge14));
 
 				if(m_chkSpecificMoto.GetCheck())
-					SetCharge(pDestRecord->m_nID,6, ::GetLongFromEdit(&m_edtCharge15));
+					SetCharge(pDestRecord->m_nID,6, LF->GetLongFromEdit(&m_edtCharge15));
 				
 				if(m_chkSubWay.GetCheck())
-					SetCharge(pDestRecord->m_nID,7, ::GetLongFromEdit(&m_edtCharge16));
+					SetCharge(pDestRecord->m_nID,7, LF->GetLongFromEdit(&m_edtCharge16));
 				//}				
 			}
 			
@@ -820,7 +820,7 @@ void CChargeDongDlg3::OnViewListPrint()
 
 	if(m_nCompany <= 0 && nDongID <= 0)
 	{
-		MsgBox("회사및 동이 적용되지 않았습니다.");
+		LF->MsgBox("회사및 동이 적용되지 않았습니다.");
 		return;
 	}
 	CWebChargeListDlg dlg;
@@ -923,7 +923,7 @@ void CChargeDongDlg3::OnReportDestItemClick(NMHDR * pNotifyStruct, LRESULT * /*r
 
 void CChargeDongDlg3::OnBnClickedDeleteBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CDetailDestChargeNewRecord *pDestRecord = NULL;
@@ -1286,7 +1286,7 @@ void CChargeDongDlg3::OnCbnSelchangeChargeTypeCombo()
 }
 void CChargeDongDlg3::OnBnClickedCopyDongBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CopyDongDlg();
@@ -1295,7 +1295,7 @@ void CChargeDongDlg3::OnBnClickedCopyDongBtn()
 
 void CChargeDongDlg3::OnBnClickedChargeTypeBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CChargeWorkDlg dlg;
@@ -1412,10 +1412,10 @@ void CChargeDongDlg3::OnViewExcel()
 		return;
 	}
 
-	if(!POWER_CHECK(1900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(1900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 801, pRs.GetRecordCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 801, pRs.GetRecordCount());  
 	CMyExcel::ToExcel(&pRs);
 
 	pRs.Close();
@@ -1449,7 +1449,7 @@ void CChargeDongDlg3::OnBnClickedSearchGroupBtn()
 void CChargeDongDlg3::OnBnClickedSameCheckBtn()
 {
 	if(m_lstStart.GetSelectedRows()->GetCount() == 0)
-		MsgBox("한개라도 체크해주세요");
+		LF->MsgBox("한개라도 체크해주세요");
 
 	/*g_bana_log->Print("갯수: %d", m_lstStart.GetSelectedRows()->GetCount());
 
@@ -1464,7 +1464,7 @@ void CChargeDongDlg3::OnBnClickedSameCheckBtn()
 
 	if(m_nFirstWork == 0)
 	{
-		MsgBox("이작업을 하기 위해서는 양쪽 트리를 전부 여셔야 합니다.");
+		LF->MsgBox("이작업을 하기 위해서는 양쪽 트리를 전부 여셔야 합니다.");
 		m_nFirstWork++;
 	}
 
@@ -1514,7 +1514,7 @@ void CChargeDongDlg3::OnBnClickedButton2()
 void CChargeDongDlg3::OnBnClickedSelectareaMemoryBtn()
 {
 
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(m_pChargeDongSettingDlg == NULL)
@@ -1573,7 +1573,7 @@ void CChargeDongDlg3::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* /*res
 
 		CXTPGridRecordItemText *pItemNumber = (CXTPGridRecordItemText *)pItemNotify->pItem;
 		sCharge   = pItemNumber->GetValue(); sCharge.Replace(",", "");
-		if(!IsStringDigit(sCharge))
+		if(!LF->IsStringDigit(sCharge))
 			throw("숫자가 아닙니다.");
 
 		nCharge = atol(sCharge);

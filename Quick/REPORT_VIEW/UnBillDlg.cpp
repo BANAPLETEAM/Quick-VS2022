@@ -382,7 +382,7 @@ void CUnBillDlg::OnPayCancel()
 void CUnBillDlg::OnViewExcel()
 {
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 316, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 316, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 
@@ -417,13 +417,13 @@ void CUnBillDlg::InputCancel(int nType )
 
 		if(bCancel)
 		{
-			MsgBox("취소가 되었던 항목입니다.", "확인",MB_ICONINFORMATION  );
+			LF->MsgBox("취소가 되었던 항목입니다.", "확인",MB_ICONINFORMATION  );
 			return;
 		}			
 
 		if(strType.Compare(strCompareType) != 0 )
 		{
-			MsgBox("(+)부분입금 된 항목만 취소할 수 있습니다.", "확인",MB_ICONINFORMATION  );
+			LF->MsgBox("(+)부분입금 된 항목만 취소할 수 있습니다.", "확인",MB_ICONINFORMATION  );
 			return;
 		}			
 
@@ -432,18 +432,18 @@ void CUnBillDlg::InputCancel(int nType )
 
 		if(nIndex <= 0 )
 		{
-			MsgBox("취소할 해당 데이터를 선택하세요");
+			LF->MsgBox("취소할 해당 데이터를 선택하세요");
 			return;
 		}
 
 		if(nReportID <= 0 )
 		{
-			MsgBox("정산리스트가 선택이 되지 않았습니다.");
+			LF->MsgBox("정산리스트가 선택이 되지 않았습니다.");
 			return;
 		}
 		if(nGNo <= 0 )
 		{
-			MsgBox("그룹정보가 없습니다.");
+			LF->MsgBox("그룹정보가 없습니다.");
 			return;
 		}
 
@@ -455,7 +455,7 @@ void CUnBillDlg::InputCancel(int nType )
 		strEtc = dlg.m_sEtc;
 		if(strEtc.GetLength() <= 0 )
 		{
-			MsgBox("취소 사유를 입력하세요", "확인",MB_ICONINFORMATION  );
+			LF->MsgBox("취소 사유를 입력하세요", "확인",MB_ICONINFORMATION  );
 			return;
 		}
 

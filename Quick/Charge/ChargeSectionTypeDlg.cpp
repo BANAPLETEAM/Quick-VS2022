@@ -219,7 +219,7 @@ BOOL CChargeSectionTypeDlg::CheckData()
 
 			sTempAmount = sAmount;
 			sTempAmount.Replace("-", "");
-			if(!IsStringDigit(sStartKm) ||!IsStringDigit(sDestKm)||!IsStringDigit(sTempAmount) )
+			if(!LF->IsStringDigit(sStartKm) ||!LF->IsStringDigit(sDestKm)||!LF->IsStringDigit(sTempAmount) )
 			{
 				strError.Format("%d번째 행의 데이터에 숫자를 기입하세요", i);
 				throw(strError);

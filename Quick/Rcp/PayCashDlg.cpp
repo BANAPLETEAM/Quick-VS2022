@@ -67,7 +67,7 @@ void CPayCashDlg::OnBnClickedOk()
 	m_strInfo.Replace("-", "");
 
 	if(m_strInfo.IsEmpty() ||
-		::IsNumber(m_strInfo) == FALSE)
+		LF->IsNumber(m_strInfo) == FALSE)
 	{
 		MessageBox("발급번호를 확인하세요", "확인", MB_ICONINFORMATION);
 		return;

@@ -76,7 +76,7 @@ BOOL CChangeAllocGroupInfoDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 	
-	::MakeModaless();
+	LF->MakeModaless();
 	CenterWindow();
 	RefreshList();
 
@@ -135,12 +135,12 @@ void CChangeAllocGroupInfoDlg::RefreshList()
 		m_edtAllocGroupName.SetUserTextColor(nTextColor);
 	}
 
-	m_edtAllocGrade.SetWindowText(::GetStringFromLong(nGrade) + " 등급");
+	m_edtAllocGrade.SetWindowText(LF->GetStringFromLong(nGrade) + " 등급");
 	m_edtAllocGroupName.SetWindowText(strGroupName);
-	m_cmbOrderDelay.SetWindowText(::GetStringFromLong(nPanaltyDelayTime4Order));
-	m_cmbMyOrderDelay.SetWindowText(::GetStringFromLong(nPanaltyDelayTime4MyOrder));
-	m_cmbOtherOrderDelay.SetWindowText(::GetStringFromLong(nPanaltyDelayTime4OCOrder));
-	m_cmbMyCorpOrderDelay.SetWindowText(::GetStringFromLong(nPenaltyDelayTime4MyCorpOrder));
+	m_cmbOrderDelay.SetWindowText(LF->GetStringFromLong(nPanaltyDelayTime4Order));
+	m_cmbMyOrderDelay.SetWindowText(LF->GetStringFromLong(nPanaltyDelayTime4MyOrder));
+	m_cmbOtherOrderDelay.SetWindowText(LF->GetStringFromLong(nPanaltyDelayTime4OCOrder));
+	m_cmbMyCorpOrderDelay.SetWindowText(LF->GetStringFromLong(nPenaltyDelayTime4MyCorpOrder));
 	m_cmbShowOrder.SetCurSel(nPanaltyTypeShowOrder);
 
 	m_chkUseAutoAlloc.SetCheck(bAutoAllocType);
@@ -152,8 +152,8 @@ void CChangeAllocGroupInfoDlg::RefreshList()
 	m_chkUseDownGrade.SetCheck(bAutoDownGrade);
 	m_chkNotUseDownGrade.SetCheck(!bAutoDownGrade);
 
-	m_cmbDownGradeDay.SetWindowText(::GetStringFromLong(nAutoDownGradeDay));
-	m_cmbDownGradeCount.SetWindowText(::GetStringFromLong(nAutoDownGradeCount));
+	m_cmbDownGradeDay.SetWindowText(LF->GetStringFromLong(nAutoDownGradeDay));
+	m_cmbDownGradeCount.SetWindowText(LF->GetStringFromLong(nAutoDownGradeCount));
 	m_chkDownGradeOnlyMyCall.SetCheck(nAutoDownGradeOnlyMyCall);
 
 	if(nCompanyAutoAllocType <= 0) 

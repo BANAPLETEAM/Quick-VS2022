@@ -147,12 +147,12 @@ void CMakeGroupReportSendDlg::SendKindReportWeb(int nSendType,  BOOL bReSend)
 
 	if(m_nGNo <= 0)
 	{
-		MsgBox("그룹아이디가 비어있습니다.");
+		LF->MsgBox("그룹아이디가 비어있습니다.");
 		return;
 	}
 	if(m_nGroupReportID <= 0)
 	{
-		MsgBox("그룹리포트 아이디가 비어있습니다.");
+		LF->MsgBox("그룹리포트 아이디가 비어있습니다.");
 		return;
 	}
 
@@ -163,7 +163,7 @@ void CMakeGroupReportSendDlg::SendKindReportWeb(int nSendType,  BOOL bReSend)
 
 	if(strID.GetLength() <= 0 || strPWD.GetLength() <= 0)
 	{
-		MsgBox("아이디및 패스워드를 그룹에서 입력하세요");
+		LF->MsgBox("아이디및 패스워드를 그룹에서 입력하세요");
 		return;
 	} 
 

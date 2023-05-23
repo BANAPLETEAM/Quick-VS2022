@@ -149,8 +149,8 @@ void CStaffPage13::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_driver_limit_new");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
  
 	if(!pRs.Execute(&pCmd)) return;
 
@@ -365,8 +365,8 @@ void CStaffPage13::RefreshListSub(CMkRecordset *pRs, RIDER_INFO_NEW *ri, CXTPGri
 
 
 
-	m_List.SetItemText(pRecord, nSubItem++, GetMyNumberFormat(ltoa(nTodayCharge,buffer,10)) =="0"	?
-		"" : GetMyNumberFormat(ltoa(nTodayCharge,buffer,10)));
+	m_List.SetItemText(pRecord, nSubItem++, LF->GetMyNumberFormat(ltoa(nTodayCharge,buffer,10)) =="0"	?
+		"" : LF->GetMyNumberFormat(ltoa(nTodayCharge,buffer,10)));
 
 	if(bInsurance == 0)
 		m_List.SetItemText(pRecord, nSubItem++,"");
@@ -430,7 +430,7 @@ void CStaffPage13::RefreshListSub(CMkRecordset *pRs, RIDER_INFO_NEW *ri, CXTPGri
 
 void CStaffPage13::OnMenuMsg()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	int nSelItem = m_List.GetNextItem(-1, LVNI_SELECTED);
@@ -456,10 +456,10 @@ void CStaffPage13::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStaffPage13::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(5900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 402, m_ui.nWNo, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 402, m_ui.nWNo, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 

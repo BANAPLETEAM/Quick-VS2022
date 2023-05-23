@@ -20,7 +20,7 @@ CRcpMultiStateChange::~CRcpMultiStateChange(void)
 
 void CRcpMultiStateChange::ChangeItemStateAllocate(long nTNo, long nRNo, long nRiderCompany)
 {
-	if(!POWER_CHECK(2009, "개별배차", TRUE))
+	if(!LF->POWER_CHECK(2009, "개별배차", TRUE))
 		return;
 
 	CXTPGridSelectedRows *pRows = m_pList->GetSelectedRows();
@@ -92,7 +92,7 @@ void CRcpMultiStateChange::ChangeItemStateAllocate(long nTNo, long nRNo, long nR
 
 void CRcpMultiStateChange::ChangeItemState(int nState, BOOL bShare)
 {
-	if(!POWER_CHECK(2002, "오더상태변경", TRUE))
+	if(!LF->POWER_CHECK(2002, "오더상태변경", TRUE))
 		return;
 
 	m_bNotUseStateChangeMsgBox = AfxGetApp()->GetProfileInt("RcpPage", "NotUseStateChangeMsgBox", 0);
@@ -175,7 +175,7 @@ void CRcpMultiStateChange::ChangeItemState(int nState, BOOL bShare)
 
 				case STATE_OK_ONLY_MAN :
 
-					if(!POWER_CHECK(2009, "개별배차", TRUE))
+					if(!LF->POWER_CHECK(2009, "개별배차", TRUE))
 						return;
 
 					LU->OpenAllocateDlg(nTNo, nPreState, strTitle, ZERO, nDeposit, nCarType);
@@ -238,7 +238,7 @@ void CRcpMultiStateChange::ChangeItemState(int nState, BOOL bShare)
 BOOL CRcpMultiStateChange::GetCancelItem(long nTNo, long nRiderCompany, long nOrderCompany, CString strPhone,
 										 CString &strCancel, long &nCancelType, long &nPenaltyMin, long &nPenaltyCharge, BOOL &bCancelWait)
 {
-	CBranchInfo *pBi = GetBranchInfo(nOrderCompany);
+	CBranchInfo *pBi = LF->GetBranchInfo(nOrderCompany);
 	if(pBi->bCancelReason)
 	{
 		strCancel = "[취소:즉시취소]";
@@ -304,7 +304,7 @@ BOOL CRcpMultiStateChange::IsChangeItemStateOk(long nChangeState)
 
 	if(pRows == NULL)
 	{
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		//MessageBox(m_pRcpView->GetSafeHwnd(), "변경하려는 오더를 선택하세요", "확인", MB_ICONINFORMATION);
 		return ZERO;
 	}
@@ -362,7 +362,7 @@ BOOL CRcpMultiStateChange::CheckChangeItem(long nSelItem, long nPreState, long n
 
 	if(nCreditCardType == NICE_CARD_COMPLETE || nCreditCardType == NICE_CARD_COMPLETE_QUICKCALL)
 	{
-		if(::IsCardCheckState(nPreState, nCancelType) == TRUE && ::IsCardCheckState(nState, nCancelType) == FALSE)
+		if(LF->IsCardCheckState(nPreState, nCancelType) == TRUE && LF->IsCardCheckState(nState, nCancelType) == FALSE)
 		{
 			return FALSE;
 		}
@@ -572,7 +572,7 @@ int CRcpMultiStateChange::Allocate(LONG nTNo, LONG nRNo, LONG nPreState, LONG nR
 	switch(nRet)
 	{
 	case ZERO:
-		MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+		LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 		break;
 	case 1:
 	case 11: //PDA 아무행동도 안취함
@@ -603,21 +603,21 @@ int CRcpMultiStateChange::Allocate(LONG nTNo, LONG nRNo, LONG nPreState, LONG nR
 		}
 	case 100:
 		{
-			MsgBox("해당오더의 상태가 변경되었습니다\r\n오더를 확인해주세요", "확인", MB_ICONINFORMATION);
+			LF->MsgBox("해당오더의 상태가 변경되었습니다\r\n오더를 확인해주세요", "확인", MB_ICONINFORMATION);
 			if(bRefresh)
 				m_pRcpView->AllRefresh();
 			break;
 		}
 	case 1000:
 		{
-			MsgBox("하루가 지난오더는 정산상의 이유로 타기사개별배차가 불가능합니다", "확인", MB_ICONINFORMATION);
+			LF->MsgBox("하루가 지난오더는 정산상의 이유로 타기사개별배차가 불가능합니다", "확인", MB_ICONINFORMATION);
 			if(bRefresh)
 				m_pRcpView->AllRefresh();
 			break;
 		}
 
 	default:
-		strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+		strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 		break;
 	}
@@ -662,7 +662,7 @@ int CRcpMultiStateChange::CancelOrder(LONG nCompany, LONG nTNo, LONG nPreState, 
 	if(nRNo > 0 && nCancelType != 10)
 		CheckRiderClear(bClearRider);
 
-	CBranchInfo *pBranch = GetBranchInfo(nCompany);
+	CBranchInfo *pBranch = LF->GetBranchInfo(nCompany);
 
 	if(pBranch->bNotUseEtcForCancel)
 		strCancel = "";
@@ -692,7 +692,7 @@ int CRcpMultiStateChange::CancelOrder(LONG nCompany, LONG nTNo, LONG nPreState, 
 	switch(nRet)
 	{
 	case ZERO:
-		MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+		LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 		break;
 	case 1:
 
@@ -716,7 +716,7 @@ int CRcpMultiStateChange::CancelOrder(LONG nCompany, LONG nTNo, LONG nPreState, 
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONINFORMATION);
 		break;
 	default:
-		strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+		strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 		break;
 	}
@@ -735,7 +735,7 @@ int CRcpMultiStateChange::CompleteState(LONG nCompany, LONG nTNo, LONG nRNo, LON
 			return 0;
 	}
 
-	CBranchInfo *pBranch = GetBranchInfo(nCompany);
+	CBranchInfo *pBranch = LF->GetBranchInfo(nCompany);
 
 	CMkCommand pCmd(m_pMkDb, "change_item_state_complete_2011"); 
 	CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(long));
@@ -758,7 +758,7 @@ int CRcpMultiStateChange::CompleteState(LONG nCompany, LONG nTNo, LONG nRNo, LON
 	switch(nRet)
 	{
 	case ZERO:
-		MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+		LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 		break;
 	case 1:
 		nRet = STATE_ALLOCATED;
@@ -780,7 +780,7 @@ int CRcpMultiStateChange::CompleteState(LONG nCompany, LONG nTNo, LONG nRNo, LON
 		}
 
 	default:
-		strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+		strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 		break;
 	}
@@ -800,7 +800,7 @@ int CRcpMultiStateChange::PickupState(LONG nCompany, LONG nTNo, LONG nRNo, LONG 
 			return 0;
 	}
 
-	CBranchInfo *pBranch = GetBranchInfo(nCompany);
+	CBranchInfo *pBranch = LF->GetBranchInfo(nCompany);
 
 	int nRet = ZERO;
 	CString strMsg;
@@ -823,7 +823,7 @@ int CRcpMultiStateChange::PickupState(LONG nCompany, LONG nTNo, LONG nRNo, LONG 
 	switch(nRet)
 	{
 	case ZERO:
-		MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+		LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 		break;
 	case 1:
 		nRet = STATE_PICKUP;
@@ -846,7 +846,7 @@ int CRcpMultiStateChange::PickupState(LONG nCompany, LONG nTNo, LONG nRNo, LONG 
 		}
 
 	default:
-		strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+		strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 		break;
 	}
@@ -876,7 +876,7 @@ int CRcpMultiStateChange::InquiryState(LONG nTNo, LONG nPreState, BOOL bNoQueryM
 	switch(nRet)
 	{
 	case ZERO:
-		MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+		LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 		break;
 	case 1:
 		nRet = STATE_INQUIRY;
@@ -884,7 +884,7 @@ int CRcpMultiStateChange::InquiryState(LONG nTNo, LONG nPreState, BOOL bNoQueryM
 			m_pRcpView->AllRefresh();
 		break;
 	default:
-		strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+		strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 		break;
 	}
@@ -918,7 +918,7 @@ int CRcpMultiStateChange::FinishState(LONG nTNo, LONG nPreState, BOOL bNoQueryMs
 	switch(nRet)
 	{
 	case ZERO:
-		MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+		LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 		break;
 	case 1:
 		nRet = STATE_FINISH;
@@ -926,7 +926,7 @@ int CRcpMultiStateChange::FinishState(LONG nTNo, LONG nPreState, BOOL bNoQueryMs
 			m_pRcpView->AllRefresh();
 		break;
 	default:
-		strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+		strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 		break;
 	}
@@ -951,7 +951,7 @@ int CRcpMultiStateChange::CancelAllocateToWait(LONG nTNo, LONG nPreState, BOOL b
 	pCmd.AddParameter(typeInt, typeInput, sizeof(int), STATE_WAIT);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_ui.nWNo);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_ui.nCompany);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bUserIDSequence);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bUserIDSequence);
 	pCmd.AddParameter(m_ui.strName);
 	pCmd.AddParameter(bClearRider);
 
@@ -965,7 +965,7 @@ int CRcpMultiStateChange::CancelAllocateToWait(LONG nTNo, LONG nPreState, BOOL b
 	switch(nRet)
 	{
 	case ZERO:
-		MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+		LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 		break;
 	case 1:
 		nRet = STATE_WAIT;
@@ -973,7 +973,7 @@ int CRcpMultiStateChange::CancelAllocateToWait(LONG nTNo, LONG nPreState, BOOL b
 			m_pRcpView->AllRefresh();
 		break;
 	default:
-		strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+		strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 		break;
 	}
@@ -991,7 +991,7 @@ int CRcpMultiStateChange::CancelAllocate(LONG nTNo, LONG nPreState, BOOL bNoQuer
 	if(nRNo > 0)
 		CheckRiderClear(bClearRider);
 
-	BOOL bUserIDSequence = GetCurBranchInfo()->bUserIDSequence;
+	BOOL bUserIDSequence = LF->GetCurBranchInfo()->bUserIDSequence;
 	CMkCommand pCmd(m_pMkDb, "change_item_state_allocate_cancel_2011_1");
 	CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(long));
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), nTNo);
@@ -1014,7 +1014,7 @@ int CRcpMultiStateChange::CancelAllocate(LONG nTNo, LONG nPreState, BOOL bNoQuer
 	switch(nRet)
 	{
 	case ZERO:
-		MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+		LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 		break;
 	case 1:
 		nRet = STATE_OK;
@@ -1022,7 +1022,7 @@ int CRcpMultiStateChange::CancelAllocate(LONG nTNo, LONG nPreState, BOOL bNoQuer
 			m_pRcpView->AllRefresh();
 		break;
 	default:
-		strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+		strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 		MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 		break;
 }
@@ -1050,14 +1050,14 @@ int CRcpMultiStateChange::CancelReserve(LONG nTNo, LONG nPreState)
 		switch(nRet)
 		{ 
 		case ZERO:
-			MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+			LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 			break;
 		case 1:
 			nRet = STATE_OK;
 			m_pRcpView->AllRefresh();
 			break;
 		default:
-			strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+			strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 			MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 			break;
 		}
@@ -1092,14 +1092,14 @@ int CRcpMultiStateChange::ReserveOrder(LONG nTNo, LONG nPreState, long nReleaseM
 		switch(nRet) 
 		{
 		case ZERO:
-			MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+			LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 			break;
 		case 1:
 			nRet = STATE_RESERVED;
 			m_pRcpView->AllRefresh();
 			break;
 		default:
-			strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+			strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 			MessageBox(m_pRcpView->GetSafeHwnd(), strMsg, "확인", MB_ICONEXCLAMATION);
 			break;
 		}

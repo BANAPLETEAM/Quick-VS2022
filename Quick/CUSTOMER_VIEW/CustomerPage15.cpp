@@ -66,7 +66,7 @@ void CCustomerPage15::OnCustomerReportItemDblClick(NMHDR * pNotifyStruct, LRESUL
 		m_pCustomerDlg->Create(CCustomerDlg::IDD, this);
 	}
 
-	m_pCustomerDlg->m_strKeyword = ::GetStringFromLong(m_lstCustomer.GetItemLong(pRecord));
+	m_pCustomerDlg->m_strKeyword = LF->GetStringFromLong(m_lstCustomer.GetItemLong(pRecord));
 	m_pCustomerDlg->m_nCNo = m_lstCustomer.GetItemLong(pRecord);
 	m_pCustomerDlg->m_nSearchType = ST_CNO;
 	m_pCustomerDlg->m_bGroup = FALSE;	
@@ -153,10 +153,10 @@ void CCustomerPage15::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage15::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCustomerTable, 212, m_lstCustomer.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCustomerTable, 212, m_lstCustomer.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstCustomer);
 }
 
@@ -168,7 +168,7 @@ void CCustomerPage15::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_dup_customer");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 
 	if(!rs.Execute(&cmd))
 		return;
@@ -188,10 +188,10 @@ void CCustomerPage15::RefreshList()
 		rs.GetFieldValue("dtRegister", dtRegister);
 		rs.GetFieldValue("dtLastUse", dtLastUse);
 
-		m_lstCustomer.InsertItem(i, ::GetStringFromLong(nID));
+		m_lstCustomer.InsertItem(i, LF->GetStringFromLong(nID));
 		m_lstCustomer.SetItemText(i, 1, strCompany);
-		m_lstCustomer.SetItemText(i, 2, ::GetDashPhoneNumber(strTel));
-		m_lstCustomer.SetItemText(i, 3, ::GetStringFromLong(nDupCount));
+		m_lstCustomer.SetItemText(i, 2, LF->GetDashPhoneNumber(strTel));
+		m_lstCustomer.SetItemText(i, 3, LF->GetStringFromLong(nDupCount));
 		m_lstCustomer.SetItemText(i, 4, dtRegister.m_status != 2 ? dtRegister.Format("%Y-%m-%d %H:%M") : "");
 		m_lstCustomer.SetItemText(i, 5, dtLastUse.m_status != 2 ? dtLastUse.Format("%Y-%m-%d %H:%M") : "");
 		m_lstCustomer.SetItemText(i, 6, strLocation);
@@ -216,7 +216,7 @@ void CCustomerPage15::OnEnChangeSearchEdit()
 
 		CString strName = pRecord->GetItem(1)->GetCaption(NULL);
 		CString strPhone = pRecord->GetItem(2)->GetCaption(NULL);
-		strPhone = ::GetNoneDashNumber(strPhone);
+		strPhone = LF->GetNoneDashNumber(strPhone);
 
 		if(strName.Find(strSearch) >= 0 ||
 			strPhone.Find(strSearch) >= 0)
@@ -352,7 +352,7 @@ BOOL CCustomerPage15::SumCustomer(CPoint pt)
 		//CWaitCursor wait;		
 		CString strDeleteEtc = "°í°´ÅëÇÕ[Áßº¹°í°´ÅÇ] »èÁ¦";
 		CMkCommand pCmd(m_pMkDb, "Integrated_customer_alone_3");
-		pCmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);		//nCompany
+		pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);		//nCompany
 		pCmd.AddParameter(nDelCNo);
 		pCmd.AddParameter(nSumCNo);
 		pCmd.AddParameter(m_ui.nWNo);

@@ -96,11 +96,11 @@ BOOL CRiderMsgAllDlg2::OnInitDialog()
 			CString sHp = m_List2->GetItemText(pRecord, nTempCol);
 			BOOL bHp =  (sHp.GetLength() >= 10 && sHp.GetLength() <= 11) ? TRUE : FALSE;
 
-			m_List.SetItemText(i, nCol++, bHp ?	GetDashPhoneNumber(sHp) : "");
+			m_List.SetItemText(i, nCol++, bHp ?	LF->GetDashPhoneNumber(sHp) : "");
 		
 			CString sID = m_List2->GetItemText(pRecord, nSourceCol++);
 			BOOL bID = (sID.GetLength() >= 10 && sID.GetLength() <= 11) ? TRUE : FALSE;
-			m_List.SetItemText(i, nCol++, bHp ? "" : bID ? GetDashPhoneNumber(sID) : "");
+			m_List.SetItemText(i, nCol++, bHp ? "" : bID ? LF->GetDashPhoneNumber(sID) : "");
 			m_List.SetItemText(i, nCol++, bHp ? "휴대폰" :bID ? "아이디" : "전송제외");
 			m_List.SetItemData(i, m_List2->GetItemData(pRecord));
 			nCol = 1;
@@ -126,11 +126,11 @@ BOOL CRiderMsgAllDlg2::OnInitDialog()
 			CString sHp = m_List2->GetItemText(nItem, nTempCol);
 			BOOL bHp =  (sHp.GetLength() >= 10 && sHp.GetLength() <= 11) ? TRUE : FALSE;
 
-			m_List.SetItemText(i, nCol++, bHp ?	GetDashPhoneNumber(sHp) : "");
+			m_List.SetItemText(i, nCol++, bHp ?	LF->GetDashPhoneNumber(sHp) : "");
 
 			CString sID = m_List2->GetItemText(nItem, nSourceCol++);
 			BOOL bID = (sID.GetLength() >= 10 && sID.GetLength() <= 11) ? TRUE : FALSE;
-			m_List.SetItemText(i, nCol++, bHp ? "" : bID ? GetDashPhoneNumber(sID) : "");
+			m_List.SetItemText(i, nCol++, bHp ? "" : bID ? LF->GetDashPhoneNumber(sID) : "");
 			m_List.SetItemText(i, nCol++, bHp ? "휴대폰" :bID ? "아이디" : "전송제외");
 			m_List.SetItemData(i, m_List2->GetItemData(nItem));
 			nCol = 1;
@@ -141,15 +141,15 @@ BOOL CRiderMsgAllDlg2::OnInitDialog()
 	//m_edtReceivePhone.SetWindowText(m_ci.m_strOfficePhone);
 
 	ST_SMS_INFO smsi;
-	//smsi = ::GetSMSBalance(m_nOrderCompany); 
-	long nCompany = ::GetNowBranchCode();
-	smsi = ::GetSMSBalance(nCompany);
+	//smsi = LF->GetSMSBalance(m_nOrderCompany); 
+	long nCompany = LF->GetNowBranchCode();
+	smsi = LF->GetSMSBalance(nCompany);
 
 	m_cmbPhone.InitSmsPhoneNumber(nCompany, TYPE_OFFICE_TEL);
 
 	CString sBalance, sSMSCount, sMsgLen;
-	sBalance.Format("%s원",GetMyNumberFormat(smsi.nSMSBarance));
-	sSMSCount.Format("%s건", GetMyNumberFormat(smsi.nSMSBarance /DEFINE_SMS_AMOUNT) );
+	sBalance.Format("%s원",LF->GetMyNumberFormat(smsi.nSMSBarance));
+	sSMSCount.Format("%s건", LF->GetMyNumberFormat(smsi.nSMSBarance /DEFINE_SMS_AMOUNT) );
 	m_stcBalance.SetWindowText(sBalance);
 	m_stcSmsCount.SetWindowText(sSMSCount);
 
@@ -179,7 +179,7 @@ void CRiderMsgAllDlg2::OnBnClickedOk()
 			nSendCount++; 
 
 	ST_SMS_INFO smsi; 
-	smsi = ::GetSMSBalance(::GetNowBranchCode()); 
+	smsi = LF->GetSMSBalance(LF->GetNowBranchCode());
 	if(smsi.nSMSType >= 10)
 	{
 		if(nSendCount* DEFINE_SMS_AMOUNT > smsi.nSMSBarance)
@@ -233,7 +233,7 @@ void CRiderMsgAllDlg2::OnBnClickedOk()
 				return;
 			*/
 
-			if(!::SendSmsNew(m_ci.m_nCompanyCode, 555, sHp, sCallBack, sMsg, "기사공지", "", ""))
+			if(!LF->SendSmsNew(m_ci.m_nCompanyCode, 555, sHp, sCallBack, sMsg, "기사공지", "", ""))
 			{
 				MessageBox("SMS 전송 실패", "전송실패", MB_ICONINFORMATION);
 				return;
@@ -254,10 +254,10 @@ void CRiderMsgAllDlg2::OnBnClickedOk()
 	MessageBox(strSuccessCount, "확인", MB_ICONINFORMATION);
 	OnOK();
 		
-	/*smsi = ::GetSMSBalance(::GetNowBranchCode()); 
+	/*smsi = LF->GetSMSBalance(::GetNowBranchCode()); 
 	CString sBalance, sSMSCount, sMsgLen;
-	sBalance.Format("%s원",GetMyNumberFormat(smsi.nSMSBarance));
-	sSMSCount.Format("%s건", GetMyNumberFormat(smsi.nSMSBarance /DEFINE_SMS_AMOUNT) );
+	sBalance.Format("%s원",LF->GetMyNumberFormat(smsi.nSMSBarance));
+	sSMSCount.Format("%s건", LF->GetMyNumberFormat(smsi.nSMSBarance /DEFINE_SMS_AMOUNT) );
 	m_stcBalance.SetWindowText(sBalance);
 	m_stcSmsCount.SetWindowText(sSMSCount);*/
 }

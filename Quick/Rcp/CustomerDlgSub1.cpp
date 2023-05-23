@@ -301,7 +301,7 @@ void CCustomerDlgSub1::OnBnClickedChangeGroupBtn()
 		COleDateTime dtDate(2000, 1, 1, 0, 0, 0);
 		CString strNeedReportID ="";
 
-		if(CheckGroupReport(CString(itoa(pc->nGNo, buffer, 10)) + ";", dlg.m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
+		if(LF->CheckGroupReport(CString(itoa(pc->nGNo, buffer, 10)) + ";", dlg.m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
 			return;
 
 		BOOL bMove = FALSE;
@@ -323,7 +323,7 @@ void CCustomerDlgSub1::OnBnClickedChangeGroupBtn()
 				{
 					if(strNeedReportID != "")
 					{
-						if(ReReport(strNeedReportID))
+						if(LF->ReReport(strNeedReportID))
 							bMove = TRUE;
 					}
 					else
@@ -374,7 +374,7 @@ void CCustomerDlgSub1::OnBnClickedNoGroupBtn()
 		COleDateTime dtDate(2000, 1, 1, 0, 0, 0);
 		CString strNeedReportID ="";
 
-		if(CheckGroupReport(CString(itoa(pc->nGNo, buffer, 10)) + ";", pc->nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
+		if(LF->CheckGroupReport(CString(itoa(pc->nGNo, buffer, 10)) + ";", pc->nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
 			return;
 
 		CMkCommand pCmd2(m_pMkDb, "update_group_input_1");
@@ -386,7 +386,7 @@ void CCustomerDlgSub1::OnBnClickedNoGroupBtn()
 		{
 			if(strNeedReportID != "")
 			{
-				if(ReReport(strNeedReportID))
+				if(LF->ReReport(strNeedReportID))
 					MessageBox("소속 그룹이 변경되었습니다", "확인", MB_ICONINFORMATION);
 			}
 			else
@@ -533,7 +533,7 @@ void CCustomerDlgSub1::OnBnClickedTelAddBtn()
 	if(dlg.DoModal() == IDOK)
 	{
 		if(!dlg.m_strTel.IsEmpty())
-			m_pCustomerDlg->m_strLastTel = ::GetRemoveDDDNumber(dlg.m_strTel);
+			m_pCustomerDlg->m_strLastTel = LF->GetRemoveDDDNumber(dlg.m_strTel);
 
 		m_pCustomerDlg->InitOneList();
 		m_cus.GetNewCustomer();
@@ -544,7 +544,7 @@ void CCustomerDlgSub1::OnBnClickedTelAddBtn()
 
 	/*
 	CString strTelAdd; m_edtTelAdd.GetWindowText(strTelAdd);
-	strTelAdd = GetRemoveDDDNumber(strTelAdd);
+	strTelAdd = LF->GetRemoveDDDNumber(strTelAdd);
 	strTelAdd.Replace("-", "");
 
 	CString strTel;
@@ -553,7 +553,7 @@ void CCustomerDlgSub1::OnBnClickedTelAddBtn()
 	for(int i=0; i<pRows->GetCount(); i++)
 	{
 		CXTPGridRecord *pRecord = pRows->GetAt(i)->GetRecord();
-		strTel = GetRemoveDDDNumber(m_lstTel.GetItemText(pRecord, 0));
+		strTel = LF->GetRemoveDDDNumber(m_lstTel.GetItemText(pRecord, 0));
 
 		if(strTelAdd == strTel)
 		{
@@ -589,7 +589,7 @@ void CCustomerDlgSub1::OnBnClickedTelDelBtn()
 	CXTPGridRecord *pRecord = pRow->GetRecord();
 
 	CString strTel = pRecord->GetItem(0)->GetCaption(NULL);//m_lstTel.GetItemText(pRecord, 0);
-	strTel = GetNoneDashNumber(strTel);
+	strTel = LF->GetNoneDashNumber(strTel);
 
 	if(strTel == "")
 		return; 
@@ -597,8 +597,8 @@ void CCustomerDlgSub1::OnBnClickedTelDelBtn()
 	CString strMainTel; m_edtTel.GetWindowText(strMainTel);
 	CString strMobile; m_edtMobile.GetWindowText(strMobile);
 
-	strMainTel = GetNoneDashNumber(strMainTel);
-	strMobile = GetNoneDashNumber(strMobile);
+	strMainTel = LF->GetNoneDashNumber(strMainTel);
+	strMobile = LF->GetNoneDashNumber(strMobile);
 
 	BOOL bMainTelSame = FALSE;
 	BOOL bHpSame = FALSE;
@@ -834,7 +834,7 @@ void CCustomerDlgSub1::OnDelete()
 	if(pCmd.Execute()) 
 	{ 
 		m_edtTel.GetWindowText(m_pCustomerDlg->m_strLastTel);
-		m_pCustomerDlg->m_strLastTel = ::GetNoneDashNumber(m_pCustomerDlg->m_strLastTel);
+		m_pCustomerDlg->m_strLastTel = LF->GetNoneDashNumber(m_pCustomerDlg->m_strLastTel);
 		m_pCustomerDlg->InitOneList();
 		m_cus.GetNewCustomer();
 	}
@@ -886,7 +886,7 @@ void CCustomerDlgSub1::OnContextMenu(CWnd* pWnd, CPoint point)
 	CXTPGridRecord *pRecord = (CXTPGridRecord*)pRows->GetAt(ZERO)->GetRecord();
 	ST_TEL *st = (ST_TEL*)m_lstTel.GetItemData(pRecord);
 
-	CString strTemp = "[" + ::GetDashPhoneNumber(st->strTel) + "]";
+	CString strTemp = "[" + LF->GetDashPhoneNumber(st->strTel) + "]";
 
 	CPoint pt; 
 	GetCursorPos(&pt); 
@@ -978,7 +978,7 @@ void CCustomerDlgSub1::OnSendSms()
 	CCustomerSmsDlg2 dlg;
 	dlg.m_strCustomerPN = st->strTel;
 
-	dlg.m_strCustomerPN = dlg.m_strCustomerPN.GetLength() > 0 ? GetNoneDashNumber(dlg.m_strCustomerPN) : "";
+	dlg.m_strCustomerPN = dlg.m_strCustomerPN.GetLength() > 0 ? LF->GetNoneDashNumber(dlg.m_strCustomerPN) : "";
 	//dlg.m_strRecvPN = m_ci.m_strOfficePhone;
 	//dlg.m_strRecvPN = m_ci.m_strPhone;
 	dlg.m_nCompany = m_ci.m_nCompanyCode;
@@ -988,8 +988,8 @@ void CCustomerDlgSub1::OnSendSms()
 	{
 		CString strEtc;
 
-		dlg.m_strRecvPhone = GetNoneDashNumber(dlg.m_strRecvPhone);
-		dlg.m_strCustomerPN = GetNoneDashNumber(dlg.m_strCustomerPN);
+		dlg.m_strRecvPhone = LF->GetNoneDashNumber(dlg.m_strRecvPhone);
+		dlg.m_strCustomerPN = LF->GetNoneDashNumber(dlg.m_strCustomerPN);
 
 		COleDateTime dtDate(COleDateTime::GetCurrentTime());
 
@@ -1000,9 +1000,9 @@ void CCustomerDlgSub1::OnSendSms()
 		BOOL bOk = FALSE;
 
 		if(dlg.m_bReservation)
-			bOk = ::SendSmsNewRev(m_ci.m_nCompanyCode, 777, dlg.m_strCustomerPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(임의)", "", "", dtDate);
+			bOk = LF->SendSmsNewRev(m_ci.m_nCompanyCode, 777, dlg.m_strCustomerPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(임의)", "", "", dtDate);
 		else
-			bOk = ::SendSmsNew(m_ci.m_nCompanyCode, 777, dlg.m_strCustomerPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(임의)", "", "");
+			bOk = LF->SendSmsNew(m_ci.m_nCompanyCode, 777, dlg.m_strCustomerPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(임의)", "", "");
 
 
 		if(bOk) 
@@ -1129,12 +1129,12 @@ void CCustomerDlgSub1::ChangePhone(long nType)
 	pCmd.AddParameter(nType);
 	pCmd.AddParameter(st->strDepart);
 	pCmd.AddParameter(st->strManager);
-	pCmd.AddParameter(::GetRemoveDDDNumber(strPhone));
+	pCmd.AddParameter(LF->GetRemoveDDDNumber(strPhone));
 
 	if(pCmd.Execute())
 	{		
 		if(nType == TEL_TYPE_PHONE1)
-			m_pCustomerDlg->m_strLastTel = ::GetRemoveDDDNumber(strPhone);
+			m_pCustomerDlg->m_strLastTel = LF->GetRemoveDDDNumber(strPhone);
 		m_pCustomerDlg->InitOneList();
 		m_cus.GetNewCustomer();
 	}

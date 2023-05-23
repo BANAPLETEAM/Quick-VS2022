@@ -108,8 +108,8 @@ void CReportForm13::RefreshList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_deferred_order_1");
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 
@@ -144,14 +144,14 @@ void CReportForm13::RefreshList()
 		m_wndReport.SetItemText(i, 3, st->dt1.Format("%m/%d %H:%M"));
 		m_wndReport.SetItemText(i, 4, st->sSName);
 		m_wndReport.SetItemText(i, 5, st->sDName);
-		m_wndReport.SetItemText(i, 6, ::GetStateString(st->nState));
-		m_wndReport.SetItemText(i, 7, ::GetPayTypeFromLong(st->nPayType));
+		m_wndReport.SetItemText(i, 6, LF->GetStateString(st->nState));
+		m_wndReport.SetItemText(i, 7, LF->GetPayTypeFromLong(st->nPayType));
 		m_wndReport.SetItemText(i, 8, itoa(st->nRNo, buffer, 10));
 		m_wndReport.SetItemText(i, 9, st->sRName);
 		m_wndReport.SetItemText(i, 10, m_ci.GetBranchName(st->nRiderCompany));
 		//m_wndReport.SetItemText(i, 10, GetOrderShareType(st) + "/" + GetRiderShareType(st));
-		m_wndReport.SetItemText(i, 11, ::GetMyNumberFormat(st->nChargeTrans));
-		m_wndReport.SetItemText(i, 12, ::GetMyNumberFormat(st->nChargeSum));
+		m_wndReport.SetItemText(i, 11, LF->GetMyNumberFormat(st->nChargeTrans));
+		m_wndReport.SetItemText(i, 12, LF->GetMyNumberFormat(st->nChargeSum));
 		m_wndReport.SetItemText(i, 13, st->bGiveChargeToRider == TRUE ? "ÀÔ±Ý¿Ï·á" : "¼±ÀÔ±Ý");
 		//m_wndReport.SetItemText(i, 12, GetTransferState(GetOrderShareType(st), GetRiderShareType(st), st->bGiveChargeToRider));
 
@@ -338,9 +338,9 @@ void CReportForm13::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm13::OnViewExcel()
 {
-	if(!POWER_CHECK(4900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(4900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 312, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 312, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }

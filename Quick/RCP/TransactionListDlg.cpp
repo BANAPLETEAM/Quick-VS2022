@@ -79,8 +79,8 @@ void CTransactionListDlg::OnBnClickedTaxDrawBtn()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "insert_bill_draw");
 	CMkParameter *pPar = pCmd.AddParameter(typeLong, typeReturn, sizeof(long), ZERO);
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(m_sTNoList);
 	pCmd.AddParameter(m_ui.nCompany);
 	pCmd.AddParameter(m_ui.nWNo);	
@@ -125,7 +125,7 @@ void CTransactionListDlg::OnBnClickedCertificationRegisterBtn()
 {
 	CREATE_MODALESS(CCertificationRegiDlg, this);
 	pDlg->m_bIntegrated = m_ba.GetCount() > 1 ? TRUE :FALSE;
-	pDlg->m_nCompany = GetCurBranchInfo()->nCompanyCode;
+	pDlg->m_nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 	SHOW_MODALESS(CCertificationRegiDlg, this);
 }
 
@@ -153,7 +153,7 @@ void CTransactionListDlg::TransactionList()
 
 		strForm.Format("id_name=%s&sPWD=%s&sWName=%s&nWCompany=%ld&bIntegrated=%s&nSessionKey=%ld&sIP=%s&sTNoList=%s&nCompany=%ld",
 			m_ui.strID, m_ui.strPW,m_ui.strName, m_nCompany, nSum,
-			m_ui.nSiteSessionKey, m_ei.strExternalIP, 	m_sTNoList, GetCurBranchInfo()->nCompanyCode );
+			m_ui.nSiteSessionKey, m_ei.strExternalIP, 	m_sTNoList, LF->GetCurBranchInfo()->nCompanyCode );
 
 
 		hr = GetPostData(strForm,&vPostData);	

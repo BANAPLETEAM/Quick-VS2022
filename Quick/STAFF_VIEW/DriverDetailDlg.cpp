@@ -152,7 +152,7 @@ void CDriverDetailDlg::RefreshList()
 		m_List.SetItemText(i, nSubItem++, dtRegister.Format("%y-%m-%d %H:%M"));
 		m_List.SetItemText(i, nSubItem++, sTitle);
 		m_List.SetItemText(i, nSubItem++, strReWardType);
-		m_List.SetItemText(i, nSubItem++, GetDashPhoneNumber(sCustomer));
+		m_List.SetItemText(i, nSubItem++, LF->GetDashPhoneNumber(sCustomer));
 		m_List.SetItemText(i, nSubItem++, m_ci.GetName(nCompany));
 		m_List.SetItemText(i, nSubItem++, sRegister);
 		

@@ -84,7 +84,7 @@ void CChargeContainer::CreateModalessChargeDlg(CMyDlg **pDlg, long nCompany,
 
 void CChargeContainer::ChargeDongDlg3Show()
 {
-	CBranchInfo *pBi = GetCurBranchInfo();
+	CBranchInfo *pBi = LF->GetCurBranchInfo();
 	CreateModalessChargeDlg(&m_pChargeDongDlg3, 
 		IsIntegrated() ? pBi->nPayTable : pBi->nPayTable);
  
@@ -94,7 +94,7 @@ void CChargeContainer::ChargeDongDlg3Show()
 
 void CChargeContainer::ChargeDistanceDlgShow(CBranchInfo *pBi)
 {
-	if(!pBi) pBi = GetCurBranchInfo();
+	if(!pBi) pBi = LF->GetCurBranchInfo();
 	CreateModalessChargeDlg(&m_pChargeDistanceDlg2, 
 		IsIntegrated() ? pBi->nCompanyCode : pBi->nPayTable);
 }
@@ -106,7 +106,7 @@ void InitSelectChargeType(CSelectChargeType *pDlg, CChargeContainer *pThis)
 
 void CChargeContainer::ChargeShow()
 {
-	CBranchInfo *pBi = GetCurBranchInfo();
+	CBranchInfo *pBi = LF->GetCurBranchInfo();
 	CreateModalessChargeDlg(&m_pSelectChargeTypeDlg, 
 			IsIntegrated() ? pBi->nCompanyCode : pBi->nPayTable, pBi->strBranchName, 
 			InitSelectChargeType);

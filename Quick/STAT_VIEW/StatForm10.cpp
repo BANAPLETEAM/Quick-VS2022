@@ -86,8 +86,8 @@ void CStatForm10::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_rcp_type_openapi_log");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -106,9 +106,9 @@ void CStatForm10::RefreshList()
 		rs.GetFieldValue("nCompleteCount", nCompleteCount);
 		
 		m_lstReport.InsertItem(i, strDate);
-		m_lstReport.SetItemText(i, 1, ::RemoveZero(::GetMyNumberFormat(nCount)));
-		m_lstReport.SetItemText(i, 2, ::RemoveZero(::GetMyNumberFormat(nCompleteCount)));
-		m_lstReport.SetItemText(i, 3, ::RemoveZero(::GetMyNumberFormat(nCount - nCompleteCount)));
+		m_lstReport.SetItemText(i, 1, LF->RemoveZero(LF->GetMyNumberFormat(nCount)));
+		m_lstReport.SetItemText(i, 2, LF->RemoveZero(LF->GetMyNumberFormat(nCompleteCount)));
+		m_lstReport.SetItemText(i, 3, LF->RemoveZero(LF->GetMyNumberFormat(nCount - nCompleteCount)));
 		
 		rs.MoveNext();
 	}

@@ -140,7 +140,7 @@ LONG CHomeView::OnBranchClickEvent(UINT nBranch, LPARAM lParam)
 	CXTPTabManagerItem *pItem = m_wndTabControl.GetItem(m_wndTabControl.GetCurSel());
 	CMyFormView *pView = (CMyFormView*)CWnd::FromHandle(pItem->GetHandle());
 
-	if(m_CurCodeInfo[pView] != GetCurBranchInfo())
+	if(m_CurCodeInfo[pView] != LF->GetCurBranchInfo())
 	{
 		pView->FirstRefresh();
 	}

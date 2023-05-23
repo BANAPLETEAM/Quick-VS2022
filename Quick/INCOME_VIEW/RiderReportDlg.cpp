@@ -502,12 +502,12 @@ void CRiderReportDlg::InitData()
 	OnBnClickedOtherCallCreditWonBtn();
 	OnBnClickedOtherCallOnlineWonBtn();
  
-	m_edtMyCallCashFee.SetWindowText(::GetMyNumberFormat(m_nMyCallCash));
-	m_edtOtherCallCashFee.SetWindowText(::GetMyNumberFormat(m_nOtherCallCash));
-	m_edtMyCallCreditFee.SetWindowText(::GetMyNumberFormat(m_nMyCallCredit));
-	m_edtOtherCallCreditFee.SetWindowText(::GetMyNumberFormat(m_nOtherCallCredit));
-	m_edtMyCallOnlineFee.SetWindowText(::GetMyNumberFormat(m_nMyCallOnline));
-	m_edtOtherCallOnlineFee.SetWindowText(::GetMyNumberFormat(m_nOtherCallOnline));
+	m_edtMyCallCashFee.SetWindowText(LF->GetMyNumberFormat(m_nMyCallCash));
+	m_edtOtherCallCashFee.SetWindowText(LF->GetMyNumberFormat(m_nOtherCallCash));
+	m_edtMyCallCreditFee.SetWindowText(LF->GetMyNumberFormat(m_nMyCallCredit));
+	m_edtOtherCallCreditFee.SetWindowText(LF->GetMyNumberFormat(m_nOtherCallCredit));
+	m_edtMyCallOnlineFee.SetWindowText(LF->GetMyNumberFormat(m_nMyCallOnline));
+	m_edtOtherCallOnlineFee.SetWindowText(LF->GetMyNumberFormat(m_nOtherCallOnline));
 	
 	if(m_nFixedDepositIncomeOnline > 0)
 	{
@@ -750,64 +750,64 @@ void CRiderReportDlg::InitCharge()
 	m_btnMyCallOnlineWon.SetCheck(!m_bMyCallOnlineWon);
 	m_btnOtherCallOnlineWon.SetCheck(!m_bOtherCallOnlineWon);
 
-	m_edtMyCallAllCashCount.SetWindowText(::GetMyNumberFormat(nMyCallAllCashCount));
-	m_edtMyCallAllCashCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllCashCharge));
-	m_edtMyCallApplyCashCount.SetWindowText(::GetMyNumberFormat(nMyCallApplyCashCount));
-	m_edtMyCallApplyCashCharge.SetWindowText(::GetMyNumberFormat(nMyCallApplyCashCharge));
+	m_edtMyCallAllCashCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCashCount));
+	m_edtMyCallAllCashCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCashCharge));
+	m_edtMyCallApplyCashCount.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyCashCount));
+	m_edtMyCallApplyCashCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyCashCharge));
 
-	m_edtOtherCallAllCashCount.SetWindowText(::GetMyNumberFormat(nOtherCallAllCashCount));
-	m_edtOtherCallAllCashCharge.SetWindowText(::GetMyNumberFormat(nOtherCallAllCashCharge));
-	m_edtOtherCallApplyCashCount.SetWindowText(::GetMyNumberFormat(nOtherCallApplyCashCount));
-	m_edtOtherCallApplyCashCharge.SetWindowText(::GetMyNumberFormat(nOtherCallApplyCashCharge));
+	m_edtOtherCallAllCashCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCashCount));
+	m_edtOtherCallAllCashCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCashCharge));
+	m_edtOtherCallApplyCashCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyCashCount));
+	m_edtOtherCallApplyCashCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyCashCharge));
 
-	m_edtMyCallAllCreditCount.SetWindowText(::GetMyNumberFormat(nMyCallAllCreditCount));
-	m_edtMyCallAllCreditCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllCreditCharge));
-	m_edtMyCallApplyCreditCount.SetWindowText(::GetMyNumberFormat(nMyCallApplyCreditCount));
-	m_edtMyCallApplyCreditCharge.SetWindowText(::GetMyNumberFormat(nMyCallApplyCreditCharge));
-	m_edtMyCallNotApplyCreditCount.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyCreditCount));
-	m_edtMyCallNotApplyCreditCharge.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyCreditCharge));
+	m_edtMyCallAllCreditCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCreditCount));
+	m_edtMyCallAllCreditCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCreditCharge));
+	m_edtMyCallApplyCreditCount.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyCreditCount));
+	m_edtMyCallApplyCreditCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyCreditCharge));
+	m_edtMyCallNotApplyCreditCount.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyCreditCount));
+	m_edtMyCallNotApplyCreditCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyCreditCharge));
 
-	m_edtMyCallAllOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallAllOnlineCount));
-	m_edtMyCallAllOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllOnlineCharge));
-	m_edtMyCallApplyOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallApplyOnlineCount));
-	m_edtMyCallApplyOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallApplyOnlineCharge));
-	m_edtMyCallNotApplyOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyOnlineCount));
-	m_edtMyCallNotApplyOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyOnlineCharge));
+	m_edtMyCallAllOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllOnlineCount));
+	m_edtMyCallAllOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllOnlineCharge));
+	m_edtMyCallApplyOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyOnlineCount));
+	m_edtMyCallApplyOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyOnlineCharge));
+	m_edtMyCallNotApplyOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyOnlineCount));
+	m_edtMyCallNotApplyOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyOnlineCharge));
 
-	m_edtOtherCallAllCreditCount.SetWindowText(::GetMyNumberFormat(nOtherCallAllCreditCount));
-	m_edtOtherCallAllCreditCharge.SetWindowText(::GetMyNumberFormat(nOtherCallAllCreditCharge));
-	m_edtOtherCallApplyCreditCount.SetWindowText(::GetMyNumberFormat(nOtherCallApplyCreditCount));
-	m_edtOtherCallApplyCreditCharge.SetWindowText(::GetMyNumberFormat(nOtherCallApplyCreditCharge));
-	m_edtOtherCallNotApplyCreditCount.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyCreditCount));
-	m_edtOtherCallNotApplyCreditCharge.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyCreditCharge));
+	m_edtOtherCallAllCreditCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCreditCount));
+	m_edtOtherCallAllCreditCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCreditCharge));
+	m_edtOtherCallApplyCreditCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyCreditCount));
+	m_edtOtherCallApplyCreditCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyCreditCharge));
+	m_edtOtherCallNotApplyCreditCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyCreditCount));
+	m_edtOtherCallNotApplyCreditCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyCreditCharge));
 
-	m_edtOtherCallAllOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallAllOnlineCount));
-	m_edtOtherCallAllOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallAllOnlineCharge));
-	m_edtOtherCallApplyOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallApplyOnlineCount));
-	m_edtOtherCallApplyOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallApplyOnlineCharge));
-	m_edtOtherCallNotApplyOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyOnlineCount));
-	m_edtOtherCallNotApplyOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyOnlineCharge));
+	m_edtOtherCallAllOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllOnlineCount));
+	m_edtOtherCallAllOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllOnlineCharge));
+	m_edtOtherCallApplyOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyOnlineCount));
+	m_edtOtherCallApplyOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyOnlineCharge));
+	m_edtOtherCallNotApplyOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyOnlineCount));
+	m_edtOtherCallNotApplyOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyOnlineCharge));
 
-	m_edtCashCallAllCount.SetWindowText(::GetMyNumberFormat(nMyCallAllCashCount + nOtherCallAllCashCount));
-	m_edtCashCallAllCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllCashCharge + nOtherCallAllCashCharge));
+	m_edtCashCallAllCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCashCount + nOtherCallAllCashCount));
+	m_edtCashCallAllCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCashCharge + nOtherCallAllCashCharge));
 
-	m_edtMyCallAllCreditOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallAllCreditCount + nMyCallAllOnlineCount));
-	m_edtMyCallAllCreditOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllCreditCharge + nMyCallAllOnlineCharge));
+	m_edtMyCallAllCreditOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCreditCount + nMyCallAllOnlineCount));
+	m_edtMyCallAllCreditOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCreditCharge + nMyCallAllOnlineCharge));
 
-	m_edtMyCallNotApplyCreditOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyCreditCount + nMyCallNotApplyOnlineCount));
-	m_edtMyCallNotApplyCreditOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyCreditCharge + nMyCallNotApplyOnlineCharge));
+	m_edtMyCallNotApplyCreditOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyCreditCount + nMyCallNotApplyOnlineCount));
+	m_edtMyCallNotApplyCreditOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyCreditCharge + nMyCallNotApplyOnlineCharge));
  
-	m_edtOtherCallAllCreditOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallAllCreditCount + nOtherCallAllOnlineCount));
-	m_edtOtherCallAllCreditOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallAllCreditCharge + nOtherCallAllOnlineCharge));
-	m_edtOtherCallNotApplyCreditOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyCreditCount + nOtherCallNotApplyOnlineCount));
-	m_edtOtherCallNotApplyCreditOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyCreditCharge + nOtherCallNotApplyOnlineCharge));
+	m_edtOtherCallAllCreditOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCreditCount + nOtherCallAllOnlineCount));
+	m_edtOtherCallAllCreditOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCreditCharge + nOtherCallAllOnlineCharge));
+	m_edtOtherCallNotApplyCreditOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyCreditCount + nOtherCallNotApplyOnlineCount));
+	m_edtOtherCallNotApplyCreditOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyCreditCharge + nOtherCallNotApplyOnlineCharge));
 
-	m_edtTransCount.SetWindowText(::GetMyNumberFormat(nTransCount));
-	m_edtTransCharge.SetWindowText(::GetMyNumberFormat(nTransCharge));
+	m_edtTransCount.SetWindowText(LF->GetMyNumberFormat(nTransCount));
+	m_edtTransCharge.SetWindowText(LF->GetMyNumberFormat(nTransCharge));
 
-	m_edtCoupon.SetWindowText(::GetMyNumberFormat(nCouponCharge)); 
+	m_edtCoupon.SetWindowText(LF->GetMyNumberFormat(nCouponCharge)); 
 	m_edtCouponPlus.SetWindowText("1");
-	m_edtCouponTotal.SetWindowText(::GetMyNumberFormat(nCouponCharge));
+	m_edtCouponTotal.SetWindowText(LF->GetMyNumberFormat(nCouponCharge));
 
 	//Invalidate(TRUE);
 }
@@ -824,11 +824,11 @@ void CRiderReportDlg::RefreshCharge()
 	{
 		if(m_btnMyCallCashWon.GetChecked() == BST_CHECKED) 
 		{
-			m_edtMyCallCashFeeTotal.SetWindowText(::GetMyNumberFormat(GetEditTextByLong(&m_edtMyCallApplyCashCharge) * GetEditTextByLong(&m_edtMyCallCashFee) * 0.01));
+			m_edtMyCallCashFeeTotal.SetWindowText(LF->GetMyNumberFormat(GetEditTextByLong(&m_edtMyCallApplyCashCharge) * GetEditTextByLong(&m_edtMyCallCashFee) * 0.01));
 		}
 		else
 		{
-			m_edtMyCallCashFeeTotal.SetWindowText(::GetMyNumberFormat(GetEditTextByLong(&m_edtMyCallApplyCashCount) * GetEditTextByLong(&m_edtMyCallCashFee)));
+			m_edtMyCallCashFeeTotal.SetWindowText(LF->GetMyNumberFormat(GetEditTextByLong(&m_edtMyCallApplyCashCount) * GetEditTextByLong(&m_edtMyCallCashFee)));
 		}
 	}
 	else
@@ -850,13 +850,13 @@ void CRiderReportDlg::RefreshCharge()
 		}
 	}
 
-	m_edtOtherCallCashFeeTotal.SetWindowText(::GetMyNumberFormat(nOtherCash));
+	m_edtOtherCallCashFeeTotal.SetWindowText(LF->GetMyNumberFormat(nOtherCash));
 	nTakeTotal += GetEditTextByLong(&m_edtOtherCallCashFeeTotal); //타사현금수수료;
 
-	m_edtCashFeeTotal.SetWindowText(::GetMyNumberFormat(GetEditTextByLong(&m_edtMyCallCashFeeTotal) + GetEditTextByLong(&m_edtOtherCallCashFeeTotal)));
+	m_edtCashFeeTotal.SetWindowText(LF->GetMyNumberFormat(GetEditTextByLong(&m_edtMyCallCashFeeTotal) + GetEditTextByLong(&m_edtOtherCallCashFeeTotal)));
 
 	nTakeTotal += GetReportCharge(&m_lstReport); //적요금액
-	m_edtTakeEtcTotal.SetWindowText(::GetMyNumberFormat(GetReportCharge(&m_lstReport)));
+	m_edtTakeEtcTotal.SetWindowText(LF->GetMyNumberFormat(GetReportCharge(&m_lstReport)));
 
 	//전월 미수금 패스
 
@@ -873,15 +873,15 @@ void CRiderReportDlg::RefreshCharge()
 	
 		if(m_btnMyCallCreditWon.GetChecked() == BST_CHECKED) 
 		{			
-			m_edtMyCallCreditFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyCreditCharge - nPer));
+			m_edtMyCallCreditFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyCreditCharge - nPer));
 		}
 		else
 		{
-			m_edtMyCallCreditFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyCreditCharge - (nApplyCreditCount * GetEditTextByLong(&m_edtMyCallCreditFee))));
+			m_edtMyCallCreditFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyCreditCharge - (nApplyCreditCount * GetEditTextByLong(&m_edtMyCallCreditFee))));
 		}
 	}
 	else
-		m_edtMyCallCreditFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyCreditCharge));
+		m_edtMyCallCreditFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyCreditCharge));
 
 	nGiveTotal += GetEditTextByLong(&m_edtMyCallCreditFeeTotal);// 자사신용
 
@@ -891,20 +891,20 @@ void CRiderReportDlg::RefreshCharge()
 
 		if(m_btnMyCallOnlineWon.GetChecked() == BST_CHECKED) 
 		{			
-			m_edtMyCallOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyOnlineCharge - nPer));
+			m_edtMyCallOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyOnlineCharge - nPer));
 		}
 		else
 		{
-			m_edtMyCallOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyOnlineCharge - (nApplyOnlineCount * GetEditTextByLong(&m_edtMyCallOnlineFee))));
+			m_edtMyCallOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyOnlineCharge - (nApplyOnlineCount * GetEditTextByLong(&m_edtMyCallOnlineFee))));
 		}
 	}
 	else
-		m_edtMyCallOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyOnlineCharge));
+		m_edtMyCallOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyOnlineCharge));
 
 	nGiveTotal += GetEditTextByLong(&m_edtMyCallOnlineFeeTotal);// 자사송금
 	nGiveTotal += GetEditTextByLong(&m_edtMyCallNotApplyCreditOnlineCharge); //미적용
 
-	m_edtMyCallCreditOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(GetEditTextByLong(&m_edtMyCallCreditFeeTotal) + GetEditTextByLong(&m_edtMyCallOnlineFeeTotal) + GetEditTextByLong(&m_edtMyCallNotApplyCreditOnlineCharge)));
+	m_edtMyCallCreditOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(GetEditTextByLong(&m_edtMyCallCreditFeeTotal) + GetEditTextByLong(&m_edtMyCallOnlineFeeTotal) + GetEditTextByLong(&m_edtMyCallNotApplyCreditOnlineCharge)));
 
 	nApplyCreditCount = GetEditTextByLong(&m_edtOtherCallApplyCreditCount);
 	nApplyCreditCharge = GetEditTextByLong(&m_edtOtherCallApplyCreditCharge);
@@ -917,15 +917,15 @@ void CRiderReportDlg::RefreshCharge()
 
 		if(m_btnOtherCallCreditWon.GetChecked() == BST_CHECKED) 
 		{			
-			m_edtOtherCallCreditFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyCreditCharge - nPer));
+			m_edtOtherCallCreditFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyCreditCharge - nPer));
 		}
 		else
 		{
-			m_edtOtherCallCreditFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyCreditCharge - (nApplyCreditCount * GetEditTextByLong(&m_edtOtherCallCreditFee))));
+			m_edtOtherCallCreditFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyCreditCharge - (nApplyCreditCount * GetEditTextByLong(&m_edtOtherCallCreditFee))));
 		}
 	}
 	else
-		m_edtOtherCallCreditFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyCreditCharge));
+		m_edtOtherCallCreditFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyCreditCharge));
 
 	nGiveTotal += GetEditTextByLong(&m_edtOtherCallCreditFeeTotal);// 타사신용
 
@@ -935,23 +935,23 @@ void CRiderReportDlg::RefreshCharge()
 
 		if(m_btnOtherCallOnlineWon.GetChecked() == BST_CHECKED) 
 		{			
-			m_edtOtherCallOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyOnlineCharge - nPer));
+			m_edtOtherCallOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyOnlineCharge - nPer));
 		}
 		else
 		{
-			m_edtOtherCallOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyOnlineCharge - (nApplyOnlineCount * GetEditTextByLong(&m_edtOtherCallOnlineFee))));
+			m_edtOtherCallOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyOnlineCharge - (nApplyOnlineCount * GetEditTextByLong(&m_edtOtherCallOnlineFee))));
 		}
 	}
 	else
-		m_edtOtherCallOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nApplyOnlineCharge));
+		m_edtOtherCallOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nApplyOnlineCharge));
 
-	m_edtOtherCallCreditOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(GetEditTextByLong(&m_edtOtherCallCreditFeeTotal) + GetEditTextByLong(&m_edtOtherCallOnlineFeeTotal) + GetEditTextByLong(&m_edtOtherCallNotApplyCreditOnlineCharge)));
+	m_edtOtherCallCreditOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(GetEditTextByLong(&m_edtOtherCallCreditFeeTotal) + GetEditTextByLong(&m_edtOtherCallOnlineFeeTotal) + GetEditTextByLong(&m_edtOtherCallNotApplyCreditOnlineCharge)));
 
 	nGiveTotal += GetEditTextByLong(&m_edtOtherCallOnlineFeeTotal);// 타사송금
 	nGiveTotal += GetEditTextByLong(&m_edtOtherCallNotApplyCreditOnlineCharge);// 미적용
 
 	nGiveTotal += GetReportCharge(&m_lstReport2); //적요금액
-	m_edtGiveEtcTotal.SetWindowText(::GetMyNumberFormat(GetReportCharge(&m_lstReport2)));
+	m_edtGiveEtcTotal.SetWindowText(LF->GetMyNumberFormat(GetReportCharge(&m_lstReport2)));
 
 	nGiveTotal += GetEditTextByLong(&m_edtTransCharge); //탁송
 	nGiveTotal += GetEditTextByLong(&m_edtCouponTotal); //탁송
@@ -984,7 +984,7 @@ void CRiderReportDlg::RefreshCharge()
 
 	nTakeTotal += nWonChun;
 
-	m_edtCashDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nWonChun)); //현금원천징수
+	m_edtCashDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nWonChun)); //현금원천징수
 
 	long nMyWonChun = 0;
 
@@ -1000,7 +1000,7 @@ void CRiderReportDlg::RefreshCharge()
 		else
 			nMyWonChun = GetEditTextByLong(&m_edtBeforeMyCallCreditOnlineDeductingTaxFee);
 
-		m_edtBeforeMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nMyWonChun));
+		m_edtBeforeMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nMyWonChun));
 	}
 	else
 	{
@@ -1014,7 +1014,7 @@ void CRiderReportDlg::RefreshCharge()
 		else
 			nMyWonChun = GetEditTextByLong(&m_edtAfterMyCallCreditOnlineDeductingTaxFee);
 
-		m_edtAfterMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nMyWonChun));
+		m_edtAfterMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nMyWonChun));
 	}
 
 	nTakeTotal += nMyWonChun; // 자사신용송금 원천징수
@@ -1033,7 +1033,7 @@ void CRiderReportDlg::RefreshCharge()
 		else
 			nOtherWonChun = GetEditTextByLong(&m_edtBeforeOtherCallCreditOnlineDeductingTaxFee);
 
-		m_edtBeforeOtherCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nOtherWonChun));
+		m_edtBeforeOtherCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nOtherWonChun));
 	}
 	else
 	{
@@ -1047,21 +1047,21 @@ void CRiderReportDlg::RefreshCharge()
 		else
 			nOtherWonChun = GetEditTextByLong(&m_edtAfterOtherCallCreditOnlineDeductingTaxFee);
 
-		m_edtAfterOtherCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nOtherWonChun));
+		m_edtAfterOtherCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nOtherWonChun));
 	}
 
 	nTakeTotal += nOtherWonChun; // 타사신용송금 원천징수
 
 
-	m_edtTakeTotal.SetWindowText(::GetMyNumberFormat(nTakeTotal));
+	m_edtTakeTotal.SetWindowText(LF->GetMyNumberFormat(nTakeTotal));
 	//nGiveTotal += GetEditTextByLong(&m_edtMyCallNotApplyCreditOnlineCharge); // 적용되지않은 자사신용송금
 	//nGiveTotal += GetEditTextByLong(&m_edtOtherCallNotApplyCreditOnlineCharge); // 적용되지않은 타사신용송금
 
-	m_edtTakeTotal1.SetWindowText(::GetMyNumberFormat(nTakeTotal));
-	m_edtGiveTotal.SetWindowText(::GetMyNumberFormat(nGiveTotal));
-	m_edtGiveTotal1.SetWindowText(::GetMyNumberFormat(nGiveTotal)); 
+	m_edtTakeTotal1.SetWindowText(LF->GetMyNumberFormat(nTakeTotal));
+	m_edtGiveTotal.SetWindowText(LF->GetMyNumberFormat(nGiveTotal));
+	m_edtGiveTotal1.SetWindowText(LF->GetMyNumberFormat(nGiveTotal)); 
 
-	m_edtTotal.SetWindowText(::GetMyNumberFormat(nTakeTotal - nGiveTotal));
+	m_edtTotal.SetWindowText(LF->GetMyNumberFormat(nTakeTotal - nGiveTotal));
 }
 
 long CRiderReportDlg::GetReportCharge(CXTPListCtrl2 *pList)
@@ -1076,9 +1076,9 @@ long CRiderReportDlg::GetReportCharge(CXTPListCtrl2 *pList)
 	}
 
 	//if(pList->GetSafeHwnd() == m_lstReport.GetSafeHwnd())
-	//	m_edtTakeEtcTotal.SetWindowText(::GetMyNumberFormat(nCharge));
+	//	m_edtTakeEtcTotal.SetWindowText(LF->GetMyNumberFormat(nCharge));
 	//else
-	//	m_edtGiveEtcTotal.SetWindowText(::GetMyNumberFormat(nCharge));
+	//	m_edtGiveEtcTotal.SetWindowText(LF->GetMyNumberFormat(nCharge));
 
 	return nCharge;
 
@@ -1320,7 +1320,7 @@ BOOL CRiderReportDlg::OnInitDialog()
 		OnBnClickedOpenBtn();
 
 	OnBnClickedRefreshBtn();
-	m_edtFixedDeposit.SetWindowText(::GetMyNumberFormat(m_nFixedDepositCharge)); // 반드시 조회버튼 호출 뒤로
+	m_edtFixedDeposit.SetWindowText(LF->GetMyNumberFormat(m_nFixedDepositCharge)); // 반드시 조회버튼 호출 뒤로
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -1919,7 +1919,7 @@ BOOL CRiderReportDlg::MakeFile(CString strHtml,CString strFileName)
 	BOOL bFind = findfile.FindFile(strFolder);
 	BOOL bFindFile = FALSE;
 
-	CreateDir("c:\\SmartQ\\정산");
+	LF->CreateDir("c:\\SmartQ\\정산");
 
 	if(bFind)
 	{
@@ -2119,19 +2119,19 @@ void CRiderReportDlg::CallCompleteReport()
 	m_FromDT.SetTime(dtStart);
 	m_ToDT.SetTime(dtEnd);
 
-	m_edtFixedDeposit.SetWindowText(::GetMyNumberFormat(nFixedDeposit));
-	m_edtMyCallAllCashCount.SetWindowText(::GetMyNumberFormat(nMyCallAllCashCount));
-	m_edtMyCallAllCashCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllCashCharge));
-	m_edtMyCallApplyCashCount.SetWindowText(::GetMyNumberFormat(nMyCallApplyCashCount));
-	m_edtMyCallApplyCashCharge.SetWindowText(::GetMyNumberFormat(nMyCallApplyCashCharge));
-	m_edtMyCallCashFee.SetWindowText(::GetMyNumberFormat(nMyCallCashFee));
+	m_edtFixedDeposit.SetWindowText(LF->GetMyNumberFormat(nFixedDeposit));
+	m_edtMyCallAllCashCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCashCount));
+	m_edtMyCallAllCashCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCashCharge));
+	m_edtMyCallApplyCashCount.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyCashCount));
+	m_edtMyCallApplyCashCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyCashCharge));
+	m_edtMyCallCashFee.SetWindowText(LF->GetMyNumberFormat(nMyCallCashFee));
 	if(bMyCallCashWon)
 	{
 		m_btnMyCallCashWon.SetWindowText("원");
 		m_btnMyCallCashWon.SetChecked(TRUE);
 	}
 
-	m_edtMyCallCashFeeTotal.SetWindowText(::GetMyNumberFormat(nMyCallCashFeeTotal));
+	m_edtMyCallCashFeeTotal.SetWindowText(LF->GetMyNumberFormat(nMyCallCashFeeTotal));
 
 	pRs.GetFieldValue("nOtherCallAllCashCount", nOtherCallAllCashCount);
 	pRs.GetFieldValue("nOtherCallAllCashCharge", nOtherCallAllCashCharge);
@@ -2141,17 +2141,17 @@ void CRiderReportDlg::CallCompleteReport()
 	pRs.GetFieldValue("bOtherCallCashWon", bOtherCallCashWon);
 	pRs.GetFieldValue("nOtherCallCashFeeTotal", nOtherCallCashFeeTotal);
 
-	m_edtOtherCallAllCashCount.SetWindowText(::GetMyNumberFormat(nOtherCallAllCashCount));
-	m_edtOtherCallAllCashCharge.SetWindowText(::GetMyNumberFormat(nOtherCallAllCashCharge));
-	m_edtOtherCallApplyCashCount.SetWindowText(::GetMyNumberFormat(nOtherCallApplyCashCount));
-	m_edtOtherCallApplyCashCharge.SetWindowText(::GetMyNumberFormat(nOtherCallApplyCashCharge));
-	m_edtOtherCallCashFee.SetWindowText(::GetMyNumberFormat(nOtherCallCashFee));
+	m_edtOtherCallAllCashCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCashCount));
+	m_edtOtherCallAllCashCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCashCharge));
+	m_edtOtherCallApplyCashCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyCashCount));
+	m_edtOtherCallApplyCashCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyCashCharge));
+	m_edtOtherCallCashFee.SetWindowText(LF->GetMyNumberFormat(nOtherCallCashFee));
 	if(bOtherCallCashWon)
 	{
 		m_btnOtherCallCashWon.SetWindowText("원");
 		m_btnOtherCallCashWon.SetChecked(TRUE);
 	}
-	m_edtOtherCallCashFeeTotal.SetWindowText(::GetMyNumberFormat(nMyCallCashFeeTotal));
+	m_edtOtherCallCashFeeTotal.SetWindowText(LF->GetMyNumberFormat(nMyCallCashFeeTotal));
 
 
 	pRs.GetFieldValue("nCashCallAllCount", nCashCallAllCount);
@@ -2167,12 +2167,12 @@ void CRiderReportDlg::CallCompleteReport()
 	pRs.GetFieldValue("nCashDeductingTaxFeeTotal", nCashDeductingTaxFeeTotal);
 	pRs.GetFieldValue("nTakeTotal", nTakeTotal);
 
-	m_edtCashCallAllCount.SetWindowText(::GetMyNumberFormat(nCashCallAllCount));
-	m_edtCashCallAllCharge.SetWindowText(::GetMyNumberFormat(nCashCallAllCharge));
-	m_edtCashFeeTotal.SetWindowText(::GetMyNumberFormat(nCashFeeTotal));
-	m_edtLastMonth.SetWindowText(::GetMyNumberFormat(nLastMonth));
+	m_edtCashCallAllCount.SetWindowText(LF->GetMyNumberFormat(nCashCallAllCount));
+	m_edtCashCallAllCharge.SetWindowText(LF->GetMyNumberFormat(nCashCallAllCharge));
+	m_edtCashFeeTotal.SetWindowText(LF->GetMyNumberFormat(nCashFeeTotal));
+	m_edtLastMonth.SetWindowText(LF->GetMyNumberFormat(nLastMonth));
 	RefreshEtcList(&m_lstReport, sTakeEtc, sTakeEtcCharge);
-	m_edtTakeEtcTotal.SetWindowText(::GetMyNumberFormat(nTakeEtcTotal));
+	m_edtTakeEtcTotal.SetWindowText(LF->GetMyNumberFormat(nTakeEtcTotal));
 	if(nCashDeductTaxType == 3)
 	{
 		m_chkCashMyCallDeductingTax.SetCheck(TRUE);
@@ -2194,9 +2194,9 @@ void CRiderReportDlg::CallCompleteReport()
 		m_btnCashDeductingTaxFee.SetWindowText("원");
 		m_btnCashDeductingTaxFee.SetChecked(TRUE);
 	}
-	m_edtCashDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nCashDeductingTaxFeeTotal));
-	m_edtTakeTotal.SetWindowText(::GetMyNumberFormat(nTakeEtcTotal));
-	m_edtTakeTotal1.SetWindowText(::GetMyNumberFormat(nTakeEtcTotal));
+	m_edtCashDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nCashDeductingTaxFeeTotal));
+	m_edtTakeTotal.SetWindowText(LF->GetMyNumberFormat(nTakeEtcTotal));
+	m_edtTakeTotal1.SetWindowText(LF->GetMyNumberFormat(nTakeEtcTotal));
 
 	pRs.GetFieldValue("nReceiveCharge", nReceiveCharge);
 	pRs.GetFieldValue("bMyCallBefore", bMyCallBefore);
@@ -2210,7 +2210,7 @@ void CRiderReportDlg::CallCompleteReport()
 	pRs.GetFieldValue("bMyCallCreditWon", bMyCallCreditWon);
 	pRs.GetFieldValue("nMyCallCreditFeeTotal", nMyCallCreditFeeTotal);
 	
-	m_edtReceiveCharge.SetWindowText(::GetMyNumberFormat(nReceiveCharge));
+	m_edtReceiveCharge.SetWindowText(LF->GetMyNumberFormat(nReceiveCharge));
 	if(bMyCallBefore)
 	{
 		m_chkMyCallBefore.SetCheck(FALSE);
@@ -2222,19 +2222,19 @@ void CRiderReportDlg::CallCompleteReport()
 		m_chkMyCallAfter.SetCheck(FALSE);
 	}
 	OnBnClickedMyCallBeforeCheck();
-	m_edtMyCallAllCreditCount.SetWindowText(::GetMyNumberFormat(nMyCallAllCreditCount));
-	m_edtMyCallAllCreditCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllCreditCharge));
-	m_edtMyCallNotApplyCreditCount.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyCreditCount));
-	m_edtMyCallNotApplyCreditCharge.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyCreditCharge));
-	m_edtMyCallApplyCreditCount.SetWindowText(::GetMyNumberFormat(nMyCallApplyCreditCount));
-	m_edtMyCallApplyCreditCharge.SetWindowText(::GetMyNumberFormat(nMyCallApplyCreditCharge));
-	m_edtMyCallCreditFee.SetWindowText(::GetMyNumberFormat(nMyCallCreditFee));
+	m_edtMyCallAllCreditCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCreditCount));
+	m_edtMyCallAllCreditCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCreditCharge));
+	m_edtMyCallNotApplyCreditCount.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyCreditCount));
+	m_edtMyCallNotApplyCreditCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyCreditCharge));
+	m_edtMyCallApplyCreditCount.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyCreditCount));
+	m_edtMyCallApplyCreditCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyCreditCharge));
+	m_edtMyCallCreditFee.SetWindowText(LF->GetMyNumberFormat(nMyCallCreditFee));
 	if(bMyCallCreditWon)
 	{
 		m_btnMyCallCreditWon.SetWindowText("원");
 		m_btnMyCallCreditWon.SetChecked(TRUE);
 	}
-	m_edtMyCallCreditFeeTotal.SetWindowText(::GetMyNumberFormat(nMyCallCreditFeeTotal));
+	m_edtMyCallCreditFeeTotal.SetWindowText(LF->GetMyNumberFormat(nMyCallCreditFeeTotal));
 
 	pRs.GetFieldValue("nMyCallAllOnlineCount", nMyCallAllOnlineCount);
 	pRs.GetFieldValue("nMyCallAllOnlineCharge", nMyCallAllOnlineCharge);
@@ -2246,19 +2246,19 @@ void CRiderReportDlg::CallCompleteReport()
 	pRs.GetFieldValue("bMyCallOnlineWon", bMyCallOnlineWon);
 	pRs.GetFieldValue("nMyCallOnlineFeeTotal", nMyCallOnlineFeeTotal);
 
-	m_edtMyCallAllOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallAllOnlineCount));
-	m_edtMyCallAllOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllOnlineCharge));
-	m_edtMyCallNotApplyOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyOnlineCount));
-	m_edtMyCallNotApplyOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyOnlineCharge));
-	m_edtMyCallApplyOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallApplyOnlineCount));
-	m_edtMyCallApplyOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallApplyOnlineCharge));
-	m_edtMyCallOnlineFee.SetWindowText(::GetMyNumberFormat(nMyCallOnlineFee));
+	m_edtMyCallAllOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllOnlineCount));
+	m_edtMyCallAllOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllOnlineCharge));
+	m_edtMyCallNotApplyOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyOnlineCount));
+	m_edtMyCallNotApplyOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyOnlineCharge));
+	m_edtMyCallApplyOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyOnlineCount));
+	m_edtMyCallApplyOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallApplyOnlineCharge));
+	m_edtMyCallOnlineFee.SetWindowText(LF->GetMyNumberFormat(nMyCallOnlineFee));
 	if(m_btnMyCallOnlineWon)
 	{
 		m_btnMyCallOnlineWon.SetWindowText("원");
 		m_btnMyCallOnlineWon.SetChecked(TRUE);
 	}
-	m_edtMyCallOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nMyCallOnlineFeeTotal));
+	m_edtMyCallOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nMyCallOnlineFeeTotal));
 
 	pRs.Close();
 
@@ -2283,25 +2283,25 @@ void CRiderReportDlg::CallCompleteReport()
 	pRs2.GetFieldValue("bAfMyCallCreditOnlineDTWon", bAfterMyCallCreditOnlineDeductingTaxWon);
 	pRs2.GetFieldValue("nAfMyCallCODTFeeTotal", nAfterMyCallCreditOnlineDeductingTaxFeeTotal);
 	
-	m_edtMyCallAllCreditOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallAllCreditOnlineCount));
-	m_edtMyCallAllCreditOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallAllCreditOnlineCharge));
-	m_edtMyCallNotApplyCreditOnlineCount.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyCreditOnlineCount));
-	m_edtMyCallNotApplyCreditOnlineCharge.SetWindowText(::GetMyNumberFormat(nMyCallNotApplyCreditOnlineCharge));
-	m_edtMyCallCreditOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nMyCallCreditOnlineFeeTotal));
+	m_edtMyCallAllCreditOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCreditOnlineCount));
+	m_edtMyCallAllCreditOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallAllCreditOnlineCharge));
+	m_edtMyCallNotApplyCreditOnlineCount.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyCreditOnlineCount));
+	m_edtMyCallNotApplyCreditOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nMyCallNotApplyCreditOnlineCharge));
+	m_edtMyCallCreditOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nMyCallCreditOnlineFeeTotal));
 	m_edtBeforeMyCallCreditOnlineDeductingTaxFee.SetWindowText(sBeforeMyCallCreditOnlineDeductingTaxFee);
 	if(bBeforeMyCallCreditOnlineDeductingTaxWon)
 	{
 		m_btnBeforeMyCallCreditOnlineDeductingTaxWon.SetWindowText("원");
 		m_btnBeforeMyCallCreditOnlineDeductingTaxWon.SetChecked(TRUE);
 	}
-	m_edtBeforeMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nBeforeMyCallCreditOnlineDeductingTaxFeeTotal));
+	m_edtBeforeMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nBeforeMyCallCreditOnlineDeductingTaxFeeTotal));
 	m_edtAfterMyCallCreditOnlineDeductingTaxFee.SetWindowText(sAfterMyCallCreditOnlineDeductingTaxFee);
 	if(bAfterMyCallCreditOnlineDeductingTaxWon)
 	{
 		m_btnAfterMyCallCreditOnlineDeductingTaxWon.SetWindowText("원");
 		m_btnAfterMyCallCreditOnlineDeductingTaxWon.SetChecked(TRUE);
 	}
-	m_edtAfterMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nAfterMyCallCreditOnlineDeductingTaxFeeTotal)); // 요까지한번
+	m_edtAfterMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nAfterMyCallCreditOnlineDeductingTaxFeeTotal)); // 요까지한번
 
 	pRs2.GetFieldValue("bOtherCallBefore", bOtherCallBefore);
 	pRs2.GetFieldValue("nOtherCallAllCreditCount", nOtherCallAllCreditCount);
@@ -2325,19 +2325,19 @@ void CRiderReportDlg::CallCompleteReport()
 		m_chkOtherCallAfter.SetCheck(FALSE);
 	}
 	OnBnClickedMyCallAfterCheck();
-	m_edtOtherCallAllCreditCount.SetWindowText(::GetMyNumberFormat(nOtherCallAllCreditCount));
-	m_edtOtherCallAllCreditCharge.SetWindowText(::GetMyNumberFormat(nOtherCallAllCreditCharge));
-	m_edtOtherCallNotApplyCreditCount.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyCreditCount));
-	m_edtOtherCallNotApplyCreditCharge.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyCreditCharge));
-	m_edtOtherCallApplyCreditCount.SetWindowText(::GetMyNumberFormat(nOtherCallApplyCreditCount));
-	m_edtOtherCallApplyCreditCharge.SetWindowText(::GetMyNumberFormat(nOtherCallApplyCreditCharge));
-	m_edtOtherCallCreditFee.SetWindowText(::GetMyNumberFormat(nOtherCallCreditFee));
+	m_edtOtherCallAllCreditCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCreditCount));
+	m_edtOtherCallAllCreditCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCreditCharge));
+	m_edtOtherCallNotApplyCreditCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyCreditCount));
+	m_edtOtherCallNotApplyCreditCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyCreditCharge));
+	m_edtOtherCallApplyCreditCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyCreditCount));
+	m_edtOtherCallApplyCreditCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyCreditCharge));
+	m_edtOtherCallCreditFee.SetWindowText(LF->GetMyNumberFormat(nOtherCallCreditFee));
 	if(bOtherCallCreditWon)
 	{
 		m_btnOtherCallCreditWon.SetWindowText("원");
 		m_btnOtherCallCreditWon.SetChecked(TRUE);
 	}
-	m_edtOtherCallCreditFeeTotal.SetWindowText(::GetMyNumberFormat(nOtherCallCreditFeeTotal)); 
+	m_edtOtherCallCreditFeeTotal.SetWindowText(LF->GetMyNumberFormat(nOtherCallCreditFeeTotal)); 
 
 	pRs2.GetFieldValue("nOtherCallAllOnlineCount", nOtherCallAllOnlineCount);
 	pRs2.GetFieldValue("nOtherCallAllOnlineCharge", nOtherCallAllOnlineCharge);
@@ -2349,19 +2349,19 @@ void CRiderReportDlg::CallCompleteReport()
 	pRs2.GetFieldValue("bOtherCallOnlineWon", bOtherCallOnlineWon);
 	pRs2.GetFieldValue("nOtherCallOnlineFeeTotal", nOtherCallOnlineFeeTotal);
 	
-	m_edtOtherCallAllOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallAllOnlineCount));
-	m_edtOtherCallAllOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallAllOnlineCharge));
-	m_edtOtherCallNotApplyOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyOnlineCount));
-	m_edtOtherCallNotApplyOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyOnlineCharge));
-	m_edtOtherCallApplyOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallApplyOnlineCount));
-	m_edtOtherCallApplyOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallApplyOnlineCharge));
-	m_edtOtherCallOnlineFee.SetWindowText(::GetMyNumberFormat(nOtherCallOnlineFee));
+	m_edtOtherCallAllOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllOnlineCount));
+	m_edtOtherCallAllOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllOnlineCharge));
+	m_edtOtherCallNotApplyOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyOnlineCount));
+	m_edtOtherCallNotApplyOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyOnlineCharge));
+	m_edtOtherCallApplyOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyOnlineCount));
+	m_edtOtherCallApplyOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallApplyOnlineCharge));
+	m_edtOtherCallOnlineFee.SetWindowText(LF->GetMyNumberFormat(nOtherCallOnlineFee));
 	if(bOtherCallOnlineWon)
 	{
 		m_btnOtherCallOnlineWon.SetWindowText("원");
 		m_btnOtherCallOnlineWon.SetChecked(TRUE);
 	}
-	m_edtOtherCallOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nOtherCallOnlineFeeTotal));
+	m_edtOtherCallOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nOtherCallOnlineFeeTotal));
 
 	pRs2.GetFieldValue("nOtherCallAllCreditOnlineCount", nOtherCallAllCreditOnlineCount);
 	pRs2.GetFieldValue("nOtherCallAllCreditOnlineCharge", nOtherCallAllCreditOnlineCharge);
@@ -2375,25 +2375,25 @@ void CRiderReportDlg::CallCompleteReport()
 	pRs2.GetFieldValue("bAfOtherCallCreditOnlineDWon", bAfterOtherCallCreditOnlineDeductingWon);
 	pRs2.GetFieldValue("nAfOtherCallCODTFeeTotal", nAfterOtherCallCreditOnlineDeductingTaxFeeTotal);
 	
-	m_edtOtherCallAllCreditOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallAllCreditOnlineCount));
-	m_edtOtherCallAllCreditOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallAllCreditOnlineCharge));
-	m_edtOtherCallNotApplyCreditOnlineCount.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyCreditOnlineCount));
-	m_edtOtherCallNotApplyCreditOnlineCharge.SetWindowText(::GetMyNumberFormat(nOtherCallNotApplyCreditOnlineCharge));
-	m_edtOtherCallCreditOnlineFeeTotal.SetWindowText(::GetMyNumberFormat(nOtherCallCreditOnlineFeeTotal));
+	m_edtOtherCallAllCreditOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCreditOnlineCount));
+	m_edtOtherCallAllCreditOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallAllCreditOnlineCharge));
+	m_edtOtherCallNotApplyCreditOnlineCount.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyCreditOnlineCount));
+	m_edtOtherCallNotApplyCreditOnlineCharge.SetWindowText(LF->GetMyNumberFormat(nOtherCallNotApplyCreditOnlineCharge));
+	m_edtOtherCallCreditOnlineFeeTotal.SetWindowText(LF->GetMyNumberFormat(nOtherCallCreditOnlineFeeTotal));
 	m_edtBeforeOtherCallCreditOnlineDeductingTaxFee.SetWindowText(sBeforeOtherCallCreditOnlineDeductingTaxFee);
 	if(bBeforeOtherCallCreditOnlineDeductingWon)
 	{
 		m_btnBeforeOtherCallCreditOnlineDeductingWon.SetWindowText("원");
 		m_btnBeforeOtherCallCreditOnlineDeductingWon.SetChecked(TRUE);
 	}
-	m_edtBeforeMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nBeforeOtherCallCreditOnlineDeductingTaxFeeTotal));
+	m_edtBeforeMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nBeforeOtherCallCreditOnlineDeductingTaxFeeTotal));
 	m_edtAfterOtherCallCreditOnlineDeductingTaxFee.SetWindowText(sAfterOtherCallCreditOnlineDeductingTaxFee);
 	if(bAfterOtherCallCreditOnlineDeductingWon)
 	{
 		m_btnAfterOtherCallCreditOnlineDeductingWon.SetWindowText("원");
 		m_btnAfterOtherCallCreditOnlineDeductingWon.SetChecked(TRUE);
 	}
-	m_edtAfterMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(::GetMyNumberFormat(nAfterOtherCallCreditOnlineDeductingTaxFeeTotal));
+	m_edtAfterMyCallCreditOnlineDeductingTaxFeeTotal.SetWindowText(LF->GetMyNumberFormat(nAfterOtherCallCreditOnlineDeductingTaxFeeTotal));
 
 	pRs2.GetFieldValue("sGiveEtc", sGiveEtc);
 	pRs2.GetFieldValue("sGiveEtcCharge", sGiveEtcCharge);
@@ -2412,17 +2412,17 @@ void CRiderReportDlg::CallCompleteReport()
 //	pRs2.GetFieldValue("nCouponcount", nCouponCount);
 
 	RefreshEtcList(&m_lstReport2, sGiveEtc, sGiveEtcCharge);
-	m_edtGiveEtcTotal.SetWindowText(::GetMyNumberFormat(nGiveEtcTotal));
-	m_edtTransCount.SetWindowText(::GetMyNumberFormat(nTransCount));
-	m_edtTransCharge.SetWindowText(::GetMyNumberFormat(nTransCharge));
+	m_edtGiveEtcTotal.SetWindowText(LF->GetMyNumberFormat(nGiveEtcTotal));
+	m_edtTransCount.SetWindowText(LF->GetMyNumberFormat(nTransCount));
+	m_edtTransCharge.SetWindowText(LF->GetMyNumberFormat(nTransCharge));
 
-	m_edtCoupon.SetWindowText(::GetMyNumberFormat(nCouponCharge));
-	m_edtCouponPlus.SetWindowText(::GetMyNumberFormat(nCouponPlus));
-	m_edtCouponTotal.SetWindowText(::GetMyNumberFormat(nCouponTotal));
+	m_edtCoupon.SetWindowText(LF->GetMyNumberFormat(nCouponCharge));
+	m_edtCouponPlus.SetWindowText(LF->GetMyNumberFormat(nCouponPlus));
+	m_edtCouponTotal.SetWindowText(LF->GetMyNumberFormat(nCouponTotal));
 
-	m_edtGiveTotal.SetWindowText(::GetMyNumberFormat(nGiveTotal));
-	m_edtGiveTotal1.SetWindowText(::GetMyNumberFormat(nGiveTotal));
-	m_edtTotal.SetWindowText(::GetMyNumberFormat(nTotal));
+	m_edtGiveTotal.SetWindowText(LF->GetMyNumberFormat(nGiveTotal));
+	m_edtGiveTotal1.SetWindowText(LF->GetMyNumberFormat(nGiveTotal));
+	m_edtTotal.SetWindowText(LF->GetMyNumberFormat(nTotal));
 
 	m_edtMemo.SetWindowText(sMemo);
 	m_btnComplete.SetWindowText("정산수정");
@@ -2924,7 +2924,7 @@ void CRiderReportDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CRiderReportDlg::OnBnClickedSendBtn()
 {
-	m_strRiderPhone = GetRiderPhone(m_nRiderCompany, m_nRNo);
+	m_strRiderPhone = LF->GetRiderPhone(m_nRiderCompany, m_nRNo);
 	
 	CString sMsg; m_edtMsg.GetWindowText(sMsg);
 
@@ -2976,7 +2976,7 @@ BOOL CRiderReportDlg::SendSMS(CString strMsg)
 		return FALSE;
 	}
 
-	return ::SendSmsNew(m_ci.m_nCompanyCode, 777, m_strRiderPhone, m_ci.m_strOfficePhone, strMsg, "접수프로그램(기사입금)", "", "", TRUE);
+	return LF->SendSmsNew(m_ci.m_nCompanyCode, 777, m_strRiderPhone, m_ci.m_strOfficePhone, strMsg, "접수프로그램(기사입금)", "", "", TRUE);
 }
 
 void CRiderReportDlg::OnEnChangeMsgEdit()
@@ -3009,7 +3009,7 @@ void CRiderReportDlg::MakeMsg()
 
 	COleDateTime dtMainDate(atoi(sTakeDate.Left(4)), atoi(sTakeDate.Mid(4,2)), atoi(sTakeDate.Right(2)), 0, 0, 0);
 
-	COleDateTime dtIncomeDate = ::GetCompareDate(bWeeklyDeposit, dtMainDate, nRiderIncomeDay, bSameRiderIncomeDay);
+	COleDateTime dtIncomeDate = LF->GetCompareDate(bWeeklyDeposit, dtMainDate, nRiderIncomeDay, bSameRiderIncomeDay);
 	CString sMsg = "";
 
 	sMsg.Format("%d월%d일", dtIncomeDate.GetMonth(), dtIncomeDate.GetDay());
@@ -3048,7 +3048,7 @@ void CRiderReportDlg::OnEnChangeCouponPlusEdit()
 	CString strCouponPlus; m_edtCouponPlus.GetWindowText(strCouponPlus);
 	strCouponPlus.Replace(",", "");
 
-	m_edtCouponTotal.SetWindowText(::GetMyNumberFormat(atoi(strCouponCharge) * atoi(strCouponPlus)));
+	m_edtCouponTotal.SetWindowText(LF->GetMyNumberFormat(atoi(strCouponCharge) * atoi(strCouponPlus)));
 
 	RefreshCharge();
 }

@@ -126,7 +126,7 @@ void CMoveGroupDlg::OnBnClickedMoveBtn()
 
 	CString strNeedReReport;
 
-	if(CheckGroupReport(strGNo, nDstGNo, dtDate, ::GetCommaCount(strCNo), strNeedReReport) == FALSE) // 재정산이 필요한 리포트를 선정
+	if(LF->CheckGroupReport(strGNo, nDstGNo, dtDate, LF->GetCommaCount(strCNo), strNeedReReport) == FALSE) // 재정산이 필요한 리포트를 선정
 		return;
 
 	if(strCNo.GetLength() > 300)
@@ -148,7 +148,7 @@ void CMoveGroupDlg::OnBnClickedMoveBtn()
 	{
 		if(!strNeedReReport.IsEmpty())
 		{
-			if(::ReReport(strNeedReReport) == FALSE)
+			if(LF->ReReport(strNeedReReport) == FALSE)
 			{
 				MessageBox("이동에 실패 하였습니다\r\n다시 시도해 주세요", "확인", MB_ICONINFORMATION);
 			}	
@@ -336,7 +336,7 @@ void CMoveGroupDlg::RefreshCustomerList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_member_2008");
 
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(m_nGNo);
 
 	if(!pRs.Execute(&pCmd))
@@ -365,7 +365,7 @@ void CMoveGroupDlg::RefreshCustomerList()
 		m_lstCustomer.SetItemText(i, 2, itoa(nID, buffer, 10));
 		m_lstCustomer.SetItemText(i, 3, sCompany);
 		m_lstCustomer.SetItemText(i, 4, sName);
-		m_lstCustomer.SetItemText(i, 5, GetDashPhoneNumber(sTel1));
+		m_lstCustomer.SetItemText(i, 5, LF->GetDashPhoneNumber(sTel1));
 		m_lstCustomer.SetItemText(i, 6, dtRegister.Format("%y-%m-%d"));
 		m_lstCustomer.SetItemText(i, 7, sMemo);
 

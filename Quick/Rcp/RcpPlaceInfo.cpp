@@ -184,16 +184,16 @@ CString CRcpPlaceInfo::GetCustomerTypeString(long nCNo, long nID, CString strUse
 
 BOOL CRcpPlaceInfo::MakeSearchQuery(CString strSource, CString &strKeyword, UINT *pnType)
 {
-	if(IsPhoneNumber(strSource)) 
+	if(LF->IsPhoneNumber(strSource))
 	{
 		if(strSource.GetAt(0) == '-')
 		{
-			strKeyword = GetNoneDashNumber(strSource);
+			strKeyword = LF->GetNoneDashNumber(strSource);
 			*pnType = ST_ID;
 		}
 		else
 		{
-			strKeyword = GetNoneDashNumber(strSource);
+			strKeyword = LF->GetNoneDashNumber(strSource);
 			if(strKeyword.Left(m_ci.m_strDDD.GetLength()) == m_ci.m_strDDD)
 				strKeyword = strKeyword.Right(strKeyword.GetLength() - m_ci.m_strDDD.GetLength());
 			*pnType = ST_PHONE;
@@ -307,20 +307,20 @@ BOOL CRcpPlaceInfo::SearchCustomerCNo(long nCNo, BOOL bQueryWithoutCustomerDlg, 
 
 				if(strPhone.IsEmpty() && 
 					m_pRcpDlg->m_nInitItem <= ZERO &&
-					::IsThisCompany("이레퀵") == FALSE &&
+					LF->IsThisCompany("이레퀵") == FALSE &&
 					GetPlaceType() == PLACE_TYPE_ORDER)
 					strPhone = m_pRcpDlg->m_strCID;
 
 				if(strPhone.IsEmpty())
-					strPhone = ::GetDashPhoneNumber(strTelTemp);
+					strPhone = LF->GetDashPhoneNumber(strTelTemp);
 
 				if(GetPlaceType() == PLACE_TYPE_ORDER)
-					m_pRcpDlg->m_edtSmsPhone.SetWindowText(::GetDashPhoneNumber(strTelSms));
+					m_pRcpDlg->m_edtSmsPhone.SetWindowText(LF->GetDashPhoneNumber(strTelSms));
 				
 				if(strPhone2.IsEmpty() && 
-					::GetNoneDashNumber(strPhone) != GetNoneDashNumber(m_pRcpDlg->m_strCID) &&
+					LF->GetNoneDashNumber(strPhone) != LF->GetNoneDashNumber(m_pRcpDlg->m_strCID) &&
 					GetPlaceType() == PLACE_TYPE_ORDER)
-					strPhone2 = ::GetDashPhoneNumber(m_pRcpDlg->m_strCID);
+					strPhone2 = LF->GetDashPhoneNumber(m_pRcpDlg->m_strCID);
 
 				SetData(nDongID, nPosX, nPosY, strDepart, strManager, strPhone, strDetail, 
 					nCNo, nCustomerID, strUserID, nGNo, strMemo, strPhone2, strDisplayDong, 
@@ -328,7 +328,7 @@ BOOL CRcpPlaceInfo::SearchCustomerCNo(long nCNo, BOOL bQueryWithoutCustomerDlg, 
 	
 				if(IsOrder())
 				{			
-					if(::IsThisCompany("사천퀵", m_pRcpDlg->m_pBi->nCompanyCode))
+					if(LF->IsThisCompany("사천퀵", m_pRcpDlg->m_pBi->nCompanyCode))
 					{		
 						m_pRcpDlg->SetGrade(-100);
 					}
@@ -448,7 +448,7 @@ BOOL CRcpPlaceInfo::SearchCustomerCNo(long nCNo, BOOL bQueryWithoutCustomerDlg, 
 					if(bOnlinePopup== TRUE && nOnlinePopupCharge > 0)
 					{
 						CString strTemp;
-						strTemp.Format("해당 고객 송금건 %s원 아직 입금되지 않았습니다.", ::GetMyNumberFormat(nOnlinePopupCharge));
+						strTemp.Format("해당 고객 송금건 %s원 아직 입금되지 않았습니다.", LF->GetMyNumberFormat(nOnlinePopupCharge));
 						MessageBox(m_pRcpDlg->m_hWnd, strTemp, "확인", MB_ICONINFORMATION);
 					}
 
@@ -489,12 +489,12 @@ void CRcpPlaceInfo::SetData(long nDongID, long nPosX, long nPosY, CString strDep
 					BOOL bHasDetailPos, CString strAddress, long nTelID,
 					BOOL bCredit,long nUseCount, long nCancelCount, long nMileageBalance, long nShowPhoneType, BOOL bTempCNo, BOOL bEditMode)
 {
-	strPhone1 = GetDashPhoneNumber(strPhone1);
-	strPhone2 = GetDashPhoneNumber(strPhone2);
+	strPhone1 = LF->GetDashPhoneNumber(strPhone1);
+	strPhone2 = LF->GetDashPhoneNumber(strPhone2);
 
 	/*
 	if(strPhone1.IsEmpty())
-		strPhone1 = GetDashPhoneNumber(m_pRcpDlg->m_strCID);
+		strPhone1 = LF->GetDashPhoneNumber(m_pRcpDlg->m_strCID);
 
 	if(strPhone1 == strPhone2)
 		strPhone2 = "";
@@ -649,7 +649,7 @@ BOOL CRcpPlaceInfo::SearchCustomer(CString strData, UINT nSearchType, BOOL bCIDS
 		m_pCustomerDlg = pDlg;
 	}*/
 
-	CBranchInfo *pBi = GetCurBranchInfo();
+	CBranchInfo *pBi = LF->GetCurBranchInfo();
 
 	m_pCustomerDlg->m_pParent = this;
 	m_pCustomerDlg->m_pRcpDlg = (CRcpDlg*)m_pRcpDlg;
@@ -719,16 +719,16 @@ void CRcpPlaceInfo::SetCNo(long nCNo, BOOL bTempCNo, long nID, CString strUserID
 void CRcpPlaceInfo::RefreshTelCombo(CString strPhone, CString strMobile)
 {
 /*
-	if((m_pRcpDlg->m_nLineID > 0) && (IsNumeric(GetNoneDashNumber(m_pRcpDlg->m_strCID)) == TRUE))//실제전화오면 
+	if((m_pRcpDlg->m_nLineID > 0) && (LF->IsNumeric(LF->GetNoneDashNumber(m_pRcpDlg->m_strCID)) == TRUE))//실제전화오면 
 	{
-		if(GetNoneDashNumber(m_pRcpDlg->m_strCID) == GetNoneDashNumber(strPhone))
-			m_pedtMP->SetWindowText(GetDashPhoneNumber(strMobile));
+		if(LF->GetNoneDashNumber(m_pRcpDlg->m_strCID) == LF->GetNoneDashNumber(strPhone))
+			m_pedtMP->SetWindowText(LF->GetDashPhoneNumber(strMobile));
 		else
-			m_pedtMP->SetWindowText(GetDashPhoneNumber(m_pRcpDlg->m_strCID));
+			m_pedtMP->SetWindowText(LF->GetDashPhoneNumber(m_pRcpDlg->m_strCID));
 	}
 	else
 	{
-		m_pedtMP->SetWindowText(GetDashPhoneNumber(strMobile));
+		m_pedtMP->SetWindowText(LF->GetDashPhoneNumber(strMobile));
 	}
 */
 }
@@ -1203,17 +1203,17 @@ void CRcpPlaceInfo::OnContextMenuCall(BOOL bPhone2)
 		pMainMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_CUR_CALL, strCurPhone + " 로 전화걸기");
 		pMainMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_SEND_SMS, strCurPhone + " 로 SMS전송");
 		pMainMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_ALLOCATE_SEND_SMS, strCurPhone + " 로 배차SMS전송");
-		if(GetNoneDashNumber(strCID) != GetNoneDashNumber(strCurPhone))
+		if(LF->GetNoneDashNumber(strCID) != LF->GetNoneDashNumber(strCurPhone))
 		{
-			pMainMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_CUR_CALL, GetDashPhoneNumber(strCID) + " 발신번호로 전화걸기");
+			pMainMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_CUR_CALL, LF->GetDashPhoneNumber(strCID) + " 발신번호로 전화걸기");
 			if(IsNewCus() && strCID.GetLength() > 0)
-				pMainMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_CUR_CALL, GetDashPhoneNumber(strCID) + "발신번호 선택하기");
+				pMainMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_CUR_CALL, LF->GetDashPhoneNumber(strCID) + "발신번호 선택하기");
 		}
 
 		if(!IsNewCus())
 			pMainMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_CUR_REMOVE, strCurPhone + " 삭제하기");
 
-		strCurPhone = GetNoneDashNumber(strCurPhone);
+		strCurPhone = LF->GetNoneDashNumber(strCurPhone);
 	}
 
 	if(!IsNewCus())
@@ -1244,10 +1244,10 @@ void CRcpPlaceInfo::OnContextMenuCall(BOOL bPhone2)
 					strType = " (휴대전화)";
 				
 				MENU_PHONE phone;
-				phone.strPhone = GetNoneDashNumber(strPhone);
-				phone.strDisplay = GetDashPhoneNumber(strPhone) + " " + strType;
+				phone.strPhone = LF->GetNoneDashNumber(strPhone);
+				phone.strDisplay = LF->GetDashPhoneNumber(strPhone) + " " + strType;
 
-				if(phone.strPhone == GetNoneDashNumber(strCID) && strCID.GetLength() > 0)
+				if(phone.strPhone == LF->GetNoneDashNumber(strCID) && strCID.GetLength() > 0)
 				{
 					phone.strDisplay += nType > 0 ? "(발신번호)" : " (발신번호)";
 					bCheckCIDNumber = TRUE;
@@ -1263,8 +1263,8 @@ void CRcpPlaceInfo::OnContextMenuCall(BOOL bPhone2)
 			if(!bCheckCIDNumber && strCID.GetLength() > 0)
 			{
 				MENU_PHONE phone;
-				phone.strPhone = GetNoneDashNumber(strCID);
-				phone.strDisplay = GetDashPhoneNumber(strCID) + " (발신번호)";
+				phone.strPhone = LF->GetNoneDashNumber(strCID);
+				phone.strDisplay = LF->GetDashPhoneNumber(strCID) + " (발신번호)";
 				m_arrMenuPhone.Add(phone);
 				pMainMenu->AppendMenu(MF_BYCOMMAND, nID, phone.strDisplay + " 선택");
 				nID++;
@@ -1324,13 +1324,13 @@ void CRcpPlaceInfo::OnSelectMenuCall(UINT nID)
 	if(nID == ID_MENU_PHONE_CUR_CALL) 
 		pView->MakeCall(nCompany, GetPhone(bPhone2), CALL_TO_CUSTOMER);
 	else if(nID == ID_MENU_PHONE_CUR_REMOVE)
-		DeletePhone(GetNoneDashNumber(GetPhone(bPhone2)));
+		DeletePhone(LF->GetNoneDashNumber(GetPhone(bPhone2)));
 	else if(nID == ID_MENU_PHONE_SEND_SMS)
-		SendSms(nCompany, GetNoneDashNumber(GetPhone(bPhone2)));
+		SendSms(nCompany, LF->GetNoneDashNumber(GetPhone(bPhone2)));
 	else if(nID == ID_MENU_PHONE_ALLOCATE_SEND_SMS)
-		SendSms(nCompany, GetNoneDashNumber(GetPhone(bPhone2)), true);
+		SendSms(nCompany, LF->GetNoneDashNumber(GetPhone(bPhone2)), true);
 	else if(nID >= ID_MENU_PHONE_SELECT && nID <= ID_MENU_PHONE_SELECT + 100)
-		SetPhone(GetDashPhoneNumber(m_arrMenuPhone[nID - ID_MENU_PHONE_SELECT].strPhone), bPhone2);
+		SetPhone(LF->GetDashPhoneNumber(m_arrMenuPhone[nID - ID_MENU_PHONE_SELECT].strPhone), bPhone2);
 	else if(nID >= ID_MENU_PHONE_CALL && nID <= ID_MENU_PHONE_CALL + 100)
 		pView->MakeCall(nCompany, m_arrMenuPhone[nID - ID_MENU_PHONE_CALL].strPhone, CALL_TO_CUSTOMER);
 	else if(nID >= ID_MENU_PHONE_REMOVE && nID <= ID_MENU_PHONE_REMOVE + 100)
@@ -1394,8 +1394,8 @@ void CRcpPlaceInfo::DeletePhoneThisPlace(CRcpPlaceInfo *p, CString strPhone, int
 {
 	if(p)
 	{
-		CString strPhone1 = GetNoneDashNumber(p->GetPhone());
-		CString strPhone2 = GetNoneDashNumber(p->GetPhone(TRUE));
+		CString strPhone1 = LF->GetNoneDashNumber(p->GetPhone());
+		CString strPhone2 = LF->GetNoneDashNumber(p->GetPhone(TRUE));
 
 		if(strPhone == strPhone1)
 		{
@@ -1412,7 +1412,7 @@ void CRcpPlaceInfo::DeletePhoneThisPlace(CRcpPlaceInfo *p, CString strPhone, int
 
 				if(nReplacePhoneType == REPLACE_PHONE_MOVE)
 				{
-					p->SetPhone(GetDashPhoneNumber(p->GetPhone(TRUE)));
+					p->SetPhone(LF->GetDashPhoneNumber(p->GetPhone(TRUE)));
 					p->SetPhone("", TRUE);
 				}
 			}
@@ -1438,7 +1438,7 @@ void CRcpPlaceInfo::UpdatePhone(CString strPhone, BOOL bPhone2)
 		pCmd.AddParameter(bPhone2 ? strPhone : "");
 		if(pCmd.Execute())
 		{
-			SetPhone(GetDashPhoneNumber(strPhone), bPhone2);
+			SetPhone(LF->GetDashPhoneNumber(strPhone), bPhone2);
 			m_pRcpDlg->MessageBox("설정되었습니다.", "확인", MB_ICONINFORMATION);
 		}
 	}

@@ -102,12 +102,12 @@ void CTransferSBSLogDlg::RefreshList()
 		rs.GetFieldValue("dtGenerate", dtGenerate);
 		rs.GetFieldValue("sWName", strWName);
 
-		m_lstReport.InsertItem(i, ::GetStringFromLong(i));
+		m_lstReport.InsertItem(i, LF->GetStringFromLong(i));
 		m_lstReport.SetItemText(i, 1, dtGenerate.Format("%y-%m-%d %H:%M"));
 		m_lstReport.SetItemText(i, 2, m_ci.GetShareCompanyBranchName(nFromCompany));
 		m_lstReport.SetItemText(i, 3, m_ci.GetShareCompanyBranchName(nToCompany));
 		m_lstReport.SetItemText(i, 4, GetTransferType(nType));
-		m_lstReport.SetItemText(i, 5, ::GetMyNumberFormat(nCharge));
+		m_lstReport.SetItemText(i, 5, LF->GetMyNumberFormat(nCharge));
 		m_lstReport.SetItemText(i, 6, m_ci.GetShareCompanyBranchName(nWCompany) + "/" + strWName);
 		m_lstReport.SetItemLong(i, nType);
 

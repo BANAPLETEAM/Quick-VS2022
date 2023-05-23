@@ -331,7 +331,7 @@ void CRequestDrawingDlg::OnBnClickedRefreshBtn()
 
 void CRequestDrawingDlg::OnBnClickedDarwingBtn()
 {
-	if(!POWER_CHECK(1040, "출금요청", TRUE))
+	if(!LF->POWER_CHECK(1040, "출금요청", TRUE))
 		return;
 
 	long nBankCode = m_cmbBank.GetItemData(m_cmbBank.GetCurSel());
@@ -360,12 +360,12 @@ void CRequestDrawingDlg::OnBnClickedDarwingBtn()
 		if(strPhone.GetLength() < 8)
 			throw "SMS수신 가능한 휴대폰번호를 입력하세요.";
 
-		nAmount = GetNoneCommaNumber(strAmount);
+		nAmount = LF->GetNoneCommaNumber(strAmount);
 
 		if(nAmount < 100 || nAmount > 50000000)
 			throw "1회 출금 가능금액은 100원~5000만원입니다.";
 
-		nShareBalance = GetNoneCommaNumber(strShareBalance);
+		nShareBalance = LF->GetNoneCommaNumber(strShareBalance);
 
 		if(nShareBalance < nAmount)
 			throw "잔액이 부족합니다. 출금요청금액을 줄여주시기 바랍니다.";
@@ -389,7 +389,7 @@ void CRequestDrawingDlg::OnBnClickedDarwingBtn()
 	pCmd.AddParameter(m_ui.nWNo);
 	pCmd.AddParameter(m_ui.strName);
 	pCmd.AddParameter(m_ei.strMac1);
-	pCmd.AddParameter(GetHddId().TrimLeft());
+	pCmd.AddParameter(LF->GetHddId().TrimLeft());
 
 	if(!pCmd.Execute())
 	{
@@ -483,8 +483,8 @@ void CRequestDrawingDlg::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * resu
 	m_nCompany = ((CWaitDrawingRecord*)pRecord)->m_nCompany;
 
 	m_edtCompany.SetWindowText(strCompany);
-	m_edtShareBalance.SetWindowText(GetMyNumberFormat(nBalance));
-	m_edtAmount.SetWindowText(GetMyNumberFormat(nRequestBalance));
+	m_edtShareBalance.SetWindowText(LF->GetMyNumberFormat(nBalance));
+	m_edtAmount.SetWindowText(LF->GetMyNumberFormat(nRequestBalance));
 	m_edtDepositName.SetWindowText(strDeposit);
 
 	for(int i = 0; i < m_cmbBank.GetCount(); i++) {

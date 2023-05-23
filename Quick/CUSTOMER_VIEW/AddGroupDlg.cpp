@@ -215,8 +215,8 @@ void CAddGroupDlg::LoadGroup()
 	m_strGroupName = pGroup->strGroupName;
 	m_strDept = pGroup->strDept;
 	m_strName = pGroup->strName;
-	m_strMemberTel = GetDashPhoneNumber(pGroup->strMemberTel);
-	m_strManagerHP = GetDashPhoneNumber(pGroup->strManagerHP);
+	m_strMemberTel = LF->GetDashPhoneNumber(pGroup->strMemberTel);
+	m_strManagerHP = LF->GetDashPhoneNumber(pGroup->strManagerHP);
 	m_strID = pGroup->strID;
 	m_strPwd = pGroup->strPassword;
 	m_strEmail = pGroup->strEmail;
@@ -236,19 +236,19 @@ void CAddGroupDlg::LoadGroup()
 	m_bCreditApply = pGroup->bCreditApply;
 	m_bOnlineApply = pGroup->bOnlineApply;
 	m_bTransApply = pGroup->bTransApply;
-	m_strDiscount = GetMyNumberFormat(pGroup->nDiscount);
+	m_strDiscount = LF->GetMyNumberFormat(pGroup->nDiscount);
 
 	if(pGroup->nDirectDiscountType >0)
 	{
 		m_cmbDirectDiscount.SetCurSel(pGroup->nDirectDiscountType);
-		m_strDirectDiscount = GetMyNumberFormat(pGroup->nDirectDiscount);
-		m_strDirectDiscountRange = GetMyNumberFormat(pGroup->nDirectDiscountRange);
+		m_strDirectDiscount = LF->GetMyNumberFormat(pGroup->nDirectDiscount);
+		m_strDirectDiscountRange = LF->GetMyNumberFormat(pGroup->nDirectDiscountRange);
 	}
 	else
 	{
 		m_cmbDirectDiscount.SetCurSel(0);
-		m_strDirectDiscount = GetMyNumberFormat(0);
-		m_strDirectDiscountRange = GetMyNumberFormat(0);
+		m_strDirectDiscount = LF->GetMyNumberFormat(0);
+		m_strDirectDiscountRange = LF->GetMyNumberFormat(0);
 	}
 
 	m_cmbAutoCalculate.SetCurSel(pGroup->nAutoCalculate);
@@ -275,7 +275,7 @@ void CAddGroupDlg::LoadGroup()
 
 		m_lstGNo.Populate();
 
-		m_stcGNoReportCount.SetWindowText("지점수: " +GetMyNumberFormat(i+1));
+		m_stcGNoReportCount.SetWindowText("지점수: " +LF->GetMyNumberFormat(i+1));
 
 		switch(pGroup->nGNoListType)
 		{
@@ -294,7 +294,7 @@ void CAddGroupDlg::LoadGroup()
 	}
 	
 
-	strTemp = ::GetMyNumberFormat(pGroup->nAbleUseCharge);
+	strTemp = LF->GetMyNumberFormat(pGroup->nAbleUseCharge);
 	m_strAbleUseCharge = strTemp;
 	m_cmbAbleUseCharge.SetWindowText(m_strAbleUseCharge);
 	m_cmbInitDay.SetCurSel(max(pGroup->nInitDay - 1, 0));
@@ -381,7 +381,7 @@ BOOL CAddGroupDlg::UniqueCheckTypeName()
 	if(m_nGNo > 0)
 		nCompany = m_cg.GetGroupData(m_nGNo)->nCompany;
 	else
-		nCompany = GetCurBranchInfo()->nCompanyCode;
+		nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 
 	CString sTypeChargeName = "";
 	m_cmbChargeType.GetWindowText(sTypeChargeName);
@@ -423,7 +423,7 @@ void CAddGroupDlg::AddNewGroup()
 
 	long nDepositRate, nDirectDiscountType = 0, nDirectDiscount =0, nDirectDiscountRange = 0;
 
-	if(!::IsStringDigit(m_strRiderDeposit) && m_strRiderDeposit.GetLength() > 0)
+	if(!LF->IsStringDigit(m_strRiderDeposit) && m_strRiderDeposit.GetLength() > 0)
 	{
 		MessageBox("기사입금액에 숫자를 넣어주세요", "확인", MB_ICONINFORMATION);
 		return;
@@ -434,18 +434,18 @@ void CAddGroupDlg::AddNewGroup()
 	if(m_chkAutoChargeCreate.GetCheck() && !UniqueCheckTypeName() )
 		return;
 
-	m_strMemberTel = m_strMemberTel.GetLength() > 0 ? GetNoneDashNumber(m_strMemberTel) : m_strMemberTel;
-	m_strManagerHP = GetNoneDashNumber(m_strManagerHP);
+	m_strMemberTel = m_strMemberTel.GetLength() > 0 ? LF->GetNoneDashNumber(m_strMemberTel) : m_strMemberTel;
+	m_strManagerHP = LF->GetNoneDashNumber(m_strManagerHP);
 	nDepositRate = m_strRiderDeposit.GetLength() > 0 ? atol(m_strRiderDeposit) : 0;
-	//m_sBussinessNo = m_sBussinessNo.GetLength() > 0 ? GetNoneDashNumber(m_sBussinessNo) : m_sBussinessNo;	
+	//m_sBussinessNo = m_sBussinessNo.GetLength() > 0 ? LF->GetNoneDashNumber(m_sBussinessNo) : m_sBussinessNo;	
 
 	long nCompany = 0;
 
 	if(m_cmbDirectDiscount.GetCurSel() > 0)
 	{
 		nDirectDiscountType = m_cmbDirectDiscount.GetCurSel();
-		nDirectDiscount = GetMyUnNumberFormat(m_strDirectDiscount);
-		nDirectDiscountRange = GetMyUnNumberFormat(m_strDirectDiscountRange);
+		nDirectDiscount = LF->GetMyUnNumberFormat(m_strDirectDiscount);
+		nDirectDiscountRange = LF->GetMyUnNumberFormat(m_strDirectDiscountRange);
 	}
 	else
 	{
@@ -463,7 +463,7 @@ void CAddGroupDlg::AddNewGroup()
 	}
 	else
 	{
-		nCompany = GetCurBranchInfo()->nCompanyCode;
+		nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 	}
 
 	CMkRecordset pRs2(m_pMkDb);
@@ -560,14 +560,14 @@ void CAddGroupDlg::EditGroup()
 		if(m_chkAutoChargeCreate.GetCheck() && !UniqueCheckTypeName() )
 			return;
 
-		if(!::IsStringDigit(m_strRiderDeposit) && m_strRiderDeposit.GetLength() > 0)
+		if(!LF->IsStringDigit(m_strRiderDeposit) && m_strRiderDeposit.GetLength() > 0)
 			throw("기사입금액에 숫자를 넣어주세요");
 		else if(m_strRiderDeposit.GetLength() == 0)
 			m_strRiderDeposit = "0";
 
-		m_strMemberTel = m_strMemberTel.GetLength() > 0 ? GetNoneDashNumber(m_strMemberTel) : m_strMemberTel;
+		m_strMemberTel = m_strMemberTel.GetLength() > 0 ? LF->GetNoneDashNumber(m_strMemberTel) : m_strMemberTel;
 		nDepositRate = m_strRiderDeposit.GetLength() > 0 ? atol(m_strRiderDeposit) : 0;
-		m_strManagerHP = GetNoneDashNumber(m_strManagerHP);
+		m_strManagerHP = LF->GetNoneDashNumber(m_strManagerHP);
 		ST_CUSTOMER_GROUP_INFOMATION * pData = m_cg.GetGroupData(m_nGNo);
 
 		if(pData == NULL) return;
@@ -615,8 +615,8 @@ void CAddGroupDlg::EditGroup()
 		if(m_cmbDirectDiscount.GetCurSel() > 0)
 		{
 			pData->nDirectDiscountType = m_cmbDirectDiscount.GetCurSel();
-			pData->nDirectDiscount = GetMyUnNumberFormat(m_strDirectDiscount);
-			pData->nDirectDiscountRange = GetMyUnNumberFormat(m_strDirectDiscountRange);
+			pData->nDirectDiscount = LF->GetMyUnNumberFormat(m_strDirectDiscount);
+			pData->nDirectDiscountRange = LF->GetMyUnNumberFormat(m_strDirectDiscountRange);
 		}
 		else
 		{
@@ -667,7 +667,7 @@ BOOL CAddGroupDlg::PreTranslateMessage(MSG* pMsg)
 			GetDlgItem(IDC_DEPT_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
 		{
-			::LengthCheck(this->GetSafeHwnd(), IDC_GROUP_NAME_EDIT, IDC_LENGTH_STATIC, 30, "그룹명");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_GROUP_NAME_EDIT, IDC_LENGTH_STATIC, 30, "그룹명");
 		}			
 		else if(pMsg->message == WM_KEYUP)
 		{
@@ -686,49 +686,49 @@ BOOL CAddGroupDlg::PreTranslateMessage(MSG* pMsg)
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_NAME_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_DEPT_EDIT, IDC_LENGTH_STATIC, 50, "부서명");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_DEPT_EDIT, IDC_LENGTH_STATIC, 50, "부서명");
 		break;
 
 	case IDC_NAME_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_MEMBER_TEL_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_NAME_EDIT, IDC_LENGTH_STATIC, 15, "담당자이름");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_NAME_EDIT, IDC_LENGTH_STATIC, 15, "담당자이름");
 		break;
 
 	case IDC_MEMBER_TEL_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_ID_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_MEMBER_TEL_EDIT, IDC_LENGTH_STATIC, 17, "대표번호");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_MEMBER_TEL_EDIT, IDC_LENGTH_STATIC, 17, "대표번호");
 		break;
 
 	case IDC_ID_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_PWD_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_ID_EDIT, IDC_LENGTH_STATIC, 15, "아이디");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_ID_EDIT, IDC_LENGTH_STATIC, 15, "아이디");
 		break;
 
 	case IDC_PWD_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_EMAIL_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_PWD_EDIT, IDC_LENGTH_STATIC, 15, "패스워드");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_PWD_EDIT, IDC_LENGTH_STATIC, 15, "패스워드");
 		break;
 
 	case IDC_EMAIL_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_COPORATION_CHARGE_CHECK)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_EMAIL_EDIT, IDC_LENGTH_STATIC, 50, "이메일");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_EMAIL_EDIT, IDC_LENGTH_STATIC, 50, "이메일");
 		break;
 
 	case IDC_RIDER_DEPOSIT_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_DETAIL_ETC_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_RIDER_DEPOSIT_EDIT, IDC_LENGTH_STATIC, 3, "기사입금비율");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_RIDER_DEPOSIT_EDIT, IDC_LENGTH_STATIC, 3, "기사입금비율");
 		break;
 
 	case IDC_DETAIL_ETC_EDIT:
@@ -737,39 +737,39 @@ BOOL CAddGroupDlg::PreTranslateMessage(MSG* pMsg)
 			//GetDlgItem(IDC_PRESIDENT_EDIT)->SetFocus();
 		}
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_DETAIL_ETC_EDIT, IDC_LENGTH_STATIC, 500, "비고");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_DETAIL_ETC_EDIT, IDC_LENGTH_STATIC, 500, "비고");
 		break;
 
 	case IDC_PRESIDENT_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_BUSINESS_STATUS_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_PRESIDENT_EDIT, IDC_LENGTH_STATIC, 10, "대표자");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_PRESIDENT_EDIT, IDC_LENGTH_STATIC, 10, "대표자");
 		break;
 
 	case IDC_BUSINESS_STATUS_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_BUSINEESS_NO_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_BUSINESS_STATUS_EDIT, IDC_LENGTH_STATIC, 20, "업태");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINESS_STATUS_EDIT, IDC_LENGTH_STATIC, 20, "업태");
 		break;
 	case IDC_BUSINEESS_NO_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_BUSINESS_CATEGORY_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_BUSINEESS_NO_EDIT, IDC_LENGTH_STATIC, 10, "사업자번호");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINEESS_NO_EDIT, IDC_LENGTH_STATIC, 10, "사업자번호");
 		break;
 	case IDC_BUSINESS_CATEGORY_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_COMPANY_AREA_EDIT)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_BUSINESS_CATEGORY_EDIT, IDC_LENGTH_STATIC, 20, "업종");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINESS_CATEGORY_EDIT, IDC_LENGTH_STATIC, 20, "업종");
 		break;
 	case IDC_COMPANY_AREA_EDIT:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_OK_BTN)->SetFocus();
 		else if(pMsg->message == WM_KEYDOWN)
-			::LengthCheck(this->GetSafeHwnd(), IDC_COMPANY_AREA_EDIT, IDC_LENGTH_STATIC, 100, "사업장주소");
+			LF->LengthCheck(this->GetSafeHwnd(), IDC_COMPANY_AREA_EDIT, IDC_LENGTH_STATIC, 100, "사업장주소");
 
 		break;			
 	default:
@@ -855,7 +855,7 @@ void CAddGroupDlg::OnCbnSelchangeReportFirstDayCombo()
 void CAddGroupDlg::OnBnClickedSearchChargeListBtn()
 {
 	CSearchGroupDlg dlg;
-	dlg.m_nCompany = GetCurBranchInfo()->nPayTable;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nPayTable;
 	dlg.m_nDataType = SG_DISCOUNT_COMPANY;
 	if(dlg.DoModal() == IDOK)
 	{
@@ -928,7 +928,7 @@ void CAddGroupDlg::OnBnClickedGnoAddBtn()
 	strSearchGroup = m_cg.GetGroupData(m_nGNo)->strGroupName;
 
 	CSearchGroupDlg dlg;
-	dlg.m_nCompany = GetCurBranchInfo()->nCompanyCode;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 	dlg.m_nDataType = SG_GROUP;
 	dlg.m_strSearch = strSearchGroup.GetLength() > 0 ? strSearchGroup : "";
 	dlg.m_nAutoSearch = TRUE;
@@ -954,7 +954,7 @@ void CAddGroupDlg::OnBnClickedGnoAddBtn()
 	
 
 	int nCount = m_lstGNo.GetRecords()->GetCount();
-	m_stcGNoReportCount.SetWindowText("지점수: " +GetMyNumberFormat(nCount));
+	m_stcGNoReportCount.SetWindowText("지점수: " +LF->GetMyNumberFormat(nCount));
 	
 }
 
@@ -993,7 +993,7 @@ void CAddGroupDlg::OnBnClickedGnoDelBtn()
 
 	if( m_lstGNo.GetRecords()->GetCount() <= 0 )
 	{
-		MsgBox("삭제할 리스트가 없습니다. ");
+		LF->MsgBox("삭제할 리스트가 없습니다. ");
 		return;
 
 	}
@@ -1029,7 +1029,7 @@ void CAddGroupDlg::OnBnClickedGnoDelBtn()
 
 	m_lstGNo.Populate();
 	int nCount = m_lstGNo.GetRecords()->GetCount();
-	m_stcGNoReportCount.SetWindowText("지점수: " + GetMyNumberFormat(nCount));
+	m_stcGNoReportCount.SetWindowText("지점수: " + LF->GetMyNumberFormat(nCount));
 }
 
 void CAddGroupDlg::OnBnClickedGnoFulllBtn()
@@ -1166,7 +1166,7 @@ void CAddGroupDlg::GNoListAll()
 
 	if( m_cg.GetGroupData(m_nGNo)->nParentGNo  > 0)
 	{
-		MsgBox("해당 고객사가 본사가 아닙니다.  본사(고객)에서 작업해주세요");
+		LF->MsgBox("해당 고객사가 본사가 아닙니다.  본사(고객)에서 작업해주세요");
 		return;
 
 	}
@@ -1175,7 +1175,7 @@ void CAddGroupDlg::GNoListAll()
 	strGNoList = m_cg.GetAllGNoListFromChildGNo(m_nGNo);
 	if(strGNoList.GetLength() <= 0)
 	{
-		MsgBox("해당 고객사의 고객이 올바로 만들어지지 않은것 같습니다. 로지소프트로 문의주세요");
+		LF->MsgBox("해당 고객사의 고객이 올바로 만들어지지 않은것 같습니다. 로지소프트로 문의주세요");
 
 		return;
 	}
@@ -1196,7 +1196,7 @@ void CAddGroupDlg::GNoListAll()
 		m_lstGNo.InsertItemDataLong(nTempGNo);
 		m_lstGNo.EndItem();
 	}	
-	m_stcGNoReportCount.SetWindowText("지점수: " + GetMyNumberFormat(sArr.GetCount()));
+	m_stcGNoReportCount.SetWindowText("지점수: " + LF->GetMyNumberFormat(sArr.GetCount()));
 	m_lstGNo.Populate();
 
 }

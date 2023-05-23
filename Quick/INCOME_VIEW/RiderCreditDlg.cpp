@@ -101,14 +101,14 @@ void CRiderCreditDlg::OnBnClickedRefreshBtn()
 		m_List.InsertItem(i, itoa(i, buffer, 10));
 		m_List.SetItemText(i, 1, dtGenerate.Format("%m-%d %H:%M"));
 		m_List.SetItemText(i, 2, sMemo);
-		m_List.SetItemText(i, 3, ::GetMyNumberFormat(nCharge));
+		m_List.SetItemText(i, 3, LF->GetMyNumberFormat(nCharge));
 
 		m_List.SetItemLong(i, nIndex);
 
 		pRs.MoveNext();
 	}
  
-	m_SumStc.SetWindowText("* 합계 : " + ::GetMyNumberFormat(nChargeSum) + " 원");
+	m_SumStc.SetWindowText("* 합계 : " + LF->GetMyNumberFormat(nChargeSum) + " 원");
     m_List.Populate();
 }
 

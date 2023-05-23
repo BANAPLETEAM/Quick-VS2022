@@ -199,7 +199,7 @@ void CAllocateLimitAllApplyDlg::InitList(void)
 	
 	m_ListCtrl.InsertColumn(nItem, "사번", LVCFMT_LEFT,  55);
 
-	if(::GetCurBranchInfo()->bIntegrated)
+	if(LF->GetCurBranchInfo()->bIntegrated)
         m_ListCtrl.InsertColumn(nItem++, "소속", LVCFMT_LEFT,  40);
 
 	m_ListCtrl.InsertColumn(nItem++, "아이디", LVCFMT_LEFT, 80);
@@ -229,8 +229,8 @@ void CAllocateLimitAllApplyDlg::InitList(void)
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_driver_limit_1");
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), 
 			m_ci.m_bRcpIntMode1 ?	MAKE_SHARE_CODE(m_ci.m_nShareCode1) : -1);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int),
@@ -263,7 +263,7 @@ void CAllocateLimitAllApplyDlg::InitList(void)
 
 		m_ListCtrl.InsertItem(i, ltoa(nMno, buffer, 10));
  
-		if(GetCurBranchInfo()->bIntegrated)
+		if(LF->GetCurBranchInfo()->bIntegrated)
 			m_ListCtrl.SetItemText(i, nSubItem++, m_ci.GetName(lCode));		
 		m_ListCtrl.SetItemText(i, nSubItem++, sID);
 		m_ListCtrl.SetItemText(i, nSubItem++, sName);
@@ -1200,8 +1200,8 @@ bool CAllocateLimitAllApplyDlg::ModifyProcess(void)
 	//pCmd.AddParameter(typeLong,  typeInput, sizeof(int),((CStaffPage12*)m_pParentWnd)->m_nCompanyCode);
 	//pCmd.AddParameter(typeLong,  typeInput, sizeof(int),((CStaffPage12*)m_pParentWnd)->m_bIntegrated);
 
-	pCmd.AddParameter(typeLong,  typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong,  typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong,  typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong,  typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), 
 			m_ci.m_bRcpIntMode1 ? MAKE_SHARE_CODE((m_ci.m_nShareCode1)) : -1);

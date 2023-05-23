@@ -117,13 +117,13 @@ void CCustomerPage14::FromAfterRefreshList()
 
 	CMkRecordset rs(m_pMkDb); 
 	CMkCommand cmd(m_pMkDb, "select_not_use_customer_1");
-	cmd.AddParameter(GetCurBranchInfo()->nCustomerTable);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(dt);
 	cmd.AddParameter(dt2);
 	cmd.AddParameter(FALSE);
 	cmd.AddParameter(m_chkOneUse.GetCheck());
-	cmd.AddParameter(strUseCount.GetLength() == 0 ? 0 : GetLongFromEdit(&m_editUseCount));
+	cmd.AddParameter(strUseCount.GetLength() == 0 ? 0 : LF->GetLongFromEdit(&m_editUseCount));
 	cmd.AddParameter(dtRegisterFrom);
 
 	if(!rs.Execute(&cmd)) return;
@@ -160,17 +160,17 @@ void CCustomerPage14::FromAfterRefreshList()
 		rs.GetFieldValue("nUseCount", nUseCount);
 
 		if(nPreID != nID)
-			m_List.InsertItem(i, GetStringFromLong(nID));
+			m_List.InsertItem(i, LF->GetStringFromLong(nID));
 		else
 			m_List.InsertItem(i, "");
 
 		m_List.SetItemText(i, 1, strCompany);
-		m_List.SetItemText(i, 2, ::GetDashPhoneNumber(strTel));
+		m_List.SetItemText(i, 2, LF->GetDashPhoneNumber(strTel));
 		m_List.SetItemText(i, 3, dtRegister.Format("%Y-%m-%d"));
 		m_List.SetItemText(i, 4, dtLastUse.Format("%Y-%m-%d"));
 		m_List.SetItemText(i, 5, strLocation);
 		m_List.SetItemText(i, 6, bNoSMS == TRUE ? "°ÅºÎ" : "");
-		m_List.SetItemText(i, 7, ::GetStringFromLong(nUseCount));
+		m_List.SetItemText(i, 7, LF->GetStringFromLong(nUseCount));
 		m_List.SetItemData(i, nCNo);
 		rs.MoveNext();
 
@@ -198,13 +198,13 @@ void CCustomerPage14::TermAfterRefresh()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_not_use_customer_1");
-	cmd.AddParameter(GetCurBranchInfo()->nCustomerTable);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(dt);
 	cmd.AddParameter(dt2);
 	cmd.AddParameter(TRUE);
 	cmd.AddParameter(m_chkOneUse.GetCheck());
-	cmd.AddParameter(strUseCount.GetLength() == 0 ? 0 : GetLongFromEdit(&m_editUseCount));
+	cmd.AddParameter(strUseCount.GetLength() == 0 ? 0 : LF->GetLongFromEdit(&m_editUseCount));
 	cmd.AddParameter(dtRegisterFrom);
 
 	if(!rs.Execute(&cmd)) return;
@@ -241,7 +241,7 @@ void CCustomerPage14::TermAfterRefresh()
 		rs.GetFieldValue("nUseCount", nUseCount);
 
 		if(nPreID != nID)
-			m_List.InsertItem(i, GetStringFromLong(nID));
+			m_List.InsertItem(i, LF->GetStringFromLong(nID));
 		else
 			m_List.InsertItem(i, "");
 
@@ -251,7 +251,7 @@ void CCustomerPage14::TermAfterRefresh()
 		m_List.SetItemText(i, 4, dtLastUse.Format("%Y-%m-%d"));
 		m_List.SetItemText(i, 5, strLocation);
 		m_List.SetItemText(i, 6, bNoSMS == TRUE ? "°ÅºÎ" : "");
-		m_List.SetItemText(i, 7, ::GetStringFromLong(nUseCount));
+		m_List.SetItemText(i, 7, LF->GetStringFromLong(nUseCount));
 		rs.MoveNext();
 
 		nPreID = nID;
@@ -284,10 +284,10 @@ void CCustomerPage14::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage14::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCustomerTable, 211, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCustomerTable, 211, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 
@@ -304,7 +304,7 @@ void CCustomerPage14::OnDeleteCustomer()
 			//m_lcData.Populate();
 			CMkCommand pCmd(m_pMkDb, "delete_customer_1");
 			pCmd.AddParameter(typeLong, typeInput, sizeof(long), (long)m_List.GetItemData(pRows->GetAt(i)->GetIndex()));
-			pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);
+			pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 			pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_ui.nWNo);
 			pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_ui.nCompany);
 
@@ -323,12 +323,12 @@ void CCustomerPage14::OnDeleteCustomer()
 void CCustomerPage14::OnSendSms()
 {
 	return;
-	//if(!POWER_CHECK(5910, "SMSÀü¼Û", TRUE))
+	//if(!LF->POWER_CHECK(5910, "SMSÀü¼Û", TRUE))
 	//	return;
 
 	CREATE_MODALESS(CCustomerSmsDlg, this);
 	pDlg->m_nType = 130;
-	pDlg->m_nCompany = GetCurBranchInfo()->nCustomerTable;
+	pDlg->m_nCompany = LF->GetCurBranchInfo()->nCustomerTable;
 	pDlg->m_pSourceList = &m_List;
 	pDlg->m_nPhoneCol = 2;
 	pDlg->m_nCTypeCol = 7;
@@ -442,7 +442,7 @@ void CCustomerPage14::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 
 	CREATE_MODALESS(CCustomerAddNoMapDlg, this);
 	pDlg->SetLoadMap(FALSE);
-	pDlg->SetCompany(m_ci.GetCurBranchInfo()->nUseCustomerTable);
+	pDlg->SetCompany(m_ci.LF->GetCurBranchInfo()->nUseCustomerTable);
 	pDlg->SetNewMode(FALSE);
 	pDlg->SetCNo(nCNo);	
 	pDlg->DoModal();

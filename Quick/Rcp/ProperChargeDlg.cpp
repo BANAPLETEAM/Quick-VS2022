@@ -95,9 +95,9 @@ BOOL CProperChargeDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	m_edtCharge.SetWindowText(::GetMyNumberFormat(m_nCharge));
-	m_edtProperCharge.SetWindowText(::GetMyNumberFormat(m_nProperCharge1));
-	m_edtProperCharge2.SetWindowText(::GetMyNumberFormat(m_nProperCharge2));
+	m_edtCharge.SetWindowText(LF->GetMyNumberFormat(m_nCharge));
+	m_edtProperCharge.SetWindowText(LF->GetMyNumberFormat(m_nProperCharge1));
+	m_edtProperCharge2.SetWindowText(LF->GetMyNumberFormat(m_nProperCharge2));
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 
 	m_pReportPaint = new CProperChargePaintManager;
@@ -191,13 +191,13 @@ void CProperChargeDlg::OnEnChangeEdit1()
 
 void CProperChargeDlg::OnBnClickedSelectBtn1()
 {
-	m_nProperCharge = GetLongFromEdit(&m_edtProperCharge);
+	m_nProperCharge = LF->GetLongFromEdit(&m_edtProperCharge);
 	OnOK();
 }
 
 void CProperChargeDlg::OnBnClickedSelectBtn2()
 {
-	m_nProperCharge = GetLongFromEdit(&m_edtProperCharge2);
+	m_nProperCharge = LF->GetLongFromEdit(&m_edtProperCharge2);
 	OnOK();
 }
 

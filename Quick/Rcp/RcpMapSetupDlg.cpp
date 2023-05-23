@@ -43,7 +43,7 @@ BOOL CRcpMapSetupDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	LoadFromReg(m_info);
+	LF->LoadFromReg(m_info);
 	StructToResource();
 	
 	return TRUE;
@@ -69,6 +69,6 @@ void CRcpMapSetupDlg::ResourceToStruct()
 void CRcpMapSetupDlg::OnBnClickedOk()
 {
 	ResourceToStruct();
-	SaveToReg(m_info);
+	LF->SaveToReg(m_info);
 	OnOK();
 }

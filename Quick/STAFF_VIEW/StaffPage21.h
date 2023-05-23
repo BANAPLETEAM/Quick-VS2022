@@ -143,7 +143,7 @@ public:
 			rcTitle.bottom = rcTitle.top + 23;
 			rcTitle.left = rc.left + 7;
 
-			CString strText = st.strGroupName + " " + "[" + ::GetStringFromLong(st.nGrade) + "등급]";
+			CString strText = st.strGroupName + " " + "[" + LF->GetStringFromLong(st.nGrade) + "등급]";
 
 			pDC->SelectObject(m_FontManager.GetFont("맑은 고딕", 19, FW_BOLD));
 			pDC->DrawText(strText, rcTitle, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
@@ -155,19 +155,19 @@ public:
 			//////////왼쪽(딜레이시간) 
   
 			rcDelayTime.top = rcDelayTime.bottom + 4; rcDelayTime.bottom = rcDelayTime.top + ROW_HEIGHT; 
-			strText = "오더 딜레이 : " + ::GetStringFromLong(st.nPanaltyDelayTime4Order) + "초";
+			strText = "오더 딜레이 : " + LF->GetStringFromLong(st.nPanaltyDelayTime4Order) + "초";
 			pDC->DrawText(strText, rcDelayTime, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
 
 			rcDelayTime.top = rcDelayTime.bottom + ROW_SPACE; rcDelayTime.bottom = rcDelayTime.top + ROW_HEIGHT; 
-			strText = "자사 딜레이 : " + ::GetStringFromLong(st.nPanaltyDelayTime4MyOrder) + "초";
+			strText = "자사 딜레이 : " + LF->GetStringFromLong(st.nPanaltyDelayTime4MyOrder) + "초";
 			pDC->DrawText(strText, rcDelayTime, DT_VCENTER | DT_LEFT | DT_SINGLELINE); 
 
 			rcDelayTime.top = rcDelayTime.bottom + ROW_SPACE; rcDelayTime.bottom = rcDelayTime.top + ROW_HEIGHT;
-			strText = "타사 딜레이 : " + ::GetStringFromLong(st.nPanaltyDelayTime4OCOrder) + "초";
+			strText = "타사 딜레이 : " + LF->GetStringFromLong(st.nPanaltyDelayTime4OCOrder) + "초";
 			pDC->DrawText(strText, rcDelayTime, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
 
 			rcDelayTime.top = rcDelayTime.bottom + ROW_SPACE; rcDelayTime.bottom = rcDelayTime.top + ROW_HEIGHT;
-			strText = "자사 법인 딜레이 : " + ::GetStringFromLong(st.nPenaltyDelayTime4MyCorpOrder) + "초";
+			strText = "자사 법인 딜레이 : " + LF->GetStringFromLong(st.nPenaltyDelayTime4MyCorpOrder) + "초";
 			pDC->DrawText("", rcDelayTime, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
 			//pDC->DrawText(strText, rcDelayTime, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
 
@@ -209,7 +209,7 @@ public:
 
 			if(st.bAutoDownGrade == TRUE)
 			{
-				strText = "자동등급하향 : " + ::GetStringFromLong(st.nAutoDownGradeDay) + "일 " + ::GetStringFromLong(st.nAutoDownGradeCount) + "건";
+				strText = "자동등급하향 : " + LF->GetStringFromLong(st.nAutoDownGradeDay) + "일 " + LF->GetStringFromLong(st.nAutoDownGradeCount) + "건";
 			}
 			else
 				strText = "자동등급하향 : 미적용";

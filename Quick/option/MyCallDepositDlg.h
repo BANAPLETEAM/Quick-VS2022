@@ -56,9 +56,9 @@ public:
 			long  nClass, long nID,BOOL bCount, BOOL bAverage, BOOL bMax )
 	{
 		AddItem(new CXTPGridRecordItemTextOption(sType)  );		
-		AddItem(new CXTPGridRecordItemTextOption(nStartValue <= 0 ? "" : GetMyNumberFormat(nStartValue) ));
-		AddItem(new CXTPGridRecordItemTextOption(nEndValue <= 0 ? "" : GetMyNumberFormat(nEndValue) ));
-		AddItem(new CXTPGridRecordItemTextOption(nAmount <= 0 ? "" : GetMyNumberFormat(nAmount) ));		
+		AddItem(new CXTPGridRecordItemTextOption(nStartValue <= 0 ? "" : LF->GetMyNumberFormat(nStartValue) ));
+		AddItem(new CXTPGridRecordItemTextOption(nEndValue <= 0 ? "" : LF->GetMyNumberFormat(nEndValue) ));
+		AddItem(new CXTPGridRecordItemTextOption(nAmount <= 0 ? "" : LF->GetMyNumberFormat(nAmount) ));		
 		
 	
 		m_nClass = nClass;

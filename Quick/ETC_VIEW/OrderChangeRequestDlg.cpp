@@ -82,14 +82,14 @@ void COrderChangeRequestDlg::RefreshList()
 		rs.GetFieldValue("nPreChargeSum", nPreChargeSum);
 
 		m_lstReport.InsertItem(i, dtGenerate.Format("%Y-%m-%d %H:%M"));
-		m_lstReport.SetItemText(i, 1, ::GetStringFromLong(nTNo));
+		m_lstReport.SetItemText(i, 1, LF->GetStringFromLong(nTNo));
 		m_lstReport.SetItemText(i, 2, m_ci.GetCompanyName(nShareCode1));
 		m_lstReport.SetItemText(i, 3, m_ci.GetCompanyName(nRiderShareCode1));
 		m_lstReport.SetItemText(i, 4, strSDong);
 		m_lstReport.SetItemText(i, 5, strDDong);
-		m_lstReport.SetItemText(i, 6, ::GetMyNumberFormat(nPreChargeSum));
-		m_lstReport.SetItemText(i, 7, ::GetMyNumberFormat(nChargeSum));
-		m_lstReport.SetItemText(i, 8, ::GetPayTypeFromLong(nPayType));
+		m_lstReport.SetItemText(i, 6, LF->GetMyNumberFormat(nPreChargeSum));
+		m_lstReport.SetItemText(i, 7, LF->GetMyNumberFormat(nChargeSum));
+		m_lstReport.SetItemText(i, 8, LF->GetPayTypeFromLong(nPayType));
 
 		CString strReuslt; 
 
@@ -196,7 +196,7 @@ void COrderChangeRequestDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void COrderChangeRequestDlg::OnNotComplete()
 {
-	if(!POWER_CHECK(1521, "승인&거부 권한"))
+	if(!LF->POWER_CHECK(1521, "승인&거부 권한"))
 		return;
 
 	CXTPGridRecord *pRecord = m_lstReport.GetFirstSelectedRecord();
@@ -215,7 +215,7 @@ void COrderChangeRequestDlg::OnNotComplete()
 
 void COrderChangeRequestDlg::OnComplete()
 {
-	if(!POWER_CHECK(1521, "승인&거부 권한"))
+	if(!LF->POWER_CHECK(1521, "승인&거부 권한"))
 		return;
 
 	CXTPGridRecord *pRecord = m_lstReport.GetFirstSelectedRecord();
@@ -248,7 +248,7 @@ void COrderChangeRequestDlg::ChangeItemState(long nID, long nResult)
 
 void COrderChangeRequestDlg::OnCancelItem()
 {
-	if(!POWER_CHECK(1521, "승인&거부 권한"))
+	if(!LF->POWER_CHECK(1521, "승인&거부 권한"))
 		return;
 
 	CXTPGridRecord *pRecord = m_lstReport.GetFirstSelectedRecord();

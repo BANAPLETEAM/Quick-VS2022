@@ -170,12 +170,12 @@ void CSmsBaseDlg::OnClickedItemUpdate(UINT nID)
 
 	if(m_nMentID[nIndex] == 0)
 	{
-		if(::InsertSaveMent(m_ci.m_nCompanyCode, SMS_TYPE_BULK, strMent))
+		if(LF->InsertSaveMent(m_ci.m_nCompanyCode, SMS_TYPE_BULK, strMent))
 			MessageBox("저장되었습니다", "확인", MB_ICONINFORMATION);
 	}
 	else
 	{
-		if(::UpdateSaveMent(m_nMentID[nIndex], strMent))
+		if(LF->UpdateSaveMent(m_nMentID[nIndex], strMent))
 			MessageBox("저장되었습니다", "확인", MB_ICONINFORMATION);
 	}
 }
@@ -253,7 +253,7 @@ void CSmsBaseDlg::DisplayByte()
 
 	m_bPreSmsMode = m_bSmsMode;
 
-	m_btnAddFile.SetWindowText("파일첨부(" + ::GetStringFromLong(m_nMMSImageCount) + ")");
+	m_btnAddFile.SetWindowText("파일첨부(" + LF->GetStringFromLong(m_nMMSImageCount) + ")");
 	m_btnSmsMms.Invalidate();
 
 	DisplaySmsCount();
@@ -328,7 +328,7 @@ void CSmsBaseDlg::ChangeControl()
 
 void CSmsBaseDlg::LoadSmsBalance()
 {
-	ST_SMS_INFO smsi = ::GetSMSBalance(m_cBranch.GetCompany());
+	ST_SMS_INFO smsi = LF->GetSMSBalance(m_cBranch.GetCompany());
 	m_nCurBalance = smsi.nSMSBarance;
 	m_nSmsType = smsi.nSMSType;
 }
@@ -349,18 +349,18 @@ void CSmsBaseDlg::DisplaySmsCount()
 {  
 	if(m_nSmsType == 0) //후입금
 	{
-		m_edtCurCharge.SetWindowText(::GetMyNumberFormat("-"));
-		m_edtCurAbilCount.SetWindowText(::GetMyNumberFormat("-"));
+		m_edtCurCharge.SetWindowText(LF->GetMyNumberFormat("-"));
+		m_edtCurAbilCount.SetWindowText(LF->GetMyNumberFormat("-"));
 	}
 	else
 	{
-		m_edtCurCharge.SetWindowText(::GetMyNumberFormat(m_nCurBalance) + "원");
-		m_edtCurAbilCount.SetWindowText(::GetMyNumberFormat(m_nCurBalance / m_sms.GetSmsCharge(m_nSendType)) + "건");
+		m_edtCurCharge.SetWindowText(LF->GetMyNumberFormat(m_nCurBalance) + "원");
+		m_edtCurAbilCount.SetWindowText(LF->GetMyNumberFormat(m_nCurBalance / m_sms.GetSmsCharge(m_nSendType)) + "건");
 	}
 	
-	m_edtChargePerOne.SetWindowText(::GetMyNumberFormat(m_sms.GetSmsCharge(m_nSendType)) + "원");
-	m_edtSendCount.SetWindowText(::GetMyNumberFormat(m_nSendCount) + "건");
-	m_edtSendCharge.SetWindowText(::GetMyNumberFormat(m_nSendCount * m_sms.GetSmsCharge(m_nSendType)) + "원");
+	m_edtChargePerOne.SetWindowText(LF->GetMyNumberFormat(m_sms.GetSmsCharge(m_nSendType)) + "원");
+	m_edtSendCount.SetWindowText(LF->GetMyNumberFormat(m_nSendCount) + "건");
+	m_edtSendCharge.SetWindowText(LF->GetMyNumberFormat(m_nSendCount * m_sms.GetSmsCharge(m_nSendType)) + "원");
 
 	if(m_nSendCount * m_sms.GetSmsCharge(m_nSendType) > m_nCurBalance)
 		m_edtSendCharge.ShowButton(TRUE);
@@ -379,7 +379,7 @@ void CSmsBaseDlg::OnBnClickedSaveButton()
 		return; 
 	}
 
-	if(::InsertSaveMent(m_cBranch.GetCompany(), m_nType, strMent))
+	if(LF->InsertSaveMent(m_cBranch.GetCompany(), m_nType, strMent))
 	{
 		LoadSaveMent();
 
@@ -524,7 +524,7 @@ void CSmsBaseDlg::OnDelete()
 
 	long nID = m_lstMent.GetItemLong(pRecord);
 
-	if(::DeleteSaveMent(nID))
+	if(LF->DeleteSaveMent(nID))
 	{
 		LoadSaveMent();
 		OnClickedItemSelect(IDC_SELECT_BTN1);
@@ -538,7 +538,7 @@ void CSmsBaseDlg::OnInsert()
 
 	if(dlg.DoModal() == IDOK)
 	{
-		if(::InsertSaveMent(m_nCompany, m_nType, dlg.m_strMent))
+		if(LF->InsertSaveMent(m_nCompany, m_nType, dlg.m_strMent))
 		{
 			LoadSaveMent();
 			OnClickedItemSelect(IDC_SELECT_BTN1);
@@ -561,7 +561,7 @@ void CSmsBaseDlg::OnUpdate()
 
 	if(dlg.DoModal() == IDOK)
 	{
-		if(::UpdateSaveMent(nID, dlg.m_strMent))
+		if(LF->UpdateSaveMent(nID, dlg.m_strMent))
 		{
 			LoadSaveMent();
 			OnClickedItemSelect(IDC_SELECT_BTN1);
@@ -728,7 +728,7 @@ LONG CSmsBaseDlg::OnSendEmoticon(WPARAM wParam, LPARAM lParam)
 
 	CEdit *pEdit = (CEdit*)GetDlgItem(m_nLastSelectIndex);
 
-	::AddTextMiddle(strValue, pEdit);
+	LF->AddTextMiddle(strValue, pEdit);
 
 	delete strValue;
 

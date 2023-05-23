@@ -43,7 +43,7 @@ BOOL CSignDlg::OnInitDialog()
 	http://sign.logisoft.co.kr:83/logi_sign_display_quick.htm?sDBType=quick&nTNo=127000952&nCNo=16968989
 
 	CString sUrl = "http://sign.logisoft.co.kr:83/logi_sign_display_quick.htm?sDBType=quick&nTNo=" + sTNo;
-	sUrl += "&nCNo=" + ::GetStringFromLong(m_nCNo);
+	sUrl += "&nCNo=" + LF->GetStringFromLong(m_nCNo);
 	// + sTNo.Left(3) + "/";	
 	//sUrl += "&sUrl2=" + sTNo + "_2.bmp";
 

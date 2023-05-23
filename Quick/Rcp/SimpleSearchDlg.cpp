@@ -245,7 +245,7 @@ void CSimpleSearchDlg::RefreshList(int nSearch)
 		m_List.SetItemText(nItem, nCol++, dt2.Format("%H:%M"));
 		m_List.SetItemText(nItem, nCol++, dt3.Format("%H:%M"));
 		m_List.SetItemText(nItem, nCol++, dtFinal.Format("%H:%M"));
-		m_List.SetItemText(nItem, nCol++, GetStateString(nState));
+		m_List.SetItemText(nItem, nCol++, LF->GetStateString(nState));
 		m_List.SetItemText(nItem, nCol++, itoa(nTNo, buffer,10));
 		m_List.SetItemText(nItem, nCol++, sManager);
 		m_List.SetItemText(nItem, nCol++, sCName);
@@ -253,7 +253,7 @@ void CSimpleSearchDlg::RefreshList(int nSearch)
 		m_List.SetItemText(nItem, nCol++, sStart);
 		m_List.SetItemText(nItem, nCol++, sDest);
 		m_List.SetItemText(nItem, nCol++, sRName);
-		m_List.SetItemText(nItem, nCol++, GetMyNumberFormat((int)nTotal));
+		m_List.SetItemText(nItem, nCol++, LF->GetMyNumberFormat((int)nTotal));
 		m_List.SetItemText(nItem, nCol++, bDoc ? "¿Õº¹" : "Æíµµ");
 		m_List.SetItemText(nItem, nCol++, szKDelMask[nKDelivery]);		
 		m_List.SetItemText(nItem, nCol++, szAPayMask[nAPay]);

@@ -36,7 +36,7 @@ protected:
 
 protected:
 	CString m_strSido;
-	CPOIDataNew *m_poiNew;
+	CPOIDataNew *m_poiBoundary;
 	BOOL m_bSort;
 	BOOL m_bAutoDelete;
 

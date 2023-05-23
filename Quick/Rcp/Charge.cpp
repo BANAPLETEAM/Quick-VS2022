@@ -178,8 +178,8 @@ void CCharge::NewDongCharge()
 		
 
 	
-	m_pStartPoi->GetTreeID(nS1, nS2, nS3, nS4, !IsExceptionDetailDongUse(m_pStartPoi));
-	m_pDestPoi->GetTreeID(nD1, nD2, nD3, nD4, !IsExceptionDetailDongUse(m_pDestPoi));
+	m_pStartPoi->GetTreeID(nS1, nS2, nS3, nS4, !LF->IsExceptionDetailDongUse(m_pStartPoi));
+	m_pDestPoi->GetTreeID(nD1, nD2, nD3, nD4, !LF->IsExceptionDetailDongUse(m_pDestPoi));
 	//m_pStartPoi->GetTreeID(nS1, nS2, nS3, nS0, FALSE);
 	//m_pDestPoi->GetTreeID(nD1, nD2, nD3, nD0, FALSE);
 
@@ -382,8 +382,8 @@ int CCharge::DistanceTypeCharge()
 	int nS4 = 0, nS1 = 0, nS2 = 0, nS3 = 0;
 	int nD4 = 0, nD1 = 0, nD2 = 0, nD3 = 0;
 	
-	m_pStartPoi->GetTreeID(nS1, nS2, nS3, nS4, IsExceptionDetailDongUse(m_pStartPoi));
-	m_pDestPoi->GetTreeID(nD1, nD2, nD3, nD4, IsExceptionDetailDongUse(m_pDestPoi));
+	m_pStartPoi->GetTreeID(nS1, nS2, nS3, nS4, LF->IsExceptionDetailDongUse(m_pStartPoi));
+	m_pDestPoi->GetTreeID(nD1, nD2, nD3, nD4, LF->IsExceptionDetailDongUse(m_pDestPoi));
 
 	/*if(!GetBI()->bDongPosLiUse)
 		nS4 = nD4 = 0;*/
@@ -403,7 +403,7 @@ int CCharge::DistanceTypeCharge()
 
 	CBranchInfo *pBi;	
 	if(GetBI()->nPayTable > 0 && GetBI()->nPayTable != GetBI()->nCompanyCode)
-		pBi =  pBi = GetBranchInfo(GetBI()->nPayTable) == NULL ? GetBI() : GetBranchInfo(GetBI()->nPayTable);
+		pBi =  pBi = LF->GetBranchInfo(GetBI()->nPayTable) == NULL ? GetBI() : LF->GetBranchInfo(GetBI()->nPayTable);
 	else
 		pBi = GetBI(); 
 
@@ -639,12 +639,12 @@ CString CCharge::GetDistanceLableView()
 	{
 		if(IsMinChargeApply() && GetBI()->bDistanceCharge)
 		{
-			strInfoTotal = "거리최저요금 :" + GetMyNumberFormat(GetBI()->nMinCharge);
+			strInfoTotal = "거리최저요금 :" + LF->GetMyNumberFormat(GetBI()->nMinCharge);
 			return strInfoTotal;
 		}
 
 		if(IsDefaultChargeApply())
-			strInfoTotal = "구간기본요금:" + GetMyNumberFormat(GetBI()->nDefaultCharge);
+			strInfoTotal = "구간기본요금:" + LF->GetMyNumberFormat(GetBI()->nDefaultCharge);
 
 	}
 	else
@@ -654,8 +654,8 @@ CString CCharge::GetDistanceLableView()
 		if(IsOptionOnlyDistanceCharge() )
 		{			
 			nCharge = m_nAmountType;
-			strInfoTotal = strGroupOrMemeber +  GetMyNumberFormat(nCharge) + 
-				"(" + m_strKmNameType + "," +  ::GetCarTypeFromLong(m_nRealCarType) + ")";
+			strInfoTotal = strGroupOrMemeber +  LF->GetMyNumberFormat(nCharge) + 
+				"(" + m_strKmNameType + "," +  LF->GetCarTypeFromLong(m_nRealCarType) + ")";
 			return strInfoTotal;
 		}
 		
@@ -686,8 +686,8 @@ CString CCharge::GetDistanceLableView()
 			}
 
 			//nCharge = m_nNewDongCharge[m_nChargeType][m_nCarType];
-			strInfoDefault = strGroupOrMemeber + ": " +  GetMyNumberFormat(nCharge) + 
-				"(" + strChargeType + ", " +  ::GetCarChargeTypeString(m_nCarType) + ")";
+			strInfoDefault = strGroupOrMemeber + ": " +  LF->GetMyNumberFormat(nCharge) + 
+				"(" + strChargeType + ", " + LF->GetCarChargeTypeString(m_nCarType) + ")";
 			//return strInfoTotal;
 			//nCharge = GetNewDongCharge();
 		}				
@@ -707,7 +707,7 @@ CString CCharge::GetDistanceLableView()
 			else if(m_pRcpDlg->m_pBi)
 				strTemp = m_pRcpDlg->m_pBi->bUseDirectDistance == TRUE ? "직선" : "";
 
-			strInfoDistance += GetMyNumberFormat(nCharge) + "(" + 
+			strInfoDistance += LF->GetMyNumberFormat(nCharge) + "(" + 
 				GetDistanceTypeString(0, m_strKmNameType) + "," +
 				strTemp +
 				strKm +  "Km, "	+ GetChargeTypeString() + ")";
@@ -897,7 +897,7 @@ CString CDisplayChargeInfo::GetCharge()
 	CString strTotalTemp ="", strTemp = "";
 	if(m_pCharge->IsNewDongChargeApply() )
 	{			 
-		strTemp.Format("구간요금(%s,%s)",::GetMyNumberFormat( m_pCharge->GetNewDongCharge( )) ,
+		strTemp.Format("구간요금(%s,%s)",LF->GetMyNumberFormat( m_pCharge->GetNewDongCharge( )) ,
 			m_pCharge->GetChargeTypeString() );
 		strTotalTemp += strTemp;			
 	}

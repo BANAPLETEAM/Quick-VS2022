@@ -38,7 +38,7 @@ void CJusoGoKr::SearchJuso(CString strSearch)
 																	 NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0 );
 
 	CString strUrl;
-	strUrl.Format("addrlink/addrLinkApi.do?confmKey=U01TX0FVVEgyMDE4MDkwNTE5MTM0NjEwODE1OTE=&currentPage=1&countPerPage=10&keyword=%s", ::ConvertStringToSendData(strSearch));
+	strUrl.Format("addrlink/addrLinkApi.do?confmKey=U01TX0FVVEgyMDE4MDkwNTE5MTM0NjEwODE1OTE=&currentPage=1&countPerPage=10&keyword=%s", LF->ConvertStringToSendData(strSearch));
 
 	HINTERNET hRequest = HttpOpenRequest( hConnect, _T("POST"),strUrl, NULL, NULL, accept, 
 														   INTERNET_FLAG_DONT_CACHE, 0 );
@@ -92,7 +92,7 @@ void CJusoGoKr::SearchJuso(CString strSearch)
 
 BOOL CJusoGoKr::ParseXml(char *sz)
 {
-	#define GET_ELEMENT_TEXT(x, y) ::UTF8ToANSI(x->FirstChildElement(y)->GetText());
+	#define GET_ELEMENT_TEXT(x, y) LF->UTF8ToANSI(x->FirstChildElement(y)->GetText());
 
 	if(!sz)
 		return FALSE;

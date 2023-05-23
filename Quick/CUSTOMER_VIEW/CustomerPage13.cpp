@@ -95,8 +95,8 @@ void CCustomerPage13::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_revisit_customer_info_1");
-	pCmd.AddParameter(GetCurBranchInfo(TRUE)->nCompanyCode);
-	pCmd.AddParameter(GetCurBranchInfo(TRUE)->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo(TRUE)->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo(TRUE)->bIntegrated);
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);
 
@@ -129,14 +129,14 @@ void CCustomerPage13::RefreshList()
 
 		//m_lstReport.InsertItem(i, nPreCNo != nCNo ? itoa(nID, buffer, 10) : "");
 		m_lstReport.InsertItem(i, itoa(nID, buffer, 10));
-		m_lstReport.SetItemText(i, 1, GetBranchInfo(nCompany)->strBranchName);
+		m_lstReport.SetItemText(i, 1, LF->GetBranchInfo(nCompany)->strBranchName);
 		m_lstReport.SetItemText(i, 2, dtRevisit.Format("%y-%m-%d %H:%M"));
-		m_lstReport.SetItemText(i, 3, ::GetDashPhoneNumber(strTel));
+		m_lstReport.SetItemText(i, 3, LF->GetDashPhoneNumber(strTel));
 		m_lstReport.SetItemText(i, 4, bCredit == TRUE ? "½Å¿ë" : "");
 		m_lstReport.SetItemText(i, 5, strUserID);
 		m_lstReport.SetItemText(i, 6, strDong);
 		m_lstReport.SetItemText(i, 7, strLocation);
-		m_lstReport.SetItemText(i, 8, ::GetBranchInfo(nOriginalCompany)->strBranchName);
+		m_lstReport.SetItemText(i, 8, LF->GetBranchInfo(nOriginalCompany)->strBranchName);
 		m_lstReport.SetItemText(i, 9, bChangeBranch == TRUE ? "¤·" : "X");
 		m_lstReport.SetItemText(i, 10, bInnerCallCenter == TRUE ? "¤·" : "X");
 

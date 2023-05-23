@@ -248,7 +248,7 @@ void CChargeDongSettingDlg::OnReportSectionNameItemClick(NMHDR * pNotifyStruct, 
 	long nChargeAreaID = pRecord->GetItemDataLong();
 	if(nChargeAreaID <= 0)
 	{
-		MsgBox("아지 저장되지 않은 지역입니다");
+		LF->MsgBox("아직 저장되지 않은 지역입니다");
 		return;
 	}
 	RefreshRegisterStartArea(nChargeAreaID);
@@ -297,7 +297,7 @@ void CChargeDongSettingDlg::GetStartDongID(BOOL bServer)
 
 	if(bServer && pRecord == NULL)
 	{
-		MsgBox("지역선택을 다시하여주세요");
+		LF->MsgBox("지역선택을 다시하여주세요");
 		return;
 	}
 
@@ -305,7 +305,7 @@ void CChargeDongSettingDlg::GetStartDongID(BOOL bServer)
 
 	if(bServer && nChargeAreaID < 0 )
 	{
-		MsgBox("지역선택을 다시하여주세요");
+		LF->MsgBox("지역선택을 다시하여주세요");
 		return;
 	}
 
@@ -397,7 +397,7 @@ void CChargeDongSettingDlg::GetDestDongID(BOOL bServer)
 	long nChargeAreaID = this->m_lstSectionName.GetSelectedRecord()->GetItemDataLong();
 	if(bServer && nChargeAreaID < 0 )
 	{
-		MsgBox("지역선택을 다시하여주세요");
+		LF->MsgBox("지역선택을 다시하여주세요");
 		return;
 	}
 	for(int i = 0; i < m_pChargeDongDlg->m_lstDest.GetSelectedRows()->GetCount(); i++)
@@ -488,7 +488,7 @@ void CChargeDongSettingDlg::SaveDestList()
 	CString sChargeAreaName = m_lstSectionName.GetSelectedRecord()->GetItem(0)->GetCaption(NULL);
 	if(nChargeAreaID == -1 && sChargeAreaName.GetLength() == 0)
 	{
-		MsgBox("지역 신규는 이름이 있어야 합니다.");
+		LF->MsgBox("지역 신규는 이름이 있어야 합니다.");
 		return;
 	}
 
@@ -533,7 +533,7 @@ void CChargeDongSettingDlg::SaveDestList()
 
 	}
 	if(bFail)
-		MsgBox("도착지 동이 저장되었습니다");
+		LF->MsgBox("도착지 동이 저장되었습니다");
 	m_lstDest.Populate();
 
 
@@ -550,7 +550,7 @@ void CChargeDongSettingDlg::SaveStartList()
 
 	if(nChargeAreaID == -1 && sChargeAreaName.GetLength() == 0)
 	{
-		MsgBox("지역 신규는 이름이 있어야 합니다.");
+		LF->MsgBox("지역 신규는 이름이 있어야 합니다.");
 		return;
 	}
 
@@ -600,7 +600,7 @@ void CChargeDongSettingDlg::SaveStartList()
 
 	}
 	if(bFail)
-		MsgBox("출발지 동이 저장되었습니다");
+		LF->MsgBox("출발지 동이 저장되었습니다");
 	m_lstStart.Populate();
 
 
@@ -627,7 +627,7 @@ void CChargeDongSettingDlg::DelStartList(BOOL bServer)
 	long nChargeAreaID = this->m_lstSectionName.GetSelectedRecord()->GetItemDataLong();
 	if(bServer && nChargeAreaID < 0 )
 	{
-		MsgBox("지역선택을 다시하여주세요");
+		LF->MsgBox("지역선택을 다시하여주세요");
 		return;
 	}
 
@@ -635,13 +635,13 @@ void CChargeDongSettingDlg::DelStartList(BOOL bServer)
 	//int nRecordcount = m_lstStart.GetRecords()->GetCount();
 	//CString sCount;
 	//sCount.Format("레코드: %d, 로우 : %d", nRecordcount, nRowcount);
-	//MsgBox(sCount);*/
+	//LF->MsgBox(sCount);*/
 	for(int i= 0 ; i <  m_lstStart.GetSelectedCount(); i++)
 	{
 		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstStart.GetSelectedRows()->GetAt(i)->GetRecord();
 		if(pRecord == NULL)
 		{
-			MsgBox("작업중 오류가 있습니다. 로지소프트로 문의하세요");
+			LF->MsgBox("작업중 오류가 있습니다. 로지소프트로 문의하세요");
 			return;
 		}
 		if(bServer)
@@ -668,7 +668,7 @@ void CChargeDongSettingDlg::DelStartList(BOOL bServer)
 	nRecordcount = m_lstStart.GetRecords()->GetCount();
 	
 	sCount.Format("레코드: %d, 로우 : %d", nRecordcount, nRowcount);
-	MsgBox(sCount);*/
+	LF->MsgBox(sCount);*/
 
 	
 	
@@ -686,7 +686,7 @@ void CChargeDongSettingDlg::DelDestList(BOOL bServer)
 	long nChargeAreaID = this->m_lstSectionName.GetSelectedRecord()->GetItemDataLong();
 	if(bServer && nChargeAreaID < 0 )
 	{
-		MsgBox("지역선택을 다시하여주세요");
+		LF->MsgBox("지역선택을 다시하여주세요");
 		return;
 	}
 
@@ -696,7 +696,7 @@ void CChargeDongSettingDlg::DelDestList(BOOL bServer)
 
 		if(pRecord == NULL)
 		{
-			MsgBox("작업중 오류가 있습니다. 로지소프트로 문의하세요");
+			LF->MsgBox("작업중 오류가 있습니다. 로지소프트로 문의하세요");
 			return;
 		}
 		if(bServer)
@@ -749,7 +749,7 @@ void CChargeDongSettingDlg::OnBnClickedMotoCheck()
 void CChargeDongSettingDlg::OnBnClickedSaveAmountBtn()
 {
 
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 	try
 	{
@@ -832,11 +832,11 @@ void CChargeDongSettingDlg::OnBnClickedSaveAmountBtn()
 	}
 	catch(char *e)
 	{
-		MsgBox(e);
+		LF->MsgBox(e);
 	}
 	catch(CString s)
 	{
-		MsgBox(s);
+		LF->MsgBox(s);
 	}
 }
 
@@ -920,7 +920,7 @@ void CChargeDongSettingDlg::OnBnClickedStartdestBrinngBtn()
 		
 	if(nStartSelection ==0 && nDestSelection == 0)
 	{
-		MsgBox("요금표에서 출발지 도착지를 선택해주세요(지역구분은 지명이 아님)");
+		LF->MsgBox("요금표에서 출발지 도착지를 선택해주세요(지역구분은 지명이 아님)");
 		return;
 	}
 
@@ -929,7 +929,7 @@ void CChargeDongSettingDlg::OnBnClickedStartdestBrinngBtn()
 	strAreaName = pRecord->GetItem(0)->GetCaption(NULL);
 	if(strAreaName.GetLength() == 0)
 	{
-		MsgBox("지역이름이 없습니다.");
+		LF->MsgBox("지역이름이 없습니다.");
 		return;
 	}
 	strAreaName.Format("%s의 구간이름으로 가지고 옵니다. 맞습니까?",strAreaName);
@@ -970,7 +970,7 @@ void CChargeDongSettingDlg::OnBnClickedNewAreaBtn()
 
 			if(nResult == 100 ) //  같은이름 존재
 			{
-				MsgBox("같은이름이 존재합니다.");
+				LF->MsgBox("같은이름이 존재합니다.");
 				return;
 			}
 
@@ -1016,7 +1016,7 @@ void CChargeDongSettingDlg::OnBnClickedDeleteAreaBtn()
 				
 				if(bSuccess == 0)
 				{
-					MsgBox("삭제중오류가 났습니다. 다시시도하세요");
+					LF->MsgBox("삭제중오류가 났습니다. 다시시도하세요");
 					return; 
 				}
 				else

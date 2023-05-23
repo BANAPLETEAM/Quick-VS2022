@@ -81,10 +81,10 @@ void CCustomerPage18::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage18::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCustomerTable, 215, m_lstReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCustomerTable, 215, m_lstReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 
@@ -137,8 +137,8 @@ void CCustomerPage18::RefreshList()
 {
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_telserver_jinsang");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 
 	if(!rs.Execute(&cmd))
 		return;
@@ -156,7 +156,7 @@ void CCustomerPage18::RefreshList()
 
 		m_lstReport.InsertItem(i, "");
 		m_lstReport.SetItemText(i, 1, dtStart.Format("%y-%m-%d %H:%M"));
-		m_lstReport.SetItemText(i, 2, ::GetDashPhoneNumber(strTelNumber));
+		m_lstReport.SetItemText(i, 2, LF->GetDashPhoneNumber(strTelNumber));
 		m_lstReport.SetItemText(i, 3, strWName);
 		m_lstReport.SetItemLong(i, nCompany);
 		m_lstReport.SetItemDataText(i, strTelNumber);

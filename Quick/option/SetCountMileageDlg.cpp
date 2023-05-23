@@ -65,10 +65,10 @@ void CSetCountMileageDlg::RefreshEdit()
 	long nInterCount; pInterCount->GetValue(nInterCount);
 	long nInterCharge; pInterCharge->GetValue(nInterCharge);
 
-	m_edtCount.SetWindowText(::GetMyNumberFormat(nCount));
-	m_edtCharge.SetWindowText(::GetMyNumberFormat(nCharge));
-	m_edtInterCount.SetWindowText(::GetMyNumberFormat(nInterCount));
-	m_edtInterCharge.SetWindowText(::GetMyNumberFormat(nInterCharge));
+	m_edtCount.SetWindowText(LF->GetMyNumberFormat(nCount));
+	m_edtCharge.SetWindowText(LF->GetMyNumberFormat(nCharge));
+	m_edtInterCount.SetWindowText(LF->GetMyNumberFormat(nInterCount));
+	m_edtInterCharge.SetWindowText(LF->GetMyNumberFormat(nInterCharge));
 }
 
 void CSetCountMileageDlg::OnBnClickedOkButton()

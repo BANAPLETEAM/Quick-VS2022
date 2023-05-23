@@ -49,7 +49,7 @@ protected:
 	public:
 		CXTPGridRecordItemFormatNumber(long nAmount) : CXTPGridRecordItemNumber(nAmount)
 		{
-			m_strCaption = ::GetMyNumberFormat(nAmount);
+			m_strCaption = LF->GetMyNumberFormat(nAmount);
 		}
 	};
 
@@ -59,7 +59,7 @@ protected:
 	public:
 		CXTPGridRecordItemPercentNumber(long nAmount) : CXTPGridRecordItemNumber(nAmount)
 		{
-			m_strCaption = ::GetMyNumberFormat(nAmount) + "%";
+			m_strCaption = LF->GetMyNumberFormat(nAmount) + "%";
 		}
 	};
 

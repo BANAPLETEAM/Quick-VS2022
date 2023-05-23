@@ -42,9 +42,9 @@ CReportFormRecord11::CReportFormRecord11(COleDateTime dt, long nTotal, long nCom
 	strCredit.Format("%0.f",(double)nCredit);
 	strSum.Format("%0.f",(double)(nCash + nCredit));
 	
-	AddItem(new CXTPGridRecordItemText(GetMyNumberFormat(strCash)));
-	AddItem(new CXTPGridRecordItemText(GetMyNumberFormat(nCredit)));
-	AddItem(new CXTPGridRecordItemText(GetMyNumberFormat(strSum)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(strCash)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nCredit)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(strSum)));
 
 	/*
 	AddItem(new CXTPGridRecordItemFormatNumber(nCash));
@@ -328,8 +328,8 @@ const char *dayofweek[] = {"일", "월", "화", "수", "목", "금", "토"};
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_dailyreport_real_time");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nDOrderTable);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_From);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_To);
 	if(!pRs.Execute(&pCmd)) return;
@@ -395,21 +395,21 @@ const char *dayofweek[] = {"일", "월", "화", "수", "목", "금", "토"};
 	
 		m_wndReport.AddRecord(new CReportFormRecord_RealTime11(
 			strDateTemp,
-			GetMyNumberFormat(nCount),
-			GetMyNumberFormat(nCash),
-			GetMyNumberFormat(nCredit),
-			GetMyNumberFormat(nOnline),
-			GetMyNumberFormat(nMile),
-			GetMyNumberFormat(nCard),
-			GetMyNumberFormat(nChargeSum),		
-			GetMyNumberFormat(nDeposit),			
-			GetMyNumberFormat(nChargeDriving),	
-			GetMyNumberFormat(nRiderDeposit),	
-			GetMyNumberFormat(nExceptionDeposit),
-			GetMyNumberFormat(nMyRider),			
-			GetMyNumberFormat(nOtherRider),
-			GetMyNumberFormat(nTruckCount),		
-			GetMyNumberFormat(nTrans) 
+			LF->GetMyNumberFormat(nCount),
+			LF->GetMyNumberFormat(nCash),
+			LF->GetMyNumberFormat(nCredit),
+			LF->GetMyNumberFormat(nOnline),
+			LF->GetMyNumberFormat(nMile),
+			LF->GetMyNumberFormat(nCard),
+			LF->GetMyNumberFormat(nChargeSum),		
+			LF->GetMyNumberFormat(nDeposit),			
+			LF->GetMyNumberFormat(nChargeDriving),	
+			LF->GetMyNumberFormat(nRiderDeposit),	
+			LF->GetMyNumberFormat(nExceptionDeposit),
+			LF->GetMyNumberFormat(nMyRider),			
+			LF->GetMyNumberFormat(nOtherRider),
+			LF->GetMyNumberFormat(nTruckCount),		
+			LF->GetMyNumberFormat(nTrans) 
 		   ));			
 		
 		pRs.MoveNext();
@@ -419,21 +419,21 @@ const char *dayofweek[] = {"일", "월", "화", "수", "목", "금", "토"};
 	{
 
 		m_wndReport.AddRecord(new CReportFormRecord_RealTime11("합계",
-			GetMyNumberFormat(nTotalCount),
-			GetMyNumberFormat(nTotalCash),
-			GetMyNumberFormat(nTotalCredit),
-			GetMyNumberFormat(nTotalOnline),
-			GetMyNumberFormat(nTotalMile),
-			GetMyNumberFormat(nTotalCard),
-			GetMyNumberFormat(nTotalChargeSum),
-			GetMyNumberFormat(nTotalDeposit),
-			GetMyNumberFormat(nTotalChargeDriving),
-			GetMyNumberFormat(nTotalRiderDeposit),
-			GetMyNumberFormat(nTotalExceptionDeposit),
-			GetMyNumberFormat(nTotalMyRider),
-			GetMyNumberFormat(nTotalOtherRider),
-			GetMyNumberFormat(nTotalTruckCount),
-			GetMyNumberFormat(nTotalTrans)
+			LF->GetMyNumberFormat(nTotalCount),
+			LF->GetMyNumberFormat(nTotalCash),
+			LF->GetMyNumberFormat(nTotalCredit),
+			LF->GetMyNumberFormat(nTotalOnline),
+			LF->GetMyNumberFormat(nTotalMile),
+			LF->GetMyNumberFormat(nTotalCard),
+			LF->GetMyNumberFormat(nTotalChargeSum),
+			LF->GetMyNumberFormat(nTotalDeposit),
+			LF->GetMyNumberFormat(nTotalChargeDriving),
+			LF->GetMyNumberFormat(nTotalRiderDeposit),
+			LF->GetMyNumberFormat(nTotalExceptionDeposit),
+			LF->GetMyNumberFormat(nTotalMyRider),
+			LF->GetMyNumberFormat(nTotalOtherRider),
+			LF->GetMyNumberFormat(nTotalTruckCount),
+			LF->GetMyNumberFormat(nTotalTrans)
 			
 			));		
 	}
@@ -462,8 +462,8 @@ void CReportForm11::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_dailyreport_3");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nDOrderTable);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_From);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_To);
 
@@ -696,7 +696,7 @@ void CReportForm11::OnBnClickedButtonRiderFetch()
 
 void CReportForm11::OnViewExcel()
 {
-//	if(!POWER_CHECK(7040, "업소입금관리", TRUE))
+//	if(!LF->POWER_CHECK(7040, "업소입금관리", TRUE))
 //		return;
 
 	CoInitialize(NULL);
@@ -749,7 +749,7 @@ void CReportForm11::OnViewExcel()
 	//	}
 	//}
 
-	AddSecurityLog(GetCurBranchInfo()->nCustomerTable, 304, m_wndReport.GetRecords()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCustomerTable, 304, m_wndReport.GetRecords()->GetCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }
 
@@ -777,7 +777,7 @@ void CReportForm11::OnBnClickedHorizontalChk()
 	if(m_chkIntegrteInquery.GetCheck())
 	{
 
-		MsgBox("실시간은 가로보기를 지원지 않습니다");
+		LF->MsgBox("실시간은 가로보기를 지원지 않습니다");
 		m_HorizontalChk.SetCheck(FALSE);
 		return;
 	}
@@ -903,7 +903,7 @@ void CReportForm11::OnBnClickedIntegrateInqueryCheck()
 	if(m_chkIntegrteInquery.GetCheck() && m_HorizontalChk.GetCheck())
 	{
 		m_chkIntegrteInquery.SetCheck(FALSE);
-		MsgBox("실시간집계는 가로보기를 지원지 않습니다");
+		LF->MsgBox("실시간집계는 가로보기를 지원지 않습니다");
 		return;
 	}
 }

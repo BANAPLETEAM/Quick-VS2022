@@ -84,7 +84,7 @@ void CCrashDlg::OnBnClickedMinidump()
 //	HANDLE hFile;
 //DWORD dwWritten;
 
-	strcpy(szPathName, (LPSTR)(LPCTSTR)GetModuleFullPath());
+	strcpy(szPathName, (LPSTR)(LPCTSTR)LF->GetModuleFullPath());
 	strcat(szPathName, "MiniDump");
 	mkdir(szPathName);
 

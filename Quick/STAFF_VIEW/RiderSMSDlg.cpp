@@ -52,7 +52,7 @@ BOOL CRiderSMSDlg::OnInitDialog()
 	//SetWindowPos(&CWnd::wndTopMost, 0,0,0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
 	ST_SMS_INFO smsi;
-	smsi = ::GetSMSBalance(m_nCompany); 
+	smsi = LF->GetSMSBalance(m_nCompany); 
 
 
 	m_cmbPhone.InitSmsPhoneNumber(m_nCompany, TYPE_OFFICE_TEL, 160);
@@ -64,21 +64,21 @@ BOOL CRiderSMSDlg::OnInitDialog()
 	{
 		if(smsi.nSMSBarance <= DEFINE_SMS_AMOUNT - 1)
 		{
-			m_sBarance = GetMyNumberFormat(smsi.nSMSBarance);
+			m_sBarance = LF->GetMyNumberFormat(smsi.nSMSBarance);
 			int nCount = smsi.nSMSBarance / DEFINE_SMS_AMOUNT;
 			m_sSMSCount.Format("수량: %d", nCount);
 			m_btnConfirm.EnableWindow(0);
 		}
 		else
 		{
-			m_sBarance = GetMyNumberFormat(smsi.nSMSBarance);
+			m_sBarance = LF->GetMyNumberFormat(smsi.nSMSBarance);
 			int nSMCount = smsi.nSMSBarance / DEFINE_SMS_AMOUNT;
-			m_sSMSCount.Format("수량: %s건", GetMyNumberFormat((long)nSMCount));
+			m_sSMSCount.Format("수량: %s건", LF->GetMyNumberFormat((long)nSMCount));
 		}
 	}
 	else
 	{
-		m_sBarance = GetMyNumberFormat(smsi.nSMSBarance);		
+		m_sBarance = LF->GetMyNumberFormat(smsi.nSMSBarance);		
 	}
 
 	m_MsgEdit.SetFontSize(12);

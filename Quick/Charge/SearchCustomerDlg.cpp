@@ -202,8 +202,8 @@ void CSearchCustomerDlg::OnBnClickedSearchBtn()
 			m_lstSearch.MyAddItem(0, strCompany, "회사명", 100, FALSE, DT_LEFT);
 			m_lstSearch.MyAddItem(1, strDepart, "부서명", 60, FALSE, DT_LEFT);
 			m_lstSearch.MyAddItem(2, strName, "담당자", 60, FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(3, ::GetDashPhoneNumber(strTel1), "대표번호", 80, FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(4, ::GetDashPhoneNumber(strMobile), "휴대폰", 80, FALSE, DT_LEFT);
+			m_lstSearch.MyAddItem(3, LF->GetDashPhoneNumber(strTel1), "대표번호", 80, FALSE, DT_LEFT);
+			m_lstSearch.MyAddItem(4, LF->GetDashPhoneNumber(strMobile), "휴대폰", 80, FALSE, DT_LEFT);
 			m_lstSearch.MyAddItem(5, strDong, "해당동", 60, FALSE, DT_LEFT);		
 			m_lstSearch.MyAddItem(6, strHistoryChargeName, "개별요금명", 100 , FALSE, DT_LEFT);
 			m_lstSearch.MyAddItem(7, strGroupName, "그룹명", 75 , FALSE, DT_LEFT);

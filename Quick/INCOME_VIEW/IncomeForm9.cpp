@@ -148,8 +148,8 @@ void CIncomeForm9::InitControl()
 	UpdateData(TRUE);	
 	CMkRecordset pRs(m_pMkDb);	
 	CMkCommand pCmd(m_pMkDb, "select_vraccount_rider_count");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated );	
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated );	
 
 	if(!pRs.Execute(&pCmd)) return;
 	long nCompany = 0,nUseCount = 0, nNoUseCount = 0,nCount=0;
@@ -182,8 +182,8 @@ void CIncomeForm9::InitControl()
 			sType = "지사";
 
 		m_BaranchList.InsertItem(nCount, sBranchName);
-		m_BaranchList.SetItemText(nCount, 1, GetMyNumberFormat(nUseCount));
-		m_BaranchList.SetItemText(nCount, 2, GetMyNumberFormat(nNoUseCount));
+		m_BaranchList.SetItemText(nCount, 1, LF->GetMyNumberFormat(nUseCount));
+		m_BaranchList.SetItemText(nCount, 2, LF->GetMyNumberFormat(nNoUseCount));
 		m_BaranchList.SetItemText(nCount, 3, sType);
 
 		nTotUseCount += nUseCount;
@@ -195,14 +195,14 @@ void CIncomeForm9::InitControl()
 	pRs.Close();
 
 	m_BaranchList.InsertItem(--nCount, "합계");
-	m_BaranchList.SetItemText(nCount, 1, GetMyNumberFormat(nTotUseCount));
-	m_BaranchList.SetItemText(nCount, 2, GetMyNumberFormat(nTotNoUseCount));
+	m_BaranchList.SetItemText(nCount, 1, LF->GetMyNumberFormat(nTotUseCount));
+	m_BaranchList.SetItemText(nCount, 2, LF->GetMyNumberFormat(nTotNoUseCount));
 
 	m_sSaveUseAmount = "";
 	m_sRecoveryAmount = "";
 
 
-	if(GetCurBranchInfo()->bIntegrated == 0)  //지사인경우 선택
+	if(LF->GetCurBranchInfo()->bIntegrated == 0)  //지사인경우 선택
 	{
 		m_cmbBranch.SetCurSel(0);	
 		OnCbnSelchangeBranchCombo();
@@ -223,8 +223,8 @@ void CIncomeForm9::NoAccountList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_vraccount_rider_noaccount_list");	
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 
 	if(!pRs.Execute(&pCmd)) return;
 
@@ -268,8 +268,8 @@ void CIncomeForm9::AccountList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_vraccount_rider_allotment");	
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 
 	if(!pRs.Execute(&pCmd)) return;
 
@@ -356,8 +356,8 @@ void CIncomeForm9::OnContextMenu(CWnd* pWnd, CPoint point)
 			*/
 
 
-			if(pBi->nCompanyCode == GetCurBranchInfo()->nCompanyCode 
-				&& !GetCurBranchInfo()->bIntegrated )
+			if(pBi->nCompanyCode == LF->GetCurBranchInfo()->nCompanyCode 
+				&& !LF->GetCurBranchInfo()->bIntegrated )
 			{
 				pRMenu->AppendMenu(MF_STRING,ID_BRANCH,"지사 할당");			
 			}
@@ -381,10 +381,10 @@ void CIncomeForm9::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CIncomeForm9::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "정산 엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "정산 엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 506, m_SaveList.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 506, m_SaveList.GetItemCount());  
 	CMyExcel::ToExcel(&m_SaveList);
 }
 
@@ -400,7 +400,7 @@ void CIncomeForm9::OnBranchAllot()
 		CString sAccount = "";	
 		CRcpView* pView = (CRcpView*)((CIncomeView*)GetOwner())->GetParent();// >GetRcpView();			 
 
-		if(GetCurBranchInfo()->bIntegrated == 1 )
+		if(LF->GetCurBranchInfo()->bIntegrated == 1 )
 			throw("통합에서는 지원되지 않고 지사를 선택하시고 작업하세요");
 
 		CCompanyBranchListDlg1 dlg((CRcpView*) this);
@@ -474,7 +474,7 @@ void CIncomeForm9::OnBranchRecovery()
 		CString sAccount = "";	
 
 
-		if(GetCurBranchInfo()->bIntegrated == 1 )
+		if(LF->GetCurBranchInfo()->bIntegrated == 1 )
 			throw("통합에서는 지원되지 않고 지사를 선택하시고 작업하세요");
 
 
@@ -484,7 +484,7 @@ void CIncomeForm9::OnBranchRecovery()
 		CBranchInfo* pBi = (CBranchInfo*)m_ba.GetAt(0);
 
 
-		if(GetCurBranchInfo()->nCompanyCode == pBi->nCompanyCode)
+		if(LF->GetCurBranchInfo()->nCompanyCode == pBi->nCompanyCode)
 			throw("통합및 자기자신은 계좌를 회수할 수가 없습니다.", "확인", MB_ICONINFORMATION);		
 
 
@@ -500,7 +500,7 @@ void CIncomeForm9::OnBranchRecovery()
 
 				CMkRecordset pRs(m_pMkDb);
 				CMkCommand pCmd(m_pMkDb, "insert_vraccount_personal_save_recovery");
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode  );
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode  );
 				pCmd.AddParameter(typeLong, typeInput, sizeof(long), pBi->nCompanyCode);
 				pCmd.AddParameter(typeString, typeInput, sAccount.GetLength(), sAccount);			
 				pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), TRUE);			
@@ -535,14 +535,14 @@ void CIncomeForm9::OnBranchRecovery()
 		CBranchInfo* pBi = (CBranchInfo*)m_ba.GetAt(0);
 
 
-		if(GetCurBranchInfo()->bIntegrated == 1 )
+		if(LF->GetCurBranchInfo()->bIntegrated == 1 )
 		throw("통합에서는 지원되지 않고 지사를 선택하시고 작업하세요");
 		UINT nSelectedCount = m_NoAccountList.GetSelectedCount();
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "insert_vraccount_personal_save_recovery");
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), pBi->nCompanyCode );
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode );
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode );
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), (long)nSelectedCount);			
 		pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), TRUE);			
 		pCmd.AddParameter(typeString, typeInput, m_ui.strID.GetLength(), m_ui.strID);				
@@ -581,7 +581,7 @@ void CIncomeForm9::OnBnClickedSmsSaveButton()
 		int nCurSel = m_cmbBranch.GetCurSel();
 		if(nCurSel < 0 ) return;
 
-		if(!GetCurBranchInfo()->bIntegrated)
+		if(!LF->GetCurBranchInfo()->bIntegrated)
 			return;
 		if(m_nSMSAmount <= 0)
 			throw("최소한 1개이상 되어야 합니다.");
@@ -596,7 +596,7 @@ void CIncomeForm9::OnBnClickedSmsSaveButton()
 			// 계좌의 소유회사와 지사의 소유회사가 같고
 			pIntegratedRiderAccount->nCompany == pCurRiderAccount->nCompany &&
 			// 본사만이 충전할 수있기에
-			GetCurBranchInfo()->bIntegrated 
+			LF->GetCurBranchInfo()->bIntegrated 
 			)		// 통합이야 하며
 			throw("충전하실수 있는 회사가 아닙니다.");
 
@@ -664,7 +664,7 @@ void CIncomeForm9::OnBnClickedSmsSaveButton()
 
 void CIncomeForm9::OnCbnSelchangeBranchCombo()
 {
-	/*if(!GetCurBranchInfo()->bIntegrated)
+	/*if(!LF->GetCurBranchInfo()->bIntegrated)
 	{
 	MessageBox("통합에서만이 작업이 가능합니다.","확인", MB_ICONINFORMATION);
 	return;
@@ -680,7 +680,7 @@ void CIncomeForm9::OnCbnSelchangeBranchCombo()
 	pIntegrationAccount = (ST_RIDER_ACCOUNT_SIMPLE*)m_cmbBranch.GetItemData(0);
 
 
-	if(GetCurBranchInfo()->bIntegrated && pIntegrationAccount->nCompany == pAccount->nCompany)
+	if(LF->GetCurBranchInfo()->bIntegrated && pIntegrationAccount->nCompany == pAccount->nCompany)
 	{
 		m_btnSMSSave.EnableWindow(0);
 		m_sSaveUseAmount = "";
@@ -689,8 +689,8 @@ void CIncomeForm9::OnCbnSelchangeBranchCombo()
 	else
 	{
 		m_btnSMSSave.EnableWindow(1);
-		m_sSaveUseAmount.Format("본사 충전계좌수:%s",GetMyNumberFormat(pIntegrationAccount->nNoUseCount));
-		m_sRecoveryAmount.Format("지사 회수계좌수:%s", GetMyNumberFormat(pAccount->nNoUseCount));
+		m_sSaveUseAmount.Format("본사 충전계좌수:%s",LF->GetMyNumberFormat(pIntegrationAccount->nNoUseCount));
+		m_sRecoveryAmount.Format("지사 회수계좌수:%s", LF->GetMyNumberFormat(pAccount->nNoUseCount));
 	}
 
 	UpdateData(FALSE);
@@ -699,7 +699,7 @@ void CIncomeForm9::OnCbnSelchangeBranchCombo()
 void CIncomeForm9::OnBnClickedAutoAllotBtn()
 { 
 
-	if( GetCurBranchInfo()->bVRAccountNoRider )
+	if( LF->GetCurBranchInfo()->bVRAccountNoRider )
 	{
 		MessageBox("옵션에의해 기사 가상계좌 할당을 할 수 없습니다", "확인", MB_ICONINFORMATION);
 		return;
@@ -771,7 +771,7 @@ void CIncomeForm9::OnBnClickedChoiceAllotBtn()
 			return;
 		}
 
-		if( GetCurBranchInfo()->bVRAccountNoRider )
+		if( LF->GetCurBranchInfo()->bVRAccountNoRider )
 		{
 			MessageBox("옵션에의해 기사 가상계좌 할당을 할 수 없습니다", "확인", MB_ICONINFORMATION);
 			return;
@@ -781,7 +781,7 @@ void CIncomeForm9::OnBnClickedChoiceAllotBtn()
 		UINT i, uSaveSelectedCount = m_SaveList.GetSelectedRows()->GetCount();
 		UINT uNoAcoountSelectedCount = m_NoAccountList.GetSelectedRows()->GetCount();
 
-		if(GetCurBranchInfo()->bIntegrated == 1 )
+		if(LF->GetCurBranchInfo()->bIntegrated == 1 )
 			throw("통합에서는 지원되지 않고 지사를 선택하시고 작업하세요");
 
 		if(uSaveSelectedCount != uNoAcoountSelectedCount)
@@ -947,9 +947,9 @@ void CIncomeForm9::OnBnClickedLogBtn()
 	if(pRecord == NULL)
 		return;
 
-	if(GetCurBranchInfo()->bIntegrated )
+	if(LF->GetCurBranchInfo()->bIntegrated )
 	{
-		MsgBox("통합에서는 지원되지 않고 지사를 선택하시고 작업하세요");
+		LF->MsgBox("통합에서는 지원되지 않고 지사를 선택하시고 작업하세요");
 		return;
 	}
 
@@ -983,7 +983,7 @@ BOOL CIncomeForm9::IsOnlyLogiAccount()
 { 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_vraccount_company_type");	
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nShareCode1);	
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nShareCode1);	
 	CMkParameter *pPar = pCmd.AddParameter(typeInt, typeOutput, sizeof(int), 0);
 
 	if(!pRs.Execute(&pCmd)) return FALSE;
@@ -1018,8 +1018,8 @@ void CIncomeForm9::OnNMRclickNoaccountList(NMHDR *pNMHDR, LRESULT *pResult)
 	//		throw("계좌를 1개이상 선택해주세요");
 
 	//	CMenu menu;
-	//	if(pBi->nCompanyCode == GetCurBranchInfo()->nCompanyCode 
-	//							&& !GetCurBranchInfo()->bIntegrated )
+	//	if(pBi->nCompanyCode == LF->GetCurBranchInfo()->nCompanyCode 
+	//							&& !LF->GetCurBranchInfo()->bIntegrated )
 	//	
 	//		menu.AppendMenu(MF_STRING, ID_BRANCH, "지사 할당");
 	//	
@@ -1042,6 +1042,6 @@ void CIncomeForm9::OnNMRclickNoaccountList(NMHDR *pNMHDR, LRESULT *pResult)
 
 	//
 	//m_ba.GetCount()
-	//if(!GetCurBranchInfo()->bIntegrated && */
+	//if(!LF->GetCurBranchInfo()->bIntegrated && */
 	*pResult = 0;
 }

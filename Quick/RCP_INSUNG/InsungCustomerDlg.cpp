@@ -243,7 +243,7 @@ BOOL CInsungCustomerDlg::OnInitDialog()
 	m_lstTel.Populate();
 
 	if(m_nCNo > 0)
-		m_edtID.SetWindowText(::GetStringFromLong(m_nCNo));
+		m_edtID.SetWindowText(LF->GetStringFromLong(m_nCNo));
 
 	FillDataSalesMan();
 
@@ -292,7 +292,7 @@ void CInsungCustomerDlg::RefreshCustomer()
 			nTemp = nTemp * -1;
 		}
 
-		m_edtDiscount.SetWindowText(::GetStringFromLong(nTemp));
+		m_edtDiscount.SetWindowText(LF->GetStringFromLong(nTemp));
 		rs.GetFieldValue("nDiscountType", nTemp); m_cmbDiscount.SetCurSel(nTemp == 0 ? 1 : 0);
 
 
@@ -307,11 +307,11 @@ void CInsungCustomerDlg::RefreshCustomer()
 		if(nTemp == 0 || nTemp == 10)
 			m_edtMileage.SetWindowText("");
 		else
-			m_edtMileage.SetWindowText(::GetMyNumberFormat(nTemp1));;
+			m_edtMileage.SetWindowText(LF->GetMyNumberFormat(nTemp1));;
 
-		rs.GetFieldValue("nMileageBalance", nTemp); m_edtCurMileage.SetWindowText(::GetMyNumberFormat(nTemp));
-		rs.GetFieldValue("nSalesCompany", m_nSalesCompany); m_edtCurMileage.SetWindowText(::GetMyNumberFormat(nTemp));
-		rs.GetFieldValue("nSalesWNo", m_nSalesWNo); m_edtCurMileage.SetWindowText(::GetMyNumberFormat(nTemp));
+		rs.GetFieldValue("nMileageBalance", nTemp); m_edtCurMileage.SetWindowText(LF->GetMyNumberFormat(nTemp));
+		rs.GetFieldValue("nSalesCompany", m_nSalesCompany); m_edtCurMileage.SetWindowText(LF->GetMyNumberFormat(nTemp));
+		rs.GetFieldValue("nSalesWNo", m_nSalesWNo); m_edtCurMileage.SetWindowText(LF->GetMyNumberFormat(nTemp));
 		
 		FindSalesMan();
 
@@ -475,18 +475,18 @@ void CInsungCustomerDlg::RefreshCustomerPhone()
 
 		if(nType == 2)
 		{
-			m_edtPhone1.SetWindowText(::GetDashPhoneNumber(strTel));
+			m_edtPhone1.SetWindowText(LF->GetDashPhoneNumber(strTel));
 			m_edtDepart.SetWindowText(strDepart);
 			m_edtManager.SetWindowText(strManager);
 		}
 		else if(nType == 3)
 		{
-			m_edtPhone2.SetWindowText(::GetDashPhoneNumber(strTel));
+			m_edtPhone2.SetWindowText(LF->GetDashPhoneNumber(strTel));
 		}
 		else
 		{
 			m_lstTel.InsertItem(nCount, "");
-			m_lstTel.SetItemText(nCount, 1, ::GetDashPhoneNumber(strTel));
+			m_lstTel.SetItemText(nCount, 1, LF->GetDashPhoneNumber(strTel));
 			m_lstTel.SetItemText(nCount, 2, strDepart);
 			m_lstTel.SetItemText(nCount, 3, strManager);
 			m_lstTel.SetItemLong(nCount++, nTelID);
@@ -549,42 +549,42 @@ void CInsungCustomerDlg::InsertCustomer()
 
 	CMkCommand cmd(m_pMkDb, "insert_customer_like_insung");
 	cmd.AddParameter(m_nCompany);
-	CString strPhone1 = ::GetStringFromEdit(&m_edtPhone1);
-	strPhone1 = ::GetNoneDashNumberRemoveDDD(strPhone1);
-	CString strPhone2 = ::GetStringFromEdit(&m_edtPhone2);
-	strPhone2 = ::GetNoneDashNumberRemoveDDD(strPhone2);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtName));
+	CString strPhone1 = LF->GetStringFromEdit(&m_edtPhone1);
+	strPhone1 = LF->GetNoneDashNumberRemoveDDD(strPhone1);
+	CString strPhone2 = LF->GetStringFromEdit(&m_edtPhone2);
+	strPhone2 = LF->GetNoneDashNumberRemoveDDD(strPhone2);
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtName));
 	cmd.AddParameter(strPhone1);
 	cmd.AddParameter(strPhone2);
 
-	cmd.AddParameter(::GetStringFromEdit(&m_edtDepart));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtManager));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtDepart));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtManager));
 	cmd.AddParameter(m_nDongID);
 	cmd.AddParameter(m_nPosX);
 	cmd.AddParameter(m_nPosY);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtDong));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtAddress));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtLocation));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtRiderMemo));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtMemo));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtDong));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtAddress));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtLocation));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtRiderMemo));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtMemo));
 	cmd.AddParameter(GetCreditType());
 	cmd.AddParameter(m_cmbChargeType.GetCurSel());
 
-	long nDiscount = atoi(::GetStringFromEdit(&m_edtDiscount));
+	long nDiscount = atoi(LF->GetStringFromEdit(&m_edtDiscount));
 
 	if(m_rdoDiscount0.GetCheck())
 		nDiscount = nDiscount * -1;
 
 	cmd.AddParameter(nDiscount);
 	cmd.AddParameter(m_cmbDiscount.GetCurSel());
-	cmd.AddParameter(atoi(::GetStringFromEdit(&m_edtMileage)));
+	cmd.AddParameter(atoi(LF->GetStringFromEdit(&m_edtMileage)));
 	cmd.AddParameter(m_cmbMileage.GetCurSel());
 	cmd.AddParameter(m_nSalesWNo);
 	cmd.AddParameter(m_nSalesCompany);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtInterNetID));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtInterNetPw));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtEMail));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtFax));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtInterNetID));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtInterNetPw));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtEMail));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtFax));
 	cmd.AddParameter(!m_chkAutoShareOrder.GetCheck());
 	CMkParameter *pParCNo = cmd.AddParameter(0, typeOutput);
 	CMkParameter *pParTelID = cmd.AddParameter(0, typeOutput);
@@ -606,47 +606,47 @@ void CInsungCustomerDlg::UpdateCustomer()
 	if(MessageBox("변경/입력된자료가 있습니다. 저장 하시겠습니까?", "확인", MB_OKCANCEL) != IDOK)
 		return;
 
-	CString strPhone1 = ::GetStringFromEdit(&m_edtPhone1);
-	strPhone1 = ::GetNoneDashNumberRemoveDDD(strPhone1);
-	CString strPhone2 = ::GetStringFromEdit(&m_edtPhone2);
-	strPhone2 = ::GetNoneDashNumberRemoveDDD(strPhone2);
+	CString strPhone1 = LF->GetStringFromEdit(&m_edtPhone1);
+	strPhone1 = LF->GetNoneDashNumberRemoveDDD(strPhone1);
+	CString strPhone2 = LF->GetStringFromEdit(&m_edtPhone2);
+	strPhone2 = LF->GetNoneDashNumberRemoveDDD(strPhone2);
 
 	CMkCommand cmd(m_pMkDb, "update_customer_like_insung_1");
 	cmd.AddParameter(m_nCNo);
 	cmd.AddParameter(m_nCompany);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtName));
 	cmd.AddParameter(strPhone1);
 	cmd.AddParameter(strPhone2);
 
-	cmd.AddParameter(::GetStringFromEdit(&m_edtDepart));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtManager));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtDepart));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtManager));
 	cmd.AddParameter(m_nDongID);
 	cmd.AddParameter(m_nPosX);
 	cmd.AddParameter(m_nPosY);
 	cmd.AddParameter(m_chkSendStateChangeSMS.GetCheck());
-	cmd.AddParameter(::GetStringFromEdit(&m_edtDong));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtAddress));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtLocation));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtRiderMemo));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtMemo));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtDong));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtAddress));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtLocation));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtRiderMemo));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtMemo));
 	cmd.AddParameter(GetCreditType());
 	cmd.AddParameter(m_cmbChargeType.GetCurSel());
 
-	long nDiscount = atoi(::GetStringFromEdit(&m_edtDiscount));
+	long nDiscount = atoi(LF->GetStringFromEdit(&m_edtDiscount));
 
 	if(m_rdoDiscount0.GetCheck())
 		nDiscount = nDiscount * -1;
 
 	cmd.AddParameter(nDiscount);
 	cmd.AddParameter(m_cmbDiscount.GetCurSel());
-	cmd.AddParameter(atoi(::GetStringFromEdit(&m_edtMileage)));
+	cmd.AddParameter(atoi(LF->GetStringFromEdit(&m_edtMileage)));
 	cmd.AddParameter(m_cmbMileage.GetCurSel());
 	cmd.AddParameter(m_nSalesWNo);
 	cmd.AddParameter(m_nSalesCompany);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtInterNetID));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtInterNetPw));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtEMail));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtFax));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtInterNetID));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtInterNetPw));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtEMail));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtFax));
 	cmd.AddParameter(!m_chkAutoShareOrder.GetCheck());
 
 	if(cmd.Execute())

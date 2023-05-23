@@ -557,13 +557,13 @@ void CRcpView::Dump(CDumpContext& dc) const
 void CRcpView::OnInitialUpdate()
 {
 	CRcpViewBase::OnInitialUpdate();
-	::FillSpeicalTruckChage();
+	LF->FillSpeicalTruckChage();
 
 	m_pwndTaskPanel = LU->m_pwndTaskPanel;
 	m_pwndPaneNetwork = LU->m_pwndPaneNetwork;
 
 
-	m_chkUseNewDlg.SetCheck(::IsUseNewDlg());
+	m_chkUseNewDlg.SetCheck(LF->IsUseNewDlg());
 
 	m_xList.ModifyStyle(0, WS_CLIPCHILDREN|WS_CLIPSIBLINGS|WS_TABSTOP);
 	m_xList.GetReportHeader()->AllowColumnSort(TRUE);
@@ -627,7 +627,7 @@ void CRcpView::OnInitialUpdate()
 	m_xList.GetReportHeader()->SetAutoColumnSizing(FALSE);
 	m_xList.Populate();
 	
-	if(IsThisCompany("하나로퀵"))
+	if(LF->IsThisCompany("하나로퀵"))
 	{
 		m_chkGetMsg.SetCheck(TRUE);
 		m_chkGetMsg.EnableWindow(FALSE);
@@ -654,7 +654,7 @@ void CRcpView::InitControl()
 	m_bAddTacksongDrivingCharge = AfxGetApp()->GetProfileInt("RcpPage", "AddTacksongDrivingCharge", 0);
 	m_bSearchWithNoWName = AfxGetApp()->GetProfileInt("RcpPage", "SearchWithNoWName", 0);
 
-	if(IsThisCompany("하나로퀵"))
+	if(LF->IsThisCompany("하나로퀵"))
 		m_bSearchWithNoWName = TRUE;
 
 	RefreshStateSecondSort();
@@ -808,7 +808,7 @@ LONG CRcpView::OnBranchClickEvent(WPARAM wParam, LPARAM lParam)
 	if(m_ba.GetCount() > 1)
 	{
 		ChangeBranch(pBi);
-		StatusText(0, "현재 페이지가 '" + pBi->strBranchName + "' 지점으로 바뀌었습니다.");
+		LF->StatusText(0, "현재 페이지가 '" + pBi->strBranchName + "' 지점으로 바뀌었습니다.");
 		MoveClient();
 	}
 
@@ -858,7 +858,7 @@ LONG CRcpView::OnRecvCid(WPARAM wParam, LPARAM lParam)
 			LU->ChangeBranchItemInTaskPanel(m_pwndTaskPanel, pBi, m_pwndPaneNetwork);
 			ChangeBranch(pBi, TRUE);
 
-			StatusText(0, "현재 페이지가 '" + pBi->strBranchName + 
+			LF->StatusText(0, "현재 페이지가 '" + pBi->strBranchName + 
 				"' 지점으로 바뀌었습니다.");
 			MoveClient();
 		}
@@ -866,7 +866,7 @@ LONG CRcpView::OnRecvCid(WPARAM wParam, LPARAM lParam)
 
 	CMkLock lock(&m_csOrder);
 
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return 0;
 
 	if(pCIDInfo->strPhone != "PRIVATE")
@@ -877,7 +877,7 @@ LONG CRcpView::OnRecvCid(WPARAM wParam, LPARAM lParam)
 			pCIDInfo->strPhone.GetAt(0) != '1')
 			pCIDInfo->strPhone = "0" + pCIDInfo->strPhone;
 
-		pCIDInfo->strPhone = GetNoneDashNumber(pCIDInfo->strPhone);
+		pCIDInfo->strPhone = LF->GetNoneDashNumber(pCIDInfo->strPhone);
 
 		//remove a local DDD number, if the number is not this country...just go~
 		if(pCIDInfo->strPhone.Left(m_ci.m_strDDD.GetLength()) == m_ci.m_strDDD)
@@ -927,7 +927,7 @@ LONG CRcpView::OnRecvCid(WPARAM wParam, LPARAM lParam)
 
 		if(m_bCreateRcpDlg) 
 		{
-			pCIDInfo->strPhone = GetDashPhoneNumber(pCIDInfo->strPhone);
+			pCIDInfo->strPhone = LF->GetDashPhoneNumber(pCIDInfo->strPhone);
 
 			CreateRcpDlg(m_ba.GetCount() > 1 ? pBi : NULL, 
 				pCIDInfo->strPhone, -1, 0, pCIDInfo->strPhone, FALSE, pCIDInfo->nLineID, pCIDInfo->dwTick,0,FALSE,"",nOperatorID);
@@ -950,13 +950,13 @@ LONG CRcpView::OnReserveOrder(WPARAM wParam, LPARAM lParam)
 	CString *pstrName = (CString*)lParam;
 	m_nLastSelItemNo = (int)wParam;
 
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return 0;
 
 
 	//아이템 번호를 넣어주면 수정모드로 시작한다.
 	//(상태를 넘기는 이유는 상태변경된걸 알려주기 위해서다.)
-	CBranchInfo *pBi = GetBranchInfo(GetItemCompany(m_vrOrder->GetItemRowFromTNo(m_nLastSelItemNo)));
+	CBranchInfo *pBi = LF->GetBranchInfo(GetItemCompany(m_vrOrder->GetItemRowFromTNo(m_nLastSelItemNo)));
 	CreateRcpDlg(pBi, *pstrName, m_nLastSelItemNo, STATE_INTERNET);	
 
 	delete pstrName;
@@ -1179,8 +1179,8 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 	}
 	else
 	{
-		pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-		pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+		pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	}
 
 	long nSearchCustomerID = 0,  nOperatorID = 0;
@@ -1208,7 +1208,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		parCustomerID = pCmd.AddParameter(typeLong, typeInputOutput, sizeof(long), nSearchCustomerID);
 		parWebOrderCount = pCmd.AddParameter(typeLong, typeInputOutput, sizeof(long), 
 			m_chkShWebOrder.GetCheck() == 0 ? 0 : 1);
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long),GetCurBranchInfo()->nCompanyCode <= 0 ? 0 : GetCurBranchInfo()->nCompanyCode);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long),LF->GetCurBranchInfo()->nCompanyCode <= 0 ? 0 : LF->GetCurBranchInfo()->nCompanyCode);
 		parReturnOperatorID = pCmd.AddParameter(typeLong, typeOutput, sizeof(long),0);
 
 		parnShareRcpCount = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), m_nShareRcpCount);
@@ -1355,9 +1355,9 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 	BOOL bSentPickupSms2;
 	CString strOMemo;
 
-	BOOL bNoShowPhone = FALSE; //!POWER_CHECK(2004, "고객전화번호 항상표시");
-	//BOOL bShowLastPhoneNumber = POWER_CHECK(2009, "고객전화번호 끝번호 보이기");
-	//BOOL bNoPowerUseCountDisplay = !POWER_CHECK(2012, "고객이용횟수 표시");
+	BOOL bNoShowPhone = FALSE; //!LF->POWER_CHECK(2004, "고객전화번호 항상표시");
+	//BOOL bShowLastPhoneNumber = LF->POWER_CHECK(2009, "고객전화번호 끝번호 보이기");
+	//BOOL bNoPowerUseCountDisplay = !LF->POWER_CHECK(2012, "고객이용횟수 표시");
 	
 	BOOL bNoPowerRcpInt = FALSE,bStartWaitInquiryReceipt = FALSE;
 	OrderRecordList::iterator it;
@@ -1378,7 +1378,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		index.clear();
 		filter.clear();
 
-		if(!POWER_CHECK(2003, "이전오더검색", FALSE))
+		if(!LF->POWER_CHECK(2003, "이전오더검색", FALSE))
 			return 0;
 
 		if(IsLeftTodayOrder()) //오늘 오더는 남겨둠
@@ -1559,7 +1559,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 
 		BOOL bHidePhone = GetSecondCrossState(nCompany) ? TRUE : FALSE;
 		BOOL bInserted = FALSE;
-		BOOL bAsteriskPhone = !POWER_CHECK(2020, "뒷자리*처리", FALSE);
+		BOOL bAsteriskPhone = !LF->POWER_CHECK(2020, "뒷자리*처리", FALSE);
 
 		if(bOtherOrder)
 		{
@@ -1593,14 +1593,14 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		//(*it).second.info[1] = m_ci.GetName(nCompany);
 		(*it).second.info[1] = m_ci.GetProperName(nCompany); 
 		(*it).second.info[2] = ltoa(nTNo, buffer, 10);
-		sStateString = GetStateString((bShareOrder && bClientShare5 > 0 && nState == 10) ? 100 : nState);	
-		(*it).second.info[3] = ( GetBranchInfo(nCompany)->IsCargo() && nState == STATE_FINISH && nBillDraw == BILL_DRAW ) ? "발행" : sStateString;
+		sStateString = LF->GetStateString((bShareOrder && bClientShare5 > 0 && nState == 10) ? 100 : nState);	
+		(*it).second.info[3] = (LF->GetBranchInfo(nCompany)->IsCargo() && nState == STATE_FINISH && nBillDraw == BILL_DRAW ) ? "발행" : sStateString;
 
 		CString strTemp= "";
 		if(bInternet && nAllocGroup > 0) 
-			strTemp.Format("(%s%d)",GetInternetReceiptType(nReceiptType), nAllocGroup);					
+			strTemp.Format("(%s%d)", LF->GetInternetReceiptType(nReceiptType), nAllocGroup);
 		else if(bInternet) 
-			strTemp.Format("(%s)", GetInternetReceiptType(nReceiptType) );					
+			strTemp.Format("(%s)", LF->GetInternetReceiptType(nReceiptType) );
 		else if(nAllocGroup > 0) 
 			strTemp.Format("(%d)", nAllocGroup);			
 		
@@ -1673,7 +1673,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		else
 		{
 			if(bAsteriskPhone)
-				(*it).second.info[7] = ::GetAsteriskPhoneNumber(strCID);
+				(*it).second.info[7] = LF->GetAsteriskPhoneNumber(strCID);
 			else
 				(*it).second.info[7] = strCID;
 		}
@@ -1683,9 +1683,9 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		else
 		{
 			if(bAsteriskPhone)
-				strTemp = ::GetAsteriskPhoneNumber(strOPhone) + "/" + ::GetAsteriskPhoneNumber(strOMobile);
+				strTemp = LF->GetAsteriskPhoneNumber(strOPhone) + "/" + LF->GetAsteriskPhoneNumber(strOMobile);
 			else
-				strTemp = ::GetDashPhoneNumber(strOPhone) + "/" + ::GetDashPhoneNumber(strOMobile);
+				strTemp = LF->GetDashPhoneNumber(strOPhone) + "/" + LF->GetDashPhoneNumber(strOMobile);
 			
 			if(strTemp == "/")
 				strTemp = "";
@@ -1737,21 +1737,21 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		}
 	 
 		(*it).second.info[19] = strTime; //ltoa(span.GetMinutes(), buffer, 10);
-		(*it).second.info[20] = GetWayTypeFromLong(nWayType, TRUE, nLoadType);
-		(*it).second.info[21] = GetRunTypeFromLong(nRunType, TRUE);
-		(*it).second.info[22] = GetCarTypeFromLong(nKDelivery, TRUE, nTruckType, strTon);
-		(*it).second.info[23] = GetPayTypeFromLong(nPayType, TRUE, nCreditCardType);	
+		(*it).second.info[20] = LF->GetWayTypeFromLong(nWayType, TRUE, nLoadType);
+		(*it).second.info[21] = LF->GetRunTypeFromLong(nRunType, TRUE);
+		(*it).second.info[22] = LF->GetCarTypeFromLong(nKDelivery, TRUE, nTruckType, strTon);
+		(*it).second.info[23] = LF->GetPayTypeFromLong(nPayType, TRUE, nCreditCardType);	
 		//(*it).second.info16] = nTransOrder == TRUE ? "탁송" : "";
-		//(*it).second.info[16] = nTransOrder == TRUE ? ::GetMyNumberFormat(nChargeTrans) : "";
-		(*it).second.info[24] = ::RemoveZero(::GetMyNumberFormat(nChargeTrans));
+		//(*it).second.info[16] = nTransOrder == TRUE ? LF->GetMyNumberFormat(nChargeTrans) : "";
+		(*it).second.info[24] = LF->RemoveZero(LF->GetMyNumberFormat(nChargeTrans));
 		(*it).second.info[25] = GetSecondCrossState(nRiderCompany == 0 ? nCompany : nRiderCompany ) ? 
-			CString("ⓒ") + RemoveZero(ltoa(nRNo, buffer, 10)) : RemoveZero(ltoa(nRNo, buffer, 10));
+			CString("ⓒ") + LF->RemoveZero(ltoa(nRNo, buffer, 10)) : LF->RemoveZero(ltoa(nRNo, buffer, 10));
 		(*it).second.info[26] = strRName;
-		(*it).second.info[27] = sWName;//RemoveZero(ltoa(nWNo, buffer, 10));
+		(*it).second.info[27] = sWName;//LF->RemoveZero(ltoa(nWNo, buffer, 10));
 
-		(*it).second.info[28] = (bHidePhone) ? "N/A" : RemoveZero(GetMyNumberFormat(nChargeBasic));
-		(*it).second.info[29] = (bHidePhone) ? "N/A" : RemoveZero(GetMyNumberFormat(nChargeAdd));
-		(*it).second.info[30] = (bHidePhone) ? "N/A" : RemoveZero(GetMyNumberFormat(nChargeDis));
+		(*it).second.info[28] = (bHidePhone) ? "N/A" : LF->RemoveZero(LF->GetMyNumberFormat(nChargeBasic));
+		(*it).second.info[29] = (bHidePhone) ? "N/A" : LF->RemoveZero(LF->GetMyNumberFormat(nChargeAdd));
+		(*it).second.info[30] = (bHidePhone) ? "N/A" : LF->RemoveZero(LF->GetMyNumberFormat(nChargeDis));
 
 		if(bHidePhone)
 			strTemp = "N/A";
@@ -1763,13 +1763,13 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 				nTempCharge += nChargeTrans;
 
 			if(nCardOkAmt > 0)
-				strTemp = (CString)GetMyNumberFormat(ltoa(nTempCharge, buffer, 10)) + "/" + (CString)GetMyNumberFormat(ltoa(nCardOkAmt, buffer, 10));
+				strTemp = (CString)LF->GetMyNumberFormat(ltoa(nTempCharge, buffer, 10)) + "/" + (CString)LF->GetMyNumberFormat(ltoa(nCardOkAmt, buffer, 10));
 			else
-				strTemp = GetMyNumberFormat(ltoa(nTempCharge, buffer, 10));
+				strTemp = LF->GetMyNumberFormat(ltoa(nTempCharge, buffer, 10));
 		} 
 
 		(*it).second.info[31] = strTemp;
-		(*it).second.info[32] = GetMyNumberFormat(ltoa(m_bAddTacksongDrivingCharge ? nChargeDriving + nChargeTrans : nChargeDriving, buffer, 10));
+		(*it).second.info[32] = LF->GetMyNumberFormat(ltoa(m_bAddTacksongDrivingCharge ? nChargeDriving + nChargeTrans : nChargeDriving, buffer, 10));
 		(*it).second.info[33] = (nState > 10 && nState != 40) ? dt2.Format("%H:%M") : "-";
 		(*it).second.info[34] = (nState > 29 && nState != 40) ? dt3.Format("%H:%M") : "-";
 		(*it).second.info[35] = (nState > 30 && nState != 40) ? dt4.Format("%H:%M") : "-";
@@ -1799,7 +1799,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 			(*it).second.info[44] = "";
 
 		//(*it).second.info[45] = GetRiderDeposit(nChargeDriving, nFinalRiderDeposit);
-		(*it).second.info[45] = ::GetMyNumberFormat(nFinalRiderDeposit);
+		(*it).second.info[45] = LF->GetMyNumberFormat(nFinalRiderDeposit);
 		(*it).second.info[46] = (bHidePhone) ? "N/A" : strSDetail;
 		(*it).second.info[47] = (bHidePhone) ? "N/A" : strDDetail;
 
@@ -1822,17 +1822,17 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		{
 			if(bAsteriskPhone)			
 			{
-				(*it).second.info[50] = ::GetTwoPhoneAsterisk(strSPhone, strSMobile);
-				(*it).second.info[51] = ::GetTwoPhoneAsterisk(strDPhone, strDMobile);
+				(*it).second.info[50] = LF->GetTwoPhoneAsterisk(strSPhone, strSMobile);
+				(*it).second.info[51] = LF->GetTwoPhoneAsterisk(strDPhone, strDMobile);
 			}
 			else
 			{
-				(*it).second.info[50] = ::GetTwoPhone(strSPhone, strSMobile);
-				(*it).second.info[51] = ::GetTwoPhone(strDPhone, strDMobile);
+				(*it).second.info[50] = LF->GetTwoPhone(strSPhone, strSMobile);
+				(*it).second.info[51] = LF->GetTwoPhone(strDPhone, strDMobile);
 			}
 		}
 		
-		(*it).second.info[52] = bHidePhone ? "N/A" : ::RemoveZero(nUseCount);
+		(*it).second.info[52] = bHidePhone ? "N/A" : LF->RemoveZero(nUseCount);
 
 		CheckOfficeAllocateOnly(nRiderAllocate, (*it).second.bRiderOkOnlyMan, (*it).second.bOfficeOkOnlyMan);
 
@@ -1848,9 +1848,9 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 			if(nOrderAllocType && 2 == 2)
 				(*it).second.info[52] += "/자동배차";
 		}
-		(*it).second.info[54] = nConsignSumCharge >0 ? GetMyNumberFormat(nConsignSumCharge) : ""; // 연계오더합계금액
+		(*it).second.info[54] = nConsignSumCharge >0 ? LF->GetMyNumberFormat(nConsignSumCharge) : ""; // 연계오더합계금액
 		(*it).second.info[55] = ""; //virtualrecord에서 체인지
-		(*it).second.info[56] = ::GetMyNumberFormat(nDeposit); //virtualrecord에서 체인지
+		(*it).second.info[56] = LF->GetMyNumberFormat(nDeposit); //virtualrecord에서 체인지
 		(*it).second.info[57] = bHidePhone ? "N/A" : strOAddress;
 		(*it).second.info[58] = bHidePhone ? "N/A" : strODetail;
 		(*it).second.info[59] = bHidePhone ? "N/A" : strBCCardTranNumber;
@@ -1859,16 +1859,16 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		strTemp.Format("%.1fKm", nDistanceKM / 100.0); 
 		(*it).second.info[60] = bHidePhone ? "N/A" : strTemp;
 
-		(*it).second.info[61] = bHidePhone ? "N/A" : ::GetRcpType(nRcpType, bInternet);
-		(*it).second.info[62] = ::GetStringFromLong(nChargeCompany, FALSE); 
+		(*it).second.info[61] = bHidePhone ? "N/A" : LF->GetRcpType(nRcpType, bInternet);
+		(*it).second.info[62] = LF->GetStringFromLong(nChargeCompany, FALSE); 
 		(*it).second.info[63] = dt0.Format("%m-%d %H:%M");
-		(*it).second.info[64] = ::GetMyNumberFormat(nChargeReturn);
+		(*it).second.info[64] = LF->GetMyNumberFormat(nChargeReturn);
 		(*it).second.info[65] = bSentPickupSms2 == TRUE ? "ㅇ" : "";
 		(*it).second.info[67] = bHidePhone ? "N/A" : strSAddress;
 		(*it).second.info[68] = bHidePhone ? "N/A" : strDAddress;
-		(*it).second.info[69] = bHidePhone ? "N/A" : ::GetMyNumberFormat(nChargeRiderAuto);
-		(*it).second.info[70] = bHidePhone ? "N/A" : ::GetMyNumberFormat(nMileage);
-		(*it).second.info[71] = bHidePhone ? "N/A" : ::GetMyNumberFormat(nChargeRevision);
+		(*it).second.info[69] = bHidePhone ? "N/A" : LF->GetMyNumberFormat(nChargeRiderAuto);
+		(*it).second.info[70] = bHidePhone ? "N/A" : LF->GetMyNumberFormat(nMileage);
+		(*it).second.info[71] = bHidePhone ? "N/A" : LF->GetMyNumberFormat(nChargeRevision);
 
 
 		(*it).second.nState = nState;
@@ -2026,7 +2026,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		}
 		else
 		{
-			if(POWER_CHECK(2007, "카운트 표시"))
+			if(LF->POWER_CHECK(2007, "카운트 표시"))
 				UpdateOrderCount();
 		}
 
@@ -2059,7 +2059,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		m_xList.GetSortCol(&nSortCol, &bAsc);
 		vr->SortRecord(nSortCol, STRING_SORT, bAsc, m_bStateSecondSort);
 
-		if(POWER_CHECK(2007, "카운트 표시"))
+		if(LF->POWER_CHECK(2007, "카운트 표시"))
 			UpdateOrderCount();
 	}
 	else if(nType == RT_TODAY_SHARE)
@@ -2154,8 +2154,8 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		LoadReportEnsureVisible(vecTNo, nSortCol, bAsc, bFromOrderChange);
 
 
-	StatusText(0, FormatString("%s개의 데이터가 검색되었습니다.", 
-		POWER_CHECK(2007, "카운트 표시") ? ltoa(m_xList.GetRecords()->GetCount(), buffer, 10) : "N/A"));
+	LF->StatusText(0, LF->FormatString("%s개의 데이터가 검색되었습니다.",
+		LF->POWER_CHECK(2007, "카운트 표시") ? ltoa(m_xList.GetRecords()->GetCount(), buffer, 10) : "N/A"));
 
 
 	if(LU->GetAllocateBoardDlg())
@@ -2311,9 +2311,9 @@ void CRcpView::UpdateOrderCount()
 
 	for(it = order.begin(); it != order.end(); it++)
 	{
-		if(!GetCurBranchInfo()->bIntegrated &&
-			GetCurBranchInfo()->nCompanyCode != it->second.nCompany &&
-			GetCurBranchInfo()->nCompanyCode != it->second.nRiderCompany)
+		if(!LF->GetCurBranchInfo()->bIntegrated &&
+			LF->GetCurBranchInfo()->nCompanyCode != it->second.nCompany &&
+			LF->GetCurBranchInfo()->nCompanyCode != it->second.nRiderCompany)
 			continue;
 
 		if(!m_ci.IsChildCompany(it->second.nCompany) &&
@@ -2336,7 +2336,7 @@ void CRcpView::UpdateOrderCount()
 
 		case 10:
 			{
-				if(!GetCurBranchInfo()->bIntegrated &&	GetCurBranchInfo()->nCompanyCode == it->second.nCompany )
+				if(!LF->GetCurBranchInfo()->bIntegrated &&	LF->GetCurBranchInfo()->nCompanyCode == it->second.nCompany )
 				{
 					nRcpCount++;
 					break;
@@ -2413,7 +2413,7 @@ void CRcpView::UpdateOrderCount()
 		return;
 
 
-	if(POWER_CHECK(2007, "카운트 표시"))
+	if(LF->POWER_CHECK(2007, "카운트 표시"))
 	{
 		CString s;  
 
@@ -2438,20 +2438,20 @@ void CRcpView::UpdateOrderCount()
 
 
 		m_strInfoCount.Format(szTemp, 
-			"Black", "전체:" + GetMyNumberFormat(nTotalCount),
-			GetColorTo0x(CVirtualRecord::m_crStateBack1), GetColorTo0x(CVirtualRecord::m_crStateText1), "접수:" + GetMyNumberFormat(nRcpCount),
-			GetColorTo0x(CVirtualRecord::m_crStateBack2), GetColorTo0x(CVirtualRecord::m_crStateText2), "대기:" + GetMyNumberFormat(nWaitCount),
-			GetColorTo0x(CVirtualRecord::m_crStateBack4), GetColorTo0x(CVirtualRecord::m_crStateText4), "개별:" + GetMyNumberFormat(nOnlyManCount),
-			GetColorTo0x(CVirtualRecord::m_crStateBack5), GetColorTo0x(CVirtualRecord::m_crStateText5), "배차:" + GetMyNumberFormat(nAllocCount),
-			GetColorTo0x(CVirtualRecord::m_crStateBack7), GetColorTo0x(CVirtualRecord::m_crStateText7), "완료:" + GetMyNumberFormat(nFinishCount),
+			"Black", "전체:" + LF->GetMyNumberFormat(nTotalCount),
+			GetColorTo0x(CVirtualRecord::m_crStateBack1), GetColorTo0x(CVirtualRecord::m_crStateText1), "접수:" + LF->GetMyNumberFormat(nRcpCount),
+			GetColorTo0x(CVirtualRecord::m_crStateBack2), GetColorTo0x(CVirtualRecord::m_crStateText2), "대기:" + LF->GetMyNumberFormat(nWaitCount),
+			GetColorTo0x(CVirtualRecord::m_crStateBack4), GetColorTo0x(CVirtualRecord::m_crStateText4), "개별:" + LF->GetMyNumberFormat(nOnlyManCount),
+			GetColorTo0x(CVirtualRecord::m_crStateBack5), GetColorTo0x(CVirtualRecord::m_crStateText5), "배차:" + LF->GetMyNumberFormat(nAllocCount),
+			GetColorTo0x(CVirtualRecord::m_crStateBack7), GetColorTo0x(CVirtualRecord::m_crStateText7), "완료:" + LF->GetMyNumberFormat(nFinishCount),
 
 			GetColorTo0x(CVirtualRecord::m_crStateBack7), GetColorTo0x(CVirtualRecord::m_crStateText7),
-			GetColorTo0x(CVirtualRecord::m_crStateBack7), GetColorTo0x(CVirtualRecord::m_crStateText7), GetMyNumberFormat(nOnlyManCount + nAllocCount + nFinishCount),
+			GetColorTo0x(CVirtualRecord::m_crStateBack7), GetColorTo0x(CVirtualRecord::m_crStateText7), LF->GetMyNumberFormat(nOnlyManCount + nAllocCount + nFinishCount),
 			GetColorTo0x(CVirtualRecord::m_crStateBack7), GetColorTo0x(CVirtualRecord::m_crStateText7),
 
-			GetColorTo0x(CVirtualRecord::m_crStateBack8), GetColorTo0x(CVirtualRecord::m_crStateText8), "취소:" + GetMyNumberFormat(nCancelCount),
-			GetColorTo0x(CVirtualRecord::m_crStateBack3), GetColorTo0x(CVirtualRecord::m_crStateText3), "예약:" + GetMyNumberFormat(nReserverdCount));
-			//GetColorTo0x(CVirtualRecord::m_crStateBack9), GetColorTo0x(CVirtualRecord::m_crStateText9), "문의:" + GetMyNumberFormat(nInqueryCount));
+			GetColorTo0x(CVirtualRecord::m_crStateBack8), GetColorTo0x(CVirtualRecord::m_crStateText8), "취소:" + LF->GetMyNumberFormat(nCancelCount),
+			GetColorTo0x(CVirtualRecord::m_crStateBack3), GetColorTo0x(CVirtualRecord::m_crStateText3), "예약:" + LF->GetMyNumberFormat(nReserverdCount));
+			//GetColorTo0x(CVirtualRecord::m_crStateBack9), GetColorTo0x(CVirtualRecord::m_crStateText9), "문의:" + LF->GetMyNumberFormat(nInqueryCount));
 
 		/*
 		CString strTemp;
@@ -2484,7 +2484,7 @@ void CRcpView::UpdateOrderCount()
 	//CString strInfo;
 	//strInfo = CString("본인접수:") + ltoa(nRepicientCount, buffer, 10) + "건";
 
-	//if(POWER_CHECK(2007, "카운트 표시"))
+	//if(LF->POWER_CHECK(2007, "카운트 표시"))
 	//{
 		DisplaySearchInfo();
 		/*
@@ -2517,7 +2517,7 @@ void CRcpView::RefreshFilterOnly(BOOL bStateCheck)
 
 	if(m_vrCur == m_vrPreDate || !IsTodaySearch())
 	{
-		StatusText(0, "이전오더 검색인 경우에 검색버튼을 누르셔야 정상적으로 갱신됩니다.");
+		LF->StatusText(0, "이전오더 검색인 경우에 검색버튼을 누르셔야 정상적으로 갱신됩니다.");
 		return;
 	}
 
@@ -2571,8 +2571,8 @@ void CRcpView::RefreshFilterOnly(BOOL bStateCheck)
 	}
 	*/
 
-	StatusText(0, FormatString("%s개의 데이터가 검색되었습니다.", 
-		POWER_CHECK(2007, "카운트 표시") ? ltoa(m_xList.GetRecords()->GetCount(), buffer, 10) : "N/A"));
+	LF->StatusText(0, LF->FormatString("%s개의 데이터가 검색되었습니다.",
+		LF->POWER_CHECK(2007, "카운트 표시") ? ltoa(m_xList.GetRecords()->GetCount(), buffer, 10) : "N/A"));
 
 }
 
@@ -2585,8 +2585,8 @@ long CRcpView::CheckFilter(BOOL *bUseFilter, OrderRecordList &order, OrderIndex 
 
 	BOOL bRcpCheck2 = m_btnStateRcp.GetCheck();
 
-	BOOL bHideCompleteOrder = !POWER_CHECK(2005, "완료된 오더 보이기");
-	BOOL bHideExpiredOrder = !POWER_CHECK(2006, "1시간 지난오더 보기");
+	BOOL bHideCompleteOrder = !LF->POWER_CHECK(2005, "완료된 오더 보이기");
+	BOOL bHideExpiredOrder = !LF->POWER_CHECK(2006, "1시간 지난오더 보기");
 
 	filter.clear();
 	*bUseFilter = TRUE;
@@ -2610,7 +2610,7 @@ long CRcpView::CheckFilter(BOOL *bUseFilter, OrderRecordList &order, OrderIndex 
 	}
 
 	if(m_strShCustomerMemo.GetLength() > THREE &&
-		::IsKoreaWord(m_strShCustomerMemo) == TRUE &&
+		LF->IsKoreaWord(m_strShCustomerMemo) == TRUE &&
 		m_strShPreCustomerMemo != m_strShCustomerMemo)
 	{ 
 		strSearchMemoCNo = GetSearchCustomerMemo();	
@@ -2630,7 +2630,7 @@ long CRcpView::CheckFilter(BOOL *bUseFilter, OrderRecordList &order, OrderIndex 
 	{
 		bApplySupport = TRUE;
 
-		if(IsThisCompany("엔콜") || m_ci.m_nCompanyCode < 100)
+		if(LF->IsThisCompany("엔콜") || m_ci.m_nCompanyCode < 100)
 		{
 			if(m_strShStart.IsEmpty() == FALSE ||
 				m_strShDest.IsEmpty() == FALSE)
@@ -2982,7 +2982,7 @@ void CRcpView::ShowCustomerInfoToMainList()
 
 		if(it != order.end())
 		{	
-			(*it).second.info[CUSTOMER_ID_COL] = ::GetStringFromLong(nID);
+			(*it).second.info[CUSTOMER_ID_COL] = LF->GetStringFromLong(nID);
 		}		
 
 		pRs.MoveNext();
@@ -3072,7 +3072,7 @@ void CRcpView::RemoveNoneCrossOrder()
 //접수창을 새로띄우는 함수이다.
 void CRcpView::OnBnClickedNewBtn()
 {
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	//최상위가 카고이면, 퀵메인을 넣어준다. 항상 퀵메인 접수창이 떠야한다.
@@ -3081,7 +3081,7 @@ void CRcpView::OnBnClickedNewBtn()
 
 void CRcpView::OnBnClickedCargoNewBtn()
 {
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	//항상 카고메인 접수창이 떠야한다.
@@ -3125,7 +3125,7 @@ void CRcpView::OnBnClickedCancelABtn()
 		CancelAllocate(GetItemTNo(nSelItem), GetItemState(nSelItem));
 		return;
 	}
-	MsgBox(IDS_INVALID_ITEM);
+	LF->MsgBox(IDS_INVALID_ITEM);
 	*/ 
 }
 
@@ -3148,14 +3148,14 @@ void CRcpView::OnBnClickedFinishBtn()
 
 void CRcpView::OnChangeStateSite()
 {
-	if(!POWER_CHECK(2002, "오더상태변경", TRUE))
+	if(!LF->POWER_CHECK(2002, "오더상태변경", TRUE))
 		return;
 
 	int nRet = 0;
 	int nSelItem = m_xList.GetSelectedItem();
 
 	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
 
@@ -3178,14 +3178,14 @@ void CRcpView::OnChangeStateSite()
 		switch(nRet)
 		{
 		case 0:
-			MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+			LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 			break;
 		case 1:
 			nRet = STATE_SITE;
 			AllRefresh();
 			break;
 		default:
-			strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+			strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 			MessageBox(strMsg, "확인", MB_ICONEXCLAMATION);
 			break;
 		}
@@ -3200,7 +3200,7 @@ void CRcpView::OnChangeWaitState()
 
 void CRcpView::OnChangeStateCarry()
 {
-	if(!POWER_CHECK(2002, "오더상태변경", TRUE))
+	if(!LF->POWER_CHECK(2002, "오더상태변경", TRUE))
 		return;
 
 	CMkLock lock(&m_csOrder);
@@ -3208,7 +3208,7 @@ void CRcpView::OnChangeStateCarry()
 	int nSelItem = m_xList.GetSelectedItem();
 
 	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
 
@@ -3231,14 +3231,14 @@ void CRcpView::OnChangeStateCarry()
 		switch(nRet)
 		{
 		case 0:
-			MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
+			LF->MsgBox(IDS_EXPIRED_DATA, "확인", MB_ICONEXCLAMATION);
 			break;
 		case 1:
 			nRet = STATE_CARRY;
 			AllRefresh();
 			break;
 		default:
-			strMsg.Format(IDS_STATE_CHANGED, GetStateString(nRet));
+			strMsg.Format(IDS_STATE_CHANGED, LF->GetStateString(nRet));
 			MessageBox(strMsg, "확인", MB_ICONEXCLAMATION);
 			break;
 		}
@@ -3344,11 +3344,11 @@ void CRcpView::MakeContextMenu(BOOL bMenuFromRcpDlg, long nTNo)
 	}
 
 	
-	if(! GetBranchInfo(ibi->nCompany)->IsCargo()  )
+	if(!LF->GetBranchInfo(ibi->nCompany)->IsCargo()  )
 		pRMenu->RemoveMenu(ID_STATE_BILLDRAW, MF_BYCOMMAND);				
-	else if(GetBranchInfo(ibi->nCompany)->IsCargo() && ibi->nState != STATE_FINISH )
+	else if(LF->GetBranchInfo(ibi->nCompany)->IsCargo() && ibi->nState != STATE_FINISH )
 		pRMenu->EnableMenuItem(ID_STATE_BILLDRAW,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);	
-	else if(GetBranchInfo(ibi->nCompany)->IsCargo() && ibi->nState == STATE_FINISH  && ibi->nBillDraw == BILL_DRAW )
+	else if(LF->GetBranchInfo(ibi->nCompany)->IsCargo() && ibi->nState == STATE_FINISH  && ibi->nBillDraw == BILL_DRAW )
 	{
 		pRMenu->EnableMenuItem(ID_STATE_ALLOCATE,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 		pRMenu->EnableMenuItem(ID_STATE_RCP,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
@@ -3459,7 +3459,7 @@ void CRcpView::MakeContextMenu(BOOL bMenuFromRcpDlg, long nTNo)
 			pRMenu->RemoveMenu(ID_DAERI_SHARE_RELEASE, MF_BYCOMMAND);
 		}
 
-		if(!POWER_CHECK(2013, "녹취파일재생") && !POWER_CHECK(2016, "본인접수파일듣기"))
+		if(!LF->POWER_CHECK(2013, "녹취파일재생") && !LF->POWER_CHECK(2016, "본인접수파일듣기"))
 		{
 			pRMenu->RemoveMenu(ID_REC_PLAYER, MF_BYCOMMAND);
 			pRMenu->RemoveMenu(ID_REC_DOWNLOAD, MF_BYCOMMAND);
@@ -3470,7 +3470,7 @@ void CRcpView::MakeContextMenu(BOOL bMenuFromRcpDlg, long nTNo)
 			//menuRecord.Detach();
 		}
 
-		if(!POWER_CHECK(1350, "진상고객수신거부"))
+		if(!LF->POWER_CHECK(1350, "진상고객수신거부"))
 			pRMenu->RemoveMenu(ID_JINSANG_CALLING_DENY, MF_BYCOMMAND);
 
 		if(ibi->nState == STATE_OK) 
@@ -3600,7 +3600,7 @@ void CRcpView::EditOrder(BOOL bAdd)
 		return;
 	}
 
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 
@@ -3610,11 +3610,11 @@ void CRcpView::EditOrder(BOOL bAdd)
 
 	CString strName = GetItemCName(nItem);
 
-	if(::IsUseNewDlg())
+	if(LF->IsUseNewDlg())
 		strName += CString(" ") + GetItemPhone(nItem);
 
 	m_nLastSelItemNo = GetItemTNo(nItem);
-	pDlg = CreateRcpDlg(GetBranchInfo(GetItemCompany(nItem)), 
+	pDlg = CreateRcpDlg(LF->GetBranchInfo(GetItemCompany(nItem)),
 		strName,
 		m_nLastSelItemNo, 
 		GetItemState(nItem), "", bAdd, -1, 0, 0, FALSE, IsTodaySearch() ? "" : m_sYear);
@@ -3938,7 +3938,7 @@ BOOL CRcpView::PreTranslateMessage(MSG* pMsg)
 		long nID = ::GetDlgCtrlID(pMsg->hwnd);
 		if(nID == IDC_CAR_TYPE_STATIC)
 		{
-			if(GetCurBranchInfo()->IsCargo())
+			if(LF->GetCurBranchInfo()->IsCargo())
 				ShowShTruckTypeDlg();
 			else
 				ShowShCarTypeDlg();
@@ -4210,8 +4210,8 @@ void CRcpView::OnReceiptPrint()
 			nChargeAddDis = nChargeAdd - nChargeDis;
 
 
-			sCarName = GetCarTypeFromLong(pvrOrder->GetOrderRecord(nIndex)->nCarType );
-			sChargeType = GetPayTypeFromLong(pvrOrder->GetOrderRecord(nIndex)->nPayType);
+			sCarName = LF->GetCarTypeFromLong(pvrOrder->GetOrderRecord(nIndex)->nCarType );
+			sChargeType = LF->GetPayTypeFromLong(pvrOrder->GetOrderRecord(nIndex)->nPayType);
 			if(sCarName.GetLength() > 0 && sChargeType.GetLength() > 0)
 				sCarName +=  " / " + sChargeType;
 
@@ -4285,8 +4285,8 @@ void CRcpView::OnReceiptPrint()
 			//nChargeAddDis = nChargeAdd - nChargeDis;
 
 			//
-			//sCarName = GetCarTypeFromLong(m_vrOrder->GetOrderRecord(nIndex)->nCarType );
-			//sChargeType = GetPayTypeFromLong(m_vrOrder->GetOrderRecord(nIndex)->nPayType);
+			//sCarName = LF->GetCarTypeFromLong(m_vrOrder->GetOrderRecord(nIndex)->nCarType );
+			//sChargeType = LF->GetPayTypeFromLong(m_vrOrder->GetOrderRecord(nIndex)->nPayType);
 			//if(sCarName.GetLength() > 0 && sChargeType.GetLength() > 0)
 			//	sCarName +=  " / " + sChargeType;
 
@@ -4361,7 +4361,7 @@ void CRcpView::OnReceiptPrint()
 }
 void CRcpView::OnViewExcel()
 {
-	if(!POWER_CHECK(2010, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(2010, "엑셀변환", TRUE))
 		return;
 
 	CoInitialize(NULL);
@@ -4401,15 +4401,15 @@ void CRcpView::OnViewExcel()
  
 				if(pCol->GetItemIndex() == RCP_DT0)
 				{
-					str = GetStringFromLong(pRec->dt0.GetYear()) + "-" + str;					
+					str = LF->GetStringFromLong(pRec->dt0.GetYear()) + "-" + str;					
 				}
 				else if(pCol->GetItemIndex() == RCP_TIME_COL)
 				{
-					str = GetStringFromLong(pRec->dtRcp.GetYear()) + "/" + str;
+					str = LF->GetStringFromLong(pRec->dtRcp.GetYear()) + "/" + str;
 				}
 				else if(pCol->GetItemIndex() == RCP_DEPART_COL)
 				{
-					if(str.GetLength() > 0 && ::IsNumber(str))
+					if(str.GetLength() > 0 && LF->IsNumber(str))
 					{
 						if(str.Left(1) == "0")
 							str = "'" + str;
@@ -4426,19 +4426,19 @@ void CRcpView::OnViewExcel()
 		}
 	}
 
-	AddSecurityLog(m_pBi->nDOrderTable, 101, m_ui.nWNo, rows);  
+	LF->AddSecurityLog(m_pBi->nDOrderTable, 101, m_ui.nWNo, rows);  
 	CMyExcel::ToExcel(sa, cols, rows);
 }
 
 LONG CRcpView::OnRiderAllocate(WPARAM wParam, LPARAM lParam)
 {
-	if(!POWER_CHECK(2002, "오더상태변경", TRUE))
+	if(!LF->POWER_CHECK(2002, "오더상태변경", TRUE))
 		return 0;
 
 	int nSelItem = m_xList.GetSelectedItem();
 
 	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return 0;
 	}
 
@@ -4470,13 +4470,13 @@ LONG CRcpView::OnRiderAllocate(WPARAM wParam, LPARAM lParam)
 
 LONG CRcpView::OnRiderAllocate2(WPARAM wParam, LPARAM lParam)
 {
-	if(!POWER_CHECK(2002, "오더상태변경"))
+	if(!LF->POWER_CHECK(2002, "오더상태변경"))
 		return 0;
 
 	int nSelItem = m_xList.GetSelectedItem();
 
 	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return 0;
 	}
 
@@ -4525,7 +4525,7 @@ void CRcpView::OnLButtonUp(UINT nFlags, CPoint point)
 	//if(m_ci.m_nCompanyCode > 500)
 	//	return;
 
-	if(!GetCurBranchInfo()->bUseOrderBundle)
+	if(!LF->GetCurBranchInfo()->bUseOrderBundle)
 		return;
  
 	if(TRUE == m_bDragMode)
@@ -4644,7 +4644,7 @@ void CRcpView::InsertOrderToTreeFree()
 
 void CRcpView::OnBnClickedInterorderCheck()
 {
-	if(IsThisCompany("하나로퀵") && m_nShInterOrder == 1)
+	if(LF->IsThisCompany("하나로퀵") && m_nShInterOrder == 1)
 		m_nShInterOrder++; 
 
 	ClickSeachCheckBox(IDC_INTERORDER_CHECK, m_nShInterOrder, "인터넷접수");
@@ -4777,7 +4777,7 @@ long CRcpView::GetRiderOrder(CListCtrl &list, long nCompany, long nRNo)
 			}
 
 			list.InsertItem(nItem, "");
-			list.SetItemText(nItem, 1, GetStateString(it->second.nState));
+			list.SetItemText(nItem, 1, LF->GetStateString(it->second.nState));
 			list.SetItemText(nItem, 2, m_ci.GetName(it->second.nCompany) + "/" + 
 				m_ci.GetBranchName(it->second.nCompany));
 			list.SetItemText(nItem, 3, it->second.strStart.c_str());
@@ -4811,8 +4811,8 @@ long CRcpView::GetRiderOrder(CListCtrl &list, long nCompany, long nRNo)
 	if(nItem > 0) {
 		list.SetItemText(0, 1, CString(ltoa(nCount, buffer, 10)) + "건");
 		list.SetItemText(0, 2, CString(ltoa(nSum, buffer, 10)) + "원");
-		list.SetItemText(0, 3, "현금 : " + CString(itoa(nCashCount, buffer, 10)) + "/" + ::GetMyNumberFormat(nCashSum));
-		list.SetItemText(0, 4, "신용 : " + CString(itoa(nCreditCount, buffer, 10)) + "/" + ::GetMyNumberFormat(nCreditSum));
+		list.SetItemText(0, 3, "현금 : " + CString(itoa(nCashCount, buffer, 10)) + "/" + LF->GetMyNumberFormat(nCashSum));
+		list.SetItemText(0, 4, "신용 : " + CString(itoa(nCreditCount, buffer, 10)) + "/" + LF->GetMyNumberFormat(nCreditSum));
 		list.SetItemData(0, 0);
 
 		for(int i=1; i<list.GetItemCount(); i++)
@@ -4876,7 +4876,7 @@ void CRcpView::OnNewRiderList()
 
 void CRcpView::OnBnClickedShowNoticeBtn()
 {
-	if(!POWER_CHECK(2008, "접수자 공지 등록", TRUE))
+	if(!LF->POWER_CHECK(2008, "접수자 공지 등록", TRUE))
 		return;
 
 	CShowRcpNotice dlg;
@@ -5133,7 +5133,7 @@ void CRcpView::OnBnClickedShareOrder()
 		}
 	}
 
-	if(::MakeShareOrder(GetItemTNo(nSelItem), ibi->bShareOrder)) 
+	if(LF->MakeShareOrder(GetItemTNo(nSelItem), ibi->bShareOrder))
 	{
 		RefreshList();
 	}
@@ -5151,7 +5151,7 @@ void CRcpView::OnBnClickedTransInfo()
 	int nSelItem = m_xList.GetSelectedItem();
 
 	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
 
@@ -5169,7 +5169,7 @@ void CRcpView::OnBnClickedCopyOrder()
 	int nSelItem = m_xList.GetSelectedItem();
 
 	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
 
@@ -5409,7 +5409,7 @@ void CRcpView::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 				ltoa(nWCompany, buffer, 10),
 				ltoa(nWNo, buffer, 10),
 				ltoa(0, buffer, 10),
-				GetBranchInfo(nWCompany)->strBranchName,
+				LF->GetBranchInfo(nWCompany)->strBranchName,
 				strWName);
 		}
 	}
@@ -5563,7 +5563,7 @@ void CRcpView::OnReportBeginDrag(NMHDR * /*pNotifyStruct*/, LRESULT * /*result*/
 	//if(m_ci.m_nCompanyCode > 500)
 	//	return;
 
-	if(!GetCurBranchInfo()->bUseOrderBundle)
+	if(!LF->GetCurBranchInfo()->bUseOrderBundle)
 		return;
 
 	//choi
@@ -5581,7 +5581,7 @@ BOOL CRcpView::MakeCall(int nCompany, CString strPhone, long nType)
 	for(int i = 0; i < m_ba.GetCount(); i++) {
 		CBranchInfo *pBi = m_ba.GetAt(i);
 		if(nCompany == pBi->nCompanyCode) {
-			CString strTemp1 = GetNoneDashNumber(pBi->strPhone);
+			CString strTemp1 = LF->GetNoneDashNumber(pBi->strPhone);
 			if(strTemp1.Left(m_ci.m_strDDD.GetLength()) == m_ci.m_strDDD)
 				strTemp1 = strTemp1.Right(strTemp1.GetLength() - m_ci.m_strDDD.GetLength());
 
@@ -5604,9 +5604,9 @@ BOOL CRcpView::MakeCall(int nCompany, CString strPhone, long nType)
 			strCallingLine = "9";
 	}
 	else
-		strCallingLine = ::GetAutoDDDSetting(nCompany, strCallingLine);
+		strCallingLine = LF->GetAutoDDDSetting(nCompany, strCallingLine);
 
-	strPhone = GetNoneDashNumber(strPhone);
+	strPhone = LF->GetNoneDashNumber(strPhone);
 	if(strPhone.Left(m_ci.m_strDDD.GetLength()) == m_ci.m_strDDD)
 		strPhone = strPhone.Right(strPhone.GetLength() - m_ci.m_strDDD.GetLength());
 
@@ -5619,7 +5619,7 @@ BOOL CRcpView::MakeCall(int nCompany, CString strPhone, long nType)
 
 	if(m_pCTIForm->m_bConnected)
 	{
-		if(GetBranchInfo(m_ui.nCompany)->bIPPBXType)
+		if(LF->GetBranchInfo(m_ui.nCompany)->bIPPBXType)
 		{
 			strDID = strDID + "OP" + strOriginPhone;
 			m_pCTIForm->m_call.MakeCall(strDID, strPhone);
@@ -6037,16 +6037,16 @@ BOOL CRcpView::GetRiderInfoToolTip(CMakeHtmlTable *pTable, long nCompany, long n
 	pTable->AddCol(strCompanyName);
 	pTable->AddRow();
 	pTable->AddCol("대표번호");
-	pTable->AddCol(::GetDashPhoneNumber(strCompanyTel));
+	pTable->AddCol(LF->GetDashPhoneNumber(strCompanyTel));
 	pTable->AddRow();
 	pTable->AddCol("상황실번호");
-	pTable->AddCol(::GetDashPhoneNumber(strCompanyOfficeTel));
+	pTable->AddCol(LF->GetDashPhoneNumber(strCompanyOfficeTel));
 	pTable->AddRow();
 	pTable->AddCol("PDA번호");
-	pTable->AddCol(::GetDashPhoneNumber(strID));
+	pTable->AddCol(LF->GetDashPhoneNumber(strID));
 	pTable->AddRow();
 	pTable->AddCol("회사명");
-	pTable->AddCol(::GetDashPhoneNumber(strHp));
+	pTable->AddCol(LF->GetDashPhoneNumber(strHp));
 	pTable->AddRow();
 
 	return TRUE;
@@ -6071,16 +6071,16 @@ void CRcpView::GetRiderOrderHtmlTableSubRoutine(OrderRecord &order, CMakeHtmlTab
 		CString strTime;
 
 		pTable->AddCol(nCount + 1);
-		pTable->AddImageList(GetImageNumber(order.nState), "");
+		pTable->AddImageList(LF->GetImageNumber(order.nState), "");
 		pTable->AddCol(m_ci.GetName(order.nCompany) + "/" + 
 			m_ci.GetBranchName(order.nCompany));
 		pTable->AddCol(order.strStart.c_str());
 		pTable->AddCol(order.strDest.c_str());
 		pTable->AddCol(order.dtState.Format("%H:%M"));
-		pTable->AddCol(GetMyNumberFormat(order.nCharge));
-		pTable->AddCol(GetCarTypeFromLong(order.nCarType));
-		pTable->AddCol(GetWayTypeFromLong(order.nWayType));
-		pTable->AddCol(GetRunTypeFromLong(order.nRunType));
+		pTable->AddCol(LF->GetMyNumberFormat(order.nCharge));
+		pTable->AddCol(LF->GetCarTypeFromLong(order.nCarType));
+		pTable->AddCol(LF->GetWayTypeFromLong(order.nWayType));
+		pTable->AddCol(LF->GetRunTypeFromLong(order.nRunType));
 		pTable->AddRow();
 
 		nCount++;
@@ -6111,13 +6111,13 @@ BOOL CRcpView::GetOrderInfoHtmlTable(CMakeHtmlTable *pTable, long nTNo)
 	pTable->AddCol(CString(it->second.strStart.c_str()) + "/" + it->second.strDest.c_str());
 	pTable->AddRow();
 	pTable->AddCol("분류");
-	pTable->AddCol(GetPayTypeFromLong(it->second.nPayType, 1) + 
-		GetCarTypeFromLong(it->second.nCarType, 1) + 
-		GetWayTypeFromLong(it->second.nWayType, 1) +
-		GetRunTypeFromLong(it->second.nRunType, 1));
+	pTable->AddCol(LF->GetPayTypeFromLong(it->second.nPayType, 1) + 
+		LF->GetCarTypeFromLong(it->second.nCarType, 1) + 
+		LF->GetWayTypeFromLong(it->second.nWayType, 1) +
+		LF->GetRunTypeFromLong(it->second.nRunType, 1));
 	pTable->AddRow();
 	pTable->AddCol("요금");
-	pTable->AddCol(GetMyNumberFormat(it->second.nCharge));
+	pTable->AddCol(LF->GetMyNumberFormat(it->second.nCharge));
 	pTable->AddRow();
 	pTable->AddCol("적요");
 	pTable->AddCol(CString(it->second.strEtc.c_str()));
@@ -6391,7 +6391,7 @@ void CRcpView::RefreshStateSecondSort()
 	long nState = 0;
 	CComboBox *pCmb = NULL;
 
-	for(int i=0; i<::GetCommaCount(strOrderSort); i++)
+	for(int i=0; i<LF->GetCommaCount(strOrderSort); i++)
 	{
 		nSecondFind = strOrderSort.Find(";", nFirstFind);
 		nState = _ttoi(strOrderSort.Mid(nFirstFind, nSecondFind - nFirstFind));
@@ -6422,7 +6422,7 @@ void CRcpView::OnBnClickedSetInitSearchBtn()
 		m_bAddTacksongDrivingCharge = AfxGetApp()->GetProfileInt("RcpPage", "AddTacksongDrivingCharge", 0);
 		m_bSearchWithNoWName = AfxGetApp()->GetProfileInt("RcpPage", "SearchWithNoWName", 0);
 
-		if(IsThisCompany("하나로퀵"))
+		if(LF->IsThisCompany("하나로퀵"))
 			m_bSearchWithNoWName = TRUE;
 	
 		RefreshStateColor();
@@ -6449,7 +6449,7 @@ void CRcpView::OnOtherAllocate()
 	int nItem = m_xList.GetSelectedItem();
 
 	if(nItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
 
@@ -6507,7 +6507,7 @@ void CRcpView::SendSms(long nCompany, CString sPhone, bool bAllocate)
 		int nSelItem = m_xList.GetSelectedItem();
 		CVirtualRecord *pRecord = (CVirtualRecord*)m_xList.GetSelectedRows()->GetAt(0)->GetRecord();
 		OrderRecord *order = pRecord->GetOrderRecord(nSelItem);
-		strRiderPhone = ::GetRiderPhone(order->nRiderCompany, order->nRNo);
+		strRiderPhone = LF->GetRiderPhone(order->nRiderCompany, order->nRNo);
 
 		if (strRiderPhone.IsEmpty()) {
 			MessageBox("기사가 배차된 오더만 문자를 전송할 수 있습니다.", "알림", MB_ICONINFORMATION);
@@ -6518,15 +6518,15 @@ void CRcpView::SendSms(long nCompany, CString sPhone, bool bAllocate)
 	CCustomerSmsDlg2 dlg(NULL, bAllocate ? POPUP_ALLOCATE : POPUP_CUSTOMER);
 	dlg.m_strCustomerPN = sPhone;
 	dlg.m_strRiderPN = strRiderPhone;
-	dlg.m_strCustomerPN = dlg.m_strCustomerPN.GetLength() > 0 ? GetNoneDashNumber(dlg.m_strCustomerPN) : "";
-	dlg.m_nCompany = nCompany; //GetCurBranchInfo()->nCompanyCode;//m_ci.m_nCompanyCode;
+	dlg.m_strCustomerPN = dlg.m_strCustomerPN.GetLength() > 0 ? LF->GetNoneDashNumber(dlg.m_strCustomerPN) : "";
+	dlg.m_nCompany = nCompany; //LF->GetCurBranchInfo()->nCompanyCode;//m_ci.m_nCompanyCode;
 	dlg.m_nContent = bAllocate ? 2 : 0; //  2번 = 배차관련, 0번 = 임의 고객에 메세지전송
 
 	if(IDOK == dlg.DoModal())
 	{
 		CString strEtc;
-		dlg.m_strRecvPhone = GetNoneDashNumber(dlg.m_strRecvPhone);
-		dlg.m_strCustomerPN = GetNoneDashNumber(dlg.m_strCustomerPN);
+		dlg.m_strRecvPhone = LF->GetNoneDashNumber(dlg.m_strRecvPhone);
+		dlg.m_strCustomerPN = LF->GetNoneDashNumber(dlg.m_strCustomerPN);
 
 		COleDateTime dtDate(COleDateTime::GetCurrentTime());
 
@@ -6552,9 +6552,9 @@ void CRcpView::SendSms(long nCompany, CString sPhone, bool bAllocate)
 			dlg.m_strMsg.Replace("[기사명]", GetItemRName(nIndex));
 
 		if(dlg.m_bReservation)
-			bOk = ::SendSmsNewRev(nCompany > 0 ? nCompany : m_ci.m_nCompanyCode, 777, dlg.m_strCustomerPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(임의)", "", "", dtDate);
+			bOk = LF->SendSmsNewRev(nCompany > 0 ? nCompany : m_ci.m_nCompanyCode, 777, dlg.m_strCustomerPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(임의)", "", "", dtDate);
 		else
-			bOk = ::SendSmsNew(nCompany > 0 ? nCompany : m_ci.m_nCompanyCode, 777, dlg.m_strCustomerPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(임의)", "", "");
+			bOk = LF->SendSmsNew(nCompany > 0 ? nCompany : m_ci.m_nCompanyCode, 777, dlg.m_strCustomerPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(임의)", "", "");
 
 		if(bOk) 
 		{
@@ -6837,7 +6837,7 @@ void CRcpView::OnSetDepositZero()
 {
 	int nSelItem = m_xList.GetSelectedItem();
 	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
  
@@ -6944,7 +6944,7 @@ void CRcpView::ChangeSearchFilter()
 
 void CRcpView::DisplaySearchInfo()
 {
-	if(!POWER_CHECK(2007, "카운트 표시"))
+	if(!LF->POWER_CHECK(2007, "카운트 표시"))
 		return;
 
 	CString strTemp = "";
@@ -6957,16 +6957,16 @@ void CRcpView::DisplaySearchInfo()
 
 	CString strShareCount = ""; 
  
-	if(POWER_CHECK(2014, "공유콜잔액"))
+	if(LF->POWER_CHECK(2014, "공유콜잔액"))
 	{
 		strShareCount += "<Run Foreground='black' FontSize='11' FontWeight='Bold'> [공유콜잔액 :</Run> ";
-		strShareCount += "<Run Foreground='black' FontSize='12' FontWeight='Bold'> " + ::GetMyNumberFormat(m_nShareBalance) + "원]</Run>   ";
+		strShareCount += "<Run Foreground='black' FontSize='12' FontWeight='Bold'> " + LF->GetMyNumberFormat(m_nShareBalance) + "원]</Run>   ";
 	}
 
-	if(POWER_CHECK(2015, "SMS잔액"))
+	if(LF->POWER_CHECK(2015, "SMS잔액"))
 	{
 		strShareCount += "<Run Foreground='black' FontSize='11' FontWeight='Bold'> [SMS잔액 :</Run> ";
-		strShareCount += "<Run Foreground='black' FontSize='12' FontWeight='Bold'> " + ::GetMyNumberFormat(m_nSmsBalance) + "원]</Run>   ";
+		strShareCount += "<Run Foreground='black' FontSize='12' FontWeight='Bold'> " + LF->GetMyNumberFormat(m_nSmsBalance) + "원]</Run>   ";
 	}	
 
 	strTemp = m_strInfoCount + m_strInfoEditSearch + m_strInfoCheckSearch + GetCarTypeDisplay(FALSE) + GetPayTypeDisplay(FALSE) + strShareCount;
@@ -7160,8 +7160,8 @@ AFX_INLINE BOOL CRcpView::CheckFilterSubCheckBox(OrderRecord *order)
 {	
 	BOOL bMyOrder = m_ci.IsChildCompany(order->nCompany);
 	BOOL bMyRiderOrder = m_ci.IsChildCompany(order->nRiderCompany);
-	long nCompany = GetCurBranchInfo()->nCompanyCode;
-	BOOL bIntegrated = GetCurBranchInfo()->bIntegrated;
+	long nCompany = LF->GetCurBranchInfo()->nCompanyCode;
+	BOOL bIntegrated = LF->GetCurBranchInfo()->bIntegrated;
 	
 	if(order->nRNo <= 0)
 		bMyRiderOrder = FALSE;
@@ -7175,7 +7175,7 @@ AFX_INLINE BOOL CRcpView::CheckFilterSubCheckBox(OrderRecord *order)
 
 	if(m_nShMyCall == CHECK_STATE_O)		
 	{
-		if(IsThisCompany("하나로퀵"))
+		if(LF->IsThisCompany("하나로퀵"))
 		{
 			if((m_ui.nCompany != order->nWCompany ||  m_ui.nWNo != order->nWNo) &&
 				!order->bInternet)
@@ -7402,7 +7402,7 @@ AFX_INLINE BOOL CRcpView::CheckFilterSubEditBox(OrderRecord *order, CString strC
 			return TRUE;
 		*/
 
-		if(!((order->nWNo == atol(m_strShWNo) && IsNumeric(m_strShWNo) == TRUE) ||
+		if(!((order->nWNo == atol(m_strShWNo) && LF->IsNumeric(m_strShWNo) == TRUE) ||
 			(CString(order->strWName.c_str()).Find(m_strShWNo) >= 0) ||
 			(strWName == "인터콜" || 
 			strWName == "스마트콜" ||
@@ -7413,7 +7413,7 @@ AFX_INLINE BOOL CRcpView::CheckFilterSubEditBox(OrderRecord *order, CString strC
 	}
 	else
 	{
-		if(!((order->nWNo == atol(m_strShWNo) && IsNumeric(m_strShWNo) == TRUE) ||
+		if(!((order->nWNo == atol(m_strShWNo) && LF->IsNumeric(m_strShWNo) == TRUE) ||
 			(CString(order->strWName.c_str()).Find(m_strShWNo) >= 0))) //접수자
 			return TRUE;
 	}	
@@ -7658,7 +7658,7 @@ void CRcpView::ShowShTruckTypeDlg()
 	rcDlg.right = rcStc.left - 1;
 	rcDlg.left = rcDlg.right - nWidth;
 
-	SetCrystal(m_pRcpShTruckDlg, 245);
+	LF->SetCrystal(m_pRcpShTruckDlg, 245);
 	m_pRcpShTruckDlg->MoveWindow(rcDlg);
 	m_pRcpShTruckDlg->ShowWindow(SW_SHOW);
 }
@@ -7688,8 +7688,8 @@ void CRcpView::ShowShCarTypeDlg()
 	rcDlg.right = rcStc.left - 1;
 	rcDlg.left = rcDlg.right - nWidth;
 
-	if(!IsWindowXP())
-		SetCrystal(m_pRcpShCarDlg, 245);
+	if(!LF->IsWindowXP())
+		LF->SetCrystal(m_pRcpShCarDlg, 245);
 
 	m_pRcpShCarDlg->MoveWindow(rcDlg);
 	m_pRcpShCarDlg->ShowWindow(SW_SHOW);
@@ -7720,8 +7720,8 @@ void CRcpView::ShowShPayTypeDlg()
 	rcDlg.left = rcStc.left + 1;
 	rcDlg.right = rcDlg.left + nWidth;
 	
-	if(!IsWindowXP())
-		SetCrystal(m_pRcpShPayDlg, 245);
+	if(!LF->IsWindowXP())
+		LF->SetCrystal(m_pRcpShPayDlg, 245);
 
 	m_pRcpShPayDlg->MoveWindow(rcDlg);
 	m_pRcpShPayDlg->ShowWindow(SW_SHOW);
@@ -7956,8 +7956,8 @@ CString CRcpView::GetSearchCustomerID()
 { 
 	CMkCommand pCmd(m_pMkDb, "select_customer_search_nID_1");
 
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(atoi(m_strShCustomerID));
 	CMkParameter *parRet = pCmd.AddParameter(typeString, typeOutput, 4000, "");
 
@@ -7973,8 +7973,8 @@ CString CRcpView::GetSearchCustomerMemo()
 { 
 	CMkCommand pCmd(m_pMkDb, "select_customer_search_memo_1");
 
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(m_strShCustomerMemo);
 	CMkParameter *parRet = pCmd.AddParameter(typeString, typeOutput, 4000, "");
 
@@ -8047,7 +8047,7 @@ void CRcpView::OnBnClickedStateReservedBtn()
 
 void CRcpView::OnMoveOrderBranch()
 {
-	if(!POWER_CHECK(2011, "접수 오더이동권한", TRUE))
+	if(!LF->POWER_CHECK(2011, "접수 오더이동권한", TRUE))
 		return;
 
 	int nItem = m_xList.GetSelectedItem();
@@ -8195,16 +8195,16 @@ CString CRcpView::GetShareCallCount()
 {
 	CString strTemp = ""; 
 
-	if(POWER_CHECK(2014, "공유콜잔액"))
+	if(LF->POWER_CHECK(2014, "공유콜잔액"))
 	{
 		strTemp = "<Run Foreground='black' FontWeight='Bold'>현재공유콜잔액 :</Run> ";
-		strTemp += "<Run Foreground='black' FontWeight='Bold'> " + ::GetMyNumberFormat(m_nShareBalance) + "원</Run>   ";
+		strTemp += "<Run Foreground='black' FontWeight='Bold'> " + LF->GetMyNumberFormat(m_nShareBalance) + "원</Run>   ";
 	}
 
-	if(POWER_CHECK(2015, "SMS잔액"))
+	if(LF->POWER_CHECK(2015, "SMS잔액"))
 	{
 		strTemp += "<Run Foreground='blue' FontWeight='Bold'>SMS잔액 :</Run> ";
-		strTemp += "<Run Foreground='blue' FontWeight='Bold'> " + ::GetMyNumberFormat(m_nSmsBalance) + "원</Run>";
+		strTemp += "<Run Foreground='blue' FontWeight='Bold'> " + LF->GetMyNumberFormat(m_nSmsBalance) + "원</Run>";
 	}
 
 	return strTemp;
@@ -8217,18 +8217,18 @@ CString CRcpView::GetShareCallBalance()
 
 	CString strTemp;  
 	strTemp = "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText1) + "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack1) + "' FontWeight='Normal'>접수:</Run>";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText1) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack1) + "' FontWeight='Normal'>" + ::GetMyNumberFormat(m_nShareRcpCount) + " </Run> ";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText1) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack1) + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareRcpCount) + " </Run> ";
 	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText5) + "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack5) + "' FontWeight='Normal'>배차:</Run>";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText5) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack5) + "' FontWeight='Normal'>" + ::GetMyNumberFormat(m_nShareAllocateCount) + " </Run> ";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText5) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack5) + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareAllocateCount) + " </Run> ";
 	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText7) + "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack7) + "' FontWeight='Normal'>완료:</Run>";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText7) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack7) + "' FontWeight='Normal'>" + ::GetMyNumberFormat(m_nShareCompleteCount) + " </Run> ";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText7) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack7) + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareCompleteCount) + " </Run> ";
 	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText8) + "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack8) + "' FontWeight='Normal'>취소:</Run>";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText8) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack8) + "' FontWeight='Normal'>" + ::GetMyNumberFormat(m_nShareCancelCount) + " </Run> ";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText8) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack8) + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareCancelCount) + " </Run> ";
 	strTemp += "<Run Foreground='black' FontWeight='Bold'>합계:</Run>";
-	strTemp += "<Run Foreground='black' FontWeight='Bold'>" + ::GetMyNumberFormat(m_nShareAllCount) + "</Run>";
+	strTemp += "<Run Foreground='black' FontWeight='Bold'>" + LF->GetMyNumberFormat(m_nShareAllCount) + "</Run>";
  
 	strTemp += "<Run Foreground='blue' FontWeight='Bold'> 금일수입:</Run>";
-	strTemp += "<Run Foreground='blue' FontWeight='Bold'>" + ::GetMyNumberFormat(m_nTodayIncome) + "</Run>";
+	strTemp += "<Run Foreground='blue' FontWeight='Bold'>" + LF->GetMyNumberFormat(m_nTodayIncome) + "</Run>";
 
 
 	return strTemp;
@@ -8246,7 +8246,7 @@ void CRcpView::OnEnChangeSearchCidEdit()
 
 void CRcpView::OnBnClickedNewRcpDlgBtn()
 {
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	CreateRcpDlg(NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount(), 0, FALSE, "", 0, TRUE);
@@ -8261,7 +8261,7 @@ void CRcpView::SearchRiderInfo()
 	if(sRNo.IsEmpty())
 		return;
 
-	if(IsStringDigit(sRNo))
+	if(LF->IsStringDigit(sRNo))
 	{
 		nRNo = atol(sRNo);
 		if(nRNo <= 0)
@@ -8321,14 +8321,14 @@ void CRcpView::OnMakeNewRcpDlg()
 		return;
 	}
 
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	//아이템 번호를 넣어주면 수정모드로 시작한다.
 	//(상태를 넘기는 이유는 상태변경된걸 알려주기 위해서다.)
 	m_nLastSelItemNo = GetItemTNo(nSelItem);
 
-	CreateRcpDlg(GetBranchInfo(GetItemCompany(nSelItem)), 
+	CreateRcpDlg(LF->GetBranchInfo(GetItemCompany(nSelItem)),
 		GetItemCName(nSelItem),
 		m_nLastSelItemNo, 
 		GetItemState(nSelItem),"",FALSE, -10, GetTickCount(), 
@@ -8633,7 +8633,7 @@ void CRcpView::OnBnClickedShowMyCallCountBtn()
 
 BOOL CRcpView::RefreshListCardOkNumber()
 {
-	if(!POWER_CHECK(1982, "승인번호컬럼 보기", FALSE))
+	if(!LF->POWER_CHECK(1982, "승인번호컬럼 보기", FALSE))
 		return FALSE;
 
 	static BOOL bFirstCardOkNumberRefresh = TRUE;
@@ -8699,11 +8699,11 @@ void CRcpView::OnRecPlayer()
 	int nItem = m_xList.GetSelectedItem();
 
 	if(nItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
 
-	if(!POWER_CHECK(2013, "녹취파일재생") && !POWER_CHECK(2016, "본인접수파일듣기"))
+	if(!LF->POWER_CHECK(2013, "녹취파일재생") && !LF->POWER_CHECK(2016, "본인접수파일듣기"))
 	{
 		
 	}
@@ -8715,13 +8715,13 @@ void CRcpView::OnRecPlayer()
 	int nSearchCompany = GetItemCompany(nItem);
 	CString sSearchTellNumber = GetItemPhone(nItem);
 
-	if(!POWER_CHECK(2013, "녹취파일재생"))
+	if(!LF->POWER_CHECK(2013, "녹취파일재생"))
 	{
 		CString strOperator = GetItemCName(nItem);
 
 		if(strOperator == m_ui.strName)
 		{
-			if(!POWER_CHECK(2016, "본인접수파일듣기", TRUE))
+			if(!LF->POWER_CHECK(2016, "본인접수파일듣기", TRUE))
 				return;
 		}
 		else
@@ -8734,8 +8734,8 @@ void CRcpView::OnRecPlayer()
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_record_file_name_tno");
 
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(nSearchTNo);
 	cmd.AddParameter("");
 	cmd.AddParameter(sSearchTellNumber);
@@ -8757,7 +8757,7 @@ void CRcpView::OnRecPlayer()
 		rs.GetFieldValue("sFileName", strReFileName);
 		rs.GetFieldValue("nBound", nReBound);
 
-		strFolderDate = GetFolderDate(strReFileName);
+		strFolderDate = LF->GetFolderDate(strReFileName);
 
 		if (nCount == 0)
 			m_PlayerDlg.InitPostFormData(dtReDate, strFolderDate, strReKeyPhoneID, strReTellNumber, strReFileName, nReBound);
@@ -8793,7 +8793,7 @@ void CRcpView::OnRecDownload()
 	int nItem = m_xList.GetSelectedItem();
 
 	if(nItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
 
@@ -8807,8 +8807,8 @@ void CRcpView::OnRecDownload()
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_record_file_name_tno");
 
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(nSearchTNo);
 	cmd.AddParameter("");
 	cmd.AddParameter(sSearchTellNumber);
@@ -8830,7 +8830,7 @@ void CRcpView::OnRecDownload()
 		rs.GetFieldValue("sFileName", strReFileName);
 		rs.GetFieldValue("nBound", nReBound);
 
-		strFolderDate = GetFolderDate(strReFileName);
+		strFolderDate = LF->GetFolderDate(strReFileName);
 
 		if (nCount == 0)
 			m_PlayerDlg.InitPostFormData(dtReDate, strFolderDate, strReKeyPhoneID, strReTellNumber, strReFileName, nReBound);
@@ -9003,11 +9003,11 @@ void CRcpView::OnJinsangCallingDeny()
 
 	int nItem = m_xList.GetSelectedItem();
 	if(nItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return;
 	}
 
-	CString strPhone1 = GetNoneDashNumber(GetItemPhone(nItem));
+	CString strPhone1 = LF->GetNoneDashNumber(GetItemPhone(nItem));
 	if( !strPhone1.IsEmpty() )
 	{
 		if(strPhone1[0] != '0')
@@ -9017,7 +9017,7 @@ void CRcpView::OnJinsangCallingDeny()
 	}
 
 	if((strPhone1.GetLength() < 9) ||
-			(::IsStringDigit(strPhone1) == FALSE))
+			(LF->IsStringDigit(strPhone1) == FALSE))
 	{
 		MessageBox("번호가 유효하지 않습니다", "확인", MB_ICONINFORMATION);
 		return;
@@ -9121,7 +9121,7 @@ LRESULT CRcpView::OnLoadRcpList(WPARAM wParam, LPARAM lParam)
 	for(int i=0; i<nCount; i = i+2)
 	{
 		CString strTemp = strRcpList.Mid(i, 2);
-		pData[nItem++] = HexStrToInt(strTemp);
+		pData[nItem++] = LF->HexStrToInt(strTemp);
 	}
 
 	AfxGetApp()->WriteProfileBinary(_T("ReportControl"), _T("State"), pData, nSize);
@@ -9242,7 +9242,7 @@ BOOL CRcpView::UpChange(long nCharge)
 {
 	int nSelItem = m_xList.GetSelectedItem();
 	if(nSelItem < 0) {
-		MsgBox(IDS_INVALID_ITEM);
+		LF->MsgBox(IDS_INVALID_ITEM);
 		return FALSE;
 	}
 
@@ -9259,7 +9259,7 @@ BOOL CRcpView::UpChange(long nCharge)
 	if(m_pBi->nUseUpChargeForNotAllocate == 0)
 		return FALSE;
 
-	::UpChargeForNotAllocate(GetItemTNo(nSelItem), nCharge, this);
+	LF->UpChargeForNotAllocate(GetItemTNo(nSelItem), nCharge, this);
 
 	RefreshList();
 

@@ -221,7 +221,7 @@ void CGroupReportView::MakeListResultTree(long nGNo)
 	}
 
 	GROUP_REPORT stSum;
-	InitGroupReportStruct(stSum);
+	LF->InitGroupReportStruct(stSum);
 
 	stSum.nGNo = nGNo;
 
@@ -248,7 +248,7 @@ void CGroupReportView::GetDataReal(CMkRecordset *pRs)
 
 	CString sTitle = "";
 	GROUP_REPORT stSum; // ±×·ìº° ÇÕ°è
-	InitGroupReportStruct(stSum);
+	LF->InitGroupReportStruct(stSum);
 
 	long nCashTax, nCreditTax, nOnlineTax, nTransTax;
 
@@ -288,7 +288,7 @@ void CGroupReportView::GetDataReal(CMkRecordset *pRs)
 			{
 				m_lstReport.SetGroupData(m_cg.GetGroupData(nPreGNo)->nParentGNo == 0 ? nPreGNo : m_cg.GetGroupData(nPreGNo)->nParentGNo, stSum, TRUE);
 
-				InitGroupReportStruct(stSum);
+				LF->InitGroupReportStruct(stSum);
 				st = stSum;
 			}
 
@@ -607,7 +607,7 @@ void CGroupReportView::OnEtc()
 
 void CGroupReportView::OnExcel()
 {
-	if(!POWER_CHECK(3900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(3900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
 	long nRow = 0;
@@ -668,7 +668,7 @@ void CGroupReportView::OnExcel()
 		}
 	}
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 314, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 314, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
 
 	CMyExcel::ToExcel(sa, nCol, nRow);
 }
@@ -680,7 +680,7 @@ void CGroupReportView::SetExcelData(COleSafeArray &sa, GROUP_REPORT st, BOOL bSu
 		for(int j=0; j<nCol; j++)
 		{ 
 			CXTPGridColumn *pCol = m_lstReport.GetColumns()->GetVisibleAt(j);
-			CString str = GetGroupReportText1(st, pCol->GetItemIndex(), i, bSumRecord);
+			CString str = LF->GetGroupReportText1(st, pCol->GetItemIndex(), i, bSumRecord);
 
 			//CString str = GetGroupReportText1(st, j, i, bSumRecord);
 

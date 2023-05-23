@@ -96,7 +96,7 @@ void CGenerateAppStateDlg2::RefreshList()
 		else
 			m_lstReport.SetItemText(i, 5, "");
 
-		m_lstReport.SetItemText(i, 6, ::GetDashPhoneNumber(strMainTel));
+		m_lstReport.SetItemText(i, 6, LF->GetDashPhoneNumber(strMainTel));
 		m_lstReport.SetItemText(i, 7, strShortUrl);
 		m_lstReport.SetItemText(i, 8, strGoogleID);
 		m_lstReport.SetItemText(i, 9, strGooglePW);

@@ -89,8 +89,8 @@ void CStaffPage20::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_rcp_conn_info_1");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -114,9 +114,9 @@ void CStaffPage20::RefreshList()
 		rs.GetFieldValue("dtLogout", dtLogout);
 		rs.GetFieldValue("sIP", strIP);
 
-		m_lstReport.InsertItem(i, ::GetStringFromLong(i+1));
+		m_lstReport.InsertItem(i, LF->GetStringFromLong(i+1));
 		m_lstReport.SetItemText(i, 1, strID);
-		m_lstReport.SetItemText(i, 2, ::GetStringFromLong(nWNo));
+		m_lstReport.SetItemText(i, 2, LF->GetStringFromLong(nWNo));
 		m_lstReport.SetItemText(i, 3, strName);
 
 		if(dtLogin.m_status != 2) 

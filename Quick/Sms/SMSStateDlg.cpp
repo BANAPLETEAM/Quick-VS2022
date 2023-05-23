@@ -50,7 +50,7 @@ BOOL CSMSStateDlg::OnInitDialog()
 	m_List.InsertColumn(nItem++, "예약비율", LVCFMT_RIGHT, 70);
 	m_List.InsertColumn(nItem++, "비고", LVCFMT_LEFT, 120);
 	m_List.InsertColumn(nItem++, 
-		GetCurBranchInfo()->nCompanyCode == 10 ? "3번서버" : "",LVCFMT_LEFT, 80);
+		LF->GetCurBranchInfo()->nCompanyCode == 10 ? "3번서버" : "",LVCFMT_LEFT, 80);
 
 
 	RefreshList();
@@ -87,8 +87,8 @@ void CSMSStateDlg::RefreshList()
 			m_List.InsertItem(nItem, dt.Format("%p %I:%M"));
 			m_List.SetItemText(nItem, 1, sRate);
 			m_List.SetItemText(nItem, 2, GetSMSStateString(nCount));
-			if(GetCurBranchInfo()->nCompanyCode == 10)
-				m_List.SetItemText(nItem, 3, GetMyNumberFormat(nCount));
+			if(LF->GetCurBranchInfo()->nCompanyCode == 10)
+				m_List.SetItemText(nItem, 3, LF->GetMyNumberFormat(nCount));
 
 			COleDateTime *dtNew = new COleDateTime;
 			dtNew->m_dt = dt;

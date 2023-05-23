@@ -162,7 +162,7 @@ int CardOKRequest(int nTNo,CString& strError)
 	}
 	
 	char szdata[500];
-	STRCPY(szdata, ::GetStringFromLong(nTNo), "00000000", "0", VL_END); //nTNo,CardNumber,결제금액(0, 디폴트)
+	STRCPY(szdata, LF->GetStringFromLong(nTNo), "00000000", "0", VL_END); //nTNo,CardNumber,결제금액(0, 디폴트)
 	if( !m_pMkDb4BTCard->GetSocket()->SendData(PT_REQUEST,PST_SERVER_CARD_REQUSET_OK,szdata) )
 	{
 		strError = "Server에 데이터를 보낼수 없습니다.";

@@ -92,31 +92,31 @@ int CCustomerView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LU->CreateFormViewTabControl(this, &m_wndTabControl);
 	 
-	if(POWER_CHECK(6010, "고객관리"))
+	if(LF->POWER_CHECK(6010, "고객관리"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage1), _T("고객관리"), 0, CCustomerPage1::IDD);
-	if(POWER_CHECK(6020, "우수고객조회"))
+	if(LF->POWER_CHECK(6020, "우수고객조회"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage2), _T("우수고객조회"), 0, CCustomerPage2::IDD);
-	if(POWER_CHECK(6030, "신규고객조회"))
+	if(LF->POWER_CHECK(6030, "신규고객조회"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage3), _T("신규고객조회"), 0, CCustomerPage3::IDD);
-	if(POWER_CHECK(6040, "불량고객조회"))
+	if(LF->POWER_CHECK(6040, "불량고객조회"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage4), _T("불량고객조회"), 0, CCustomerPage4::IDD);
-	if(POWER_CHECK(6045, "불량고객조회2"))
+	if(LF->POWER_CHECK(6045, "불량고객조회2"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage17), _T("불량고객조회2"), 0, CCustomerPage17::IDD);
-	if(POWER_CHECK(6050, "이용증감고객"))
+	if(LF->POWER_CHECK(6050, "이용증감고객"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage5), _T("이용증감고객"), 0, CCustomerPage5::IDD);
-	if(POWER_CHECK(6060, "그룹관리"))
+	if(LF->POWER_CHECK(6060, "그룹관리"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage11), _T("그룹관리"), 0, CCustomerPage11::IDD);
- 	if(POWER_CHECK(6070, "삭제고객"))
+ 	if(LF->POWER_CHECK(6070, "삭제고객"))
  		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage12), _T("삭제고객"), 0, CCustomerPage12::IDD);
-	if(POWER_CHECK(6080, "보장고객"))
+	if(LF->POWER_CHECK(6080, "보장고객"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage13), _T("보장고객"), 0, CCustomerPage13::IDD);
-	if(POWER_CHECK(6090, "휴면고객"))
+	if(LF->POWER_CHECK(6090, "휴면고객"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage14), _T("휴면고객"), 0, CCustomerPage14::IDD);
-	if(POWER_CHECK(6100, "중복고객"))
+	if(LF->POWER_CHECK(6100, "중복고객"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage15), _T("중복고객"), 0, CCustomerPage15::IDD);
-	if(POWER_CHECK(6110, "기간별조회"))
+	if(LF->POWER_CHECK(6110, "기간별조회"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage16), _T("기간별조회"), 0, CCustomerPage16::IDD);
-	if(POWER_CHECK(6120, "차단번호"))
+	if(LF->POWER_CHECK(6120, "차단번호"))
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CCustomerPage18), _T("차단번호"), 0, CCustomerPage18::IDD);
   
 	if(m_wndTabControl.GetItemCount() == 0)
@@ -130,7 +130,7 @@ LONG CCustomerView::OnBranchClickEvent(UINT nBranch, LPARAM lParam)
 	CXTPTabManagerItem *pItem = m_wndTabControl.GetItem(m_wndTabControl.GetCurSel());
 	CMyFormView *pView = (CMyFormView*)CWnd::FromHandle(pItem->GetHandle());
 
-	if(m_CurCodeInfo[pView] != GetCurBranchInfo())
+	if(m_CurCodeInfo[pView] != LF->GetCurBranchInfo())
 	{
 		pView->RefreshList();
 	}

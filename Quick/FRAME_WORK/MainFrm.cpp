@@ -611,7 +611,7 @@ void CMainFrame::InitControl()
 	LU->GetSimpleMap(FALSE); //맵 만들고 시작 
 
 	LU->m_pwndPaneNetwork = NULL;
-	if(m_ba.GetCount() > 1 && POWER_CHECK(1000))
+	if(m_ba.GetCount() > 1 && LF->POWER_CHECK(1000))
 	{
 		LU->m_pwndPaneNetwork = LU->m_paneManager.CreatePane(
 			IDR_PANE_NETWORK, CRect(0, 0, 120, 100), xtpPaneDockLeft);
@@ -620,7 +620,7 @@ void CMainFrame::InitControl()
 		LU->m_pwndPaneNetwork->SetIconID(3);
 	}
 
-	if(POWER_CHECK(1010))
+	if(LF->POWER_CHECK(1010))
 	{
 		LU->m_pwndPane2 = 
 			CreatePane(RUNTIME_CLASS(CConnListDlg2), 
@@ -629,7 +629,7 @@ void CMainFrame::InitControl()
 		LU->m_pwndPane2->Hide();
 	}
 
-	if(POWER_CHECK(1020))
+	if(LF->POWER_CHECK(1020))
 	{	
 		LU->m_pwndPane6 = 
 			CreatePane(RUNTIME_CLASS(CShareOrderDlg), 
@@ -638,7 +638,7 @@ void CMainFrame::InitControl()
 		LU->m_pwndPane6->Hide();
 	}
 
-	if(POWER_CHECK(1150))
+	if(LF->POWER_CHECK(1150))
 	{	
 		LU->m_pwndPane6 = 
 			CreatePane(RUNTIME_CLASS(CBranchFormView), 
@@ -673,7 +673,7 @@ void CMainFrame::InitControl()
 		LU->m_pwndPaneNetwork->Hide();
 	}
 
-	if(POWER_CHECK(1010) || POWER_CHECK(1020))
+	if(LF->POWER_CHECK(1010) || LF->POWER_CHECK(1020))
 	{
 		//SetTimer(ETC_REFRESH_TIMER_ID, 5000, NULL);
 	}
@@ -690,7 +690,7 @@ void CMainFrame::SwitchView(int nView)
 
 			case RCP_VIEW: 
 				{
-					if(!POWER_CHECK(2000, "접수화면 보기"))
+					if(!LF->POWER_CHECK(2000, "접수화면 보기"))
 						throw "접수탭 접근 권한이 없습니다.";
 
 					InitRcpViewRelation();
@@ -699,42 +699,42 @@ void CMainFrame::SwitchView(int nView)
 				break;
 
 			case REPORT_CUSTOMER_VIEW:
-				if(!POWER_CHECK(3000, "고객정산화면 보기"))
+				if(!LF->POWER_CHECK(3000, "고객정산화면 보기"))
 					throw "고객정산탭 접근 권한이 없습니다.";
 
 				LU->m_pwndCur = ReplaceView((CView**)&LU->m_pReportView, RUNTIME_CLASS(CReportView));
 				break;
 
 			case REPORT_RIDER_VIEW:
-				if(!POWER_CHECK(4000, "기사정산화면 보기"))
+				if(!LF->POWER_CHECK(4000, "기사정산화면 보기"))
 					throw "기사정산탭 접근 권한이 없습니다.";
 
 				LU->m_pwndCur = ReplaceView((CView**)&LU->m_pReportRiderView, RUNTIME_CLASS(CReportRiderView));
 				break;
 
 			case STAFF_VIEW:
-				if(!POWER_CHECK(5000, "직원화면 보기"))
+				if(!LF->POWER_CHECK(5000, "직원화면 보기"))
 					throw "직원탭 접근 권한이 없습니다.";
 
 				LU->m_pwndCur = ReplaceView((CView**)&LU->m_pStaffView, RUNTIME_CLASS(CStaffViewNew));
 				break;
 		
 			case CUSTOMER_VIEW:
-				if(!POWER_CHECK(6000, "고객화면 보기"))
+				if(!LF->POWER_CHECK(6000, "고객화면 보기"))
 					throw "고객탭 접근 권한이 없습니다.";
 
 				LU->m_pwndCur = ReplaceView((CView**)&LU->m_pCustomerView, RUNTIME_CLASS(CCustomerView));
 				break;
 
 			case INCOME_VIEW:
-				if(!POWER_CHECK(7000, "입금화면 보기"))
+				if(!LF->POWER_CHECK(7000, "입금화면 보기"))
 					throw "입금탭 접근 권한이 없습니다.";
 
 				LU->m_pwndCur = ReplaceView((CView**)&LU->m_pIncomeView, RUNTIME_CLASS(CIncomeView));
 				break;
 
 			case STAT_VIEW:
-				if(!POWER_CHECK(8000, "통계화면 보기"))
+				if(!LF->POWER_CHECK(8000, "통계화면 보기"))
 					throw "고객탭 접근 권한이 없습니다.";
 
 				LU->m_pwndCur = ReplaceView((CView**)&LU->m_pStatView, RUNTIME_CLASS(CStatView));
@@ -792,7 +792,7 @@ void CMainFrame::SwitchView(int nView)
 
 void CMainFrame::ViewCharge()
 {
-	if(!POWER_CHECK(1100, "요금창 보기", TRUE))
+	if(!LF->POWER_CHECK(1100, "요금창 보기", TRUE))
 		return;
 	
 	//CWaitCursor wait;
@@ -872,7 +872,7 @@ void CMainFrame::OnProgShare()
 
 void CMainFrame::OnViewPay()
 {
-	if(!POWER_CHECK(1100, "요금창 보기", TRUE))
+	if(!LF->POWER_CHECK(1100, "요금창 보기", TRUE))
 		return;
 
 	LU->InitChargeContainer(this);
@@ -940,12 +940,12 @@ void CMainFrame::OnViewStat()
 
 void CMainFrame::OnMenuMsg()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	CRiderMsgDlg dlg;
-	dlg.SetIntegrated(::GetCurBranchInfo()->bIntegrated);
-	dlg.SetCompanyCode(::GetCurBranchInfo()->nCompanyCode);
+	dlg.SetIntegrated(LF->GetCurBranchInfo()->bIntegrated);
+	dlg.SetCompanyCode(LF->GetCurBranchInfo()->nCompanyCode);
 	dlg.DoModal();
 }
 
@@ -958,14 +958,14 @@ void CMainFrame::OnViewCid()
 void CMainFrame::OnLogout()
 {
 	m_bNoQueryExit = TRUE;
-	RunProgram(GetMyFileName(), "/run");
+	LF->RunProgram(LF->GetMyFileName(), "/run");
 	PostMessage(WM_CLOSE, 0, 0);
 
 }
 
 void CMainFrame::OnOption()
 {
-	if(!POWER_CHECK(1300, "옵션설정창 보기", TRUE))
+	if(!LF->POWER_CHECK(1300, "옵션설정창 보기", TRUE))
 		return;
 
 	//COptionDlg dlg;
@@ -984,7 +984,7 @@ void CMainFrame::OnMessenger()
 
 void CMainFrame::OnCallCount()
 {
-	if(!POWER_CHECK(1500, "콜카운트 보기", TRUE))
+	if(!LF->POWER_CHECK(1500, "콜카운트 보기", TRUE))
 		return;
 
 	CCallCountDlg dlg;
@@ -1247,12 +1247,12 @@ void CMainFrame::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 
 void CMainFrame::OnScheduleJob()
 {
-	if(!POWER_CHECK(1960, "자동스케줄작업 보기", TRUE))
+	if(!LF->POWER_CHECK(1960, "자동스케줄작업 보기", TRUE))
 		return;
 
 	CDepositJobDlg dlg;
-	dlg.m_bIntegrated = GetCurBranchInfo()->bIntegrated;
-	dlg.m_nCompanyCode = GetCurBranchInfo()->nCompanyCode;
+	dlg.m_bIntegrated = LF->GetCurBranchInfo()->bIntegrated;
+	dlg.m_nCompanyCode = LF->GetCurBranchInfo()->nCompanyCode;
 	dlg.DoModal();
 }
 
@@ -1286,7 +1286,7 @@ void CMainFrame::OnSendMac()
 //메신저 박스를 클릭했을때 발생하는 메시지
 LRESULT CMainFrame::OnTaskbarNotifierClicked(WPARAM wParam,LPARAM lParam)
 {
-	if(!POWER_CHECK(1740, "관리자 공지사항 보기", TRUE))
+	if(!LF->POWER_CHECK(1740, "관리자 공지사항 보기", TRUE))
 		return 0;
 
 	/*
@@ -1529,7 +1529,7 @@ void CMainFrame::OnIntercallConnList()
 
 void CMainFrame::OnCidGroup()
 {
-	if(!POWER_CHECK(1730, "CID그룹 설정", TRUE))
+	if(!LF->POWER_CHECK(1730, "CID그룹 설정", TRUE))
 		return;
 
 	CCidGroupDlg dlg;
@@ -1538,7 +1538,7 @@ void CMainFrame::OnCidGroup()
 
 void CMainFrame::OnAllocateGroup()
 {
-	if(!POWER_CHECK(1780, "배차그룹관리", TRUE))
+	if(!LF->POWER_CHECK(1780, "배차그룹관리", TRUE))
 		return;
 
 	CAllocateGroupDlg dlg;
@@ -1579,7 +1579,7 @@ void CMainFrame::OnTestVirtualCid()
 
 void CMainFrame::OnAuthManage()
 {
-	if(!POWER_CHECK(1820, "인증페이지보기", TRUE))
+	if(!LF->POWER_CHECK(1820, "인증페이지보기", TRUE))
 		return;
 
 	CAuthManageDlg pDlg;
@@ -1588,7 +1588,7 @@ void CMainFrame::OnAuthManage()
 
 void CMainFrame::OnAuthManageLog()
 {
-	if(!POWER_CHECK(1820, "인증페이지보기", TRUE))
+	if(!LF->POWER_CHECK(1820, "인증페이지보기", TRUE))
 		return;
 
 	CAuthManageLogDlg pDlg;
@@ -1597,7 +1597,7 @@ void CMainFrame::OnAuthManageLog()
 
 void CMainFrame::OnAuthLog()
 {
-	if(!POWER_CHECK(1820, "인증페이지보기", TRUE))
+	if(!LF->POWER_CHECK(1820, "인증페이지보기", TRUE))
 		return;
 	
 	CAuthLogDlg pDlg;
@@ -1686,7 +1686,7 @@ void CMainFrame::OnShareReportRate()
 			return;
 		}
 
-		if(!POWER_CHECK(1760, "공유콜 정산", TRUE))
+		if(!LF->POWER_CHECK(1760, "공유콜 정산", TRUE))
 			return;
 
 		CShareReportRateDlg dlgShareRate(NULL);
@@ -1721,9 +1721,9 @@ void CMainFrame::EtcRefresh()
 
 void CMainFrame::OnRunTelclient()
 {
-	CString strPath = GetModuleFullPath();
+	CString strPath = LF->GetModuleFullPath();
 	strPath += "TelClient\\TelClient.exe";
-	if(!RunProgram(strPath, ""))
+	if(!LF->RunProgram(strPath, ""))
 	{
 		MessageBox("텔 클라이언트 프로그램을 찾을 수 없습니다.", "프로그램 실행 오류", MB_ICONEXCLAMATION);
 	}
@@ -2094,7 +2094,7 @@ void CMainFrame::OnShareReportBranchSet()
 	}
 	*/
 
-	if(!POWER_CHECK(1760, "공유콜 정산", TRUE))
+	if(!LF->POWER_CHECK(1760, "공유콜 정산", TRUE))
 		return;
 
 	CShareReportBranchSetDlg dlg;
@@ -2146,7 +2146,7 @@ void CMainFrame::OnSendBulkSms()
 
 void CMainFrame::OnMoveRider()
 {
-	if(POWER_CHECK(1795, "기사이동(사번변경)", TRUE)) {	
+	if(LF->POWER_CHECK(1795, "기사이동(사번변경)", TRUE)) {	
 		CMoveRiderNewDlg dlg;
 		dlg.DoModal();
 	}
@@ -2156,12 +2156,12 @@ void CMainFrame::OnBranchTransfer()
 {
 	bool bOpen = FALSE;
 
-	if(GetCurBranchInfo()->bIntegrated == 1) 
+	if(LF->GetCurBranchInfo()->bIntegrated == 1) 
 	{
 		MessageBox("통합 모드에서 지원되지 않는 작업입니다", "확인", MB_ICONINFORMATION);
 		bOpen = FALSE;
 	}
-	else if(GetCurBranchInfo()->nCompanyCode != m_ui.nCompany || m_ui.nRole != 0)
+	else if(LF->GetCurBranchInfo()->nCompanyCode != m_ui.nCompany || m_ui.nRole != 0)
 	{
 		MessageBox("지사 관리자만 이용 가능한 메뉴 입니다.", "확인", MB_ICONINFORMATION);
 		bOpen = FALSE;
@@ -2212,7 +2212,7 @@ void CMainFrame::InitRcpViewRelation()
 		//LU->GetRcpView()->m_pwndTaskPanel = LU->m_pwndTaskPanel;
 		//LU->GetRcpView()->m_pwndPaneNetwork = LU->m_pwndPaneNetwork;
 
-		if(POWER_CHECK(1030))
+		if(LF->POWER_CHECK(1030))
 		{	
 			LU->m_pwndPane5 = 
 				CreatePane(RUNTIME_CLASS(CAllocatePaneDlg), 
@@ -2243,7 +2243,7 @@ void CMainFrame::InitRcpViewRelation()
 
 		CheckShareBasicRate();
 
-		if(IsRequestOver15Day(m_ci.m_nCompanyCode))
+		if(LF->IsRequestOver15Day(m_ci.m_nCompanyCode))
 		{
 			CShareTranferRequestDlg dlg;
 
@@ -2273,7 +2273,7 @@ void CMainFrame::CheckShareBasicRate()
 			if(nShareBasicRate > nShareBalance)
 			{
 				CString strTemp;
-				strTemp.Format("현재충전금이 %s원으로\r\n최소기준금액 %s원보다\r\n적어 공유가 안될수 있습니다.", ::GetMyNumberFormat(nShareBalance), ::GetMyNumberFormat(nShareBasicRate));
+				strTemp.Format("현재충전금이 %s원으로\r\n최소기준금액 %s원보다\r\n적어 공유가 안될수 있습니다.", LF->GetMyNumberFormat(nShareBalance), LF->GetMyNumberFormat(nShareBasicRate));
 				MessageBox(strTemp, "확인", MB_ICONINFORMATION);
 			}
 		}
@@ -2387,7 +2387,7 @@ LONG CMainFrame::OnRcpCopyDataDirect(WPARAM wParam, LPARAM lParam)
 
 void CMainFrame::OnOrderRequest()
 {
-	if(!POWER_CHECK(1520, "오더수정요청창 보기"))
+	if(!LF->POWER_CHECK(1520, "오더수정요청창 보기"))
 		return;
 
 	CREATE_MODALESS(COrderChangeRequestDlg, this);
@@ -2396,7 +2396,7 @@ void CMainFrame::OnOrderRequest()
 
 void CMainFrame::OnOtherRiderIncome()
 {
-	if(!POWER_CHECK(1530, "타기사충전"))
+	if(!LF->POWER_CHECK(1530, "타기사충전"))
 		return;
 
 	CREATE_AND_SHOW_MODALESS(COtherRiderTransferDlg, this);
@@ -2485,7 +2485,7 @@ void CMainFrame::OnGetOff()
 
 void CMainFrame::ShowTrasferSmsToShaerBalance()
 { 
-	if(!POWER_CHECK(1540, "SMS<->공유정산금 이체 보기", TRUE))
+	if(!LF->POWER_CHECK(1540, "SMS<->공유정산금 이체 보기", TRUE))
 		return; 
 
 	CREATE_MODALESS(CTransferSmsBetweenShareBalanceDlg, this);
@@ -2560,5 +2560,5 @@ void CMainFrame::OnGeneralOpenAPIRegister()
 
 void CMainFrame::OnRunQ5()
 {
-	RunProgram(GetModuleFullPath() + "smartq5_update.exe", "/run");
+	LF->RunProgram(LF->GetModuleFullPath() + "smartq5_update.exe", "/run");
 }

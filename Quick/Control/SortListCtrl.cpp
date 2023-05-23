@@ -264,7 +264,7 @@ int CALLBACK CSortListCtrl::CompareFunction( LPARAM lParam1, LPARAM lParam2, LPA
 	ASSERT_VALID_STRING( pszText1 );
 	ASSERT_VALID_STRING( pszText2 );
 
-	if( IsNumber( pszText1 ) )
+	if(LF->IsNumber( pszText1 ) )
 		return pListCtrl->m_bSortAscending ? NumberCompare( pszText1, pszText2 ) : NumberCompare( pszText2, pszText1 );
 	else if( IsDate( pszText1 ) )
 		return pListCtrl->m_bSortAscending ? DateCompare( pszText1, pszText2 ) : DateCompare( pszText2, pszText1 );

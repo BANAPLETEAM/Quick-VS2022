@@ -87,7 +87,7 @@ BOOL CQuickApp::InitInstance()
 	LU->CheckDebugLogMode();
 
 	CString strSubKey = "Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
-	::WriteRegistryInt(HKEY_CURRENT_USER, strSubKey, "Quick.exe", 11000);
+	LF->WriteRegistryInt(HKEY_CURRENT_USER, strSubKey, "Quick.exe", 11000);
 
 	if(!LU->SetServerInfo())
 		return FALSE;
@@ -121,10 +121,7 @@ BOOL CQuickApp::InitInstance()
 	LU->SetSystemTimeLikeServer();
 
 #ifndef _DEBUG
-//	if(m_ui.bBlankPassword)
-//		SetCrashHandlerFilter(&TheCrashHandlerFunction);
-//	else
-		SetCrashHandlerFilter(&TheCrashHandlerNormalFunction);
+	SetCrashHandlerFilter(&TheCrashHandlerNormalFunction);
 #endif 
 
 	if(!LU->ShowShareReportDlg())

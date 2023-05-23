@@ -291,7 +291,7 @@ void CConsignLinkDlg::RcpViewShow()
 
 	if(m_pRcpDlgWndFront == NULL)
 	{
-		CBranchInfo *pConsignFrontBi = GetBranchInfo(m_nCompany);
+		CBranchInfo *pConsignFrontBi = LF->GetBranchInfo(m_nCompany);
 		m_pRcpDlgWndFront  = LU->GetRcpView()->CreateRcpDlg(pConsignFrontBi, "", m_nOrderTNo,FALSE, "", FALSE, -1, 0, 0, 0,"",0,0,TRUE);
 		m_pRcpDlgWndFront->ShowWindow(SW_HIDE);
 	}
@@ -304,10 +304,10 @@ void CConsignLinkDlg::RcpViewShow()
 
 	if(m_pRcpDlgWndFront)
 	{
-		m_edtStartCharge.SetWindowText(GetMyNumberFormatEdit(m_pRcpDlgWndFront->m_EDT_CHARGE_SUM.pEdit));
-		m_edtTransCharge.SetWindowText(GetMyNumberFormatEdit(m_pRcpDlgWndFront->m_EDT_CHARGE_TRANS.pEdit));
-		m_edtDestCharge.SetWindowText(GetMyNumberFormatEdit(&m_pRcpDlgWndFront->m_edtConBackOrderCharge));
-		m_edtCommissionCharge.SetWindowText(GetMyNumberFormatEdit(&m_pRcpDlgWndFront->m_edtConCommissionCharge));
+		m_edtStartCharge.SetWindowText(LF->GetMyNumberFormatEdit(m_pRcpDlgWndFront->m_EDT_CHARGE_SUM.pEdit));
+		m_edtTransCharge.SetWindowText(LF->GetMyNumberFormatEdit(m_pRcpDlgWndFront->m_EDT_CHARGE_TRANS.pEdit));
+		m_edtDestCharge.SetWindowText(LF->GetMyNumberFormatEdit(&m_pRcpDlgWndFront->m_edtConBackOrderCharge));
+		m_edtCommissionCharge.SetWindowText(LF->GetMyNumberFormatEdit(&m_pRcpDlgWndFront->m_edtConCommissionCharge));
 	}
 	RefreshCharge();
 
@@ -376,10 +376,10 @@ void CConsignLinkDlg::EditRefreshOrder()
 
 	if(m_pRcpDlgWndFront)
 	{
-		m_edtStartCharge.SetWindowText(GetMyNumberFormatEdit(m_pRcpDlgWndFront->m_EDT_CHARGE_SUM.pEdit));
-		m_edtTransCharge.SetWindowText(GetMyNumberFormatEdit(m_pRcpDlgWndFront->m_EDT_CHARGE_TRANS.pEdit));
-		m_edtDestCharge.SetWindowText(GetMyNumberFormatEdit(&m_pRcpDlgWndFront->m_edtConBackOrderCharge));
-		m_edtCommissionCharge.SetWindowText(GetMyNumberFormatEdit(&m_pRcpDlgWndFront->m_edtConCommissionCharge));
+		m_edtStartCharge.SetWindowText(LF->GetMyNumberFormatEdit(m_pRcpDlgWndFront->m_EDT_CHARGE_SUM.pEdit));
+		m_edtTransCharge.SetWindowText(LF->GetMyNumberFormatEdit(m_pRcpDlgWndFront->m_EDT_CHARGE_TRANS.pEdit));
+		m_edtDestCharge.SetWindowText(LF->GetMyNumberFormatEdit(&m_pRcpDlgWndFront->m_edtConBackOrderCharge));
+		m_edtCommissionCharge.SetWindowText(LF->GetMyNumberFormatEdit(&m_pRcpDlgWndFront->m_edtConCommissionCharge));
 	}
 	RefreshCharge();
 
@@ -460,10 +460,10 @@ void CConsignLinkDlg::OnBnClickedBusInfoBtn()
 			if(m_dtStart > m_dtDest)
 				throw "출발시간이 도착시간에 비해 더큽니다.";
 
-			if(GetEditString(&m_edtBusName).GetLength() <= 0 )
+			if(LF->GetEditString(&m_edtBusName).GetLength() <= 0 )
 				throw "버스명이나  KTX 번호를 입력하세요";
 
-			if(GetEditString(&m_edtInvoiceNo).GetLength() <= 0 )
+			if(LF->GetEditString(&m_edtInvoiceNo).GetLength() <= 0 )
 				throw "송장번호를 입력하세요";
 
 
@@ -477,14 +477,14 @@ void CConsignLinkDlg::OnBnClickedBusInfoBtn()
 			pCmd.AddParameter(m_nCompany);
 			pCmd.AddParameter(m_nOrderTNo);
 			pCmd.AddParameter(m_nConsignTNo);
-			pCmd.AddParameter(GetEditString(&m_edtTitleStartTerminal));
-			pCmd.AddParameter(GetEditString(&m_edtTitleDestTerminal));
-			pCmd.AddParameter(GetEditString(&m_edtBusName));
-			pCmd.AddParameter(GetEditString(&m_edtBusNo));
-			pCmd.AddParameter(GetEditString(&m_edtInvoiceNo));
+			pCmd.AddParameter(LF->GetEditString(&m_edtTitleStartTerminal));
+			pCmd.AddParameter(LF->GetEditString(&m_edtTitleDestTerminal));
+			pCmd.AddParameter(LF->GetEditString(&m_edtBusName));
+			pCmd.AddParameter(LF->GetEditString(&m_edtBusNo));
+			pCmd.AddParameter(LF->GetEditString(&m_edtInvoiceNo));
 			pCmd.AddParameter(m_dtStart);
 			pCmd.AddParameter(m_dtDest);
-			pCmd.AddParameter(GetEditString(&m_edtEtc));
+			pCmd.AddParameter(LF->GetEditString(&m_edtEtc));
 			pCmd.AddParameter(m_ui.strName);
 			pCmd.AddParameter(m_ui.nWNo);
 			CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -576,12 +576,12 @@ void CConsignLinkDlg::RefreshDestOrder(long nRealConsignTNo)
 		m_CompanyOrderList.MyAddItem(nCol++, m_nConsignTNo,												"오더번호", 70, FALSE, DT_LEFT);
 		m_CompanyOrderList.MyAddItem(nCol++, sSName,												"출발지", 90, FALSE, DT_LEFT);
 		m_CompanyOrderList.MyAddItem(nCol++, sDName,												"도착지", 90, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, GetStateString(nState),							"상태", 50, FALSE, DT_LEFT);
+		m_CompanyOrderList.MyAddItem(nCol++, LF->GetStateString(nState),							"상태", 50, FALSE, DT_LEFT);
 		m_CompanyOrderList.MyAddItem(nCol++, dt1.Format("%Y-%m-%d %H:%M"),		"접수", 120, FALSE, DT_LEFT);
 		m_CompanyOrderList.MyAddItem(nCol++, nState >=30 ? dt3.Format("%H:%M") : "",	"배차", 60, FALSE, DT_LEFT);
 		m_CompanyOrderList.MyAddItem(nCol++, nState >=30 ? dt4.Format("%H:%M") : "",	"픽업", 60, FALSE, DT_LEFT);
 		m_CompanyOrderList.MyAddItem(nCol++, nState >=35 ? dtFinal.Format("%H:%M") : "", "종료", 60, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, GetMyNumberFormat(nChargeSum),		"금액", 60, FALSE, DT_LEFT);
+		m_CompanyOrderList.MyAddItem(nCol++, LF->GetMyNumberFormat(nChargeSum),		"금액", 60, FALSE, DT_LEFT);
 		m_CompanyOrderList.MyAddItem(nCol++, nRNo,													"기사", 50, FALSE, DT_LEFT);
 		m_CompanyOrderList.MyAddItem(nCol++, sWName,										"접수자", 60, FALSE, DT_LEFT);
 		m_CompanyOrderList.EndItem();
@@ -823,14 +823,14 @@ void CConsignLinkDlg::RefreshList()
 		//m_List.MyAddItem(nCol++,				sDestNearKm,				"거리", 60,FALSE, DT_LEFT );
 
 
-		m_List.MyAddItem(nCol++,	::GetMyNumberFormat(nCharge), "금액", 80,FALSE, DT_LEFT );
+		m_List.MyAddItem(nCol++,	LF->GetMyNumberFormat(nCharge), "금액", 80,FALSE, DT_LEFT );
 		m_List.MyAddItem(nCol++,				strStartTime,					"첫차",  50,FALSE, DT_LEFT );
 		m_List.MyAddItem(nCol++,				strDestTime,					"막차",  50,FALSE, DT_LEFT );		
 		m_List.MyAddItem(nCol++,				GetViewTime(nElapsedTime),					"간격",  50,FALSE, DT_LEFT );		
 
-		m_List.MyAddItem(nCol++,	::GetMyNumberFormat(nStartJumsu), "출점", 80,FALSE, DT_LEFT );
-		m_List.MyAddItem(nCol++,	::GetMyNumberFormat(nDestJumsu), "도점", 80,FALSE, DT_LEFT );
-		m_List.MyAddItem(nCol++,	::GetMyNumberFormat(nTotalRank), "총점", 80,FALSE, DT_LEFT );
+		m_List.MyAddItem(nCol++,	LF->GetMyNumberFormat(nStartJumsu), "출점", 80,FALSE, DT_LEFT );
+		m_List.MyAddItem(nCol++,	LF->GetMyNumberFormat(nDestJumsu), "도점", 80,FALSE, DT_LEFT );
+		m_List.MyAddItem(nCol++,	LF->GetMyNumberFormat(nTotalRank), "총점", 80,FALSE, DT_LEFT );
 
 		
 		//m_List.MyAddItem(nCol++,	 GetViewTime(nElapsedTime), "경과시간", 70,FALSE, DT_LEFT );
@@ -1225,8 +1225,8 @@ void CConsignLinkDlg::MakePlaceInfo2(CRcpDlg *pRcpDlg, BOOL bStart)
 				strTerminal, FALSE, "", 0, FALSE, 0, 0, 0 , FALSE);
 			pRcpDlg->m_pDest->SetCompany(strTerminal);
 			pRcpDlg->m_pDest->SetDisplayDong(pPoi->GetDong());
-			pRcpDlg->m_EDT_CHARGE_TRANS.pEdit->SetWindowText(GetMyNumberFormat(pListInfo->nTerminalCharge ));
-			pRcpDlg->m_edtConCommissionCharge.SetWindowText(GetMyNumberFormatEdit(&m_edtCommissionCharge));
+			pRcpDlg->m_EDT_CHARGE_TRANS.pEdit->SetWindowText(LF->GetMyNumberFormat(pListInfo->nTerminalCharge ));
+			pRcpDlg->m_edtConCommissionCharge.SetWindowText(LF->GetMyNumberFormatEdit(&m_edtCommissionCharge));
 			pRcpDlg->SetConsignMode(TRUE);
 		}
 	
@@ -1280,7 +1280,7 @@ void CConsignLinkDlg::ConsignListSelect(BOOL bListSelect,  int nModifySelectRow)
 	m_edtTitleDestTerminalLink.SetWindowText(pListInfo->strDestTerminalName);
 	m_edtTitleStart.SetWindowText(m_pRcpDlgWndFront->m_pStart->GetPOI()->GetDong());
 	m_edtTitleDest.SetWindowText(m_pRcpDlgWndBack->m_pDest->GetPOI()->GetDong());	
-	m_edtTransCharge.SetWindowText(GetMyNumberFormat(pListInfo->nTerminalCharge));
+	m_edtTransCharge.SetWindowText(LF->GetMyNumberFormat(pListInfo->nTerminalCharge));
 	//m_nTerminalTempWayID = pListInfo->nCID;			
 
 	if(!cashCharge.bLoad)	{
@@ -1319,20 +1319,20 @@ void CConsignLinkDlg::ConsignListSelect(BOOL bListSelect,  int nModifySelectRow)
 
 	if(bListSelect && nModifySelectRow <= 0) // 수정한거에 대해서는 자동요금 계산안하게
 	{
-		m_edtStartCharge.SetWindowText(GetMyNumberFormat(cashCharge.nStartCharge));
+		m_edtStartCharge.SetWindowText(LF->GetMyNumberFormat(cashCharge.nStartCharge));
 		m_stcFrontCharge.SetWindowText(cashCharge.bStartNomalCharge ? "정상요금" : "요금문의");
-		m_edtDestCharge.SetWindowText(GetMyNumberFormat(cashCharge.nDestCharge));
+		m_edtDestCharge.SetWindowText(LF->GetMyNumberFormat(cashCharge.nDestCharge));
 		m_stcBackCharge.SetWindowText(cashCharge.bDestNomalCharge ? "정상요금" : "요금문의");
 		
-		m_edtTransCharge.SetWindowText(GetMyNumberFormat(cashCharge.nTerminalCharge));
-		m_edtTempCharge.SetWindowText(GetMyNumberFormat(cashCharge.nTempCharge));
-		m_edtTotalCharge.SetWindowText(GetMyNumberFormat(
-			cashCharge.nTempCharge +GetMyUnNumberFormatEdit(&m_edtCommissionCharge)));
+		m_edtTransCharge.SetWindowText(LF->GetMyNumberFormat(cashCharge.nTerminalCharge));
+		m_edtTempCharge.SetWindowText(LF->GetMyNumberFormat(cashCharge.nTempCharge));
+		m_edtTotalCharge.SetWindowText(LF->GetMyNumberFormat(
+			cashCharge.nTempCharge +LF->GetMyUnNumberFormatEdit(&m_edtCommissionCharge)));
 
 		FrontOrderEtcMake(); // 비고를 만든다.
 		m_pRcpDlgWndFront->m_nTerminalWayID = pListInfo->nCID;
-		m_pRcpDlgWndFront->m_edtConBackOrderCharge.SetWindowText(GetMyNumberFormat(cashCharge.nDestCharge));
-		m_pRcpDlgWndFront->m_edtConTotalCharge.SetWindowText(GetMyNumberFormat(cashCharge.nTotalCharge));
+		m_pRcpDlgWndFront->m_edtConBackOrderCharge.SetWindowText(LF->GetMyNumberFormat(cashCharge.nDestCharge));
+		m_pRcpDlgWndFront->m_edtConTotalCharge.SetWindowText(LF->GetMyNumberFormat(cashCharge.nTotalCharge));
 	}
 
 
@@ -1342,12 +1342,12 @@ void CConsignLinkDlg::RefreshCharge()
 {
 
 	long nStartCharge = 0, nDestCharge = 0, nTransCharge = 0, nCommissionCharge = 0, nTempCharge;
-	nStartCharge = GetMyUnNumberFormatEdit(&m_edtStartCharge);
-	nDestCharge = GetMyUnNumberFormatEdit(&m_edtDestCharge);
-	nTransCharge = GetMyUnNumberFormatEdit(&m_edtTransCharge);
+	nStartCharge = LF->GetMyUnNumberFormatEdit(&m_edtStartCharge);
+	nDestCharge = LF->GetMyUnNumberFormatEdit(&m_edtDestCharge);
+	nTransCharge = LF->GetMyUnNumberFormatEdit(&m_edtTransCharge);
 	nTempCharge = nStartCharge + nDestCharge + nTransCharge;
-	m_edtTempCharge.SetWindowText(GetMyNumberFormat(nTempCharge));
-	m_edtTotalCharge.SetWindowText(GetMyNumberFormat(nTempCharge + GetMyUnNumberFormatEdit(&m_edtCommissionCharge)));
+	m_edtTempCharge.SetWindowText(LF->GetMyNumberFormat(nTempCharge));
+	m_edtTotalCharge.SetWindowText(LF->GetMyNumberFormat(nTempCharge + LF->GetMyUnNumberFormatEdit(&m_edtCommissionCharge)));
 
 }
 
@@ -1355,8 +1355,8 @@ void CConsignLinkDlg::RefreshCharge()
 void CConsignLinkDlg::OnEnChangeCommissionChargeEdit()
 {
 	RefreshCharge();
-	m_pRcpDlgWndFront->m_edtConCommissionCharge.SetWindowText(GetMyNumberFormatEdit(&m_edtCommissionCharge));
-	m_pRcpDlgWndFront->m_edtConTotalCharge.SetWindowText(GetMyNumberFormatEdit(&m_edtTotalCharge));
+	m_pRcpDlgWndFront->m_edtConCommissionCharge.SetWindowText(LF->GetMyNumberFormatEdit(&m_edtCommissionCharge));
+	m_pRcpDlgWndFront->m_edtConTotalCharge.SetWindowText(LF->GetMyNumberFormatEdit(&m_edtTotalCharge));
 	
 }
 
@@ -1398,13 +1398,13 @@ void CConsignLinkDlg::OnNMReportItemCelChanged(NMHDR *pNMHDR, LRESULT *pResult)
 void CConsignLinkDlg:: CommissionEditFocus()
 {
 	m_edtCommissionCharge.SetFocus();
-	m_edtCommissionCharge.SetSel(0,GetEditString(&m_edtCommissionCharge).GetLength(),FALSE);
+	m_edtCommissionCharge.SetSel(0,LF->GetEditString(&m_edtCommissionCharge).GetLength(),FALSE);
 
 }
 void CConsignLinkDlg:: BusNameEditFocus()
 {
 	m_edtBusName.SetFocus();
-	m_edtBusName.SetSel(0,GetEditString(&m_edtBusName).GetLength(),FALSE);
+	m_edtBusName.SetSel(0,LF->GetEditString(&m_edtBusName).GetLength(),FALSE);
 }
 
 

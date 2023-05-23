@@ -78,8 +78,8 @@ void CSearchRegionDlg::RefreshList()
 		for(it = vecDong.begin(); it != vecDong.end(); it++)
 		{
 			m_List.InsertItem(i, (*it)->GetRegionName());
-			m_List.SetItemText(i, 1, ::GetStringFromLong((*it)->GetPosX()));
-			m_List.SetItemText(i, 2, ::GetStringFromLong((*it)->GetPosY()));
+			m_List.SetItemText(i, 1, LF->GetStringFromLong((*it)->GetPosX()));
+			m_List.SetItemText(i, 2, LF->GetStringFromLong((*it)->GetPosY()));
 			m_List.SetItemText(i, 3, (*it)->GetLi());
 			m_List.SetItemData(i, (*it)->GetDongID(!m_bReturnLiID));
 			i++;

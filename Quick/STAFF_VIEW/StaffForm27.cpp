@@ -77,8 +77,8 @@ void CStaffForm27::OnBnClickedRefreshBtn()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_company_info_empins_biz_no_branch_1");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	
 
 	int col_index = 0;

@@ -87,36 +87,11 @@ void CEmployMentInsuranceDlg::OnBnClickedButtonSave()
 	}
 }
 
-
 BOOL CEmployMentInsuranceDlg::CheckSave(bool msg_box)
 {
 	CString strBizNo, strOwner, strTel, strLocation, strImage, strBizName, strOwnerSSN;
 	int not_use_emp_ins_biz_no = 0;
 	return CheckSave(strBizNo, strOwner, strTel, strLocation, strImage, strBizName, strOwnerSSN, not_use_emp_ins_biz_no, msg_box);
-}
-
-bool CEmployMentInsuranceDlg::IsHangul(const char *text)
-{	
-	bool hangul = true;
-
-	for (int i = 0; i < strlen(text); i++)
-	{
-		if ((text[i] & 0x80) != 0x80)
-		{
-			hangul = false;
-		}
-	}
-	return hangul;
-}
-
-bool CEmployMentInsuranceDlg::IsEnglish(const char *text)
-{
-	for (int i = 0; i < (int)strlen(text); ++i)	{
-		if(isalpha(text[i]) <= 0 && text[i] != ' ')
-			return false;
-	}
-
-	return true;
 }
 
 BOOL CEmployMentInsuranceDlg::CheckSave(CString &strBizNo, CString &strOwner, CString &strTel, CString &strLocation, CString &strImage, CString &strBizName, CString &strOwnerSSN, int &not_use_emp_ins_biz_no, bool msg_box)
@@ -126,12 +101,12 @@ BOOL CEmployMentInsuranceDlg::CheckSave(CString &strBizNo, CString &strOwner, CS
 		not_use_emp_ins_biz_no = 1;
 	}
 	else {
-		strBizNo = ::GetStringFromEdit(&m_edtCompanyBizNo);
-		strOwner = ::GetStringFromEdit(&m_edtCompanyOwner);
-		strTel = ::GetStringFromEdit(&m_edtCompanyTel);
+		strBizNo = LF->GetStringFromEdit(&m_edtCompanyBizNo);
+		strOwner = LF->GetStringFromEdit(&m_edtCompanyOwner);
+		strTel = LF->GetStringFromEdit(&m_edtCompanyTel);
 		strLocation = m_strBizAddress;
-		strBizName = ::GetStringFromEdit(&m_edtCompanyBizName);
-		strOwnerSSN = ::GetStringFromEdit(&m_edtOwnerSSN);
+		strBizName = LF->GetStringFromEdit(&m_edtCompanyBizName);
+		strOwnerSSN = LF->GetStringFromEdit(&m_edtOwnerSSN);
 		strImage = m_strBizNoImage;
 	}
 
@@ -170,7 +145,7 @@ BOOL CEmployMentInsuranceDlg::CheckSave(CString &strBizNo, CString &strOwner, CS
 			return FALSE;
 		}		
 
-		if (!IsHangul(strOwner) && !IsEnglish(strOwner)){
+		if (!LF->IsHangul(strOwner) && !LF->IsEnglish(strOwner)){
 			if(msg_box)
 				MessageBox("대표자는 한글 혹은 영문으로만 입력해 주세요", "확인", MB_ICONINFORMATION);
 			return FALSE;
@@ -314,14 +289,14 @@ void CEmployMentInsuranceDlg::UploadImage(CString &strResult)
 {
 
 	CWebUploadDlg dlg; 
-	dlg.m_strURL = ::GetWebUploadUrl("COMPANY_BIZ_DOCUMENT", 0);
+	dlg.m_strURL = LF->GetWebUploadUrl("COMPANY_BIZ_DOCUMENT", 0);
 
 	if(dlg.m_strURL.IsEmpty()) {
 		::MessageBox(NULL, "업로드 정보를 확인 할 수 없습니다", "확인", MB_ICONINFORMATION);
 		return;
 	}
 
-	CString strTemp = "biz_" + ::GetStringFromLong(GetTickCount()) + ::GetStringFromLong(GetTickCount());
+	CString strTemp = "biz_" + LF->GetStringFromLong(GetTickCount()) + LF->GetStringFromLong(GetTickCount());
 
 	dlg.m_strURL += "&system=companybizdoc/daeri";	
 	dlg.m_strURL += "&fileName=" + strTemp;
@@ -424,7 +399,7 @@ void CEmployMentInsuranceDlg::OnBnClickedApplyAllBtn()
 		return;
 	}
 
-	if (MessageBox("[" + ::GetStringFromLong(count) + "]개의 지사에 적용 하시겠습니까?", "확인", MB_OKCANCEL) != IDOK) {
+	if (MessageBox("[" + LF->GetStringFromLong(count) + "]개의 지사에 적용 하시겠습니까?", "확인", MB_OKCANCEL) != IDOK) {
 		return;
 	}
 
@@ -438,7 +413,7 @@ void CEmployMentInsuranceDlg::OnBnClickedApplyAllBtn()
 	}
 
 	if (success_count > 0) {
-		MessageBox("성공적으로 [" + ::GetStringFromLong(count) + "]개의 지사에 적용되었습니다.", "확인", MB_ICONINFORMATION);
+		MessageBox("성공적으로 [" + LF->GetStringFromLong(count) + "]개의 지사에 적용되었습니다.", "확인", MB_ICONINFORMATION);
 		OnOK();
 	}	
 }

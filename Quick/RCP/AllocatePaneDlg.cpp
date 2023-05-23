@@ -503,9 +503,9 @@ void CAllocatePaneDlg::SetCustomerRefresh()
 		CString strMsg;
 		strMsg = "해당 아이템의 상태가 다른 사람에 의해서 변경되었습니다.\n";
 		strMsg += "확인 하시기 바랍니다.\n\n\n상태: ";
-		strMsg += GetStateString(m_nState);
+		strMsg += LF->GetStateString(m_nState);
 		strMsg += " --> ";
-		strMsg += GetStateString(nState);
+		strMsg += LF->GetStateString(nState);
 		MessageBox(strMsg, "확인", MB_ICONINFORMATION);
 		LU->GetRcpView()->RefreshList("", "", NULL, LU->GetRcpView()->m_nRefreshType);
 		LU->m_pwndPane5->Hide();
@@ -514,12 +514,12 @@ void CAllocatePaneDlg::SetCustomerRefresh()
 	m_nState = nState;
 
 	m_edtTNo.SetWindowText(itoa(nTNo, buffer, 10));
-	m_edtState.SetWindowText(GetStateString(nState));
+	m_edtState.SetWindowText(LF->GetStateString(nState));
 	m_edtWNo.SetWindowText(strWName);
 	m_edtTime.SetWindowText(dt1.Format("%H:%M:%S"));
 
 	CBitmap bitmap;
-	GetBitmapFromImageList(LU->GetRcpView()->GetImageList(), GetImageNumber(nState), bitmap);
+	GetBitmapFromImageList(LU->GetRcpView()->GetImageList(), LF->GetImageNumber(nState), bitmap);
 	m_picState.SetBitmap((HBITMAP)bitmap.GetSafeHandle());
 
 
@@ -528,7 +528,7 @@ void CAllocatePaneDlg::SetCustomerRefresh()
 	m_edtODONG.SetWindowText(strOrderDong);
 	m_edtOName.SetWindowText(m_bShareOrder ? "N/A" : strOrderName);	
 	m_edtOTel.SetWindowText(m_bShareOrder ? "N/A" : 
-		BetweenSetSlash(GetDashPhoneNumber(strOrderPhone), GetDashPhoneNumber(strOrderMP)));
+		BetweenSetSlash(LF->GetDashPhoneNumber(strOrderPhone), LF->GetDashPhoneNumber(strOrderMP)));
 
 	m_edtOMemo.SetWindowText(strOrderMemo);	
 	m_edtOEtc.SetWindowText(m_bShareOrder ? "N/A" : BetweenSetSlash(strOrderDepart, strOrderManager));
@@ -543,7 +543,7 @@ void CAllocatePaneDlg::SetCustomerRefresh()
 	m_edtSDONG.SetWindowText(strStartDong);
 	m_edtSName.SetWindowText(m_bShareOrder ? "N/A" : strStartName);	
 	m_edtSTel.SetWindowText(m_bShareOrder ? "N/A" : 
-		BetweenSetSlash(GetDashPhoneNumber(strStartPhone), GetDashPhoneNumber(strStartMP)));	
+		BetweenSetSlash(LF->GetDashPhoneNumber(strStartPhone), LF->GetDashPhoneNumber(strStartMP)));	
 	m_edtSEtc.SetWindowText(m_bShareOrder ? "N/A" : BetweenSetSlash(strStartDepart,strStartManager) );
 	m_edtSDetail.SetWindowText(strStartDetail);
 
@@ -554,7 +554,7 @@ void CAllocatePaneDlg::SetCustomerRefresh()
 	m_edtDDONG.SetWindowText(strDestDong);
 	m_edtDName.SetWindowText(m_bShareOrder ? "N/A" : strDestName);
 	m_edtDTel.SetWindowText(m_bShareOrder ? "N/A" : 
-		BetweenSetSlash(GetDashPhoneNumber(strDestPhone), GetDashPhoneNumber(strDestMP)));	
+		BetweenSetSlash(LF->GetDashPhoneNumber(strDestPhone), LF->GetDashPhoneNumber(strDestMP)));	
 	m_edtDEtc.SetWindowText(m_bShareOrder ? "N/A" : BetweenSetSlash(strDestDepart,strDestManager));
 	m_edtDDetail.SetWindowText(strDestDetail);	
 	
@@ -562,11 +562,11 @@ void CAllocatePaneDlg::SetCustomerRefresh()
 	m_edtEtc.SetWindowText(strEtc);
 
 	//요금관련
-	strChargeAdd = ::GetMyNumberFormat(nChargeAdd);
-	strChargeBasic = ::GetMyNumberFormat(nChargeBasic);
-	strChargeTrans = ::GetMyNumberFormat(nChargeTrans);
-	strChargeDis = ::GetMyNumberFormat(nChargeDis);
-	strChargeSum = ::GetMyNumberFormat(nChargeSum);
+	strChargeAdd = LF->GetMyNumberFormat(nChargeAdd);
+	strChargeBasic = LF->GetMyNumberFormat(nChargeBasic);
+	strChargeTrans = LF->GetMyNumberFormat(nChargeTrans);
+	strChargeDis = LF->GetMyNumberFormat(nChargeDis);
+	strChargeSum = LF->GetMyNumberFormat(nChargeSum);
 	CString strPay;
 	if(nChargeBasic > 0) strPay = "기본:" + strChargeBasic;
 	if(nChargeAdd > 0) strPay += " +추가:" + strChargeAdd;
@@ -575,21 +575,21 @@ void CAllocatePaneDlg::SetCustomerRefresh()
 
 	m_edtChargeInfo.SetWindowText(strPay);
 	m_edtChargeSum.SetWindowText(strChargeSum);
-	m_edtDeposit.SetWindowText(::GetMyNumberFormat(nDeposit));	
+	m_edtDeposit.SetWindowText(LF->GetMyNumberFormat(nDeposit));	
 
 	 
 	CString strOption;
 	if(nPayType > 0)
-		strOption += CString("[") + GetPayTypeFromLong(nPayType) + "]";
+		strOption += CString("[") + LF->GetPayTypeFromLong(nPayType) + "]";
 
 	if(nCarType > 0)
-		strOption += CString("[") + GetCarTypeFromLong(nCarType) + "]";
+		strOption += CString("[") + LF->GetCarTypeFromLong(nCarType) + "]";
 
 	if(nWayType > 0)
-		strOption += CString("[") + GetWayTypeFromLong(nWayType) + "]";
+		strOption += CString("[") + LF->GetWayTypeFromLong(nWayType) + "]";
 
 	if(nRunType > 0)
-		strOption += CString("[") + GetRunTypeFromLong(nRunType) + "]";
+		strOption += CString("[") + LF->GetRunTypeFromLong(nRunType) + "]";
 
 	if(nAllocateGroup > 0)
 		strOption += CString("[배차") + itoa(nAllocateGroup, buffer, 10) + "그룹]";
@@ -672,7 +672,7 @@ void CAllocatePaneDlg::InitRider()
 	MAP_ALLOC_RIDER::iterator itRider;
 	for(itRider = LU->m_mapAllocateRider.begin(); itRider != LU->m_mapAllocateRider.end(); ++itRider)
 	{
-		if(::IsThisCompany("한반도로지넷"))
+		if(LF->IsThisCompany("한반도로지넷"))
 		{
 			if(m_ci.GetShareCode1(itRider->second.lCode) != 15475)
 				return;
@@ -685,7 +685,7 @@ void CAllocatePaneDlg::InitRider()
 		
 		m_List.InsertItem(nItem, ltoa(itRider->second.nMNo, buffer, 10), -1, 0);
 		m_List.SetItemText(nItem, 1, itRider->second.strName);
-		m_List.SetItemText(nItem, 2, GetCarTypeFromLong(itRider->second.nCarType));
+		m_List.SetItemText(nItem, 2, LF->GetCarTypeFromLong(itRider->second.nCarType));
 
 		CString sRTID = itRider->second.strRTID;
 		m_List.SetItemText(nItem, 3, itRider->second.strRTID);
@@ -855,7 +855,7 @@ void CAllocatePaneDlg::OnBnClickedAllocateBtn()
 
 		if(nRet == IDNO)
 		{
-			if(UpdateRiderInfoForReserved(m_nTNo, m_nSelectedRCompany, m_nSelectedRNo))
+			if(LF->UpdateRiderInfoForReserved(m_nTNo, m_nSelectedRCompany, m_nSelectedRNo))
 			{
 				LU->GetRcpView()->RefreshList();
 				MessageBox("예약시간에 해당기사에게 개별배차됩니다", "확인", MB_ICONINFORMATION);
@@ -931,7 +931,7 @@ BOOL CAllocatePaneDlg::CheckAllocateData()
 		pRow = LU->GetRcpView()->m_xList.GetSelectedRows()->GetAt(nSelItem);
 	
 		if(nSelItem < 0) {
-			MsgBox(IDS_INVALID_ITEM);
+			LF->MsgBox(IDS_INVALID_ITEM);
 			return FALSE;
 		}
 
@@ -1021,8 +1021,8 @@ void CAllocatePaneDlg::DrawRiderInfo(CDC *pDC)
 	
 	PrintLine(pDC, rc, "성명/기사번호",  pRider->strName + "/" +
 			ltoa(pRider->nMNo, buffer, 10), TRUE, RGB(0, 150, 0));
-	PrintLine(pDC, rc, "아이디",  GetDashPhoneNumber(pRider->strID), FALSE, RGB(50, 50, 200));
-	PrintLine(pDC, rc, "휴대폰",  GetDashPhoneNumber(pRider->strHp), FALSE, RGB(50, 50, 200));
+	PrintLine(pDC, rc, "아이디",  LF->GetDashPhoneNumber(pRider->strID), FALSE, RGB(50, 50, 200));
+	PrintLine(pDC, rc, "휴대폰",  LF->GetDashPhoneNumber(pRider->strHp), FALSE, RGB(50, 50, 200));
 	//PrintLine(pDC, rc, "입사일",  pRider->dtEnter.Format("%y-%m-%d"), FALSE, RGB(50, 50, 200));
 
 	CString strAllocType = "";
@@ -1173,7 +1173,7 @@ void CAllocatePaneDlg::RefreshOrderList()
 			{
 				if(m_chkShowCompleteOrder.GetCheck())
 				{
-					m_lstOrder.InsertItem(index, it->second.dtState.Format("%H:%M"), GetImageNumber(it->second.nState));
+					m_lstOrder.InsertItem(index, it->second.dtState.Format("%H:%M"), LF->GetImageNumber(it->second.nState));
 				}
 				else
 					continue;
@@ -1182,7 +1182,7 @@ void CAllocatePaneDlg::RefreshOrderList()
 			{
 				char buffer[10];
 				m_lstOrder.InsertItem(index, CString("+") + ltoa(span.GetTotalMinutes(), buffer, 10), 
-					GetImageNumber(it->second.nState));
+					LF->GetImageNumber(it->second.nState));
 			}
 			
 			if(m_ci.IsChildCompany(it->second.nCompany))
@@ -1191,7 +1191,7 @@ void CAllocatePaneDlg::RefreshOrderList()
 				m_lstOrder.SetItemText(index, 1, CString("[타]") + it->second.strCName.c_str());
 			m_lstOrder.SetItemText(index, 2, it->second.strStart.c_str());
 			m_lstOrder.SetItemText(index, 3, it->second.strDest.c_str());
-			m_lstOrder.SetItemText(index, 4, GetMyNumberFormat(it->second.nCharge));
+			m_lstOrder.SetItemText(index, 4, LF->GetMyNumberFormat(it->second.nCharge));
 			m_lstOrder.SetItemLong(index++, it->second.bRiderOkOnlyMan);
 		}
 	}

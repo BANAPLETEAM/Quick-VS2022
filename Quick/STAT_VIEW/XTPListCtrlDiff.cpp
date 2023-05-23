@@ -220,16 +220,16 @@ CString CXTPListCtrlDiff::FormatString( CString strText, int nType )
 {
 	if(typeLong == nType || typeInt == nType)
 	{
-		return ::GetMyNumberFormat(strText);
+		return LF->GetMyNumberFormat(strText);
 	}
 	else if(typeFloat == nType)
 	{
 		// 100이 넘는 float 값에 대해서는 정수값만 표시(이 경우는 실제로 int형인데 오버플로때문에 float로 변환한 결과일 경우가 많다.
 		if( strText.Left(strText.Find('.')).GetLength() > 3 ) 
-			return ::GetMyNumberFormat(strText.Left(strText.Find('.'))) ;
+			return LF->GetMyNumberFormat(strText.Left(strText.Find('.'))) ;
 		// 100 이하의 float값에 대해서는 소수 아래 자리를 표시함
 		else
-			return ::GetMyNumberFormat(strText.Left(strText.Find('.'))) + strText.Right(strText.GetLength() - strText.Find('.'));
+			return LF->GetMyNumberFormat(strText.Left(strText.Find('.'))) + strText.Right(strText.GetLength() - strText.Find('.'));
 	}
 	return strText;
 }

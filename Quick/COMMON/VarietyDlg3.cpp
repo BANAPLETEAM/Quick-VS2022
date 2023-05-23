@@ -51,7 +51,7 @@ BOOL CVarietyDlg3::OnInitDialog()
 	CenterWindow();
 	SetWindowText(m_strTitle);
 
-	::InsertAllocGroupCombo(&m_cmbAlloc, GetCurBranchInfo()->nCompanyCode);
+	LF->InsertAllocGroupCombo(&m_cmbAlloc, LF->GetCurBranchInfo()->nCompanyCode);
 	m_cmbAlloc.SetCurSel(0);
 	OnBnClickedUseCheck();
 

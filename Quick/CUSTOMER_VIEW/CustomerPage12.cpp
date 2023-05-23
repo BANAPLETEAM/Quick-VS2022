@@ -126,7 +126,7 @@ void CCustomerPage12::RefreshList()
 
 	if(m_nSearchType == ST_COMPANY) m_nSearchType++;
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nSearchType);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
 	pCmd.AddParameter(typeString, typeInput, m_strKeyword.GetLength(), m_strKeyword);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_ci.m_bSearchFourNumberWithUID);
 
@@ -207,7 +207,7 @@ void CCustomerPage12::ShowData(CMkRecordset *pRs)
 		m_Report.SetItemText(i, 3, pc->strDepart);
 		m_Report.SetItemText(i, 4, pc->strName);
 		m_Report.SetItemText(i, 5, pc->strUserID);
-		m_Report.SetItemText(i, 6, GetDashPhoneNumber(pc->strTel1));
+		m_Report.SetItemText(i, 6, LF->GetDashPhoneNumber(pc->strTel1));
 		m_Report.SetItemText(i, 7, pc->strDong);
 		m_Report.SetItemText(i, 8, m_cg.GetGroupData(pc->nGNo)->strFullName);
 		m_Report.SetItemText(i, 9, pc->strLocation);
@@ -298,7 +298,7 @@ void CCustomerPage12::SetText()
 	m_EditStc[nItem++].SetWindowText(GetPrice(pc->nPriceGrade)); //가격등급
 	m_EditStc[nItem++].SetWindowText((CString)ltoa(pc->nIssueTaxBillDay , buffer, 10) + "일"); //계산서발행일
 	m_EditStc[nItem++].SetWindowText(pc->strUserID); //고객아이디
-	m_EditStc[nItem++].SetWindowText(::GetGrade(pc->nCustomerGrade)); //고객등급
+	m_EditStc[nItem++].SetWindowText(LF->GetGrade(pc->nCustomerGrade)); //고객등급
 	m_EditStc[nItem++].SetWindowText(ltoa(pc->nUseCount, buffer, 10)); //이용횟수
 	m_EditStc[nItem++].SetWindowText(GetDiscountType(pc->nDiscountType)); //할인타입
 	m_EditStc[nItem++].SetWindowText(ltoa(pc->nDiscount, buffer, 10)); //할인액
@@ -314,13 +314,13 @@ void CCustomerPage12::SetText()
 	m_EditStc[nItem++].SetWindowText(pc->strName); // 담당
 	m_EditStc[nItem++].SetWindowText(pc->nReportStartDay == 0 ? "정산안함" : ltoa(pc->nReportStartDay, buffer, 10)); // 정산일1번
 	m_EditStc[nItem++].SetWindowText(pc->nReportEndDay == 0 ? "정산안함" : ltoa(pc->nReportEndDay, buffer, 10)); // 정산일2번
-	m_EditStc[nItem++].SetWindowText(GetDashPhoneNumber(pc->strTel1)); // 대표전화
+	m_EditStc[nItem++].SetWindowText(LF->GetDashPhoneNumber(pc->strTel1)); // 대표전화
 	m_EditStc[nItem++].SetWindowText(pc->strLoginID); // 로그인아이디
 	m_EditStc[nItem++].SetWindowText(pc->strLoginPW); // 로그인패스
 	m_EditStc[nItem++].SetWindowText("1일"); // 입금예정
 	m_EditStc[nItem++].SetWindowText("1일"); // 입금예정
-	//m_EditStc[nItem++].SetWindowText(GetDashPhoneNumber(pc->strMobile)); // 휴대폰
-	m_EditStc[nItem++].SetWindowText(GetDashPhoneNumber(pc->strEMail)); // 이메일
+	//m_EditStc[nItem++].SetWindowText(LF->GetDashPhoneNumber(pc->strMobile)); // 휴대폰
+	m_EditStc[nItem++].SetWindowText(LF->GetDashPhoneNumber(pc->strEMail)); // 이메일
 	m_EditStc[nItem++].SetWindowText(pc->strLocation); // 위치정보
 	m_EditStc[nItem++].SetWindowText(pc->strMemo); // 메모
 	m_EditStc[nItem++].SetWindowText(pc->strRiderMemo); // 기사메모 
@@ -480,14 +480,14 @@ void CCustomerPage12::OnTimer(UINT nIDEvent)
 			m_lstTel.ResetContent();
 			CMkCommand pCmd(m_pMkDb, "select_customertel_delete");
 			CMkRecordset pRs(m_pMkDb);
-			pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
+			pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 			pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCNo);
 
 			pRs.Execute(&pCmd);
 			while(!pRs.IsEOF()) {
 				CString strTel;
 				pRs.GetFieldValue(0, strTel);
-				m_lstTel.AddString(GetDashPhoneNumber(strTel));
+				m_lstTel.AddString(LF->GetDashPhoneNumber(strTel));
 				pRs.MoveNext();
 			}
 			pRs.Close();
@@ -506,8 +506,8 @@ void CCustomerPage12::OnBnClickedSearchAllBtn()
 	CMkRecordset pRs(m_pMkDb);
 
 	if(m_nSearchType == ST_COMPANY) m_nSearchType++;
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);
 

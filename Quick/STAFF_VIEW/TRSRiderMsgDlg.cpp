@@ -69,8 +69,8 @@ void CTRSRiderMsgDlg::RefreshNonRegRiderList()
 {
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_trs_non_register_rider");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 
 	if(!rs.Execute(&cmd))
 		return;
@@ -85,8 +85,8 @@ void CTRSRiderMsgDlg::RefreshNonRegRiderList()
 		rs.GetFieldValue("nRNo", nRNo);
 		rs.GetFieldValue("sName", sRName);;
 
-		m_lstNonRegRider.InsertItem(nIndex, GetBranchInfo(nRCompany)->strBranchName);
-		m_lstNonRegRider.SetItemText(nIndex, 1, GetStringFromLong(nRNo));
+		m_lstNonRegRider.InsertItem(nIndex, LF->GetBranchInfo(nRCompany)->strBranchName);
+		m_lstNonRegRider.SetItemText(nIndex, 1, LF->GetStringFromLong(nRNo));
 		m_lstNonRegRider.SetItemText(nIndex, 2, sRName);
 		m_lstNonRegRider.SetItemLong(nIndex, nRCompany);
 		m_lstNonRegRider.SetItemLong2(nIndex, nRNo);
@@ -103,8 +103,8 @@ void CTRSRiderMsgDlg::RefreshTRSMsgList()
 {
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_trs_rider");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 
 	if(!rs.Execute(&cmd))
 		return;
@@ -137,8 +137,8 @@ void CTRSRiderMsgDlg::RefreshTRSMsgList()
 			continue;
 		}
 
-		m_lstTRSMsg.InsertItem(nIndex, GetBranchInfo(nRCompany)->strBranchName);
-		m_lstTRSMsg.SetItemText(nIndex, 1, GetStringFromLong(nRNo));
+		m_lstTRSMsg.InsertItem(nIndex, LF->GetBranchInfo(nRCompany)->strBranchName);
+		m_lstTRSMsg.SetItemText(nIndex, 1, LF->GetStringFromLong(nRNo));
 		m_lstTRSMsg.SetItemText(nIndex, 2, strRName);
 		m_lstTRSMsg.SetItemText(nIndex, 3, strUpdateExten.GetLength() == 0 ? "삭제요청" : strUpdateExten);
 		m_lstTRSMsg.SetItemText(nIndex, 4, strUpdatePhone.GetLength() == 0 ? "삭제요청" : strUpdatePhone);
@@ -182,11 +182,11 @@ void CTRSRiderMsgDlg::OnNonRegRiderReportItemDbClick(NMHDR * pNotifyStruct, LRES
 			long nRNo = m_lstNonRegRider.GetItemLong2(pRecord);
 
 			CString strExten = dlg.m_strExten;
-			CString strPhone = ::GetNoneDashNumber(dlg.m_strPhone);
+			CString strPhone = LF->GetNoneDashNumber(dlg.m_strPhone);
 			CString strPW = dlg.m_strPW;
 
 			if(strExten.GetLength() <= 0 || strPhone.GetLength() <= 0
-				|| !::IsPhoneNumber(strPhone) || strPW.GetLength() <= 0)
+				|| !LF->IsPhoneNumber(strPhone) || strPW.GetLength() <= 0)
 			{
 				MessageBox("내선번호, 핸드폰번호, 비밀번호가 잘못입력되었습니다.\n확인해주세요", "확인", MB_ICONEXCLAMATION);
 				return;
@@ -194,7 +194,7 @@ void CTRSRiderMsgDlg::OnNonRegRiderReportItemDbClick(NMHDR * pNotifyStruct, LRES
 			
 			CMkRecordset rs(m_pMkDb);
 			CMkCommand cmd(m_pMkDb, "insert_trs_message_telserver_extension");
-			cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+			cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 			cmd.AddParameter(nRCompany);
 			cmd.AddParameter(nRNo);
 			cmd.AddParameter(strExten);

@@ -114,8 +114,8 @@ void CCheckGroupReportDlg::RefreshList()
 		m_lstReport.SetItemText(i, 1, strDept);
 		m_lstReport.SetItemText(i, 2, strName);
 		m_lstReport.SetItemText(i, 3, dtReportStart.Format("%m-%d") + " ~ " + dtReportEnd.Format("%m-%d"));
-		m_lstReport.SetItemText(i, 4, RemoveZero(::GetMyNumberFormat(nBillCollection)));
-		m_lstReport.SetItemText(i, 5, RemoveZero(::GetMyNumberFormat(nUnCollection)));
+		m_lstReport.SetItemText(i, 4, LF->RemoveZero(LF->GetMyNumberFormat(nBillCollection)));
+		m_lstReport.SetItemText(i, 5, LF->RemoveZero(LF->GetMyNumberFormat(nUnCollection)));
 		m_lstReport.SetItemText(i, 6, GetState(nReportState));
 		m_lstReport.SetItemText(i, 7, GetStateEtc(nReportState));
 		m_lstReport.SetItemLong(i, nReportState);

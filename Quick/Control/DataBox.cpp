@@ -1644,7 +1644,7 @@ CMyXTPGridRecord* CDataBox::MyComboAddItem(int nCol,CStringArray &sArray,CUIntAr
 
 
 	if(pCol == NULL)
-		MsgBox("콤보컬럼 입력안됨");
+		LF->MsgBox("콤보컬럼 입력안됨");
 
 	if(m_bTreeItem)
 		m_pSubTarGetRecord->MySubComboAddItem(sArray, nArray, nDefaultValue );		
@@ -2669,7 +2669,7 @@ void CDataBox::CreateRsSetQuery(CString sQuery)
 
 	/*CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "insert_chargetype_name_2008");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nPayTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nPayTable);
 	pCmd.AddParameter(typeString, typeInput, sChargeName.GetLength(), sChargeName);
 	pCmd.AddParameter(typeString, typeInput, m_ui.strName.GetLength(), m_ui.strName);
 	CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -2734,7 +2734,7 @@ CMkRecordset* CDataBox::Excute()
 
 	if(!m_pRs->Execute(m_pCmd)) 
 	{
-		MsgBox("실행중 에러가 발생되었습니다.");
+		LF->MsgBox("실행중 에러가 발생되었습니다.");
 
 		return NULL;
 	}
@@ -2931,7 +2931,7 @@ BOOL CDataBox::ExcuteCmd(BOOL bRefresh)
 	BOOL bSuccess = m_pCmd->Execute();
 
 	if(!bSuccess)
-		MsgBox("작업중 오류가 났습니다. 다시시도 하시거나 로지소프트로 문의하세요");
+		LF->MsgBox("작업중 오류가 났습니다. 다시시도 하시거나 로지소프트로 문의하세요");
 
 	if(m_pCmd)
 	{
@@ -3003,7 +3003,7 @@ void CDataBox::Filter2(CString strFilter, int nFilterCol, CString strFilter2, in
 	BOOL bNoFilter = FALSE;
 
 
-	if(IsStringDigit(strFilter) && strFilter.GetLength() < 4)	//3글자이하의 숫자인 경우에 전체단어일치
+	if(LF->IsStringDigit(strFilter) && strFilter.GetLength() < 4)	//3글자이하의 숫자인 경우에 전체단어일치
 		bDigit = TRUE;
 
 	if(strFilter == "")
@@ -3104,7 +3104,7 @@ void CDataBox::Filter(CString strFilter, int nFilterCol, int nTypeData, CString 
 	BOOL bNoFilter = FALSE;
 
 
-	if(IsStringDigit(strFilter) && strFilter.GetLength() < 4)	//3글자이하의 숫자인 경우에 전체단어일치
+	if(LF->IsStringDigit(strFilter) && strFilter.GetLength() < 4)	//3글자이하의 숫자인 경우에 전체단어일치
 		bDigit = TRUE;
 
 	if(strFilter == "")

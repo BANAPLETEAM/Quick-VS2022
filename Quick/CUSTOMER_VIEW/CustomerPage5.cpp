@@ -115,7 +115,7 @@ void CCustomerPage5::RefreshList()
 	m_MinCountCombo.GetWindowText(strMinCount);
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_customer_use_frequent5");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), ::GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), 
 			m_bIncType ? - atol(strMinCount) : atol(strMinCount) );
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), dtCur - twicespan);
@@ -132,7 +132,7 @@ void CCustomerPage5::RefreshList()
 	else
 	{
 		strCount.Format("%d¸íÀÇ °í°´ÀÌ °Ë»ö µÇ¾ú½À´Ï´Ù.", pRs.GetRecordCount());
-		StatusText(0, strCount);
+		LF->StatusText(0, strCount);
 	}
 
 	long nCNo, nBeforeCnt, nAfterCnt, nSubCnt, nRate, nID;
@@ -158,7 +158,7 @@ void CCustomerPage5::RefreshList()
 		{
 			m_lcData.InsertItem(index, ltoa(nID, buffer, 10));
 			m_lcData.SetItemText(index, 1, strCompany);
-			m_lcData.SetItemText(index, 2, GetDashPhoneNumber(strTel));
+			m_lcData.SetItemText(index, 2, LF->GetDashPhoneNumber(strTel));
 			m_lcData.SetItemText(index, 3, dtRegister.Format("%Y-%m-%d"));
 			m_lcData.SetItemText(index, 4, ltoa(nBeforeCnt, buffer, 10));
 			m_lcData.SetItemText(index, 5, ltoa(nAfterCnt, buffer, 10));
@@ -226,10 +226,10 @@ void CCustomerPage5::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage5::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(6900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 205, m_ui.nWNo, m_lcData.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 205, m_ui.nWNo, m_lcData.GetItemCount());  
 	CMyExcel::ToExcel(&m_lcData);
 }
 

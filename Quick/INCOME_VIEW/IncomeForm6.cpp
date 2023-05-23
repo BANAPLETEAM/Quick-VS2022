@@ -183,8 +183,8 @@ void CIncomeForm6::RefreshList()
 	CMkRecordset pRs(m_pMkDb); 
 	CMkCommand pCmd(m_pMkDb, "select_rider_fixeddeposit_taking_log_3");
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 	
@@ -228,15 +228,15 @@ void CIncomeForm6::RefreshList()
 		COleDateTime dtCompareDate;
 
 		//if(nRiderIncomeDay != 0 && bWeeklyDeposit == FALSE)
-		dtCompareDate = GetCompareDate(bWeeklyDeposit, dtMainDate, nRiderIncomeDay, bSameRiderIncomeDay); 
+		dtCompareDate = LF->GetCompareDate(bWeeklyDeposit, dtMainDate, nRiderIncomeDay, bSameRiderIncomeDay);
 		
 		m_wndReport.InsertItem(i, itoa(nRNo, buffer, 10), -1, 0);
 		m_wndReport.SetItemText(i, 1, sRName);
 		m_wndReport.SetItemText(i, 2, sTakeDate.Mid(2,2) + "-" + sTakeDate.Mid(4, 2) + "-" + sTakeDate.Right(2));
 		m_wndReport.SetItemText(i, 3, nRiderIncomeDay == 0 && bWeeklyDeposit == TRUE ? "" : dtCompareDate.Format("%y-%m-%d"));
 		m_wndReport.SetItemText(i, 4, bWeeklyDeposit == TRUE ? "ÁÖ³³" : "¿ù³³");
-		m_wndReport.SetItemText(i, 5, ::GetMyNumberFormat(nFixedDeposit));
-		m_wndReport.SetItemText(i, 6, ::GetMyNumberFormat(nCreditOrderSum));
+		m_wndReport.SetItemText(i, 5, LF->GetMyNumberFormat(nFixedDeposit));
+		m_wndReport.SetItemText(i, 6, LF->GetMyNumberFormat(nCreditOrderSum));
 		m_wndReport.SetItemText(i, 7, dtCreditOrderStart.Format("%y-%m-%d"));
 		m_wndReport.SetItemText(i, 8, dtCreditOrderEnd.Format("%y-%m-%d"));
 
@@ -251,7 +251,7 @@ void CIncomeForm6::RefreshList()
 		m_wndReport.SetItemText(i, 10, nState == 1 ? GetIncomeState(bWeeklyDeposit, dtCompareDate, nRiderIncomeDay, bSameRiderIncomeDay) : "");
 		//&& nRiderIncomeDay != 0
 		m_wndReport.SetItemText(i, 11, nWNo == -1 ? "¼­¹ö" : itoa(nWNo, buffer, 10));
-		m_wndReport.SetItemText(i, 12, ::GetMyNumberFormat(nFixedDeposit - nCreditOrderSum));
+		m_wndReport.SetItemText(i, 12, LF->GetMyNumberFormat(nFixedDeposit - nCreditOrderSum));
 		m_wndReport.SetItemText(i, 13, sBankName);
 		m_wndReport.SetItemText(i, 14, sBankAccount);
 		m_wndReport.SetItemText(i, 15, sBankAccountOwner);
@@ -472,10 +472,10 @@ void CIncomeForm6::OnIncomeComplete()
 
 void CIncomeForm6::OnViewExcel()
 {
-	if(!POWER_CHECK(7900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(7900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(m_ci.m_nCompanyCode, 504, m_wndReport.GetItemCount());  
+	LF->AddSecurityLog(m_ci.m_nCompanyCode, 504, m_wndReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }
 

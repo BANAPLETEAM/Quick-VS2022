@@ -70,10 +70,10 @@ void CSmartCallEventReqLogDlg::OnBnClickedCloseBtn()
 
 void CSmartCallEventReqLogDlg::OnBnClickedExcelBtn()
 {
-	if(!POWER_CHECK(2010, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(2010, "¿¢¼¿º¯È¯", TRUE))
 		return; 
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 109, m_lstReport.GetItemCount());
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 109, m_lstReport.GetItemCount());
 	CMyExcel::ToExcel(&m_lstReport);
 }
 
@@ -106,10 +106,10 @@ void CSmartCallEventReqLogDlg::OnBnClickedRefreshBtn()
 
 		m_lstReport.InsertItem(i, "");
 		m_lstReport.SetItemText(i, 1, dtRequest.Format("%Y-%m-%d %H:%M"));
-		m_lstReport.SetItemText(i, 2, ::GetDashPhoneNumber(strPhone));
+		m_lstReport.SetItemText(i, 2, LF->GetDashPhoneNumber(strPhone));
 		m_lstReport.SetItemText(i, 3, strReqName);
 		m_lstReport.SetItemText(i, 4, strReqLocation);
-		m_lstReport.SetItemText(i, 5, ::GetMyNumberFormat(nUseMileage));
+		m_lstReport.SetItemText(i, 5, LF->GetMyNumberFormat(nUseMileage));
 		rs.MoveNext();
 	}
 

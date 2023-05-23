@@ -1030,7 +1030,7 @@ void CAllocateBoardDlg::RefreshCommon(long nCompleteCount, long nCancelCount)
 	CString str;
 	COleDateTime dtCur = COleDateTime::GetCurrentTime();
 
-	if(POWER_CHECK(2007, "카운트 표시"))
+	if(LF->POWER_CHECK(2007, "카운트 표시"))
 	{
 		str.Format("총콜수: %d개", nCompleteCount + nCancelCount);
 		m_stcTotalCount.SetWindowText(str);
@@ -2337,7 +2337,7 @@ void CAllocateBoardDlg::OnCancelState()
 {
 	CString strCancel;
 	long nCancelType = 11, nPenaltyMin = 0, nPenaltyCharge = 0;
-	CBranchInfo *pBi = GetBranchInfo(m_nContextMenuLastCompany);
+	CBranchInfo *pBi = LF->GetBranchInfo(m_nContextMenuLastCompany);
 
 	if(pBi->bCancelReason)
 	{
@@ -2437,7 +2437,7 @@ void CAllocateBoardDlg::ChangeShowType(long nType)
 
 void CAllocateBoardDlg::OnSendMsg()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	CMyRecordItem *pItem = (CMyRecordItem*)m_pSelectedRecordItem;

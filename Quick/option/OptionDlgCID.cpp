@@ -72,7 +72,7 @@ void COptionDlgCID::OnInitialUpdate()
 
 	SetOptiobView(TRUE);
 
-	if(!POWER_CHECK(1302, "키폰"))
+	if(!LF->POWER_CHECK(1302, "키폰"))
 		EnableWindow(FALSE);
 
 
@@ -212,7 +212,7 @@ BOOL COptionDlgCID::Save(long nCompany, BOOL bAll)
 					}
 
 					sCIDCheckDID = CString(",") + sCIDCheckDID + CString(",");
-					if(::IsDID(atol(strCallingAccountDID.Right(8)), sCIDCheckDID) == FALSE)
+					if(LF->IsDID(atol(strCallingAccountDID.Right(8)), sCIDCheckDID) == FALSE)
 					{
 						CString strMsg = CString("텔서버 정보가 일치하지 않습니다.\n") + strCallingAccountDID + CString(" 번호를 확인해주세요.");
 						MessageBox(strMsg, "확인", MB_ICONINFORMATION);
@@ -269,16 +269,16 @@ CString COptionDlgCID::GetIPPBXOutboundCID(BOOL bOffice)
 
 	long nCompanyCode = pDlg->GetSelCompanyCode(); 
 
-	CBranchInfo *pBI = GetBranchInfo(nCompanyCode);
+	CBranchInfo *pBI = LF->GetBranchInfo(nCompanyCode);
 
 	CString strDDD = "", strLine;
 
 	if(bOffice == FALSE)
-		strLine = ::GetNoneDashNumber(pBI->strPhone);
+		strLine = LF->GetNoneDashNumber(pBI->strPhone);
 	//else
-	//	strLine = ::GetNoneDashNumber(pBI->strOfficePhone);
+	//	strLine = LF->GetNoneDashNumber(pBI->strOfficePhone);
 
-	if(strLine.GetLength() < 7 || !::IsStringDigit(strLine))
+	if(strLine.GetLength() < 7 || !LF->IsStringDigit(strLine))
 		strLine = "";
 	else
 		strDDD = pBI->strDDD;

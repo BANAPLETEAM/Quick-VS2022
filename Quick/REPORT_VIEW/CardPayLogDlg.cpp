@@ -85,13 +85,13 @@ void CCardPayLogDlg::RefreshList()
 		rs.GetFieldValue("nOrgAmt", nOrgAmt);
 
 		CString strTemp;
-		strTemp.Format("%s(%s)", dtLog.Format("%m-%d %H:%M:%S"), ::GetDay(dtLog));
+		strTemp.Format("%s(%s)", dtLog.Format("%m-%d %H:%M:%S"), LF->GetDay(dtLog));
 
 		m_lstReport.InsertItem(i, strTemp);
 		m_lstReport.SetItemText(i, 1, strMID);
 		m_lstReport.SetItemText(i, 2, strOKNumber);
 		m_lstReport.SetItemText(i, 3, strCard4Digits);
-		m_lstReport.SetItemText(i, 4, ::GetMyNumberFormat(nOrgAmt));
+		m_lstReport.SetItemText(i, 4, LF->GetMyNumberFormat(nOrgAmt));
 		m_lstReport.SetItemText(i, 5, strRetCodeMsg);
 		m_lstReport.SetItemText(i, 6, strID);
 

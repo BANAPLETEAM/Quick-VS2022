@@ -93,8 +93,8 @@ void CIncomeForm11::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_rider_vraccount_income_log");
-	cmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	cmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 
@@ -117,14 +117,14 @@ void CIncomeForm11::RefreshList()
 		rs.GetFieldValue("nCharge", nCharge);
 		rs.GetFieldValue("sVrAccount", strVraccount);
 
-		m_lstReport.InsertItem(i, dtDate.Format("%Y-%m-%d %H:%M:%S") + "(" + ::GetDay(dtDate) + ")");
+		m_lstReport.InsertItem(i, dtDate.Format("%Y-%m-%d %H:%M:%S") + "(" + LF->GetDay(dtDate) + ")");
 		m_lstReport.SetItemText(i, 1, strBankName);
 		m_lstReport.SetItemText(i, 2, strAccountOwner);
 		m_lstReport.SetItemText(i, 3, strVraccount);
-		m_lstReport.SetItemText(i, 4, ::GetMyNumberFormat(nCharge));
-		m_lstReport.SetItemText(i, 5, ::GetMyNumberFormat(nChargeRider));
-		m_lstReport.SetItemText(i, 6, ::GetMyNumberFormat(nChargeCompany));
-		m_lstReport.SetItemText(i, 7, ::GetStringFromLong(nRNo));
+		m_lstReport.SetItemText(i, 4, LF->GetMyNumberFormat(nCharge));
+		m_lstReport.SetItemText(i, 5, LF->GetMyNumberFormat(nChargeRider));
+		m_lstReport.SetItemText(i, 6, LF->GetMyNumberFormat(nChargeCompany));
+		m_lstReport.SetItemText(i, 7, LF->GetStringFromLong(nRNo));
 		m_lstReport.SetItemText(i, 8, strName);
 
 		rs.MoveNext();

@@ -82,10 +82,10 @@ void CChangeAllocGroupInfoLogDlg::RefreshList()
 			m_lst.InsertItem(i, "~ " + dtGenerate.Format("%y-%m-%d %H:%M"));			
 		
 		m_lst.SetItemText(i, 1, strGroupName);
-		m_lst.SetItemText(i, 2, ::GetStringFromLong(nPanaltyDelayTime4Order));
-		m_lst.SetItemText(i, 3, ::GetStringFromLong(nPanaltyDelayTime4MyOrder));
-		m_lst.SetItemText(i, 4, ::GetStringFromLong(nPanaltyDelayTime4OCOrder));
-		m_lst.SetItemText(i, 5, ::GetStringFromLong(nPenaltyDelayTime4MyCorpOrder));
+		m_lst.SetItemText(i, 2, LF->GetStringFromLong(nPanaltyDelayTime4Order));
+		m_lst.SetItemText(i, 3, LF->GetStringFromLong(nPanaltyDelayTime4MyOrder));
+		m_lst.SetItemText(i, 4, LF->GetStringFromLong(nPanaltyDelayTime4OCOrder));
+		m_lst.SetItemText(i, 5, LF->GetStringFromLong(nPenaltyDelayTime4MyCorpOrder));
 
 		if(nPanaltyTypeShowOrder == 0)
 			m_lst.SetItemText(i, 6, "전체공유콜");
@@ -109,8 +109,8 @@ void CChangeAllocGroupInfoLogDlg::RefreshList()
 		else
 			m_lst.SetItemText(i, 9, "미사용");
 
-		m_lst.SetItemText(i, 10, ::GetStringFromLong(nAutoDownGradeDay));
-		m_lst.SetItemText(i, 11, ::GetStringFromLong(nAutoDownGradeCount));
+		m_lst.SetItemText(i, 10, LF->GetStringFromLong(nAutoDownGradeDay));
+		m_lst.SetItemText(i, 11, LF->GetStringFromLong(nAutoDownGradeCount));
 
 		m_lst.SetItemText(i, 12, "");
 

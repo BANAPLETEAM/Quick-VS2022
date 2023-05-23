@@ -75,7 +75,7 @@ void CChargeListSetDlg::OnBnClickedDongOutBtn()
 			int nGrade = pReocrd->GetItemDataLong2();
 
 			m_RegisterDongList.CreateComandSetQuery("update_charge_list_output_dong");
-			m_RegisterDongList.AddParameter(GetCurBranchInfo()->nPayTable);
+			m_RegisterDongList.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 			m_RegisterDongList.AddParameter(nID);
 			m_RegisterDongList.AddParameter(sChareList);
 			m_RegisterDongList.ExcuteCmd();
@@ -101,11 +101,11 @@ void CChargeListSetDlg::OnBnClickedDongOutBtn()
 	}
 	catch (char* e)
 	{
-		MsgBox(e, "확인");
+		LF->MsgBox(e, "확인");
 	}
 	catch (CString s)
 	{
-		MsgBox(s, "확인");
+		LF->MsgBox(s, "확인");
 	}
 }
 
@@ -132,7 +132,7 @@ void CChargeListSetDlg::OnBnClickedNicknameInputBtn()
 			throw("동정보가 일정하지 않습니다. 검색을 다시하여 주세요");
 
 		m_DongList.CreateComandSetQuery("update_charge_list_input_dong");
-		m_DongList.AddParameter(GetCurBranchInfo()->nPayTable);
+		m_DongList.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 		m_DongList.AddParameter(m_nDongID);
 		m_DongList.AddParameter(sChareList);
 		m_DongList.AddParameter(sNickName);
@@ -143,11 +143,11 @@ void CChargeListSetDlg::OnBnClickedNicknameInputBtn()
 	}
 	catch (char* e)
 	{
-		MsgBox(e, "확인");
+		LF->MsgBox(e, "확인");
 	}
 	catch (CString s)
 	{
-		MsgBox(s, "확인");
+		LF->MsgBox(s, "확인");
 	}
 }
 
@@ -171,7 +171,7 @@ void CChargeListSetDlg::OnBnClickedDongInputBtn()
 			long nID = pReocrd->GetItemDataLong();		
 
 			m_DongList.CreateComandSetQuery("update_charge_list_input_dong");
-			m_DongList.AddParameter(GetCurBranchInfo()->nPayTable);
+			m_DongList.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 			m_DongList.AddParameter(nID);
 			m_DongList.AddParameter(sChareList);
 			m_DongList.ExcuteCmd();
@@ -182,11 +182,11 @@ void CChargeListSetDlg::OnBnClickedDongInputBtn()
 	}
 	catch (char* e)
 	{
-		MsgBox(e, "확인");
+		LF->MsgBox(e, "확인");
 	}
 	catch (CString s)
 	{
-		MsgBox(s, "확인");
+		LF->MsgBox(s, "확인");
 	}
 	
 
@@ -214,7 +214,7 @@ void CChargeListSetDlg::ChargeListInputCommbo()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_charge_list_name");
-	pCmd.AddParameter(GetCurBranchInfo()->nPayTable);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 
 	if(!pRs.Execute(&pCmd))
 		return;
@@ -329,7 +329,7 @@ void CChargeListSetDlg::OnCbnSelchangeChargelistCombo()
 	
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_charge_list");
-	pCmd.AddParameter(GetCurBranchInfo()->nPayTable);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 	pCmd.AddParameter(sChargeName);
 
 
@@ -426,7 +426,7 @@ void CChargeListSetDlg::OnBnClickedChargelistNewBtn()
 			int nResult = 0;
 			CMkRecordset pRs(m_pMkDb); 
 			CMkCommand pCmd(m_pMkDb, "insert_chargelist_create_name");
-			pCmd.AddParameter(GetCurBranchInfo()->nPayTable);
+			pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 			pCmd.AddParameter(dlg.m_sValue);				
 
 			if(!pRs.Execute(&pCmd)) return;
@@ -436,12 +436,12 @@ void CChargeListSetDlg::OnBnClickedChargelistNewBtn()
 
 			if(nResult == 100)
 			{
-				MsgBox("같은이름이 존재합니다.");
+				LF->MsgBox("같은이름이 존재합니다.");
 				return;
 			}
 			else if(nResult == 10)
 			{
-				MsgBox("요금표이름이 생성되었습니다.");
+				LF->MsgBox("요금표이름이 생성되었습니다.");
 				ChargeListInputCommbo();
 				CString sComboChargeName = "";
 				int i = 0;
@@ -458,7 +458,7 @@ void CChargeListSetDlg::OnBnClickedChargelistNewBtn()
 		}
 		else
 		{
-			MsgBox("요금표이름을 입력하세요");
+			LF->MsgBox("요금표이름을 입력하세요");
 		}
 	}
 }
@@ -483,14 +483,14 @@ void CChargeListSetDlg::OnBnClickedChargelistCopyBtn()
 			m_cmbChargeList.GetLBText(m_cmbChargeList.GetCurSel(), sChargeName);
 			if(sChargeName.GetLength() == 0)
 			{
-				MsgBox("원본 요금표 이름이 없습니다.");
+				LF->MsgBox("원본 요금표 이름이 없습니다.");
 				return;
 			}
 
 			int nResult = 0;
 			CMkRecordset pRs(m_pMkDb); 
 			CMkCommand pCmd(m_pMkDb, "insert_chargelist_copy_name");
-			pCmd.AddParameter(GetCurBranchInfo()->nPayTable);
+			pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 			pCmd.AddParameter(sChargeName);
 			pCmd.AddParameter(dlg.m_sValue);				
 
@@ -501,12 +501,12 @@ void CChargeListSetDlg::OnBnClickedChargelistCopyBtn()
 
 			if(nResult == 100)
 			{
-				MsgBox("복사할 요금표의 같은이름이 존재합니다.");
+				LF->MsgBox("복사할 요금표의 같은이름이 존재합니다.");
 				return;
 			}
 			else if(nResult == 10)
 			{
-				MsgBox("요금표가 복사되었습니다.");
+				LF->MsgBox("요금표가 복사되었습니다.");
 				ChargeListInputCommbo();
 
 				CString sComboChargeName = "";
@@ -523,7 +523,7 @@ void CChargeListSetDlg::OnBnClickedChargelistCopyBtn()
 		}
 		else
 		{
-			MsgBox("요금표이름을 입력하세요");
+			LF->MsgBox("요금표이름을 입력하세요");
 		}
 	}
 }
@@ -536,13 +536,13 @@ void CChargeListSetDlg::OnBnClickedChargelistDelBtn()
 		m_cmbChargeList.GetLBText(m_cmbChargeList.GetCurSel(), sChargeName);
 		if(sChargeName.GetLength() == 0)
 		{
-			MsgBox("요금표이름이 없습니다.");
+			LF->MsgBox("요금표이름이 없습니다.");
 			return;
 		}
 
 		CMkRecordset pRs(m_pMkDb); 
 		CMkCommand pCmd(m_pMkDb, "delete_chargelist_name");
-		pCmd.AddParameter(GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 		pCmd.AddParameter(sChargeName);				
 		if(!pRs.Execute(&pCmd)) return;
 

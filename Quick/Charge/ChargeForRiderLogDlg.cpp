@@ -216,9 +216,9 @@ void CChargeForRiderLogDlg::RefreshList()
 		m_lstReport.SetItemText(i, 1, dtRequest.Format("%m-%d %H:%M"));
 		m_lstReport.SetItemText(i, 2, m_ci.GetShareCompanyName(nCompanyMainCode));
 		m_lstReport.SetItemText(i, 3, m_ci.GetShareCompanyName(nRiderMainCode));
-		m_lstReport.SetItemText(i, 4, ::GetStringFromLong(nRNo));
+		m_lstReport.SetItemText(i, 4, LF->GetStringFromLong(nRNo));
 		m_lstReport.SetItemText(i, 5, strRName);
-		m_lstReport.SetItemText(i, 6, GetMyNumberFormat(nCharge));
+		m_lstReport.SetItemText(i, 6, LF->GetMyNumberFormat(nCharge));
 
 		CString strTemp = "";
 
@@ -249,7 +249,7 @@ void CChargeForRiderLogDlg::RefreshList()
 		else
 		{
 			m_lstReport.SetItemText(i, 9, dtResult.Format("%m-%d %H:%M"));
-			m_lstReport.SetItemText(i, 10, ::GetStringFromLong(nResultWNo) + "/" + strResultWName);
+			m_lstReport.SetItemText(i, 10, LF->GetStringFromLong(nResultWNo) + "/" + strResultWName);
 			m_lstReport.SetItemText(i, 11, "");
 			m_lstReport.SetItemText(i, 12, "");
 		}			

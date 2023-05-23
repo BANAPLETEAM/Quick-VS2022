@@ -123,8 +123,8 @@ void CReportForm23::RefreshList()
     CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_use_count");
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 
@@ -155,14 +155,14 @@ void CReportForm23::RefreshList()
 			if(nItem > 0)
 
 			{
-				m_Report.SetItemText(nItem -1, 1, ::GetMyNumberFormat(nSumUseCount));
-				m_Report.SetItemText(nItem -1, 2, ::GetMyNumberFormat(nSumCancelCount));
+				m_Report.SetItemText(nItem -1, 1, LF->GetMyNumberFormat(nSumUseCount));
+				m_Report.SetItemText(nItem -1, 2, LF->GetMyNumberFormat(nSumCancelCount));
 
 				if(m_cg.GetGroupData(nMainGNo)->nAbleUseCharge > 0)
 				{
 					CString strTemp; 
 					char buffer[10];
-					strTemp.Format("%s / %d만원", ::GetMyNumberFormat(m_cg.GetGroupData(nMainGNo)->nUseCharge), m_cg.GetGroupData(nMainGNo)->nAbleUseCharge);
+					strTemp.Format("%s / %d만원", LF->GetMyNumberFormat(m_cg.GetGroupData(nMainGNo)->nUseCharge), m_cg.GetGroupData(nMainGNo)->nAbleUseCharge);
 					m_Report.SetItemText(nItem -1, 3, strTemp);
 					m_Report.SetItemText(nItem -1, 4, CString(itoa(m_cg.GetGroupData(nMainGNo)->nInitDay, buffer, 10)) + "일");
 
@@ -183,7 +183,7 @@ void CReportForm23::RefreshList()
 			m_Report.SetItemLong(nItem, nMainGNo);
 		}
 
-		m_Report.SetItemText(nItem, GetColumnLocation(sDate), ::GetMyNumberFormat(nUseCount) + "/" + ::GetMyNumberFormat(nCancelCount));
+		m_Report.SetItemText(nItem, GetColumnLocation(sDate), LF->GetMyNumberFormat(nUseCount) + "/" + LF->GetMyNumberFormat(nCancelCount));
 
 		nSumUseCount += nUseCount;
 		nSumCancelCount += nCancelCount;
@@ -191,8 +191,8 @@ void CReportForm23::RefreshList()
 		pRs.MoveNext();
 	}
 
-	m_Report.SetItemText(nItem , 1, ::GetMyNumberFormat(nSumUseCount));
-	m_Report.SetItemText(nItem , 2, ::GetMyNumberFormat(nSumCancelCount));
+	m_Report.SetItemText(nItem , 1, LF->GetMyNumberFormat(nSumUseCount));
+	m_Report.SetItemText(nItem , 2, LF->GetMyNumberFormat(nSumCancelCount));
 
 	m_Report.Populate();
 }

@@ -91,7 +91,7 @@ BOOL CCustomerData::SaveVector(MyVector &vec, T &t, CString strFile, BOOL bDefau
 	DWORD dwDriveList;
 	HANDLE hFile = NULL;
 	int nRecordSize = 0;
-	CString strFileName = (bDefaultPath ? GetModuleFullPath() : "") + strFile;
+	CString strFileName = (bDefaultPath ? LF->GetModuleFullPath() : "") + strFile;
 
 	if(vec.size() == 0)
 		return FALSE;
@@ -130,7 +130,7 @@ BOOL CCustomerData::LoadVector(MyVector &vec, T &t, CString strFile, BOOL bDefau
 	HANDLE hFile, hFileMap;
 	unsigned char *pBasePointer;
 	DWORD dwSize;
-	CString strFileName = (bDefaultPath ? GetModuleFullPath() : "") + strFile;
+	CString strFileName = (bDefaultPath ? LF->GetModuleFullPath() : "") + strFile;
 
 	hFile = CreateFile(strFileName, GENERIC_READ, 
 		FILE_SHARE_READ, NULL, 
@@ -258,21 +258,6 @@ void CCustomerData::GetPhoneDivBody(CString &strPhone, int nDDDLen, CString &str
 	strBody = strPhone.Right(strPhone.GetLength() - nDDDLen);
 }
 
-
-CString CCustomerData::GetModuleFullPath()
-{
-	CString strFullPath;
-	TCHAR szFullPath[MAX_PATH];
-	if(GetModuleFileName(AfxGetInstanceHandle(), szFullPath, _MAX_PATH) > 0)
-	{
-		int nPos;
-		strFullPath = szFullPath;
-		if ((nPos = strFullPath.ReverseFind('\\')) != -1)
-			strFullPath = strFullPath.Mid(0, ++nPos);
-	}
-
-	return strFullPath;
-}
  
 BOOL CCustomerData::MakeCustomerFromNetwork(long &nCount)
 {
@@ -997,7 +982,7 @@ BOOL CCustomerData::SearchCustomerSingle(long nCompany, CString strSearchCustome
 		}
 		else if(nLen >= 3)
 		{
-			if(nLen == 4 && IsStringDigit(strSearchCustomer))
+			if(nLen == 4 && LF->IsStringDigit(strSearchCustomer))
 			{
 				SearchPhoneFour(m_vecPhoneFour, csdata, strSearchCustomer, nCompany, PhoneNumberFourCompare(), FALSE);
 				SearchPhoneFour(m_vecPhoneNameFour, csdata, strSearchCustomer, nCompany, PhoneNumberNameFourCompare(), TRUE);
@@ -1482,7 +1467,7 @@ BOOL CCustomerData::CheckFileDate()
 
 BOOL CCustomerData::GetFileDate(COleDateTime &dtFileTime)
 {
-	CIniReader ini(GetModuleFullPath() + CUSTOMER_INI_FILE);
+	CIniReader ini(LF->GetModuleFullPath() + CUSTOMER_INI_FILE);
 	CString strDate = ini.getKeyValue("Date", GetStringCompanyCode());
 	m_strSchemaVersion = ini.getKeyValue("SchemaVersion", GetStringCompanyCode());
 
@@ -1505,7 +1490,7 @@ BOOL CCustomerData::GetFileDate(COleDateTime &dtFileTime)
 
 void CCustomerData::SaveFileDate(COleDateTime dtRefresh)
 {
-	CIniReader ini(GetModuleFullPath() + CUSTOMER_INI_FILE);
+	CIniReader ini(LF->GetModuleFullPath() + CUSTOMER_INI_FILE);
 	ini.setKey(dtRefresh.Format("%Y %m %d %H %M %S"), "Date", GetStringCompanyCode());
 	ini.setKey(m_strSchemaVersion, "SchemaVersion", GetStringCompanyCode());
 }
@@ -1613,10 +1598,10 @@ CString CCustomerData::GetInfo()
 		strText += dtFileTime.Format("%Y-%m-%d %H:%M:%S");
 		strText += "\n";
 		strText += "메인데이터 고객수:\t";
-		strText += GetMyNumberFormat(m_vecCustomer.size());
+		strText += LF->GetMyNumberFormat(m_vecCustomer.size());
 		strText += "\n";
 		strText += "메인데이터 전화번호수:\t";
-		strText += GetMyNumberFormat(m_vecPhone.size() + m_vecPhoneName.size());
+		strText += LF->GetMyNumberFormat(m_vecPhone.size() + m_vecPhoneName.size());
 		strText += "\n";
 
 		CMkRecordset pRs(m_pMkDb);
@@ -1638,10 +1623,10 @@ CString CCustomerData::GetInfo()
 		if(m_pcusNew)
 		{
 			strText += "\n증분데이터 고객수:\t";
-			strText += GetMyNumberFormat(m_pcusNew->m_vecCustomer.size());
+			strText += LF->GetMyNumberFormat(m_pcusNew->m_vecCustomer.size());
 			strText += "\n";
 			strText += "증분데이터 전화번호수:\t";
-			strText += GetMyNumberFormat(m_pcusNew->m_vecPhone.size() + m_pcusNew->m_vecPhoneName.size());
+			strText += LF->GetMyNumberFormat(m_pcusNew->m_vecPhone.size() + m_pcusNew->m_vecPhoneName.size());
 			strText += "\n";
 		}
 	}
@@ -1657,13 +1642,13 @@ void CCustomerData::ClearFileData()
 {
 	m_cuslog.Print("ClearFileData\n");
 
-	//DeleteFile(GetModuleFullPath() + "cus.ini");
-	DeleteFile(GetModuleFullPath() + GetCodeFileName(CUSTOMER_FILE_NAME));
-	DeleteFile(GetModuleFullPath() + GetCodeFileName(CUSTOMER_PHONE_FILE_NAME));
-	DeleteFile(GetModuleFullPath() + GetCodeFileName(CUSTOMER_PHONE_NAME_FILE_NAME));
-	DeleteFile(GetModuleFullPath() + GetCodeFileName(CUSTOMER_PHONE_FOUR_FILE_NAME));
-	DeleteFile(GetModuleFullPath() + GetCodeFileName(CUSTOMER_PHONE_NAME_FOUR_FILE_NAME));
-	DeleteFile(GetModuleFullPath() + GetCodeFileName(COMPANY_INDEX_FILE_NAME));
+	//DeleteFile(LF->GetModuleFullPath() + "cus.ini");
+	DeleteFile(LF->GetModuleFullPath() + GetCodeFileName(CUSTOMER_FILE_NAME));
+	DeleteFile(LF->GetModuleFullPath() + GetCodeFileName(CUSTOMER_PHONE_FILE_NAME));
+	DeleteFile(LF->GetModuleFullPath() + GetCodeFileName(CUSTOMER_PHONE_NAME_FILE_NAME));
+	DeleteFile(LF->GetModuleFullPath() + GetCodeFileName(CUSTOMER_PHONE_FOUR_FILE_NAME));
+	DeleteFile(LF->GetModuleFullPath() + GetCodeFileName(CUSTOMER_PHONE_NAME_FOUR_FILE_NAME));
+	DeleteFile(LF->GetModuleFullPath() + GetCodeFileName(COMPANY_INDEX_FILE_NAME));
 }
 
 void CCustomerData::SetCharOrdering(BOOL bCharOrdering)

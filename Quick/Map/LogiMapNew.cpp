@@ -715,7 +715,7 @@ void CLogiMapNew::UpdateRiderOrderState(long nCompany, long nRNo, long nState, l
 		if(nState >= 11 && nState < 35)
 		{
 			CString strOrder;
-			strOrder.Format("%s %s] %s -> %s", GetStateString(nState), 
+			strOrder.Format("%s %s] %s -> %s", LF->GetStateString(nState), 
 				dtState.Format("%H:%M"), 
 				strStart, strDest);
 			(*it).second.strHasOrderList += strOrder + "\n";
@@ -1227,7 +1227,7 @@ CString CLogiMapNew::MakeHintString(CRiderSubInfoMap::iterator &it)
 		(*it).second.nAllocOrderCount, 
 		(*it).second.nPickupOrderCount, 
 		(*it).second.nCompleteOrder, 
-		GetMyNumberFormat((*it).second.nChargeSum));
+		LF->GetMyNumberFormat((*it).second.nChargeSum));
 
 	return strMyHint;
 }

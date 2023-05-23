@@ -17,7 +17,7 @@ public:
 
 		CString GetCaption(CXTPGridColumn*)
 		{
-			return ::GetMyNumberFormat((long)GetValue());
+			return LF->GetMyNumberFormat((long)GetValue());
 		}		
 	};
 

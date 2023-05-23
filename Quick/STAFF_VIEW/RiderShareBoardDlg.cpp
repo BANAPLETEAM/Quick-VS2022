@@ -250,14 +250,14 @@ void CRiderShareBoardDlg::OpenSmallTalkEdit(long nParentID, CString strText)
 		m_pSmallTalkEditDlg->m_bUpdate = FALSE;
 		m_pSmallTalkEditDlg->m_btnInsert.SetWindowText("덧글입력");
 		MoveTalkEdit(FALSE);
-		SetCrystal(m_pSmallTalkEditDlg, 220);
+		LF->SetCrystal(m_pSmallTalkEditDlg, 220);
 	}
 	else
 	{
 		m_pSmallTalkEditDlg->m_bUpdate = TRUE;
 		m_pSmallTalkEditDlg->m_btnInsert.SetWindowText("수 정");
 		MoveTalkEdit(TRUE);
-		SetCrystal(m_pSmallTalkEditDlg, 255); 
+		LF->SetCrystal(m_pSmallTalkEditDlg, 255);
 	}
 	
 	m_pSmallTalkEditDlg->m_edtText.SetSel(strText.GetLength(), strText.GetLength());

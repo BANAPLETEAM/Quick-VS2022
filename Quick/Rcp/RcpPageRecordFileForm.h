@@ -15,7 +15,7 @@ public:
 		{
 			long nSec = (long)GetValue();
 			if(nSec != 0)
-				return GetSecondTimeString(nSec);
+				return LF->GetSecondTimeString(nSec);
 			return "-";
 		}
 	};
@@ -44,7 +44,7 @@ public:
 		//	dtDate = dtDate - COleDateTimeSpan(0, 0, 0, nStartMiliSec / 1000);
 
 		CString strDate, strTime;
-		strDate.Format("%04d-%02d-%02d(%s)", dtDate.GetYear(), dtDate.GetMonth(), dtDate.GetDay(), GetDay(dtDate));
+		strDate.Format("%04d-%02d-%02d(%s)", dtDate.GetYear(), dtDate.GetMonth(), dtDate.GetDay(), LF->GetDay(dtDate));
 		strTime.Format("%02d:%02d:%02d", dtDate.GetHour(), dtDate.GetMinute(), dtDate.GetSecond());
 
 		AddItem(new CXTPGridRecordItemText(strDate));

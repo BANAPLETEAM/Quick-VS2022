@@ -111,7 +111,7 @@ void CStaffPage17::MonthInit(void)
 
 void CStaffPage17::OnMenuMsg()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	int nSelItem = m_XTPList.GetNextItem(-1, LVNI_SELECTED);
@@ -152,8 +152,8 @@ void CStaffPage17::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_driver_device_login_1");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime),m_dtFrom );
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime),m_dtTo );
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL),  m_chkNotWork.GetCheck());
@@ -194,7 +194,7 @@ void CStaffPage17::RefreshList()
 					strPercent.Format("%2.1f",fResult);
 					m_XTPList.SetItemText(nRecordIndex,3,strPercent);
 
-					strTotal = ::GetStringFromLong(nCount);
+					strTotal = LF->GetStringFromLong(nCount);
 					strTotal += "일";
 					m_XTPList.SetItemText(nRecordIndex, nDays + 4, strTotal);
 					for(int i = nFindDay + 1; i < nDays + 4; i++)
@@ -208,7 +208,7 @@ void CStaffPage17::RefreshList()
 				nRecordIndex++;
 				m_RiderInfo.insert(RIDER_ATTEND2::value_type(tempPair, nRecordIndex));
 
-				m_XTPList.InsertItem(nRecordIndex, GetStringFromLong(nRNo));
+				m_XTPList.InsertItem(nRecordIndex, LF->GetStringFromLong(nRNo));
 				m_XTPList.SetItemText(nRecordIndex, 1, m_ci.GetName(nCompany));
 				m_XTPList.SetItemText(nRecordIndex, 2, strName.GetLength() > 0 ? strName : strRiderName);
 				if(nWorkState == 1)
@@ -231,7 +231,7 @@ void CStaffPage17::RefreshList()
 			m_XTPList.ChangeItemBackColor(nRecordIndex, nFindDay, RGB(100, 255, 100));
 			m_XTPList.ChangeItemTextColor(nRecordIndex, nFindDay, RGB(255, 255, 255));
 			nDayTotAttend[nFindDay - 4]++;
-			m_XTPList.SetItemText(nRecordIndex, m_nLastCompanyCount, GetStringFromLong(nCompany));
+			m_XTPList.SetItemText(nRecordIndex, m_nLastCompanyCount, LF->GetStringFromLong(nCompany));
 			
 			nCount++;
 			pRs.MoveNext();			
@@ -245,7 +245,7 @@ void CStaffPage17::RefreshList()
 			strPercent.Format("%2.1f",fResult);
 			m_XTPList.SetItemText(nRecordIndex, 3, strPercent);
 
-			m_XTPList.SetItemText(nRecordIndex, nDays + 4, ::GetStringFromLong(nCount) + "일");
+			m_XTPList.SetItemText(nRecordIndex, nDays + 4, LF->GetStringFromLong(nCount) + "일");
 			for(int i = nFindDay + 1; i < nDays + 4; i++)
 			{
 				m_XTPList.SetItemText(nRecordIndex, i, "X");
@@ -259,10 +259,10 @@ void CStaffPage17::RefreshList()
 		for(int n = 0; n < nDays; n++)
 		{
 			nAllTotalAttend += nDayTotAttend[n];
-			m_XTPList.SetItemText(m_XTPList.GetRecords()->GetCount() - 1, n + 4, ::GetStringFromLong(nDayTotAttend[n]));
+			m_XTPList.SetItemText(m_XTPList.GetRecords()->GetCount() - 1, n + 4, LF->GetStringFromLong(nDayTotAttend[n]));
 		}
 		if(nAllTotalAttend != 0)
-			m_XTPList.SetItemText(m_XTPList.GetRecords()->GetCount() - 1, nDays + 4, ::GetStringFromLong(nAllTotalAttend));
+			m_XTPList.SetItemText(m_XTPList.GetRecords()->GetCount() - 1, nDays + 4, LF->GetStringFromLong(nAllTotalAttend));
 	}
 
 	m_XTPList.Populate();
@@ -285,10 +285,10 @@ void CStaffPage17::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStaffPage17::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(5900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 404, m_XTPList.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 404, m_XTPList.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_XTPList);
 }
 
@@ -331,8 +331,8 @@ void CStaffPage17::SetRiderInfo(void) //기사정보
 	//CWaitCursor wait;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_driver_attend_registerlist3");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(m_chkNotWork.GetCheck());
 	pCmd.Execute();
 
@@ -356,13 +356,13 @@ void CStaffPage17::SetRiderInfo(void) //기사정보
 
 			RIDER_ATTEND_INFO2 rider;//= new RIDER_ATTEND_INFO2;			
 
-			strCompanyMNo = ::GetStringFromLong(lCode);
+			strCompanyMNo = LF->GetStringFromLong(lCode);
 			rider.strCompanyCode = strCompanyMNo;
 
-			strCompanyMNo += ::GetStringFromLong(nMNo);
+			strCompanyMNo += LF->GetStringFromLong(nMNo);
 			rider.nRow = iCount;
 
-			m_XTPList.InsertItem(nItem, ::GetStringFromLong(nMNo));
+			m_XTPList.InsertItem(nItem, LF->GetStringFromLong(nMNo));
 			if(nWorkState == 1)
 			{
 				m_XTPList.SetItemData(nItem,nWorkState);
@@ -397,8 +397,8 @@ void CStaffPage17::SetRiderState(void) //출근상태
 {
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_driver_device_login");  
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime),m_dtFrom );
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime),m_dtTo );
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL),  m_chkNotWork.GetCheck());
@@ -430,8 +430,8 @@ void CStaffPage17::SetRiderState(void) //출근상태
 			pRs.GetFieldValue(3,nWorkState);
 			pRs.GetFieldValue(4,dt10);
 
-			strCompanyRno = ::GetStringFromLong(nCompany);
-			strCompanyRno += GetStringFromLong(nRNo);
+			strCompanyRno = LF->GetStringFromLong(nCompany);
+			strCompanyRno += LF->GetStringFromLong(nRNo);
 
 			if(strTempRno != strCompanyRno)
 			{
@@ -441,7 +441,7 @@ void CStaffPage17::SetRiderState(void) //출근상태
 					strPercent.Format("%2.1f",fResult);
 					m_XTPList.SetItemText(nItem,3,strPercent);
 
-					strTotal = ::GetStringFromLong(nCount);
+					strTotal = LF->GetStringFromLong(nCount);
 					strTotal += "일";
 					m_XTPList.SetItemText(nItem, nDays + 4, strTotal);
 					for(int i = nFindDay + 1; i < nDays + 4; i++)
@@ -490,7 +490,7 @@ void CStaffPage17::SetRiderState(void) //출근상태
 			strPercent.Format("%2.1f",fResult);
 			m_XTPList.SetItemText(nItem, 3, strPercent);
 
-			m_XTPList.SetItemText(nItem, nDays + 4, ::GetStringFromLong(nCount) + "일");
+			m_XTPList.SetItemText(nItem, nDays + 4, LF->GetStringFromLong(nCount) + "일");
 			for(int i = nFindDay + 1; i < nDays + 4; i++)
 			{
 				if(m_XTPList.GetItemText(nItem, i) != "★")
@@ -512,10 +512,10 @@ void CStaffPage17::SetRiderState(void) //출근상태
 		for(int n = 0; n < nDays; n++)
 		{
 			nAllTotalAttend += nDayTotAttend[n];
-			m_XTPList.SetItemText(m_XTPList.GetRows()->GetCount() - 1, n + 4, ::GetStringFromLong(nDayTotAttend[n]));
+			m_XTPList.SetItemText(m_XTPList.GetRows()->GetCount() - 1, n + 4, LF->GetStringFromLong(nDayTotAttend[n]));
 		}
 		if(nAllTotalAttend != 0)
-			m_XTPList.SetItemText(m_XTPList.GetRows()->GetCount() - 1, nDays + 4, ::GetStringFromLong(nAllTotalAttend));
+			m_XTPList.SetItemText(m_XTPList.GetRows()->GetCount() - 1, nDays + 4, LF->GetStringFromLong(nAllTotalAttend));
 
 	}
 	m_XTPList.Populate();
@@ -549,9 +549,9 @@ void CStaffPage17::OnWorkStop()
 				nItem = m_XTPList.GetNextItem(nItem, LVNI_SELECTED);
 				if(nItem < 0) break;
 
-				if(!ChangeRiderWorkState(GetCurBranchInfo()->nCompanyCode, 
+				if(!LF->ChangeRiderWorkState(LF->GetCurBranchInfo()->nCompanyCode,
 					atol(m_XTPList.GetItemText(nItem, 0)),  
-					GetCurBranchInfo()->bIntegrated,
+					LF->GetCurBranchInfo()->bIntegrated,
 					dlg.m_strWorkStopMemo,  
 					dlg.m_strContent,
 					TRUE))
@@ -587,9 +587,9 @@ void CStaffPage17::OnWorkOk()
 				nItem = m_XTPList.GetNextItem(nItem, LVNI_SELECTED);
 				if(nItem < 0) break;
 
-				if(!ChangeRiderWorkState(GetCurBranchInfo()->nCompanyCode, 
+				if(!LF->ChangeRiderWorkState(LF->GetCurBranchInfo()->nCompanyCode,
 					atol(m_XTPList.GetItemText(nItem, 0)),  
-					GetCurBranchInfo()->bIntegrated,
+					LF->GetCurBranchInfo()->bIntegrated,
 					dlg.m_strWorkStopMemo,  
 					dlg.m_strContent,
 					FALSE))

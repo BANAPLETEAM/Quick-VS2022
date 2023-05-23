@@ -75,7 +75,7 @@ void CInsStaffDlg1::RefreshList()
 			strTemp = "ÁöÇÏÃ¶";
 
 		m_lstReport.SetItemText(i, 2, strTemp);
-		m_lstReport.SetItemText(i, 3, GetStringFromLong(::GetCommaCount(strDays)));
+		m_lstReport.SetItemText(i, 3, LF->GetStringFromLong(LF->GetCommaCount(strDays)));
 		m_lstReport.SetItemText(i, 4, strDays);
 
 		rs.MoveNext();
@@ -111,7 +111,7 @@ BOOL CInsStaffDlg1::OnInitDialog()
 
 void CInsStaffDlg1::OnBnClickedExcelButton()
 {
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 9998, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 9998, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 

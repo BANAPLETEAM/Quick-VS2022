@@ -297,7 +297,7 @@ BOOL CMyListCtrl::OnToolTipText(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
 			}	
 			strTip += ri.strName;
 			strTip += "(";
-			strTip += GetDashPhoneNumber(ri.strPhone);
+			strTip += LF->GetDashPhoneNumber(ri.strPhone);
 			strTip += ")";
 
 			CString strOrder;
@@ -325,7 +325,7 @@ BOOL CMyListCtrl::OnToolTipText(UINT id, NMHDR* pNMHDR, LRESULT* pResult)
 					strTip += "\n";
 					strTip += strRName;
 					strTip += "(";
-					strTip += GetDashPhoneNumber(strRTel);
+					strTip += LF->GetDashPhoneNumber(strRTel);
 					strTip += ")";
 				}
 			}

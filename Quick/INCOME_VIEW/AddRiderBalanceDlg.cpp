@@ -59,14 +59,14 @@ void CAddRiderBalanceDlg::RefreshCharge(BOOL bClick)
 		m_cmbInputSave.GetWindowText(strPlus);
 
 	if(m_bAdd)
-		m_stcAfterSave.SetWindowText(::GetMyNumberFormat(_ttoi(strCur) + _ttoi(strPlus)));
+		m_stcAfterSave.SetWindowText(LF->GetMyNumberFormat(_ttoi(strCur) + _ttoi(strPlus)));
 	else
-		m_stcAfterSave.SetWindowText(::GetMyNumberFormat(_ttoi(strCur) - _ttoi(strPlus)));
+		m_stcAfterSave.SetWindowText(LF->GetMyNumberFormat(_ttoi(strCur) - _ttoi(strPlus)));
 }
 
 void CAddRiderBalanceDlg::OnBnClickedOk()
 {
-	if(!POWER_CHECK(7031, "선입금충전전용",TRUE))
+	if(!LF->POWER_CHECK(7031, "선입금충전전용",TRUE))
 		return;
 
 	long nReturn;
@@ -184,7 +184,7 @@ void CAddRiderBalanceDlg::InitRider()
 	
 	pRs.GetFieldValue("nBalance", nBalance);
 
-	m_stcCurSave.SetWindowText(::GetMyNumberFormat(nBalance));
+	m_stcCurSave.SetWindowText(LF->GetMyNumberFormat(nBalance));
 }
 
 void CAddRiderBalanceDlg::OnCbnSelchangeInputSaveCombo()
@@ -222,9 +222,9 @@ void CAddRiderBalanceDlg::RefreshList()
 		pRs.GetFieldValue("sEtc", sEtc);
 
 		m_wndReport.InsertItem(i, dtGenerate.Format("%m-%d %H:%M"));
-		m_wndReport.SetItemText(i, 1, ::GetFixedDepositStateString(nState));
-		m_wndReport.SetItemText(i, 2, ::GetMyNumberFormat(nAmount));
-		m_wndReport.SetItemText(i, 3, ::GetMyNumberFormat(nBalance));
+		m_wndReport.SetItemText(i, 1, LF->GetFixedDepositStateString(nState));
+		m_wndReport.SetItemText(i, 2, LF->GetMyNumberFormat(nAmount));
+		m_wndReport.SetItemText(i, 3, LF->GetMyNumberFormat(nBalance));
 		m_wndReport.SetItemText(i, 4, sEtc);
 
 		m_wndReport.SetItemData(i, nState);

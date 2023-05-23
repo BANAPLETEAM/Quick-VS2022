@@ -346,11 +346,11 @@ void COptionWorkTimeDlg::LoadData()
 			int nCol = 0;
 			m_ChargeList.MyAddItem(dtFromTime.Format("%H:%M") );
 			m_ChargeList.MyAddItem(dtToTime.Format("%H:%M") );
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nMotoCharge ));
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nDamaCharge) );
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nLaboCharge) );
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nBonggoCharge) );
-			m_ChargeList.MyAddItem(GetMyNumberFormat(nTruckCharge) );
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nMotoCharge ));
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nDamaCharge) );
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nLaboCharge) );
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nBonggoCharge) );
+			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nTruckCharge) );
 			
 			m_ChargeList.EndItem();
 

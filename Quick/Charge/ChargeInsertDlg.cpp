@@ -100,7 +100,7 @@ void CChargeInsertDlg::OnBnClickedOk()
 		return;
 	}
 
-	if(!::IsStringDigit(m_strCharge))
+	if(!LF->IsStringDigit(m_strCharge))
 	{
 		MessageBox("금액을 숫자로 입력하세요", "확인", MB_ICONINFORMATION);
 		m_edtCharge.SetFocus();

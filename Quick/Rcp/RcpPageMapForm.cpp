@@ -19,7 +19,7 @@ CRcpPageMapForm::CRcpPageMapForm()
 	m_nTraceCompany = 0;
 	m_nTraceRNo = 0;
 	m_nShowType = AfxGetApp()->GetProfileInt("RcpPageMapForm", "ShowType", 1);
-	::LoadFromReg(m_setinfo);
+	LF->LoadFromReg(m_setinfo);
 
 	m_bRecvOrderDistance = FALSE;
 }
@@ -193,7 +193,7 @@ void CRcpPageMapForm::OnBnClickedSetupBtn()
 {
 	CRcpMapSetupDlg dlg;
 	if(IDOK == dlg.DoModal())
-		::LoadFromReg(m_setinfo);
+		LF->LoadFromReg(m_setinfo);
 }
 
 LONG CRcpPageMapForm::OnRefreshRiderPos(WPARAM wParam, LPARAM lParam)

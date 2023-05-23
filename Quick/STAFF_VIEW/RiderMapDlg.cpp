@@ -183,10 +183,10 @@ void CRiderMapDlg::OnPopupMapMenu(CXPOIItem item, CPoint pt)
 
 		strCompany = "[" + m_ci.GetProperName(pOrder->nCompany) + "]";
 		strStartDest.Format("[%s->%s]", pOrder->strStart.c_str(), pOrder->strDest.c_str());
-		strCharge.Format("요금\t%s원", GetMyNumberFormat(pOrder->nCharge));
-		strPhone.Format("전화\t 외:%s,출:%s,도:%s", GetDashPhoneNumber(pOrder->strOPhone.c_str()),  
-						GetDashPhoneNumber(pOrder->strSPhone.c_str()),
-						GetDashPhoneNumber(pOrder->strDPhone.c_str()));
+		strCharge.Format("요금\t%s원", LF->GetMyNumberFormat(pOrder->nCharge));
+		strPhone.Format("전화\t 외:%s,출:%s,도:%s", LF->GetDashPhoneNumber(pOrder->strOPhone.c_str()),  
+						LF->GetDashPhoneNumber(pOrder->strSPhone.c_str()),
+						LF->GetDashPhoneNumber(pOrder->strDPhone.c_str()));
 		strUseCount.Format("이용\t%d건", pOrder->nUseCount);
 
 		menu.AppendString(MENU_ORDER_START_DEST+1010, strCompany, "회사명", "", 0);
@@ -579,7 +579,7 @@ void CRiderMapDlg::RefreshOrderState()
 
 void CRiderMapDlg::SetShowOrderCount(BOOL bShow, long nShowCount)
 {
-	m_wndLogiMap.m_uistcOrderCount.SetCaption("오더 " + ::GetStringFromLong(nShowCount));
+	m_wndLogiMap.m_uistcOrderCount.SetCaption("오더 " + LF->GetStringFromLong(nShowCount));
 	m_wndLogiMap.m_uistcOrderCount.SetVisible(bShow);
 	m_wndLogiMap.m_imageOrderCount.SetVisible(bShow);
 
@@ -811,7 +811,7 @@ BOOL CRiderMapDlg::PreTranslateMessage(MSG* pMsg)
 void CRiderMapDlg::UpdateShowRiderCount(long nCount)
 {
 	//long nCount = m_pNormalForm->m_wndReport.GetRows()->GetCount();
-	CString strTemp = ::GetStringFromLong(nCount) +"명";
+	CString strTemp = LF->GetStringFromLong(nCount) +"명";
 
 	m_wndLogiMap.m_uistcCount.SetCaption(strTemp);
 }

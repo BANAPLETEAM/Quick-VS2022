@@ -286,7 +286,7 @@ void CAllocateTRSReportPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWAR
 			}
 		}
 
-		m_imgList.Draw(pDC, GetImageNumber(order.nState), CPoint(x + 2, y - 4), ILD_NORMAL);
+		m_imgList.Draw(pDC, LF->GetImageNumber(order.nState), CPoint(x + 2, y - 4), ILD_NORMAL);
 		pDC->TextOut(x + 22, y, order.strStart.Left(6));
 		pDC->TextOut(x + 62, y, order.strDest.Left(6));
 
@@ -323,7 +323,7 @@ void CAllocateTRSReportPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWAR
 		strPayInfo.Format("%d°Ç / %s¿ø", 
 			nAllocCount + 
 			nFinishCount, 
-			GetMyNumberFormat(nTotalCharge));
+			LF->GetMyNumberFormat(nTotalCharge));
 	}
 
 	pDC->SetTextColor(RGB(41, 41, 214));

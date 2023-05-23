@@ -61,7 +61,7 @@ void CDaumHttpParser::Refresh2(QUERY_INFO &QI)
 	if(m_strKakaoKey.IsEmpty())
 		return;
 
-	CString strKeyword = QI.bPhoneSearch ? ::GetDashPhoneNumber(QI.strKeyword) : QI.strKeyword;
+	CString strKeyword = QI.bPhoneSearch ? LF->GetDashPhoneNumber(QI.strKeyword) : QI.strKeyword;
 
 	CString strHtml = OpenKakaoLocation(m_strKakaoKey, strKeyword);
 	//CString strHtml = OpenKakaoLocation(m_strDaumKey, m_QueryInfo.strKeyword);
@@ -123,9 +123,9 @@ void CDaumHttpParser::ParseJSON4NaverLocalValues(CString strHtml, vector<SEARCH_
 CString CDaumHttpParser::OpenKakaoLocation(CString strKey, CString strSearch)
 {		
 	CString strUrl = "https://dapi.kakao.com/v2/local/search/keyword.json?"; 
-	strUrl += "y=" + ::GetStringFromLong(m_ci.m_bound.nPosY / 1000000) + "." + ::GetStringFromLong(m_ci.m_bound.nPosY % 1000000);
-	strUrl += "&x=" + ::GetStringFromLong(m_ci.m_bound.nPosX / 1000000) + "." + ::GetStringFromLong(m_ci.m_bound.nPosX % 1000000);
-	strUrl += "&query=" + ::ConvertStringToSendData(strSearch);
+	strUrl += "y=" + LF->GetStringFromLong(m_ci.m_bound.nPosY / 1000000) + "." + LF->GetStringFromLong(m_ci.m_bound.nPosY % 1000000);
+	strUrl += "&x=" + LF->GetStringFromLong(m_ci.m_bound.nPosX / 1000000) + "." + LF->GetStringFromLong(m_ci.m_bound.nPosX % 1000000);
+	strUrl += "&query=" + LF->ConvertStringToSendData(strSearch);
 
 	//CString strUrl = "https://dapi.kakao.com/v2/local/search/keyword.json?y=37.514322572335935&x=127.06283102249932&query=naver";
 
@@ -248,7 +248,7 @@ again:
 			}						
 		}
 
-		char* pszAnsi = ::UTF8ToANSI(pData);
+		char* pszAnsi = LF->UTF8ToANSI(pData);
 		strJson = pszAnsi;
 		delete pszAnsi;
 		delete pData;

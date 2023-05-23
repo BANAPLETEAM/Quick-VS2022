@@ -13,8 +13,8 @@ public:
 		AddItem(new CXTPGridRecordItemText(""));
 		AddItem(new CXTPGridRecordItemText(sCity));
 		AddItem(new CXTPGridRecordItemText(sName));
-		AddItem(new CXTPGridRecordItemText(::GetDashPhoneNumber(sOfficePhone)));
-		AddItem(new CXTPGridRecordItemText(::GetDashPhoneNumber(sTel)));
+		AddItem(new CXTPGridRecordItemText(LF->GetDashPhoneNumber(sOfficePhone)));
+		AddItem(new CXTPGridRecordItemText(LF->GetDashPhoneNumber(sTel)));
 		AddItem(new CXTPGridRecordItemText(sOWner));
 
 		sOfficePhone.Replace("-", "");

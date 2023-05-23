@@ -128,7 +128,7 @@ void CCidGroupDlg::RefreshList()
 			pItemBranchName->SetEditable(FALSE);
 			pNewRecord->AddItem(pItemBranchName);
 
-			CXTPGridRecordItemText* pItemPhone = new CXTPGridRecordItemText(GetDashPhoneNumber(strPhone));
+			CXTPGridRecordItemText* pItemPhone = new CXTPGridRecordItemText(LF->GetDashPhoneNumber(strPhone));
 			pItemPhone->SetEditable(FALSE);
 			pNewRecord->AddItem(pItemPhone);
 
@@ -149,7 +149,7 @@ void CCidGroupDlg::RefreshList()
 			//m_List.InsertItem(nItem, ltoa(nItem + 1, buffer, 10));
 			//m_List.SetItemText(nItem, 1, strName);
 			//m_List.SetItemText(nItem, 2, strBranchName);
-			//m_List.SetItemText(nItem, 3, GetDashPhoneNumber(strPhone));
+			//m_List.SetItemText(nItem, 3, LF->GetDashPhoneNumber(strPhone));
 			//m_List.SetItemText(nItem, 4, strLineGroup);
 			//m_List.SetItemData(nItem++, nID);
 

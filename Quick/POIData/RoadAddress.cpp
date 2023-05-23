@@ -359,7 +359,7 @@ BOOL CRoadAddress::SaveVector(MyVector &vec, T &t, CString strFile, BOOL bDefaul
 	DWORD dwDriveList;
 	HANDLE hFile = NULL;
 	int nRecordSize = 0;
-	CString strFileName = (bDefaultPath ? GetModuleFullPath() : "") + strFile;
+	CString strFileName = (bDefaultPath ? LF->GetModuleFullPath() : "") + strFile;
 
 	//if(vec.size() == 0)
 	if(vec.empty())
@@ -402,7 +402,7 @@ BOOL CRoadAddress::LoadVector(MyVector &vec, T &t, CString strFile, BOOL bDefaul
 	HANDLE hFile, hFileMap;
 	unsigned char *pBasePointer;
 	DWORD dwSize;
-	CString strFileName = (bDefaultPath ? GetModuleFullPath() : "") + strFile;
+	CString strFileName = (bDefaultPath ? LF->GetModuleFullPath() : "") + strFile;
 
 	hFile = CreateFile(strFileName, GENERIC_READ, 
 		FILE_SHARE_READ, NULL, 

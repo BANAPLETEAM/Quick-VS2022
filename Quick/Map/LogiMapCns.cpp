@@ -163,7 +163,7 @@ BOOL CLogiMapCns::GetRouteDistanceThreadEksys(BOOL bShowMap,  BOOL bViaApply,
 		c.AddPos(nViaX, nViaY);
 	}
 
-	if(m_bBicycle || ::IsThisCompany("ÄüÂ¯", m_nCompany))
+	if(m_bBicycle || LF->IsThisCompany("ÄüÂ¯", m_nCompany))
 		c.SetRouteType("Shortest");
 
 	BOOL bSuccess = FALSE;

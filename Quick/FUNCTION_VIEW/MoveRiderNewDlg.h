@@ -34,7 +34,7 @@ public:
 			ST_MOVE_RIDER *st = m_pMoveRiderRecord->GetMoveRiderSturct();
 			st->nToRNo = nValue;
 
-			m_pMoveRiderRecord->SetValid(IsMoveRiderOk(st->nToCompany, st->nToRNo));			
+			m_pMoveRiderRecord->SetValid(LF->IsMoveRiderOk(st->nToCompany, st->nToRNo));
 		}
 
 		CMoveRiderRecord *m_pMoveRiderRecord;
@@ -53,7 +53,7 @@ public:
 	{
 		m_stMoveRider->nToRNo = nRNo;
 		((CXTPGridRecordItemNumber*)(GetItem(5)))->SetValue(nRNo);
-		GetItem(5)->SetCaption(::GetStringFromLong(nRNo));
+		GetItem(5)->SetCaption(LF->GetStringFromLong(nRNo));
 	}
 	void SetValid(CString strText)
 	{

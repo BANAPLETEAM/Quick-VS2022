@@ -287,7 +287,7 @@ long CShowRiderInfoDlg::GetOtherRiderOrder()
 		pRs.GetFieldValue("nFinalDepositRate", nFinalDepositRate);
 
 		m_OrderList.InsertItem(nItem, ltoa(nRecordCount - i, buffer, 10));
-		m_OrderList.SetItemText(nItem, 1, GetStateString(nState));
+		m_OrderList.SetItemText(nItem, 1, LF->GetStateString(nState));
 		m_OrderList.SetItemText(nItem, 2, strName + "/" + strBranch);
 		m_OrderList.SetItemText(nItem, 3, strSDong);
 		m_OrderList.SetItemText(nItem, 4, strDDong);
@@ -318,8 +318,8 @@ long CShowRiderInfoDlg::GetOtherRiderOrder()
 	if(nRecordCount > 0) {
 		m_OrderList.SetItemText(0, 1, CString(ltoa(nRecordCount, buffer, 10)) + "건");
 		m_OrderList.SetItemText(0, 2, CString(ltoa(nSum, buffer, 10)) + "원");
-		m_OrderList.SetItemText(0, 3, "현금 : " + CString(itoa(nCashCount, buffer, 10)) + "/" + ::GetMyNumberFormat(nCashSum));
-		m_OrderList.SetItemText(0, 4, "신용 : " + CString(itoa(nCreditCount, buffer, 10)) + "/" + ::GetMyNumberFormat(nCreditSum));
+		m_OrderList.SetItemText(0, 3, "현금 : " + CString(itoa(nCashCount, buffer, 10)) + "/" + LF->GetMyNumberFormat(nCashSum));
+		m_OrderList.SetItemText(0, 4, "신용 : " + CString(itoa(nCreditCount, buffer, 10)) + "/" + LF->GetMyNumberFormat(nCreditSum));
 		m_OrderList.SetItemData(0, 0);
 	}
 
@@ -332,14 +332,14 @@ void CShowRiderInfoDlg::ShowRiderInfo(BOOL bShow)
 	if(m_strWorkState == "업무중지") m_btnWorkState.SetWindowText("업무가능");
 	else m_btnWorkState.SetWindowText("업무중지");
  
-	if(::GetCurBranchInfo()->nShareCode1 != m_ci.GetShareCode(m_nCompany))
+	if(LF->GetCurBranchInfo()->nShareCode1 != m_ci.GetShareCode(m_nCompany))
 	{
-		m_strTodayIncome = ::GetMyNumberFormat(GetOtherRiderOrder());
+		m_strTodayIncome = LF->GetMyNumberFormat(GetOtherRiderOrder());
 	}
 	else
 	{
 		if(m_pParentView != NULL)
-			m_strTodayIncome = ::GetMyNumberFormat(m_pParentView->GetRiderOrder(m_OrderList, m_nCompany, m_nRNo));
+			m_strTodayIncome = LF->GetMyNumberFormat(m_pParentView->GetRiderOrder(m_OrderList, m_nCompany, m_nRNo));
 	}
 
 	RefreshRefusalList();
@@ -411,7 +411,7 @@ void CShowRiderInfoDlg::RefreshRefusalList()
 
 	pParBlakcMarks->GetValue(nSumBlackMarks);	
 
-	m_strSumBlackMarks = ::GetStringFromLong(nSumBlackMarks, TRUE) + "점";
+	m_strSumBlackMarks = LF->GetStringFromLong(nSumBlackMarks, TRUE) + "점";
 
 
 	COleDateTime dtPrevent;
@@ -442,19 +442,19 @@ void CShowRiderInfoDlg::RefreshRefusalList()
 			if(nPenaltyDay == 9999)
 				m_lstShareRefusal.SetItemText(i, 1, "배차제한 무제한" );
 			else
-				m_lstShareRefusal.SetItemText(i, 1, "배차제한 " + ::GetStringFromLong(nPenaltyDay) + "일");
+				m_lstShareRefusal.SetItemText(i, 1, "배차제한 " + LF->GetStringFromLong(nPenaltyDay) + "일");
 		}
 		else
 		{
 			m_lstShareRefusal.SetItemText(i, 1, "" );
 		}		
 
-		m_lstShareRefusal.SetItemText(i, 2, nBlackMarks == 0 ? "-" : ::GetStringFromLong(nBlackMarks) + "점");
+		m_lstShareRefusal.SetItemText(i, 2, nBlackMarks == 0 ? "-" : LF->GetStringFromLong(nBlackMarks) + "점");
 		m_lstShareRefusal.SetItemText(i, 3, strEtc);
 		m_lstShareRefusal.SetItemText(i, 4, dtPrevent.Format("%y-%m-%d %H:%M"));
 		m_lstShareRefusal.SetItemText(i, 5, m_ci.GetShareCompanyName(nWCompany));
 		m_lstShareRefusal.SetItemText(i, 6, m_ci.GetShareCompanyName(nRiderCompany));
-		m_lstShareRefusal.SetItemText(i, 7, ::GetStringFromLong(nRNo));		
+		m_lstShareRefusal.SetItemText(i, 7, LF->GetStringFromLong(nRNo));		
 		m_lstShareRefusal.SetItemLong(i, nID);
 		m_lstShareRefusal.SetItemLong2(i, nType);
 
@@ -559,7 +559,7 @@ void CShowRiderInfoDlg::OnBnClickedWorkStateBtn()
 
 	CWorkStopMemoDlg dlg;
 	if(dlg.DoModal() == IDOK) {
-		ChangeRiderWorkState(m_nCompany, m_nRNo, 
+		LF->ChangeRiderWorkState(m_nCompany, m_nRNo,
 				FALSE,
 				dlg.m_strWorkStopMemo,  
 				dlg.m_strContent,
@@ -580,7 +580,7 @@ void CShowRiderInfoDlg::SendOtherRiderMsg()
 
 void CShowRiderInfoDlg::OnBnClickedSendMsgBtn()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	if(!m_ci.IsChildCompany(m_nCompany)) 
@@ -597,7 +597,7 @@ void CShowRiderInfoDlg::OnBnClickedSendMsgBtn()
 	}
 	*/
 
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	MSG_RIDER_INFO *pInfo = new MSG_RIDER_INFO;
@@ -708,10 +708,10 @@ void CShowRiderInfoDlg::ShowRiderStatInfo(CMakeRiderStat &stat)
 		CString strDate = dtCur.Format("%Y%m%d");
 		CString strCharge = ltoa(stat.GetCharge(strDate), buffer, 10);
 
-		m_RiderStatList.SetItemText(0, i, RemoveZero(ltoa(stat.GetAllocCount(strDate), buffer2, 10)));
-		//m_RiderStatList.SetItemText(1, i, RemoveZero(ltoa(stat.GetMyCallCount(strDate), buffer3, 10)));
-		//m_RiderStatList.SetItemText(2, i, RemoveZero(ltoa(stat.GetCrossCallCount(strDate), buffer4, 10)));
-		//m_RiderStatList.SetItemText(3, i, RemoveZero(ltoa(stat.GetPenaltyCount(strDate), buffer5, 10)));
+		m_RiderStatList.SetItemText(0, i, LF->RemoveZero(ltoa(stat.GetAllocCount(strDate), buffer2, 10)));
+		//m_RiderStatList.SetItemText(1, i, LF->RemoveZero(ltoa(stat.GetMyCallCount(strDate), buffer3, 10)));
+		//m_RiderStatList.SetItemText(2, i, LF->RemoveZero(ltoa(stat.GetCrossCallCount(strDate), buffer4, 10)));
+		//m_RiderStatList.SetItemText(3, i, LF->RemoveZero(ltoa(stat.GetPenaltyCount(strDate), buffer5, 10)));
 		m_RiderStatList.SetItemText(1, i, strCharge == "0" ? "" : strCharge + "천");
 	}
 }
@@ -987,11 +987,11 @@ void CShowRiderInfoDlg::RiderWorkReport()
 	}
 	catch (CString e)
 	{
-		MsgBox(e);
+		LF->MsgBox(e);
 	}
 	catch (char *e)
 	{
-		MsgBox(e);
+		LF->MsgBox(e);
 	}
 		
 }
@@ -1060,7 +1060,7 @@ void CShowRiderInfoDlg::OnCancel()
 
 void CShowRiderInfoDlg::OnBnClickedOtherRiderTransferBtn()
 {
-	if(!POWER_CHECK(1530, "타기사충전"))
+	if(!LF->POWER_CHECK(1530, "타기사충전"))
 		return;
 
 	COtherRiderTransferDlg dlg;
@@ -1094,7 +1094,7 @@ void CShowRiderInfoDlg::OnBnClickedChargeForBtn()
 {
 	CChargeForRiderDlg dlg;
 	dlg.m_strCompany = m_ci.GetShareCompanyName(m_nCompany);
-	dlg.m_strRNo = GetStringFromLong(m_nRNo);
+	dlg.m_strRNo = LF->GetStringFromLong(m_nRNo);
 	dlg.m_strName = m_strRealRName;
 
 	if(dlg.DoModal() == IDOK)

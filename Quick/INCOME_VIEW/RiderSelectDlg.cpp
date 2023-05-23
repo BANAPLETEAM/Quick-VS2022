@@ -65,7 +65,7 @@ void CRiderSelectDlg::RefreshList()
 			return;
 
 		m_lstRider.InsertItem(nItem, m_ci.GetBranchName(itRider->second.lCode));
-		m_lstRider.SetItemText(nItem, 1, GetStringFromLong(itRider->second.nMNo));
+		m_lstRider.SetItemText(nItem, 1, LF->GetStringFromLong(itRider->second.nMNo));
 		m_lstRider.SetItemText(nItem, 2, itRider->second.strName);
 
 		m_lstRider.SetItemLong(nItem, itRider->second.lCode);

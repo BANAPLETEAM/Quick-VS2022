@@ -41,8 +41,6 @@ public:
 
 	BOOL Save(int company_code);
 	BOOL CheckSave(bool msg_box = true);
-	bool IsHangul(const char *text);
-	bool IsEnglish(const char *text);
 	BOOL CheckSave(CString& strBizNo, CString& strOwner, CString& strTel, CString& strLocation, CString& strImage, CString& strBizName, CString &strOwnerSSN, int& not_use_emp_ins_biz_no, bool msg_box = true);
 	void CheckControl();
 	void UploadImage(CString &strResult);

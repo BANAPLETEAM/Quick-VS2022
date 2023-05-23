@@ -125,14 +125,14 @@ void CMoveOrderLogDlg::RefreshList()
 		if(strWName.GetLength() > 0)
 			strWName = CString("(") + strWName + (")");
 
-		m_wndReport.InsertItem(i, GetStringFromLong(i + 1));
+		m_wndReport.InsertItem(i, LF->GetStringFromLong(i + 1));
 		m_wndReport.SetItemText(i, 1, dtGenerate.Format("%Y-%m-%d %H:%M:%S"));
-		m_wndReport.SetItemText(i, 2, GetStringFromLong(st.nTNo));
+		m_wndReport.SetItemText(i, 2, LF->GetStringFromLong(st.nTNo));
 		m_wndReport.SetItemText(i, 3, st.sStart);
 		m_wndReport.SetItemText(i, 4, st.sDest);
 		m_wndReport.SetItemText(i, 5, m_ci.GetBranchName(nFromCompany));
 		m_wndReport.SetItemText(i, 6, m_ci.GetBranchName(nToCompany));
-		m_wndReport.SetItemText(i, 7, GetStringFromLong(nWNo) + strWName);
+		m_wndReport.SetItemText(i, 7, LF->GetStringFromLong(nWNo) + strWName);
 		m_wndReport.SetItemText(i, 8, m_ci.GetBranchName(nWCompany));
 		m_wndReport.SetItemData(i, long(i));
 
@@ -220,7 +220,7 @@ void CMoveOrderLogDlg::NotifyDisplayTooltip(NMHDR * pNMHDR, LRESULT * result)
 						htable.AddRow();
 
 						htable.AddCol("요금");
-						htable.AddCol(::GetMyNumberFormat(it->second.nChare));
+						htable.AddCol(LF->GetMyNumberFormat(it->second.nChare));
 						htable.AddRow();
 
 						htable.AddCol("기사번호");
@@ -232,7 +232,7 @@ void CMoveOrderLogDlg::NotifyDisplayTooltip(NMHDR * pNMHDR, LRESULT * result)
 						htable.AddRow();
 
 						htable.AddCol("상태");
-						htable.AddCol(::GetStateString(it->second.nState));
+						htable.AddCol(LF->GetStateString(it->second.nState));
 						htable.AddRow();
 
 						CString strTitle;

@@ -102,10 +102,10 @@ void CShareReportRateDlg3::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CShareReportRateDlg3::OnViewExcel()
 {
-	if(!POWER_CHECK(1900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(1900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 1203, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 1203, m_List.GetItemCount());  
 	CMyExcel::ToExcel(m_List);
 }
 
@@ -150,7 +150,7 @@ void CShareReportRateDlg3::RefreshList()
 	COleDateTime dtLog;
 
 	int nMyCompany = m_nDOrderTable;
-//	StatusText(0, "정산중입니다....");
+//	LF->StatusText(0, "정산중입니다....");
 
 	ICM2 icmTotal;
 /*
@@ -355,9 +355,9 @@ void CShareReportRateDlg3::RefreshList()
 			m_List.SetItemText(nItem, 1, icm[nCompany].szCompany);
 			m_List.SetItemText(nItem, 2, icm[nCompany].szBranchName);
 			m_List.SetItemText(nItem, 3, ltoa(ii.nGiveCount, buffer, 10));
-			m_List.SetItemText(nItem, 4, GetMyNumberFormat(ii.nGiveFee));
-			m_List.SetItemText(nItem, 5, GetMyNumberFormat(ii.nGiveDeposit));
-			m_List.SetItemText(nItem, 6, GetMyNumberFormat(ii.nGiveRcpShare));
+			m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(ii.nGiveFee));
+			m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(ii.nGiveDeposit));
+			m_List.SetItemText(nItem, 6, LF->GetMyNumberFormat(ii.nGiveRcpShare));
 			m_List.SetItemText(nItem++, 9, GetShareReportRateString(ii.nRcpRate));
 			tii.nGiveCount += ii.nGiveCount;
 			tii.nGiveFee += ii.nGiveFee;
@@ -372,9 +372,9 @@ void CShareReportRateDlg3::RefreshList()
 		SET_COLOR_LIST(p3, 255, 255, 200);
 		m_List.SetItemText(nItem, 1, "*합계");
 		m_List.SetItemText(nItem, 3, ltoa(tii.nGiveCount, buffer, 10));
-		m_List.SetItemText(nItem, 4, GetMyNumberFormat(tii.nGiveFee));
-		m_List.SetItemText(nItem, 5, GetMyNumberFormat(tii.nGiveDeposit));
-		m_List.SetItemText(nItem++, 6, GetMyNumberFormat(tii.nGiveRcpShare));
+		m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(tii.nGiveFee));
+		m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(tii.nGiveDeposit));
+		m_List.SetItemText(nItem++, 6, LF->GetMyNumberFormat(tii.nGiveRcpShare));
 		gtii.nGiveCount += tii.nGiveCount;
 		gtii.nGiveFee += tii.nGiveFee;
 		gtii.nGiveDeposit += tii.nGiveDeposit;
@@ -401,10 +401,10 @@ void CShareReportRateDlg3::RefreshList()
 			m_List.SetItemText(nItem, 1, icm[nCompany].szCompany);
 			m_List.SetItemText(nItem, 2, icm[nCompany].szBranchName);
 			m_List.SetItemText(nItem, 3, ltoa(ii.nTakeCount, buffer, 10));
-			m_List.SetItemText(nItem, 4, GetMyNumberFormat(ii.nTakeFee));
-			m_List.SetItemText(nItem, 5, GetMyNumberFormat(ii.nTakeDeposit));
-			m_List.SetItemText(nItem, 6, GetMyNumberFormat(ii.nTakeRcpShare));
-			m_List.SetItemText(nItem, 8, GetMyNumberFormat(- ii.nTakeOperateShare));
+			m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(ii.nTakeFee));
+			m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(ii.nTakeDeposit));
+			m_List.SetItemText(nItem, 6, LF->GetMyNumberFormat(ii.nTakeRcpShare));
+			m_List.SetItemText(nItem, 8, LF->GetMyNumberFormat(- ii.nTakeOperateShare));
 			m_List.SetItemText(nItem++, 9, GetShareReportRateString(ii.nRcpRate));
 			tii.nTakeCount += ii.nTakeCount;
 			tii.nTakeFee += ii.nTakeFee;
@@ -421,10 +421,10 @@ void CShareReportRateDlg3::RefreshList()
 		SET_COLOR_LIST(p6, 255, 200, 200);
 		m_List.SetItemText(nItem, 1, "*합계");
 		m_List.SetItemText(nItem, 3, ltoa(tii.nTakeCount, buffer, 10));
-		m_List.SetItemText(nItem, 4, GetMyNumberFormat(tii.nTakeFee));
-		m_List.SetItemText(nItem, 5, GetMyNumberFormat(tii.nTakeDeposit));
-		m_List.SetItemText(nItem, 6, GetMyNumberFormat(tii.nTakeRcpShare));
-		m_List.SetItemText(nItem++, 8, GetMyNumberFormat(- tii.nTakeOperateShare));
+		m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(tii.nTakeFee));
+		m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(tii.nTakeDeposit));
+		m_List.SetItemText(nItem, 6, LF->GetMyNumberFormat(tii.nTakeRcpShare));
+		m_List.SetItemText(nItem++, 8, LF->GetMyNumberFormat(- tii.nTakeOperateShare));
 		gtii.nTakeCount += tii.nTakeCount;
 		gtii.nTakeFee += tii.nTakeFee;
 		gtii.nTakeDeposit += tii.nTakeDeposit;
@@ -460,10 +460,10 @@ void CShareReportRateDlg3::RefreshList()
 			m_List.SetItemText(nItem, 1, icm[nCompany].szCompany);
 			m_List.SetItemText(nItem, 2, icm[nCompany].szBranchName);
 			m_List.SetItemText(nItem, 3, ltoa(ii.nGiveCount - ii.nTakeCount, buffer, 10));
-			m_List.SetItemText(nItem, 4, GetMyNumberFormat(ltoa(nTotalFee, buffer, 10)));
-			m_List.SetItemText(nItem, 5, GetMyNumberFormat(ltoa(nTotalDeposit , buffer, 10)));
-			m_List.SetItemText(nItem, 6, GetMyNumberFormat(ii.nGiveRcpShare - ii.nTakeRcpShare));
-			m_List.SetItemText(nItem, 8, GetMyNumberFormat(- ii.nTakeOperateShare));
+			m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(ltoa(nTotalFee, buffer, 10)));
+			m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(ltoa(nTotalDeposit , buffer, 10)));
+			m_List.SetItemText(nItem, 6, LF->GetMyNumberFormat(ii.nGiveRcpShare - ii.nTakeRcpShare));
+			m_List.SetItemText(nItem, 8, LF->GetMyNumberFormat(- ii.nTakeOperateShare));
 			m_List.SetItemText(nItem++, 9, GetShareReportRateString(ii.nRcpRate));
 
 			icmTotal[nCompany].nTakeCount += ii.nTakeCount;
@@ -488,16 +488,16 @@ void CShareReportRateDlg3::RefreshList()
 		SET_COLOR_LIST(p9, 200, 200, 255);
 		m_List.SetItemText(nItem, 1, "*합계");
 		m_List.SetItemText(nItem, 3, ltoa(tii.nGiveCount - tii.nTakeCount, buffer, 10));
-		m_List.SetItemText(nItem, 4, GetMyNumberFormat(tii.nGiveFee - tii.nTakeFee));
-		m_List.SetItemText(nItem, 5, GetMyNumberFormat(tii.nGiveDeposit - tii.nTakeDeposit));
-		m_List.SetItemText(nItem, 6, GetMyNumberFormat(tii.nGiveRcpShare - tii.nTakeRcpShare));
-		m_List.SetItemText(nItem++, 8, GetMyNumberFormat(- tii.nTakeOperateShare));
+		m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(tii.nGiveFee - tii.nTakeFee));
+		m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(tii.nGiveDeposit - tii.nTakeDeposit));
+		m_List.SetItemText(nItem, 6, LF->GetMyNumberFormat(tii.nGiveRcpShare - tii.nTakeRcpShare));
+		m_List.SetItemText(nItem++, 8, LF->GetMyNumberFormat(- tii.nTakeOperateShare));
 	}
 
 	pRs.Close();
 
 
-//	StatusText(0, "정산이 완료되었습니다.");
+//	LF->StatusText(0, "정산이 완료되었습니다.");
 
 }
 

@@ -238,7 +238,7 @@ void CSetRcpPageDlg::RefreshOrderStateSort()
 		long nState = 0;
 		CComboBox *pCmb = NULL;
 
-		for(int i=0; i<::GetCommaCount(strOrderSort); i++)
+		for(int i=0; i<LF->GetCommaCount(strOrderSort); i++)
 		{
 			nSecondFind = strOrderSort.Find(";", nFirstFind);
 			nState = _ttoi(strOrderSort.Mid(nFirstFind, nSecondFind - nFirstFind));
@@ -261,7 +261,7 @@ void CSetRcpPageDlg::RefreshOrderStateSort()
 void CSetRcpPageDlg::SetCombo(CComboBox *pCmb, long nState)
 {
 	BOOL bSelect = FALSE;
-	CString strState = GetStateString(nState);
+	CString strState = LF->GetStateString(nState);
 	
 	for(int i=0; i<pCmb->GetCount(); i++)
 	{
@@ -284,9 +284,9 @@ CString CSetRcpPageDlg::GetCombo(CComboBox *pCmb)
 	CString strText;
 	pCmb->GetLBText(pCmb->GetCurSel(), strText);
 
-	long nState = GetStateFromString(strText);
+	long nState = LF->GetStateFromString(strText);
 
-	return GetStringFromLong(nState) + ";";
+	return LF->GetStringFromLong(nState) + ";";
 }
 
 void CSetRcpPageDlg::SaveOrderStateSort()
@@ -1063,7 +1063,7 @@ void CSetRcpPageDlg::OnBnClickedUseCardOkNumberAddColumnCheck()
 {
 	if(((CButton*)GetDlgItem(IDC_USE_CARD_OK_NUMBER_ADD_COLUMN_CHECK))->GetCheck())
 	{
-		if(!POWER_CHECK(1982, "승인번호컬럼 보기", TRUE))
+		if(!LF->POWER_CHECK(1982, "승인번호컬럼 보기", TRUE))
 		{
 			((CButton*)GetDlgItem(IDC_USE_CARD_OK_NUMBER_ADD_COLUMN_CHECK))->SetCheck(FALSE);
 		}

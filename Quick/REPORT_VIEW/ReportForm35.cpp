@@ -137,8 +137,8 @@ void CReportForm35::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_customer_mileage_withdraw_log_1");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -227,10 +227,10 @@ void CReportForm35::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm35::OnToExcel()
 {
-	if(!POWER_CHECK(3900, "Á¤»ê ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(3900, "Á¤»ê ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 331, m_lstReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 331, m_lstReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 
@@ -388,12 +388,12 @@ void CReportForm35::GetRecordData(CXTPGridRecord *pRecord, CMkRecordset *rs)
 	}
 	
 	m_lstReport.SetItemText(pRecord, 1, dtRequest.Format("%m-%d %H:%M"));
-	m_lstReport.SetItemText(pRecord, 2, ::GetDashPhoneNumber(strPhone));
-	m_lstReport.SetItemText(pRecord, 3, ::GetMyNumberFormat(nRequestMileage));
-	m_lstReport.SetItemText(pRecord, 4, ::GetMyNumberFormat(nWithdrawCharge));
-	m_lstReport.SetItemText(pRecord, 5, ::GetMyNumberFormat(nRealWithdrawCharge));
-	m_lstReport.SetItemText(pRecord, 6, ::GetMyNumberFormat(nResultMileage));
-	m_lstReport.SetItemText(pRecord, 7, ::GetBankName(nBankID));
+	m_lstReport.SetItemText(pRecord, 2, LF->GetDashPhoneNumber(strPhone));
+	m_lstReport.SetItemText(pRecord, 3, LF->GetMyNumberFormat(nRequestMileage));
+	m_lstReport.SetItemText(pRecord, 4, LF->GetMyNumberFormat(nWithdrawCharge));
+	m_lstReport.SetItemText(pRecord, 5, LF->GetMyNumberFormat(nRealWithdrawCharge));
+	m_lstReport.SetItemText(pRecord, 6, LF->GetMyNumberFormat(nResultMileage));
+	m_lstReport.SetItemText(pRecord, 7, LF->GetBankName(nBankID));
 	m_lstReport.SetItemText(pRecord, 8, strAccount);
 	m_lstReport.SetItemText(pRecord, 9, strAccountOwner);
 	m_lstReport.SetItemText(pRecord, 10, GetMileageWithdrawState(nState));
@@ -413,7 +413,7 @@ void CReportForm35::GetRecordData(CXTPGridRecord *pRecord, CMkRecordset *rs)
 	m_lstReport.SetItemText(pRecord, 14, strManualInput);
 
 	if(dtCheck.m_status != 2)
-		m_lstReport.SetItemText(pRecord, 15, dtCheck.Format("[%Y-%m-%d %H:%M]") + "/" + ::GetStringFromLong(nCheckWNo, TRUE) + "," + strCheckWName);
+		m_lstReport.SetItemText(pRecord, 15, dtCheck.Format("[%Y-%m-%d %H:%M]") + "/" + LF->GetStringFromLong(nCheckWNo, TRUE) + "," + strCheckWName);
 
 	m_lstReport.SetItemLong(pRecord, nID);
 	m_lstReport.SetItemLong2(pRecord, nState);

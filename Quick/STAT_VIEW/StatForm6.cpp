@@ -64,10 +64,10 @@ void CStatForm6::Dump(CDumpContext& dc) const
 
 void CStatForm6::OnViewExcel()
 {
-	if(!POWER_CHECK(8900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(8900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 306, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 306, m_ui.nWNo, m_lstReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 
@@ -113,7 +113,7 @@ void CStatForm6::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_share_account_log_new");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(COleDateTime), GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(COleDateTime), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 
@@ -155,16 +155,16 @@ void CStatForm6::RefreshList()
 
 			if(nDeposit >= 0)
 			{
-				m_lstReport.SetItemText(i, 2, ::GetMyNumberFormat(nDeposit));
+				m_lstReport.SetItemText(i, 2, LF->GetMyNumberFormat(nDeposit));
 				bPlus = TRUE;
 			}
 			else
-				m_lstReport.SetItemText(i, 3, ::GetMyNumberFormat(nDeposit));
+				m_lstReport.SetItemText(i, 3, LF->GetMyNumberFormat(nDeposit));
 
 			strSEtc.Replace("에서받음 사유:", "");
 			strSEtc.Replace("로보냄 사유:", "");
 
-			m_lstReport.SetItemText(i, 4, ::GetMyNumberFormat(nBalance));
+			m_lstReport.SetItemText(i, 4, LF->GetMyNumberFormat(nBalance));
 			m_lstReport.SetItemText(i, 5, strSEtc);
 			m_lstReport.SetItemText(i, 6, strSCompany);
 			m_lstReport.SetItemText(i, 7, strOrderEtc);
@@ -172,7 +172,7 @@ void CStatForm6::RefreshList()
 			if(nRNo > 0 && nRiderCompany > 0)
 			{
 				m_lstReport.SetItemText(i, 8, 
-					(!m_ci.IsChildCompany(nRiderCompany) ? CString("ⓒ") : "") + GetStringFromLong(nRNo) + "/" + strRName);
+					(!m_ci.IsChildCompany(nRiderCompany) ? CString("ⓒ") : "") + LF->GetStringFromLong(nRNo) + "/" + strRName);
 			}
 			else
 				m_lstReport.SetItemText(i, 8, "");			
@@ -236,7 +236,7 @@ long  CStatForm6::GetTNoFromText(CString strTNo)
 	{
 		CString strChar = strTNo.Mid(i, 1);
 
-		if(::IsNumeric(strChar) == TRUE &&
+		if(LF->IsNumeric(strChar) == TRUE &&
 			strChar != "")
 		{
 			strSum += strChar;
@@ -318,7 +318,7 @@ void CStatForm6::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*result*
 
 	CString sCName; long nState;
 
-	if(::IsCrossOrder(nTNo, sCName, nState))
+	if(LF->IsCrossOrder(nTNo, sCName, nState))
 	{ 
 		COrderLogDetailDlg DetailLog;
 		//DetailLog.m_pCurDb = IsSecondServerOrder(nSelItem) ? m_pMkSecondDb : m_pMkDb;
@@ -329,7 +329,7 @@ void CStatForm6::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*result*
 		return;
 	}
 
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	if(LU->m_pRcpView)

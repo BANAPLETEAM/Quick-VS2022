@@ -86,7 +86,7 @@ BOOL CSearchCustomerInsungRcpDlg::OnInitDialog()
 void CSearchCustomerInsungRcpDlg::RefreshCNo()
 {
 	long nCompany = (long)m_cmbBranch.GetItemData(m_cmbBranch.GetCurSel());
-	long nCusCompany = GetBranchInfo(nCompany)->nCustomerTable;
+	long nCusCompany = LF->GetBranchInfo(nCompany)->nCustomerTable;
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_customer_like_insung_rcp_cno");
@@ -112,7 +112,7 @@ void CSearchCustomerInsungRcpDlg::RefreshList()
 	CString strShTel; m_edtTel.GetWindowText(strShTel);
 
 	long nCompany = (long)m_cmbBranch.GetItemData(m_cmbBranch.GetCurSel());
-	long nCusCompany = GetBranchInfo(nCompany)->nCustomerTable;
+	long nCusCompany = LF->GetBranchInfo(nCompany)->nCustomerTable;
 
 	if(strShName.IsEmpty() && strShTel.IsEmpty())
 		return;

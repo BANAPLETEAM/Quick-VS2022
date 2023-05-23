@@ -111,7 +111,7 @@ BOOL CRiderMsgDlg::OnInitDialog()
 	CMyDialog::OnInitDialog();
 	//SetWindowPos(&CWnd::wndTopMost, 0,0,0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
-	MakeModaless();
+	LF->MakeModaless();
 	CenterWindow();
 
 	if((m_ci.m_nCompanyCode == 2900 || m_ci.m_nCompanyCode == 2750) && (m_ui.nRole == 0))
@@ -461,7 +461,7 @@ void CRiderMsgDlg::OnBnClickedSendBtn()
 	else if( m_cmbSMS.GetCurSel() != 0 )
 		return;
 
-	if(!POWER_CHECK(1201, "기사공지 전송/수정", TRUE))
+	if(!LF->POWER_CHECK(1201, "기사공지 전송/수정", TRUE))
 		return;
 
 	m_edtMsg.GetWindowText(m_strMsg);
@@ -718,7 +718,7 @@ BOOL CRiderMsgDlg::IsAllRider()
 
 void CRiderMsgDlg::OnBnClickedSendBothBtn()
 {
-	if(!POWER_CHECK(1201, "기사공지 전송/수정", TRUE))
+	if(!LF->POWER_CHECK(1201, "기사공지 전송/수정", TRUE))
 		return;
 
 	UpdateData();
@@ -856,10 +856,10 @@ BOOL CRiderMsgDlg::SendRiderSMS(int nItem)
 	{
 		//encProfile.WriteString("sms", "callback", dlg.m_strRecvPN);
 
-		dlg.m_strRecvPhone = GetNoneDashNumber(dlg.m_strRecvPhone);
-		dlg.m_strRiderPN = GetNoneDashNumber(dlg.m_strRiderPN);
+		dlg.m_strRecvPhone = LF->GetNoneDashNumber(dlg.m_strRecvPhone);
+		dlg.m_strRiderPN = LF->GetNoneDashNumber(dlg.m_strRiderPN);
 
-		if(!::SendSmsNew(m_ci.m_nCompanyCode, 555, dlg.m_strRiderPN, dlg.m_strRecvPhone, dlg.m_strMsg, "기사공지", "", ""))
+		if(!LF->SendSmsNew(m_ci.m_nCompanyCode, 555, dlg.m_strRiderPN, dlg.m_strRecvPhone, dlg.m_strMsg, "기사공지", "", ""))
 		{
 			MessageBox("SMS 전송 실패", "전송실패", MB_ICONINFORMATION);
 			return FALSE;
@@ -893,7 +893,7 @@ void CRiderMsgDlg::RefreshSelectCount()
 
 void CRiderMsgDlg::OnBnClickedDeleteSelBtn()
 {
-	if(!POWER_CHECK(1202, "기사공지 삭제", TRUE))
+	if(!LF->POWER_CHECK(1202, "기사공지 삭제", TRUE))
 		return;
 
 	//CWaitCursor wait;
@@ -917,7 +917,7 @@ void CRiderMsgDlg::OnBnClickedDeleteSelBtn()
 
 void CRiderMsgDlg::OnBnClickedDeleteAllBtn()
 {
-	if(!POWER_CHECK(1202, "기사공지 삭제", TRUE))
+	if(!LF->POWER_CHECK(1202, "기사공지 삭제", TRUE))
 		return;
 
 
@@ -948,7 +948,7 @@ void CRiderMsgDlg::OnBnClickedCancelBtn2()
 
 void CRiderMsgDlg::OnBnClickedEditBtn()
 {
-	if(!POWER_CHECK(1201, "기사공지 수정", TRUE))
+	if(!LF->POWER_CHECK(1201, "기사공지 수정", TRUE))
 		return;
 
 	int index = m_lstHistory.GetNextItem(-1 , LVNI_SELECTED);

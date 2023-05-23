@@ -100,7 +100,7 @@ void CCancelDlg::OnBnClickedOk()
 
 		if(m_strCustomerPhone.Left(1) == "0" && strText.GetLength() > 0)
 		{ 			
-			SendSmsNew(m_nCompany, 777, m_strCustomerPhone, strOfficePhone, strText, "접수프로그램(취소)", "", ""); 
+			LF->SendSmsNew(m_nCompany, 777, m_strCustomerPhone, strOfficePhone, strText, "접수프로그램(취소)", "", "");
 		}
 	}
 	if(m_btnRiderShotageSms.GetCheck())
@@ -111,7 +111,7 @@ void CCancelDlg::OnBnClickedOk()
 
 		if(m_strCustomerPhone.Left(1) == "0" && strText.GetLength() > 0)
 		{
-			SendSmsNew(m_nCompany, 777, m_strCustomerPhone, strOfficePhone, strText, "접수프로그램(취소)", "", "");
+			LF->SendSmsNew(m_nCompany, 777, m_strCustomerPhone, strOfficePhone, strText, "접수프로그램(취소)", "", "");
 		}
 	}
 	if(m_btnSms.GetCheck())
@@ -183,10 +183,10 @@ void CCancelDlg::OnBnClickedOk()
 
 			if(IDOK == dlg.DoModal())
 			{
-				dlg.m_strRecvPhone = GetNoneDashNumber(dlg.m_strRecvPhone);
-				dlg.m_strRiderPN = GetNoneDashNumber(dlg.m_strRiderPN);
+				dlg.m_strRecvPhone = LF->GetNoneDashNumber(dlg.m_strRecvPhone);
+				dlg.m_strRiderPN = LF->GetNoneDashNumber(dlg.m_strRiderPN);
 
-				SendSmsNew(m_nCompany, 777, dlg.m_strRiderPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(취소)", "", "");				
+				LF->SendSmsNew(m_nCompany, 777, dlg.m_strRiderPN, dlg.m_strRecvPhone, dlg.m_strMsg, "접수프로그램(취소)", "", "");
 
 				OnOK();
 				return;

@@ -95,7 +95,7 @@ protected:
 			if(nCharge == 0)
 				m_strFormatString = "";
 			else
-				m_strCaption = GetMyNumberFormat(nCharge);
+				m_strCaption = LF->GetMyNumberFormat(nCharge);
 		}
 	};
 public:

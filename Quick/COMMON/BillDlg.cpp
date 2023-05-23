@@ -100,7 +100,7 @@ void CBillDlg::RefreshList()
 			}
 			m_BillList.SetItemData(nItem, (DWORD)nType);
 			m_BillList.SetItemText(nItem, 1, strDescribe); 
-			m_BillList.SetItemText(nItem, 2, GetMyNumberFormat(ltoa(nCharge, buffer, 10))); 
+			m_BillList.SetItemText(nItem, 2, LF->GetMyNumberFormat(ltoa(nCharge, buffer, 10))); 
 			m_BillList.SetItemText(nItem++, 3, strEtc); 
 			pRs.MoveNext();
 		}

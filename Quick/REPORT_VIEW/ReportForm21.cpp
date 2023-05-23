@@ -93,9 +93,9 @@ END_MESSAGE_MAP()
 //	CXTPGridRecord*pRecord = pRows->GetAt(0)->GetRecord();
 //
 //	strGNo = m_lstOrder.GetItemText(pRecord, 12);
-//	if(!IsNumeric(strGNo))
+//	if(!LF->IsNumeric(strGNo))
 //	{
-//		MsgBox("선택을 다시하여주세요");
+//		LF->MsgBox("선택을 다시하여주세요");
 //		return;
 //	}
 //	nGNo = atol(strGNo);
@@ -132,9 +132,9 @@ END_MESSAGE_MAP()
 //	CXTPGridRecord*pRecord = pRows->GetAt(0)->GetRecord();
 //
 //	strGNo = m_lstOrder.GetItemText(pRecord, 12);
-//	if(!IsNumeric(strGNo))
+//	if(!LF->IsNumeric(strGNo))
 //	{
-//		MsgBox("선택을 다시하여주세요");
+//		LF->MsgBox("선택을 다시하여주세요");
 //		return;
 //	}
 //	nGNo = atol(strGNo);
@@ -338,8 +338,8 @@ void CReportForm21::RefreshOrderList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_not_group_order3");
-	pCmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(m_cmbType.GetCurSel());
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);	
@@ -393,13 +393,13 @@ void CReportForm21::RefreshOrderList()
 		m_lstOrder.SetItemText(i, nCol++, strLoginID);
 		m_lstOrder.SetItemText(i, nCol++, strSDong);
 		m_lstOrder.SetItemText(i, nCol++, strDDong);
-		m_lstOrder.SetItemText(i, nCol++, ::GetStateString(nState));
-		m_lstOrder.SetItemText(i, nCol++, ::GetPayTypeFromLong(nPayType));
-		m_lstOrder.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeBasic));
-		m_lstOrder.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeAdd));
-		m_lstOrder.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeDis));
-		m_lstOrder.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeSum));
-		m_lstOrder.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeTrans));
+		m_lstOrder.SetItemText(i, nCol++, LF->GetStateString(nState));
+		m_lstOrder.SetItemText(i, nCol++, LF->GetPayTypeFromLong(nPayType));
+		m_lstOrder.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeBasic));
+		m_lstOrder.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeAdd));
+		m_lstOrder.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeDis));
+		m_lstOrder.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeSum));
+		m_lstOrder.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeTrans));
 		m_lstOrder.SetItemText(i, nCol++, strItemType);
 		m_lstOrder.SetItemText(i, nCol++, strEtc);		
 		m_lstOrder.SetItemText(i, nCol++, ltoa(nCompany, buffer,10));		
@@ -425,12 +425,12 @@ void CReportForm21::RefreshOrderList()
 	m_nCalculateTrans = nChargeSumTrans;
 
 	m_lstOrder.InsertItem(i, "");
-	m_lstOrder.SetItemText(i, 9, GetMyNumberFormat(nTotalCount -1) + "건");
-	m_lstOrder.SetItemText(i, 10, GetMyNumberFormat(nChargeSumBasic));
-	m_lstOrder.SetItemText(i, 11, GetMyNumberFormat(nChargeSumAdd));
-	m_lstOrder.SetItemText(i, 12, GetMyNumberFormat(nChargeSumDis));
-	m_lstOrder.SetItemText(i, 13, GetMyNumberFormat(nChargeTotalSum));
-	m_lstOrder.SetItemText(i, 14, GetMyNumberFormat(nChargeSumTrans));	
+	m_lstOrder.SetItemText(i, 9, LF->GetMyNumberFormat(nTotalCount -1) + "건");
+	m_lstOrder.SetItemText(i, 10, LF->GetMyNumberFormat(nChargeSumBasic));
+	m_lstOrder.SetItemText(i, 11, LF->GetMyNumberFormat(nChargeSumAdd));
+	m_lstOrder.SetItemText(i, 12, LF->GetMyNumberFormat(nChargeSumDis));
+	m_lstOrder.SetItemText(i, 13, LF->GetMyNumberFormat(nChargeTotalSum));
+	m_lstOrder.SetItemText(i, 14, LF->GetMyNumberFormat(nChargeSumTrans));	
 
 
 	m_lstOrder.Populate();		
@@ -521,7 +521,7 @@ void CReportForm21::OnOrderReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	CString strCName = m_lstOrder.GetItemString(pRecord);
 	CString strCompany = m_lstOrder.GetItemText(pRow->GetIndex(),17 );
 	long nCompany = 0;
-	if(IsNumeric(strCompany))
+	if(LF->IsNumeric(strCompany))
 		nCompany = atol(strCompany);
 	
 	if(nCompany <= 0)
@@ -532,7 +532,7 @@ void CReportForm21::OnOrderReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	
 
 	
-	CBranchInfo *pBranchInfo =GetBranchInfo(nCompany);
+	CBranchInfo *pBranchInfo = LF->GetBranchInfo(nCompany);
 	if(pBranchInfo)
 	{
 		if(!LU->GetRcpView() )
@@ -545,7 +545,7 @@ void CReportForm21::OnOrderReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	}
 
 	
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	LU->GetRcpView()->CreateRcpDlg(pBranchInfo, 
@@ -646,7 +646,7 @@ void CReportForm21::OnLButtonUp(UINT nFlags, CPoint point)
 
 		if(nResult == IDYES)
 		{
-			if(::CheckGroupReport("0;", pDestRecord->m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
+			if(LF->CheckGroupReport("0;", pDestRecord->m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
 				return;
 
 			long nCNo = m_lstOrder.GetItemLong(pOrderRecord);
@@ -659,7 +659,7 @@ void CReportForm21::OnLButtonUp(UINT nFlags, CPoint point)
 			{
 				if(strNeedReportID != "")
 				{
-					if(::ReReport(strNeedReportID))
+					if(LF->ReReport(strNeedReportID))
 					{
 						MessageBox("완료되었습니다.", "확인", MB_ICONINFORMATION);
 						RefreshOrderList();
@@ -761,10 +761,10 @@ void CReportForm21::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result
 
 void CReportForm21::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 316, m_ui.nWNo, m_lstOrder.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 316, m_ui.nWNo, m_lstOrder.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_lstOrder);
 }
 
@@ -791,20 +791,20 @@ void CReportForm21::OnMakeGroupReport()
 
 	if(m_mapGNoList.size() <= 0)
 	{
-		MsgBox("정산할 부서를 선택하여 주세요");
+		LF->MsgBox("정산할 부서를 선택하여 주세요");
 		return;
 	}	
 	else if(m_mapGNoList.size() == 1)
 	{
 		CString sGNo = "";
 		sGNo = m_sSelectGNo; sGNo.Replace(",","");
-		if(IsNumeric(sGNo))
+		if(LF->IsNumeric(sGNo))
 			nReportGNo = atol(sGNo);
 		strGNoList = sGNo;
 	}
 	else if(m_mapGNoList.size() > 1)
 	{
-		MsgBox("대표로 정산할 부서를 검색하여 다시 선택하여 주세요");
+		LF->MsgBox("대표로 정산할 부서를 검색하여 다시 선택하여 주세요");
 
 		if(m_mapGNoList.size() > 0 )
 		{
@@ -814,7 +814,7 @@ void CReportForm21::OnMakeGroupReport()
 		}
 
 		CSearchGroupDlg dlg;
-		dlg.m_nCompany = GetCurBranchInfo()->nCompanyCode;
+		dlg.m_nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 		dlg.m_nDataType = SG_GROUP;
 		dlg.m_strSearch = strSearchGroup.GetLength() > 0 ? strSearchGroup : "";
 		if(dlg.DoModal() != IDOK) return;

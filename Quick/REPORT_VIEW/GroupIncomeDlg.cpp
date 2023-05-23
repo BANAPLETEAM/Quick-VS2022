@@ -54,7 +54,7 @@ BOOL CGroupIncomeDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	m_stcTitle.SetWindowText(m_sDate + " " + "미수금액 : "+ ::GetMyNumberFormat(m_nDebit));
+	m_stcTitle.SetWindowText(m_sDate + " " + "미수금액 : "+ LF->GetMyNumberFormat(m_nDebit));
 
 	m_cmbType.SetCurSel(0);
 	m_dtReIncome += 7;
@@ -84,7 +84,7 @@ void CGroupIncomeDlg::OnEnChangeMoneyEdit()
 	CString sCharge; m_EdtMoney.GetWindowText(sCharge);
 	sCharge.Replace(",", "");
 
-	if(!IsNumeric(sCharge))
+	if(!LF->IsNumeric(sCharge))
 	{
 		MessageBox("숫자를 입력하세요");
 		m_EdtMoney.SetWindowText("");
@@ -111,11 +111,11 @@ void CGroupIncomeDlg::OnEnChangeMoneyEdit()
 			m_cmbType.SetCurSel(2);
 			m_chkReIncome.SetCheck(FALSE);
 			m_dtpReIncome.EnableWindow(FALSE);
-			m_EdtMoney.SetWindowText(GetMyNumberFormat(m_nDebit));
+			m_EdtMoney.SetWindowText(LF->GetMyNumberFormat(m_nDebit));
 		}
 
 		m_stcBalance.ShowWindow(SW_HIDE);
-		m_stcBalance.SetWindowText(GetMyNumberFormat(m_nDebit - nInputCharge));
+		m_stcBalance.SetWindowText(LF->GetMyNumberFormat(m_nDebit - nInputCharge));
 		m_stcBalance.ShowWindow(SW_SHOW);
 	}
 	else if(m_cmbType.GetCurSel() == 1)
@@ -130,7 +130,7 @@ void CGroupIncomeDlg::OnEnChangeMoneyEdit()
 
 
 		m_stcBalance.ShowWindow(SW_HIDE);
-		m_stcBalance.SetWindowText(GetMyNumberFormat(m_nDebit + nInputCharge));
+		m_stcBalance.SetWindowText(LF->GetMyNumberFormat(m_nDebit + nInputCharge));
 		m_stcBalance.ShowWindow(SW_SHOW);
 
 	}	
@@ -188,7 +188,7 @@ void CGroupIncomeDlg::AllIncome()
 	m_chkReIncome.EnableWindow(FALSE);
 	m_dtpReIncome.EnableWindow(FALSE);
 	m_stcBalance.SetWindowText("0");
-	m_EdtMoney.SetWindowText(GetMyNumberFormat(m_nDebit));
+	m_EdtMoney.SetWindowText(LF->GetMyNumberFormat(m_nDebit));
 
 }
 
@@ -206,7 +206,7 @@ void CGroupIncomeDlg::OnCbnSelchangeTypeCombo()
 		m_chkReIncome.SetCheck(FALSE);
 		m_chkReIncome.EnableWindow(FALSE);
 		m_dtpReIncome.EnableWindow(FALSE);
-		m_EdtMoney.SetWindowText(GetMyNumberFormat(m_nDebit));
+		m_EdtMoney.SetWindowText(LF->GetMyNumberFormat(m_nDebit));
 		m_stcBalance.SetWindowText("0");
 	}
 }

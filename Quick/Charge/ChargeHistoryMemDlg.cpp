@@ -243,8 +243,8 @@ void CChargeHistoryMemDlg::RefreshMainList()
 		m_lstMain.MyCheckAddItem(nCol++, (*it).second->bView, "노출", 45, DT_CENTER, TRUE);
 		m_lstMain.MyAddItem(nCol++,(*it).second->strMemCompany, "요금명", 170, FALSE, DT_LEFT);			
 		m_lstMain.MyAddItem(nCol++,(*it).second->dtRegister.Format("%Y-%m-%d"), "등록일", 60, FALSE, DT_LEFT);
-		m_lstMain.MyAddItem(nCol++,GetMyNumberFormat((*it).second->nCusCount), "고객수", 40, FALSE, DT_RIGHT);
-		m_lstMain.MyAddItem(nCol++,GetMyNumberFormat( (*it).second->nChargeCount ), "요금갯수", 40, FALSE, DT_RIGHT);
+		m_lstMain.MyAddItem(nCol++,LF->GetMyNumberFormat((*it).second->nCusCount), "고객수", 40, FALSE, DT_RIGHT);
+		m_lstMain.MyAddItem(nCol++,LF->GetMyNumberFormat( (*it).second->nChargeCount ), "요금갯수", 40, FALSE, DT_RIGHT);
 		CMyXTPGridRecord *pRecord =m_lstMain.MyAddItem(nCol++,(*it).second->strMemo, "내용", 150, FALSE, DT_LEFT);		
 		m_lstMain.InsertItemDataLong((*it).second->nMemCNo);
 		m_lstMain.InsertItemDataLong2((*it).second->nCompany);
@@ -328,7 +328,7 @@ void CChargeHistoryMemDlg::RefreshSubCharge()
 		pRs.GetFieldValue("sDestDong", strDestDong);		
 
 		int nCol = 0;
-		m_lstSub.MyAddItem(nCol++, GetMyNumberFormat(i + 1), "No", 30, FALSE, DT_LEFT);
+		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(i + 1), "No", 30, FALSE, DT_LEFT);
 		m_lstSub.MyAddItem(nCol++, strType, "구분", 45, FALSE, DT_LEFT);
 		m_lstSub.MyAddItem(nCol++, strStartSido, "시", 35, FALSE, DT_LEFT);
 		m_lstSub.MyAddItem(nCol++, strStartGugun, "출발구", 50, FALSE, DT_LEFT);		
@@ -338,10 +338,10 @@ void CChargeHistoryMemDlg::RefreshSubCharge()
 		m_lstSub.MyAddItem(nCol++, strDestGugun, "도착구", 50, FALSE, DT_LEFT);		
 		m_lstSub.MyAddItem(nCol++, strDestDong, "도착동", 60, FALSE, DT_LEFT);
 
-		m_lstSub.MyAddItem(nCol++, GetMyNumberFormat(nMotoCharge), "오토", 50, TRUE, DT_RIGHT);
-		m_lstSub.MyAddItem(nCol++, GetMyNumberFormat(nDamaCharge), "다마", 50, TRUE, DT_RIGHT);
-		m_lstSub.MyAddItem(nCol++, GetMyNumberFormat(nBonggoCharge), "봉고", 50, TRUE, DT_RIGHT);
-		m_lstSub.MyAddItem(nCol++, GetMyNumberFormat(nTruckCharge), "트럭", 50, TRUE, DT_RIGHT);
+		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(nMotoCharge), "오토", 50, TRUE, DT_RIGHT);
+		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(nDamaCharge), "다마", 50, TRUE, DT_RIGHT);
+		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(nBonggoCharge), "봉고", 50, TRUE, DT_RIGHT);
+		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(nTruckCharge), "트럭", 50, TRUE, DT_RIGHT);
 
 		m_lstSub.InsertItemDataLong(nStartID);		
 		m_lstSub.InsertItemDataLong2(nDestID);
@@ -393,8 +393,8 @@ void CChargeHistoryMemDlg::RefreshSubList()
 		m_lstSub.MyAddItem(0, strCompany, "회사명", 100, FALSE, DT_LEFT);
 		m_lstSub.MyAddItem(1, strDepart, "부서명", 90, FALSE, DT_LEFT);
 		m_lstSub.MyAddItem(2, strName, "담당자", 90, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(3, GetDashPhoneNumber(strTel1), "대표번호", 80, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(4, GetDashPhoneNumber(strMobile), "휴대폰", 80, FALSE, DT_LEFT);
+		m_lstSub.MyAddItem(3, LF->GetDashPhoneNumber(strTel1), "대표번호", 80, FALSE, DT_LEFT);
+		m_lstSub.MyAddItem(4, LF->GetDashPhoneNumber(strMobile), "휴대폰", 80, FALSE, DT_LEFT);
 		m_lstSub.MyAddItem(5, strDong, "해당동", 80, FALSE, DT_LEFT);		
 		m_lstSub.MyAddItem(6, dtRegister.Format("%y-%m-%d"), "등록일", 90, FALSE, DT_LEFT);
 		m_lstSub.InsertItemDataLong(nCNo);		
@@ -503,8 +503,8 @@ void CChargeHistoryMemDlg::SetCNoPopup(long nMemCNo, long nCNo, long nCompany, C
 			sHistoryName = "";
 
 		m_edtCompany.SetWindowText(strCompany);
-		m_edtTel.SetWindowText(GetDashPhoneNumber(strPhone));
-		m_edtMobile.SetWindowText(GetDashPhoneNumber(strMobile));
+		m_edtTel.SetWindowText(LF->GetDashPhoneNumber(strPhone));
+		m_edtMobile.SetWindowText(LF->GetDashPhoneNumber(strMobile));
 		m_edtDepart.SetWindowText(strDepart);
 		m_edtName.SetWindowText(strManager);		
 		m_edtHistoryName.SetWindowText(sHistoryName);
@@ -581,7 +581,7 @@ void CChargeHistoryMemDlg::DeleteCharge()
 {
 	if( m_lstMain.GetSelectedCount() <= 0)
 	{
-		MsgBox("수정할 아이템을 선택하여 주세요");
+		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
 	}
 
@@ -599,7 +599,7 @@ void CChargeHistoryMemDlg::DeleteCharge()
 		CMkCommand pCmd(m_pMkDb, "select_history_charge_member_delete");
 		CMkRecordset pRs(m_pMkDb);
 		pCmd.AddParameter(nMemCNo);
-		pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+		pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
 		CMkParameter *pParString = pCmd.AddParameter(typeString, typeOutput, 20, "");
 		pRs.Execute(&pCmd);
@@ -639,7 +639,7 @@ void CChargeHistoryMemDlg::OnModifyCharge()
 {
 	if( m_lstMain.GetSelectedCount() <= 0)
 	{
-		MsgBox("수정할 아이템을 선택하여 주세요");
+		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
 	}
 
@@ -651,7 +651,7 @@ void CChargeHistoryMemDlg::ModifyCharge(CString sChargeName,CString sEtc)
 {
 	if( m_lstMain.GetSelectedCount() <= 0)
 	{
-		MsgBox("수정할 아이템을 선택하여 주세요");
+		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
 	}
 	CString strAddName = "";
@@ -886,7 +886,7 @@ void CChargeHistoryMemDlg::SumCharge()
 {
 	if( m_lstMain.GetSelectedCount() <= 0)
 	{
-		MsgBox("수정할 아이템을 선택하여 주세요");
+		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
 	}
 
@@ -912,7 +912,7 @@ void CChargeHistoryMemDlg::DeleteCustomer()
 
 	if( m_lstSub.GetSelectedCount() <= 0)
 	{
-		MsgBox("수정할 아이템을 선택하여 주세요");
+		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
 	}
 
@@ -924,7 +924,7 @@ void CChargeHistoryMemDlg::DeleteCustomer()
 		CMkCommand pCmd(m_pMkDb, "select_history_charge_member_sub_delete3");
 		CMkRecordset pRs(m_pMkDb);
 		pCmd.AddParameter(nSubCNo);
-		pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);		
+		pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);		
 		pCmd.AddParameter(m_nMemCNo);
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
 		CMkParameter *pParString = pCmd.AddParameter(typeString, typeOutput, 20, "");
@@ -979,7 +979,7 @@ void CChargeHistoryMemDlg::OnBnClickedOtherCustomerSearchBtn()
 		m_edtChargeName.SetWindowText(dlg.m_sReturnCustomer);
 		m_edtTel.SetWindowText(dlg.m_sReturnTel);
 		m_edtChargeName.SetWindowText(sMemberChargeName);
-		m_edtMobile.SetWindowText(GetDashPhoneNumber(dlg.m_sReturnHP));
+		m_edtMobile.SetWindowText(LF->GetDashPhoneNumber(dlg.m_sReturnHP));
 		m_edtDepart.SetWindowText(dlg.m_sReturnDept);
 		m_edtName.SetWindowText(dlg.m_sReturnName);
 
@@ -1121,7 +1121,7 @@ void CChargeHistoryMemDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* 
 		CString strNewData = pItemText->GetValue();
 		if(strNewData.GetLength() == 0)
 			return;
-		if(!IsStringDigit(strNewData))
+		if(!LF->IsStringDigit(strNewData))
 		{
 			pItemText->OldValueChange();			
 			throw("숫자를 넣어주세요");		
@@ -1173,15 +1173,15 @@ void CChargeHistoryMemDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* 
 		CPOIUnit *pDestPoiUnit = m_poiNew.GetDongPOI(nDestID);
 
 		int nStartType = 0, nDestType = 0;
-		nStartType = GetChargeDongTypeInfo(nStartID);
-		nDestType = GetChargeDongTypeInfo(nDestID);
+		nStartType = LF->GetChargeDongTypeInfo(nStartID);
+		nDestType = LF->GetChargeDongTypeInfo(nDestID);
 		if(nStartType <= -1  && nDestType <= -1)
 		{
 			MessageBox("출발지 타입및 도착지 타입의 데이터가 불일치 합니다 로지소프트로 문의하세요 ", 
 				"확인" , MB_ICONINFORMATION);
 				return;
 		}
-		nStartDestType = GetChargeType(nStartType, nDestType);
+		nStartDestType = LF->GetChargeType(nStartType, nDestType);
 		
 
 		CMkCommand pCmd(m_pMkDb, "insert_charge_history_data");
@@ -1198,7 +1198,7 @@ void CChargeHistoryMemDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* 
 		if(m_chkShuttle.GetCheck())
 			RefreshSubCharge();
 		else
-			pItemText->SetCaption(GetMyNumberFormat(nCharge));
+			pItemText->SetCaption(LF->GetMyNumberFormat(nCharge));
 
 	}
 	catch (CString s)

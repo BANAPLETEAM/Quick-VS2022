@@ -133,7 +133,7 @@ void CRiderTraceMapDlg::UpdateOrderStatic()
 
 		CString strTemp; 
 		strTemp.Format(" (%s)%s  %s  %s->%s %s", pRecord->GetItem(0)->GetCaption(NULL), 
-			::GetStateString(nState),
+			LF->GetStateString(nState),
 			pRecord->GetItem(1)->GetCaption(NULL), 
 			pRecord->GetItem(2)->GetCaption(NULL), 
 			pRecord->GetItem(3)->GetCaption(NULL), 

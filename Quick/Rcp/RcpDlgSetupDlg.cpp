@@ -47,7 +47,7 @@ BOOL CRcpDlgSetupDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	LoadFromReg(m_info);
+	LF->LoadFromReg(m_info);
 	StructToResource();
 
 	return TRUE;
@@ -76,6 +76,6 @@ void CRcpDlgSetupDlg::ResourceToStruct()
 void CRcpDlgSetupDlg::OnBnClickedOk()
 {
 	ResourceToStruct();
-	::SaveToReg(m_info);
+	LF->SaveToReg(m_info);
 	OnOK();
 }

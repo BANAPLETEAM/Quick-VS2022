@@ -120,13 +120,13 @@ void CReportForm14::RefreshList()
 	long nTake = 0;
 	long nGive = 0;
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nShareCode1);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nShareCode2);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nShareCode3);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nShareCode4);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nShareCode5);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nShareCode1);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nShareCode2);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nShareCode3);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nShareCode4);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nShareCode5);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_CreditChk.GetCheck());
@@ -137,7 +137,7 @@ void CReportForm14::RefreshList()
 	{
 		ST_SHARE *st = new ST_SHARE;
 
-		st->nCurCompany = ::GetCurBranchInfo()->nCompanyCode;
+		st->nCurCompany = LF->GetCurBranchInfo()->nCompanyCode;
 
 		pRs.GetFieldValue("nTNo", st->nTNo);
 		pRs.GetFieldValue("nCompany", st->nCompany);
@@ -165,7 +165,7 @@ void CReportForm14::RefreshList()
 		pRs.GetFieldValue("nDeposit", st->nDeposit);
 		pRs.GetFieldValue("nRcpRate", st->nRcpRate);
 
-		if(GetCurBranchInfo()->nShareCode1 == st->nShareCode1)
+		if(LF->GetCurBranchInfo()->nShareCode1 == st->nShareCode1)
 		{
 			st->nTakeDeposit = (st->nDeposit * ((st->nRcpRate * 5) / 100));
 			st->nGiveDeposit = st->nDeposit - st->nTakeDeposit;
@@ -241,14 +241,14 @@ void CReportForm14::PrintList(SHARE_MAP *pMap, long nStartIndex, CString sTotal)
 			//m_wndReport.InsertColumn(13, "합계",LVCFMT_LEFT, 60);
 			//m_wndReport.InsertColumn(14, "결제",LVCFMT_RIGHT, 50);
 
-			m_wndReport.SetItemText(nItem, 10, ::GetMyNumberFormat(nChargeBasicSum) + "원");
-			m_wndReport.SetItemText(nItem, 11, ::GetMyNumberFormat(nChargeAddSum) + "원");
-			m_wndReport.SetItemText(nItem, 12, ::GetMyNumberFormat(nChargeDisSum) + "원");
-			m_wndReport.SetItemText(nItem, 13, ::GetMyNumberFormat(nChargeTransSum) + "원");
-			m_wndReport.SetItemText(nItem, 14, ::GetMyNumberFormat(nChargeSumSum) + "원");
-			m_wndReport.SetItemText(nItem, 16, ::GetMyNumberFormat(nDeposit) + "원");
-			m_wndReport.SetItemText(nItem, 17, ::GetMyNumberFormat(nTakeDeposit) + "원");
-			m_wndReport.SetItemText(nItem, 18, ::GetMyNumberFormat(nGiveDeposit) + "원");
+			m_wndReport.SetItemText(nItem, 10, LF->GetMyNumberFormat(nChargeBasicSum) + "원");
+			m_wndReport.SetItemText(nItem, 11, LF->GetMyNumberFormat(nChargeAddSum) + "원");
+			m_wndReport.SetItemText(nItem, 12, LF->GetMyNumberFormat(nChargeDisSum) + "원");
+			m_wndReport.SetItemText(nItem, 13, LF->GetMyNumberFormat(nChargeTransSum) + "원");
+			m_wndReport.SetItemText(nItem, 14, LF->GetMyNumberFormat(nChargeSumSum) + "원");
+			m_wndReport.SetItemText(nItem, 16, LF->GetMyNumberFormat(nDeposit) + "원");
+			m_wndReport.SetItemText(nItem, 17, LF->GetMyNumberFormat(nTakeDeposit) + "원");
+			m_wndReport.SetItemText(nItem, 18, LF->GetMyNumberFormat(nGiveDeposit) + "원");
 
 			m_wndReport.SetItemLong(nItem, nStartIndex + 1);
 			nItem++;
@@ -267,7 +267,7 @@ void CReportForm14::PrintList(SHARE_MAP *pMap, long nStartIndex, CString sTotal)
 		nTakeDeposit += st->nTakeDeposit;
 		nGiveDeposit += st->nGiveDeposit;
 
-		m_wndReport.InsertItem(nItem, ::GetStringFromLong(nIndex++));
+		m_wndReport.InsertItem(nItem, LF->GetStringFromLong(nIndex++));
 		m_wndReport.SetItemText(nItem, 1, itoa(st->nTNo, buffer, 10));
 
 		if((m_ci.GetShareCode1(nCompany) == m_ci.GetShareCode1(st->nCompany)) &&
@@ -278,7 +278,7 @@ void CReportForm14::PrintList(SHARE_MAP *pMap, long nStartIndex, CString sTotal)
 
 		m_wndReport.SetItemText(nItem, 3, m_ci.GetBranchName(st->nCompany));
 		m_wndReport.SetItemText(nItem, 4, st->dt1.Format("%m-%d %H:%M"));
-		m_wndReport.SetItemText(nItem, 5, ::GetStateString(st->nState));
+		m_wndReport.SetItemText(nItem, 5, LF->GetStateString(st->nState));
 
 		CString strFormat = "";
 		if(st->nShareCode2 == st->nRiderShareCode2 && st->nShareCode2 != 0)
@@ -294,15 +294,15 @@ void CReportForm14::PrintList(SHARE_MAP *pMap, long nStartIndex, CString sTotal)
 		m_wndReport.SetItemText(nItem, 7, m_ci.GetBranchName(st->nRiderCompany));
 		m_wndReport.SetItemText(nItem, 8, itoa(st->nRNo, buffer, 10));
 		m_wndReport.SetItemText(nItem, 9, st->strRName);
-		m_wndReport.SetItemText(nItem, 10, ::GetMyNumberFormat(st->nChargeBasic));
-		m_wndReport.SetItemText(nItem, 11, ::GetMyNumberFormat(st->nChargeAdd));
-		m_wndReport.SetItemText(nItem, 12, ::GetMyNumberFormat(st->nChargeDis));
-		m_wndReport.SetItemText(nItem, 13, ::GetMyNumberFormat(st->nChargeTrans));
-		m_wndReport.SetItemText(nItem, 14, ::GetMyNumberFormat(st->nChargeSum));
-		m_wndReport.SetItemText(nItem, 15, ::GetPayTypeFromLong(st->nPayType));
-		m_wndReport.SetItemText(nItem, 16, ::GetMyNumberFormat(st->nDeposit));
-		m_wndReport.SetItemText(nItem, 17, ::GetMyNumberFormat(st->nTakeDeposit));
-		m_wndReport.SetItemText(nItem, 18, ::GetMyNumberFormat(st->nGiveDeposit));
+		m_wndReport.SetItemText(nItem, 10, LF->GetMyNumberFormat(st->nChargeBasic));
+		m_wndReport.SetItemText(nItem, 11, LF->GetMyNumberFormat(st->nChargeAdd));
+		m_wndReport.SetItemText(nItem, 12, LF->GetMyNumberFormat(st->nChargeDis));
+		m_wndReport.SetItemText(nItem, 13, LF->GetMyNumberFormat(st->nChargeTrans));
+		m_wndReport.SetItemText(nItem, 14, LF->GetMyNumberFormat(st->nChargeSum));
+		m_wndReport.SetItemText(nItem, 15, LF->GetPayTypeFromLong(st->nPayType));
+		m_wndReport.SetItemText(nItem, 16, LF->GetMyNumberFormat(st->nDeposit));
+		m_wndReport.SetItemText(nItem, 17, LF->GetMyNumberFormat(st->nTakeDeposit));
+		m_wndReport.SetItemText(nItem, 18, LF->GetMyNumberFormat(st->nGiveDeposit));
 
 		m_wndReport.SetItemLong(nItem, nStartIndex);
 
@@ -324,15 +324,15 @@ void CReportForm14::PrintList(SHARE_MAP *pMap, long nStartIndex, CString sTotal)
 	m_wndReport.SetItemText(nItem, 8, "");
 	m_wndReport.SetItemText(nItem, 9, "");
 
-	m_wndReport.SetItemText(nItem, 10, ::GetMyNumberFormat(nChargeBasicSum) + "원");
-	m_wndReport.SetItemText(nItem, 11, ::GetMyNumberFormat(nChargeAddSum) + "원");
-	m_wndReport.SetItemText(nItem, 12, ::GetMyNumberFormat(nChargeDisSum) + "원");
-	m_wndReport.SetItemText(nItem, 13, ::GetMyNumberFormat(nChargeTransSum) + "원");
-	m_wndReport.SetItemText(nItem, 14, ::GetMyNumberFormat(nChargeSumSum) + "원");
+	m_wndReport.SetItemText(nItem, 10, LF->GetMyNumberFormat(nChargeBasicSum) + "원");
+	m_wndReport.SetItemText(nItem, 11, LF->GetMyNumberFormat(nChargeAddSum) + "원");
+	m_wndReport.SetItemText(nItem, 12, LF->GetMyNumberFormat(nChargeDisSum) + "원");
+	m_wndReport.SetItemText(nItem, 13, LF->GetMyNumberFormat(nChargeTransSum) + "원");
+	m_wndReport.SetItemText(nItem, 14, LF->GetMyNumberFormat(nChargeSumSum) + "원");
 
-	m_wndReport.SetItemText(nItem, 16, ::GetMyNumberFormat(nDeposit) + "원");
-	m_wndReport.SetItemText(nItem, 17, ::GetMyNumberFormat(nTakeDeposit) + "원");
-	m_wndReport.SetItemText(nItem, 18, ::GetMyNumberFormat(nGiveDeposit) + "원");
+	m_wndReport.SetItemText(nItem, 16, LF->GetMyNumberFormat(nDeposit) + "원");
+	m_wndReport.SetItemText(nItem, 17, LF->GetMyNumberFormat(nTakeDeposit) + "원");
+	m_wndReport.SetItemText(nItem, 18, LF->GetMyNumberFormat(nGiveDeposit) + "원");
 
 	m_wndReport.SetItemLong(nItem, nStartIndex + 1); 
 	nItem++;
@@ -353,15 +353,15 @@ void CReportForm14::PrintList(SHARE_MAP *pMap, long nStartIndex, CString sTotal)
 	m_wndReport.SetItemText(nItem, 8, "");
 	m_wndReport.SetItemText(nItem, 9, "");
  
-	m_wndReport.SetItemText(nItem, 10, ::GetMyNumberFormat(nChargeBasicSumS) + "원");
-	m_wndReport.SetItemText(nItem, 11, ::GetMyNumberFormat(nChargeAddSumS) + "원");
-	m_wndReport.SetItemText(nItem, 12, ::GetMyNumberFormat(nChargeDisSumS) + "원");
-	m_wndReport.SetItemText(nItem, 13, ::GetMyNumberFormat(nChargeTransSumS) + "원");
-	m_wndReport.SetItemText(nItem, 14, ::GetMyNumberFormat(nChargeSumSumS) + "원");
+	m_wndReport.SetItemText(nItem, 10, LF->GetMyNumberFormat(nChargeBasicSumS) + "원");
+	m_wndReport.SetItemText(nItem, 11, LF->GetMyNumberFormat(nChargeAddSumS) + "원");
+	m_wndReport.SetItemText(nItem, 12, LF->GetMyNumberFormat(nChargeDisSumS) + "원");
+	m_wndReport.SetItemText(nItem, 13, LF->GetMyNumberFormat(nChargeTransSumS) + "원");
+	m_wndReport.SetItemText(nItem, 14, LF->GetMyNumberFormat(nChargeSumSumS) + "원");
 
-	m_wndReport.SetItemText(nItem, 16, ::GetMyNumberFormat(nDepositS) + "원");
-	m_wndReport.SetItemText(nItem, 17, ::GetMyNumberFormat(nTakeDepositS) + "원");
-	m_wndReport.SetItemText(nItem, 18, ::GetMyNumberFormat(nGiveDepositS) + "원");
+	m_wndReport.SetItemText(nItem, 16, LF->GetMyNumberFormat(nDepositS) + "원");
+	m_wndReport.SetItemText(nItem, 17, LF->GetMyNumberFormat(nTakeDepositS) + "원");
+	m_wndReport.SetItemText(nItem, 18, LF->GetMyNumberFormat(nGiveDepositS) + "원");
 
 	m_wndReport.SetItemLong(nItem, nStartIndex + 2);
 
@@ -403,9 +403,9 @@ void CReportForm14::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm14::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 313, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 313, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }

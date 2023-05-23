@@ -106,8 +106,8 @@ void CReportForm4::RefreshList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_income_report_new_2");
 
-	pCmd.AddParameter(GetCurBranchInfo(TRUE)->nCompanyCode);
-	pCmd.AddParameter(GetCurBranchInfo(TRUE)->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo(TRUE)->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo(TRUE)->bIntegrated);
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);
 
@@ -147,28 +147,28 @@ void CReportForm4::RefreshList()
 		pRs.GetFieldValue("sSSN2", strSSN2);
 		pRs.GetFieldValue("sAddress", strAddress);
 
-		m_lstRider.InsertItem(i, ::GetStringFromLong(nRNo));
+		m_lstRider.InsertItem(i, LF->GetStringFromLong(nRNo));
 		m_lstRider.SetItemText(i, 1, strRName);
-		m_lstRider.SetItemText(i, 2, ::GetMyNumberFormat(nMyCallCount));
-		m_lstRider.SetItemText(i, 3, ::GetMyNumberFormat(nMyCallCashCharge));
-		m_lstRider.SetItemText(i, 4, ::GetMyNumberFormat(nMyCallCashDeposit));
-		m_lstRider.SetItemText(i, 5, ::GetMyNumberFormat(nMyCallCreditCharge));
-		m_lstRider.SetItemText(i, 6, ::GetMyNumberFormat(nMyCallCreditDeposit));
-		m_lstRider.SetItemText(i, 7, ::GetMyNumberFormat(nMyCallChargeCompany));
-		m_lstRider.SetItemText(i, 8, ::GetMyNumberFormat(nMyCallChargeCompanyDeposit));
-		m_lstRider.SetItemText(i, 9, ::GetMyNumberFormat(nMyCallCashCharge + nMyCallCreditCharge + nMyCallChargeCompany));
-		m_lstRider.SetItemText(i, 10, ::GetMyNumberFormat(nMyCallCashDeposit + nMyCallCreditDeposit + nMyCallChargeCompanyDeposit));
-		m_lstRider.SetItemText(i, 11, ::GetMyNumberFormat(nOtherCallCount));
-		m_lstRider.SetItemText(i, 12, ::GetMyNumberFormat(nOtherCallCashCharge));
-		m_lstRider.SetItemText(i, 13, ::GetMyNumberFormat(nOtherCallCashDeposit));
-		m_lstRider.SetItemText(i, 14, ::GetMyNumberFormat(nOtherCallCreditCharge));
-		m_lstRider.SetItemText(i, 15, ::GetMyNumberFormat(nOtherCallCreditDeposit));
-		m_lstRider.SetItemText(i, 16, ::GetMyNumberFormat(nOtherCallChargeCompany));
-		m_lstRider.SetItemText(i, 17, ::GetMyNumberFormat(nOtherCallChargeCompanyDeposit));
-		m_lstRider.SetItemText(i, 18, ::GetMyNumberFormat(nOtherCallCashCharge + nOtherCallCreditCharge + nOtherCallChargeCompany));
-		m_lstRider.SetItemText(i, 19, ::GetMyNumberFormat(nOtherCallCashDeposit + nOtherCallCreditDeposit + nOtherCallChargeCompanyDeposit));
-		m_lstRider.SetItemText(i, 20, ::GetMyNumberFormat(nMyCallCashCharge + nMyCallCreditCharge + nOtherCallCashCharge + nOtherCallCreditCharge + nMyCallChargeCompany + nOtherCallChargeCompany));
-		m_lstRider.SetItemText(i, 21, ::GetMyNumberFormat(nMyCallCashDeposit + nMyCallCreditDeposit + nOtherCallCashDeposit + nOtherCallCreditDeposit + nMyCallChargeCompanyDeposit + nOtherCallChargeCompanyDeposit));
+		m_lstRider.SetItemText(i, 2, LF->GetMyNumberFormat(nMyCallCount));
+		m_lstRider.SetItemText(i, 3, LF->GetMyNumberFormat(nMyCallCashCharge));
+		m_lstRider.SetItemText(i, 4, LF->GetMyNumberFormat(nMyCallCashDeposit));
+		m_lstRider.SetItemText(i, 5, LF->GetMyNumberFormat(nMyCallCreditCharge));
+		m_lstRider.SetItemText(i, 6, LF->GetMyNumberFormat(nMyCallCreditDeposit));
+		m_lstRider.SetItemText(i, 7, LF->GetMyNumberFormat(nMyCallChargeCompany));
+		m_lstRider.SetItemText(i, 8, LF->GetMyNumberFormat(nMyCallChargeCompanyDeposit));
+		m_lstRider.SetItemText(i, 9, LF->GetMyNumberFormat(nMyCallCashCharge + nMyCallCreditCharge + nMyCallChargeCompany));
+		m_lstRider.SetItemText(i, 10, LF->GetMyNumberFormat(nMyCallCashDeposit + nMyCallCreditDeposit + nMyCallChargeCompanyDeposit));
+		m_lstRider.SetItemText(i, 11, LF->GetMyNumberFormat(nOtherCallCount));
+		m_lstRider.SetItemText(i, 12, LF->GetMyNumberFormat(nOtherCallCashCharge));
+		m_lstRider.SetItemText(i, 13, LF->GetMyNumberFormat(nOtherCallCashDeposit));
+		m_lstRider.SetItemText(i, 14, LF->GetMyNumberFormat(nOtherCallCreditCharge));
+		m_lstRider.SetItemText(i, 15, LF->GetMyNumberFormat(nOtherCallCreditDeposit));
+		m_lstRider.SetItemText(i, 16, LF->GetMyNumberFormat(nOtherCallChargeCompany));
+		m_lstRider.SetItemText(i, 17, LF->GetMyNumberFormat(nOtherCallChargeCompanyDeposit));
+		m_lstRider.SetItemText(i, 18, LF->GetMyNumberFormat(nOtherCallCashCharge + nOtherCallCreditCharge + nOtherCallChargeCompany));
+		m_lstRider.SetItemText(i, 19, LF->GetMyNumberFormat(nOtherCallCashDeposit + nOtherCallCreditDeposit + nOtherCallChargeCompanyDeposit));
+		m_lstRider.SetItemText(i, 20, LF->GetMyNumberFormat(nMyCallCashCharge + nMyCallCreditCharge + nOtherCallCashCharge + nOtherCallCreditCharge + nMyCallChargeCompany + nOtherCallChargeCompany));
+		m_lstRider.SetItemText(i, 21, LF->GetMyNumberFormat(nMyCallCashDeposit + nMyCallCreditDeposit + nOtherCallCashDeposit + nOtherCallCreditDeposit + nMyCallChargeCompanyDeposit + nOtherCallChargeCompanyDeposit));
 		if(strSSN1.GetLength() > 0)
 			m_lstRider.SetItemText(i, 22, strSSN1 + "-" + strSSN2);
 		m_lstRider.SetItemText(i, 23, strAddress);
@@ -204,26 +204,26 @@ void CReportForm4::RefreshList()
 		long nCount = pRs.GetRecordCount();
 		m_lstRider.InsertItem(nCount, "");
 		m_lstRider.SetItemText(nCount, 1, "ÇÕ°è : ");
-		m_lstRider.SetItemText(nCount, 2, ::GetMyNumberFormat(nMyCallCountS));
-		m_lstRider.SetItemText(nCount, 3, ::GetMyNumberFormat(nMyCallCashChargeS));
-		m_lstRider.SetItemText(nCount, 4, ::GetMyNumberFormat(nMyCallCashDepositS));
-		m_lstRider.SetItemText(nCount, 5, ::GetMyNumberFormat(nMyCallCreditChargeS));
-		m_lstRider.SetItemText(nCount, 6, ::GetMyNumberFormat(nMyCallCreditDepositS));
-		m_lstRider.SetItemText(nCount, 7, ::GetMyNumberFormat(nMyCallChargeCompanyS));
-		m_lstRider.SetItemText(nCount, 8, ::GetMyNumberFormat(nMyCallChargeCompanyDepositS));
-		m_lstRider.SetItemText(nCount, 9, ::GetMyNumberFormat(nMyCallChargeS));
-		m_lstRider.SetItemText(nCount, 10, ::GetMyNumberFormat(nMyCallDepositS));
-		m_lstRider.SetItemText(nCount, 11, ::GetMyNumberFormat(nOtherCallCountS));
-		m_lstRider.SetItemText(nCount, 12, ::GetMyNumberFormat(nOtherCallCashChargeS));
-		m_lstRider.SetItemText(nCount, 13, ::GetMyNumberFormat(nOtherCallCashDepositS));
-		m_lstRider.SetItemText(nCount, 14, ::GetMyNumberFormat(nOtherCallCreditChargeS));
-		m_lstRider.SetItemText(nCount, 15, ::GetMyNumberFormat(nOtherCallCreditDepositS));
-		m_lstRider.SetItemText(nCount, 16, ::GetMyNumberFormat(nOtherCallChargeCompanyS));
-		m_lstRider.SetItemText(nCount, 17, ::GetMyNumberFormat(nOtherCallChargeCompanyDepositS));
-		m_lstRider.SetItemText(nCount, 18, ::GetMyNumberFormat(nOtherCallChargeS));
-		m_lstRider.SetItemText(nCount, 19, ::GetMyNumberFormat(nOtherCallDepositS));
-		m_lstRider.SetItemText(nCount, 20, ::GetMyNumberFormat(nChargeS));
-		m_lstRider.SetItemText(nCount, 21, ::GetMyNumberFormat(nDepositS));
+		m_lstRider.SetItemText(nCount, 2, LF->GetMyNumberFormat(nMyCallCountS));
+		m_lstRider.SetItemText(nCount, 3, LF->GetMyNumberFormat(nMyCallCashChargeS));
+		m_lstRider.SetItemText(nCount, 4, LF->GetMyNumberFormat(nMyCallCashDepositS));
+		m_lstRider.SetItemText(nCount, 5, LF->GetMyNumberFormat(nMyCallCreditChargeS));
+		m_lstRider.SetItemText(nCount, 6, LF->GetMyNumberFormat(nMyCallCreditDepositS));
+		m_lstRider.SetItemText(nCount, 7, LF->GetMyNumberFormat(nMyCallChargeCompanyS));
+		m_lstRider.SetItemText(nCount, 8, LF->GetMyNumberFormat(nMyCallChargeCompanyDepositS));
+		m_lstRider.SetItemText(nCount, 9, LF->GetMyNumberFormat(nMyCallChargeS));
+		m_lstRider.SetItemText(nCount, 10, LF->GetMyNumberFormat(nMyCallDepositS));
+		m_lstRider.SetItemText(nCount, 11, LF->GetMyNumberFormat(nOtherCallCountS));
+		m_lstRider.SetItemText(nCount, 12, LF->GetMyNumberFormat(nOtherCallCashChargeS));
+		m_lstRider.SetItemText(nCount, 13, LF->GetMyNumberFormat(nOtherCallCashDepositS));
+		m_lstRider.SetItemText(nCount, 14, LF->GetMyNumberFormat(nOtherCallCreditChargeS));
+		m_lstRider.SetItemText(nCount, 15, LF->GetMyNumberFormat(nOtherCallCreditDepositS));
+		m_lstRider.SetItemText(nCount, 16, LF->GetMyNumberFormat(nOtherCallChargeCompanyS));
+		m_lstRider.SetItemText(nCount, 17, LF->GetMyNumberFormat(nOtherCallChargeCompanyDepositS));
+		m_lstRider.SetItemText(nCount, 18, LF->GetMyNumberFormat(nOtherCallChargeS));
+		m_lstRider.SetItemText(nCount, 19, LF->GetMyNumberFormat(nOtherCallDepositS));
+		m_lstRider.SetItemText(nCount, 20, LF->GetMyNumberFormat(nChargeS));
+		m_lstRider.SetItemText(nCount, 21, LF->GetMyNumberFormat(nDepositS));
 
 	}
 
@@ -244,9 +244,9 @@ void CReportForm4::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm4::OnViewExcel()
 {
-	if(!POWER_CHECK(4900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(4900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 303, m_ui.nWNo, m_lstRider.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 303, m_ui.nWNo, m_lstRider.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstRider);
 }

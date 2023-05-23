@@ -84,8 +84,8 @@ void CReportForm8::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_coupon_report3");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nDOrderTable);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), 
 			m_ci.m_bRcpIntMode1 ? MAKE_SHARE_CODE(m_ci.m_nShareCode1) : -1);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int),
@@ -114,11 +114,11 @@ void CReportForm8::RefreshList()
 
 		nSum = nCnt * atol(m_strCoupon);
 
-		m_List.InsertItem(nItem, GetStringFromLong(nRiderCompany));
-		m_List.SetItemText(nItem, 1, GetStringFromLong(nRNo));
+		m_List.InsertItem(nItem, LF->GetStringFromLong(nRiderCompany));
+		m_List.SetItemText(nItem, 1, LF->GetStringFromLong(nRNo));
 		m_List.SetItemText(nItem, 2, strName);
-		m_List.SetItemText(nItem, 3, GetStringFromLong(nCnt));
-		m_List.SetItemText(nItem++, 4, GetMyNumberFormat(nSum));
+		m_List.SetItemText(nItem, 3, LF->GetStringFromLong(nCnt));
+		m_List.SetItemText(nItem++, 4, LF->GetMyNumberFormat(nSum));
 
 		nNumber += nCnt;
 		nSumTotal += nSum;
@@ -134,9 +134,9 @@ void CReportForm8::RefreshList()
 		m_List.SetItemText(nItem++, 4, "ÃÑ±Ý¾×");
 
 		m_List.InsertItem(nItem, "");
-		m_List.SetItemText(nItem, 1, GetStringFromLong(nItem - 2));
-		m_List.SetItemText(nItem, 3, GetStringFromLong(nNumber));
-		m_List.SetItemText(nItem, 4, GetMyNumberFormat(nSumTotal));
+		m_List.SetItemText(nItem, 1, LF->GetStringFromLong(nItem - 2));
+		m_List.SetItemText(nItem, 3, LF->GetStringFromLong(nNumber));
+		m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(nSumTotal));
 	}
 
 	pRs.Close();
@@ -218,12 +218,12 @@ void CReportForm8::OnEnChangeCouponEdit()
 			break;
 
 		CString strCount = m_List.GetItemText(pRecord, 3);
-		m_List.SetItemText(pRecord, 4, GetMyNumberFormat(atol(strCount) * nCoupon));
+		m_List.SetItemText(pRecord, 4, LF->GetMyNumberFormat(atol(strCount) * nCoupon));
 		nTotalCharge += atol(strCount) * nCoupon;
 	}
 
 	if(nRecordCount > 2)
-		m_List.SetItemText(nRecordCount - 1, 4, GetMyNumberFormat(nTotalCharge));
+		m_List.SetItemText(nRecordCount - 1, 4, LF->GetMyNumberFormat(nTotalCharge));
 	m_List.Populate();
 }
 
@@ -241,9 +241,9 @@ void CReportForm8::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm8::OnViewExcel()
 {
-	if(!POWER_CHECK(4900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(4900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 329, m_ui.nWNo, m_List.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 329, m_ui.nWNo, m_List.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_List);
 }

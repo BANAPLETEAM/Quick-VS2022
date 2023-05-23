@@ -154,7 +154,7 @@ void CIncomeForm7::OnNotReport()
 	{
 		long nID = (long)m_lstDeposit.GetItemLong(nIndex);
 
-		if(::ChangeFixedDepositState(nID, 0))
+		if(LF->ChangeFixedDepositState(nID, 0))
 			RefreshDepositList();
 	}
 }
@@ -176,7 +176,7 @@ void CIncomeForm7::OnReportComplete()
 	{
 		long nID = (long)m_lstDeposit.GetItemLong(nIndex);
 
-		if(::ChangeFixedDepositState(nID, 1))
+		if(LF->ChangeFixedDepositState(nID, 1))
 			RefreshDepositList();
 	}
 }
@@ -197,7 +197,7 @@ void CIncomeForm7::OnIncomeComplete()
 	{
 		long nID = (long)m_lstDeposit.GetItemLong(nIndex);
 		
-		if(::ChangeFixedDepositState(nID, 2))
+		if(LF->ChangeFixedDepositState(nID, 2))
 			RefreshDepositList();
 	}
 	else if(strState == "입금완료")
@@ -237,7 +237,7 @@ void CIncomeForm7::OnDepositReportItemlRClick(NMHDR * pNotifyStruct, LRESULT * /
 
 void CIncomeForm7::OpenDepositDlg()
 {
-	if(!POWER_CHECK(7070, "지입금관련", TRUE))
+	if(!LF->POWER_CHECK(7070, "지입금관련", TRUE))
 		return;
 
 	long index = m_lstDeposit.GetNextItem(-1, LVNI_SELECTED);
@@ -297,7 +297,7 @@ void CIncomeForm7::OpenDepositDlg()
 
 		m_pRiderReportDlg->MoveWindow(-2000, -2000, -2000, -2000); // 안보이는 곳으로
 		m_pRiderReportDlg->ShowWindow(SW_SHOW);
-		SetCrystal(m_pRiderReportDlg, ZERO);
+		LF->SetCrystal(m_pRiderReportDlg, ZERO);
 
 		pFrame->GetWindowRect(mainRc);
 		m_lstDeposit.GetWindowRect(reportRc);
@@ -425,8 +425,8 @@ void CIncomeForm7::RefreshList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_deposit_rider");
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
  
     if(!pRs.Execute(&pCmd)) return;
 
@@ -453,7 +453,7 @@ void CIncomeForm7::OnTimer(UINT nIDEvent)
 		if(m_pRiderReportDlg != NULL)
 		{
 			static long nCrystal = 100;
-			::SetCrystal(m_pRiderReportDlg, nCrystal);
+			LF->SetCrystal(m_pRiderReportDlg, nCrystal);
 
 			nCrystal += 20;
 
@@ -500,7 +500,7 @@ void CIncomeForm7::OnEnChangeSearchEdit()
 
 void CIncomeForm7::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if(!POWER_CHECK(7070, "지입금관련", TRUE))
+	if(!LF->POWER_CHECK(7070, "지입금관련", TRUE))
 		return;
 
 	long index = m_lstDeposit.GetNextItem(-1, LVNI_SELECTED);
@@ -524,9 +524,9 @@ void CIncomeForm7::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 void CIncomeForm7::OnViewExcel()
 {
-	//if(!POWER_CHECK(7900, "엑셀변환", TRUE))
+	//if(!LF->POWER_CHECK(7900, "엑셀변환", TRUE))
 	//	return;
 
-	//AddSecurityLog(m_ci.m_nCompanyCode, 504, m_wndReport.GetItemCount());  
+	//LF->AddSecurityLog(m_ci.m_nCompanyCode, 504, m_wndReport.GetItemCount());  
 	//CMyExcel::ToExcel(&m_wndReport);
 }

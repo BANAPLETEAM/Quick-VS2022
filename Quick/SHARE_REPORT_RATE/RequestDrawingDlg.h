@@ -75,7 +75,7 @@ protected:
 		{
 			if((long)GetValue() == 0)
 				return "";
-			return GetMyNumberFormat((long)GetValue());
+			return LF->GetMyNumberFormat((long)GetValue());
 		}
 	};	
 

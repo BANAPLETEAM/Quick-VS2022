@@ -132,10 +132,10 @@ void CShareReportRateDlg6::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CShareReportRateDlg6::OnViewExcel()
 {
-	if(!POWER_CHECK(1900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(1900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	//AddSecurityLog(m_ci.m_nCompanyCode, 1204, m_List.GetItemCount());  
+	//LF->AddSecurityLog(m_ci.m_nCompanyCode, 1204, m_List.GetItemCount());  
 	//CMyExcel::ToExcel(m_List);
 }
 

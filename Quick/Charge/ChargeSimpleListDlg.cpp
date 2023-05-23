@@ -69,11 +69,11 @@ void CChargeSimpleListDlg::OnBnClickedDongOutBtn()
 	}
 	catch (char* e)
 	{
-		MsgBox(e, "확인");
+		LF->MsgBox(e, "확인");
 	}
 	catch (CString s)
 	{
-		MsgBox(s, "확인");
+		LF->MsgBox(s, "확인");
 	}
 }
 
@@ -107,11 +107,11 @@ void CChargeSimpleListDlg::OnBnClickedDongInputBtn()
 	}
 	catch (char* e)
 	{
-		MsgBox(e, "확인");
+		LF->MsgBox(e, "확인");
 	}
 	catch (CString s)
 	{
-		MsgBox(s, "확인");
+		LF->MsgBox(s, "확인");
 	}
 
 
@@ -183,7 +183,7 @@ void CChargeSimpleListDlg::RefreshSaveList()
 
 	if(strRegisterSido.GetLength() > 0)
 	{
-		::MyTokenize(strRegisterSido,",", FALSE, strArr);
+		LF->MyTokenize(strRegisterSido,",", FALSE, strArr);
 
 		for(long i=0; i<strArr.GetCount(); i++)
 		{

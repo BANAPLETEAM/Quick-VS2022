@@ -87,7 +87,7 @@ BOOL CRiderMapSetDlg::OnInitDialog()
 	
 	InitLevelCombo();
 	SetCurMapLevel();
-	::LoadFromReg(m_info);
+	LF->LoadFromReg(m_info);
 	StructToResource();
 	OnBnClickedGpsRiderOnlyCheck();
 
@@ -128,7 +128,7 @@ void CRiderMapSetDlg::SetCurMapLevel()
 void CRiderMapSetDlg::OnBnClickedOk()
 {
 	ResourceToStruct();
-	::SaveToReg(m_info);
+	LF->SaveToReg(m_info);
 	OnOK();
 }
 
@@ -236,14 +236,14 @@ void CRiderMapSetDlg::OnBnClickedShowGpsSignalBtn()
 void CRiderMapSetDlg::OnBnClickedCheckBox()
 {
 	ResourceToStruct();
-	::SaveToReg(m_info);
+	LF->SaveToReg(m_info);
 	((CRiderMapNormalForm*)m_pParentWnd)->RefreshFromSetupDlg();
 }
 
 void CRiderMapSetDlg::OnCbnSelchangeNearRiderLevelCombo()
 {
 	ResourceToStruct();
-	::SaveToReg(m_info);
+	LF->SaveToReg(m_info);
 }
 
 void CRiderMapSetDlg::OnBnClickedGpsRiderOnlyCheck()

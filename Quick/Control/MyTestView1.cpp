@@ -74,7 +74,7 @@ void CMyTestView1::Refresh()
 	nItem = 1;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_member_etc");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nGNo);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_bChild);
 	if(!pRs.Execute(&pCmd)) return;

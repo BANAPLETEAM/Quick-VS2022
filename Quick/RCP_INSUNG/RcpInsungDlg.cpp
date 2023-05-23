@@ -415,7 +415,7 @@ void CRcpInsungDlg::OnInitialUpdate()
 	else
 		m_EDT_CID.pEdit->SetFocus();
  
-	if(::GetLongFromEdit(&m_edtDeposit) == 0)
+	if(LF->GetLongFromEdit(&m_edtDeposit) == 0)
 		m_chkNoFee.SetCheck(TRUE);
 	else
 		m_chkNoFee.SetCheck(FALSE);
@@ -740,7 +740,7 @@ BOOL CRcpInsungDlg::PreTranslateMessage(MSG* pMsg)
 		}
 		// 올바로 발신 Edit 창에서 복사시 전화번호 '-' 삭제
 		else if(GetKeyState(VK_CONTROL) & 0x8000 && (pMsg->wParam == 'c' || pMsg->wParam == 'C')
-			&& ::IsThisCompany("올바로"))
+			&& LF->IsThisCompany("올바로"))
 		{
 			switch(::GetDlgCtrlID(pMsg->hwnd))
 			{
@@ -902,20 +902,20 @@ void CRcpInsungDlg::SearchCustomer(long nType)
 	{
 		if(nType == PLACE_ORDER)
 		{
-			MoveFocus(m_EDT_START_NAME.pEdit);
+			LF->MoveFocus(m_EDT_START_NAME.pEdit);
 			FIllOrderCombo();
 		}
 		else if(nType == PLACE_START)
-			MoveFocus(nRecordCount == 0 ? m_EDT_START_DONG.pEdit : m_EDT_DEST_NAME.pEdit);
+			LF->MoveFocus(nRecordCount == 0 ? m_EDT_START_DONG.pEdit : m_EDT_DEST_NAME.pEdit);
 		else if(nType == PLACE_DEST)
-			MoveFocus(nRecordCount == 0 ? m_EDT_DEST_DONG.pEdit : m_EDT_ETC.pEdit);
+			LF->MoveFocus(nRecordCount == 0 ? m_EDT_DEST_DONG.pEdit : m_EDT_ETC.pEdit);
 	}
 	else
 	{
 		if(nType == PLACE_START)
-			MoveFocus(m_EDT_DEST_NAME.pEdit);
+			LF->MoveFocus(m_EDT_DEST_NAME.pEdit);
 		else if(nType == PLACE_DEST)
-			MoveFocus(m_EDT_ETC.pEdit);
+			LF->MoveFocus(m_EDT_ETC.pEdit);
 	}
 
 	ChangeRcpState();
@@ -961,13 +961,13 @@ void CRcpInsungDlg::FIllOrderCombo()
 		rs.MoveNext();
 	}
 
-	m_cmbOrderPhone.SetWindowText(::GetStringFromEdit(m_EDT_ORDER_PHONE.pEdit));
+	m_cmbOrderPhone.SetWindowText(LF->GetStringFromEdit(m_EDT_ORDER_PHONE.pEdit));
 }
 
 CString CRcpInsungDlg::GetOrderPhoneString(ST_PHONE_INFO *st)
 {
 	CString strTemp = "";
-	CString strDashPhone = ::GetDashPhoneNumber(st->strTel);
+	CString strDashPhone = LF->GetDashPhoneNumber(st->strTel);
 	CString strCustomer = st->strDepart + "/" + st->strManager; 
 
 	strTemp = strDashPhone;
@@ -1368,7 +1368,7 @@ void CRcpInsungDlg::SetReserveState(COleDateTime dtReserve, long nReserveAfter, 
 	m_dtpReserveData.SetTime(dtReserve);
 	m_dtpReserveTime.SetTime(dtReserve);
 
-	m_edtReleaseMin.SetWindowText(::GetStringFromLong(nReserveReleaseMin, FALSE));
+	m_edtReleaseMin.SetWindowText(LF->GetStringFromLong(nReserveReleaseMin, FALSE));
 }
 
 void CRcpInsungDlg::InitReserveState()
@@ -2056,7 +2056,7 @@ void CRcpInsungDlg::OnCbnSelchangeOrderPhoneCombo()
 
 	m_EDT_ORDER_DEPART.pEdit->SetWindowText(st->strDepart);
 	m_EDT_ORDER_MANAGER.pEdit->SetWindowText(st->strManager);
-	m_EDT_ORDER_PHONE.pEdit->SetWindowText(::GetDashPhoneNumber(st->strTel));
+	m_EDT_ORDER_PHONE.pEdit->SetWindowText(LF->GetDashPhoneNumber(st->strTel));
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
@@ -2145,9 +2145,9 @@ void CRcpInsungDlg::DisplayRiderInfo()
 
 		m_btnRiderInfo.ShowWindow(TRUE);
 		m_btnRiderSmsSend.ShowWindow(TRUE);
-		m_edtRiderNo.SetWindowText(::GetStringFromLong(m_nRNo));
+		m_edtRiderNo.SetWindowText(LF->GetStringFromLong(m_nRNo));
 		m_edtRiderCompany.SetWindowText(m_ci.GetName(m_nRiderCompany));
-		m_edtRiderPhone.SetWindowText(GetDashPhoneNumber(m_strRPhone));
+		m_edtRiderPhone.SetWindowText(LF->GetDashPhoneNumber(m_strRPhone));
 	}
 	else
 	{
@@ -2265,14 +2265,14 @@ void CRcpInsungDlg::OnBnClickedClientShareOrderCheck()
  
 	if(bCheck == TRUE)
 	{
-		if(::MakeShareOrder(m_nInitItem, FALSE)) 
+		if(LF->MakeShareOrder(m_nInitItem, FALSE))
 			MessageBox("공유되었습니다", "확인", MB_ICONINFORMATION);
 		else
 			m_chkClientShareOrder.SetCheck(FALSE);
 	}
 	else
 	{
-		if(::MakeShareOrder(m_nInitItem, TRUE)) 
+		if(LF->MakeShareOrder(m_nInitItem, TRUE))
 			MessageBox("공유해지되었습니다", "확인", MB_ICONINFORMATION);
 		else
 			m_chkClientShareOrder.SetCheck(TRUE);

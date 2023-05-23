@@ -106,8 +106,8 @@ void CReportForm25::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb); 
 	CMkCommand pCmd(m_pMkDb, "select_rider_report_by_fixed_deposit");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nDOrderTable);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_tmFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_tmTo);
 
@@ -141,19 +141,19 @@ void CReportForm25::RefreshList()
 
 		m_List.InsertItem(i, itoa(nRNo, buffer, 10));
 		m_List.SetItemText(i, 1, sRName);
-		m_List.SetItemText(i, 2, ::GetMyNumberFormat(nCash));
-		m_List.SetItemText(i, 3, ::GetMyNumberFormat(nCredit));
-		m_List.SetItemText(i, 4, ::GetMyNumberFormat(nOnline));
-		m_List.SetItemText(i, 5, ::GetMyNumberFormat(nDir));
-		m_List.SetItemText(i, 6, ::GetMyNumberFormat(nChargeCompany));
-		m_List.SetItemText(i, 7, ::GetMyNumberFormat(nEtc));
-		m_List.SetItemText(i, 8, ::GetMyNumberFormat(nTran));
-		m_List.SetItemText(i, 9, ::RemoveZero(::GetMyNumberFormat(nFixDay)));
-		m_List.SetItemText(i, 10, ::GetMyNumberFormat(nFixDeposit));
-		m_List.SetItemText(i, 11, ::GetMyNumberFormat(nChargeSum + nTran));
-		m_List.SetItemText(i, 12, ::GetMyNumberFormat(nChargeFinal));
+		m_List.SetItemText(i, 2, LF->GetMyNumberFormat(nCash));
+		m_List.SetItemText(i, 3, LF->GetMyNumberFormat(nCredit));
+		m_List.SetItemText(i, 4, LF->GetMyNumberFormat(nOnline));
+		m_List.SetItemText(i, 5, LF->GetMyNumberFormat(nDir));
+		m_List.SetItemText(i, 6, LF->GetMyNumberFormat(nChargeCompany));
+		m_List.SetItemText(i, 7, LF->GetMyNumberFormat(nEtc));
+		m_List.SetItemText(i, 8, LF->GetMyNumberFormat(nTran));
+		m_List.SetItemText(i, 9, LF->RemoveZero(LF->GetMyNumberFormat(nFixDay)));
+		m_List.SetItemText(i, 10, LF->GetMyNumberFormat(nFixDeposit));
+		m_List.SetItemText(i, 11, LF->GetMyNumberFormat(nChargeSum + nTran));
+		m_List.SetItemText(i, 12, LF->GetMyNumberFormat(nChargeFinal));
  		m_List.SetItemText(i, 13, GetSmsMent(nFixDeposit, nChargeSum + nTran, nChargeFinal));
-		m_List.SetItemText(i, 14, ::GetDashPhoneNumber(sHp));
+		m_List.SetItemText(i, 14, LF->GetDashPhoneNumber(sHp));
 
 		pRs.MoveNext(); 
 	}
@@ -169,9 +169,9 @@ CString CReportForm25::GetSmsMent(long nFixDeposit, long nChargeSum, long nCharg
 	if(nChargeFinal == 0)
 		return "";
 	else if(nChargeFinal > 0)
-		sTemp.Format("[%d-%d ~ %d-%d] 지:%s 외:%s [%s] 입금바랍니다", m_tmFrom.GetMonth(), m_tmFrom.GetDay(), m_tmTo.GetMonth(), m_tmTo.GetDay(), ::GetMyNumberFormat(nFixDeposit), ::GetMyNumberFormat(nChargeSum), ::GetMyNumberFormat(abs(nChargeFinal)));
+		sTemp.Format("[%d-%d ~ %d-%d] 지:%s 외:%s [%s] 입금바랍니다", m_tmFrom.GetMonth(), m_tmFrom.GetDay(), m_tmTo.GetMonth(), m_tmTo.GetDay(), LF->GetMyNumberFormat(nFixDeposit), LF->GetMyNumberFormat(nChargeSum), LF->GetMyNumberFormat(abs(nChargeFinal)));
 	else
-		sTemp.Format("[%d-%d ~ %d-%d] 지:%s 외:%s [%s] 입금예정입니다", m_tmFrom.GetMonth(), m_tmFrom.GetDay(), m_tmTo.GetMonth(), m_tmTo.GetDay(), ::GetMyNumberFormat(nFixDeposit), ::GetMyNumberFormat(nChargeSum), ::GetMyNumberFormat(abs(nChargeFinal)));
+		sTemp.Format("[%d-%d ~ %d-%d] 지:%s 외:%s [%s] 입금예정입니다", m_tmFrom.GetMonth(), m_tmFrom.GetDay(), m_tmTo.GetMonth(), m_tmTo.GetDay(), LF->GetMyNumberFormat(nFixDeposit), LF->GetMyNumberFormat(nChargeSum), LF->GetMyNumberFormat(abs(nChargeFinal)));
 
 	return sTemp;
 }
@@ -252,7 +252,7 @@ void CReportForm25::OnBnClickedSendSmsBtn()
 
 		if(IsSendSmsOk(nFinalCharge, sHp))
 		{
-			if(FALSE ==SendSmsNew(m_ci.m_nCompanyCode, 777, sHp, m_ci.m_strOfficePhone, sMsg, "지입금", "", ""))
+			if(FALSE == LF->SendSmsNew(m_ci.m_nCompanyCode, 777, sHp, m_ci.m_strOfficePhone, sMsg, "지입금", "", ""))
 				break;
 		}
 	}
@@ -290,10 +290,10 @@ BOOL CReportForm25::IsSendSmsOk(long nFinalCharge, CString sHp)
 
 void CReportForm25::OnViewExcel()
 {
-	if(!POWER_CHECK(4900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(4900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 322, m_ui.nWNo, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 322, m_ui.nWNo, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 

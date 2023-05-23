@@ -104,7 +104,7 @@ void CSmartCallBoardDlg::RefreshList()
 		rs.GetFieldValue("nOrderInsertType", nOrderInsertType);
 		rs.GetFieldValue("bPlaying", bPlaying);
 
-		m_lstReport.InsertItem(i, ::GetStringFromLong(nID));
+		m_lstReport.InsertItem(i, LF->GetStringFromLong(nID));
 		m_lstReport.SetItemText(i, 1, dtRegister.Format("%Y-%m-%d %H:%M"));
 		m_lstReport.SetItemText(i, 2, strTitle);
 		m_lstReport.SetItemText(i, 3, strBody);
@@ -256,7 +256,7 @@ void CSmartCallBoardDlg::OnDelete()
 
 	long nID = m_lstReport.GetItemLong(pRecord);
 
-	if(MessageBox("글번호 [" + ::GetStringFromLong(nID) +"]를 삭제 하시겠습니까", "확인", MB_OKCANCEL) != IDOK)
+	if(MessageBox("글번호 [" + LF->GetStringFromLong(nID) +"]를 삭제 하시겠습니까", "확인", MB_OKCANCEL) != IDOK)
 		return;
 
 	CMkCommand cmd(m_pMkDb, "delete_smart_call_board_write");

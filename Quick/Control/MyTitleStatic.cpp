@@ -65,17 +65,17 @@ void CMyTitleStatic::OnPaint()
 
 		r1.bottom = r1.top + (nHeight / 2);
 		r1.left += 5;
-		dc.DrawText("주문 : " + GetStringFromLong(m_nTodaycount), r1, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+		dc.DrawText("주문 : " + LF->GetStringFromLong(m_nTodaycount), r1, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
 		r1.left += 100;
-		dc.DrawText("마일리지 : " + GetStringFromLong(m_nMileageBalance), r1, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+		dc.DrawText("마일리지 : " + LF->GetStringFromLong(m_nMileageBalance), r1, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
 
 		r1 = r;
 		r1.left += 5;
 
 		r1.top = r1.top + (nHeight / 2);
-		dc.DrawText("완료 : " + GetStringFromLong(m_nUseCount), r1, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+		dc.DrawText("완료 : " + LF->GetStringFromLong(m_nUseCount), r1, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
 		r1.left += 100;
-		dc.DrawText("취소 : " + GetStringFromLong(m_nCancelCount), r1, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+		dc.DrawText("취소 : " + LF->GetStringFromLong(m_nCancelCount), r1, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
 		dc.SelectObject(pOld);
 
 	}

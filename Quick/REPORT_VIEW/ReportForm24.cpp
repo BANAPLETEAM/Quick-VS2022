@@ -901,8 +901,8 @@ void CReportForm24::OnPaint()
 
 	CString sItem = ""; 
 	sItem.Format("미수금 %s원,  수금액 %s원,  현금 %s원,  신용 %s원", 
-		::GetMyNumberFormat(m_nUnBillCollection), ::GetMyNumberFormat(m_nBillCollection),
-		::GetMyNumberFormat(m_nCashCharge), ::GetMyNumberFormat(m_nCreditCharge));
+		LF->GetMyNumberFormat(m_nUnBillCollection), LF->GetMyNumberFormat(m_nBillCollection),
+		LF->GetMyNumberFormat(m_nCashCharge), LF->GetMyNumberFormat(m_nCreditCharge));
 
 	dc.DrawText(sItem, rc, DT_RIGHT); 
 }

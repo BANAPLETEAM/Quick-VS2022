@@ -23,7 +23,7 @@ public:
 	CProperChargeReportRecord(ST_PROPER_CHARGE *st)
 	{
 		m_st = st;
-		AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(m_st->nCharge)));
+		AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(m_st->nCharge)));
 		AddItem(new CXTPGridRecordItemText(""));
 		AddItem(new CXTPGridRecordItemText(""));
 		AddItem(new CXTPGridRecordItemText(""));

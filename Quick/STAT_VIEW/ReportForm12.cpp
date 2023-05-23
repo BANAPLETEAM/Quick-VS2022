@@ -49,8 +49,8 @@ CSmsRecord::CSmsRecord(CString sDate, long nBannerCount, long nAllocateCount,
 	AddItem(new CXTPGridRecordItemMyFormatNumber(nBannerCount + nAllocateCount)); //1
 	AddItem(new CXTPGridRecordItemMyFormatNumber(nBannerCount)); //2
 	AddItem(new CXTPGridRecordItemMyFormatNumber(nAllocateCount)); //3
-	AddItem(new CXTPGridRecordItemText(GetMyNumberFormat(nBannerCompleteCount + nAllocateCompleteCount) + "(" + GetMyNumberFormat(nBannerCompleteCount) + "/" + GetMyNumberFormat(nAllocateCompleteCount) + ")"   )); //4 <--
-	AddItem(new CXTPGridRecordItemText(GetMyNumberFormat(nBannerFailCount + nAllocateFailCount) + "(" + GetMyNumberFormat(nBannerFailCount) + "/" + GetMyNumberFormat(nAllocateFailCount) + ")" )); //5 <--
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nBannerCompleteCount + nAllocateCompleteCount) + "(" + LF->GetMyNumberFormat(nBannerCompleteCount) + "/" + LF->GetMyNumberFormat(nAllocateCompleteCount) + ")"   )); //4 <--
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nBannerFailCount + nAllocateFailCount) + "(" + LF->GetMyNumberFormat(nBannerFailCount) + "/" + LF->GetMyNumberFormat(nAllocateFailCount) + ")" )); //5 <--
 	AddItem(new CXTPGridRecordItemMyPerNumber(nCompletePer));//6
 	AddItem(new CXTPGridRecordItemMyPerNumber(nRealCompletePer));//7
 	AddItem(new CXTPGridRecordItemMyFormatNumber(nBannerCompleteCount));//7
@@ -160,8 +160,8 @@ void CReportForm12::RefreshList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_smscountlog");
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 

@@ -85,13 +85,13 @@ BOOL CAddBoxChargeDlg::OnInitDialog()
 	
 		//for(int j=0; j<50; j++)
 		//{
-			//pSmallBoxStart->InsertString(j-1, ::GetStringFromLong(j)); //너무느림
+			//pSmallBoxStart->InsertString(j-1, LF->GetStringFromLong(j)); //너무느림
 		//	pSmallBoxStart->SetItemData(j-1, j);
-			//pSmallBoxEnd->InsertString(j-1, ::GetStringFromLong(j));
+			//pSmallBoxEnd->InsertString(j-1, LF->GetStringFromLong(j));
 		//	pSmallBoxEnd->SetItemData(j-1, j);
-			//pBigBoxStart->InsertString(j-1, ::GetStringFromLong(j));
+			//pBigBoxStart->InsertString(j-1, LF->GetStringFromLong(j));
 		//	pBigBoxStart->SetItemData(j-1, j);
-			//pBigBoxEnd->InsertString(j-1, ::GetStringFromLong(j));
+			//pBigBoxEnd->InsertString(j-1, LF->GetStringFromLong(j));
 		//	pBigBoxEnd->SetItemData(j-1, j);
 		//}
 
@@ -292,8 +292,8 @@ void CAddBoxChargeDlg::RefreshDlg()
 		{
 			//SetComboSelect(pBikeWeightStart, nStart);
 			//SetComboSelect(pBikeWeightEnd, nEnd);
-			pBikeWeightStart->SetWindowText(::GetMyNumberFormat(nStart));
-			pBikeWeightEnd->SetWindowText(::GetMyNumberFormat(nEnd));
+			pBikeWeightStart->SetWindowText(LF->GetMyNumberFormat(nStart));
+			pBikeWeightEnd->SetWindowText(LF->GetMyNumberFormat(nEnd));
 			SetComboSelect(pBikeWeightOption, nApply);
 		}
 
@@ -323,7 +323,7 @@ void CAddBoxChargeDlg::RefreshDocumentList()
 		rs.GetFieldValue("nAddCharge", nAddCharge);
 
 		m_lstDocument.InsertItem(i, strItem);
-		m_lstDocument.SetItemText(i, 1, ::GetMyNumberFormat(nAddCharge));
+		m_lstDocument.SetItemText(i, 1, LF->GetMyNumberFormat(nAddCharge));
 
 		rs.MoveNext();
 	}
@@ -402,8 +402,8 @@ void CAddBoxChargeDlg::OnBnClickedSaveBtn()
 
 			//long nStart = pBikeWeightStart->GetItemData(pBikeWeightStart->GetCurSel());
 			//long nEnd = pBikeWeightEnd->GetItemData(pBikeWeightEnd->GetCurSel());
-			long nStart = ::GetWindowTextLong(pBikeWeightStart);
-			long nEnd = ::GetWindowTextLong(pBikeWeightEnd);
+			long nStart = LF->GetWindowTextLong(pBikeWeightStart);
+			long nEnd = LF->GetWindowTextLong(pBikeWeightEnd);
 			long nApply = pBikeWeightOption->GetItemData(pBikeWeightOption->GetCurSel());
 
 			if(InsertBoxChargeOption(2, nStart, nEnd, nApply, FALSE) == FALSE)
@@ -449,7 +449,7 @@ BOOL CAddBoxChargeDlg::InsertDocumentChargeOption()
 		CMkCommand cmd(m_pMkDb, "insert_document_charge_option");
 		cmd.AddParameter(m_nCompany);
 		cmd.AddParameter(m_lstDocument.GetItemText(i, 0));
-		cmd.AddParameter(atoi(::RemoveComma(m_lstDocument.GetItemText(i, 1))));
+		cmd.AddParameter(atoi(LF->RemoveComma(m_lstDocument.GetItemText(i, 1))));
 		cmd.AddParameter(i == 0 ? TRUE : FALSE);
 
 		if(!cmd.Execute())

@@ -166,7 +166,7 @@ void COptionDlgMobileNew::OnInitialUpdate()
 
 	SetOptiobView(TRUE);
 
-	if(!POWER_CHECK(1304, "PDA/핸드폰"))
+	if(!LF->POWER_CHECK(1304, "PDA/핸드폰"))
 		EnableWindow(FALSE);
 
 	m_cmbAutoRange.InsertString(0, "미적용"); m_cmbAutoRange.SetItemData(0, 0);
@@ -202,8 +202,8 @@ void COptionDlgMobileNew::OnInitialUpdate()
 	m_cmbAutoRange.InsertString(30, "9.0Km"); m_cmbAutoRange.SetItemData(30, 9000);
 	m_cmbAutoRange.InsertString(31, "10.0Km"); m_cmbAutoRange.SetItemData(31, 10000);
 
-	if(!::IsThisCompany("엔콜") && !::IsThisCompany("로지") && 
-		!::IsThisCompany("예스콜") && !::IsThisCompany("대구연합"))
+	if(!LF->IsThisCompany("엔콜") && !LF->IsThisCompany("로지") && 
+		!LF->IsThisCompany("예스콜") && !LF->IsThisCompany("대구연합"))
 	{
 		m_cmbAutoRange.ShowWindow(FALSE);
 		m_stcAutoRange.ShowWindow(FALSE);
@@ -315,7 +315,7 @@ BOOL COptionDlgMobileNew::Save(long nCompany, BOOL bAll)
 		bAllocateMethod = FALSE;
 		bTwoStateAlloc = FALSE;
 	}
-	if(!IsStringDigit(m_sClassViewByUseCount))
+	if(!LF->IsStringDigit(m_sClassViewByUseCount))
 	{
 		MessageBox("고객 이용횟수에 숫자를 입력하세요","확인",MB_ICONINFORMATION);
 		m_edtClassViewByUseCount.SetFocus();
@@ -442,7 +442,7 @@ void COptionDlgMobileNew::OnBnClickedDestViewTimeCheck()
 
 void COptionDlgMobileNew::OnBnClickedCancelPenaltyBtn()
 {
-	if(!POWER_CHECK(1720, "취소페널티 설정", TRUE))
+	if(!LF->POWER_CHECK(1720, "취소페널티 설정", TRUE))
 		return;
 
 	long nCompanyCode = 0;

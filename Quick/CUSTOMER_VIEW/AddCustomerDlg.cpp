@@ -168,9 +168,9 @@ void CAddCustomerDlg::OnBnClickedOk()
 
 
 	//remove some dash
-	strTel = GetNoneDashNumber(m_strTel);
+	strTel = LF->GetNoneDashNumber(m_strTel);
 
-	if(!IsPhoneNumber(strTel))
+	if(!LF->IsPhoneNumber(strTel))
 	{
 		MessageBox("전화번호에 숫자/대쉬 이외의 문자는 사용하실수 없습니다.",
 			"확인", MB_ICONINFORMATION);
@@ -519,7 +519,7 @@ void CAddCustomerDlg::SearchDong(BOOL bFocus)
 
 	CString strDong; m_edtAddrDong.GetWindowText(strDong);
 	//LU->ShowSearchPOIDlg(strDong, m_pPlace, m_pCustomerDlg->m_nCustomerTable, m_pCustomerDlg, &m_edtAddrDong, &m_edtDisplayDong);
-	LU->ShowSearchPOIDlg(strDong, m_pPlace, GetCurBranchInfo()->nCompanyCode, GetParent(), &m_edtAddrDong, &m_edtDisplayDong, FALSE);
+	LU->ShowSearchPOIDlg(strDong, m_pPlace, LF->GetCurBranchInfo()->nCompanyCode, GetParent(), &m_edtAddrDong, &m_edtDisplayDong, FALSE);
 
 	if(m_pCustomerDlg)
 		m_pCustomerDlg->m_bDirty = TRUE; 

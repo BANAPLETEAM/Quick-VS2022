@@ -85,12 +85,12 @@ void CCidDlg::RefreshList()
 		pRs.GetFieldValue("nTNo", nTNo);
 		pRs.GetFieldValue("sCName", sCName); 
 
-		if((POWER_CHECK(1510, "CID") == FALSE) && (i> 20))
+		if((LF->POWER_CHECK(1510, "CID") == FALSE) && (i> 20))
 			break;		
 
 		m_List.InsertItem(i, itoa(i+1, buffer, 10));
 		m_List.SetItemText(i, 1, dtWrite.Format("%m-%d %H:%M:%S"));
-		m_List.SetItemText(i, 2, GetDashPhoneNumber(strData));
+		m_List.SetItemText(i, 2, LF->GetDashPhoneNumber(strData));
 		m_List.SetItemText(i, 3, nType == 10 ? "기사" : "고객");
 		m_List.SetItemText(i, 4, m_ci.GetBranchName(nCallCompany));
 		m_List.SetItemText(i, 5, bNewCustomer ? "신규" : "");

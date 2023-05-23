@@ -123,20 +123,20 @@ void CSmsNewBulkConfirmDlg::RefreshList()
 		rs.GetFieldValue("sName", strName);
 
 		m_lstBulk.InsertItem(i, m_ci.GetBranchName(nCompany));
-		m_lstBulk.SetItemText(i, 1, ::GetDateTimeToString(dtSend, 3, TRUE)); 
+		m_lstBulk.SetItemText(i, 1, LF->GetDateTimeToString(dtSend, 3, TRUE)); 
 		m_lstBulk.SetItemText(i, 2, strType);
-		m_lstBulk.SetItemText(i, 3, ::GetMyNumberFormat(nCount));
-		m_lstBulk.SetItemText(i, 4, ::GetMyNumberFormat(nSuccessCount));
-		m_lstBulk.SetItemText(i, 5, ::GetMyNumberFormat(nFailCount));
-		m_lstBulk.SetItemText(i, 6, ::GetMyNumberFormat(nResultWaitCount));
+		m_lstBulk.SetItemText(i, 3, LF->GetMyNumberFormat(nCount));
+		m_lstBulk.SetItemText(i, 4, LF->GetMyNumberFormat(nSuccessCount));
+		m_lstBulk.SetItemText(i, 5, LF->GetMyNumberFormat(nFailCount));
+		m_lstBulk.SetItemText(i, 6, LF->GetMyNumberFormat(nResultWaitCount));
 		m_lstBulk.SetItemText(i, 7, nDeleteWCompany > 0 ? "ㅇ" : "");
 		m_lstBulk.SetItemText(i, 8, strEtc);
 		m_lstBulk.SetItemText(i, 9, "총건수");
 		m_lstBulk.SetItemText(i, 10, "성공");
 		m_lstBulk.SetItemText(i, 11, "실패");
 		m_lstBulk.SetItemText(i, 12, "대기");
-		m_lstBulk.SetItemText(i, 13, ::GetDateTimeToString(dtRegister, 3, TRUE)); 
-		m_lstBulk.SetItemText(i, 14, ::GetDateTimeToString(dtDelete, 3, TRUE));
+		m_lstBulk.SetItemText(i, 13, LF->GetDateTimeToString(dtRegister, 3, TRUE)); 
+		m_lstBulk.SetItemText(i, 14, LF->GetDateTimeToString(dtDelete, 3, TRUE));
 		m_lstBulk.SetItemText(i, 15, strDeleteName.GetLength() > 0 ? strName + "(" + strDeleteName + ")" : strName);
 		m_lstBulk.SetItemLong(i, nID);
 
@@ -197,7 +197,7 @@ void CSmsNewBulkConfirmDlg::OnBulkReportItemClick(NMHDR * pNotifyStruct, LRESULT
 		return;
 	}
 
-	::AddSecurityLog(m_ui.nCompany, 2000, m_ui.nWNo, ::GetStringFromLong(rs.GetRecordCount()), strDate, strDownType);
+	LF->AddSecurityLog(m_ui.nCompany, 2000, m_ui.nWNo, LF->GetStringFromLong(rs.GetRecordCount()), strDate, strDownType);
 
 
 	CMyExcel::ToExcel(&rs);

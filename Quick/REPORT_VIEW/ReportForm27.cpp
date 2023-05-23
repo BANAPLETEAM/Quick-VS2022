@@ -109,7 +109,7 @@ void CReportForm27::RefreshCustomerList(BOOL bAll)
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_credit_customer");
 
-	pCmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(strSearch);
 	pCmd.AddParameter(bAll);
 
@@ -322,7 +322,7 @@ void CReportForm27::OnBnClickedRefreshBtn()
 		m_lstRight.SetItemText(nItem, nCol++, strOWNER);
 		m_lstRight.SetItemText(nItem, nCol++, strDepart);
 		m_lstRight.SetItemText(nItem, nCol++, strName);
-		m_lstRight.SetItemText(nItem, nCol++, ::GetTwoPhone(strOPhone, strOMobile));
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetTwoPhone(strOPhone, strOMobile));
 
 		if(strStart != strSDong)
             m_lstRight.SetItemText(nItem, nCol++, strStart + "(" + strSDong + ")");
@@ -332,7 +332,7 @@ void CReportForm27::OnBnClickedRefreshBtn()
 		m_lstRight.SetItemText(nItem, nCol++, strSManager);
 		m_lstRight.SetItemText(nItem, nCol++, strSDepart);
 
-		m_lstRight.SetItemText(nItem, nCol++, GetTwoPhone(strSPhone, strSMobile));
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetTwoPhone(strSPhone, strSMobile));
 
 		if(strDest != strDDong)
 			m_lstRight.SetItemText(nItem, nCol++, strDest + "(" + strDDong + ")");
@@ -341,7 +341,7 @@ void CReportForm27::OnBnClickedRefreshBtn()
 
 		m_lstRight.SetItemText(nItem, nCol++, strDManager);
 		m_lstRight.SetItemText(nItem, nCol++, strDDepart);
-		m_lstRight.SetItemText(nItem, nCol++, GetTwoPhone(strDPhone, strDMobile));
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetTwoPhone(strDPhone, strDMobile));
 
 		m_lstRight.SetItemText(nItem, nCol++, sRiderCompany);
 
@@ -372,15 +372,15 @@ void CReportForm27::OnBnClickedRefreshBtn()
 			break;
 		}
 
-		m_lstRight.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeBasic)); //11
-		m_lstRight.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeAdd));
-		m_lstRight.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeDis));
-		m_lstRight.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeSum));
-		m_lstRight.SetItemText(nItem, nCol++, RemoveZero(GetMyNumberFormat(nChargeTrans)));
-		m_lstRight.SetItemText(nItem, nCol++, GetWayTypeFromLong(nWayType)); 
-		m_lstRight.SetItemText(nItem, nCol++, GetCarTypeFromLong(nCarType));
-		m_lstRight.SetItemText(nItem, nCol++, GetPayTypeFromLong(nPayType));//18
-		m_lstRight.SetItemText(nItem, nCol++, GetStateString(nState)); 
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeBasic)); //11
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeAdd));
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeDis));
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeSum));
+		m_lstRight.SetItemText(nItem, nCol++, LF->RemoveZero(LF->GetMyNumberFormat(nChargeTrans)));
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetWayTypeFromLong(nWayType)); 
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetCarTypeFromLong(nCarType));
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetPayTypeFromLong(nPayType));//18
+		m_lstRight.SetItemText(nItem, nCol++, LF->GetStateString(nState)); 
 		m_lstRight.SetItemText(nItem, nCol++, sEtc); 
 		m_lstRight.SetItemText(nItem, nCol++, dt1.Format("%H:%M"));
 		m_lstRight.SetItemText(nItem, nCol++, dt3.Format("%H:%M"));
@@ -411,10 +411,10 @@ void CReportForm27::OnBnClickedRefreshBtn()
 		int nSurTax = nChargeSum * 0.1;
 
 		m_lstRight.InsertItem(nItem,""); 
-		m_lstRight.SetItemText(nItem, 18, GetMyNumberFormat(nSChargeBasic)); 
-		m_lstRight.SetItemText(nItem, 19, GetMyNumberFormat(nSChargeAdd));
-		m_lstRight.SetItemText(nItem, 20, GetMyNumberFormat(nSChargeDis));
-		m_lstRight.SetItemText(nItem, 21, GetMyNumberFormat(nSChargeSum));
+		m_lstRight.SetItemText(nItem, 18, LF->GetMyNumberFormat(nSChargeBasic)); 
+		m_lstRight.SetItemText(nItem, 19, LF->GetMyNumberFormat(nSChargeAdd));
+		m_lstRight.SetItemText(nItem, 20, LF->GetMyNumberFormat(nSChargeDis));
+		m_lstRight.SetItemText(nItem, 21, LF->GetMyNumberFormat(nSChargeSum));
 		m_lstRight.SetItemNoSort(nItem++, TRUE);
 
 		m_lstRight.InsertItem(nItem,"");
@@ -426,11 +426,11 @@ void CReportForm27::OnBnClickedRefreshBtn()
 		m_lstRight.SetItemNoSort(nItem++, TRUE);
 
 		m_lstRight.InsertItem(nItem,"");
-		m_lstRight.SetItemText(nItem,3, GetMyNumberFormat(nSChargeSum + nSChargeCreditTrans));
-		m_lstRight.SetItemText(nItem,4, GetMyNumberFormat(nSurTax));
-		m_lstRight.SetItemText(nItem,5, GetMyNumberFormat(nChargeSum + nSurTax));
-		m_lstRight.SetItemText(nItem,6, GetMyNumberFormat(nSChargeSum));
-		m_lstRight.SetItemText(nItem,7, GetMyNumberFormat(nSChargeCreditTrans));
+		m_lstRight.SetItemText(nItem,3, LF->GetMyNumberFormat(nSChargeSum + nSChargeCreditTrans));
+		m_lstRight.SetItemText(nItem,4, LF->GetMyNumberFormat(nSurTax));
+		m_lstRight.SetItemText(nItem,5, LF->GetMyNumberFormat(nChargeSum + nSurTax));
+		m_lstRight.SetItemText(nItem,6, LF->GetMyNumberFormat(nSChargeSum));
+		m_lstRight.SetItemText(nItem,7, LF->GetMyNumberFormat(nSChargeCreditTrans));
 
 		m_lstRight.SetItemNoSort(nItem++, TRUE);
 
@@ -439,13 +439,13 @@ void CReportForm27::OnBnClickedRefreshBtn()
 
 		m_lstRight.InsertItem(nItem,"");	
 		m_lstRight.SetItemText(nItem, 2, "½Å¿ë");
-		m_lstRight.SetItemText(nItem, 3, GetMyNumberFormat(nCredit));
+		m_lstRight.SetItemText(nItem, 3, LF->GetMyNumberFormat(nCredit));
 		m_lstRight.SetItemText(nItem, 4, "¿Â¶óÀÎ");
-		m_lstRight.SetItemText(nItem, 5, GetMyNumberFormat(nOnline));
+		m_lstRight.SetItemText(nItem, 5, LF->GetMyNumberFormat(nOnline));
 		m_lstRight.SetItemText(nItem, 6, "Çö±Ý");
-		m_lstRight.SetItemText(nItem, 7, GetMyNumberFormat(nCash));
+		m_lstRight.SetItemText(nItem, 7, LF->GetMyNumberFormat(nCash));
 		m_lstRight.SetItemText(nItem, 8, "Å¹¼Û");
-		m_lstRight.SetItemText(nItem, 9, GetMyNumberFormat(nTotalConFee));
+		m_lstRight.SetItemText(nItem, 9, LF->GetMyNumberFormat(nTotalConFee));
 		m_lstRight.SetItemNoSort(nItem++, TRUE);
 	}
 
@@ -571,9 +571,9 @@ void CReportForm27::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm27::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(3900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 351, m_ui.nWNo, m_lstRight.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 351, m_ui.nWNo, m_lstRight.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstRight);
 }

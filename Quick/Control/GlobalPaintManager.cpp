@@ -104,7 +104,7 @@ void CGroupPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArg
 			CString strText;
 
 			if(pRecord->m_bHasData)
-				strText = RemoveZero(::GetGroupReportText(st, nCol, i, pRecord->m_bSumRecord));
+				strText = LF->RemoveZero(LF->GetGroupReportText(st, nCol, i, pRecord->m_bSumRecord));
 			else
 				strText = "";
 
@@ -126,7 +126,7 @@ void CGroupPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArg
 			{
 				CString strText;
 				if(pRecord->m_bHasData)
-					strText = RemoveZero(::GetGroupReportText(st, nCol, i, pRecord->m_bSumRecord));
+					strText = LF->RemoveZero(LF->GetGroupReportText(st, nCol, i, pRecord->m_bSumRecord));
 				else
 					strText = "";
 
@@ -184,7 +184,7 @@ void CGroupPaintManager24::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawA
 			CString strText;
 
 			if(pRecord->m_bHasData) 
-				strText = RemoveZero(GetGroupReportText1(st, nCol, i, pRecord->m_bSumRecord));
+				strText = LF->RemoveZero(LF->GetGroupReportText1(st, nCol, i, pRecord->m_bSumRecord));
 			else
 				strText = "";
 
@@ -225,7 +225,7 @@ void CGroupPaintManager24::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawA
 			{
 				CString strText;
 				if(pRecord->m_bHasData)
-					strText = RemoveZero(GetGroupReportText1(st, nCol, i, pRecord->m_bSumRecord));
+					strText = LF->RemoveZero(LF->GetGroupReportText1(st, nCol, i, pRecord->m_bSumRecord));
 				else
 					strText = "";
 

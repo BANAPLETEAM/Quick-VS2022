@@ -254,7 +254,7 @@ void CCustomerPage1::OnRefreshList()
 
 	CMkParameter * pPar = pCmd.AddParameter(typeLong, typeReturn, sizeof(long));
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nSearchType);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeString, typeInput, m_strKeyword.GetLength(), m_strKeyword);
 
 	if(!pRs.Execute(&pCmd)) return;
@@ -290,17 +290,17 @@ void CCustomerPage1::OnRefreshList()
 		pRs.GetFieldValue("sRiderMemo", strRiderMemo);
 		pRs.GetFieldValue("sLoginID", strLoginID);
 
-		m_lcData.InsertItem(nItem , nPreID == nID ? "" : GetStringFromLong(nID));
+		m_lcData.InsertItem(nItem , nPreID == nID ? "" : LF->GetStringFromLong(nID));
 		m_lcData.SetItemText(nItem, 1, strCompany);
 		m_lcData.SetItemText(nItem, 2, strDepart);
 		m_lcData.SetItemText(nItem, 3, strName);
-		m_lcData.SetItemText(nItem, 4, GetDashPhoneNumber(strTel1));
+		m_lcData.SetItemText(nItem, 4, LF->GetDashPhoneNumber(strTel1));
 		m_lcData.SetItemText(nItem, 5, strUserID);
 		m_lcData.SetItemText(nItem, 6, strLoginID);		
 		m_lcData.SetItemText(nItem, 7, strDong);
 		m_lcData.SetItemText(nItem, 8, strLocation);
 		m_lcData.SetItemText(nItem, 9, bCredit ? "신용" : "");
-		m_lcData.SetItemText(nItem, 10 , GetStringFromLong(nDiscount));
+		m_lcData.SetItemText(nItem, 10 , LF->GetStringFromLong(nDiscount));
 		m_lcData.SetItemText(nItem, 11, strAddress);
 		m_lcData.SetItemText(nItem , 12 , strMemo);
 		m_lcData.SetItemText(nItem , 13 , strRiderMemo);
@@ -324,7 +324,7 @@ void CCustomerPage1::OnRefreshList()
 void CCustomerPage1::OnBnClickedButtonNew()
 {
 	CAddCustomerDlg dlg;
-	dlg.m_nCustomerTable = GetCurBranchInfo()->nCustomerTable;
+	dlg.m_nCustomerTable = LF->GetCurBranchInfo()->nCustomerTable;
 
 	//dlg.m_strCompany = m_strSearchName;
 	//dlg.m_strTel = m_strCID.IsEmpty() ? m_strSearchPhone : m_strCID;
@@ -351,10 +351,10 @@ void CCustomerPage1::OnBnClickedButtonEdit()
 		m_lcData.Populate();
 
 		//remove some dash
-		strPhone1 = GetNoneDashNumber(m_sTel1);
-		strPhone2 = GetNoneDashNumber(m_strMobile);
+		strPhone1 = LF->GetNoneDashNumber(m_sTel1);
+		strPhone2 = LF->GetNoneDashNumber(m_strMobile);
 
-		if(!IsPhoneNumber(strPhone1) || !IsPhoneNumber(strPhone2))
+		if(!LF->IsPhoneNumber(strPhone1) || !LF->IsPhoneNumber(strPhone2))
 		{
 			MessageBox("전화번호에 숫자/대쉬 이외의 문자는 사용하실수 없습니다.",
 				"조건확인", MB_ICONINFORMATION);
@@ -381,7 +381,7 @@ void CCustomerPage1::OnBnClickedButtonEdit()
 
 		CMkCommand pCmd(m_pMkDb, "edit_customer6");
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCNo);
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 		pCmd.AddParameter(typeString, typeInput, m_sCompany.GetLength(), m_sCompany);
 		pCmd.AddParameter(typeString, typeInput, m_sDepart.GetLength(), m_sDepart);
 		pCmd.AddParameter(typeString, typeInput, m_sName.GetLength(), m_sName);
@@ -412,7 +412,7 @@ void CCustomerPage1::OnBnClickedButtonDel()
 		//m_lcData.Populate();
 		CMkCommand pCmd(m_pMkDb, "delete_customer_1");
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCNo);
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_ui.nWNo);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_ui.nCompany);
 
@@ -459,13 +459,13 @@ void CCustomerPage1::AddPhoneNumber(CString strTel, CString strMobile, BOOL bMsg
 	CString strTemp;
 
 	//remove some dash
-	strTel = GetNoneDashNumber(strTel);
-	strMobile = GetNoneDashNumber(strMobile);
+	strTel = LF->GetNoneDashNumber(strTel);
+	strMobile = LF->GetNoneDashNumber(strMobile);
 
 	if(strTel.GetLength() < 5 && 
 		strMobile.GetLength() < 5) return;
 
-	if(!IsPhoneNumber(strTel) || !IsPhoneNumber(strMobile))
+	if(!LF->IsPhoneNumber(strTel) || !LF->IsPhoneNumber(strMobile))
 	{
 		if(!bMsgHide) 
 			MessageBox("숫자/대쉬 이외의 문자는 사용하실수 없습니다.", 
@@ -484,24 +484,24 @@ void CCustomerPage1::AddPhoneNumber(CString strTel, CString strMobile, BOOL bMsg
 	for(int i = 0; i < m_lcTel.GetCount(); i++)
 	{
 		m_lcTel.GetText(i, strTemp);
-		if(GetNoneDashNumber(strTemp) == strTel) 
+		if(LF->GetNoneDashNumber(strTemp) == strTel) 
 		{
 			strTel = "";
 		}
 
-		if(GetNoneDashNumber(strTemp) == strMobile) 
+		if(LF->GetNoneDashNumber(strTemp) == strMobile) 
 		{
 			strMobile = "";
 		}
 	}
 
-	m_lcTel.AddString(GetDashPhoneNumber(strTel));
+	m_lcTel.AddString(LF->GetDashPhoneNumber(strTel));
 	m_lcTel.SetCaretIndex(m_lcTel.GetCount());
 
 	
 	CMkCommand pCmd(m_pMkDb, "insert_phone_number2");
 	CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(long)); 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCNo);
 	pCmd.AddParameter(typeString, typeInput, strTel.GetLength(), strTel);
 	pCmd.AddParameter(typeString, typeInput, strMobile.GetLength(), strMobile);
@@ -520,11 +520,11 @@ void CCustomerPage1::OnBnClickedButtonTeldel()
 	}
 
 	m_lcTel.GetText(nIndex,csTemp);
-	csTemp = GetNoneDashNumber(csTemp);
+	csTemp = LF->GetNoneDashNumber(csTemp);
 
 	
 	CMkCommand pCmd(m_pMkDb, "delete_customertel");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCNo);
 	pCmd.AddParameter(typeString, typeInput, csTemp.GetLength(), csTemp);
 	pCmd.Execute();
@@ -545,10 +545,10 @@ void CCustomerPage1::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage1::OnViewExcel()
 {	
-	if(!POWER_CHECK(6900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(6900, "엑셀변환", TRUE))
 		return
 
-		AddSecurityLog(::GetCurBranchInfo()->nCompanyCode, 201, m_ui.nWNo, m_lcData.GetItemCount());  
+		LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 201, m_ui.nWNo, m_lcData.GetItemCount());  
 	CMyExcel::ToExcel(&m_lcData); //조성일1005
 }
 
@@ -668,14 +668,14 @@ void CCustomerPage1::OnTimer(UINT nIDEvent)
 		m_lcTel.ResetContent();
 		CMkCommand pCmd(m_pMkDb, "select_customertel");
 		CMkRecordset pRs(m_pMkDb);
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCNo);
 
 		if(!pRs.Execute(&pCmd)) return;
 		while(!pRs.IsEOF()) {
 			CString strTel;
 			pRs.GetFieldValue(0, strTel);
-			m_lcTel.AddString(GetDashPhoneNumber(strTel));
+			m_lcTel.AddString(LF->GetDashPhoneNumber(strTel));
 			pRs.MoveNext();
 		}
 
@@ -794,7 +794,7 @@ void CCustomerPage1::OnLButtonUp(UINT nFlags, CPoint point)
 				long nDstCNo = (long)m_lcData.GetItemData(nHoverItem);
 				CString sDeleteEtc = "고객통합[고객창] 삭제";
 				CMkCommand pCmd(m_pMkDb, "Integrated_customer_alone_2");
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);		//nCompany
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);		//nCompany
 				pCmd.AddParameter(typeLong, typeInput, sizeof(long), nSrcCNo);
 				pCmd.AddParameter(typeLong, typeInput, sizeof(long), nDstCNo);
 				pCmd.AddParameter(typeLong , typeInput, sizeof(long), m_ui.nWNo);

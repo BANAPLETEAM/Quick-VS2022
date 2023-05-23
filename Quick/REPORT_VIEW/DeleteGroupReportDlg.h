@@ -29,9 +29,9 @@ public:
 		AddItem(new CXTPGridRecordItemText(strNo));
 		AddItem(new CXTPGridRecordItemText(strReportDay));
 		AddItem(new CXTPGridRecordItemText(sReportState));
-		AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nUnCollection)));
-		AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nBillCollection)));
-		AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nReceivableAmount)));
+		AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nUnCollection)));
+		AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nBillCollection)));
+		AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nReceivableAmount)));
 
 		m_nID = nID;
 		m_nGNo = nGNo;

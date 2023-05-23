@@ -178,7 +178,7 @@ void CShareReportRateDlg1::RefreshList()
 	else
 		bShowData = FALSE;
 
-	if(::IsThisCompany("광주연합"))
+	if(LF->IsThisCompany("광주연합"))
 		bShowData = TRUE;
 
 	CShareReportRateDlg* pShareReportRateDlg = (CShareReportRateDlg*)(GetParent()->GetParent());
@@ -227,10 +227,10 @@ void CShareReportRateDlg1::RefreshList()
 		pShareReportRateDlg->m_nBalance = nBalance;
 		pShareReportRateDlg->m_nBasicRate = nBasicRate;
 
-		pShareReportRateDlg->m_BalanceEdit.SetWindowText(GetMyNumberFormat(nBalance) + "원");
-		pShareReportRateDlg->m_BasicRateEdit.SetWindowText(GetMyNumberFormat(nBasicRate) + "원");
+		pShareReportRateDlg->m_BalanceEdit.SetWindowText(LF->GetMyNumberFormat(nBalance) + "원");
+		pShareReportRateDlg->m_BasicRateEdit.SetWindowText(LF->GetMyNumberFormat(nBasicRate) + "원");
 		pShareReportRateDlg->m_AccountEdit.SetWindowText(CString("하나은행 ") + strAccount);
-		pShareReportRateDlg->m_YesterdayEdit.SetWindowText(GetMyNumberFormat(nYesterday) + "원");
+		pShareReportRateDlg->m_YesterdayEdit.SetWindowText(LF->GetMyNumberFormat(nYesterday) + "원");
 
 		CString strFormat;
 		BOOL bIntro;
@@ -1003,17 +1003,17 @@ void CShareReportRateDlg1::RefreshMoney()
 		pShareReportRateDlg->m_nBalance = nBalance;
 		pShareReportRateDlg->m_nBasicRate = nBasicRate;
 
-		pShareReportRateDlg->m_BalanceEdit.SetWindowText(GetMyNumberFormat(nBalance) + "원");
-		pShareReportRateDlg->m_BasicRateEdit.SetWindowText(GetMyNumberFormat(nBasicRate) + "원");
+		pShareReportRateDlg->m_BalanceEdit.SetWindowText(LF->GetMyNumberFormat(nBalance) + "원");
+		pShareReportRateDlg->m_BasicRateEdit.SetWindowText(LF->GetMyNumberFormat(nBasicRate) + "원");
 		pShareReportRateDlg->m_AccountEdit.SetWindowText(CString("하나은행 ") + strAccount);
-		pShareReportRateDlg->m_YesterdayEdit.SetWindowText(GetMyNumberFormat(nYesterday) + "원");
+		pShareReportRateDlg->m_YesterdayEdit.SetWindowText(LF->GetMyNumberFormat(nYesterday) + "원");
 		//RefreshList();
 	}
 }
 
 void CShareReportRateDlg1::OnBnClickedRequestDrawingBtn()
 {
-	if(!POWER_CHECK(1040, "출금요청", TRUE))
+	if(!LF->POWER_CHECK(1040, "출금요청", TRUE))
 		return;
 
 	CRequestDrawingDlg dlg;

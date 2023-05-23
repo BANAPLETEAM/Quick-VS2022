@@ -227,13 +227,13 @@ void CFlatEditInsung::OnKillFocus(CWnd* pNewWnd)
 	{
 		CString strCharge;
 		GetWindowText(strCharge);
-		SetWindowText(::GetMyNumberFormat(strCharge));
+		SetWindowText(LF->GetMyNumberFormat(strCharge));
 	}
 	else if(m_bShowDashPhoneNumber)
 	{
 		CString strPhone;
 		GetWindowText(strPhone);
-		SetWindowText(::GetDashPhoneNumber(strPhone));
+		SetWindowText(LF->GetDashPhoneNumber(strPhone));
 	}
 
 	CXTPEdit::OnKillFocus(pNewWnd);
@@ -245,13 +245,13 @@ void CFlatEditInsung::OnSetFocus(CWnd* pOldWnd)
 	{
 		CString strCharge;
 		GetWindowText(strCharge);
-		SetWindowText(::RemoveComma(strCharge));
+		SetWindowText(LF->RemoveComma(strCharge));
 	}
 	else if(m_bShowDashPhoneNumber)
 	{
 		CString strPhone;
 		GetWindowText(strPhone);
-		SetWindowText(::GetNoneDashNumber(strPhone));
+		SetWindowText(LF->GetNoneDashNumber(strPhone));
 	}
 
 	CXTPEdit::OnSetFocus(pOldWnd);
@@ -356,5 +356,5 @@ void CFlatEditInsung::SetWindowTextLong(long nNumber, BOOL bThousandsSep)
 {
 	CString strNumber;
 	strNumber.Format("%ld", nNumber);
-	SetWindowText(bThousandsSep ? ::GetMyNumberFormat(strNumber) : strNumber);
+	SetWindowText(bThousandsSep ? LF->GetMyNumberFormat(strNumber) : strNumber);
 }

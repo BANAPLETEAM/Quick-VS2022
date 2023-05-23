@@ -77,16 +77,16 @@ BOOL CAddPhoneDlg::InsertPhone()
 	if(MessageBox("변경/입력된자료가 있습니다. 저장 하시겠습니까?", "확인", MB_OKCANCEL) != IDOK)
 		return FALSE;
 
-	CString strPhone = ::GetStringFromEdit(&m_edtPhone);
-	strPhone = ::GetNoneDashNumberRemoveDDD(strPhone);
+	CString strPhone = LF->GetStringFromEdit(&m_edtPhone);
+	strPhone = LF->GetNoneDashNumberRemoveDDD(strPhone);
 
 	CMkCommand cmd(m_pMkDb, "insert_phone_info");
 	cmd.AddParameter(m_nCNo);
 	cmd.AddParameter(m_nCompany);
 	cmd.AddParameter(strPhone);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtDepart));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtManager));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtEtc));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtDepart));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtManager));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtEtc));
 
 	return cmd.Execute();
 }
@@ -96,17 +96,17 @@ BOOL CAddPhoneDlg::UpdatePhone()
 	if(MessageBox("변경/입력된자료가 있습니다. 저장 하시겠습니까?", "확인", MB_OKCANCEL) != IDOK)
 		return FALSE;
 
-	CString strPhone = ::GetStringFromEdit(&m_edtPhone);
-	strPhone = ::GetNoneDashNumberRemoveDDD(strPhone);
+	CString strPhone = LF->GetStringFromEdit(&m_edtPhone);
+	strPhone = LF->GetNoneDashNumberRemoveDDD(strPhone);
 
 	CMkCommand cmd(m_pMkDb, "update_phone_info");
 	cmd.AddParameter(m_nCNo);
 	cmd.AddParameter(m_nCompany);
 	cmd.AddParameter(m_nTelID);
 	cmd.AddParameter(strPhone);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtDepart));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtManager));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtEtc));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtDepart));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtManager));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtEtc));
 
 	return cmd.Execute();
 }
@@ -134,7 +134,7 @@ BOOL CAddPhoneDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_edtID.SetWindowText(::GetStringFromLong(m_nCNo));
+	m_edtID.SetWindowText(LF->GetStringFromLong(m_nCNo));
 
 	if(m_nTelID > 0)
 		RefreshPhoneInfo();
@@ -158,7 +158,7 @@ void CAddPhoneDlg::RefreshPhoneInfo()
 		return;
 
 	CString strTemp;
-	rs.GetFieldValue("sTel", strTemp); m_edtPhone.SetWindowText(::GetDashPhoneNumber(strTemp));
+	rs.GetFieldValue("sTel", strTemp); m_edtPhone.SetWindowText(LF->GetDashPhoneNumber(strTemp));
 	rs.GetFieldValue("sTelDepart", strTemp); m_edtDepart.SetWindowText(strTemp);
 	rs.GetFieldValue("sTelManager", strTemp); m_edtManager.SetWindowText(strTemp);
 	rs.GetFieldValue("sTelEtc", strTemp); m_edtEtc.SetWindowText(strTemp);

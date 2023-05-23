@@ -71,7 +71,7 @@ void CChargeForRiderDetailDlg::RefreshDlg()
 	m_edtCompanyTel.SetWindowText(m_ci.GetShareCompanyPhone(nTemp));
 	rs.GetFieldValue("nWNo", nTemp);
 	rs.GetFieldValue("sWName", strTemp);
-	m_edtWName.SetWindowText(::GetStringFromLong(nTemp) + "/" + strTemp);
+	m_edtWName.SetWindowText(LF->GetStringFromLong(nTemp) + "/" + strTemp);
 	rs.GetFieldValue("nType", nTemp);
 	
 	if(nTemp == 0) m_edtType.SetWindowText("¿äÃ»Áß");
@@ -88,12 +88,12 @@ void CChargeForRiderDetailDlg::RefreshDlg()
 	m_edtRiderCompanyTel.SetWindowText(m_ci.GetShareCompanyPhone(nTemp));
 	rs.GetFieldValue("nRNo", nTemp);
 	rs.GetFieldValue("sRName", strTemp);
-	m_edtRName.SetWindowText(::GetStringFromLong(nTemp) + "/" + strTemp);
+	m_edtRName.SetWindowText(LF->GetStringFromLong(nTemp) + "/" + strTemp);
 	rs.GetFieldValue("dtResult", dtTemp);
 	m_edtResultTime.SetWindowText(dtTemp.Format("%Y-%m-%d %H:%M:%S"));
 	rs.GetFieldValue("nResultWNo", nTemp);
 	rs.GetFieldValue("sResultWName", strTemp);
-	m_edtResultWName.SetWindowText(::GetStringFromLong(nTemp) + "/" + strTemp);
+	m_edtResultWName.SetWindowText(LF->GetStringFromLong(nTemp) + "/" + strTemp);
 	rs.GetFieldValue("sResultEtc", strTemp);
 	m_edtResultEtc.SetWindowText(strTemp);
 }

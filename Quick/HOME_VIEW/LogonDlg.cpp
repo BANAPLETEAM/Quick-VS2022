@@ -199,10 +199,10 @@ void CLogonDlg::OnOK()
 	CWaitCursor wait;
 	UpdateData(TRUE);
 
-	GetMacAddress();
+	LF->GetMacAddress();
 
-	CString strInternalIP = GetHostName();
-	CString strHddID = GetHddId();
+	CString strInternalIP = LF->GetHostName();
+	CString strHddID = LF->GetHddId();
 	CString sPower = "";
 
 	CString strRegKey = AfxGetApp()->GetProfileString("manager2008", "test", "");
@@ -552,7 +552,7 @@ void CLogonDlg::OnOK()
 					pBi->strLineGroup.Trim(' ');
 					pBi->strLineGroup.Trim(",");
 					pBi->strLineGroup = "," + pBi->strLineGroup + ",";
-					pBi->strPhone = GetDashPhoneNumber(pBi->strPhone);
+					pBi->strPhone = LF->GetDashPhoneNumber(pBi->strPhone);
 
 					pBi->nShareCode1 = nShareCode1;
 					pBi->nShareCode2 = nShareCode2;
@@ -781,7 +781,7 @@ void CLogonDlg::OnOK()
 							bUseBranchShareReport = TRUE;
 
 						pBi->strLineGroup += ",";
-						pBi->strPhone = GetDashPhoneNumber(pBi->strPhone);
+						pBi->strPhone = LF->GetDashPhoneNumber(pBi->strPhone);
 						pBi->nShareCode1 = nShareCode1;
 						pBi->nShareCode2 = nShareCode2;
 						pBi->nShareCode3 = nShareCode3;
@@ -819,8 +819,8 @@ void CLogonDlg::OnOK()
 					sinfo.nShareCode3 = nShareCode3;
 					sinfo.nShareCode4 = nShareCode4;
 					sinfo.nShareCode5 = nShareCode5;
-					sinfo.strPhone = GetDashPhoneNumber(strPhone);
-					sinfo.strOfficePhone = GetDashPhoneNumber(strOfficePhone);
+					sinfo.strPhone = LF->GetDashPhoneNumber(strPhone);
+					sinfo.strOfficePhone = LF->GetDashPhoneNumber(strOfficePhone);
 					sinfo.bUseBranchShareReport = bUseBranchShareReport;
 					m_ci.GetMap().insert(MAP_SHARED_COMPANY::value_type(nCompany, sinfo));
 				}
@@ -844,14 +844,14 @@ void CLogonDlg::OnOK()
 		//LU->LoadMemberCharge(TRUE);
 		LU->MakeTransInfo();
 		m_mi.FillData();  // 회사마일리지
-		::LoadCardInfo();
+		LF->LoadCardInfo();
 
 		nTryCnt = 0;
 		m_ui.strID = m_strID;
 		m_bAuth = TRUE;
 		pRs.Close();	
 
-		m_ui.bUseWindow7 = ::IsWindow7();
+		m_ui.bUseWindow7 = LF->IsWindow7();
 
 		if(m_ci.m_nPenaltyLevel >= 5)
 		{
@@ -864,7 +864,7 @@ void CLogonDlg::OnOK()
 		else 
 		{
 			CMyDialog::OnOK();
-			NotifyPenalty(1);
+			LF->NotifyPenalty(1);
 		}
 
 		CMyDialog::OnOK();
@@ -1278,7 +1278,7 @@ void CLogonDlg::UpdateRegionInfo()
 
 void CLogonDlg::SetCarTypeOrder(CBranchInfo* pBi, CString strCarTypeOrder)
 {
-	if(GetCommaCount(strCarTypeOrder) == 5)// && strCarTypeOrder.GetLength() == 10)
+	if(LF->GetCommaCount(strCarTypeOrder) == 5)// && strCarTypeOrder.GetLength() == 10)
 	{ 
 		long nCarType = ZERO;
 		long nFirstFind = ZERO;
@@ -1304,7 +1304,7 @@ void CLogonDlg::SetCarTypeOrder(CBranchInfo* pBi, CString strCarTypeOrder)
 			nFirstFind = nSecondFind + 1;
 		}
 	}
-	else if(GetCommaCount(strCarTypeOrder) == 3)// && strCarTypeOrder.GetLength() == 6)
+	else if(LF->GetCommaCount(strCarTypeOrder) == 3)// && strCarTypeOrder.GetLength() == 6)
 	{
 		long nCarType = ZERO;
 		long nFirstFind = ZERO;
@@ -1358,7 +1358,7 @@ void CLogonDlg::SetCarTypeOrder(CBranchInfo* pBi, CString strCarTypeOrder)
 
 void CLogonDlg::SetPayTypeOrder(CBranchInfo* pBi, CString strPayTypeOrder)
 {
-	if(GetCommaCount(strPayTypeOrder) == 5 && strPayTypeOrder.GetLength() == 10)
+	if(LF->GetCommaCount(strPayTypeOrder) == 5 && strPayTypeOrder.GetLength() == 10)
 	{ 
 		long nPayType = ZERO;
 		long nFirstFind = ZERO;
@@ -1384,7 +1384,7 @@ void CLogonDlg::SetPayTypeOrder(CBranchInfo* pBi, CString strPayTypeOrder)
 			nFirstFind = nSecondFind + 1;
 		}
 	}
-	else if(GetCommaCount(strPayTypeOrder) == 4 && strPayTypeOrder.GetLength() == 8)
+	else if(LF->GetCommaCount(strPayTypeOrder) == 4 && strPayTypeOrder.GetLength() == 8)
 	{
 		long nPayType = ZERO;
 		long nFirstFind = ZERO;

@@ -109,7 +109,7 @@ BOOL CCardVerifyDlg::GetCardSocket(const char* szIP, UINT uPort)
 			nXoredKey[i] = des_key_new[i] ^ ((nXorKey + i) % 128);
 		m_pMkCard->SetServerKey(nXoredKey);
 
-		CBranchInfo *ci = GetBranchInfo(m_ci.m_nCompanyCode);
+		CBranchInfo *ci = LF->GetBranchInfo(m_ci.m_nCompanyCode);
 
 		MSG_LOGIN_INFO info;
 		ZeroMemory(&info, sizeof(MSG_LOGIN_INFO));
@@ -205,7 +205,7 @@ BOOL CCardVerifyDlg::OnInitDialog()
 
 	m_stCardInfo.nTNo = m_nTNo;
 
-	::GetCardPayType(m_stCardInfo, FALSE);
+	LF->GetCardPayType(m_stCardInfo, FALSE);
 
 	m_strTransactionNumber = m_strOKTranNumber;
 	m_strOrderPhone = m_strPhone;
@@ -246,8 +246,8 @@ BOOL CCardVerifyDlg::OnInitDialog()
 		m_cmbFeeType.EnableWindow(FALSE);
 		m_cmbFeeType2.EnableWindow(FALSE);
 
-		m_edtCardCharge.SetWindowText(::GetMyNumberFormat(m_stCardInfo.nCharge));
-		m_edtCardCharge2.SetWindowText(::GetMyNumberFormat(m_stCardInfo.nCharge));
+		m_edtCardCharge.SetWindowText(LF->GetMyNumberFormat(m_stCardInfo.nCharge));
+		m_edtCardCharge2.SetWindowText(LF->GetMyNumberFormat(m_stCardInfo.nCharge));
 	}
 	else 
 	{
@@ -321,13 +321,13 @@ BOOL CCardVerifyDlg::VerifyCustomer(BOOL bShowMsg)
 		m_strBalance.Format("%d", atol(m_strBalance));
 		m_edtCardNumber.SetWindowText(::GetMyCardNumber(m_strCardNumber));
 		m_edtCustomer.SetWindowText(m_strCustomer);
-		m_edtBalance.SetWindowText(::GetMyNumberFormat(m_strBalance));
+		m_edtBalance.SetWindowText(LF->GetMyNumberFormat(m_strBalance));
 		m_btnAccept.EnableWindow();
 
 		if(bShowMsg)
 		{
 			CString strMsg;
-			strMsg.Format("결제가능한 카드입니다.[잔액:%s]", ::GetMyNumberFormat(m_strBalance));
+			strMsg.Format("결제가능한 카드입니다.[잔액:%s]", LF->GetMyNumberFormat(m_strBalance));
 			MessageBox(strMsg, "확인", MB_ICONINFORMATION);
 		}
 		return TRUE;
@@ -387,12 +387,12 @@ BOOL CCardVerifyDlg::VerifyCardNumber(BOOL bShowMsg)
 	{
 		m_btnAccept.EnableWindow();
 		m_strBalance.Format("%d", atol(m_strBalance));
-		m_edtBalance.SetWindowText(::GetMyNumberFormat(m_strBalance));
+		m_edtBalance.SetWindowText(LF->GetMyNumberFormat(m_strBalance));
 
 		if(bShowMsg)
 		{
 			CString strMsg;
-			strMsg.Format("결제가능한 카드입니다.[잔액:%s]", ::GetMyNumberFormat(m_strBalance));
+			strMsg.Format("결제가능한 카드입니다.[잔액:%s]", LF->GetMyNumberFormat(m_strBalance));
 			MessageBox(strMsg, "확인", MB_ICONINFORMATION);
 		}
 
@@ -514,7 +514,7 @@ void CCardVerifyDlg::SaveEMail()
 
 void CCardVerifyDlg::OnBnClickedAcceptBtn()
 {
-	if(!POWER_CHECK(1890, "카드결제", TRUE))
+	if(!LF->POWER_CHECK(1890, "카드결제", TRUE))
 		return;
 
 	UpdateData(TRUE);
@@ -543,7 +543,7 @@ void CCardVerifyDlg::OnBnClickedAcceptBtn()
 	SaveEMail();
 
 	GetValidDate(strMM, strYY);
-	BOOL bResult = ::SendNiceCardPay(m_pMkCard, 1, m_nTNo, 0, m_strCardNumber, strMM, strYY, ::GetStringFromLong(m_ui.nCompany), ::GetStringFromLong(m_ui.nWNo), strMsg, m_chkSendSms.GetCheck());
+	BOOL bResult = LF->SendNiceCardPay(m_pMkCard, 1, m_nTNo, 0, m_strCardNumber, strMM, strYY, LF->GetStringFromLong(m_ui.nCompany), LF->GetStringFromLong(m_ui.nWNo), strMsg, m_chkSendSms.GetCheck());
 
 
 	if(bResult)
@@ -562,7 +562,7 @@ void CCardVerifyDlg::OnBnClickedAcceptBtn()
 
 void CCardVerifyDlg::OnBnClickedRequestCancelBtn()
 {
-	if(!POWER_CHECK(1891, "카드취소", TRUE))
+	if(!LF->POWER_CHECK(1891, "카드취소", TRUE))
 		return;
 
 	if(m_stCardInfo.nCardProcess != NICE_CARD_COMPLETE &&
@@ -581,7 +581,7 @@ void CCardVerifyDlg::OnBnClickedRequestCancelBtn()
 		return;
 	}
 
-	BOOL bResult = ::SendNiceCardPay(m_pMkCard, 0, m_nTNo, 0, m_strCardNumber, "", "", ::GetStringFromLong(m_ui.nCompany), ::GetStringFromLong(m_ui.nWNo), strMsg, m_chkSendSms.GetCheck());
+	BOOL bResult = LF->SendNiceCardPay(m_pMkCard, 0, m_nTNo, 0, m_strCardNumber, "", "", LF->GetStringFromLong(m_ui.nCompany), LF->GetStringFromLong(m_ui.nWNo), strMsg, m_chkSendSms.GetCheck());
 
 	if(bResult)
 	{
@@ -673,7 +673,7 @@ BOOL CCardVerifyDlg::PreTranslateMessage(MSG* pMsg)
 
 void CCardVerifyDlg::OnBnClickedAcceptBtn2()
 {
-	if(!POWER_CHECK(1890, "카드결제", TRUE))
+	if(!LF->POWER_CHECK(1890, "카드결제", TRUE))
 		return;
 
 	UpdateData(TRUE);
@@ -728,7 +728,7 @@ void CCardVerifyDlg::OnBnClickedAcceptBtn2()
 
 	SaveEMail();
 
-	BOOL bResult = ::SendNiceCardPay(m_pMkCard, 1, m_nTNo, GetBillKey(), str4Digits, "", "", ::GetStringFromLong(m_ui.nCompany), ::GetStringFromLong(m_ui.nWNo), strMsg, m_chkSendSms.GetCheck());
+	BOOL bResult = LF->SendNiceCardPay(m_pMkCard, 1, m_nTNo, GetBillKey(), str4Digits, "", "", LF->GetStringFromLong(m_ui.nCompany), LF->GetStringFromLong(m_ui.nWNo), strMsg, m_chkSendSms.GetCheck());
 
 	if(bResult)
 	{
@@ -885,7 +885,7 @@ void CCardVerifyDlg::RefreshResultCharge(BOOL bUp)
 
 	CEdit *pEdit = bUp == TRUE ? &m_edtCardCharge : &m_edtCardCharge2;
 
-	pEdit->SetWindowText(::GetMyNumberFormat(nChargeAmt));
+	pEdit->SetWindowText(LF->GetMyNumberFormat(nChargeAmt));
 }
 
 

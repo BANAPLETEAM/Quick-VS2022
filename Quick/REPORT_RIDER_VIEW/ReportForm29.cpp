@@ -132,7 +132,7 @@ void CReportForm29::OnInitialUpdate()
 	SetResize(IDC_EACH_LOG_REPORT, sizingRight);
 	SetResize(IDC_ALL_LOG_REPORT, sizingRightBottom);
 
-	FillBankCode(FALSE, &m_cmbBank);
+	LF->FillBankCode(FALSE, &m_cmbBank);
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 }
 
@@ -166,8 +166,8 @@ void CReportForm29::RefreshList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_income_1");
 
-	pCmd.AddParameter(GetCurBranchInfo(TRUE)->nCompanyCode);
-	pCmd.AddParameter(GetCurBranchInfo(TRUE)->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo(TRUE)->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo(TRUE)->bIntegrated);
 
 	if(!pRs.Execute(&pCmd)) 
 		return;
@@ -189,10 +189,10 @@ void CReportForm29::RefreshList()
 		pRs.GetFieldValue("bCompleted", bCompleted);
 		pRs.GetFieldValue("bReject", bReject);
 
-		m_lstRider.InsertItem(i, ::GetBranchInfo(st->nCompany)->strBranchName);
+		m_lstRider.InsertItem(i, LF->GetBranchInfo(st->nCompany)->strBranchName);
 		m_lstRider.SetItemText(i, 1, itoa(st->nRNo, buffer, 10));
 		m_lstRider.SetItemText(i, 2, st->strName);
-		m_lstRider.SetItemText(i, 3, ::GetMyNumberFormat(st->nCurCharge));
+		m_lstRider.SetItemText(i, 3, LF->GetMyNumberFormat(st->nCurCharge));
 
 		if(bReject == 1)
 			strTemp == "실패";
@@ -223,7 +223,7 @@ void CReportForm29::OnReportItemSelChanged(NMHDR * pNotifyStruct, LRESULT * /*re
 		ST_RIDER_ACCOUNT *st = (ST_RIDER_ACCOUNT*)m_lstRider.GetItemData(pRecord);
 
 		m_edtRiderName.SetWindowText(st->strName);
-		m_edtShareBalance.SetWindowText(::GetMyNumberFormat(st->nCurCharge));
+		m_edtShareBalance.SetWindowText(LF->GetMyNumberFormat(st->nCurCharge));
 
 		m_nRiderCompany = st->nCompany;
 		m_nRNo = st->nRNo; 
@@ -277,8 +277,8 @@ void CReportForm29::RefreshLogList(CXTPListCtrl2 *pList, BOOL bAll)
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_drawing_log_1");
 	pCmd.AddParameter(bAll);
-	pCmd.AddParameter(::GetCurBranchInfo(TRUE)->nCompanyCode);
-	pCmd.AddParameter(::GetCurBranchInfo(TRUE)->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo(TRUE)->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo(TRUE)->bIntegrated);
 	pCmd.AddParameter(nPaRiderCompany);
 	pCmd.AddParameter(nPaRNo);
 	pCmd.AddParameter(m_dtFrom);
@@ -309,18 +309,18 @@ void CReportForm29::RefreshLogList(CXTPListCtrl2 *pList, BOOL bAll)
 		pRs.GetFieldValue("sPhoneNumber", strPhoneNumber);
 		pRs.GetFieldValue("sWName", strWName);
 
-		pList->InsertItem(i, GetBranchInfo(nCompany)->strBranchName);
+		pList->InsertItem(i, LF->GetBranchInfo(nCompany)->strBranchName);
 		pList->SetItemText(i, 1, itoa(nRNo, buffer, 10));
 		pList->SetItemText(i, 2, strRName);
 		pList->SetItemText(i, 3, nProcessStatus != 5100 ? "실패" : "");
-		pList->SetItemText(i, 4, ::GetMyNumberFormat(nWIthDrawMoney));
+		pList->SetItemText(i, 4, LF->GetMyNumberFormat(nWIthDrawMoney));
 
 		if(dtReqSendMoney.m_status != COleDateTime::null)
 			strTemp.Format("%s(%s)", dtReqSendMoney.Format("%m/%d %H:%M"), dayofweek[dtReqSendMoney.GetDayOfWeek() - 1]);
 		else
 			strTemp = "";
 		pList->SetItemText(i, 5, strTemp);
-		pList->SetItemText(i, 6, ::GetBankName(nBankCode));
+		pList->SetItemText(i, 6, LF->GetBankName(nBankCode));
 		pList->SetItemText(i, 7, strAccount);
 		pList->SetItemText(i, 8, strOwnerAccount);
 		pList->SetItemText(i, 9, strEtc);
@@ -388,7 +388,7 @@ void CReportForm29::OnReportItemAllClick(NMHDR * pNotifyStruct, LRESULT * /*resu
 }
 void CReportForm29::OnBnClickedDrawingBtn()
 {
-	if(!POWER_CHECK(1040, "출금요청", TRUE))
+	if(!LF->POWER_CHECK(1040, "출금요청", TRUE))
 		return;
 
 	long nBankCode = m_cmbBank.GetItemData(m_cmbBank.GetCurSel()); //nID임
@@ -417,12 +417,12 @@ void CReportForm29::OnBnClickedDrawingBtn()
 		if(strPhone.GetLength() < 8)
 			throw "SMS수신 가능한 휴대폰번호를 입력하세요.";
 
-		nAmount = GetNoneCommaNumber(strAmount);
+		nAmount = LF->GetNoneCommaNumber(strAmount);
 
 		if(nAmount < 10000 || nAmount > 50000000)
 			throw "1회 출금 가능금액은 1만원~5000만원입니다.";
 
-		//nShareBalance = GetNoneCommaNumber(strShareBalance);
+		//nShareBalance = LF->GetNoneCommaNumber(strShareBalance);
 		nShareBalance = GetRiderCurBalance(m_nRiderCompany, m_nRNo);
 
 		if(nShareBalance < nAmount)
@@ -448,7 +448,7 @@ void CReportForm29::OnBnClickedDrawingBtn()
 	pCmd.AddParameter(m_ui.nCompany);
 	pCmd.AddParameter(m_ui.nWNo);
 	pCmd.AddParameter(m_ei.strMac1);
-	pCmd.AddParameter(GetHddId().TrimLeft());
+	pCmd.AddParameter(LF->GetHddId().TrimLeft());
 
 	if(!pCmd.Execute())
 	{
@@ -604,17 +604,17 @@ void CReportForm29::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm29::OnViewExcel()
 {
-	if(!POWER_CHECK(4900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(4900, "엑셀변환", TRUE))
 		return;
 
 	if(m_bEachReport)
 	{
-		AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 325, m_ui.nWNo, m_lstEachLog.GetItemCount());  
+		LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 325, m_ui.nWNo, m_lstEachLog.GetItemCount());  
 		CMyExcel::ToExcel(&m_lstEachLog);
 	}
 	else
 	{
-		AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 325, m_ui.nWNo, m_lstAllLog.GetItemCount());  
+		LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 325, m_ui.nWNo, m_lstAllLog.GetItemCount());  
 		CMyExcel::ToExcel(&m_lstAllLog);
 	}
 		

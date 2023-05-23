@@ -478,7 +478,7 @@ void CChargeListDlg::OnBnClickedChargeNameNewBtn()
 		int nReturnValue = 0;
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "insert_chargetype_name_2008_1");
-		pCmd.AddParameter(GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 		pCmd.AddParameter(strChargeName);
 		pCmd.AddParameter(m_ui.strName);
 		pCmd.AddParameter(strEtc);
@@ -495,7 +495,7 @@ void CChargeListDlg::OnBnClickedChargeNameNewBtn()
 
 			ST_CHARGE_TYPE_NAME_INFO st;
 			st.nID = nReturnValue;
-			st.nCompany = GetCurBranchInfo()->nCompanyCode;
+			st.nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 			st.strChargeName = strChargeName;
 
 			m_mapChargeType[nReturnValue] = st;
@@ -593,7 +593,7 @@ void CChargeListDlg::OnBnClickedModifyChargeBtn()
 {
 	if(m_lstRegisterChargeList.GetRecords()->GetCount() == 0)
 	{
-		MsgBox("수정하실 데이터가 없습니다.");
+		LF->MsgBox("수정하실 데이터가 없습니다.");
 		return;
 	}
 
@@ -607,7 +607,7 @@ void CChargeListDlg::OnBnClickedModifyChargeBtn()
 
 			if(nRegisterChargeID <= 0 || nChargeID <= 0)
 			{
-				MsgBox("수정중 데이터가 이상합니다 로지소프트로 문의하세요" );
+				LF->MsgBox("수정중 데이터가 이상합니다 로지소프트로 문의하세요" );
 				return;
 			}
 
@@ -656,7 +656,7 @@ void CChargeListDlg::OnBnClickedExcelBtn()
 		return;
 	CString strChargeName = m_mapChargeType[nChargeID].strChargeName;
 
-	if(!POWER_CHECK(3900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "엑셀변환", TRUE))
 		return;
 	m_lstRegisterChargeList.ToExcel(strChargeName);
 }
@@ -671,7 +671,7 @@ void CChargeListDlg::OnBnClickedChargeDeleteBtn()
 {	
 	if(m_lstChargeList.GetSelectedCount() == 0)
 	{
-		MsgBox("삭제하실 요금제를 선택하세요");
+		LF->MsgBox("삭제하실 요금제를 선택하세요");
 		return;
 	}
 
@@ -689,7 +689,7 @@ void CChargeListDlg::OnBnClickedChargeDeleteBtn()
 			
 			CMkRecordset pRs(m_pMkDb);
 			CMkCommand pCmd(m_pMkDb, "delete_chargetype_name");
-			pCmd.AddParameter(GetCurBranchInfo()->nPayTable);
+			pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
 			pCmd.AddParameter(strChargeTypeName);
 			pCmd.AddParameter(nChargeTypeID);
 			CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);

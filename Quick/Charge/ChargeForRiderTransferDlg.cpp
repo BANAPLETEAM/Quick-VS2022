@@ -85,9 +85,9 @@ void CChargeForRiderTransferDlg::InitData()
 	rs.GetFieldValue("nCharge", nCharge);
 
 	m_edtCompany.SetWindowText(m_ci.GetShareCompanyName(nRiderCompany));
-	m_edtRNo.SetWindowText(::GetStringFromLong(nRNo));
+	m_edtRNo.SetWindowText(LF->GetStringFromLong(nRNo));
 	m_edtName.SetWindowText(strRName);
-	m_edtCharge.SetWindowText(::GetMyNumberFormat(nCharge));
+	m_edtCharge.SetWindowText(LF->GetMyNumberFormat(nCharge));
 }
 
 BOOL CChargeForRiderTransferDlg::OnInitDialog()
@@ -157,7 +157,7 @@ void CChargeForRiderTransferDlg::OnBnClickedSendSmsBtn()
 
 	strPhone.Replace("-", "");
 
-	if(!::IsMobilePhoneNumber(strPhone))
+	if(!LF->IsMobilePhoneNumber(strPhone))
 	{
 		MessageBox("휴대폰 번호가 정확하지 않습니다", "확인", MB_ICONINFORMATION);
 		return;

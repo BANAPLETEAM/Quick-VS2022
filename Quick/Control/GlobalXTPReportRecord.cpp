@@ -23,13 +23,13 @@ CNearRecord::CNearRecord(BOOL bCheck,long nTNo,int nState,int nCarType, int nRun
 
 	CString strOption;
 	if(nCarType > 0)
-		strOption += CString("[") + GetCarTypeFromLong(nCarType) + "]";
+		strOption += CString("[") + LF->GetCarTypeFromLong(nCarType) + "]";
 
 	if(nWayType > 0)
-		strOption += CString("[") + GetWayTypeFromLong(nWayType) + "]";
+		strOption += CString("[") + LF->GetWayTypeFromLong(nWayType) + "]";
 
 	if(nRunType > 0)
-		strOption += CString("[") + GetRunTypeFromLong(nRunType) + "]";
+		strOption += CString("[") + LF->GetRunTypeFromLong(nRunType) + "]";
 
 	AddItem(new CXTPGridRecordItemCheck(bCheck));
 	AddItem(new CXTPGridRecordItemText(strCName)); 
@@ -51,7 +51,7 @@ void CNearRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_
 	if(! pDrawArgs->pRow->IsItemsVisible() ) return;
 
 	if(nCol == 0)
-		pDrawArgs->pItem->SetIconIndex(GetImageNumber(pNearRecord->m_nState));	
+		pDrawArgs->pItem->SetIconIndex(LF->GetImageNumber(pNearRecord->m_nState));	
 
 	pItemMetrics->clrForeground = OnColorText(pItemMetrics, nRow, nCol, nItemCol, pNearRecord->m_nRankType);
 }
@@ -105,15 +105,15 @@ CAfterReportRecord::CAfterReportRecord(long nGNo, CString strDate, long nCashCou
 
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(strDate));
-	strFormat.Format("%s건 / %s원", ::GetMyNumberFormat(nCashCount), ::GetMyNumberFormat(nCashCharge));
+	strFormat.Format("%s건 / %s원", LF->GetMyNumberFormat(nCashCount), LF->GetMyNumberFormat(nCashCharge));
 	AddItem(new CXTPGridRecordItemText(strFormat));
-	strFormat.Format("%s건 / %s원", ::GetMyNumberFormat(nCreditCount), ::GetMyNumberFormat(nCreditCharge));
+	strFormat.Format("%s건 / %s원", LF->GetMyNumberFormat(nCreditCount), LF->GetMyNumberFormat(nCreditCharge));
 	AddItem(new CXTPGridRecordItemText(strFormat));
-	strFormat.Format("%s건 / %s원", ::GetMyNumberFormat(nOnlineCount), ::GetMyNumberFormat(nOnlineCharge));
+	strFormat.Format("%s건 / %s원", LF->GetMyNumberFormat(nOnlineCount), LF->GetMyNumberFormat(nOnlineCharge));
 	AddItem(new CXTPGridRecordItemText(strFormat));
-	strFormat.Format("%s건 / %s원", ::GetMyNumberFormat(nTransCount), ::GetMyNumberFormat(nTransCharge));
+	strFormat.Format("%s건 / %s원", LF->GetMyNumberFormat(nTransCount), LF->GetMyNumberFormat(nTransCharge));
 	AddItem(new CXTPGridRecordItemText(strFormat));
-	strFormat.Format("%s건 / %s원", ::GetMyNumberFormat(nCreditCount + nOnlineCount), ::GetMyNumberFormat(nCreditCharge + nOnlineCharge + nTransCharge));
+	strFormat.Format("%s건 / %s원", LF->GetMyNumberFormat(nCreditCount + nOnlineCount), LF->GetMyNumberFormat(nCreditCharge + nOnlineCharge + nTransCharge));
 	AddItem(new CXTPGridRecordItemText(strFormat));
 }
 
@@ -149,7 +149,7 @@ CXTPGridCustomer::CXTPGridCustomer(BOOL bMain, ST_CUSTOMER_INFO *info)
 	AddItem(new CXTPGridRecordItemText(info->strCompany));
 	AddItem(new CXTPGridRecordItemText(info->strName));
 	AddItem(new CXTPGridRecordItemText(info->strDepart));
-	AddItem(new CXTPGridRecordItemText(GetDashPhoneNumber(info->strMobile)));
+	AddItem(new CXTPGridRecordItemText(LF->GetDashPhoneNumber(info->strMobile)));
 
 	CString strTemp = "";
 	if(info->bCredit == 1) strTemp = "신용";
@@ -249,7 +249,7 @@ CGroupReportRecord::CGroupReportRecord(ST_CUSTOMER_GROUP_INFOMATION *st, BOOL bS
 	m_strSearchDateData += "$" + (CString)itoa(st->nReportFirstDay, buffer, 10) + "%$" + (CString)itoa(st->nReportSecondDay, buffer, 10) + "%";
 
 	//m_stGroup = m_cg.GetGroupData(st->nGNo);
-	InitGroupReportStruct(m_stGroup);
+	LF->InitGroupReportStruct(m_stGroup);
 	m_stGroup.strGroupName = st->strGroupName;
 	m_stGroup.strDept = st->strDept;
 	m_stGroup.strName = st->strName;
@@ -261,7 +261,7 @@ CGroupReportRecord::CGroupReportRecord(ST_CUSTOMER_GROUP_INFOMATION *st, BOOL bS
 
 CGroupReportRecord::CGroupReportRecord(GROUP_REPORT st, BOOL bSumRecord)
 {
-	InitGroupReportStruct(m_stGroup);
+	LF->InitGroupReportStruct(m_stGroup);
 
 	m_nGNo = st.nGNo;
 	m_stGroup = st;
@@ -299,16 +299,16 @@ CGroupReportRecord::CGroupReportRecord(ST_GROUP_REPORT st)
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(""));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nSumCount)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nCashCharge)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nCreditCharge)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nOnlineCharge)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nTransCharge)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nSumTotal)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nSumCount)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nCashCharge)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nCreditCharge)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nOnlineCharge)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nTransCharge)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nSumTotal)));
 	AddItem(new CXTPGridRecordItemText(""));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nBillCollection)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nBillCollection)));
 	AddItem(new CXTPGridRecordItemText(""));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nUnBillCollection)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nUnBillCollection)));
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(""));
@@ -317,7 +317,7 @@ CGroupReportRecord::CGroupReportRecord(ST_GROUP_REPORT st)
 
 	m_nGNo = 0;
 	m_nReportTreeLevel = 0;
-	InitGroupReportStruct(m_stGroup);
+	LF->InitGroupReportStruct(m_stGroup);
 	m_bHasData = FALSE;
 }
 
@@ -398,7 +398,7 @@ CCustomerGroupRecord::CCustomerGroupRecord(ST_CUSTOMER_GROUP_INFOMATION *st)
 	if(st->nAbleUseCharge > 0)
 	{
 		CString strTemp;
-		strTemp.Format("%s / %d만원", ::GetMyNumberFormat(st->nUseCharge), st->nAbleUseCharge);
+		strTemp.Format("%s / %d만원", LF->GetMyNumberFormat(st->nUseCharge), st->nAbleUseCharge);
 		AddItem(new CXTPGridRecordItemText(strTemp));
 		AddItem(new CXTPGridRecordItemText(CString(itoa(st->nInitDay, buffer, 10)) + "일"));
 	}
@@ -436,7 +436,7 @@ void CCustomerGroupRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawAr
 
 void CCustomerGroupRecord::AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st)
 {
-	m_strSearchData += st->strGroupName + "%" + st->strDept + "%" + GetMyNumberFormat(st->nReportFirstDay) + "%";
+	m_strSearchData += st->strGroupName + "%" + st->strDept + "%" + LF->GetMyNumberFormat(st->nReportFirstDay) + "%";
 }
 
 CGroupRecord24::CGroupRecord24(ST_CUSTOMER_GROUP_INFOMATION *st)
@@ -445,7 +445,7 @@ CGroupRecord24::CGroupRecord24(ST_CUSTOMER_GROUP_INFOMATION *st)
 	strReportTerm.Format("%d ~ %d", st->nReportFirstDay,st->nReportSecondDay);
 	AddItem(new CXTPGridRecordItemText(st->strGroupName));
 	AddItem(new CXTPGridRecordItemText(st->strDept));
-	AddItem(new CXTPGridRecordItemText(GetMyNumberFormat(st->nReportFirstDay) + "일"));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st->nReportFirstDay) + "일"));
 
 
 	m_nGNo = st->nGNo;
@@ -510,7 +510,7 @@ CGroupReportRecord24::CGroupReportRecord24(ST_CUSTOMER_GROUP_INFOMATION *st, BOO
 	m_strSearchData = st->strGroupName + "%" + st->strDept + "%" + st->strName + "%";
 	m_strSearchDateData += "$" + (CString)itoa(st->nReportFirstDay, buffer, 10) + "%$" + (CString)itoa(st->nReportSecondDay, buffer, 10) + "%";
 
-	InitGroupReportStruct(m_stGroup);
+	LF->InitGroupReportStruct(m_stGroup);
 	m_stGroup.strGroupName = st->strGroupName;
 	m_stGroup.strDept = st->strDept;
 	m_stGroup.strName = st->strName;
@@ -520,7 +520,7 @@ CGroupReportRecord24::CGroupReportRecord24(ST_CUSTOMER_GROUP_INFOMATION *st, BOO
 
 CGroupReportRecord24::CGroupReportRecord24(GROUP_REPORT st, BOOL bSumRecord)
 {
-	InitGroupReportStruct(m_stGroup);
+	LF->InitGroupReportStruct(m_stGroup);
 
 	m_nGNo = st.nGNo;
 	m_stGroup = st;
@@ -558,16 +558,16 @@ CGroupReportRecord24::CGroupReportRecord24(ST_GROUP_REPORT st)
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(""));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nSumCount)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nCashCharge)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nCreditCharge)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nOnlineCharge)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nTransCharge)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nSumTotal)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nSumCount)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nCashCharge)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nCreditCharge)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nOnlineCharge)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nTransCharge)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nSumTotal)));
 	AddItem(new CXTPGridRecordItemText(""));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nBillCollection)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nBillCollection)));
 	AddItem(new CXTPGridRecordItemText(""));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(st.nUnBillCollection)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(st.nUnBillCollection)));
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(""));
 	AddItem(new CXTPGridRecordItemText(""));
@@ -576,7 +576,7 @@ CGroupReportRecord24::CGroupReportRecord24(ST_GROUP_REPORT st)
 
 	m_nGNo = 0;
 	m_nReportTreeLevel = 0;
-	InitGroupReportStruct(m_stGroup);
+	LF->InitGroupReportStruct(m_stGroup);
 	m_bHasData = FALSE;
 }
 
@@ -633,12 +633,12 @@ CMileageRecord::CMileageRecord(CString strCName, CString strTel1, CString strTel
 	m_nCNo = nCNo;	
 	m_bDirtyFlag = FALSE;
 	m_strData[0] = strCName;
-	m_strData[1] = GetDashPhoneNumber(strTel1);
-	m_strData[2] = GetDashPhoneNumber(strTel2);
+	m_strData[1] = LF->GetDashPhoneNumber(strTel1);
+	m_strData[2] = LF->GetDashPhoneNumber(strTel2);
 	m_strData[3] = m_cg.GetGroupData(nCustomerGroup)->strGroupName;
 	m_strData[4] = strType;
-	m_strData[5] = GetMyNumberFormat(nUseCount);
-	m_strData[6] = GetMyNumberFormat(nMileage);		
+	m_strData[5] = LF->GetMyNumberFormat(nUseCount);
+	m_strData[6] = LF->GetMyNumberFormat(nMileage);		
 	m_strData[7] = strMileageType;		
 }
 
@@ -674,7 +674,7 @@ CUnBillRecord::CUnBillRecord(long nGNo, COleDateTime dtGenerate, long nID, long 
 		AddItem(new CXTPGridRecordItemText(""));
 		AddItem(new CXTPGridRecordItemText(""));
 		AddItem(new CXTPGridRecordItemText("미수금액 :"));
-		AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nBalance))); 
+		AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nBalance))); 
 
 		AddItem(new CXTPGridRecordItemText(strIncomeDate)); 
 		AddItem(new CXTPGridRecordItemText(sSendEmail)); 
@@ -693,8 +693,8 @@ CUnBillRecord::CUnBillRecord(long nGNo, COleDateTime dtGenerate, long nID, long 
 		AddItem(new CXTPGridRecordItemText(""));
 		AddItem(new CXTPGridRecordItemText(dtGenerate.Format("%m-%d %H:%M:%S")));		
 		AddItem(new CXTPGridRecordItemText(strType));
-		AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nAccount)));
-		AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nBalance)));
+		AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nAccount)));
+		AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nBalance)));
 		AddItem(new CXTPGridRecordItemText(""));  // strIncomeDate
 		AddItem(new CXTPGridRecordItemText(""));  // sSendEmail
 		AddItem(new CXTPGridRecordItemText("")); 
@@ -932,8 +932,8 @@ CMyRecord::CMyRecord(COleDateTime dtGenerate,CString sState,long nDeposit,long n
 	m_nShareReportTabIdx = 1;
 	AddItem(new CMyDateRecordItem(dtGenerate));
 	AddItem(new CXTPGridRecordItemText(sState));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nDeposit)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nBalance)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nDeposit)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nBalance)));
 	AddItem(new CXTPGridRecordItemText(sEtc));
 
 	m_nTrafficPenalty = nTrafficPenalty;

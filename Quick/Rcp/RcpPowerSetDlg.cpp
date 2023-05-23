@@ -261,7 +261,7 @@ BOOL CRcpPowerSetDlg::GetPowerSub(CDetailPowerRecord *pPower, BOOL bLogiSet, CSt
 		//if(m_ManagerPower.GetPower(pPower->m_nCode))
 		if(m_ManagerPower.GetPower(pPower->m_nCode) || bLogiSet)
 		{
-			strPower +=  ::GetStringFromLong(pPower->m_nCode);
+			strPower +=  LF->GetStringFromLong(pPower->m_nCode);
 			strPower += ",";
 		} 
 		else
@@ -276,7 +276,7 @@ BOOL CRcpPowerSetDlg::GetPowerSub(CDetailPowerRecord *pPower, BOOL bLogiSet, CSt
 
 			if(bReverse) //반대의 권한을 가지는 애들 
 			{
-				strPower +=  ::GetStringFromLong(pPower->m_nCode);
+				strPower +=  LF->GetStringFromLong(pPower->m_nCode);
 				strPower += ",";
 				bNotHasPower = FALSE;
 			}

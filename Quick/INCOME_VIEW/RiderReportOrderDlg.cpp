@@ -153,10 +153,10 @@ void CRiderReportOrderDlg::OnBnClickedRefreshBtn()
 		m_ReportOrderList.SetItemText(nItem, 3, sOName);
 		m_ReportOrderList.SetItemText(nItem, 4, sSName);
 		m_ReportOrderList.SetItemText(nItem, 5, sDName);
-		m_ReportOrderList.SetItemText(nItem, 6, ::GetMyNumberFormat(nChargeSum));
-		m_ReportOrderList.SetItemText(nItem, 7, ::GetMyNumberFormat(nCouponCharge));
-		m_ReportOrderList.SetItemText(nItem, 8, ::GetMyNumberFormat(nChargeTrans));
-		m_ReportOrderList.SetItemText(nItem, 9, ::GetPayTypeFromLong(nPayType, FALSE));
+		m_ReportOrderList.SetItemText(nItem, 6, LF->GetMyNumberFormat(nChargeSum));
+		m_ReportOrderList.SetItemText(nItem, 7, LF->GetMyNumberFormat(nCouponCharge));
+		m_ReportOrderList.SetItemText(nItem, 8, LF->GetMyNumberFormat(nChargeTrans));
+		m_ReportOrderList.SetItemText(nItem, 9, LF->GetPayTypeFromLong(nPayType, FALSE));
 		m_ReportOrderList.SetItemText(nItem, 10, GetType(nShareCode1, nRiderShareCode1, nPayType));
 
 		CString sType = GetApply(GetType(nShareCode1, nRiderShareCode1, nPayType), nChargeSum, bGiveChargeToRider);
@@ -192,9 +192,9 @@ void CRiderReportOrderDlg::OnBnClickedRefreshBtn()
 	{
 		m_ReportOrderList.InsertItem(nItem, ""); 
 		m_ReportOrderList.SetItemText(nItem, 5, " 합 계 :");
-		m_ReportOrderList.SetItemText(nItem, 6, ::GetMyNumberFormat(nSSum));
-		m_ReportOrderList.SetItemText(nItem, 7, ::GetMyNumberFormat(nSCoupon));
-		m_ReportOrderList.SetItemText(nItem++, 8, ::GetMyNumberFormat(nSTrans));
+		m_ReportOrderList.SetItemText(nItem, 6, LF->GetMyNumberFormat(nSSum));
+		m_ReportOrderList.SetItemText(nItem, 7, LF->GetMyNumberFormat(nSCoupon));
+		m_ReportOrderList.SetItemText(nItem++, 8, LF->GetMyNumberFormat(nSTrans));
 
 		m_ReportOrderList.InsertItem(nItem ++, "");
 
@@ -207,17 +207,17 @@ void CRiderReportOrderDlg::OnBnClickedRefreshBtn()
 		m_ReportOrderList.InsertItem(nItem, "");
 		m_ReportOrderList.SetItemText(nItem, 2, "지불 : ");
 
-		m_ReportOrderList.SetItemText(nItem, 3, ::GetMyNumberFormat(nSCashCount) + "/" + ::GetMyNumberFormat(nSCash));
-		m_ReportOrderList.SetItemText(nItem, 4, ::GetMyNumberFormat(nSCreditCount) + "/" + ::GetMyNumberFormat(nSCredit));
-		m_ReportOrderList.SetItemText(nItem++, 5,  ::GetMyNumberFormat(nSOnlineCount) + "/" + ::GetMyNumberFormat(nSOnline));
+		m_ReportOrderList.SetItemText(nItem, 3, LF->GetMyNumberFormat(nSCashCount) + "/" + LF->GetMyNumberFormat(nSCash));
+		m_ReportOrderList.SetItemText(nItem, 4, LF->GetMyNumberFormat(nSCreditCount) + "/" + LF->GetMyNumberFormat(nSCredit));
+		m_ReportOrderList.SetItemText(nItem++, 5,  LF->GetMyNumberFormat(nSOnlineCount) + "/" + LF->GetMyNumberFormat(nSOnline));
 
 		m_ReportOrderList.InsertItem(nItem++, "");
 
 		m_ReportOrderList.InsertItem(nItem, "");
 		m_ReportOrderList.SetItemText(nItem, 2, " 적용 : ");
-		m_ReportOrderList.SetItemText(nItem, 3, ::GetMyNumberFormat(nSACount) + "/" + ::GetMyNumberFormat(nSACharge));
+		m_ReportOrderList.SetItemText(nItem, 3, LF->GetMyNumberFormat(nSACount) + "/" + LF->GetMyNumberFormat(nSACharge));
 		m_ReportOrderList.SetItemText(nItem, 5, " 비적용 : ");
-		m_ReportOrderList.SetItemText(nItem, 6, ::GetMyNumberFormat(nSNCount) + "/" + ::GetMyNumberFormat(nSNCharge));
+		m_ReportOrderList.SetItemText(nItem, 6, LF->GetMyNumberFormat(nSNCount) + "/" + LF->GetMyNumberFormat(nSNCharge));
 
 	}
 

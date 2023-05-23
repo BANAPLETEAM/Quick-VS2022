@@ -33,7 +33,7 @@ CRiderMapNormalForm::CRiderMapNormalForm()
 	m_nSearchKeyword = -1;
 	m_bInitCompleted = FALSE;
 
-	::LoadFromReg(m_setinfo);
+	LF->LoadFromReg(m_setinfo);
 }
 
 CRiderMapNormalForm::~CRiderMapNormalForm()
@@ -100,12 +100,12 @@ void CRiderMapNormalForm::OnInitialUpdate()
 {
 	CMyFormView::OnInitialUpdate();
 
-	if(!LU->IsShareInfoShowOk() && 
-		!::IsThisCompany("±¤ÁÖ¿¬ÇÕ") &&
-		!::IsThisCompany("¼¼ºìÆ¯¼Û"))
-	{
-		m_chkOtherRider.EnableWindow(FALSE);
-	}
+	//if(!LU->IsShareInfoShowOk() && 
+	//	!LF->IsThisCompany("±¤ÁÖ¿¬ÇÕ") &&
+	//	!LF->IsThisCompany("¼¼ºìÆ¯¼Û"))
+	//{
+	//	m_chkOtherRider.EnableWindow(FALSE);
+	//}
 
 	m_pRiderMapDlg = (CRiderMapDlg*)GetOwner();
 	m_pMap = m_pRiderMapDlg->GetMap();
@@ -332,7 +332,7 @@ void CRiderMapNormalForm::UpdateOrderStatic()
 
 		CString strTemp; 
 		strTemp.Format(" (%s)%s  %s  %s->%s %s", pRecord->GetItem(0)->GetCaption(NULL), 
-												::GetStateString(nState),
+												LF->GetStateString(nState),
 												pRecord->GetItem(1)->GetCaption(NULL), 
 												pRecord->GetItem(2)->GetCaption(NULL), 
 												pRecord->GetItem(3)->GetCaption(NULL), 
@@ -387,7 +387,7 @@ void CRiderMapNormalForm::UpdateRiderOrderCount(long nCompany, long nRNo)
 		if(nState >= 11 && nState < 35)
 		{
 			CString strOrder;
-			strOrder.Format("%s %s] %s -> %s", GetStateString(nState), 
+			strOrder.Format("%s %s] %s -> %s", LF->GetStateString(nState), 
 				strTime, 
 				strStart, strDest);
 			strHasOrderList += strOrder + "\n";
@@ -426,17 +426,17 @@ void CRiderMapNormalForm::AddRiderHaveOrderToList(CXTPListCtrl2 *pList, int nIte
 #endif
 	{
 		char buffer[10];
-		pList->InsertItem(nItem, CString("+") + ltoa(span.GetTotalMinutes(), buffer, 10), GetImageNumber(nState));
+		pList->InsertItem(nItem, CString("+") + ltoa(span.GetTotalMinutes(), buffer, 10), LF->GetImageNumber(nState));
 	}
 	else
 	{
-		pList->InsertItem(nItem, dtState.Format("%H:%M"), GetImageNumber(nState));
+		pList->InsertItem(nItem, dtState.Format("%H:%M"), LF->GetImageNumber(nState));
 	}
 
 	pList->SetItemText(nItem, 1, strCName);
 	pList->SetItemText(nItem, 2, strStart);
 	pList->SetItemText(nItem, 3, strDest);
-	pList->SetItemText(nItem, 4, GetMyNumberFormat(nCharge));
+	pList->SetItemText(nItem, 4, LF->GetMyNumberFormat(nCharge));
 	pList->SetItemLong(nItem, nState);
 	pList->SetItemLong2(nItem, nCharge);
 }
@@ -838,7 +838,7 @@ void CRiderMapNormalForm::SetRiderPosRealTime(CRealTimeRiderPos &pos, BOOL bNotP
 
 CString CRiderMapNormalForm::GetRiderHint(CString &strRName, CString &strPhone, CString &strPOIName)
 {
-	return strRName + "(" + GetDashPhoneNumber(strPhone) + ")\n" + strPOIName;
+	return strRName + "(" + LF->GetDashPhoneNumber(strPhone) + ")\n" + strPOIName;
 }
 
 int CRiderMapNormalForm::OnMouseActivate(CWnd* pDesktopWnd, UINT nHitTest, UINT message)
@@ -855,7 +855,7 @@ void CRiderMapNormalForm::OnEnChangeXtplistctrlEdit()
 	
 	pEdit->GetWindowText(strKeyword);
 	
-	if(IsStringDigit(strKeyword))
+	if(LF->IsStringDigit(strKeyword))
 	{
 		m_strSearchKeyword.Empty();
 		m_nSearchKeyword = atol(strKeyword);
@@ -999,7 +999,7 @@ void CRiderMapNormalForm::OnBnClickedRiderMapSetBtn()
 
 void CRiderMapNormalForm::RefreshFromSetupDlg()
 {
-	::LoadFromReg(m_setinfo);
+	LF->LoadFromReg(m_setinfo);
 
 	if(m_setinfo.nShowRiderHasColor)
 	{
@@ -1033,7 +1033,7 @@ void CRiderMapNormalForm::SetMapInfo()
 		m_setinfo.nRiderCaptionName || 
 		m_setinfo.nRiderCaptionRNo);
 
-	m_pMap->SetRiderTailShowTime(::GetTailShowTimeFromIndex(m_setinfo.nRiderTailShowTime));
+	m_pMap->SetRiderTailShowTime(LF->GetTailShowTimeFromIndex(m_setinfo.nRiderTailShowTime));
 }
 
 void CRiderMapNormalForm::AddOrderPOI(OrderRecord &order)

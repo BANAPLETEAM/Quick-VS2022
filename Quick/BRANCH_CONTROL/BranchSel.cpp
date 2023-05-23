@@ -135,7 +135,7 @@ void CBranchSel::InitData(CEdit *pMainEdt, CEdit *pSubEdt, CButton *pMainBtn, CB
 					if(m_pSearchEdt == NULL)
 						ALL_LIST.InsertItem(nItem, pData->pBi->strBranchName);
 					else
-						ALL_LIST.InsertItem(nItem, pData->pBi->strBranchName + " (" + ::GetDashPhoneNumber(pData->pBi->strPhone) + ")");
+						ALL_LIST.InsertItem(nItem, pData->pBi->strBranchName + " (" + LF->GetDashPhoneNumber(pData->pBi->strPhone) + ")");
 
 					ALL_LIST.SetItemData(nItem++, (DWORD)pData->pBi);				
 				}
@@ -153,7 +153,7 @@ void CBranchSel::InitData(CEdit *pMainEdt, CEdit *pSubEdt, CButton *pMainBtn, CB
 
 	if(nCount == 0)
 	{ 
-		m_pBi = ::GetCurBranchInfo();
+		m_pBi = LF->GetCurBranchInfo();
 
 		if(m_bSendParentBranchChangeInfo)
 			SendChangeBranchInfToParent();
@@ -220,7 +220,7 @@ void CBranchSel::ChangeMainBranch(CXTPTaskPanelItem *pItem, BOOL bFirstSelect)
 			if(m_pSearchEdt == NULL)
 				SUB_LIST.InsertItem(i, pBi->strBranchName);
 			else
-				SUB_LIST.InsertItem(i, pBi->strBranchName + " (" + ::GetDashPhoneNumber(pBi->strPhone) + ")");
+				SUB_LIST.InsertItem(i, pBi->strBranchName + " (" + LF->GetDashPhoneNumber(pBi->strPhone) + ")");
 
 			SUB_LIST.SetItemData(i, (DWORD)pBi);
 
@@ -254,7 +254,7 @@ void CBranchSel::SetEditTextColor()
 	if(nTextColor == nGroundColor)
 		nGroundColor = RGB(255 - nGroundColor, 255 - nGroundColor, 255 - nGroundColor);
 
-	m_edtSub->SetWindowText(m_pBi->strBranchName + " (" + ::GetDashPhoneNumber(m_pBi->strPhone) + ")");
+	m_edtSub->SetWindowText(m_pBi->strBranchName + " (" + LF->GetDashPhoneNumber(m_pBi->strPhone) + ")");
 	m_edtSub->SetUserOption(RGB(GetRValue(nTextColor), GetGValue(nTextColor), GetBValue(nTextColor)),
 		RGB(GetRValue(nGroundColor), GetGValue(nGroundColor), GetBValue(nGroundColor)));
 }

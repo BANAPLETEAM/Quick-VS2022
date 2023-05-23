@@ -201,14 +201,14 @@ void CDepositJobDlg::RefreshList(void)
 		if(st->nID == nScheduleID)
 			nSelRow = i;
 
-		m_List.InsertItem(i, GetStringFromLong(st->nID));
+		m_List.InsertItem(i, LF->GetStringFromLong(st->nID));
 		m_List.SetItemText(i, 1, m_ci.GetBranchName(nCompany));
 		m_List.SetItemText(i, 2, st->strDisplayName);
 		m_List.SetItemText(i, 3, st->bUse == TRUE ? "사용" : "사용안함");
 		m_List.SetItemText(i, 4, GetDisplayDate(st));
 		m_List.SetItemText(i, 5, st->nDepositType == 0 ? "차감" : "선입금");
-		m_List.SetItemText(i, 6, ::GetMyNumberFormat(st->nDeposit));
-		m_List.SetItemText(i, 7, GetStringFromLong(st->nRiderCount) + "명");
+		m_List.SetItemText(i, 6, LF->GetMyNumberFormat(st->nDeposit));
+		m_List.SetItemText(i, 7, LF->GetStringFromLong(st->nRiderCount) + "명");
 		m_List.SetItemText(i, 8, st->strWName);
 		m_List.SetItemText(i, 9, GetLastPlayDate(st->bLastJobSuccess, st->dtLastJob));
 		m_List.SetItemLong(i, st->nID);
@@ -621,7 +621,7 @@ void CDepositJobDlg::RefreshNotIncludeList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_not_income_rider");
 	pCmd.AddParameter(nScheduleID);
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(m_bIntegrated);
 
 	if(!pRs.Execute(&pCmd)) return;
@@ -760,7 +760,7 @@ CString CDepositJobDlg::GetStringSmsPhone()
 	if(m_pDeposit == NULL) return "";
 
 	CString strTemp = "";
-	strTemp = "SMS번호는 [" + ::GetDashPhoneNumber(m_pDeposit->strSmsPhone) + "]입니다.";
+	strTemp = "SMS번호는 [" + LF->GetDashPhoneNumber(m_pDeposit->strSmsPhone) + "]입니다.";
 
 	return strTemp;
 }
@@ -836,9 +836,9 @@ CString CDepositJobDlg::GetStringDepositType()
 
 	CString strTemp;
 	if(m_pDeposit->nDepositType == 0)
-		strTemp = ::GetMyNumberFormat(m_pDeposit->nDeposit) + "원씩 [차감]합니다";
+		strTemp = LF->GetMyNumberFormat(m_pDeposit->nDeposit) + "원씩 [차감]합니다";
 	else
-		strTemp = ::GetMyNumberFormat(m_pDeposit->nDeposit) + "원씩 [선입금]합니다";
+		strTemp = LF->GetMyNumberFormat(m_pDeposit->nDeposit) + "원씩 [선입금]합니다";
 	
 	return strTemp;
 }

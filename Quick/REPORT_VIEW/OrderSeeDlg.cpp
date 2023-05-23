@@ -255,38 +255,38 @@ void COrderSeeDlg::RefreshList()
 		m_lstReport.InsertItem(nItem, itoa(nTNo, buffer, 10));
 		m_lstReport.SetItemText(nItem, 1, dt1.Format("%m-%d %H:%M"));
 		m_lstReport.SetItemText(nItem, 2, m_ci.GetName(nCompany));
-		m_lstReport.SetItemText(nItem, 3, ::GetStateString(nState));
+		m_lstReport.SetItemText(nItem, 3, LF->GetStateString(nState));
 		m_lstReport.SetItemText(nItem, 4, strOName);
 		m_lstReport.SetItemText(nItem, 5, strOManager);
-		m_lstReport.SetItemText(nItem, 6, ::GetTwoPhone(strOPhone, strOMobile));
+		m_lstReport.SetItemText(nItem, 6, LF->GetTwoPhone(strOPhone, strOMobile));
 
 		m_lstReport.SetItemText(nItem, 7, strSName == strSDong ? strSName : strSName + "(" + strSDong + ")");
 		m_lstReport.SetItemText(nItem, 8, strSManager);
 		m_lstReport.SetItemText(nItem, 9, strSDepart);
-		m_lstReport.SetItemText(nItem, 10, ::GetTwoPhone(strSPhone, strSMobile));
+		m_lstReport.SetItemText(nItem, 10, LF->GetTwoPhone(strSPhone, strSMobile));
 
 		m_lstReport.SetItemText(nItem, 11, strDName == strDDong ? strDName : strDName + "(" + strDDong + ")");
 		m_lstReport.SetItemText(nItem, 12, strDManager);
 		m_lstReport.SetItemText(nItem, 13, strDDepart);
-		m_lstReport.SetItemText(nItem, 14, ::GetTwoPhone(strDPhone, strDMobile));
+		m_lstReport.SetItemText(nItem, 14, LF->GetTwoPhone(strDPhone, strDMobile));
 
 		if(nPayType == 2 || nPayType == 3 || nPayType == 7)
-			m_lstReport.SetItemText(nItem, 15, ::GetPayTypeFromLong(nPayType) + "r");
+			m_lstReport.SetItemText(nItem, 15, LF->GetPayTypeFromLong(nPayType) + "r");
 		else
-			m_lstReport.SetItemText(nItem, 15, ::GetPayTypeFromLong(nPayType));
+			m_lstReport.SetItemText(nItem, 15, LF->GetPayTypeFromLong(nPayType));
 
-		m_lstReport.SetItemText(nItem, 16, ::GetMyNumberFormat(nChargeBasic));
-		m_lstReport.SetItemText(nItem, 17, ::GetMyNumberFormat(nChargeAdd));
-		m_lstReport.SetItemText(nItem, 18, ::GetMyNumberFormat(nChargeDis));
-		m_lstReport.SetItemText(nItem, 19, ::GetMyNumberFormat(nChargeSum));
+		m_lstReport.SetItemText(nItem, 16, LF->GetMyNumberFormat(nChargeBasic));
+		m_lstReport.SetItemText(nItem, 17, LF->GetMyNumberFormat(nChargeAdd));
+		m_lstReport.SetItemText(nItem, 18, LF->GetMyNumberFormat(nChargeDis));
+		m_lstReport.SetItemText(nItem, 19, LF->GetMyNumberFormat(nChargeSum));
 
 		nDiscountCharge = nChargeSum - (nChargeSum * 0.01 * nDiscount);
 
 		if(nPayType != 2 && nPayType != 3 && nPayType != 7)
 			nDiscountCharge = 0;
 
-		m_lstReport.SetItemText(nItem, 20, ::GetMyNumberFormat(nDiscountCharge));
-		m_lstReport.SetItemText(nItem, 21, ::GetMyNumberFormat(nChargeTrans));
+		m_lstReport.SetItemText(nItem, 20, LF->GetMyNumberFormat(nDiscountCharge));
+		m_lstReport.SetItemText(nItem, 21, LF->GetMyNumberFormat(nChargeTrans));
 
 		switch(nPayType)
 		{
@@ -329,7 +329,7 @@ void COrderSeeDlg::RefreshList()
 		if(nAddTaxApplyType < 1)
 			nTax = 0;
 	
-		m_lstReport.SetItemText(nItem, 22, ::GetMyNumberFormat(nTax));
+		m_lstReport.SetItemText(nItem, 22, LF->GetMyNumberFormat(nTax));
  
 		/*
 		nChargeSumS += nChargeSum;
@@ -346,13 +346,13 @@ void COrderSeeDlg::RefreshList()
 		nChargeTranS += nChargeTrans;
 		nTaxS += nTax;
 
-		m_lstReport.SetItemText(nItem, 16, ::GetMyNumberFormat(nChargeBasic));
-		m_lstReport.SetItemText(nItem, 17, ::GetMyNumberFormat(nChargeAdd));
-		m_lstReport.SetItemText(nItem, 18, ::GetMyNumberFormat(nChargeDis));
-		m_lstReport.SetItemText(nItem, 19, ::GetMyNumberFormat(nChargeSum));
-		m_lstReport.SetItemText(nItem, 20, ::GetMyNumberFormat(nDiscountCharge));
-		m_lstReport.SetItemText(nItem, 21, ::GetMyNumberFormat(nChargeTrans));
-		m_lstReport.SetItemText(nItem, 22, ::GetMyNumberFormat(nTax));
+		m_lstReport.SetItemText(nItem, 16, LF->GetMyNumberFormat(nChargeBasic));
+		m_lstReport.SetItemText(nItem, 17, LF->GetMyNumberFormat(nChargeAdd));
+		m_lstReport.SetItemText(nItem, 18, LF->GetMyNumberFormat(nChargeDis));
+		m_lstReport.SetItemText(nItem, 19, LF->GetMyNumberFormat(nChargeSum));
+		m_lstReport.SetItemText(nItem, 20, LF->GetMyNumberFormat(nDiscountCharge));
+		m_lstReport.SetItemText(nItem, 21, LF->GetMyNumberFormat(nChargeTrans));
+		m_lstReport.SetItemText(nItem, 22, LF->GetMyNumberFormat(nTax));
 
 		m_lstReport.SetItemText(nItem, 23, itoa(nRNo, buffer, 10));
 		m_lstReport.SetItemText(nItem, 24, sRName);
@@ -366,9 +366,9 @@ void COrderSeeDlg::RefreshList()
 		else 
 			m_lstReport.SetItemText(nItem, 25, "");
 
-		m_lstReport.SetItemText(nItem, 26, GetWayTypeFromLong(nWayType));
-		m_lstReport.SetItemText(nItem, 27, GetRunTypeFromLong(nRunType));
-		m_lstReport.SetItemText(nItem, 28, GetCarTypeFromLong(nCarType));
+		m_lstReport.SetItemText(nItem, 26, LF->GetWayTypeFromLong(nWayType));
+		m_lstReport.SetItemText(nItem, 27, LF->GetRunTypeFromLong(nRunType));
+		m_lstReport.SetItemText(nItem, 28, LF->GetCarTypeFromLong(nCarType));
 		m_lstReport.SetItemText(nItem, 29, strCID);
 		m_lstReport.SetItemText(nItem, 30, strEtc);
 
@@ -383,13 +383,13 @@ void COrderSeeDlg::RefreshList()
 	m_lstReport.SetItemNoSort(nItem++, TRUE);
 
 	m_lstReport.InsertItem(nItem, "");
-	m_lstReport.SetItemText(nItem, 16, ::GetMyNumberFormat(nChargeBasicS));
-	m_lstReport.SetItemText(nItem, 17, ::GetMyNumberFormat(nChargeAddS));
-	m_lstReport.SetItemText(nItem, 18, ::GetMyNumberFormat(nChargeDisS));
-	m_lstReport.SetItemText(nItem, 19, ::GetMyNumberFormat(nChargeSumS));
-	m_lstReport.SetItemText(nItem, 20, ::GetMyNumberFormat(nChargeDiscountS));
-	m_lstReport.SetItemText(nItem, 21, ::GetMyNumberFormat(nChargeTranS));
-	m_lstReport.SetItemText(nItem, 22, ::GetMyNumberFormat(nTaxS));
+	m_lstReport.SetItemText(nItem, 16, LF->GetMyNumberFormat(nChargeBasicS));
+	m_lstReport.SetItemText(nItem, 17, LF->GetMyNumberFormat(nChargeAddS));
+	m_lstReport.SetItemText(nItem, 18, LF->GetMyNumberFormat(nChargeDisS));
+	m_lstReport.SetItemText(nItem, 19, LF->GetMyNumberFormat(nChargeSumS));
+	m_lstReport.SetItemText(nItem, 20, LF->GetMyNumberFormat(nChargeDiscountS));
+	m_lstReport.SetItemText(nItem, 21, LF->GetMyNumberFormat(nChargeTranS));
+	m_lstReport.SetItemText(nItem, 22, LF->GetMyNumberFormat(nTaxS));
 	m_lstReport.SetItemNoSort(nItem++, TRUE);
   
 	m_lstReport.InsertItem(nItem, "");
@@ -404,32 +404,32 @@ void COrderSeeDlg::RefreshList()
 
 	m_lstReport.InsertItem(nItem, "");
 	m_lstReport.SetItemText(nItem, 1, "                 금액");
-	m_lstReport.SetItemText(nItem, 2, ::GetMyNumberFormat(nCashCharge));
-	m_lstReport.SetItemText(nItem, 3, nDiscount >  0 ? ::GetMyNumberFormat(nCreditCharge / ((100 - nDiscount) * 0.01)) : 
-								::GetMyNumberFormat(nCreditCharge));
-	m_lstReport.SetItemText(nItem, 4, nDiscount >  0 ? ::GetMyNumberFormat(nOnlineCharge / ((100 - nDiscount) * 0.01)) : 
-								::GetMyNumberFormat(nOnlineCharge));
-	m_lstReport.SetItemText(nItem, 5, ::GetMyNumberFormat(nTransCharge)  + "r");
+	m_lstReport.SetItemText(nItem, 2, LF->GetMyNumberFormat(nCashCharge));
+	m_lstReport.SetItemText(nItem, 3, nDiscount >  0 ? LF->GetMyNumberFormat(nCreditCharge / ((100 - nDiscount) * 0.01)) : 
+								LF->GetMyNumberFormat(nCreditCharge));
+	m_lstReport.SetItemText(nItem, 4, nDiscount >  0 ? LF->GetMyNumberFormat(nOnlineCharge / ((100 - nDiscount) * 0.01)) : 
+								LF->GetMyNumberFormat(nOnlineCharge));
+	m_lstReport.SetItemText(nItem, 5, LF->GetMyNumberFormat(nTransCharge)  + "r");
 	m_lstReport.SetItemText(nItem, 7, "   미수금");
-	m_lstReport.SetItemText(nItem, 8, "r" + ::GetMyNumberFormat(nUnBillCollection) + "r");
+	m_lstReport.SetItemText(nItem, 8, "r" + LF->GetMyNumberFormat(nUnBillCollection) + "r");
 	m_lstReport.SetItemNoSort(nItem++, TRUE);
 
 	m_lstReport.InsertItem(nItem, "");
 	m_lstReport.SetItemText(nItem, 1, "    할인후 금액");
 	m_lstReport.SetItemText(nItem, 2, "");
-	m_lstReport.SetItemText(nItem, 3, ::GetMyNumberFormat(nCreditCharge) + "r");
-	m_lstReport.SetItemText(nItem, 4, ::GetMyNumberFormat(nOnlineCharge) + "r");
+	m_lstReport.SetItemText(nItem, 3, LF->GetMyNumberFormat(nCreditCharge) + "r");
+	m_lstReport.SetItemText(nItem, 4, LF->GetMyNumberFormat(nOnlineCharge) + "r");
 	m_lstReport.SetItemText(nItem, 5, "");	
 	m_lstReport.SetItemText(nItem, 7, "   수금액");
-	m_lstReport.SetItemText(nItem, 8,"r" + ::GetMyNumberFormat(nBillCollection) + "b");
+	m_lstReport.SetItemText(nItem, 8,"r" + LF->GetMyNumberFormat(nBillCollection) + "b");
 	m_lstReport.SetItemNoSort(nItem++, TRUE);
 
 	m_lstReport.InsertItem(nItem, "");
 	m_lstReport.SetItemText(nItem, 1, "             부가세");
-	m_lstReport.SetItemText(nItem, 2, ::GetMyNumberFormat(nCashTax) + "r");
-	m_lstReport.SetItemText(nItem, 3, ::GetMyNumberFormat(nCreditTax) + "r");
-	m_lstReport.SetItemText(nItem, 4, ::GetMyNumberFormat(nOnlineTax) + "r");
-	m_lstReport.SetItemText(nItem, 5, ::GetMyNumberFormat(nTransTax) + "r");
+	m_lstReport.SetItemText(nItem, 2, LF->GetMyNumberFormat(nCashTax) + "r");
+	m_lstReport.SetItemText(nItem, 3, LF->GetMyNumberFormat(nCreditTax) + "r");
+	m_lstReport.SetItemText(nItem, 4, LF->GetMyNumberFormat(nOnlineTax) + "r");
+	m_lstReport.SetItemText(nItem, 5, LF->GetMyNumberFormat(nTransTax) + "r");
 	m_lstReport.SetItemNoSort(nItem++, TRUE);
 
 	m_lstReport.Populate();
@@ -484,7 +484,7 @@ void COrderSeeDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void COrderSeeDlg::OnExcel()
 {
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 901, m_ui.nWNo, m_lstReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 901, m_ui.nWNo, m_lstReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 

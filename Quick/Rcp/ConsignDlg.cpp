@@ -116,7 +116,7 @@ void CConsignDlg::RefreshListTerminal()
 		m_Data.MyComboAddItem(2,sArray,nArray, "운송차량", 75,DT_CENTER,nTranWay );
 		m_Data.MyAddItem(3,sWayEtc, "세부정보",80, FALSE, DT_LEFT);
 		m_Data.MyAddItem(4,sDest, "도착지",80, FALSE, DT_LEFT);
-		m_Data.MyAddItem(5,GetMyNumberFormat(nCharge), "금액",55, FALSE, DT_RIGHT);
+		m_Data.MyAddItem(5,LF->GetMyNumberFormat(nCharge), "금액",55, FALSE, DT_RIGHT);
 
 		m_Data.MyAddItem(6,sTel, "전화번호",80, FALSE, DT_LEFT);
 		m_Data.MyAddItem(7,sStart, "첫차",60, FALSE, DT_LEFT);
@@ -185,7 +185,7 @@ void CConsignDlg::RefreshListArea()
 		m_Data.MyComboAddItem(2,sArray,nArray, "운송차량", 75,DT_CENTER,nTranWay );
 		m_Data.MyAddItem(3,sWayEtc, "세부정보",80, FALSE, DT_LEFT);
 		m_Data.MyAddItem(4,sDest, "도착지",80, FALSE, DT_LEFT);
-		m_Data.MyAddItem(5,GetMyNumberFormat(nCharge), "금액",55, FALSE, DT_RIGHT);
+		m_Data.MyAddItem(5,LF->GetMyNumberFormat(nCharge), "금액",55, FALSE, DT_RIGHT);
 		
 		m_Data.MyAddItem(6,sTel, "전화번호",80, FALSE, DT_LEFT);
 		m_Data.MyAddItem(7,sStart, "첫차",60, FALSE, DT_LEFT);

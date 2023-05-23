@@ -245,8 +245,8 @@ void CIncomeForm4::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_income_report_new12");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_cmbWorkType.GetCurSel());
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
@@ -304,9 +304,9 @@ void CIncomeForm4::RefreshList()
 
         m_List.InsertItem(nItem, ltoa(nRNo, buffer, 10), -1, 0); 
 		m_List.SetItemText(nItem, 1, strRName);
-		m_List.SetItemText(nItem, 2, ::GetMyNumberFormat(nCharge));
-		m_List.SetItemText(nItem, 3, ::GetMyNumberFormat(nRiderDeposit));
-		m_List.SetItemText(nItem, 4, ::GetMyNumberFormat(nBalance)); 
+		m_List.SetItemText(nItem, 2, LF->GetMyNumberFormat(nCharge));
+		m_List.SetItemText(nItem, 3, LF->GetMyNumberFormat(nRiderDeposit));
+		m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(nBalance)); 
 
 		if(bRealTime)
 		{
@@ -323,18 +323,18 @@ void CIncomeForm4::RefreshList()
 		m_List.SetItemText(nItem, 8, nDepositType < 50 ? GetFixedDepositType(nFixedDeposit, bWeeklyDeposit, nPaymentDay): "프로제");
 		m_List.SetItemText(nItem, 9, nDepositAllocateType == 0 ? "선입금" : "");
 		m_List.SetItemText(nItem, 10, nDepositType >= 20 ? (nFixedDeposit == 0 ? "" : 
-			 		CString(::GetMyNumberFormat(nFixedDeposit / 10000)) + "만원") : "");
+			 		CString(LF->GetMyNumberFormat(nFixedDeposit / 10000)) + "만원") : "");
 		m_List.SetItemText(nItem, 11, nDepositType < 50 ? GetFixedDepositDayString(nFixedDeposit, dtNextDeposit, nRemainDays) : "");
 		m_List.SetItemText(nItem, 12, nWorkState != 0 ? "중지" : ""); 
-		m_List.SetItemText(nItem, 13, ::GetMyNumberFormat(nTodaySave));
-		m_List.SetItemText(nItem, 14, ::GetMyNumberFormat(nTodayCashSave));
-		m_List.SetItemText(nItem, 15, ::GetMyNumberFormat(nTodayDeposit));
-		m_List.SetItemText(nItem, 16, ::GetMyNumberFormat(nTodayScheduleDeposit));
-		m_List.SetItemText(nItem, 17, ::GetMyNumberFormat(nDailyDepositCharge));
+		m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(nTodaySave));
+		m_List.SetItemText(nItem, 14, LF->GetMyNumberFormat(nTodayCashSave));
+		m_List.SetItemText(nItem, 15, LF->GetMyNumberFormat(nTodayDeposit));
+		m_List.SetItemText(nItem, 16, LF->GetMyNumberFormat(nTodayScheduleDeposit));
+		m_List.SetItemText(nItem, 17, LF->GetMyNumberFormat(nDailyDepositCharge));
 		
 		/*
 		m_List.SetItemText(nItem, 14, GetCreditReportType(nCreditReportType));
-		m_List.SetItemText(nItem, 15, nDepositType >= 20 ? (nCreditReportType == 2 ? ::GetMyNumberFormat(nCreditOrderSum) : "") : "");
+		m_List.SetItemText(nItem, 15, nDepositType >= 20 ? (nCreditReportType == 2 ? LF->GetMyNumberFormat(nCreditOrderSum) : "") : "");
 	
 		long nTotal = 0;
 		if(nFixedDeposit != 0)
@@ -346,11 +346,11 @@ void CIncomeForm4::RefreshList()
 		}
 
 		if(nTotal % 10000 == 0)
-			m_List.SetItemText(nItem, 16, nDepositType >= 20 ? (nTotal == 0 ? "" : CString(::GetMyNumberFormat(nTotal / 10000)) + "만원") : "");        
+			m_List.SetItemText(nItem, 16, nDepositType >= 20 ? (nTotal == 0 ? "" : CString(LF->GetMyNumberFormat(nTotal / 10000)) + "만원") : "");        
 		else
-			m_List.SetItemText(nItem, 16, nDepositType >= 20 ? (nTotal == 0 ? "" : CString(::GetMyNumberFormat(nTotal / 10000)) + "만 " + CString(::GetMyNumberFormat(nTotal % 10000)) + "원") : "");        
+			m_List.SetItemText(nItem, 16, nDepositType >= 20 ? (nTotal == 0 ? "" : CString(LF->GetMyNumberFormat(nTotal / 10000)) + "만 " + CString(LF->GetMyNumberFormat(nTotal % 10000)) + "원") : "");        
 
-		m_List.SetItemText(nItem, 17, nCreditBalance == 0 ? "" : ::GetMyNumberFormat(nCreditBalance));
+		m_List.SetItemText(nItem, 17, nCreditBalance == 0 ? "" : LF->GetMyNumberFormat(nCreditBalance));
 */
 		m_List.SetItemData(nItem, (long)nCompany);
 		m_List.SetItemLong(nItem, (long)nRemainDays);
@@ -365,13 +365,13 @@ void CIncomeForm4::RefreshList()
 	nItem = m_List.GetItemCount();
 
 	m_List.InsertItem(nItem, "");
-	m_List.SetItemText(nItem, 2, ::GetMyNumberFormat(nChargeS));
-	m_List.SetItemText(nItem, 3, ::GetMyNumberFormat(nRiderDepositS));
-	m_List.SetItemText(nItem, 4, ::GetMyNumberFormat(nBalanceS));
-	m_List.SetItemText(nItem, 13, ::GetMyNumberFormat(nTodaySaveS));
-	m_List.SetItemText(nItem, 14, ::GetMyNumberFormat(nTodayCashSaveS));
-	m_List.SetItemText(nItem, 15, ::GetMyNumberFormat(nTodayDepositS));
-	m_List.SetItemText(nItem, 16, ::GetMyNumberFormat(nTodayScheduleDepositS));
+	m_List.SetItemText(nItem, 2, LF->GetMyNumberFormat(nChargeS));
+	m_List.SetItemText(nItem, 3, LF->GetMyNumberFormat(nRiderDepositS));
+	m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(nBalanceS));
+	m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(nTodaySaveS));
+	m_List.SetItemText(nItem, 14, LF->GetMyNumberFormat(nTodayCashSaveS));
+	m_List.SetItemText(nItem, 15, LF->GetMyNumberFormat(nTodayDepositS));
+	m_List.SetItemText(nItem, 16, LF->GetMyNumberFormat(nTodayScheduleDepositS));
 
 	m_List.Populate();
 	//m_List.EnsureVisibleEx(m_nCurSel);
@@ -413,10 +413,10 @@ void CIncomeForm4::OnIncomeOk()
 
 void CIncomeForm4::OnViewExcel()
 {
-	if(!POWER_CHECK(7900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(7900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 501, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 501, m_List.GetItemCount());  
 	m_List.ToExcel("입금정산");
 }
 
@@ -432,7 +432,7 @@ void CIncomeForm4::OnNMDblclkList1(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 
 void CIncomeForm4::OnSendMsg()
 {
-	//if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	//if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 	//	return;
 
 	int nSelItem = m_List.GetNextItem(-1, LVNI_SELECTED);
@@ -440,15 +440,15 @@ void CIncomeForm4::OnSendMsg()
 	if(nSelItem >= 0) {
 		CRiderMsgDlg dlg;
 		CString strRName = m_List.GetItemText(nSelItem, 1);
-		int nDebtSum = GetNoneCommaNumber(m_List.GetItemText(nSelItem, 4)) +
-			GetNoneCommaNumber(m_List.GetItemText(nSelItem, 6));
-		int nPreDeposit = GetNoneCommaNumber(m_List.GetItemText(nSelItem, 5));
+		int nDebtSum = LF->GetNoneCommaNumber(m_List.GetItemText(nSelItem, 4)) +
+			LF->GetNoneCommaNumber(m_List.GetItemText(nSelItem, 6));
+		int nPreDeposit = LF->GetNoneCommaNumber(m_List.GetItemText(nSelItem, 5));
 		CString strDepositType = m_List.GetItemText(nSelItem, 9);
 
 		dlg.m_nRNo = atol(m_List.GetItemText(nSelItem, 0));
 		dlg.SetCompanyCode(m_List.GetItemData(nSelItem));
 		dlg.m_strMsg.Format("%s 기사님, 현재 충전금 잔액이 %s원 입니다. 추가 입금바랍니다.", 
-			strRName, GetMyNumberFormat(m_List.GetItemText(nSelItem, 4)));
+			strRName, LF->GetMyNumberFormat(m_List.GetItemText(nSelItem, 4)));
 
 		dlg.DoModal();	
 	}
@@ -476,8 +476,8 @@ void CIncomeForm4::OnBnClickedClearDepositBtn()
 		//CWaitCursor wait;
 		CMkCommand pCmd(m_pMkDb, "request_clear_company_deposit_1");
 		CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(int), 0);
-		pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-		pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+		pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(int), 
 			m_ci.m_bRcpIntMode1 ? MAKE_SHARE_CODE(m_ci.m_nShareCode1) : -1);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(int),
@@ -509,7 +509,7 @@ void CIncomeForm4::OnBnClickedClearDepositBtn()
 
 void CIncomeForm4::OnEditOtherAccount()
 {
-	//if(!POWER_CHECK(7012, "입금정산 수정권한", TRUE))
+	//if(!LF->POWER_CHECK(7012, "입금정산 수정권한", TRUE))
 	//	return;
 
 	int nItem = m_List.GetNextItem(-1, LVNI_SELECTED);
@@ -545,7 +545,7 @@ void CIncomeForm4::OnRiderDepositMenu()
 		{
 			long nCompany = m_List.GetItemLong(nItem);
 			long nRNo = atol(m_List.GetItemText(nItem, 0));
-			long nDepositCharge = GetNoneCommaNumber(dlg.m_strDeposit);
+			long nDepositCharge = LF->GetNoneCommaNumber(dlg.m_strDeposit);
 
 			CMkCommand pCmd(m_pMkDb, "update_deposit_of_a_rider");
 			pCmd.AddParameter(typeLong, typeInput, sizeof(int), nCompany);

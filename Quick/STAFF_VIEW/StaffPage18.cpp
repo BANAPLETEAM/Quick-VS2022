@@ -67,8 +67,8 @@ void CStaffPage18::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_delete_rider_log");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.Execute();
 	
 	if(!pRs.Execute(&pCmd))
@@ -90,10 +90,10 @@ void CStaffPage18::RefreshList()
 		pRs.GetFieldValue("sTel", strTel);
 		pRs.GetFieldValue("sHP", strPhone);
 
-		m_XTPList.InsertItem(i, GetStringFromLong(i + 1));
+		m_XTPList.InsertItem(i, LF->GetStringFromLong(i + 1));
 		m_XTPList.SetItemText(i, 1, dtDate.Format("%Y-%m-%d"));
 		m_XTPList.SetItemText(i, 2, strWName);
-		m_XTPList.SetItemText(i, 3, GetStringFromLong(nRNo));
+		m_XTPList.SetItemText(i, 3, LF->GetStringFromLong(nRNo));
 		m_XTPList.SetItemText(i, 4, m_ci.GetBranchName(nCompany));
 		m_XTPList.SetItemText(i, 5, strID);
 		m_XTPList.SetItemText(i, 6, strName);
@@ -129,10 +129,10 @@ void CStaffPage18::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStaffPage18::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(5900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 407, m_XTPList.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 407, m_XTPList.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_XTPList);
 }
 

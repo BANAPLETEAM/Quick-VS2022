@@ -82,7 +82,7 @@ void CHttpParser::ThreadRefresh(CString strKeyword, CWnd *pTarget, long nUID, BO
 		m_QueryInfo.strCenterPosX = m_strCenterPosX;
 		m_QueryInfo.strCenterPosY = m_strCenterPosY;
 		m_QueryInfo.bPhoneSearchAutoComplete = bSearchPhone;
-		m_QueryInfo.bPhoneSearch = bSearchPhone || IsPhoneNumber(strKeyword);
+		m_QueryInfo.bPhoneSearch = bSearchPhone || LF->IsPhoneNumber(strKeyword);
 	}
 	
 	SetEvent(m_hQueryHandle);
@@ -167,7 +167,7 @@ BOOL CHttpParser::AnalyzeDetail2(QUERY_INFO &QI, SEARCH_RESULT_INFO& st)
 			CString temp = strName;
 			while (len > 28) {
 				CString i = temp.Right(2);
-				if (!::IsHangul(i))
+				if (!LF->IsHangul(i))
 					temp = temp.Mid(0, len-1);
 				else
 					temp = temp.Mid(0, len-2);
@@ -224,7 +224,7 @@ BOOL CHttpParser::MakePortalRecord2(QUERY_INFO &QI,SEARCH_RESULT_INFO& st)
 
 	CSearchPOI *pSearchPOI = new CSearchPOI;
 	pSearchPOI->pPOI = m_poiNew.NewPOI(QI.nUID, pDong, nPosX, nPosY, st.name_val.c_str(), 
-		GetNoneDashNumber(st.tel_val.c_str()));
+		LF->GetNoneDashNumber(st.tel_val.c_str()));
 	pSearchPOI->pNearPOI = m_poiNew.GetNearMainPOI(pSearchPOI->pPOI);
 	pSearchPOI->pDongMatchPOI = pDong;
 	pSearchPOI->bPhoneMatch = QI.bPhoneSearch ? true : false;

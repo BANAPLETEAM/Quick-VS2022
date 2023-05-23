@@ -114,7 +114,7 @@ void CStaffPage15::RefreshListMyLimit()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_refusal_rider_auto_3");
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(TRUE);
 	CMkParameter *parOut = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
 
@@ -180,7 +180,7 @@ void CStaffPage15::RefreshListOtherLimit()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_refusal_rider_auto_3");
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(FALSE);
 	CMkParameter *parOut = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
 

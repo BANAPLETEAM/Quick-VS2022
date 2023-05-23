@@ -129,7 +129,7 @@ BOOL CSMSRegister::OnInitDialog()
 	CMyDialog::OnInitDialog();
 
 	CString strSubKey = "Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
-	WriteRegistryInt(HKEY_CURRENT_USER, strSubKey, "Quick.exe", 11000);
+	LF->WriteRegistryInt(HKEY_CURRENT_USER, strSubKey, "Quick.exe", 11000);
 
 	m_cBranch.SetParent(this, TRUE);
 	m_cBranch.InitData(&m_edtMain, &m_edtSub, &m_btnMain, &m_btnSub);
@@ -377,7 +377,7 @@ BOOL CSMSRegister::CheckData()
 		CString strRegisterTel = "", strEtc = "";
 		m_edtSMSCallBack.GetWindowText(strRegisterTel);
 
-		if( !CheckTel(strRegisterTel))
+		if( !LF->CheckTel(strRegisterTel))
 			return FALSE;
 
 		if(m_cmbCallBackType.GetCurSel() ==  GENERAL_TEL || m_cmbCallBackType.GetCurSel() ==  GENERAL_HP )
@@ -479,18 +479,18 @@ void CSMSRegister::AddNew()
 				throw "개인/법인 구분을 체크하여 주세요";
 		}
 
-		if( GetStringFromEdit(  (CEdit*)&m_edtContactName ).GetLength() > 6 )
+		if( LF->GetStringFromEdit(  (CEdit*)&m_edtContactName ).GetLength() > 6 )
 			throw "연락처이름에 3자이상 넣으실 수 없습니다.";
 
-		if( GetStringFromEdit(  (CEdit*)&m_edtContactJobTitle).GetLength() > 6 )
+		if( LF->GetStringFromEdit(  (CEdit*)&m_edtContactJobTitle).GetLength() > 6 )
 			throw "연락 직책에 3자이상 넣으실 수 없습니다.";
 
-		if( GetStringFromEdit(   (CEdit*)&m_edtContactNumber).GetLength() > 20 )
+		if( LF->GetStringFromEdit(   (CEdit*)&m_edtContactNumber).GetLength() > 20 )
 			throw "연락처에 20자이상 넣으실 수 없습니다.";
 
-		strContactName		= GetStringFromEdit((CEdit*)&m_edtContactName		);
-		strContactJobTitle	= GetStringFromEdit((CEdit*)&m_edtContactJobTitle	);
-		strContactNumber	= GetStringFromEdit((CEdit*)&m_edtContactNumber		);
+		strContactName		= LF->GetStringFromEdit((CEdit*)&m_edtContactName		);
+		strContactJobTitle	= LF->GetStringFromEdit((CEdit*)&m_edtContactJobTitle	);
+		strContactNumber	= LF->GetStringFromEdit((CEdit*)&m_edtContactNumber		);
 
 		if(! ( m_rdoUse.GetCheck() || m_rdoUseNot.GetCheck()) )
 			throw "발신번호 사용여부를 체크하여 주세요";
@@ -556,7 +556,7 @@ void CSMSRegister::AddNew()
 		{
 			strErrMsg.Format("%s %s,\n\r오류전화번호 : %s", 
 				m_ci.GetBranchName(m_ui.nCompany), IS_COMPANY_TEL_CONTENT,
-				GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
+				LF->GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
 			MessageBox(strErrMsg,"확인", MB_ICONERROR);
 			return ;
 
@@ -566,7 +566,7 @@ void CSMSRegister::AddNew()
 		{
 			strErrMsg.Format("%s %s,\n\r오류전화번호 : %s", 
 				m_ci.GetBranchName(m_ui.nCompany), IS_GENERAL_TEL_CONTENT,
-				GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
+				LF->GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
 
 			MessageBox(strErrMsg,"확인", MB_ICONERROR);
 			return ;
@@ -575,7 +575,7 @@ void CSMSRegister::AddNew()
 		{
 			strErrMsg.Format("%s %s,\n\r오류전화번호 : %s", 
 				m_ci.GetBranchName(m_ui.nCompany), CERTIFICATE_NOT_CONTENT,
-				GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
+				LF->GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
 
 			MessageBox(strErrMsg,"확인", MB_ICONERROR);
 			return ;
@@ -597,7 +597,7 @@ void CSMSRegister::AddNew()
 		}
 		m_btnRegister.EnableWindow(FALSE);
 		m_bModifyData = TRUE;
-		if( IsStringDigit(  m_strInsertedSMSCallBackNo.Mid(m_strInsertedSMSCallBackNo.Find(",")) ) )
+		if( LF->IsStringDigit(  m_strInsertedSMSCallBackNo.Mid(m_strInsertedSMSCallBackNo.Find(",")) ) )
 			m_nModifyNo =  atol( m_strInsertedSMSCallBackNo.Mid(m_strInsertedSMSCallBackNo.Find(",")) );
 
 	}
@@ -652,18 +652,18 @@ void CSMSRegister::ModifyEdit()
 				throw "개인/법인 구분을 체크하여 주세요";
 		}
 
-		if( GetStringFromEdit(  (CEdit*)&m_edtContactName ).GetLength() > 6 )
+		if( LF->GetStringFromEdit(  (CEdit*)&m_edtContactName ).GetLength() > 6 )
 			throw "연락처이름에 3자이상 넣으실 수 없습니다.";
 
-		if( GetStringFromEdit(  (CEdit*)&m_edtContactJobTitle).GetLength() > 6 )
+		if( LF->GetStringFromEdit(  (CEdit*)&m_edtContactJobTitle).GetLength() > 6 )
 			throw "연락 직책에 3자이상 넣으실 수 없습니다.";
 
-		if( GetStringFromEdit(   (CEdit*)&m_edtContactNumber).GetLength() > 20 )
+		if( LF->GetStringFromEdit(   (CEdit*)&m_edtContactNumber).GetLength() > 20 )
 			throw "연락처에 20자이상 넣으실 수 없습니다.";
 
-		strContactName		= GetStringFromEdit((CEdit*)&m_edtContactName		);
-		strContactJobTitle	= GetStringFromEdit((CEdit*)&m_edtContactJobTitle	);
-		strContactNumber	= GetStringFromEdit((CEdit*)&m_edtContactNumber		);
+		strContactName		= LF->GetStringFromEdit((CEdit*)&m_edtContactName		);
+		strContactJobTitle	= LF->GetStringFromEdit((CEdit*)&m_edtContactJobTitle	);
+		strContactNumber	= LF->GetStringFromEdit((CEdit*)&m_edtContactNumber		);
 
 
 		if(! ( m_rdoUse.GetCheck() || m_rdoUseNot.GetCheck()) )
@@ -710,7 +710,7 @@ void CSMSRegister::ModifyEdit()
 		{
 			strErrMsg.Format("%s %s,\n\r오류전화번호 : %s", 
 				m_ci.GetBranchName((m_ui.nCompany)), IS_COMPANY_TEL_CONTENT,
-				GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
+				LF->GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
 			MessageBox(strErrMsg,"확인", MB_ICONERROR);
 			return ;
 
@@ -720,7 +720,7 @@ void CSMSRegister::ModifyEdit()
 		{
 			strErrMsg.Format("%s %s,\n\r오류전화번호 : %s", 
 				m_ci.GetBranchName((m_ui.nCompany)), IS_GENERAL_TEL_CONTENT,
-				GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
+				LF->GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
 
 			MessageBox(strErrMsg,"확인", MB_ICONERROR);
 			return ;
@@ -729,7 +729,7 @@ void CSMSRegister::ModifyEdit()
 		{
 			strErrMsg.Format("%s %s,\n\r오류전화번호 : %s", 
 				m_ci.GetBranchName((m_ui.nCompany)), CERTIFICATE_NOT_CONTENT,
-				GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
+				LF->GetDashPhoneNumber( strIsErrorSMSCallBackNo)	);
 
 			MessageBox(strErrMsg,"확인", MB_ICONERROR);
 			return ;
@@ -813,7 +813,7 @@ BOOL CSMSRegister::HPCheckData(CString strSMSCallBack)
 	}
 
 
-	if( !( IsStringDigit(strSMSCallBack) )
+	if( !( LF->IsStringDigit(strSMSCallBack) )
 		)
 	{
 		MessageBox("발신번호에 숫자가 아닙니다.","확인", MB_ICONERROR);
@@ -842,11 +842,11 @@ void CSMSRegister::OnBnClickedHpRegisterBtn()
 		return;
 	}
 
-	strMsg.Format("%s %s", GetDashPhoneNumber(strSMSCallBack), "로 인증번호를 발송하시겠습니까?" );
+	strMsg.Format("%s %s", LF->GetDashPhoneNumber(strSMSCallBack), "로 인증번호를 발송하시겠습니까?" );
 
 	if( MessageBox(strMsg, "확인", MB_YESNO ) == IDNO) return;
 
-	strSMSCallBack = GetNoneDashNumber(strSMSCallBack);
+	strSMSCallBack = LF->GetNoneDashNumber(strSMSCallBack);
 
 	if( ! HPCheckData(strSMSCallBack)  ) return;
 
@@ -963,15 +963,15 @@ BOOL CSMSRegister::FileUpload(int nType, int nCompany, int nNo, CString strSMSCa
 	CString strFileName;
 	BOOL bSuccess = FALSE;
 
-	strSMSCallback = ::GetNoneDashNumber(strSMSCallback);
-	if(strSMSCallback.GetLength() < 6 || ! ::CheckTel(strSMSCallback))
+	strSMSCallback = LF->GetNoneDashNumber(strSMSCallback);
+	if(strSMSCallback.GetLength() < 6 || !LF->CheckTel(strSMSCallback))
 	{
 		::MessageBox(NULL, "발신전화번호 없거나 전화번호 형식에 맞지 않습니다.\r\n", "다시시도하세요", MB_ICONINFORMATION);		
 		return FALSE;
 	}
 
 	CWebUploadDlg dlg;
-	dlg.m_strURL = ::GetWebUploadUrl("SMS_CALLBACK_DOCUMENT", nType);
+	dlg.m_strURL = LF->GetWebUploadUrl("SMS_CALLBACK_DOCUMENT", nType);
 
 	if(dlg.m_strURL.IsEmpty()) {
 		::MessageBox(NULL, "업로드 정보를 확인 할 수 없습니다", "확인", MB_ICONINFORMATION);
@@ -980,7 +980,7 @@ BOOL CSMSRegister::FileUpload(int nType, int nCompany, int nNo, CString strSMSCa
 
 	dlg.m_strURL += "&system=smscallback/quick/";
 	dlg.m_strURL += (nType == TELECOM_DOC ? "telecom" : "business");
-	dlg.m_strURL += "&fileName=" + ::GetStringFromLong(nCompany) + "_" + ::GetStringFromLong(nNo) + "_" + strSMSCallback;
+	dlg.m_strURL += "&fileName=" + LF->GetStringFromLong(nCompany) + "_" + LF->GetStringFromLong(nNo) + "_" + strSMSCallback;
 
 	if(dlg.DoModal() != IDOK)
 		return FALSE;

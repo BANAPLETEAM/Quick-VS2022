@@ -261,8 +261,8 @@ AFX_INLINE void CRcpPlaceInfo::SetDepart(CString strDepart) { GetDepartEdit()->S
 AFX_INLINE void CRcpPlaceInfo::SetManager(CString strManager) { GetManagerEdit()->SetWindowText(strManager);}
 AFX_INLINE void CRcpPlaceInfo::SetDetail(CString strDetail) { GetDetailEdit()->SetWindowText(strDetail);}
 AFX_INLINE void CRcpPlaceInfo::SetMemo(CString strMemo) { if(GetMemoEdit()) GetMemoEdit()->SetWindowText(strMemo);}
-AFX_INLINE void CRcpPlaceInfo::SetPhone(CString strPhone, BOOL bPhone2) { GetPhoneEdit(bPhone2)->SetWindowText(GetDashPhoneNumber(strPhone));}
-AFX_INLINE void CRcpPlaceInfo::SetMP(CString strMP) { GetMPEdit()->SetWindowText(GetDashPhoneNumber(strMP)); }
+AFX_INLINE void CRcpPlaceInfo::SetPhone(CString strPhone, BOOL bPhone2) { GetPhoneEdit(bPhone2)->SetWindowText(LF->GetDashPhoneNumber(strPhone));}
+AFX_INLINE void CRcpPlaceInfo::SetMP(CString strMP) { GetMPEdit()->SetWindowText(LF->GetDashPhoneNumber(strMP)); }
 AFX_INLINE void CRcpPlaceInfo::SetDetailPos(long nPosX, long nPosY) { m_nDetailPosX = nPosX; m_nDetailPosY = nPosY;}
 AFX_INLINE void CRcpPlaceInfo::SetPOI(CPOIUnit *pPOI) {  m_pPOI = pPOI;  }
 AFX_INLINE void CRcpPlaceInfo::SetPrePOI(CPOIUnit *pPOI) { m_pPrePOI = pPOI; }

@@ -118,7 +118,7 @@ void CRcpPageMemoForm::OnBnClickedOpenNotepadBtn()
 void CRcpPageMemoForm::OpenNotePad()
 {
 	DWORD dwProcessID; 
-	RunProgram("notepad", "", dwProcessID); 
+	RunProgram("notepad", "", dwProcessID);
 
 	BOOL bRead = EnumWindows(MyEnumProc,(LPARAM)&dwProcessID);
 	HWND hWnd = (HWND)dwProcessID; 

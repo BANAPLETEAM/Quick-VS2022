@@ -232,7 +232,7 @@ void CReportForm1::SearchCustomer(BOOL bClickGroup)
 
 	CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(int), 0);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), (int)m_nSearchType);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
 	pCmd.AddParameter(typeString, typeInput, m_strKeyword.GetLength(), m_strKeyword);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_ci.m_bSearchFourNumberWithUID);
 
@@ -382,7 +382,7 @@ void CReportForm1::RefreshList( )
 	CMkCommand pCmd(m_pMkDb, sSql);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
-	pCmd.AddParameter(GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);
 
 	//if(m_bOneRefresh) //개별조회 클릭한 경우
 	//	pCmd.AddParameter(typeInt, typeInput, sizeof(int), m_nCNo);
@@ -493,7 +493,7 @@ void CReportForm1::RefreshList( )
 
 		m_List.SetItemText(nItem, nCol++, strSManager); //7
 		m_List.SetItemText(nItem, nCol++, strSDepart); //
-		m_List.SetItemText(nItem, nCol++, ::GetDashPhoneNumber(strSPhone)); //
+		m_List.SetItemText(nItem, nCol++, LF->GetDashPhoneNumber(strSPhone)); //
 
 		//if(strDest != strDDong && !strDest.IsEmpty() && !strDDong.IsEmpty())
 		//	m_List.SetItemText(nItem, nCol++, strDest + "(" + strDDong + ")");
@@ -507,10 +507,10 @@ void CReportForm1::RefreshList( )
 
 		m_List.SetItemText(nItem, nCol++, strDManager);
 		m_List.SetItemText(nItem, nCol++, strDDepart); //
-		m_List.SetItemText(nItem, nCol++, ::GetDashPhoneNumber(strDPhone)); //
+		m_List.SetItemText(nItem, nCol++, LF->GetDashPhoneNumber(strDPhone)); //
 		m_List.SetItemText(nItem, nCol++, sRiderCompany);
 
-		if(m_ci.IsChildCompany(nRiderCompany) && ::IsThisCompany("대한퀵물류"))
+		if(m_ci.IsChildCompany(nRiderCompany) && LF->IsThisCompany("대한퀵물류"))
 			csTemp = strRName;
 		else
 			csTemp.Format("%d 호", nRNo);		
@@ -540,15 +540,15 @@ void CReportForm1::RefreshList( )
 			break;
 		}
 
-		m_List.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeBasic)); //11
-		m_List.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeAdd));
-		m_List.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeDis));
-		m_List.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeSum));
-		m_List.SetItemText(nItem, nCol++, RemoveZero(GetMyNumberFormat(nChargeTrans)));
-		m_List.SetItemText(nItem, nCol++, GetWayTypeFromLong(nWayType)); 
-		m_List.SetItemText(nItem, nCol++, GetCarTypeFromLong(nCarType));
-		m_List.SetItemText(nItem, nCol++, GetPayTypeFromLong(nPayType));//18
-		m_List.SetItemText(nItem, nCol++, GetStateString(nState)); 
+		m_List.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeBasic)); //11
+		m_List.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeAdd));
+		m_List.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeDis));
+		m_List.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeSum));
+		m_List.SetItemText(nItem, nCol++, LF->RemoveZero(LF->GetMyNumberFormat(nChargeTrans)));
+		m_List.SetItemText(nItem, nCol++, LF->GetWayTypeFromLong(nWayType)); 
+		m_List.SetItemText(nItem, nCol++, LF->GetCarTypeFromLong(nCarType));
+		m_List.SetItemText(nItem, nCol++, LF->GetPayTypeFromLong(nPayType));//18
+		m_List.SetItemText(nItem, nCol++, LF->GetStateString(nState)); 
 		m_List.SetItemText(nItem, nCol++, sEtc); 
 		m_List.SetItemText(nItem, nCol++, dt1.Format("%H:%M"));
 		m_List.SetItemText(nItem, nCol++, dt3.Format("%H:%M"));
@@ -566,10 +566,10 @@ void CReportForm1::RefreshList( )
 	if(nItem > 0)
 	{
 		m_List.InsertItem(nItem,""); 
-		m_List.SetItemText(nItem, 19, GetMyNumberFormat(nSChargeBasic)); 
-		m_List.SetItemText(nItem, 20, GetMyNumberFormat(nSChargeAdd));
-		m_List.SetItemText(nItem, 21, GetMyNumberFormat(nSChargeDis));
-		m_List.SetItemText(nItem, 22, GetMyNumberFormat(nSChargeSum));
+		m_List.SetItemText(nItem, 19, LF->GetMyNumberFormat(nSChargeBasic)); 
+		m_List.SetItemText(nItem, 20, LF->GetMyNumberFormat(nSChargeAdd));
+		m_List.SetItemText(nItem, 21, LF->GetMyNumberFormat(nSChargeDis));
+		m_List.SetItemText(nItem, 22, LF->GetMyNumberFormat(nSChargeSum));
 		m_List.SetItemNoSort(nItem++, TRUE);
 
 		m_List.InsertItem(nItem,"");
@@ -580,9 +580,9 @@ void CReportForm1::RefreshList( )
 
 
 		m_List.InsertItem(nItem,"");
-		m_List.SetItemText(nItem,3, GetMyNumberFormat(nSChargeSum + nSChargeCreditTrans));
-		m_List.SetItemText(nItem,6, GetMyNumberFormat(nSChargeSum));
-		m_List.SetItemText(nItem,7, GetMyNumberFormat(nSChargeCreditTrans));
+		m_List.SetItemText(nItem,3, LF->GetMyNumberFormat(nSChargeSum + nSChargeCreditTrans));
+		m_List.SetItemText(nItem,6, LF->GetMyNumberFormat(nSChargeSum));
+		m_List.SetItemText(nItem,7, LF->GetMyNumberFormat(nSChargeCreditTrans));
 
 
 		m_List.SetItemNoSort(nItem++, TRUE);
@@ -592,13 +592,13 @@ void CReportForm1::RefreshList( )
 
 		m_List.InsertItem(nItem,"");	
 		m_List.SetItemText(nItem, 2, "신용");
-		m_List.SetItemText(nItem, 3, GetMyNumberFormat(nCredit));
+		m_List.SetItemText(nItem, 3, LF->GetMyNumberFormat(nCredit));
 		m_List.SetItemText(nItem, 4, "온라인");
-		m_List.SetItemText(nItem, 5, GetMyNumberFormat(nOnline));
+		m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(nOnline));
 		m_List.SetItemText(nItem, 6, "현금");
-		m_List.SetItemText(nItem, 7, GetMyNumberFormat(nCash));
+		m_List.SetItemText(nItem, 7, LF->GetMyNumberFormat(nCash));
 		m_List.SetItemText(nItem, 8, "탁송");
-		m_List.SetItemText(nItem, 9, GetMyNumberFormat(nTotalConFee));
+		m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(nTotalConFee));
 		m_List.SetItemNoSort(nItem++, TRUE);
 		
 		CString sCreditDis,sCashDis;
@@ -618,9 +618,9 @@ void CReportForm1::RefreshList( )
 
 		m_List.InsertItem(nItem,"");
 		m_List.SetItemText(nItem, 2, "신용할인");
-		m_List.SetItemText(nItem, 3, GetMyNumberFormat(nCredit* (100 - nCreditDisCount)/100));
+		m_List.SetItemText(nItem, 3, LF->GetMyNumberFormat(nCredit* (100 - nCreditDisCount)/100));
 		m_List.SetItemText(nItem, 6, "현금할인");
-		m_List.SetItemText(nItem, 7, GetMyNumberFormat(nCash* (100 - nCashDisCount) /100));
+		m_List.SetItemText(nItem, 7, LF->GetMyNumberFormat(nCash* (100 - nCashDisCount) /100));
 		m_List.SetItemNoSort(nItem++, TRUE);
 	}
 
@@ -678,10 +678,10 @@ void CReportForm1::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm1::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "엑셀변환", TRUE))
 		return;
  
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 301, m_ui.nWNo, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 301, m_ui.nWNo, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 
@@ -697,7 +697,7 @@ void CReportForm1::OnPrint()
 		CXTPGridRecord *pRecord = pRows->GetAt(i)->GetRecord(); 
 		CString strItem = pRecord->GetItem(1)->GetCaption(NULL);
 
-		if(!strItem.IsEmpty() && IsNumber(strItem))
+		if(!strItem.IsEmpty() && LF->IsNumber(strItem))
 			strTNoSum += strItem + ","; 
 	}
 
@@ -709,7 +709,7 @@ void CReportForm1::OnPrint()
 
 	CWebPrintDlg1 dlg;
 	dlg.m_strUrl = "http://work.logisoft.co.kr:8000/CustomerReport/CustomerReport.asp?sTNo=" + strTNoSum;
-	dlg.m_strUrl += "&nLoginCompany=" + ::GetStringFromLong(m_ui.nCompany) + "&nSiteSessionKey=" + ::GetStringFromLong(m_ui.nSiteSessionKey);
+	dlg.m_strUrl += "&nLoginCompany=" + LF->GetStringFromLong(m_ui.nCompany) + "&nSiteSessionKey=" + LF->GetStringFromLong(m_ui.nSiteSessionKey);
 	dlg.DoModal();
 
 	//http://211.172.242.163:5000/CustomerReport/CustomerReport.asp?sTNo=80581000,
@@ -760,7 +760,7 @@ void CReportForm1::RefreshGroup()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
 	if(!pRs.Execute(&pCmd)) return;
 
 	while(!pRs.IsEOF())

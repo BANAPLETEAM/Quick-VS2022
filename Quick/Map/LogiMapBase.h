@@ -315,7 +315,6 @@ public:
 
 	long GetRouteDistance();
 	static BOOL RegisterMapDll();
-	static CString GetModuleFullPath();
 
 	void KatecToBessel(long &nPosX, long &nPosY);
 	void WGS84ToBessel(long &nPosX, long &nPosY);

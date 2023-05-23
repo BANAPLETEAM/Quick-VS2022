@@ -242,7 +242,7 @@ void CTransferSmsBetweenShareBalanceDlg::CheckShareBalance(UINT flag, long nComp
 		OnEnChangePlusShareBalanceChargeEdit();
 	}
 
-	CBranchInfo *pBi = ::GetBranchInfo(nCompany);
+	CBranchInfo *pBi = LF->GetBranchInfo(nCompany);
 	if(pBi != NULL) 
 	{ 
 		long nRcpColor = pBi->nRcpColor;
@@ -291,7 +291,7 @@ void CTransferSmsBetweenShareBalanceDlg::CheckSmsBalance(UINT flag, long nCompan
 		OnEnChangePlusSmsChargeEdit();
 	}
 
-	CBranchInfo *pBi = ::GetBranchInfo(nCompany);
+	CBranchInfo *pBi = LF->GetBranchInfo(nCompany);
 	if(pBi != NULL)
 	{
 		long nRcpColor = pBi->nRcpColor; 
@@ -373,7 +373,7 @@ void CTransferSmsBetweenShareBalanceDlg::DrawToSmsCharge(CDC *pDC)
 		rcTemp.left += nLeft + 2; 
 		nLeft = DrawStcText(pDC, RGB(0, 0, 0), "Áö»çÀÇ °øÀ¯Á¤»êÀÜ¾× ", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 		rcTemp.left += nLeft + 2; 
-		nLeft = DrawStcText(pDC, RGB(0, 0, 255), ::GetMyNumberFormat(m_nMinusShareBalance) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
+		nLeft = DrawStcText(pDC, RGB(0, 0, 255), LF->GetMyNumberFormat(m_nMinusShareBalance) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 	}
 	else
 		DrawStcText(pDC, RGB(0, 0, 0), "[°øÀ¯Á¤»ê±Ý (-)]·Î µå·¡±×ÇÏ¼¼¿ä", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
@@ -387,7 +387,7 @@ void CTransferSmsBetweenShareBalanceDlg::DrawToSmsCharge(CDC *pDC)
 		rcTemp.left += nLeft + 2; 
 		nLeft = DrawStcText(pDC, RGB(0, 0, 0), "Áö»çÀÇ SMSÀÜ¾× ", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 		rcTemp.left += nLeft + 2; 
-		nLeft = DrawStcText(pDC, RGB(0, 255, 0), ::GetMyNumberFormat(m_nPlusSms) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
+		nLeft = DrawStcText(pDC, RGB(0, 255, 0), LF->GetMyNumberFormat(m_nPlusSms) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 	}
 	else
 		DrawStcText(pDC, RGB(0, 0, 0), "[SMSÀÜ¾× (+)]·Î µå·¡±×ÇÏ¼¼¿ä", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
@@ -405,7 +405,7 @@ void CTransferSmsBetweenShareBalanceDlg::DrawToSmsCharge(CDC *pDC)
 		rcTemp.left += nLeft + 2; 
 		nLeft = DrawStcText(pDC, RGB(0, 0, 0), "Áö»çÀÇ °øµ¿Á¤»êÀÜ¾× ", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 		rcTemp.left += nLeft + 2; 
-		nLeft = DrawStcText(pDC, RGB(0, 0, 255), ::GetMyNumberFormat(m_nMinusShareBalance - nCharge) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
+		nLeft = DrawStcText(pDC, RGB(0, 0, 255), LF->GetMyNumberFormat(m_nMinusShareBalance - nCharge) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 	}
 	else
 		DrawStcText(pDC, RGB(0, 0, 0), "---------------------------------------------", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 23, FW_BOLD));
@@ -418,7 +418,7 @@ void CTransferSmsBetweenShareBalanceDlg::DrawToSmsCharge(CDC *pDC)
 		rcTemp.left += nLeft + 2; 
 		nLeft = DrawStcText(pDC, RGB(0, 0, 0), "Áö»çÀÇ SMSÀÜ¾× ", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 		rcTemp.left += nLeft + 2; 
-		nLeft = DrawStcText(pDC, RGB(0, 255, 0), ::GetMyNumberFormat(m_nPlusSms + nCharge) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
+		nLeft = DrawStcText(pDC, RGB(0, 255, 0), LF->GetMyNumberFormat(m_nPlusSms + nCharge) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 	}
 	else
 		DrawStcText(pDC, RGB(0, 0, 0), "---------------------------------------------", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
@@ -452,7 +452,7 @@ void CTransferSmsBetweenShareBalanceDlg::DrawToShareBalanceCharge(CDC *pDC)
 		rcTemp.left += nLeft + 2; 
 		nLeft = DrawStcText(pDC, RGB(0, 0, 0), "Áö»çÀÇ SMSÀÜ¾× ", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 		rcTemp.left += nLeft + 2; 
-		nLeft = DrawStcText(pDC, RGB(0, 255, 0), ::GetMyNumberFormat(m_nMinusSms) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
+		nLeft = DrawStcText(pDC, RGB(0, 255, 0), LF->GetMyNumberFormat(m_nMinusSms) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 	}
 	else
 		DrawStcText(pDC, RGB(0, 0, 0), "[SMSÀÜ¾× (-)]·Î µå·¡±×ÇÏ¼¼¿ä", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
@@ -465,7 +465,7 @@ void CTransferSmsBetweenShareBalanceDlg::DrawToShareBalanceCharge(CDC *pDC)
 		rcTemp.left += nLeft + 2; 
 		nLeft = DrawStcText(pDC, RGB(0, 0, 0), "Áö»çÀÇ °øÀ¯Á¤»êÀÜ¾× ", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 		rcTemp.left += nLeft + 2; 
-		nLeft = DrawStcText(pDC, RGB(0, 0, 255), ::GetMyNumberFormat(m_nPlusShareBalance) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
+		nLeft = DrawStcText(pDC, RGB(0, 0, 255), LF->GetMyNumberFormat(m_nPlusShareBalance) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 	}
 	else
 		DrawStcText(pDC, RGB(0, 0, 0), "[°øÀ¯Á¤»ê±Ý (+)]·Î µå·¡±×ÇÏ¼¼¿ä", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
@@ -483,7 +483,7 @@ void CTransferSmsBetweenShareBalanceDlg::DrawToShareBalanceCharge(CDC *pDC)
 		rcTemp.left += nLeft + 2; 
 		nLeft = DrawStcText(pDC, RGB(0, 0, 0), "Áö»çÀÇ SMSÀÜ¾× ", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 		rcTemp.left += nLeft + 2; 
-		nLeft = DrawStcText(pDC, RGB(0, 255, 0), ::GetMyNumberFormat(m_nMinusSms - nCharge) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
+		nLeft = DrawStcText(pDC, RGB(0, 255, 0), LF->GetMyNumberFormat(m_nMinusSms - nCharge) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 	}
 	else
 		DrawStcText(pDC, RGB(0, 0, 0), "---------------------------------------------", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
@@ -496,7 +496,7 @@ void CTransferSmsBetweenShareBalanceDlg::DrawToShareBalanceCharge(CDC *pDC)
 		rcTemp.left += nLeft + 2; 
 		nLeft = DrawStcText(pDC, RGB(0, 0, 0), "Áö»çÀÇ °øµ¿Á¤»êÀÜ¾× ", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 		rcTemp.left += nLeft + 2; 
-		nLeft = DrawStcText(pDC, RGB(0, 0, 255), ::GetMyNumberFormat(m_nPlusShareBalance + nCharge) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
+		nLeft = DrawStcText(pDC, RGB(0, 0, 255), LF->GetMyNumberFormat(m_nPlusShareBalance + nCharge) +"¿ø", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));
 	}
 	else
 		DrawStcText(pDC, RGB(0, 0, 0), "---------------------------------------------", rcTemp, m_FontManager.GetFont("¸¼Àº °íµñ", 17, FW_BOLD));

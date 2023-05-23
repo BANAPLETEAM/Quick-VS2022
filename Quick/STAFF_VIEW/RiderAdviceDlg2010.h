@@ -90,7 +90,7 @@ public:
 		else if(nPenaltyDay == 0)
 			strPenalty = "-";
 		else
-			strPenalty = ::GetStringFromLong(nPenaltyDay) + "일";
+			strPenalty = LF->GetStringFromLong(nPenaltyDay) + "일";
 
 		if(bCorp)
 			strPenalty = "법인콜 " + strPenalty;
@@ -106,7 +106,7 @@ public:
 		if(nBlackMarks == 0)
 			AddItem(new CXTPGridRecordItemText("-"));
 		else
-			AddItem(new CXTPGridRecordItemText(::GetStringFromLong(nBlackMarks) + "점"));
+			AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(nBlackMarks) + "점"));
 
 		AddItem(new CXTPGridRecordItemText(sCheckEtc));
 

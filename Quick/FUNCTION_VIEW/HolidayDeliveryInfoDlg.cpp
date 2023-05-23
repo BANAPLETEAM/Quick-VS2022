@@ -86,7 +86,7 @@ void CHolidayDeliveryInfoDlg::InitData()
 	m_strURL += "&receive=" + strReceive;
 	m_strURL += "&phone1=" + strPhone1;
 	m_strURL += "&phone2=" + strPhone2;
-	m_strURL += "&addressType=" + ::GetStringFromLong(nAddressType, TRUE);
+	m_strURL += "&addressType=" + LF->GetStringFromLong(nAddressType, TRUE);
 	m_strURL += "&etc=" + strEtc;
 
 	m_explorer.Navigate(m_strURL, NULL, NULL, NULL, NULL);

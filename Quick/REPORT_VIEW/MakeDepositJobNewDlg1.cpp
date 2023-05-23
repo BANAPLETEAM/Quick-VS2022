@@ -193,8 +193,8 @@ void CMakeDepositJobNewDlg1::InitData()
 	COleDateTimeSpan dtSpan(1, 0, 0, 0);
 	m_dtEnd = m_dtEnd - dtSpan;
 
-	m_sDeposit = ::GetMyNumberFormat(nDeposit);
-	m_sSmsPhone = GetDashPhoneNumber(sSmsPhone);
+	m_sDeposit = LF->GetMyNumberFormat(nDeposit);
+	m_sSmsPhone = LF->GetDashPhoneNumber(sSmsPhone);
 
 	SetPlayType(nPlayType);
 	SetMonthPlayType(nMonthPlayType);
@@ -464,12 +464,12 @@ BOOL CMakeDepositJobNewDlg1::InsertJob()
 	pCmd.AddParameter(m_nMonthWeek);
 	pCmd.AddParameter(++m_nMonthWeekend);
 	pCmd.AddParameter(m_nDepositType);
-	pCmd.AddParameter(::GetNoneCommaNumber(m_sDeposit));
+	pCmd.AddParameter(LF->GetNoneCommaNumber(m_sDeposit));
 	pCmd.AddParameter(GetStartDate());
 	pCmd.AddParameter(GetEndDate());
 	pCmd.AddParameter(m_sEtc);
 	pCmd.AddParameter(m_bUseSms);
-	pCmd.AddParameter(::GetNoneDashNumber(m_sSmsPhone));
+	pCmd.AddParameter(LF->GetNoneDashNumber(m_sSmsPhone));
 	pCmd.AddParameter(m_bWorkerApply);
 	pCmd.AddParameter(m_bNotWorkerApply);
 	pCmd.AddParameter(m_ui.nWNo);
@@ -501,12 +501,12 @@ BOOL CMakeDepositJobNewDlg1::UpdateJob()
 	pCmd.AddParameter(m_nMonthWeek);
 	pCmd.AddParameter(++m_nMonthWeekend);
 	pCmd.AddParameter(m_nDepositType);
-	pCmd.AddParameter(::GetNoneCommaNumber(m_sDeposit));
+	pCmd.AddParameter(LF->GetNoneCommaNumber(m_sDeposit));
 	pCmd.AddParameter(GetStartDate());
 	pCmd.AddParameter(GetEndDate());
 	pCmd.AddParameter(m_sEtc);
 	pCmd.AddParameter(m_bUseSms);
-	pCmd.AddParameter(::GetNoneDashNumber(m_sSmsPhone));
+	pCmd.AddParameter(LF->GetNoneDashNumber(m_sSmsPhone));
 	pCmd.AddParameter(m_bWorkerApply);
 	pCmd.AddParameter(m_bNotWorkerApply);
 	pCmd.AddParameter(m_ui.nWNo);
@@ -588,8 +588,8 @@ void CMakeDepositJobNewDlg1::InitUpdateLog()
 	pRs.GetFieldValue("bWorkerApply", m_bWorkerApply);
 	pRs.GetFieldValue("bNotWorkerApply", m_bNotWorkerApply);
 
-	m_sDeposit = ::GetMyNumberFormat(nDeposit);
-	m_sSmsPhone = GetDashPhoneNumber(sSmsPhone);
+	m_sDeposit = LF->GetMyNumberFormat(nDeposit);
+	m_sSmsPhone = LF->GetDashPhoneNumber(sSmsPhone);
 
 	SetPlayType(nPlayType);
 	SetMonthPlayType(nMonthPlayType);

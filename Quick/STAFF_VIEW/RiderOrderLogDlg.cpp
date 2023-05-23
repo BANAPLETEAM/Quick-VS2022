@@ -226,14 +226,14 @@ BOOL CRiderOrderLogDlg::MakeHtmlTable(CMakeHtmlTable *pTable, CString sDate)
 			else if(pos->second.nChargeType == 3)	sChargeType = "D타입";
 			else	"알수없음";
 
-			pTable->AddImageList(GetImageNumber(pos->second.nState), "");
+			pTable->AddImageList(LF->GetImageNumber(pos->second.nState), "");
 			pTable->AddCol(CString(m_ci.GetName(pos->second.nCompany)) + "/" + 
 				CString(m_ci.GetBranchName(pos->second.nCompany)));
 			pTable->AddCol(pos->second.strSDong);
 			pTable->AddCol(pos->second.strDDong);
 			pTable->AddCol(pos->second.dt1.Format("%H:%M"));
-			pTable->AddCol(::GetMyNumberFormat(pos->second.nChargeSum));
-			pTable->AddCol(::GetPayTypeFromLong(pos->second.nPayType));
+			pTable->AddCol(LF->GetMyNumberFormat(pos->second.nChargeSum));
+			pTable->AddCol(LF->GetPayTypeFromLong(pos->second.nPayType));
 			pTable->AddCol(sChargeType);
 			pTable->AddRow();
 
@@ -358,25 +358,25 @@ void CRiderOrderLogDlg::RefreshList()
 			s0 = sDate.Left(4) + "-" + sDate.Mid(4, 2) + "-" + sDate.Right(2);
 			s1 = sWeather;
 
-			s2 = "시작:" + ::GetMyNumberFormat(dtStart.GetHour()) + ":" + ::GetMyNumberFormat(dtStart.GetMinute()) + " (" + sStart + ")Z" +
-				"완료:" + ::GetMyNumberFormat(dtEnd.GetHour()) + ":" + ::GetMyNumberFormat(dtEnd.GetMinute()) + " (" + sDest + ")";
+			s2 = "시작:" + LF->GetMyNumberFormat(dtStart.GetHour()) + ":" + LF->GetMyNumberFormat(dtStart.GetMinute()) + " (" + sStart + ")Z" +
+				"완료:" + LF->GetMyNumberFormat(dtEnd.GetHour()) + ":" + LF->GetMyNumberFormat(dtEnd.GetMinute()) + " (" + sDest + ")";
 
-			sFormat1 = "A(" + ::GetMyNumberFormat(nTypeOrderCountA) + "건/" + ::GetMyNumberFormat(nTypeOrderChargeA) + "원)";
+			sFormat1 = "A(" + LF->GetMyNumberFormat(nTypeOrderCountA) + "건/" + LF->GetMyNumberFormat(nTypeOrderChargeA) + "원)";
             GetEmptyString(sFormat1);
-			sFormat1 += "B(" + ::GetMyNumberFormat(nTypeOrderCountB) + "건/" + ::GetMyNumberFormat(nTypeOrderChargeB) + "원)Z";
+			sFormat1 += "B(" + LF->GetMyNumberFormat(nTypeOrderCountB) + "건/" + LF->GetMyNumberFormat(nTypeOrderChargeB) + "원)Z";
 
-			sFormat2 = "C(" + ::GetMyNumberFormat(nTypeOrderCountC) + "건/" + ::GetMyNumberFormat(nTypeOrderChargeC) + "원)";
+			sFormat2 = "C(" + LF->GetMyNumberFormat(nTypeOrderCountC) + "건/" + LF->GetMyNumberFormat(nTypeOrderChargeC) + "원)";
 			GetEmptyString(sFormat2);
-			sFormat2 += "D(" + ::GetMyNumberFormat(nTypeOrderCountD) + "건/" + ::GetMyNumberFormat(nTypeOrderChargeD) + "원)";
+			sFormat2 += "D(" + LF->GetMyNumberFormat(nTypeOrderCountD) + "건/" + LF->GetMyNumberFormat(nTypeOrderChargeD) + "원)";
 
 			s3 = sFormat1 + sFormat2;
 
-			s4 = "현금(" + ::GetMyNumberFormat(nTypeCashCount) + "건/" + ::GetMyNumberFormat(nTypeCashCharge) + "원)Z" +
-				"신용(" + ::GetMyNumberFormat(nTypeCreditCount) + "건/" + ::GetMyNumberFormat(nTypeCreditCharge) + "원),  " +
-				"송금(" + ::GetMyNumberFormat(nTypeRemittanceCount) + "건/" + ::GetMyNumberFormat(nTypeRemittanceCharge) + "원)";
+			s4 = "현금(" + LF->GetMyNumberFormat(nTypeCashCount) + "건/" + LF->GetMyNumberFormat(nTypeCashCharge) + "원)Z" +
+				"신용(" + LF->GetMyNumberFormat(nTypeCreditCount) + "건/" + LF->GetMyNumberFormat(nTypeCreditCharge) + "원),  " +
+				"송금(" + LF->GetMyNumberFormat(nTypeRemittanceCount) + "건/" + LF->GetMyNumberFormat(nTypeRemittanceCharge) + "원)";
 
-			s5 = "총 " + ::GetMyNumberFormat(nTypeOrderTotalCountH) + "건Z" +
-				::GetMyNumberFormat(nTypeOrderTotalChargeH) + "원";
+			s5 = "총 " + LF->GetMyNumberFormat(nTypeOrderTotalCountH) + "건Z" +
+				LF->GetMyNumberFormat(nTypeOrderTotalChargeH) + "원";
 
 			m_wndReport.AddRecord(new CRiderRecord(s0, s1, s2, s3, s4, s5, TRUE));
 
@@ -394,15 +394,15 @@ void CRiderOrderLogDlg::RefreshList()
 	m_RnoEdt.SetWindowText(itoa(m_nRNo, buffer, 10));
 	m_AttendanceEdt.SetWindowText(itoa(nAttendance, buffer, 10));
 	m_AbsenceEdt.SetWindowText(itoa(nAbsence, buffer, 10));
-	m_TypeAEdt.SetWindowText(::GetMyNumberFormat(nTypeOrderTotalCountA) + "건 (" + ::GetMyNumberFormat(nTypeOrderTotalChargeA) + "원)");
-	m_TypeBEdt.SetWindowText(::GetMyNumberFormat(nTypeOrderTotalCountB) + "건 (" + ::GetMyNumberFormat(nTypeOrderTotalChargeB) + "원)");
-	m_TypeCEdt.SetWindowText(::GetMyNumberFormat(nTypeOrderTotalCountC) + "건 (" + ::GetMyNumberFormat(nTypeOrderTotalChargeC) + "원)");
-	m_TypeDEdt.SetWindowText(::GetMyNumberFormat(nTypeOrderTotalCountD) + "건 (" + ::GetMyNumberFormat(nTypeOrderTotalChargeD) + "원)");
-	m_CashEdt.SetWindowText(::GetMyNumberFormat(nTypeCashTotalCount) + "건 (" + ::GetMyNumberFormat(nTypeCashTotalCharge) + "원)");
-	m_CreditEdt.SetWindowText(::GetMyNumberFormat(nTypeCreditTotalCount) + "건 (" + ::GetMyNumberFormat(nTypeCreditTotalCharge) + "원)");
-	m_RemittanceEdt.SetWindowText(::GetMyNumberFormat(nTypeRemittanceTotalCount) + "건 (" + ::GetMyNumberFormat(nTypeRemittanceTotalCharge) + "원)");
-	m_TotalEdt.SetWindowText(::GetMyNumberFormat(nTypeCashTotalCount + nTypeCreditTotalCount + nTypeRemittanceTotalCount) + 
-			"건 (" + ::GetMyNumberFormat(nTypeCashTotalCharge + nTypeCreditTotalCharge + nTypeRemittanceTotalCharge) + "원)");
+	m_TypeAEdt.SetWindowText(LF->GetMyNumberFormat(nTypeOrderTotalCountA) + "건 (" + LF->GetMyNumberFormat(nTypeOrderTotalChargeA) + "원)");
+	m_TypeBEdt.SetWindowText(LF->GetMyNumberFormat(nTypeOrderTotalCountB) + "건 (" + LF->GetMyNumberFormat(nTypeOrderTotalChargeB) + "원)");
+	m_TypeCEdt.SetWindowText(LF->GetMyNumberFormat(nTypeOrderTotalCountC) + "건 (" + LF->GetMyNumberFormat(nTypeOrderTotalChargeC) + "원)");
+	m_TypeDEdt.SetWindowText(LF->GetMyNumberFormat(nTypeOrderTotalCountD) + "건 (" + LF->GetMyNumberFormat(nTypeOrderTotalChargeD) + "원)");
+	m_CashEdt.SetWindowText(LF->GetMyNumberFormat(nTypeCashTotalCount) + "건 (" + LF->GetMyNumberFormat(nTypeCashTotalCharge) + "원)");
+	m_CreditEdt.SetWindowText(LF->GetMyNumberFormat(nTypeCreditTotalCount) + "건 (" + LF->GetMyNumberFormat(nTypeCreditTotalCharge) + "원)");
+	m_RemittanceEdt.SetWindowText(LF->GetMyNumberFormat(nTypeRemittanceTotalCount) + "건 (" + LF->GetMyNumberFormat(nTypeRemittanceTotalCharge) + "원)");
+	m_TotalEdt.SetWindowText(LF->GetMyNumberFormat(nTypeCashTotalCount + nTypeCreditTotalCount + nTypeRemittanceTotalCount) + 
+			"건 (" + LF->GetMyNumberFormat(nTypeCashTotalCharge + nTypeCreditTotalCharge + nTypeRemittanceTotalCharge) + "원)");
 
 
 

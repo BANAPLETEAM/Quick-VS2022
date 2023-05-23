@@ -61,10 +61,10 @@ END_MESSAGE_MAP()
 
 void CReportForm26::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "Á¤»ê ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(3900, "Á¤»ê ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	::AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 328, m_lstRight.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 328, m_lstRight.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstRight);
 }
 
@@ -200,7 +200,7 @@ void CReportForm26::OnBnClickedRefreshBtn()
 		{
 			m_lstRight.InsertItem(nItem, "");
 			m_lstRight.SetItemText(nItem, 5, "È½¼ö : " + CString(itoa(nCountM, buffer, 10)));
-			m_lstRight.SetItemText(nItem, 6, "±Ý¾× : " + GetMyNumberFormat(nChargeM));
+			m_lstRight.SetItemText(nItem, 6, "±Ý¾× : " + LF->GetMyNumberFormat(nChargeM));
 			m_lstRight.SetItemLong(nItem, nCompany);
 			m_lstRight.SetItemLong2(nItem, ONE);
 			nItem++;
@@ -223,9 +223,9 @@ void CReportForm26::OnBnClickedRefreshBtn()
 		m_lstRight.SetItemText(nItem, 1, m_ci.GetBranchName(nCompany));
 		m_lstRight.SetItemText(nItem, 2, dt1.Format("%m-%d %H:%M"));
 		m_lstRight.SetItemText(nItem, 3, sOName);
-		m_lstRight.SetItemText(nItem, 4, ::GetCarTypeFromLong(nCarType));
-		m_lstRight.SetItemText(nItem, 5, ::GetPayTypeFromLong(nPayType));
-		m_lstRight.SetItemText(nItem, 6, ::GetMyNumberFormat(nCharge));
+		m_lstRight.SetItemText(nItem, 4, LF->GetCarTypeFromLong(nCarType));
+		m_lstRight.SetItemText(nItem, 5, LF->GetPayTypeFromLong(nPayType));
+		m_lstRight.SetItemText(nItem, 6, LF->GetMyNumberFormat(nCharge));
 		m_lstRight.SetItemText(nItem, 7, sSName);
 		m_lstRight.SetItemText(nItem, 8, sDName);
 		m_lstRight.SetItemText(nItem, 9, sEtc);
@@ -248,7 +248,7 @@ void CReportForm26::OnBnClickedRefreshBtn()
 	{ 
 		m_lstRight.InsertItem(nItem, "");
 		m_lstRight.SetItemText(nItem, 5, "È½¼ö : " + CString(itoa(nCountM, buffer, 10)));
-		m_lstRight.SetItemText(nItem, 6, "±Ý¾× : " + ::GetMyNumberFormat(nChargeM));
+		m_lstRight.SetItemText(nItem, 6, "±Ý¾× : " + LF->GetMyNumberFormat(nChargeM));
 		m_lstRight.SetItemLong(nItem, ZERO);
 		m_lstRight.SetItemLong2(nItem++, ONE);
 
@@ -265,7 +265,7 @@ void CReportForm26::OnBnClickedRefreshBtn()
 
 		m_lstRight.InsertItem(nItem, "");
 		m_lstRight.SetItemText(nItem, 5, "ÃÖÁ¾ : " + CString(itoa(nCountS, buffer, 10)));
-		m_lstRight.SetItemText(nItem, 6, ::GetMyNumberFormat(nChargeS));
+		m_lstRight.SetItemText(nItem, 6, LF->GetMyNumberFormat(nChargeS));
 		m_lstRight.SetItemLong2(nItem++, ZERO);
 		m_lstRight.InsertItem(nItem, "");
 		m_lstRight.SetItemLong2(nItem, ZERO);
@@ -369,7 +369,7 @@ void CReportForm26::OnReportItemRightDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	if(nTNo <= ZERO)
 		return;
 
-	CBranchInfo *pBranch = GetBranchInfo(nCompany);
+	CBranchInfo *pBranch = LF->GetBranchInfo(nCompany);
 
 	LU->GetRcpView()->CreateRcpDlg(pBranch, 
 		sOName,

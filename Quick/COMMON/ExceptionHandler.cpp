@@ -71,7 +71,7 @@ LONG WINAPI TheCrashHandlerNormalFunction(EXCEPTION_POINTERS * pExPtrs)
 	}
 
 
-	strcpy(szPathName, (LPSTR)(LPCTSTR)GetModuleFullPath());
+	strcpy(szPathName, (LPSTR)(LPCTSTR)LF->GetModuleFullPath());
 
 	strcpy(szLocalPath, szPathName);
 	strcat(szLocalPath, "\\error.log");
@@ -87,7 +87,7 @@ LONG WINAPI TheCrashHandlerNormalFunction(EXCEPTION_POINTERS * pExPtrs)
 	{
 		VS_FIXEDFILEINFO pvsf;
 
-		if(GetFileVersion(szFullPath, &pvsf))
+		if(LF->GetFileVersion(szFullPath, &pvsf))
 		{
 			strVersion.Format("%d%d%d", HIWORD(pvsf.dwFileVersionMS),
 				LOWORD(pvsf.dwFileVersionMS),
@@ -259,7 +259,7 @@ BOOL UploadExceptionErrorData(CString strFaultReason, BOOL bDumpOK, CString strD
 		CString strServerFileName;
 		strServerFileName = strServerPath + "\\" + strBackup + "\\SmartQ\\" + strFileName;
 
-		if(!SendUpdateFile(*pMkDb2, strDumpFileName, strServerFileName))
+		if(!LF->SendUpdateFile(*pMkDb2, strDumpFileName, strServerFileName))
 			throw "파일 업로드중에 에러발생";
 		strServerFileName.Replace(".DMP", ".txt");
 

@@ -89,8 +89,8 @@ void CStatForm9::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_rcp_type_log");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(::GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -113,12 +113,12 @@ void CStatForm9::RefreshList()
 		rs.GetFieldValue("nAllCount", nAllCount);
 
 		m_lstReport.InsertItem(i, strDate);
-		m_lstReport.SetItemText(i, 1, ::RemoveZero(::GetMyNumberFormat(nAllCount)));
-		m_lstReport.SetItemText(i, 2, ::RemoveZero(::GetMyNumberFormat(nRcpSmartQ)));
-		m_lstReport.SetItemText(i, 3, ::RemoveZero(::GetMyNumberFormat(nRcpSmartQTab)));
-		m_lstReport.SetItemText(i, 4, ::RemoveZero(::GetMyNumberFormat(nRcpSmartQuick)));
-		m_lstReport.SetItemText(i, 5, ::RemoveZero(::GetMyNumberFormat(nRcpInterCall)));
-		m_lstReport.SetItemText(i, 6, ::RemoveZero(::GetMyNumberFormat(nRcpInternet)));
+		m_lstReport.SetItemText(i, 1, LF->RemoveZero(LF->GetMyNumberFormat(nAllCount)));
+		m_lstReport.SetItemText(i, 2, LF->RemoveZero(LF->GetMyNumberFormat(nRcpSmartQ)));
+		m_lstReport.SetItemText(i, 3, LF->RemoveZero(LF->GetMyNumberFormat(nRcpSmartQTab)));
+		m_lstReport.SetItemText(i, 4, LF->RemoveZero(LF->GetMyNumberFormat(nRcpSmartQuick)));
+		m_lstReport.SetItemText(i, 5, LF->RemoveZero(LF->GetMyNumberFormat(nRcpInterCall)));
+		m_lstReport.SetItemText(i, 6, LF->RemoveZero(LF->GetMyNumberFormat(nRcpInternet)));
 		
 		rs.MoveNext();
 	}

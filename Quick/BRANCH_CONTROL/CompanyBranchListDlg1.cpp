@@ -51,7 +51,7 @@ void CCompanyBranchListDlg1::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT
 
 	if(m_bCorpOrder && m_chkCopy.GetCheck() == BST_CHECKED )
 	{
-		MsgBox("법인오더는 고객을 복사하실수 없습니다. 체크를 풀어주세요");
+		LF->MsgBox("법인오더는 고객을 복사하실수 없습니다. 체크를 풀어주세요");
 		return;
 	}
 

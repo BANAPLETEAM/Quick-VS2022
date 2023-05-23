@@ -53,7 +53,7 @@ BOOL CSaveMentDlg::OnInitDialog()
 	m_lstMent.InsertColumn(0, "멘트", LVCFMT_LEFT, 250);
 	m_lstMent.Populate();
 
-	::FillStateMent();
+	LF->FillStateMent();
 	RefreshList();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -120,7 +120,7 @@ void CSaveMentDlg::OnBnClickedAddBtn()
 	if(pCmd.Execute())
 	{
 		MessageBox("추가되었습니다", "확인", MB_ICONINFORMATION);
-		::FillStateMent();
+		LF->FillStateMent();
 		RefreshList();
 	}
 }
@@ -160,7 +160,7 @@ void CSaveMentDlg::OnBnClickedUpdateBtn()
 	{
 		MessageBox("수정되었습니다", "확인", MB_ICONINFORMATION);
 		m_edtMent.SetWindowText("");
-		::FillStateMent();
+		LF->FillStateMent();
 		RefreshList();
 	}
 }
@@ -206,7 +206,7 @@ void CSaveMentDlg::OnDelete()
 	{
 		MessageBox("삭제되었습니다", "확인", MB_ICONINFORMATION);
 		m_edtMent.SetWindowText("");
-		::FillStateMent();
+		LF->FillStateMent();
 		RefreshList();
 	}
 }

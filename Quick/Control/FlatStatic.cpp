@@ -92,7 +92,7 @@ void CFlatStatic::SetWindowTextLong(long nNumber, BOOL bThousandsSep)
 {
 	CString strNumber;
 	strNumber.Format("%ld", nNumber);
-	SetWindowText(bThousandsSep ? ::GetMyNumberFormat(strNumber) : strNumber);
+	SetWindowText(bThousandsSep ? LF->GetMyNumberFormat(strNumber) : strNumber);
 }
 
 void CFlatStatic::SetWindowText(LPCTSTR lpszString)

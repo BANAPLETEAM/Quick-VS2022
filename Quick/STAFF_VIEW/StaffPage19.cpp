@@ -112,8 +112,8 @@ void CStaffPage19::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_pay_allocate_new5");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(dtFrom), dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(dtTo), dtTo);
 	CMkParameter *parPDAFee = pCmd.AddParameter(typeLong, typeOutput, sizeof(int), 0);
@@ -148,7 +148,7 @@ void CStaffPage19::RefreshList()
 			m_List.SetItemText(nItem, 1, dtFirst.Format("%m-%d")); 
 			m_List.SetItemText(nItem, 2, dtLast.Format("%m-%d")); 
 			m_List.SetItemText(nItem, 3, ltoa(nUsingTerm, buffer, 10)); 
-			m_List.SetItemText(nItem, 4, GetMyNumberFormat(nPDAFee)); 
+			m_List.SetItemText(nItem, 4, LF->GetMyNumberFormat(nPDAFee)); 
 
 			m_List.SetItemData(nItem++, (DWORD_PTR)nWorkState);
 
@@ -164,7 +164,7 @@ void CStaffPage19::RefreshList()
 			m_List.SetItemText(nItem, 1, "ÃÑ°Ç¼ö(°Ç)"); 
 			m_List.SetItemText(nItem, 2, ltoa(nCount, buffer, 10)); 
 			m_List.SetItemText(nItem, 3, "ÃÑÇÕ°è(¿ø)"); 
-			m_List.SetItemText(nItem++, 4, GetMyNumberFormat(nTotal)); 
+			m_List.SetItemText(nItem++, 4, LF->GetMyNumberFormat(nTotal)); 
 		}
 	}
 	m_List.Populate();
@@ -189,7 +189,7 @@ void CStaffPage19::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStaffPage19::OnMenuMsg()
 {
-	if(!POWER_CHECK(1200, "±â»ç°øÁöÃ¢ º¸±â", TRUE))
+	if(!LF->POWER_CHECK(1200, "±â»ç°øÁöÃ¢ º¸±â", TRUE))
 		return;
 
 	int nSelItem = m_List.GetNextItem(-1, LVNI_SELECTED);
@@ -291,10 +291,10 @@ void CStaffPage19::OnWorkOk()
 
 void CStaffPage19::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(5900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 404, m_ui.nWNo, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 404, m_ui.nWNo, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 

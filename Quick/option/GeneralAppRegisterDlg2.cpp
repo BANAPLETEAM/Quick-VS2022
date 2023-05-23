@@ -304,28 +304,28 @@ void CGeneralAppRegisterDlg2::OnBnClickedRegisterBtn()
 
 	cmd.AddParameter(m_nIndex);
 	cmd.AddParameter(m_ci.m_nCompanyCode);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtAppName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtMainTel));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtExplan));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtAppManagerName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtAppManagerPosition));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtAppManagerTel));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtTaxManagerName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtTaxManagerTel));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtEMail));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtCompanyName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizNumber));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizType1));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizType2));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtAppName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtMainTel));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtExplan));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtAppManagerName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtAppManagerPosition));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtAppManagerTel));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtTaxManagerName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtTaxManagerTel));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtEMail));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtCompanyName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizNumber));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizType1));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizType2));
 	cmd.AddParameter(m_strBizLicenseUrl);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtCompanyAddr));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtGoogleID));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtGooglePW));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtAppleID));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtApplePW));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizOwner));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtCompanyAddr));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtGoogleID));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtGooglePW));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtAppleID));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtApplePW));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizOwner));
 	cmd.AddParameter(nType);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtAppManagerEMail));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtAppManagerEMail));
 
 	if(cmd.Execute())
 	{

@@ -225,7 +225,7 @@ void COPStatePaintManagerEx::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDra
 				if(strCustomer.GetLength() < 2)
 				{
 					if(m_bShowLastPhoneNumber)
-						strCustomer = GetDashPhoneNumber(strCurPhone);
+						strCustomer = LF->GetDashPhoneNumber(strCurPhone);
 					else
 						strCustomer = strCurPhone.Left(strCurPhone.GetLength() - 2) + "**";
 				}

@@ -212,7 +212,7 @@ void CCustomerPage11::OpenCustomerDlgByCNo(long nCNo)
 {
 	char buffer[10];
 
-	CBranchInfo *pBi = ::GetCurBranchInfo();
+	CBranchInfo *pBi = LF->GetCurBranchInfo();
 	CCustomerDlg dlg;
 
 	dlg.m_pRcpDlg = NULL;
@@ -296,10 +296,10 @@ void CCustomerPage11::RefreshCustomerList()
 
 void CCustomerPage11::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(6900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 206, m_lstGroup.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 206, m_lstGroup.GetItemCount());  
 	m_lstGroup.ToExcel("그룹리포트");
 }
 void CCustomerPage11::OnReportItemChange(NMHDR * pNotifyStruct, LRESULT * /*result*/)
@@ -626,8 +626,8 @@ void CCustomerPage11::RefreshList()
 	VEC_CUSTOMER_GROUP::iterator it;
 	VEC_CUSTOMER_GROUP *pGroup = m_cg.GetRefreshGroup();
 
-	long nCompany = GetCurBranchInfo()->nCompanyCode;
-	BOOL bIntegrated = GetCurBranchInfo()->bIntegrated;
+	long nCompany = LF->GetCurBranchInfo()->nCompanyCode;
+	BOOL bIntegrated = LF->GetCurBranchInfo()->bIntegrated;
 	CString sMainGroupNumber = "";
 	long nPreLevel = 0,nMainGroupNumber = 0;
     int i = 0;
@@ -885,7 +885,7 @@ void CCustomerPage11::OnBnClickedNewChargeDlg()
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "insert_chargetype_name_2008");
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nPayTable);
 		pCmd.AddParameter(typeString, typeInput, sChargeName.GetLength(), sChargeName);
 		pCmd.AddParameter(typeString, typeInput, m_ui.strName.GetLength(), m_ui.strName);
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -904,7 +904,7 @@ void CCustomerPage11::OnBnClickedNewChargeDlg()
 	{
 		ST_CHARGE_TYPE_NAME_INFO st;
 		st.nID = nReturnValue;
-		st.nCompany = GetCurBranchInfo()->nCompanyCode;
+		st.nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 		st.strChargeName = sChargeName;
 		
 		m_mapChargeType[nReturnValue] = st;
@@ -952,7 +952,7 @@ void CCustomerPage11::OnBnClickedDeleteChargeDlg2()
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "delete_chargetype_name");
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nPayTable);
 		pCmd.AddParameter(typeString, typeInput, strChargeTypeName.GetLength(), strChargeTypeName);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), nChargeTypeID);
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -1091,7 +1091,7 @@ void CCustomerPage11::OnDeleteCustomer()
 		long nGNo = (long)m_lstCustomer.GetItemData(pRow->GetRecord());
 
 		CMkCommand pCmd(m_pMkDb, "update_group_input");
-		pCmd.AddParameter(GetCurBranchInfo()->nCustomerTable);    
+		pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);    
 		pCmd.AddParameter(nCNo);    
 		pCmd.AddParameter(nGNo);    
 		pCmd.AddParameter(FALSE);    
@@ -1150,7 +1150,7 @@ void CCustomerPage11::AddGroupMember()
 	if(strGNo == "")
 		strGNo = "0;";
 
-	if(::CheckGroupReport(strGNo, m_nGNo, dtDate, m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedCount(), strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
+	if(LF->CheckGroupReport(strGNo, m_nGNo, dtDate, m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedCount(), strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
 		return;
 
 	for(int i = 0; i < m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedCount(); i++)
@@ -1159,7 +1159,7 @@ void CCustomerPage11::AddGroupMember()
 		nCNo = pRecord->GetItemDataLong();
 
 		CMkCommand pCmd(m_pMkDb, "update_group_input_1");
-		pCmd.AddParameter(GetCurBranchInfo()->nCustomerTable);    
+		pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);    
 		pCmd.AddParameter(nCNo);    
 		pCmd.AddParameter(m_nGNo);    
 		pCmd.AddParameter(TRUE);    
@@ -1172,7 +1172,7 @@ void CCustomerPage11::AddGroupMember()
 
 	if(strNeedReportID != "")
 	{
-		if(::ReReport(strNeedReportID))
+		if(LF->ReReport(strNeedReportID))
 			MessageBox("그룹에 편입되었습니다.", "확인", MB_ICONINFORMATION);
 	}
 	else
@@ -1305,7 +1305,7 @@ BOOL CCustomerPage11::FindRecord(CXTPGridRecord *pRecord, CString strSearchWord)
 void CCustomerPage11::OnBnClickedGroupChargeBtn()
 {
 	CChargeListDlg dlg;
-	dlg.m_nCompany = GetCurBranchInfo()->nPayTable;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nPayTable;
 	dlg.DoModal();
 }
 
@@ -1313,7 +1313,7 @@ void CCustomerPage11::OnBnClickedChargeTypeSearchBtn()
 {
 
 	CSearchGroupDlg dlg;
-	dlg.m_nCompany = GetCurBranchInfo()->nPayTable;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nPayTable;
 	dlg.m_nDataType = SG_DISCOUNT_COMPANY;
 	if(dlg.DoModal() == IDOK)
 	{
@@ -1377,7 +1377,7 @@ void CCustomerPage11::OnBnClickedGroupSettingBtn()
 void CCustomerPage11::OnBnClickedBatchchargeTypeSearchBtn()
 {
 	CSearchGroupDlg dlg;
-	dlg.m_nCompany = GetCurBranchInfo()->nPayTable;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nPayTable;
 	dlg.m_nDataType = SG_DISCOUNT_COMPANY;
 	if(dlg.DoModal() == IDOK)
 	{
@@ -1402,7 +1402,7 @@ void CCustomerPage11::OnBnClickedChargetypenameBatchBtn()
 	
 	if(m_lstGroup.GetSelectedCount() == 0)
 	{
-		MsgBox("요금셋팅을 하실 그룹을 선택하세요");
+		LF->MsgBox("요금셋팅을 하실 그룹을 선택하세요");
 		return;
 	}
 	long nChargeTypeID = 0;	BOOL bApply = TRUE; long nGroupCode = 0;
@@ -1491,7 +1491,7 @@ void CCustomerPage11::OnSetGroupOwner()
 	}
 
 	CMkCommand pCmd(m_pMkDb, "update_customer_group_owner2");
-	pCmd.AddParameter(GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);
 	pCmd.AddParameter(nCNo);
 	pCmd.AddParameter(1);
 	if(!pCmd.Execute()) return;
@@ -1536,7 +1536,7 @@ void CCustomerPage11::OnSetReleaseGroupOwner()
 	}
 
 	CMkCommand pCmd(m_pMkDb, "update_customer_group_owner2");
-	pCmd.AddParameter(GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);
 	pCmd.AddParameter(nCNo);
 	pCmd.AddParameter(0);
 	if(!pCmd.Execute()) return;

@@ -234,7 +234,7 @@ BOOL CChargeDongUDlg::OnInitDialog()
 
 void CChargeDongUDlg::OnBnClickedEditBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	try
@@ -370,7 +370,7 @@ void CChargeDongUDlg::OnBnClickedEditBtn()
 
 void CChargeDongUDlg::OnBnClickedDeleteBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CMyXTPGridRecord *pDestRecord = NULL;
@@ -527,7 +527,7 @@ void CChargeDongUDlg::OnBnClickedLineBtn()
 
 void CChargeDongUDlg::OnBnClickedCopyDongBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CopyDongDlg();
@@ -536,7 +536,7 @@ void CChargeDongUDlg::OnBnClickedCopyDongBtn()
 
 void CChargeDongUDlg::OnBnClickedChargeTypeBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CChargeWorkDlg dlg;
@@ -569,7 +569,7 @@ void CChargeDongUDlg::OnBnClickedSearchGroupBtn()
 void CChargeDongUDlg::OnBnClickedSelectareaMemoryBtn()
 {
 
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(m_pChargeDongSettingDlg == NULL)
@@ -602,7 +602,7 @@ void CChargeDongUDlg::OnViewListPrint()
 
 	if( nDongID <= 0)
 	{
-		MsgBox("회사및 동이 적용되지 않았습니다.");
+		LF->MsgBox("회사및 동이 적용되지 않았습니다.");
 		return;
 	}
 	CWebChargeListDlg dlg;
@@ -640,7 +640,7 @@ BOOL CChargeDongUDlg::CheckAreaSelect()
 
 void CChargeDongUDlg::OnBnClickedDiscountCompanyBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CString sChargeName = "";
@@ -655,7 +655,7 @@ void CChargeDongUDlg::OnBnClickedDiscountCompanyBtn()
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "insert_chargetype_name");
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nPayTable);
 		pCmd.AddParameter(typeString, typeInput, sChargeName.GetLength(), sChargeName);
 		pCmd.AddParameter(typeString, typeInput, m_ui.strName.GetLength(), m_ui.strName);
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -696,7 +696,7 @@ void CChargeDongUDlg::OnBnClickedDiscountCompanyBtn()
 
 void CChargeDongUDlg::OnBnClickedDiscountCompanyDelBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(m_cmbDiscountCompany.GetCount() <= 0 )
@@ -723,7 +723,7 @@ void CChargeDongUDlg::OnBnClickedDiscountCompanyDelBtn()
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "delete_chargetype_name2");
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nPayTable);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), nChargeTypeID);
 
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -1091,7 +1091,7 @@ void::CChargeDongUDlg::LoadDong2(BOOL bUser)
 		}
 		pRs2.Close();
 		CString str;
-		str.Format("%s개", GetMyNumberFormat(nCount));
+		str.Format("%s개", LF->GetMyNumberFormat(nCount));
 		m_stcServerLoad.SetWindowText(str);
 		
 		//MessageBox(str);
@@ -1163,7 +1163,7 @@ void::CChargeDongUDlg::UserDongPosLoad()
 		
 	}
 	CString str;
-	str.Format("%s개", GetMyNumberFormat( (long)pUserDongPosMap->size() ) );
+	str.Format("%s개", LF->GetMyNumberFormat( (long)pUserDongPosMap->size() ) );
 	m_stcServerLoad.SetWindowText(str)	;
 	
 	m_lstSet.Populate();
@@ -1638,7 +1638,7 @@ void CChargeDongUDlg::UserDongSave(BOOL bServerSave)
 	}
 	
 	CString str;
-	str.Format("%s개", GetMyNumberFormat(j));
+	str.Format("%s개", LF->GetMyNumberFormat(j));
 	m_stcServerSave.SetWindowText(str);
 
 	
@@ -1727,7 +1727,7 @@ void CChargeDongUDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* /*res
 		CString strNewData = pItemText->GetValue();
 		if(strNewData.GetLength() == 0)
 			return;
-		if(!IsStringDigit(strNewData))
+		if(!LF->IsStringDigit(strNewData))
 		{
 			pItemText->OldValueChange();			
 			throw("숫자를 넣어주세요");		
@@ -2069,10 +2069,10 @@ void CChargeDongUDlg::NewSetAllCharge(long nDestID, long nMotoCharge, long nDama
 	CString sDama = nDamaCharge ==0 ? "" : ltoa(nDamaCharge,buffer,10);
 	CString sSpecificMoto = nSpecificMoto ==0 ? "" :  ltoa(nSpecificMoto,buffer,10);
 	CString sSpecificDama = nSpecificDama ==0 ? "" :  ltoa(nSpecificDama,buffer,10);
-	pDestRecord->GetItem(2)->SetCaption(GetMyNumberFormat(sMoto));
-	pDestRecord->GetItem(3)->SetCaption(GetMyNumberFormat(sDama));
-	pDestRecord->GetItem(4)->SetCaption(GetMyNumberFormat(sSpecificMoto));
-	pDestRecord->GetItem(5)->SetCaption(GetMyNumberFormat(sSpecificDama));
+	pDestRecord->GetItem(2)->SetCaption(LF->GetMyNumberFormat(sMoto));
+	pDestRecord->GetItem(3)->SetCaption(LF->GetMyNumberFormat(sDama));
+	pDestRecord->GetItem(4)->SetCaption(LF->GetMyNumberFormat(sSpecificMoto));
+	pDestRecord->GetItem(5)->SetCaption(LF->GetMyNumberFormat(sSpecificDama));
 
 }
 

@@ -145,7 +145,7 @@ void CMoveRiderDlg1::InitControl()
 	int nCount = 0;
 	int nComboDefaultNum = 0;
 
-	CBranchInfo *pBi = GetCurBranchInfo();
+	CBranchInfo *pBi = LF->GetCurBranchInfo();
 
 	if(pBi->bIntegrated)
 	{
@@ -191,7 +191,7 @@ void CMoveRiderDlg1::RefreshList()
 
 	char buffer[20];
 	UpdateData(TRUE);
-	CBranchInfo *pBi = GetCurBranchInfo();
+	CBranchInfo *pBi = LF->GetCurBranchInfo();
 	
 	//CWaitCursor wait;
 	CMkRecordset pRs(m_pMkDb);
@@ -700,7 +700,7 @@ void CMoveRiderDlg1::DepositListIn(int nItemData)
 		pRs2.GetFieldValue("nTodaySave", nTodaySave);
 
 		
-		//if(POWER_CHECK(7012, "입금정산 수정"))
+		//if(LF->POWER_CHECK(7012, "입금정산 수정"))
 		//{
 		//	if(!(nSearchRNo == nRNo ||
 		//		(strSearchName.GetLength() > 0 && 
@@ -718,14 +718,14 @@ void CMoveRiderDlg1::DepositListIn(int nItemData)
 		m_DepositList.InsertItem(nItem, ltoa(nRNo, buffer, 10));
 		m_DepositList.SetItemText(nItem, 1, strRName);
 		m_DepositList.SetItemText(nItem, 2, CString(ltoa(nCount, buffer, 10)));
-		m_DepositList.SetItemText(nItem, 3, GetMyNumberFormat(nCharge));
-		m_DepositList.SetItemText(nItem, 4, GetMyNumberFormat(nDeposit));
-		m_DepositList.SetItemText(nItem, 5, GetMyNumberFormat(nBalance));
-		m_DepositList.SetItemText(nItem, 6, GetMyNumberFormat(nDebt));
-		m_DepositList.SetItemText(nItem, 7, GetMyNumberFormat(nBalance + nSaveDeposit - nDeposit - nDebt));
-		m_DepositList.SetItemText(nItem, 9, GetMyNumberFormat(nSaveDeposit));
-		m_DepositList.SetItemText(nItem, 10, GetDepositTypeStringFromType(nDepositType));
-		m_DepositList.SetItemText(nItem, 11, GetMyNumberFormat(nTodaySave));
+		m_DepositList.SetItemText(nItem, 3, LF->GetMyNumberFormat(nCharge));
+		m_DepositList.SetItemText(nItem, 4, LF->GetMyNumberFormat(nDeposit));
+		m_DepositList.SetItemText(nItem, 5, LF->GetMyNumberFormat(nBalance));
+		m_DepositList.SetItemText(nItem, 6, LF->GetMyNumberFormat(nDebt));
+		m_DepositList.SetItemText(nItem, 7, LF->GetMyNumberFormat(nBalance + nSaveDeposit - nDeposit - nDebt));
+		m_DepositList.SetItemText(nItem, 9, LF->GetMyNumberFormat(nSaveDeposit));
+		m_DepositList.SetItemText(nItem, 10, LF->GetDepositTypeStringFromType(nDepositType));
+		m_DepositList.SetItemText(nItem, 11, LF->GetMyNumberFormat(nTodaySave));
 		m_DepositList.SetItemText(nItem, 12, dtSave.Format("%m-%d %H:%M"));
 		m_DepositList.SetItemText(nItem, 13, nWorkState == 1 ? "중지" : "");
 		m_DepositList.SetItemText(nItem, 14, ltoa(nWeekDeposit, buffer, 10));

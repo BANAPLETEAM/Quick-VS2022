@@ -250,7 +250,7 @@ CRcpDlg* CRcpViewBase::CreateRcpDlg(CBranchInfo *pBi, CString strTitle, int nIte
 	if(!pBi) pBi = m_pBi;
 
 
-	if(!::IsUseNewDlg())
+	if(!LF->IsUseNewDlg())
 		return CreateRcpDlgSub<CRcpDlg>(pBi, strTitle, nItem, nState, strCID, bAddCall, nLineID, 
 		dwAnswerTick, nWebID, bScheduleOrder, strYear, 
 		nOperatorID, bNewDlg, bConsign);
@@ -303,7 +303,7 @@ CRcpViewBase::CreateRcpDlgSub( CBranchInfo *pBi, CString strTitle, int nItem,
 		}
 	} 
 
-	pRcpDlg = (T*)GetReadyToReuseDlg(!::IsUseNewDlg());
+	pRcpDlg = (T*)GetReadyToReuseDlg(!LF->IsUseNewDlg());
 	if(pRcpDlg)
 		bReuseMode = TRUE;
 
@@ -332,7 +332,7 @@ CRcpViewBase::CreateRcpDlgSub( CBranchInfo *pBi, CString strTitle, int nItem,
 	if(!bReuseMode)
 	{
 		//if(!pRcpDlg->Create(GetServiceResoure(pBi->nServiceType), this))
-		if(!pRcpDlg->Create(GetServiceResoure(!::IsUseNewDlg()), this))
+		if(!pRcpDlg->Create(GetServiceResoure(!LF->IsUseNewDlg()), this))
 		{
 			MessageBox("메인 접수창 생성 실패", "확인", MB_ICONERROR);
 			return NULL;
@@ -358,7 +358,7 @@ CRcpViewBase::CreateRcpDlgSub( CBranchInfo *pBi, CString strTitle, int nItem,
 	pRcpDlg->SetTitleInfo(strTitle);
 	pRcpDlg->ShowWindow(pRcpDlg->IsIconic() ? SW_RESTORE : SW_SHOW);
 
-	if(GetBranchInfo(m_ui.nCompany)->bPopupFocus && pFocusControl)
+	if(LF->GetBranchInfo(m_ui.nCompany)->bPopupFocus && pFocusControl)
 		pFocusControl->SetFocus();
 
 	return (T*)pRcpDlg;
@@ -389,10 +389,10 @@ void CRcpViewBase::InitForm()
 		AddMapForm();
 	//*/
 
-	if(GetCurBranchInfo()->bIPPBXType && POWER_CHECK(1950, "녹취확인 탭", FALSE))
+	if(LF->GetCurBranchInfo()->bIPPBXType && LF->POWER_CHECK(1950, "녹취확인 탭", FALSE))
 		m_pRecordFileForm = (CRcpPageRecordFileForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageRecordFileForm), _T("녹취확인"));
 
-	if(GetCurBranchInfo()->bIPPBXType && POWER_CHECK(1955, "미연결콜 탭", FALSE))
+	if(LF->GetCurBranchInfo()->bIPPBXType && LF->POWER_CHECK(1955, "미연결콜 탭", FALSE))
 		m_pMissingCallForm = (CRcpPageMissingCallForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageMissingCallForm), _T("미연결콜"));
 
 	CRect rcView;
@@ -471,7 +471,7 @@ int CRcpViewBase::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CRcpViewBase::LoadReportState()
 {
 
-	if(!::IsThisCompany("올바로"))
+	if(!LF->IsThisCompany("올바로"))
 		m_xList.GetColumns()->GetAt(RCP_ALL_BARO_COL)->SetVisible(FALSE);
 
 #ifdef XML_STATE
@@ -509,7 +509,7 @@ void CRcpViewBase::LoadReportState()
 	memFile.Close();
 	delete[] pData;
 
-	if(!::IsThisCompany("올바로"))
+	if(!LF->IsThisCompany("올바로"))
 		m_xList.GetColumns()->GetAt(RCP_ALL_BARO_COL)->SetVisible(FALSE);
 #endif
 }

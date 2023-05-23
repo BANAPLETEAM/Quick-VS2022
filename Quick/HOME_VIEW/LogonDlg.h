@@ -68,5 +68,3 @@ public:
 	void LoadConsignShare(CBranchInfo *pBi);
 	void GetRsData(CMkRecordset *pRs, CBranchInfo *pBi);
 };
-
-extern CMakeRcpPower m_pi;

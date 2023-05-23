@@ -85,8 +85,8 @@ void CWebOrderDlg::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "web_select_simple_order");
-	pCmd.AddParameter(typeInt, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeInt, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeInt, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeInt, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_chkAll.GetCheck());	
@@ -139,7 +139,7 @@ void CWebOrderDlg::RefreshList()
 		m_List.MyAddItem(1,dt0.Format("%m-%d %H:%M"),	"접수일시",	75, FALSE, DT_LEFT);
 		m_List.MyAddItem(2,(long)span.GetTotalMinutes(),	"경과(분)",		45, FALSE, DT_LEFT);
 		m_List.MyAddItem(3,sCName,					"고객명",	75, FALSE, DT_LEFT);
-		m_List.MyAddItem(4,GetDashPhoneNumber(sTel),	"전화번호",	70, FALSE, DT_LEFT);
+		m_List.MyAddItem(4,LF->GetDashPhoneNumber(sTel),	"전화번호",	70, FALSE, DT_LEFT);
 		m_List.MyAddItem(5,sType,						"상태",		50, FALSE, DT_LEFT);
 		m_List.MyAddItem(6,nTNo,						"오더번호",	60, FALSE, DT_RIGHT);
 		m_List.MyAddItem(7,sWName,					"작업자",	65, FALSE, DT_LEFT);

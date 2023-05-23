@@ -168,8 +168,8 @@ void CLogiUtil::Destroy()
 BOOL CLogiUtil::Init()
 {
 	//SoftICE로 해킹중인지 확인
-	if(IsSoftIce95() || IsSoftIceNT())	return FALSE;
-	CheckDpiRegistry(GetMyFileName());
+	if(LF->IsSoftIce95() || LF->IsSoftIceNT())	return FALSE;
+	CheckDpiRegistry(LF->GetMyFileName());
 
 
 	//소켓 초기화
@@ -226,7 +226,7 @@ void CLogiUtil::CheckDebugLogMode()
 	if(m_bDebugMode)
 	{
 		g_bana_log = new CBanaLog;
-		g_bana_log->SetFile(GetModuleFullPath() + "LOG.TXT", true);
+		g_bana_log->SetFile(LF->GetModuleFullPath() + "LOG.TXT", true);
 		g_bana_log->SetMode(CBanaLog::TO_CONSOLE | CBanaLog::TO_FILE);
 		LF->RepositionLogConsole();
 	}
@@ -255,9 +255,9 @@ void CLogiUtil::InstallMalgunFont()
 
 	if(!bExist)
 	{
-		if(AddFontResource(GetModuleFullPath() + "MALGUN.TTF"))
+		if(AddFontResource(LF->GetModuleFullPath() + "MALGUN.TTF"))
 		{
-			AddFontResource(GetModuleFullPath() + "MALGUNBD.TTF");
+			AddFontResource(LF->GetModuleFullPath() + "MALGUNBD.TTF");
 		}
 	}
 }
@@ -340,7 +340,7 @@ BOOL CLogiUtil::ShowShareReportDlg()
 #ifndef _STANDALONE
 	if(m_ci.m_bUseShareReport)
 	{
-		if(m_ci.m_bRcpIntMode1 && POWER_CHECK(1760, "공유콜 정산"))
+		if(m_ci.m_bRcpIntMode1 && LF->POWER_CHECK(1760, "공유콜 정산"))
 		{
 			if(!CShareReportRateDlg::IsNoShow())
 			{
@@ -432,9 +432,9 @@ BOOL CLogiUtil::CheckCommandLine(char *szID, char *szLogiCode, char *szLogiNo)
 #ifndef _DEBUG
 		if(!IsDebugMode())
 		{
-			CString strPath = GetModuleFullPath();
+			CString strPath = LF->GetModuleFullPath();
 			strPath += "update.exe";
-			if(!RunProgram(strPath, "/run"))
+			if(!LF->RunProgram(strPath, "/run"))
 				MessageBox("업데이트 프로그램을 찾을 수 없습니다.\n업데이트 체크없이 프로그램을 시작합니다.",
 				"업데이트 실패", MB_ICONERROR);
 			else
@@ -637,7 +637,7 @@ CDialogBar* CLogiUtil::GetFieldChooser()
 
 void CLogiUtil::ShowBillDlg()
 {
-	if(!POWER_CHECK(1750, "서비스 이용료 보기", TRUE))
+	if(!LF->POWER_CHECK(1750, "서비스 이용료 보기", TRUE))
 		return;
 
 	if(m_ci.m_nCompanyCode < 1000)
@@ -662,7 +662,7 @@ void CLogiUtil::ShowBillDlg()
 
 void CLogiUtil::ShowSecurityLogDlg()
 {
-	if(!POWER_CHECK(1770, "보안로그 보기", TRUE))
+	if(!LF->POWER_CHECK(1770, "보안로그 보기", TRUE))
 		return;
 
 	CSecurityLogDlg dlg;
@@ -703,7 +703,7 @@ BOOL CLogiUtil::CreateSplitter(CWnd *pWnd, CCreateContext *pContext)
 void CLogiUtil::LoadSkinManager()
 {
 	XTPSkinManager()->SetApplyOptions(xtpSkinApplyFrame | xtpSkinApplyColors | xtpSkinApplyMetrics);
-	XTPSkinManager()->LoadSkin(GetModuleFullPath() + _T("Styles\\LE5_3.cjstyles"), _T("NormalBlueC.ini"));
+	XTPSkinManager()->LoadSkin(LF->GetModuleFullPath() + _T("Styles\\LE5_3.cjstyles"), _T("NormalBlueC.ini"));
 	XTPSkinManager()->SetAutoApplyNewThreads(FALSE);
 }
 
@@ -713,8 +713,8 @@ void CLogiUtil::MakeRiderList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_alloc_rider_list5");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 
 	if(!pRs.Execute(&pCmd)) return;
 
@@ -1308,7 +1308,7 @@ CRcpView* CLogiUtil::GetRcpView()
 
 void CLogiUtil::ShowMessenger()
 {
-	if(!POWER_CHECK(1400, "메신저 접속리스트 보기", TRUE))
+	if(!LF->POWER_CHECK(1400, "메신저 접속리스트 보기", TRUE))
 		return;
 
 
@@ -1344,12 +1344,12 @@ void CLogiUtil::RunRemoteControl(int nType)
 		if(strPort.GetLength() < 1) 
 			throw "원격연결서버의 주소를 찾을 수 없습니다.";
 
-		CString strPath = GetModuleFullPath();
+		CString strPath = LF->GetModuleFullPath();
 		strPath += "remoteclient.exe";
 		strParameter = strAddress + "/" + strPort + "/" + 
 					m_ci.GetName() + "|" + m_ci.GetPhone() + "|" + m_ui.strName + "|" + m_ui.strID;
 
-		if(!RunProgram(strPath, strParameter)) 
+		if(!LF->RunProgram(strPath, strParameter))
 			throw "원격연결 클라이언트 프로그램을 찾을 수 없습니다.";
 	} catch(char *szMsg)
 	{
@@ -1805,8 +1805,8 @@ void CLogiUtil::ShowRiderInfoDlg(long nCompany, long nRNo, long nOrderCompany, l
 
 		strRealRName = strRName;
 		strRName += "(" + strRNo + ")";
-		strPhone = GetDashPhoneNumber(strPhone);
-		strHomePhone = GetDashPhoneNumber(strHomePhone);
+		strPhone = LF->GetDashPhoneNumber(strPhone);
+		strHomePhone = LF->GetDashPhoneNumber(strHomePhone);
 
 		if(bTimeLimit) bTimeLimit = TRUE;
 		if(bInsLimit) bInsLimit = TRUE;
@@ -1836,7 +1836,7 @@ void CLogiUtil::ShowRiderInfoDlg(long nCompany, long nRNo, long nOrderCompany, l
 			strInsExpDate = "";
 		}
 
-		strDepositType = GetDepositTypeStringFromType(nDepositType);
+		strDepositType = LF->GetDepositTypeStringFromType(nDepositType);
 		if(strDepositType.IsEmpty()) strDepositType = "후입금";
 		bWorkStop = (nWorkState == 1) ? TRUE : FALSE;
 
@@ -1879,9 +1879,9 @@ void CLogiUtil::ShowRiderInfoDlg(long nCompany, long nRNo, long nOrderCompany, l
 		m_pRiderInfoDlg->m_strLicenseState = "";//GetLicenseStateString(nLicenseValid, &(m_pRiderInfoDlg->m_bLicenseOK));
 		m_pRiderInfoDlg->m_strInsState = "";//GetInsStateString(nInsState);
 		m_pRiderInfoDlg->m_strCallBranch = strCallBranch;
-		m_pRiderInfoDlg->m_strCarType = ::GetCarTypeFromLong(nCarType);
-		m_pRiderInfoDlg->m_strBalance = ::GetMyNumberFormat(nBalance);
-		m_pRiderInfoDlg->m_strTodaySave = ::GetMyNumberFormat(nTodaySave);
+		m_pRiderInfoDlg->m_strCarType = LF->GetCarTypeFromLong(nCarType);
+		m_pRiderInfoDlg->m_strBalance = LF->GetMyNumberFormat(nBalance);
+		m_pRiderInfoDlg->m_strTodaySave = LF->GetMyNumberFormat(nTodaySave);
 		m_pRiderInfoDlg->m_strRecvCID = strRiderCIDPhone;
 		m_pRiderInfoDlg->m_strCarNo = strCarNo;
 
@@ -2018,7 +2018,7 @@ void CLogiUtil::CreateChargeForRiderLogDlg()
 
 CRiderBoardDlg* CLogiUtil::CreateRiderBoardDlg()
 {
-	if(!POWER_CHECK(1830, "기사게시판"))
+	if(!LF->POWER_CHECK(1830, "기사게시판"))
 		return NULL;
 
 	if(m_pRiderBoardDlg == NULL)
@@ -2047,7 +2047,7 @@ CRiderBoardDlg* CLogiUtil::CreateRiderBoardDlg()
 
 CRiderShareBoardDlg* CLogiUtil::CreateRiderShareBoardDlg(long nCompany, long nRNo, CString strRealRName)
 {
-	if(!POWER_CHECK(1800, "기사정보 공유 게시판"))
+	if(!LF->POWER_CHECK(1800, "기사정보 공유 게시판"))
 		return NULL;
 
 	if(m_pRiderShareBoardDlg == NULL)
@@ -2093,7 +2093,7 @@ CRiderMapDlg* CLogiUtil::CreateRiderMapDlg2()
 
 CRiderMapDlg* CLogiUtil::_CreateRiderMapDlg(CRiderMapDlg **pRiderMapDlg, BOOL bOtherRiderMap)
 {
-	if(!POWER_CHECK(1030, "빠른배차&기사관제", TRUE))
+	if(!LF->POWER_CHECK(1030, "빠른배차&기사관제", TRUE))
 		return NULL; 
 
 	CRiderMapDlg *pMyRiderMapDlg = *pRiderMapDlg;
@@ -2229,7 +2229,7 @@ void CLogiUtil::CloseRiderMapDlg()
 
 CAllocateBoardDlg* CLogiUtil::CreateAllocateBoardDlg()
 {
-	if(!POWER_CHECK(1600, "배차판 보기", TRUE))
+	if(!LF->POWER_CHECK(1600, "배차판 보기", TRUE))
 		return NULL;
 
 	if(GetRcpView())
@@ -2370,7 +2370,7 @@ void CLogiUtil::OpenAllocateDlg(long nTNo, long nState, CString sTitle, long nRN
 	char buffer[20];
 	m_pAllocateDlg->m_bToRcpView = bToRcpView;
 	m_pAllocateDlg->m_pParent = pParent;
-	m_pAllocateDlg->m_strRNo = RemoveZero((CString)itoa(nRNo, buffer, 10));
+	m_pAllocateDlg->m_strRNo = LF->RemoveZero((CString)itoa(nRNo, buffer, 10));
 	m_pAllocateDlg->UpdateData(FALSE);
 	m_pAllocateDlg->m_edtRNo.SetFocus();
 	m_pAllocateDlg->m_edtRNo.SetSel(m_pAllocateDlg->m_strRNo.GetLength(), m_pAllocateDlg->m_strRNo.GetLength());
@@ -3164,7 +3164,7 @@ void CLogiUtil::MakeTransInfo()
 
 void CLogiUtil::AddCall(CString strName, long nTNo, long nState)
 {
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	LU->GetRcpView()->CreateRcpDlg(NULL, 
@@ -3175,7 +3175,7 @@ void CLogiUtil::AddCall(CString strName, long nTNo, long nState)
 
 void CLogiUtil::CreateRcpDlg(CString strName, long nTNo, long nState)
 {
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	LU->GetRcpView()->CreateRcpDlg(NULL, 
@@ -3199,7 +3199,7 @@ CString CLogiUtil::GetCustomerName(long nCNo)
  
 void CLogiUtil::MakeFunctionTable()
 {
-	if(!POWER_CHECK(1810, "기능페이지보기", TRUE))
+	if(!LF->POWER_CHECK(1810, "기능페이지보기", TRUE))
 		return;
 
 	if(m_pFunctionTableDlg == NULL)
@@ -3255,10 +3255,10 @@ BOOL CLogiUtil::SendGcmMsgForSmartQ2(long nTNo)
 
 	CString strUrl = "http://android.logisoft.co.kr/send_rcp_smartq2.asp?sText=";
 	//strUrl += strText;
-	strUrl += ::EnCodeStr(strText);
+	strUrl += LF->EnCodeStr(strText);
 	strUrl += "&sPhone=.";
 	strUrl += "&sUserKey=" + strGcmID;
-	strUrl += "&sTNo=" + GetStringFromLong(nTNo);
+	strUrl += "&sTNo=" + LF->GetStringFromLong(nTNo);
 
 	//http://android.logisoft.co.kr/send_rcp_smartq2.asp?sText=선릉역->대치동 개별배차가 배정되었습니다.&sPhone=15990000&sUserKey=APA91bFhWwZupnKfH5xxOzQnL4p6plOO7bGcLABIlWbV10KmBslh2UqxAcjv_mZgMZgaO1plJyeWLtE829xa4MXFh4IeiKFUmEoj8lbzY2HtgCUEoUwKiquQ9Y-jMKS9qHutQANtwR2YIDOmefHDU0WPXysP4jKQzQ&sTNo=449342485
 
@@ -3292,7 +3292,7 @@ CString CLogiUtil::GetRecordFileServerIP(COleDateTime dtDate)
 
 	CString strServerIP;
 	CMkCommand cmd(m_pMkDb, "select_record_file_server_ip_1");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	cmd.AddParameter(dtDate);
 	CMkParameter *parServerIP = cmd.AddParameter(typeString, typeOutput, 20, strServerIP);
 
@@ -3717,7 +3717,7 @@ CString CLogiUtil::GetCardEmailBody(CString body_url)
     ::InternetCloseHandle(hSession);
 
    // return strJson;
-	return :: UTF8ToANSI(strJson);
+	return LF->UTF8ToANSI(strJson);
 
 }
 
@@ -3729,7 +3729,7 @@ void CLogiUtil::ConvChar(CString& input, CString keyword, CString conv)
 	CString p = (CString)input.Mid(period, 1);
 	if (p == ".") {
 		CString sNum = (CString)input.Mid(period + 1, 1);
-		if (::IsNumeric(sNum)) {
+		if (LF->IsNumeric(sNum)) {
 			cnt = _ttoi(sNum);
 		}
 
@@ -3781,17 +3781,17 @@ CString CLogiUtil::GetReplaceChar(CString strInput, CString strSendTel, CString 
 	if (strInput.Find("[@적요]") >= 0) ConvChar(strOutput, "[@적요]", order->info[38].c_str());
 	if (strInput.Find("[@물품]") >= 0) ConvChar(strOutput, "[@물품]", order->info[40].c_str());
 	if (strInput.Find("[@인터콜]") >= 0) ConvChar(strOutput, "[@인터콜]", "");
-	if (strInput.Find("[@지불]") >= 0) ConvChar(strOutput, "[@지불]", ::GetPayTypeFromLong(order->nPayType));
-	if (strInput.Find("[@차량]") >= 0) ConvChar(strOutput, "[@차량]", ::GetCarTypeFromLong(order->nCarType));
-	if (strInput.Find("[@운송]") >= 0) ConvChar(strOutput, "[@운송]", ::GetWayTypeFromLong(order->nWayType));
-	if (strInput.Find("[@급]") >= 0) ConvChar(strOutput, "[@급]", ::GetRunTypeFromLong(order->nRunType));
-	if (strInput.Find("[@합계]") >= 0) ConvChar(strOutput, "[@합계]", ::GetStringFromLong(order->nCharge));
-	if (strInput.Find("[@합계천]") >= 0) ConvChar(strOutput, "[@합계천]", ::GetStringFromLong(order->nCharge / 1000));
-	if (strInput.Find("[@합계백]") >= 0) ConvChar(strOutput, "[@합계백]", ::GetStringFromLong(order->nCharge / 100));
-	if (strInput.Find("[@탁송]") >= 0) ConvChar(strOutput, "[@탁송]", ::GetStringFromLong(order->nChargeTrans));
-	if (strInput.Find("[@탁송천]") >= 0) ConvChar(strOutput, "[@탁송천]", ::GetStringFromLong(order->nChargeTrans / 1000));
-	if (strInput.Find("[@탁송백]") >= 0) ConvChar(strOutput, "[@탁송백]", ::GetStringFromLong(order->nChargeTrans / 100));
-	if (strInput.Find("[@사번]") >= 0) ConvChar(strOutput, "[@사번]", ::GetStringFromLong(order->nRNo));
+	if (strInput.Find("[@지불]") >= 0) ConvChar(strOutput, "[@지불]", LF->GetPayTypeFromLong(order->nPayType));
+	if (strInput.Find("[@차량]") >= 0) ConvChar(strOutput, "[@차량]", LF->GetCarTypeFromLong(order->nCarType));
+	if (strInput.Find("[@운송]") >= 0) ConvChar(strOutput, "[@운송]", LF->GetWayTypeFromLong(order->nWayType));
+	if (strInput.Find("[@급]") >= 0) ConvChar(strOutput, "[@급]", LF->GetRunTypeFromLong(order->nRunType));
+	if (strInput.Find("[@합계]") >= 0) ConvChar(strOutput, "[@합계]", LF->GetStringFromLong(order->nCharge));
+	if (strInput.Find("[@합계천]") >= 0) ConvChar(strOutput, "[@합계천]", LF->GetStringFromLong(order->nCharge / 1000));
+	if (strInput.Find("[@합계백]") >= 0) ConvChar(strOutput, "[@합계백]", LF->GetStringFromLong(order->nCharge / 100));
+	if (strInput.Find("[@탁송]") >= 0) ConvChar(strOutput, "[@탁송]", LF->GetStringFromLong(order->nChargeTrans));
+	if (strInput.Find("[@탁송천]") >= 0) ConvChar(strOutput, "[@탁송천]", LF->GetStringFromLong(order->nChargeTrans / 1000));
+	if (strInput.Find("[@탁송백]") >= 0) ConvChar(strOutput, "[@탁송백]", LF->GetStringFromLong(order->nChargeTrans / 100));
+	if (strInput.Find("[@사번]") >= 0) ConvChar(strOutput, "[@사번]", LF->GetStringFromLong(order->nRNo));
 	if (strInput.Find("[@기사명]") >= 0) ConvChar(strOutput, "[@기사명]", order->strRName.c_str());
 	if (strInput.Find("[@기사전화번호]") >= 0) ConvChar(strOutput, "[@기사전화번호]", strRiderPhone);
 	if (strInput.Find("[@기사위치URL]") >= 0) ConvChar(strOutput, "[@기사위치URL]", "");

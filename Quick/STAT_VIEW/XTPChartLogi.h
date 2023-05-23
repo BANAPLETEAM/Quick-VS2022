@@ -134,9 +134,4 @@ public:
 
 	map<int, CString> map_AxisLabel;
 	void ChangeSizeCustomLabel();
-
-	//int m_nRemoveIndex;
-	//void RemoveFirstZeroData();
-
-	CString RemoveComma(CString strText);
 };

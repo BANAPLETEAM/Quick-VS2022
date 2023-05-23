@@ -234,7 +234,7 @@ void COtherRiderDlg::OnBnClickedAllocateBtn()
 		pInfo->nRNo = m_nRNo;
 		pInfo->strName = sRName;
 		pInfo->strCompanyName = strCompanyName;
-		pInfo->strPhone = ::GetRiderPhone(pInfo->nCompany, pInfo->nRNo);
+		pInfo->strPhone = LF->GetRiderPhone(pInfo->nCompany, pInfo->nRNo);
 		m_pParent->SendMessage(WM_GET_ALLOCATE_RIDER, (WPARAM)pInfo, (LPARAM)FALSE);
 	}
 

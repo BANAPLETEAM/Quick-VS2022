@@ -26,7 +26,7 @@ protected:
 
 		CString GetCaption(CXTPGridColumn*)
 		{
-			return ::GetStateString((long)GetValue());
+			return LF->GetStateString((long)GetValue());
 		}
 
 	};

@@ -238,8 +238,8 @@ void CConnListDlg2::RefreshMap()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, ".select_conn_list_2011_3");
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	if(!pRs.Execute(&pCmd)) return;
 
 	while(!pRs.IsEOF())
@@ -440,17 +440,17 @@ void CConnListDlg2::RefreshListRealSubway()
 		CONN_RIDER_STRUCT *st = itConn->second;
 
 		m_List.InsertItem(nCount, itoa(nCount + 1, buffer, 10));
-		m_List.SetItemText(nCount, 1, GetBranchInfo(st->nCompany)->strBranchName);
+		m_List.SetItemText(nCount, 1, LF->GetBranchInfo(st->nCompany)->strBranchName);
 		m_List.SetItemText(nCount, 2, itoa(st->nRNo, buffer, 10));
 		m_List.SetItemText(nCount, 3, st->strName);
 		m_List.SetItemText(nCount, 4, st->dtConn.Format("%H:%M"));
 		m_List.SetItemText(nCount, 5, st->strGugun);
 		m_List.SetItemText(nCount, 6, st->strDong);
 		m_List.SetItemText(nCount, 7, GetLocationConsiderSunway(st));
-		m_List.SetItemText(nCount, 8, ::GetMyNumberFormat(st->nAllCount));
-		m_List.SetItemText(nCount, 9, ::GetMyNumberFormat(st->nDrivingCount));
-		m_List.SetItemText(nCount, 10, ::GetMyNumberFormat(st->nDrivingCharge));
-		m_List.SetItemText(nCount, 11, ::GetMyNumberFormat(st->nBalance));
+		m_List.SetItemText(nCount, 8, LF->GetMyNumberFormat(st->nAllCount));
+		m_List.SetItemText(nCount, 9, LF->GetMyNumberFormat(st->nDrivingCount));
+		m_List.SetItemText(nCount, 10, LF->GetMyNumberFormat(st->nDrivingCharge));
+		m_List.SetItemText(nCount, 11, LF->GetMyNumberFormat(st->nBalance));
 		m_List.SetItemText(nCount, 12, GetAbsentState(st));
 		m_List.SetItemText(nCount, 13, GetSubWayWait(st));
 
@@ -505,17 +505,17 @@ void CConnListDlg2::RefreshListReal()
 		CONN_RIDER_STRUCT *st = itConn->second;
 
 		m_List.InsertItem(nCount, itoa(nCount + 1, buffer, 10));
-		m_List.SetItemText(nCount, 1, GetBranchInfo(st->nCompany)->strBranchName);
+		m_List.SetItemText(nCount, 1, LF->GetBranchInfo(st->nCompany)->strBranchName);
 		m_List.SetItemText(nCount, 2, itoa(st->nRNo, buffer, 10));
 		m_List.SetItemText(nCount, 3, st->strName);
 		m_List.SetItemText(nCount, 4, st->dtConn.Format("%H:%M"));
 		m_List.SetItemText(nCount, 5, st->strGugun);
 		m_List.SetItemText(nCount, 6, st->strDong);
 		m_List.SetItemText(nCount, 7, GetLocationConsiderSunway(st));
-		m_List.SetItemText(nCount, 8, ::GetMyNumberFormat(st->nAllCount));
-		m_List.SetItemText(nCount, 9, ::GetMyNumberFormat(st->nDrivingCount));
-		m_List.SetItemText(nCount, 10, ::GetMyNumberFormat(st->nDrivingCharge));
-		m_List.SetItemText(nCount, 11, ::GetMyNumberFormat(st->nBalance));
+		m_List.SetItemText(nCount, 8, LF->GetMyNumberFormat(st->nAllCount));
+		m_List.SetItemText(nCount, 9, LF->GetMyNumberFormat(st->nDrivingCount));
+		m_List.SetItemText(nCount, 10, LF->GetMyNumberFormat(st->nDrivingCharge));
+		m_List.SetItemText(nCount, 11, LF->GetMyNumberFormat(st->nBalance));
 		m_List.SetItemText(nCount, 12, GetAbsentState(st));
 		m_List.SetItemText(nCount, 13, GetSubWayWait(st));
 
@@ -615,7 +615,7 @@ void CConnListDlg2::OnBnClickedSendMsgBtn()
 {
 	return ;
 
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	CRiderMsgDlg dlg;
@@ -778,7 +778,7 @@ void CConnListDlg2::FilterList()
 	long nCount = pRecords->GetCount();
 
 	long nRNo = -1;
-	if(::IsNumeric(strShRNo))
+	if(LF->IsNumeric(strShRNo))
 		nRNo = atoi(strShRNo);
  
 	for(int i=ZERO; i<nCount; i++)
@@ -813,13 +813,13 @@ void CConnListDlg2::FilterList()
 		{ 
 			BOOL bVisible = TRUE;
 
-			if((st->strName.Find(strShRNo) < 0) && (::IsNumeric(strShRNo) == FALSE) && (strShRNo != "") )
+			if((st->strName.Find(strShRNo) < 0) && (LF->IsNumeric(strShRNo) == FALSE) && (strShRNo != "") )
 				bVisible = FALSE;
  
 			if((st->strGugun.Find(strShLocation) < 0) && (st->strDong.Find(strShLocation) < 0) && (strShLocation != "") )
 				bVisible = FALSE;
 
-			if(nRNo != -1 && st->nRNo != nRNo && (::IsNumeric(strShRNo) == TRUE) && (strShRNo != ""))
+			if(nRNo != -1 && st->nRNo != nRNo && (LF->IsNumeric(strShRNo) == TRUE) && (strShRNo != ""))
 				bVisible = FALSE;
 
 			pRecord->SetVisible(bVisible);
@@ -873,7 +873,7 @@ void CConnListDlg2::OnShowRiderInfo()
 
 void CConnListDlg2::OnSendMsg()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	CRiderMsgDlg dlg;
@@ -929,10 +929,10 @@ void CConnListDlg2::OnSetLeave()
 
 void CConnListDlg2::OnViewExcel()
 {
-	if(!POWER_CHECK(1900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(1900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 103, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 103, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 

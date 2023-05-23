@@ -64,7 +64,7 @@ void CColumnSelDlg::RefreshList()
 	long nSecondFindVisible = 0; 
 	long nNewVisible = 0;
 
-	if(::GetCommaCount(sNewOrderVisible) != nColCount)
+	if(LF->GetCommaCount(sNewOrderVisible) != nColCount)
 		bNotSave = TRUE; 
 
 	for(int i=0; i<nColCount; i++)

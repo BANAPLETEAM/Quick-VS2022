@@ -226,7 +226,7 @@ void CLogiMapBase::LoadLocalImage(CString strFileName, CString strName, CString 
 	if(strName.IsEmpty())
 		strName = strFileName;
 
-	strDefaultPath = GetModuleFullPath() + strDefaultPath;
+	strDefaultPath = LF->GetModuleFullPath() + strDefaultPath;
 
 	imageman.SetDefaultPath(strDefaultPath);
 	if(!imageman.LoadImage(strName, strFileName))
@@ -243,7 +243,7 @@ CXMagicImageList CLogiMapBase::LoadLocalImageList(CString strFileName, long nWid
 	if(strName.IsEmpty())
 		strName = strFileName;
 
-	strDefaultPath = GetModuleFullPath() + strDefaultPath;
+	strDefaultPath = LF->GetModuleFullPath() + strDefaultPath;
 
 	imageman.SetDefaultPath(strDefaultPath);
 	CXMagicImageList imagelist = imageman.LoadImageList(strName, strFileName, nWidth, nHeight);
@@ -379,7 +379,7 @@ CXPOIGroup CLogiMapBase::GetPOIGroup(UINT nGroupID)
 void CLogiMapBase::CreateLevelBar()
 {
 	CXSize dpsize = ctrlstate.GetSizeDP();
-	imageman.SetDefaultPath(GetModuleFullPath() + "\\Images\\LevelBar");
+	imageman.SetDefaultPath(LF->GetModuleFullPath() + "\\Images\\LevelBar");
 
 
 	// BackGround Image
@@ -472,7 +472,7 @@ void CLogiMapBase::CreateToolBarUI()
 		bCreateToolBarStyle1 = true;
 
 	CXSize dpsize = ctrlstate.GetSizeDP();
-	imageman.SetDefaultPath(GetModuleFullPath() + "\\Images");
+	imageman.SetDefaultPath(LF->GetModuleFullPath() + "\\Images");
 	long width_px = dpsize.GetCX()/2 - 250;
 
 	bPanel = uiman.CreateUI_Panel(uiman);
@@ -970,7 +970,7 @@ void CLogiMapBase::OnRemovePolygon()
 void CLogiMapBase::OnAddAddressBar()
 {
 	CXSize dpsize = ctrlstate.GetSizeDP();
-	imageman.SetDefaultPath(GetModuleFullPath() + "\\Images");
+	imageman.SetDefaultPath(LF->GetModuleFullPath() + "\\Images");
 
 	CXUIImage btnImg = uiman.CreateUI_Image(uiman);
 	btnImg.SetParent(uiman);
@@ -1258,28 +1258,13 @@ void CLogiMapBase::SetPOIVisibleDec(CXPOIItem item, long nMinLevel)
 	item.EndUpdate();
 }
 
-CString CLogiMapBase::GetModuleFullPath()
-{
-	CString strFullPath;
-	TCHAR szFullPath[MAX_PATH];
-	if (GetModuleFileName(AfxGetInstanceHandle(), szFullPath, _MAX_PATH) > 0)
-	{
-		int nPos;
-		strFullPath = szFullPath;
-		if ((nPos = strFullPath.ReverseFind('\\')) != -1)
-			strFullPath = strFullPath.Mid(0, ++nPos);
-	}
-
-	return strFullPath;
-}
-
 CXUIImage CLogiMapBase::SetUIImage(long nID, CString strImage, CRect rc, long nAlpha, long nAnchor, long nEvent)
 {
 	CXSize dpsize = ctrlstate.GetSizeDP();
 	CXUtility util = GetUtility();
 
 	CXImageMan imageman = ctrlman.GetImageMan();
-	imageman.SetDefaultPath(GetModuleFullPath() + "\\Images");
+	imageman.SetDefaultPath(LF->GetModuleFullPath() + "\\Images");
 
 	CXUIImage btnImg = uiman.CreateUI_Image(uiman);
 	btnImg.SetParent(uiman);
@@ -1512,7 +1497,7 @@ long CLogiMapBase::GetRouteDistance()
 
 BOOL CLogiMapBase::RegisterMapDll()
 {
-	CString strPath = GetModuleFullPath()+ CString(TALMAP_DLL_PATH);
+	CString strPath = LF->GetModuleFullPath()+ CString(TALMAP_DLL_PATH);
 
 	if(FALSE == LF->DllRegOcx(strPath) )
 	{
@@ -1523,7 +1508,7 @@ BOOL CLogiMapBase::RegisterMapDll()
 		}
 	}
 
-	strPath = GetModuleFullPath()+ CString(TALMAP_SR_DLL_PATH);
+	strPath = LF->GetModuleFullPath()+ CString(TALMAP_SR_DLL_PATH);
 
 	if(FALSE == LF->DllRegOcx(strPath))
 	{

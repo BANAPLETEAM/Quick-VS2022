@@ -77,7 +77,7 @@ void CMyTestView2::Refresh()
 	nItem = 1;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_member_calc");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nGNo);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_bChild);
 	if(!pRs.Execute(&pCmd)) return;
@@ -114,11 +114,11 @@ void CMyTestView2::Refresh()
 		switch(nCouponType)
 		{
 		case 0:				
-			sCouponValue = GetMyNumberFormat(nCouponCharge);
+			sCouponValue = LF->GetMyNumberFormat(nCouponCharge);
 			sCoupon = " %";
 			break;
 		case 1:				
-			sCouponValue = GetMyNumberFormat(nCouponCharge);
+			sCouponValue = LF->GetMyNumberFormat(nCouponCharge);
 			sCoupon = " 원";
 			break;
 		case 2:
@@ -161,11 +161,11 @@ void CMyTestView2::Refresh()
 		switch(nMileageType)
 		{
 		case 0:				
-			sMileValue = GetMyNumberFormat(nCouponCharge);
+			sMileValue = LF->GetMyNumberFormat(nCouponCharge);
 			sMile = " %";
 			break;
 		case 1:				
-			sMileValue = GetMyNumberFormat(nCouponCharge);
+			sMileValue = LF->GetMyNumberFormat(nCouponCharge);
 			sMile = " 원";
 			break;
 		case 2:
@@ -203,7 +203,7 @@ void CMyTestView2::Refresh()
 		m_Data.MyAddItem(9,nReportEndDay,		"정산2",	50,FALSE,DT_RIGHT);		
 		m_Data.MyAddItem(10,nIssueTaxBillDay,		"계산서",		50,FALSE,DT_RIGHT);		
 		m_Data.MyAddItem(11,nPayableDay,		"입금일",		50,FALSE,DT_RIGHT);					
-		m_Data.MyAddItem(12,GetMyNumberFormat(nUncollectedAmount),"미수금",	70,FALSE,DT_RIGHT);				
+		m_Data.MyAddItem(12,LF->GetMyNumberFormat(nUncollectedAmount),"미수금",	70,FALSE,DT_RIGHT);				
 
 		m_Data.InsertItemDataLong(nCNo);	
 		m_Data.InsertItemDataLong2(nGNo);			

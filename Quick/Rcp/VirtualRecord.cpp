@@ -187,7 +187,7 @@ void CVirtualRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 	{
 		long nState1 = (itOrder->second.bShareOrder && nState == 10 && itOrder->second.bClientShare5) ? 100 : nState;
 		//long nState1 = (itOrder->second.bShareOrder && nState == 10) ? 100 : nState;
-		long nSubState1 = (GetBranchInfo(itOrder->second.nCompany)->IsCargo() && itOrder->second.nBillDraw > 0) ? itOrder->second.nBillDraw : 0;
+		long nSubState1 = (LF->GetBranchInfo(itOrder->second.nCompany)->IsCargo() && itOrder->second.nBillDraw > 0) ? itOrder->second.nBillDraw : 0;
 
 
 		if(itOrder->second.nState == STATE_ALLOCATED)
@@ -198,7 +198,7 @@ void CVirtualRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 				nState1 = 101; 			
 		}
 		
-		pDrawArgs->pItem->SetIconIndex(GetImageNumber(nState1, nSubState1, nCTNo));		
+		pDrawArgs->pItem->SetIconIndex(LF->GetImageNumber(nState1, nSubState1, nCTNo));		
 	}
 	else if(nItemCol == RCP_CUSTOMER_COL)
 	{
@@ -250,8 +250,8 @@ void CVirtualRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 					span = COleDateTime::GetCurrentTime() - itOrder->second.dtRcp;
 				else
 				{
-					//if(::IsThisCompany("엔콜") || ::IsThisCompany("올바로"))
-					if (GetBranchInfo(itOrder->second.nCompany)->init_dt1_state_to_rcp)
+					//if(LF->IsThisCompany("엔콜") || LF->IsThisCompany("올바로"))
+					if (LF->GetBranchInfo(itOrder->second.nCompany)->init_dt1_state_to_rcp)
 						span = COleDateTime::GetCurrentTime() - itOrder->second.dtRcp;
 					else
 						span = COleDateTime::GetCurrentTime() - itOrder->second.dt0;
@@ -328,7 +328,7 @@ void CVirtualRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 
 			long nMinute = span.GetTotalMinutes() + 1;
  
-			CString strItem = ::GetStringFromLong(nMinute) + "분)" + itOrder->second.strStart.c_str();
+			CString strItem = LF->GetStringFromLong(nMinute) + "분)" + itOrder->second.strStart.c_str();
 			itOrder->second.info[pDrawArgs->pColumn->GetItemIndex()] = strItem;
 		}		
 		else

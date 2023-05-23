@@ -147,7 +147,7 @@ void CCustomerPage3::OnClickedSearchBtn()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_new_customer4");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), ::GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), dt);
 	pCmd.AddParameter(m_chkNoGeneralCustomer.GetCheck());
 	
@@ -166,7 +166,7 @@ void CCustomerPage3::OnClickedSearchBtn()
 	else {
 		CString strText;
 		strText.Format("%d°³ÀÇ °í°´µ¥ÀÌÅÍ°¡ °Ë»öµÇ¾ú½À´Ï´Ù.", pRs.GetRecordCount());
-		StatusText(0, strText);
+		LF->StatusText(0, strText);
 	}
 
 	while(!pRs.IsEOF())
@@ -192,7 +192,7 @@ void CCustomerPage3::OnClickedSearchBtn()
 		m_lcData.SetItemText(nItem, 1, strCompany);
 		m_lcData.SetItemText(nItem, 2, strDepart);
 		m_lcData.SetItemText(nItem, 3, strName);
-		m_lcData.SetItemText(nItem, 4, GetDashPhoneNumber(strTel1));
+		m_lcData.SetItemText(nItem, 4, LF->GetDashPhoneNumber(strTel1));
 		m_lcData.SetItemText(nItem, 5, dt.Format("%Y-%m-%d"));
 		m_lcData.SetItemText(nItem, 6, strDong);
 		m_lcData.SetItemText(nItem, 7, strPost);
@@ -226,10 +226,10 @@ void CCustomerPage3::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage3::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(6900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 203, m_ui.nWNo, m_lcData.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 203, m_ui.nWNo, m_lcData.GetItemCount());  
 	CMyExcel::ToExcel(&m_lcData);
 }
 

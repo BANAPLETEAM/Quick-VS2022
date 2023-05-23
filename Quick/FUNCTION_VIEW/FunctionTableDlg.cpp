@@ -100,7 +100,7 @@ void CFunctionTableDlg::InitFunc()
 	char buffer[12];
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_function_table");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);	
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);	
 	if(!pRs.Execute(&pCmd)) return;
 
 	long nID;
@@ -160,8 +160,8 @@ void CFunctionTableDlg::RefreshList()
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 	pCmd.AddParameter(typeString, typeInput, strPar1.GetLength(), strPar1);	 
 	pCmd.AddParameter(typeString, typeInput, strPar2.GetLength(), strPar2);	
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated); 
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated); 
 
 	if(!pRs.Execute(&pCmd)) return;
 
@@ -214,10 +214,10 @@ void CFunctionTableDlg::RefreshList()
 
 void CFunctionTableDlg::OnViewExcel()
 {
-	if(!POWER_CHECK(1900, "»óÈ² ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(1900, "»óÈ² ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(m_ci.m_nCompanyCode, 104, m_List.GetItemCount());  
+	LF->AddSecurityLog(m_ci.m_nCompanyCode, 104, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 

@@ -351,8 +351,8 @@ CString CSearchRegionHolidayDlg::ConvertStringToSendData(CByteArray *msg)
 
 BOOL CSearchRegionHolidayDlg::ParseXml(char *sz)
 {
-	CString s = ::UTF8ToANSI(sz);
-	#define GET_ELEMENT_TEXT(x, y) ::UTF8ToANSI(x->FirstChildElement(y)->GetText());
+	CString s = LF->UTF8ToANSI(sz);
+	#define GET_ELEMENT_TEXT(x, y) LF->UTF8ToANSI(x->FirstChildElement(y)->GetText());
 
 	if(!sz)
 		return FALSE;

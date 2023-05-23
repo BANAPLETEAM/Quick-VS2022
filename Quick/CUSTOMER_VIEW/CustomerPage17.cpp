@@ -108,11 +108,11 @@ void CCustomerPage17::OnClickedRefreshBtn1()
 	m_dtpMainFrom.GetTime(dtFrom);
 	m_dtpMainTo.GetTime(dtTo);
 
-	long nUseCount = ::GetLongFromEdit(&m_cmbMainCount);
+	long nUseCount = LF->GetLongFromEdit(&m_cmbMainCount);
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_bad_customer_main");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	cmd.AddParameter(dtFrom);
 	cmd.AddParameter(dtTo);
 	cmd.AddParameter(nUseCount);
@@ -137,12 +137,12 @@ void CCustomerPage17::OnClickedRefreshBtn1()
 		rs.GetFieldValue("sLocation", strLocation);
 		rs.GetFieldValue("sAddressNew", strAddressNew);
 
-		m_lstMain.InsertItem(i, ::GetStringFromLong(nID));
+		m_lstMain.InsertItem(i, LF->GetStringFromLong(nID));
 		m_lstMain.SetItemText(i, 1, strCompany);
-		m_lstMain.SetItemText(i, 2, ::GetDashPhoneNumber(strTel1));
+		m_lstMain.SetItemText(i, 2, LF->GetDashPhoneNumber(strTel1));
 		m_lstMain.SetItemText(i, 3, dtRegister.Format("%Y-%m-%d %H:%M:%S"));
 		m_lstMain.SetItemText(i, 4, dtLastUse.Format("%Y-%m-%d %H:%M:%S"));
-		m_lstMain.SetItemText(i, 5, ::GetMyNumberFormat(nCount));
+		m_lstMain.SetItemText(i, 5, LF->GetMyNumberFormat(nCount));
 		m_lstMain.SetItemText(i, 6, strLocation);
 		m_lstMain.SetItemText(i, 7, strAddressNew);
 
@@ -165,12 +165,12 @@ void CCustomerPage17::OnClickedRefreshBtn2()
 	m_dtpSubTo.GetTime(dtSubTo);
 
 	long nUseCount, nSubUseCount;
-	nUseCount = ::GetLongFromEdit(&m_cmbMainCount);
-	nSubUseCount = ::GetLongFromEdit(&m_cmbSubCount);
+	nUseCount = LF->GetLongFromEdit(&m_cmbMainCount);
+	nSubUseCount = LF->GetLongFromEdit(&m_cmbSubCount);
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_bad_customer_sub");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	cmd.AddParameter(dtFrom);
 	cmd.AddParameter(dtTo);
 	cmd.AddParameter(nUseCount);
@@ -199,12 +199,12 @@ void CCustomerPage17::OnClickedRefreshBtn2()
 		rs.GetFieldValue("sLocation", strLocation);
 		rs.GetFieldValue("sAddressNew", strAddressNew);
 
-		m_lstSub.InsertItem(i, ::GetStringFromLong(nID));
+		m_lstSub.InsertItem(i, LF->GetStringFromLong(nID));
 		m_lstSub.SetItemText(i, 1, strCompany);
-		m_lstSub.SetItemText(i, 2, ::GetDashPhoneNumber(strTel1));
+		m_lstSub.SetItemText(i, 2, LF->GetDashPhoneNumber(strTel1));
 		m_lstSub.SetItemText(i, 3, dtRegister.Format("%Y-%m-%d %H:%M:%S"));
 		m_lstSub.SetItemText(i, 4, dtLastUse.Format("%Y-%m-%d %H:%M:%S"));
-		m_lstSub.SetItemText(i, 5, ::GetMyNumberFormat(nCount));
+		m_lstSub.SetItemText(i, 5, LF->GetMyNumberFormat(nCount));
 		m_lstSub.SetItemText(i, 6, strLocation);
 		m_lstSub.SetItemText(i, 7, strAddressNew);
 
@@ -235,17 +235,17 @@ void CCustomerPage17::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage17::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
 		return;
 
 	if(m_bMainExcel)
 	{
-		AddSecurityLog(GetCurBranchInfo()->nCustomerTable, 214, m_lstMain.GetItemCount());  
+		LF->AddSecurityLog(LF->GetCurBranchInfo()->nCustomerTable, 214, m_lstMain.GetItemCount());  
 		CMyExcel::ToExcel(&m_lstMain);
 	}
 	else
 	{
-		AddSecurityLog(GetCurBranchInfo()->nCustomerTable, 214, m_lstSub.GetItemCount());  
+		LF->AddSecurityLog(LF->GetCurBranchInfo()->nCustomerTable, 214, m_lstSub.GetItemCount());  
 		CMyExcel::ToExcel(&m_lstSub);
 	}
 }

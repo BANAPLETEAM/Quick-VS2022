@@ -320,15 +320,15 @@ void CHistoryDlg::RefreshList(BOOL bOCNoSearch)
 		
 		BOOL bSpecialDate, bViewNotMile = FALSE;		
 
-		CString strMyDate = GetMyDateString(pItem->dt1, FALSE, &bSpecialDate);
+		CString strMyDate = LF->GetMyDateString(pItem->dt1, FALSE, &bSpecialDate);
 		strMyDate += bSpecialDate ? pItem->dt1.Format("  %H:%M") : pItem->dt1.Format(" %H:%M");
 		strMyDate += "(" + CString(dayofweek[pItem->dt1.GetDayOfWeek() - 1]) + ")";
 
 		m_wndReport.InsertItem(nItem, ltoa(nItem + 1, buffer, 10), -1, 0);
 		m_wndReport.SetItemText(nItem, 1, strMyDate);
 		m_wndReport.SetItemText(nItem, 2, m_ci.GetBranchName(nCompany));
-		m_wndReport.SetItemText(nItem, 3, GetStateString(nState));
-		m_wndReport.SetItemText(nItem, 4, GetPayTypeFromLong(nPayType, TRUE));
+		m_wndReport.SetItemText(nItem, 3, LF->GetStateString(nState));
+		m_wndReport.SetItemText(nItem, 4, LF->GetPayTypeFromLong(nPayType, TRUE));
 		m_wndReport.SetItemText(nItem, 5, sOManager);
 		m_wndReport.SetItemText(nItem, 6, strSTemp);
 		m_wndReport.SetItemText(nItem, 7, strDTemp);
@@ -339,10 +339,10 @@ void CHistoryDlg::RefreshList(BOOL bOCNoSearch)
 			strRName = strRName + "(" + ltoa(nRNo, buffer, 10) + ")";
 
 		m_wndReport.SetItemText(nItem, 8, strRName);
-		m_wndReport.SetItemText(nItem, 9, GetMyNumberFormat(nChargeSum));
-		m_wndReport.SetItemText(nItem, 10, GetMyNumberFormat(nChargeAdd));
-		m_wndReport.SetItemText(nItem, 11, GetMyNumberFormat(nChargeDis));
-		m_wndReport.SetItemText(nItem, 12, ::GetCarTypeFromLong(nCarType));
+		m_wndReport.SetItemText(nItem, 9, LF->GetMyNumberFormat(nChargeSum));
+		m_wndReport.SetItemText(nItem, 10, LF->GetMyNumberFormat(nChargeAdd));
+		m_wndReport.SetItemText(nItem, 11, LF->GetMyNumberFormat(nChargeDis));
+		m_wndReport.SetItemText(nItem, 12, LF->GetCarTypeFromLong(nCarType));
 		m_wndReport.SetItemText(nItem, 13, strEtc);
 		m_wndReport.SetItemText(nItem, 14, strWName);
 		m_wndReport.SetItemData(nItem++, (DWORD_PTR)pItem);
@@ -394,12 +394,12 @@ void CHistoryDlg::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 		
 		//m_pRcpDlg->m_cmbCarType.SetCurSel(pItem->nCarType);
 		m_pRcpDlg->SetCarTypeNew(pItem->nCarType);
-		m_pRcpDlg->m_EDT_CHARGE_SUM.pEdit->SetWindowText(::GetMyNumberFormat(pItem->nChargeSum));
-		m_pRcpDlg->m_EDT_CHARGE_BASIC.pEdit->SetWindowText(::GetMyNumberFormat(pItem->nChargeBasic));
-		m_pRcpDlg->m_EDT_CHARGE_ADD.pEdit->SetWindowText(::GetMyNumberFormat(pItem->nChargeAdd));
-		m_pRcpDlg->m_EDT_CHARGE_TRANS.pEdit->SetWindowText(::GetMyNumberFormat(pItem->nChargeTrans));
-		m_pRcpDlg->m_EDT_CHARGE_DIS.pEdit->SetWindowText(::GetMyNumberFormat(pItem->nChargeDis));
-		m_pRcpDlg->m_edtDeposit.SetWindowText(::GetMyNumberFormat(pItem->nDeposit));
+		m_pRcpDlg->m_EDT_CHARGE_SUM.pEdit->SetWindowText(LF->GetMyNumberFormat(pItem->nChargeSum));
+		m_pRcpDlg->m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat(pItem->nChargeBasic));
+		m_pRcpDlg->m_EDT_CHARGE_ADD.pEdit->SetWindowText(LF->GetMyNumberFormat(pItem->nChargeAdd));
+		m_pRcpDlg->m_EDT_CHARGE_TRANS.pEdit->SetWindowText(LF->GetMyNumberFormat(pItem->nChargeTrans));
+		m_pRcpDlg->m_EDT_CHARGE_DIS.pEdit->SetWindowText(LF->GetMyNumberFormat(pItem->nChargeDis));
+		m_pRcpDlg->m_edtDeposit.SetWindowText(LF->GetMyNumberFormat(pItem->nDeposit));
 		m_pRcpDlg->m_EDT_ETC.pEdit->SetWindowText(pItem->strEtc);
 		m_pRcpDlg->m_EDT_ETC.pEdit->SetFocus();
 		m_pRcpDlg->GetSectionCharge(FALSE,  (m_pRcpDlg->m_nInitItem > 0) ? m_pRcpDlg->m_nModifyPoiConfirmCharge : FALSE);
@@ -757,7 +757,7 @@ void CHistoryDlg::OnAddCall()
 
 void CHistoryDlg::OnViewExcel()
 {
-	if(!POWER_CHECK(1900, "ªÛ»≤ ø¢ºø∫Ø»Ø", TRUE))
+	if(!LF->POWER_CHECK(1900, "ªÛ»≤ ø¢ºø∫Ø»Ø", TRUE))
 		return;
 
 	CMyExcel::ToExcel(&m_wndReport);

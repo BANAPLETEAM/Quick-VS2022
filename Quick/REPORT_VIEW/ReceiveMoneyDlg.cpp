@@ -176,13 +176,13 @@ void CReceiveMoneyDlg::RefreshList()
 		
 		m_wndReport.MyAddItem(strBranchName);
 		m_wndReport.MyAddItem(dtInput.Format("%y-%m-%d %H:%M"));
-		m_wndReport.MyAddItem(bAdd? GetMyNumberFormat(nAmount) : "");
-		m_wndReport.MyAddItem(bAdd? "" : GetMyNumberFormat(nAmount));
+		m_wndReport.MyAddItem(bAdd? LF->GetMyNumberFormat(nAmount) : "");
+		m_wndReport.MyAddItem(bAdd? "" : LF->GetMyNumberFormat(nAmount));
 		m_wndReport.MyAddItem(GetSettleType(nType));
-		m_wndReport.MyAddItem(GetMyNumberFormat(nTax));
+		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTax));
 		m_wndReport.MyAddItem(sCompanyDepart);
 		m_wndReport.MyAddItem(sName);
-		m_wndReport.MyAddItem(GetDashPhoneNumber(sTel1));
+		m_wndReport.MyAddItem(LF->GetDashPhoneNumber(sTel1));
 		m_wndReport.MyAddItem(sEtc);
 		m_wndReport.EndItem();		
 

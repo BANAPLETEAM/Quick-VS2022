@@ -297,7 +297,7 @@ void CXTPListCtrl2::SetItemTextMyNumberFormat(int nItem, int nSubItem, long nVal
 {
 	CXTPListCtrlRecord2 *pRecord = (CXTPListCtrlRecord2*)GetRecords()->GetAt(nItem);
     ((CXTPGridRecordItemNumber*)(pRecord->GetItem(nSubItem)))->SetValue(nValue);
-	((CXTPGridRecordItemText*)(pRecord->GetItem(nSubItem)))->SetCaption(::GetMyNumberFormat(nValue));
+	((CXTPGridRecordItemText*)(pRecord->GetItem(nSubItem)))->SetCaption(LF->GetMyNumberFormat(nValue));
 
 	if(nImage >= 0)
 	{
@@ -308,7 +308,7 @@ void CXTPListCtrl2::SetItemTextMyNumberFormat(int nItem, int nSubItem, long nVal
 void CXTPListCtrl2::SetItemTextMyNumberFormat(CXTPGridRecord *pRecord, int nSubItem, long nValue, int nImage)
 {
 	((CXTPGridRecordItemNumber*)(pRecord->GetItem(nSubItem)))->SetValue(nValue);
-	((CXTPGridRecordItemText*)(pRecord->GetItem(nSubItem)))->SetCaption(::GetMyNumberFormat(nValue));
+	((CXTPGridRecordItemText*)(pRecord->GetItem(nSubItem)))->SetCaption(LF->GetMyNumberFormat(nValue));
 
 	if(nImage >= 0)
 	{
@@ -749,7 +749,7 @@ void CXTPListCtrl2::Filter(CString strFilter, int nFilterCol, int nTypeData)
 	BOOL bDigit = FALSE;
 	BOOL bNoFilter = FALSE; 
 
-	if(IsStringDigit(strFilter) && strFilter.GetLength() < 4)
+	if(LF->IsStringDigit(strFilter) && strFilter.GetLength() < 4)
 		bDigit = TRUE;
 
 	if(strFilter == "")
@@ -883,16 +883,6 @@ void CXTPListCtrl2::DeleteAllItems()
 //	if(m_pFilterEdit->GetSafeHwnd())
 //		m_pFilterEdit->SetWindowText("");
 }
-
-BOOL CXTPListCtrl2::IsStringDigit(CString &strText)
-{
-	for(int i = 0; i < strText.GetLength() ; i++) 
-		if(!isdigit((::byte)strText.GetAt(i))) 
-			return FALSE;
-	return TRUE;
-
-}
-
 
 int CXTPListCtrl2::GetSelectedItem()
 {
@@ -1089,12 +1079,12 @@ void CXTPListCtrl2::LoadReportOrder(CString sClass, CString sReport)
 	if(sNewOrderWidth == "") return;
 	if(sNewOrderVisible == "") return;
 
-	if(::GetCommaCount(sNewOrder) == 0) return;
+	if(LF->GetCommaCount(sNewOrder) == 0) return;
 
 	long a = GetColumns()->GetCount();
-	long b = ::GetCommaCount(sNewOrder);
+	long b = LF->GetCommaCount(sNewOrder);
 
-	if(::GetCommaCount(sNewOrder) != (GetColumns()->GetCount())) return;
+	if(LF->GetCommaCount(sNewOrder) != (GetColumns()->GetCount())) return;
 
 
 	long nFirstFind = 0;

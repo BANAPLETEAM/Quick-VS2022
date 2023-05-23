@@ -167,7 +167,7 @@ void CAddGroupMemberDlg::RefreshCustomer()
 	CMkCommand pCmd(m_pMkDb, "search_customer_group_1");
 	CMkRecordset pRs(m_pMkDb);
 	pCmd.AddParameter(m_cmbSearch.GetCurSel());
-	pCmd.AddParameter(::GetCurBranchInfo()->nCustomerTable);    
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);    
 	pCmd.AddParameter(m_strSearch);
 	pCmd.AddParameter(m_chkMidSearch.GetCheck());
 	pCmd.AddParameter(m_dtStart);
@@ -189,13 +189,13 @@ void CAddGroupMemberDlg::RefreshCustomer()
 		pRs.GetFieldValue("nDisCount", nDisCount);
 		pRs.GetFieldValue("nGNo", nGNo);
 
-		strTel1 = GetDashPhoneNumber(strTel1);
-		strMobile = GetDashPhoneNumber(strMobile);
+		strTel1 = LF->GetDashPhoneNumber(strTel1);
+		strMobile = LF->GetDashPhoneNumber(strMobile);
 
 		if(nCNo == nPreCNo)
 			nID = 0;
 
-		m_lstCustomer.MyAddItem(::RemoveZero(::GetStringFromLong(nID))); 
+		m_lstCustomer.MyAddItem(LF->RemoveZero(LF->GetStringFromLong(nID))); 
 		m_lstCustomer.MyAddItem(m_cg.GetGroupData(nGNo) == NULL? "" : m_cg.GetGroupData(nGNo)->strGroupName);
 		m_lstCustomer.MyAddItem(strCompany);
 		m_lstCustomer.MyAddItem(strDepart);

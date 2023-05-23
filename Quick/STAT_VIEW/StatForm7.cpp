@@ -70,14 +70,14 @@ void CStatForm7::OnBnClickedRefreshBtn()
 
 void CStatForm7::SetHelpText(long nBalance)
 {
-	CBranchInfo *pBi = ::GetCurBranchInfo();
+	CBranchInfo *pBi = LF->GetCurBranchInfo();
 
 	CString sTemp = "", sTemp1 = "";
 	
 	if(!pBi->bIntegrated)
 	{
 		sTemp.Format("[%s]지사는 [%s]지사의 충전금을 사용합니다.", pBi->strBranchName, m_ci.GetBranchName(pBi->nSmsChargeCompany));
-		sTemp1.Format("[%s]지사의 충전금은 [%s]원입니다.", m_ci.GetBranchName(pBi->nSmsChargeCompany), ::GetMyNumberFormat(nBalance));
+		sTemp1.Format("[%s]지사의 충전금은 [%s]원입니다.", m_ci.GetBranchName(pBi->nSmsChargeCompany), LF->GetMyNumberFormat(nBalance));
 	}
 	else 
 	{
@@ -135,7 +135,7 @@ void CStatForm7::RefreshList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_sms_save_log_daily_1");
 	CMkParameter *pPar = pCmd.AddParameter(typeInt, typeReturn, sizeof(long), 0);
-	pCmd.AddParameter(::GetCurBranchInfo()->nSmsChargeCompany);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nSmsChargeCompany);
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);
 
@@ -164,12 +164,12 @@ void CStatForm7::RefreshList()
 		pRs.GetFieldValue("nBalance", nBalance);
 
 		m_lstReport.InsertItem(nItem, GetBetweenDate(sDate));
-		m_lstReport.SetItemText(nItem, 1, ::GetMyNumberFormat(nBalance));
-		m_lstReport.SetItemText(nItem, 2, ::GetMyNumberFormat(nUseCount));
-		m_lstReport.SetItemText(nItem, 3, ::GetMyNumberFormat(nUseCharge));
-		m_lstReport.SetItemText(nItem, 4, ::GetMyNumberFormat(nSaveCount));
-		m_lstReport.SetItemText(nItem, 5, ::GetMyNumberFormat(nSaveCharge));
-		m_lstReport.SetItemText(nItem, 6, ::GetMyNumberFormat(nEtcCount));
+		m_lstReport.SetItemText(nItem, 1, LF->GetMyNumberFormat(nBalance));
+		m_lstReport.SetItemText(nItem, 2, LF->GetMyNumberFormat(nUseCount));
+		m_lstReport.SetItemText(nItem, 3, LF->GetMyNumberFormat(nUseCharge));
+		m_lstReport.SetItemText(nItem, 4, LF->GetMyNumberFormat(nSaveCount));
+		m_lstReport.SetItemText(nItem, 5, LF->GetMyNumberFormat(nSaveCharge));
+		m_lstReport.SetItemText(nItem, 6, LF->GetMyNumberFormat(nEtcCount));
 		m_lstReport.SetItemLong(nItem++, nIndex);
  
 		pRs.MoveNext();
@@ -221,7 +221,7 @@ void CStatForm7::RefreshSubList()
 
 	CMkRecordset pRs(m_pMkDb); 
 	CMkCommand pCmd(m_pMkDb, "select_sms_save_log_one_day");
-	pCmd.AddParameter(::GetCurBranchInfo()->nSmsChargeCompany);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nSmsChargeCompany);
 	pCmd.AddParameter(nIndex);
 
 	if(!pRs.Execute(&pCmd)) return;
@@ -266,24 +266,24 @@ void CStatForm7::RefreshSubList()
 		}
 
 		m_lstSubReport.InsertItem(i, dtGenerate.Format("%m-%d %H:%M"));
-		m_lstSubReport.SetItemText(i, 1, ::GetMyNumberFormat(nCount));
+		m_lstSubReport.SetItemText(i, 1, LF->GetMyNumberFormat(nCount));
 
 		if(nType == 10)
 		{
-			m_lstSubReport.SetItemText(i, 2, ::GetMyNumberFormat(abs(nDeposit)));
+			m_lstSubReport.SetItemText(i, 2, LF->GetMyNumberFormat(abs(nDeposit)));
 			m_lstSubReport.SetItemText(i, 3, "");
 		}
 		else if(nType == 20)
 		{
 			m_lstSubReport.SetItemText(i, 2, "");
-			m_lstSubReport.SetItemText(i, 3, ::GetMyNumberFormat(abs(nDeposit)));
+			m_lstSubReport.SetItemText(i, 3, LF->GetMyNumberFormat(abs(nDeposit)));
 		}
 
-		m_lstSubReport.SetItemText(i, 4, ::GetMyNumberFormat(nBalance));
+		m_lstSubReport.SetItemText(i, 4, LF->GetMyNumberFormat(nBalance));
 		m_lstSubReport.SetItemText(i, 5, sEtc);
 		m_lstSubReport.SetItemText(i, 6, sWName);
-		m_lstSubReport.SetItemText(i, 7, RemoveZero((CString)itoa(nTNo, buffer, 10)));
-		m_lstSubReport.SetItemText(i, 8, ::GetDashPhoneNumber(strPhone));
+		m_lstSubReport.SetItemText(i, 7, LF->RemoveZero((CString)itoa(nTNo, buffer, 10)));
+		m_lstSubReport.SetItemText(i, 8, LF->GetDashPhoneNumber(strPhone));
 		m_lstSubReport.SetItemText(i, 9, strMsg);
 		m_lstSubReport.SetItemLong(i, nType);
 
@@ -294,12 +294,12 @@ void CStatForm7::RefreshSubList()
 
 	if(nIndex == 0)
 	{
-		(pRecord->GetItem(1))->SetCaption(::GetMyNumberFormat(nSBalance));
-		(pRecord->GetItem(2))->SetCaption(::GetMyNumberFormat(nSUseCount));
-		(pRecord->GetItem(3))->SetCaption(::GetMyNumberFormat(nSUseCharge));
-		(pRecord->GetItem(4))->SetCaption(::GetMyNumberFormat(nSSaveCount));
-		(pRecord->GetItem(5))->SetCaption(::GetMyNumberFormat(nSSaveCharge));
-		(pRecord->GetItem(6))->SetCaption(::GetMyNumberFormat(nSEtcCount));
+		(pRecord->GetItem(1))->SetCaption(LF->GetMyNumberFormat(nSBalance));
+		(pRecord->GetItem(2))->SetCaption(LF->GetMyNumberFormat(nSUseCount));
+		(pRecord->GetItem(3))->SetCaption(LF->GetMyNumberFormat(nSUseCharge));
+		(pRecord->GetItem(4))->SetCaption(LF->GetMyNumberFormat(nSSaveCount));
+		(pRecord->GetItem(5))->SetCaption(LF->GetMyNumberFormat(nSSaveCharge));
+		(pRecord->GetItem(6))->SetCaption(LF->GetMyNumberFormat(nSEtcCount));
 
 		m_lstReport.Populate();
 	}
@@ -329,10 +329,10 @@ void CStatForm7::OnViewExcel()
 {
 	CXTPGridControl *pControl = m_bLeftList ? &m_lstReport : &m_lstSubReport;
 
-	if(!POWER_CHECK(5900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(5900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 608, m_ui.nWNo, pControl->GetRecords()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 608, m_ui.nWNo, pControl->GetRecords()->GetCount());  
 	CMyExcel::ToExcel(pControl);
 
 

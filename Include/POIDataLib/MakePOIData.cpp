@@ -146,7 +146,7 @@ BOOL CMakePOIData::MakePOIDataFromFile()
 	CDisplayBarThreadText dbt(m_pDBT, "POI를 로드중입니다.", TRUE, 0);
 	if(m_pPOINew->LoadPOI(GetRegionFileName(POI_FILE_NAME), 1, m_bCapitalArea ? POI_FREE_SPACE_RATE : 0))
 	{
-		CIniReader ini(GetModuleFullPath() + POI_INI_FILE_NAME);
+		CIniReader ini(LF->GetModuleFullPath() + POI_INI_FILE_NAME);
 		CString strVersion = ini.getKeyValue("Version", GetRegionFileName());
 		CString strDate = ini.getKeyValue("Date", GetRegionFileName());
 
@@ -419,7 +419,7 @@ BOOL CMakePOIData::MakeAllFromNetwork(BOOL bDongOnly)
 		{
 			if(m_strNewPOIVersion.GetLength() > 0)
 			{
-				CIniReader ini(GetModuleFullPath() + POI_INI_FILE_NAME);
+				CIniReader ini(LF->GetModuleFullPath() + POI_INI_FILE_NAME);
 				ini.setKey(m_strNewPOIVersion, "Version", GetRegionFileName());
 				ini.setKey(DateToStringDate(m_dtLastRefresh), "Date", GetRegionFileName());
 			}
@@ -478,7 +478,7 @@ BOOL CMakePOIData::CheckPOIVersion()
 			CString strVersion;
 			rs.GetFieldValue("sSubValue", strVersion);
 			
-			CIniReader ini(GetModuleFullPath() + POI_INI_FILE_NAME);
+			CIniReader ini(LF->GetModuleFullPath() + POI_INI_FILE_NAME);
 			CString strMyVersion = ini.getKeyValue("Version", strRegionName);
 
 			if(strVersion.GetLength() > 0 && strVersion != strMyVersion)

@@ -97,8 +97,8 @@ void CIncomeForm8::RefreshList()
 	CMkRecordset pRs(m_pMkDb); 
 	CMkCommand pCmd(m_pMkDb, "select_rider_fixeddeposit_taking_log_5");
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 
@@ -146,7 +146,7 @@ void CIncomeForm8::RefreshList()
 		dtCur.SetDateTime(dtCur.GetYear(), dtCur.GetMonth(), dtCur.GetDay(), 0, 0, 0);
 
 		COleDateTime dtCompareDate;
-		dtCompareDate = GetCompareDate(bWeeklyDeposit, dtMainDate, nRiderIncomeDay, bSameRiderIncomeDay); 
+		dtCompareDate = LF->GetCompareDate(bWeeklyDeposit, dtMainDate, nRiderIncomeDay, bSameRiderIncomeDay);
 
 		st->nID = nID;
 		st->nCompany = nCompany;
@@ -189,13 +189,13 @@ void CIncomeForm8::RefreshList()
 
 		if(nTotal > ZERO)
 		{
-			m_wndReport.SetItemText(i, 5, ::GetMyNumberFormat(nTotal));
+			m_wndReport.SetItemText(i, 5, LF->GetMyNumberFormat(nTotal));
 			m_wndReport.SetItemText(i, 6, "");
 		}
 		else if(nTotal <= ZERO)
 		{
 			m_wndReport.SetItemText(i, 5, "");
-			m_wndReport.SetItemText(i, 6, ::GetMyNumberFormat(abs(nTotal)));
+			m_wndReport.SetItemText(i, 6, LF->GetMyNumberFormat(abs(nTotal)));
 		}
 		
 		m_wndReport.SetItemText(i, 7, strBankAccount);
@@ -302,8 +302,8 @@ void CIncomeForm8::RecordHide()
 		pRecord->SetVisible(bVisible);
 	}
 
-	m_stcGive.SetWindowText("미지입금 : " + ::GetMyNumberFormat(nGiveTotal));
-	m_stcTake.SetWindowText("환불금 : " + ::GetMyNumberFormat(abs(nTakeTotal)));
+	m_stcGive.SetWindowText("미지입금 : " + LF->GetMyNumberFormat(nGiveTotal));
+	m_stcTake.SetWindowText("환불금 : " + LF->GetMyNumberFormat(abs(nTakeTotal)));
 
 	m_wndReport.Populate();
 }
@@ -453,11 +453,11 @@ void CIncomeForm8::OnClickList(NMHDR * pNotifyStruct, LRESULT * result)
 		{
 			if(nCol == 12)
 			{
-				SendSmsNew(m_ci.m_nCompanyCode, 777, pDeposit->strHp, m_ci.m_strOfficePhone, dlg.m_sMsg, "기사공지", "", "", TRUE);
+				LF->SendSmsNew(m_ci.m_nCompanyCode, 777, pDeposit->strHp, m_ci.m_strOfficePhone, dlg.m_sMsg, "기사공지", "", "", TRUE);
 			}
 			else if(nCol == 13)
 			{
-				if(::SendPDASimple(m_ci.m_nCompanyCode, pDeposit->nCompany, pDeposit->nRNo, dlg.m_sMsg))
+				if(LF->SendPDASimple(m_ci.m_nCompanyCode, pDeposit->nCompany, pDeposit->nRNo, dlg.m_sMsg))
 				{
 					MessageBox("PDA 공지로 전송하였습니다", "확인", MB_ICONINFORMATION);
 					return;
@@ -495,7 +495,7 @@ CString CIncomeForm8::GetSMSMsg(ST_DEPOSIT *pDeposit)
 
 	COleDateTime dtMainDate(atoi(sTakeDate.Left(4)), atoi(sTakeDate.Mid(4,2)), atoi(sTakeDate.Right(2)), 0, 0, 0);
 
-	COleDateTime dtIncomeDate = ::GetCompareDate(bWeeklyDeposit, dtMainDate, nRiderIncomeDay, bSameRiderIncomeDay);
+	COleDateTime dtIncomeDate = LF->GetCompareDate(bWeeklyDeposit, dtMainDate, nRiderIncomeDay, bSameRiderIncomeDay);
 	CString sMsg = "";
 
 	sMsg.Format("%d월%d일", dtIncomeDate.GetMonth(), dtIncomeDate.GetDay());
@@ -715,10 +715,10 @@ void CIncomeForm8::OnIncomeComplete()
 
 void CIncomeForm8::OnViewExcel()
 {
-	if(!POWER_CHECK(7900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(7900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(m_ci.m_nCompanyCode, 505, m_wndReport.GetItemCount());  
+	LF->AddSecurityLog(m_ci.m_nCompanyCode, 505, m_wndReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }
 

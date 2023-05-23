@@ -63,12 +63,12 @@ BOOL CCustomerDlgSub3::UpdatePBizInfo()
 	CMkCommand cmd(m_pMkDb, "update_customer_print_info");
 	cmd.AddParameter(m_pCustomerDlg->m_nCNo);
 	cmd.AddParameter(m_pCustomerDlg->m_nCompanyCode);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtPBizNo));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtPBizAddress));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtPBizCorpName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtPBizName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtPBizType1));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtPBizType2));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtPBizNo));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtPBizAddress));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtPBizCorpName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtPBizName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtPBizType1));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtPBizType2));
 
 	return cmd.Execute();
 }

@@ -223,9 +223,9 @@ void CShareReportRateDlg2::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CShareReportRateDlg2::OnViewExcel()
 {
-	if(!POWER_CHECK(2010, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(2010, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 102, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 102, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }

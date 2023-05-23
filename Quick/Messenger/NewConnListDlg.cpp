@@ -193,7 +193,7 @@ BOOL CNewConnListDlg::OnInitDialog()
 
 
 #ifndef _SYSMANAGER
-	if(POWER_CHECK(1402, "메신저 권한 설정")) {
+	if(LF->POWER_CHECK(1402, "메신저 권한 설정")) {
 		m_PowerBtn.ShowWindow(SW_SHOW);
 	}
 #endif

@@ -92,8 +92,8 @@ void CStaffPage11::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_worker_wno"); 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_ConWorkingCombo.GetCurSel());
 
 	if(!pRs.Execute(&pCmd)) return;
@@ -143,7 +143,7 @@ void CStaffPage11::RefreshList()
 		m_List.InsertItem(i, "");
 		m_List.SetItemText(i, nItem++, itoa(nWNo, buffer, 10));
 
-		if(GetCurBranchInfo()->bIntegrated)
+		if(LF->GetCurBranchInfo()->bIntegrated)
 			m_List.SetItemText(i, nItem++, m_ci.GetName(nCompany));
 
 		m_List.SetItemText(i, nItem++, sID);
@@ -152,8 +152,8 @@ void CStaffPage11::RefreshList()
 		m_List.SetItemText(i, nItem++, nRole == 0 ? "관리자" : "");
 		m_List.SetItemText(i, nItem++, GetWorkPart(nWorkPart));
 		m_List.SetItemText(i, nItem++, GetWorkType(nWorkType));
-		m_List.SetItemText(i, nItem++, ::GetDashPhoneNumber(sPhone));
-		m_List.SetItemText(i, nItem++, ::GetDashPhoneNumber(sMp));
+		m_List.SetItemText(i, nItem++, LF->GetDashPhoneNumber(sPhone));
+		m_List.SetItemText(i, nItem++, LF->GetDashPhoneNumber(sMp));
 		m_List.SetItemText(i, nItem++, dtEnter.Format("%Y-%m-%d"));
 		m_List.SetItemText(i, nItem++, sSSN1 + "-" +sSSN2);
 		m_List.SetItemText(i, nItem++, bApplyInsurance ? "적용" : "");
@@ -173,7 +173,7 @@ void CStaffPage11::RefreshList()
 		}
  
 		m_List.SetItemText(i, nItem++, strWorkStop);
-		m_List.SetItemText(i, nItem++, ::GetDashPhoneNumber(strAuthPhone));		
+		m_List.SetItemText(i, nItem++, LF->GetDashPhoneNumber(strAuthPhone));		
 		m_List.SetItemData(i, (DWORD)nWorkState);
 		m_List.SetItemLong(i, nCompany);
 
@@ -246,7 +246,7 @@ void CStaffPage11::InitControl()
 
 	m_List.InsertColumn(nItem++, "NO", LVCFMT_CENTER, 40);
 	m_List.InsertColumn(nItem++, "사번", LVCFMT_CENTER, 50);
-	if(::GetCurBranchInfo()->bIntegrated)
+	if(LF->GetCurBranchInfo()->bIntegrated)
 		m_List.InsertColumn(nItem++, "소 속", LVCFMT_CENTER, 85);
 
 	m_List.InsertColumn(nItem++, "아이디",	LVCFMT_LEFT, 100);
@@ -515,10 +515,10 @@ void CStaffPage11::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStaffPage11::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(5900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 401, m_ui.nWNo, m_List.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 401, m_ui.nWNo, m_List.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 
@@ -621,7 +621,7 @@ void CStaffPage11::OnMenuMsg()
 
 void CStaffPage11::OnBnClickedButtonDelete()
 {
-	if(!POWER_CHECK(5012, "퇴사/삭제/재입사처리", TRUE))
+	if(!LF->POWER_CHECK(5012, "퇴사/삭제/재입사처리", TRUE))
 		return;
 
 	int nSelect = MessageBox("삭제를 하시면 데이타가 영구히 지워집니다.\n\n"\

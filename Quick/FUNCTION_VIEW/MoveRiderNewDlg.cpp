@@ -13,11 +13,11 @@
 
 CMoveRiderRecord::CMoveRiderRecord(long nCompany, long nRNo, CString strRName)
 {
-	AddItem(new CXTPGridRecordItemText(GetBranchInfo(nCompany)->strBranchName));
+	AddItem(new CXTPGridRecordItemText(LF->GetBranchInfo(nCompany)->strBranchName));
 	AddItem(new CXTPGridRecordItemNumber(nRNo));
 	AddItem(new CXTPGridRecordItemText(strRName));
 	AddItem(new CXTPGridRecordItemText("->"));
-	AddItem(new CXTPGridRecordItemText(GetBranchInfo(nCompany)->strBranchName));
+	AddItem(new CXTPGridRecordItemText(LF->GetBranchInfo(nCompany)->strBranchName));
 	CMoveRiderDirtyCheckNumber *pRecordItem = (CMoveRiderDirtyCheckNumber*)AddItem(new CMoveRiderDirtyCheckNumber(nRNo));
 	pRecordItem->m_pMoveRiderRecord = this;
 
@@ -148,7 +148,7 @@ void CMoveRiderNewDlg::OnBnClickedChangeBtn()
 		pCmd.AddParameter(st->nFromRNo );
 		pCmd.AddParameter(st->nToCompany);
 		pCmd.AddParameter(st->nToRNo);
-		pCmd.AddParameter(m_ui.strID + "/" + ::GetStringFromLong(m_ui.nCompany));	
+		pCmd.AddParameter(m_ui.strID + "/" + LF->GetStringFromLong(m_ui.nCompany));	
 		CMkParameter *parRet = pCmd.AddParameter(typeLong, typeOutput, sizeof(int), 0);
 
 		if(!pCmd.Execute()) 
@@ -252,8 +252,8 @@ void CMoveRiderNewDlg::RefreshRiderList()
 		pRs.GetFieldValue("nWorkState", nWorkState);
 		pRs.GetFieldValue("sName", sName);
 
-		m_lstLeft.InsertItem(i, GetBranchInfo(nCompany)->strBranchName);
-		m_lstLeft.SetItemText(i, 1, GetStringFromLong(nRNo));
+		m_lstLeft.InsertItem(i, LF->GetBranchInfo(nCompany)->strBranchName);
+		m_lstLeft.SetItemText(i, 1, LF->GetStringFromLong(nRNo));
 		m_lstLeft.SetItemText(i, 2, sName);
 
 		m_lstLeft.SetItemLong(i, nCompany);
@@ -406,7 +406,7 @@ void CMoveRiderNewDlg::OnChangeBranch(UINT nFlag)
 {
 	long nIndex = nFlag - EVENT_ID;
 	long nCompany = (long)m_cmbBranch.GetItemData(nIndex);
-	CString strBranch = GetBranchInfo(nCompany)->strBranchName;
+	CString strBranch = LF->GetBranchInfo(nCompany)->strBranchName;
 
 	CXTPGridSelectedRows *pRows = m_lstRight.GetSelectedRows();
 
@@ -424,7 +424,7 @@ void CMoveRiderNewDlg::OnChangeBranch(UINT nFlag)
 		pRecord->SetCompany(nCompany, strBranch);
 		ST_MOVE_RIDER *st = pRecord->GetMoveRiderSturct();
 
-		pRecord->SetValid(IsMoveRiderOk(st->nToCompany, st->nToRNo));	
+		pRecord->SetValid(LF->IsMoveRiderOk(st->nToCompany, st->nToRNo));
 	}
 
 	m_lstRight.Populate();
@@ -462,7 +462,7 @@ void CMoveRiderNewDlg::OnMakeNumber()
 		pRecord->SetRNo(nItem++);
 
 		ST_MOVE_RIDER *st = pRecord->GetMoveRiderSturct();
-		pRecord->SetValid(IsMoveRiderOk(st->nToCompany, st->nToRNo));	
+		pRecord->SetValid(LF->IsMoveRiderOk(st->nToCompany, st->nToRNo));
 	}
 }
 

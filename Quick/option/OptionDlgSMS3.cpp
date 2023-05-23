@@ -222,7 +222,7 @@ void COptionDlgSMS3::OnInitialUpdate()
 
 	SetOptiobView(TRUE);
 
-	if(!POWER_CHECK(1303, "SMS"))
+	if(!LF->POWER_CHECK(1303, "SMS"))
 		EnableWindow(FALSE);
 
 	CMainOptionDlg2* pDlg = (CMainOptionDlg2*)GetParent()->GetParent(); 
@@ -417,14 +417,14 @@ BOOL COptionDlgSMS3::Save(long nCompany, BOOL bAll)
 	m_cmbHappyCallDelayCancelToday.GetWindowText(strHappyCallDelayCancelToday);
 	pCmd.AddParameter(atoi(strHappyCallDelayCancelToday));
 
-	pCmd.AddParameter(::GetStringFromEdit(&m_edtCompanyAppUrl));
-	pCmd.AddParameter(::GetStringFromEdit(&m_edtCompanyHomePage));
-	pCmd.AddParameter(::GetStringFromEdit(&m_edtCompanyLogoImage));
+	pCmd.AddParameter(LF->GetStringFromEdit(&m_edtCompanyAppUrl));
+	pCmd.AddParameter(LF->GetStringFromEdit(&m_edtCompanyHomePage));
+	pCmd.AddParameter(LF->GetStringFromEdit(&m_edtCompanyLogoImage));
 
 	pCmd.AddParameter(m_chkUsePreSms.GetCheck());
 	pCmd.AddParameter(ComboToSqlDay(m_cmbPreSmsDay.GetCurSel()));
 	pCmd.AddParameter(m_cmbPreSmsTerm.GetCurSel() + 1);
-	pCmd.AddParameter(::GetStringFromEdit(&m_edtPreSmsMent));
+	pCmd.AddParameter(LF->GetStringFromEdit(&m_edtPreSmsMent));
 	pCmd.AddParameter(m_cmbPreSmsSendTime.GetCurSel() + 9);
 
 	CString strTime;
@@ -702,7 +702,7 @@ void COptionDlgSMS3::OnBnClickedUseHappyCallCancelTodayCheck()
 
 void COptionDlgSMS3::OnBnClickedShowUrlBtn()
 {
-	CString strItem = ::GetStringFromEdit(&m_edtCompanyHomePage);
+	CString strItem = LF->GetStringFromEdit(&m_edtCompanyHomePage);
 
 	if(!strItem.IsEmpty())
 		ShellExecute(NULL, "open", "iexplore.exe", strItem, "", SW_SHOW);
@@ -710,7 +710,7 @@ void COptionDlgSMS3::OnBnClickedShowUrlBtn()
 
 void COptionDlgSMS3::OnBnClickedShowUrlBtn2()
 {
-	CString strItem = ::GetStringFromEdit(&m_edtCompanyLogoImage);
+	CString strItem = LF->GetStringFromEdit(&m_edtCompanyLogoImage);
 
 	if(!strItem.IsEmpty())
 		ShellExecute(NULL, "open", "iexplore.exe", strItem, "", SW_SHOW);

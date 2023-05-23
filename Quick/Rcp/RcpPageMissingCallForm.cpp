@@ -104,8 +104,8 @@ void CRcpPageMissingCallForm::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_stat_missingcall");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	//	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	//	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -125,17 +125,17 @@ void CRcpPageMissingCallForm::RefreshList()
 		rs.GetFieldValue("sCID", strTellNumber);
 		rs.GetFieldValue("nSecond", nSecond);
 
-		strDate.Format("%04d-%02d-%02d(%s)", dtDate.GetYear(), dtDate.GetMonth(), dtDate.GetDay(), GetDay(dtDate));
+		strDate.Format("%04d-%02d-%02d(%s)", dtDate.GetYear(), dtDate.GetMonth(), dtDate.GetDay(), LF->GetDay(dtDate));
 		m_List.InsertItem(nRecordIndex, strDate);
 
-		m_List.SetItemDataText(nRecordIndex, GetStringFromLong(nDID));
+		m_List.SetItemDataText(nRecordIndex, LF->GetStringFromLong(nDID));
 
 		strTime.Format("%02d:%02d:%02d", dtDate.GetHour(), dtDate.GetMinute(), dtDate.GetSecond());
 		m_List.SetItemText(nRecordIndex, 1, strTime);
 		m_List.SetItemText(nRecordIndex, 2,  m_ci.GetBranchName(nCompany));
-		m_List.SetItemText(nRecordIndex, 3,  GetStringFromLong(nKeyPhoneID));
+		m_List.SetItemText(nRecordIndex, 3,  LF->GetStringFromLong(nKeyPhoneID));
 		m_List.SetItemText(nRecordIndex, 4, strTellNumber);
-		m_List.SetItemText(nRecordIndex++, 5,  GetStringFromLong(nSecond) + "ÃÊ");
+		m_List.SetItemText(nRecordIndex++, 5,  LF->GetStringFromLong(nSecond) + "ÃÊ");
 
 		rs.MoveNext();
 	}
@@ -257,10 +257,10 @@ void CRcpPageMissingCallForm::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CRcpPageMissingCallForm::OnViewExcel()
 {
-	if(!POWER_CHECK(1956, "¹Ì¿¬°áÄÝ ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(1956, "¹Ì¿¬°áÄÝ ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 106, m_List.GetRecords()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 106, m_List.GetRecords()->GetCount());  
 
 	CMyExcel::ToExcel(&m_List, "", 1, 4);
  

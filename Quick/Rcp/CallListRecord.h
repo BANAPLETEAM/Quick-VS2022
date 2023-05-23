@@ -32,7 +32,7 @@ protected:
 		CString GetCaption(CXTPGridColumn*)
 		{
 			if(CALLRECORD()->m_bShowLastPhoneNumber)
-				return GetDashPhoneNumber(CALLRECORD()->m_strPhone);
+				return LF->GetDashPhoneNumber(CALLRECORD()->m_strPhone);
 			else
 				return CALLRECORD()->m_strPhone.Left(CALLRECORD()->m_strPhone.GetLength() - 2) + "**";
 		}

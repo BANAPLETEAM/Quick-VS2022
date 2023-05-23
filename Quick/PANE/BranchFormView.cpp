@@ -154,10 +154,10 @@ void CBranchFormView::RefreshList()
 		pRs.GetFieldValue("sAuthPhone1", info->strAuthPhone1);
 		pRs.GetFieldValue("sAuthPhone2", info->strAuthPhone1);
 		pRs.GetFieldValue("sSmsOfficePhone", info->strSMSOfficePhone);
-		info->strTel = ::GetDashPhoneNumber(info->strTel);
-		info->strOfficePhone = ::GetDashPhoneNumber(info->strOfficePhone);
+		info->strTel = LF->GetDashPhoneNumber(info->strTel);
+		info->strOfficePhone = LF->GetDashPhoneNumber(info->strOfficePhone);
 
-		info->nShareLevel = ::GetShareLevel(info->nShareCode1, nShareCode2, nShareCode3, nShareCode4, nShareCode5);
+		info->nShareLevel = LF->GetShareLevel(info->nShareCode1, nShareCode2, nShareCode3, nShareCode4, nShareCode5);
 
 		m_mapShareCompany.insert(SHARED_COMPANY_MAP::value_type(info->nCompany, info));
 		pRs.MoveNext();
@@ -250,7 +250,7 @@ void CBranchFormView::RefreshList()
 		if(nPreShareCode1 != nShareCode1)
 		{
 			pSMainRecord = m_ctrlTreeList.AddRecord(new CBranchFormRecord(nCompanyCode, CString(ltoa(++nMainItem, buffer, 10)) + "." + strName,
-				strBranchName, GetDashPhoneNumber(strOfficePhone), GetDashPhoneNumber(strPhone), sCity, strClientSymbol, TRUE));
+				strBranchName, LF->GetDashPhoneNumber(strOfficePhone), LF->GetDashPhoneNumber(strPhone), sCity, strClientSymbol, TRUE));
 
 			pSMainRecord->SetExpanded(TRUE);
 		}
@@ -258,7 +258,7 @@ void CBranchFormView::RefreshList()
 		{
 			CXTPGridRecord * pRecord = 
 				pSMainRecord->GetChilds()->Add(new CBranchFormRecord(nCompanyCode, CString(ltoa(++nMainItem, buffer, 10)) + "." + strName,
-				strBranchName, GetDashPhoneNumber(strOfficePhone), GetDashPhoneNumber(strPhone), sCity, strClientSymbol, FALSE));
+				strBranchName, LF->GetDashPhoneNumber(strOfficePhone), LF->GetDashPhoneNumber(strPhone), sCity, strClientSymbol, FALSE));
 				
 
 			pRecord->SetExpanded(TRUE);
@@ -277,7 +277,7 @@ void CBranchFormView::RefreshList()
 
 void CBranchFormView::OnBnClickedEditBtn()
 {
-	if(!POWER_CHECK(1151, "기본정보 수정", TRUE))
+	if(!LF->POWER_CHECK(1151, "기본정보 수정", TRUE))
 		return;
 
 	CXTPGridSelectedRows *pRows = m_ctrlTreeList.GetSelectedRows();

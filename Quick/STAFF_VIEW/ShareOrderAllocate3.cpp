@@ -70,7 +70,7 @@ BOOL CShareOrderAllocate3::OnInitDialog()
 
 	m_cmbDay.SetCurSel(ZERO);
 	InitControl();
-	m_btnApplyAll.EnableWindow(GetCurBranchInfo()->bIntegrated);
+	m_btnApplyAll.EnableWindow(LF->GetCurBranchInfo()->bIntegrated);
 	if(m_nMode) // 1신규 0 수정
 	{
 		NewUser();
@@ -308,8 +308,8 @@ void CShareOrderAllocate3::NewUserOk(BOOL bAll)
 		//CWaitCursor wait;
 		CMkCommand pCmd(m_pMkDb, "insert_share_order_rider_register_4");
 		CMkRecordset pRs(m_pMkDb);
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-		pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), GetCurBranchInfo()->bIntegrated);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+		pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 		pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), bAll);
 		
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nRiderCompany);

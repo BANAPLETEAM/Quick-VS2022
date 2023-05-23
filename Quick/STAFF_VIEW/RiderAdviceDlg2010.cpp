@@ -208,14 +208,6 @@ void CRiderAdviceDlg2010::SendMsg(CRiderAdviceRecord2010 *pRecord)
 
 BOOL CRiderAdviceDlg2010::SaveSub(BOOL bAll, CRiderAdviceRecord2010 *pRecord)
 {
-	/*
-	if(m_nCompany == m_nRiderCompany && !IsThisCompany("법인회사",UI()->nCompany) )
-	{
-		MessageBox("자사 기사에게는 적용 할수 없습니다", "확인", MB_ICONINFORMATION);
-		return FALSE;
-	}
-	*/
-
 	CString strTNo = "";
 	BOOL bIntegrated = FALSE;
 	long nApplyCompany = 0,nTNo = 0,  nReturnValue = 0;
@@ -424,7 +416,7 @@ void CRiderAdviceDlg2010::OnBnClickedCheckBtn()
 		return;
 	}
 
-	if(!::IsStringDigit(strTNo))
+	if(!LF->IsStringDigit(strTNo))
 	{
 		MessageBox("숫자가 아닙니다.", "확인" , MB_ICONINFORMATION);
 		return;

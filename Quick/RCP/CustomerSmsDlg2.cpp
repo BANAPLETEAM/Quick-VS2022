@@ -117,19 +117,19 @@ BOOL CCustomerSmsDlg2::OnInitDialog()
 	//m_edtMsg.SetFontSize(13);
 
 	ST_SMS_INFO smsi;
-	smsi = ::GetSMSBalance(m_nCompany); 
+	smsi = LF->GetSMSBalance(m_nCompany); 
 
 	m_cmbPhone.InitSmsPhoneNumber(m_nCompany, -1, 160);
 
 	//리턴값으로 잔액과 지원하지 못한다는 문구 뿌려줌.	
 	UpdateData(TRUE);
 
-	m_strBalance =  GetMyNumberFormat(smsi.nSMSBarance);
+	m_strBalance =  LF->GetMyNumberFormat(smsi.nSMSBarance);
 	//if(smsi.nSMSType >= 10)
 	//{
 	//	if(smsi.nSMSBarance  <= DEFINE_SMS_AMOUNT - 1)
 	//	{
-	//		m_strBalance =  GetMyNumberFormat(smsi.nSMSBarance);
+	//		m_strBalance =  LF->GetMyNumberFormat(smsi.nSMSBarance);
 	//		int nCount = smsi.nSMSBarance / DEFINE_SMS_AMOUNT;
 	//		m_strSMSCount.Format("수량: %d", nCount);
 	//		m_btnConfirm.EnableWindow(0);
@@ -138,16 +138,16 @@ BOOL CCustomerSmsDlg2::OnInitDialog()
 	//	}
 	//	else
 	//	{
-	//		m_strBalance = GetMyNumberFormat(smsi.nSMSBarance);
+	//		m_strBalance = LF->GetMyNumberFormat(smsi.nSMSBarance);
 	//		int nSMCount = smsi.nSMSBarance / DEFINE_SMS_AMOUNT;
-	//		m_strSMSCount.Format("수량: %s건", GetMyNumberFormat((long)nSMCount));
+	//		m_strSMSCount.Format("수량: %s건", LF->GetMyNumberFormat((long)nSMCount));
 	//	}
 	//}
 	//else
 	//{
 	//	int nSMCount = smsi.nSMSBarance / DEFINE_SMS_AMOUNT;
-	//	m_strSMSCount.Format("수량: %s건", GetMyNumberFormat((long)nSMCount));
-	//	m_strBalance = GetMyNumberFormat(smsi.nSMSBarance);
+	//	m_strSMSCount.Format("수량: %s건", LF->GetMyNumberFormat((long)nSMCount));
+	//	m_strBalance = LF->GetMyNumberFormat(smsi.nSMSBarance);
 	//}
 
 	UpdateData(FALSE);
@@ -220,8 +220,8 @@ void CCustomerSmsDlg2::RefreshList()
 			pRs2.GetFieldValue("bDefault", bDefault);						
 
 			m_List.InsertItem(nItem,itoa(nNum, buffer,10));						
-			m_List.SetItemText(nItem,1,GetDashPhoneNumber(sReceiveTel));
-			m_List.SetItemText(nItem,2,GetDashPhoneNumber(sSendTel));
+			m_List.SetItemText(nItem,1,LF->GetDashPhoneNumber(sReceiveTel));
+			m_List.SetItemText(nItem,2,LF->GetDashPhoneNumber(sSendTel));
 			m_List.SetItemText(nItem,3,bDefault ? "적용":"");
 			m_List.SetItemText(nItem,4,sContent);
 			m_List.SetItemData(nItem, (DWORD_PTR)nID);
@@ -495,7 +495,7 @@ void CCustomerSmsDlg2::OnBnClickedContinueSendBtn()
 	try
 	{
 		ST_SMS_INFO smsi;
-		smsi = ::GetSMSBalance(::GetNowBranchCode()); 
+		smsi = LF->GetSMSBalance(LF->GetNowBranchCode());
 		if(smsi.nSMSType >= 10)
 			if(DEFINE_SMS_AMOUNT > smsi.nSMSBarance)
 				throw("SMS잔액이 부족합니다.");
@@ -516,7 +516,7 @@ void CCustomerSmsDlg2::OnBnClickedContinueSendBtn()
 			return;
 
 		CMkCommand pCmd(m_pMkDb, "insert_sms_data_reservation");
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long),::GetNowBranchCode());
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetNowBranchCode());
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), 100);
 		pCmd.AddParameter(typeString, typeInput,m_strCustomerPN.GetLength(), strCustomerPN);
 		pCmd.AddParameter(typeString, typeInput,strRecvPN.GetLength(), strRecvPN);
@@ -533,10 +533,10 @@ void CCustomerSmsDlg2::OnBnClickedContinueSendBtn()
 		}
 		else 
 		{
-			smsi = ::GetSMSBalance(::GetNowBranchCode()); 
+			smsi = LF->GetSMSBalance(LF->GetNowBranchCode());
 			CString sBalance = "", sSMSCount ="";
-			sBalance.Format("%d원",GetMyNumberFormat(smsi.nSMSBarance));
-			sSMSCount.Format("%d건", GetMyNumberFormat(smsi.nSMSBarance /DEFINE_SMS_AMOUNT) );
+			sBalance.Format("%d원",LF->GetMyNumberFormat(smsi.nSMSBarance));
+			sSMSCount.Format("%d건", LF->GetMyNumberFormat(smsi.nSMSBarance /DEFINE_SMS_AMOUNT) );
 			m_strBalance = sBalance;
 			m_strSMSCount ="수량:" + sSMSCount + "건";
 			UpdateData(FALSE);
@@ -639,7 +639,7 @@ void CCustomerSmsDlg2::OnBnClickedAllocateBtn()
 
 void CCustomerSmsDlg2::OnBnClickedMentBtn()
 {
-	CBranchInfo *pBi = GetBranchInfo(m_nCompany);
+	CBranchInfo *pBi = LF->GetBranchInfo(m_nCompany);
 
 	if(pBi == NULL)
 		return;
@@ -688,7 +688,7 @@ void CCustomerSmsDlg2::OnBnClickedMentBtn()
 void CCustomerSmsDlg2::OnMenuContextEtc(UINT nFlag)
 {
 
-	CBranchInfo *pBI = GetBranchInfo(m_nCompany);
+	CBranchInfo *pBI = LF->GetBranchInfo(m_nCompany);
 
 	if(nFlag == ID_MENU_ETC_USER_UPDATE)
 	{
@@ -716,5 +716,5 @@ void CCustomerSmsDlg2::OnMenuContextEtc(UINT nFlag)
 
 	BOOL bFront = AfxGetApp()->GetProfileInt(m_ui.strID + "_Etc", "Front", 0);
 
-	SetEditText(&m_edtMsg, strArry[nFlag - ID_MENU_ETC_URGE], bFront);
+	LF->SetEditText(&m_edtMsg, strArry[nFlag - ID_MENU_ETC_URGE], bFront);
 }

@@ -95,7 +95,7 @@ void CMyTestView::Refresh()
 	nItem = 1;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_member_general3");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCustomerTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nGNo);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), m_bChild);
 	if(!pRs.Execute(&pCmd)) return;
@@ -123,8 +123,8 @@ void CMyTestView::Refresh()
 		m_Data.MyAddItem(1,sCompany,"상호명",  90,FALSE,DT_LEFT);	
 		m_Data.MyAddItem(2,sDepart,"부서명",  80,FALSE,DT_LEFT);		
 		m_Data.MyAddItem(3,sName,"담당자",  70,FALSE,DT_LEFT);		
-		m_Data.MyAddItem(4,GetDashPhoneNumber(sTel1),"전화",90,FALSE,  DT_LEFT);		
-		m_Data.MyAddItem(5,GetDashPhoneNumber(sMobile),"핸드폰",90,FALSE,DT_LEFT);						
+		m_Data.MyAddItem(4,LF->GetDashPhoneNumber(sTel1),"전화",90,FALSE,  DT_LEFT);		
+		m_Data.MyAddItem(5,LF->GetDashPhoneNumber(sMobile),"핸드폰",90,FALSE,DT_LEFT);						
 		m_Data.MyAddItem(6,sLoginID,"아이디",  80,FALSE,DT_LEFT);				
 		m_Data.MyAddItem(7,sLoginPw, "패스워드",  70,FALSE,DT_LEFT);
 		m_Data.MyAddItem(8,bUseHomePage? "X":"0","홈페이지미사용",45,FALSE,DT_CENTER)	;

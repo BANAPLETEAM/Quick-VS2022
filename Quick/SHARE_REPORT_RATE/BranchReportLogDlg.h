@@ -35,7 +35,7 @@ protected:
 		CString GetCaption(CXTPGridColumn*)
 		{
 			if(GetValue() != -1)
-				return ::GetMyNumberFormat((long)GetValue()) + "¿ø";
+				return LF->GetMyNumberFormat((long)GetValue()) + "¿ø";
 			else
 				return "";			
 

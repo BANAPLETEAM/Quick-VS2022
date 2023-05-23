@@ -195,14 +195,6 @@ class CMileageRecord : public CXTPGridRecord
 		void MySetValue(long nValue) { SetValue(nValue);}
 		void CMileageNumber::OnEditChanged(XTP_REPORTRECORDITEM_ARGS* pArg, LPCTSTR str)
 		{
-			/*
-			if(!::IsStringDigit((CString)str))
-			{
-				AfxMessageBox("숫자가 아닙니다.",  MB_ICONINFORMATION);
-				return;
-			}
-			*/
-
 			if(atoi((CString)str) < 0)
 			{
 				AfxMessageBox("숫자가 아닙니다.",  MB_ICONINFORMATION);
@@ -239,7 +231,7 @@ class CMileageRecord : public CXTPGridRecord
 		CString CMileageTelText::GetCaption(CXTPGridColumn*)
 		{
 			return GetValue();
-			//return ::GetDashPhoneNumber(GetValue());
+			//return LF->GetDashPhoneNumber(GetValue());
 		}
 	};
 
@@ -381,7 +373,7 @@ protected:
 		CString GetCaption(CXTPGridColumn*)
 		{
 			if((long)GetValue() != -1)
-				return ::GetMyNumberFormat((long)GetValue()) + "원";
+				return LF->GetMyNumberFormat((long)GetValue()) + "원";
 			else
 				return "";
 		}

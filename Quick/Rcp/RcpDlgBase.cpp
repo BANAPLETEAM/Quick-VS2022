@@ -246,9 +246,9 @@ void CRcpDlgBase::SetGrade(long nGrade)
 	}
 	else if(m_pBi->bColorChange)
 	{
-		m_strGrade = ::GetGrade(nGrade, FALSE);
+		m_strGrade = LF->GetGrade(nGrade, FALSE);
 		if(nGrade != 0)
-			m_crBack = ::GetGradeColor(nGrade);
+			m_crBack = LF->GetGradeColor(nGrade);
 		else
 		{
 			if(m_pBi->IsQuick())

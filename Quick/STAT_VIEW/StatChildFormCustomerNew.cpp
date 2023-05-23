@@ -176,8 +176,8 @@ void CStatChildFormCustomerNew::RefreshListWeek()
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_new_customer_increase_week_1");
 
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -209,7 +209,7 @@ void CStatChildFormCustomerNew::RefreshListWeek()
 
 		dtStartDate.SetDate(atoi(strStartDate.Left(4)), atoi(strStartDate.Mid(4,2)), atoi(strStartDate.Right(2)));
 		dtDestDate.SetDate(atoi(strDestDate.Left(4)), atoi(strDestDate.Mid(4,2)), atoi(strDestDate.Right(2)));
-		strTitle.Format("%d/%02d(%s) - %02d(%s)", dtStartDate.GetMonth(), dtStartDate.GetDay(), ::GetDay(dtStartDate), dtDestDate.GetDay(), ::GetDay(dtDestDate));
+		strTitle.Format("%d/%02d(%s) - %02d(%s)", dtStartDate.GetMonth(), dtStartDate.GetDay(), LF->GetDay(dtStartDate), dtDestDate.GetDay(), LF->GetDay(dtDestDate));
 
 		m_List.InsertItem(nRecordCount, strTitle);
 
@@ -231,9 +231,9 @@ void CStatChildFormCustomerNew::RefreshListItem()
 	{
 		if (m_nListItemType == PERCENT_ITEM_TYPE)
 		{
-			m_List.SetItemText(it->first, TOTALCUSTOMER, ::GetMyNumberFormat(it->second.nTotalCustomer));
-			m_List.SetItemText(it->first, TODAYCUSTOMER, ::GetMyNumberFormat(it->second.nNewTodayCustomer));
-			m_List.SetItemText(it->first, TOTALCOMPLETE, ::GetMyNumberFormat(it->second.nTotalComplete));
+			m_List.SetItemText(it->first, TOTALCUSTOMER, LF->GetMyNumberFormat(it->second.nTotalCustomer));
+			m_List.SetItemText(it->first, TODAYCUSTOMER, LF->GetMyNumberFormat(it->second.nNewTodayCustomer));
+			m_List.SetItemText(it->first, TOTALCOMPLETE, LF->GetMyNumberFormat(it->second.nTotalComplete));
 			strPer.Format("%.2f%%", it->second.nTotalComplete == 0 ? 0 : ((double)it->second.nTodayComplete / (double)it->second.nTotalComplete) * 100.0);
 			m_List.SetItemText(it->first, TODAYCOMPLTE, strPer);
 			strPer.Format("%.2f%%", it->second.nTotalComplete == 0 ? 0 : ((double)it->second.nNew3MonthCount / (double)it->second.nTotalComplete) * 100.0);
@@ -249,15 +249,15 @@ void CStatChildFormCustomerNew::RefreshListItem()
 		}
 		else if (m_nListItemType == COUNT_ITEM_TYPE)
 		{
-			m_List.SetItemText(it->first, TOTALCUSTOMER, ::GetMyNumberFormat(it->second.nTotalCustomer));
-			m_List.SetItemText(it->first, TODAYCUSTOMER, ::GetMyNumberFormat(it->second.nNewTodayCustomer));
-			m_List.SetItemText(it->first, TOTALCOMPLETE, ::GetMyNumberFormat(it->second.nTotalComplete));
-			m_List.SetItemText(it->first, TODAYCOMPLTE, ::GetMyNumberFormat(it->second.nTodayComplete));
-			m_List.SetItemText(it->first, MONTH_3, ::GetMyNumberFormat(it->second.nNew3MonthCount));
-			m_List.SetItemText(it->first, MONTH_6, ::GetMyNumberFormat(it->second.nNew6MonthCount));
-			m_List.SetItemText(it->first, YEAR_1, ::GetMyNumberFormat(it->second.nNew1YearCount));
-			m_List.SetItemText(it->first, YEAR_2, ::GetMyNumberFormat(it->second.nNew2YearCount));
-			m_List.SetItemText(it->first, YEAR_3, ::GetMyNumberFormat(it->second.nNew3YearCount));
+			m_List.SetItemText(it->first, TOTALCUSTOMER, LF->GetMyNumberFormat(it->second.nTotalCustomer));
+			m_List.SetItemText(it->first, TODAYCUSTOMER, LF->GetMyNumberFormat(it->second.nNewTodayCustomer));
+			m_List.SetItemText(it->first, TOTALCOMPLETE, LF->GetMyNumberFormat(it->second.nTotalComplete));
+			m_List.SetItemText(it->first, TODAYCOMPLTE, LF->GetMyNumberFormat(it->second.nTodayComplete));
+			m_List.SetItemText(it->first, MONTH_3, LF->GetMyNumberFormat(it->second.nNew3MonthCount));
+			m_List.SetItemText(it->first, MONTH_6, LF->GetMyNumberFormat(it->second.nNew6MonthCount));
+			m_List.SetItemText(it->first, YEAR_1, LF->GetMyNumberFormat(it->second.nNew1YearCount));
+			m_List.SetItemText(it->first, YEAR_2, LF->GetMyNumberFormat(it->second.nNew2YearCount));
+			m_List.SetItemText(it->first, YEAR_3, LF->GetMyNumberFormat(it->second.nNew3YearCount));
 		}
 	}
 
@@ -302,7 +302,7 @@ void CStatChildFormCustomerNew::ListChart()
 		{
 			strTemp = m_List.GetItemText(pRecord, 0);
 			dtDate.SetDate(atoi(strTemp.Left(4)), atoi(strTemp.Mid(5,2)), atoi(strTemp.Mid(8, 2)));
-			strTitle = ::GetWeekChartTitle(dtDate);
+			strTitle = LF->GetWeekChartTitle(dtDate);
 
 			if (strTitle != strPrevTitle)
 			{
@@ -338,8 +338,8 @@ void CStatChildFormCustomerNew::RefreshListDay()
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_new_customer_increase_day_2");
 
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -405,8 +405,8 @@ void CStatChildFormCustomerNew::RefreshListMonth()
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_new_customer_increase_month_1");
 
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo); 
 
@@ -699,10 +699,10 @@ void CStatChildFormCustomerNew::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStatChildFormCustomerNew::OnViewExcel()
 {
-	if(!POWER_CHECK(8900, "Åë°è ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(8900, "Åë°è ¿¢¼¿º¯È¯", TRUE))
 		return;	
 
-	::AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 610, m_List.GetRecords()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 610, m_List.GetRecords()->GetCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 

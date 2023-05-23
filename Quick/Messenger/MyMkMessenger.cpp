@@ -143,10 +143,10 @@ void CMyMkMessenger::OnQueryCharge(long nCompany, long nMNo, char *szCompanyName
 	if(STRTOK2("^&", szMsg, 0, szINS, szUniqueID, szCName, szStart, szStartDong, 
 		szDest, szDestDong, VL_END))
 	{ 
-		CString sStartDong = IsNumeric(szStartDong) == TRUE ? m_poiNew.GetPOI(atoi(szStartDong))->GetDong() : szStartDong;
-		CString sDestDong = IsNumeric(szDestDong) == TRUE ? m_poiNew.GetPOI(atoi(szDestDong))->GetDong() : szDestDong;
-		CString sStartDisplay = IsNumeric(szStartDong) == TRUE ? m_poiNew.GetPOI(atoi(szStartDong))->GetRegionName() : szStartDong;
-		CString sDestDisplay = IsNumeric(szDestDong) == TRUE ? m_poiNew.GetPOI(atoi(szDestDong))->GetRegionName() : szDestDong;
+		CString sStartDong = LF->IsNumeric(szStartDong) == TRUE ? m_poiNew.GetPOI(atoi(szStartDong))->GetDong() : szStartDong;
+		CString sDestDong = LF->IsNumeric(szDestDong) == TRUE ? m_poiNew.GetPOI(atoi(szDestDong))->GetDong() : szDestDong;
+		CString sStartDisplay = LF->IsNumeric(szStartDong) == TRUE ? m_poiNew.GetPOI(atoi(szStartDong))->GetRegionName() : szStartDong;
+		CString sDestDisplay = LF->IsNumeric(szDestDong) == TRUE ? m_poiNew.GetPOI(atoi(szDestDong))->GetRegionName() : szDestDong;
  
 		CQueryChargeDlg *pDlg = new CQueryChargeDlg;
 		pDlg->m_strCustomer = szCName;

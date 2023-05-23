@@ -14,6 +14,11 @@
 // 이 클래스의 구현에 대해서는 Quick.cpp을 참조하십시오.
 //
 
+#ifndef _DEBUG
+	LONG WINAPI TheCrashHandlerFunction(EXCEPTION_POINTERS* pExPtrs);
+	LONG WINAPI TheCrashHandlerNormalFunction(EXCEPTION_POINTERS* pExPtrs);
+#endif
+
 class CQuickApp : public CWinApp
 {
 public:

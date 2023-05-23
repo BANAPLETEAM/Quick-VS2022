@@ -143,7 +143,7 @@ void CDelayOrderDlg2::OnPickupReportItemClick(UINT nFlag, NMHDR * pNotifyStruct,
 
 	if(pItemNotify->pColumn->GetItemIndex() == 2)
 	{
-		if(!POWER_CHECK(2002, "오더상태변경", TRUE))
+		if(!LF->POWER_CHECK(2002, "오더상태변경", TRUE))
 			return;
 
 		ST_DELAY_ORDER *order = (ST_DELAY_ORDER*)m_PickupReport[nFlag - IDC_PICKUP_REPORT].GetItemData(nIndex);
@@ -182,7 +182,7 @@ void CDelayOrderDlg2::OnRcpReportItemClick(UINT nFlag, NMHDR * pNotifyStruct, LR
 
 	if(pItemNotify->pColumn->GetItemIndex() == 2)
 	{
-		if(!POWER_CHECK(2002, "오더상태변경", TRUE) && !POWER_CHECK(2009, "개별배차", TRUE))
+		if(!LF->POWER_CHECK(2002, "오더상태변경", TRUE) && !LF->POWER_CHECK(2009, "개별배차", TRUE))
 			return;
 
 		ST_DELAY_ORDER *order = (ST_DELAY_ORDER*)m_RcpReport[nFlag - IDC_RCP_REPORT].GetItemData(nIndex);

@@ -75,9 +75,9 @@ void CSmsNewBulkMentDlg::OnClickedItemUpdate(UINT nItem)
 	BOOL bResult = FALSE;
 
 	if(nID <= 0)
-		bResult = ::InsertSaveMent(m_nCompany, SMS_TYPE_BULK, strText);
+		bResult = LF->InsertSaveMent(m_nCompany, SMS_TYPE_BULK, strText);
 	else
-		bResult = ::UpdateSaveMent(nID, strText);
+		bResult = LF->UpdateSaveMent(nID, strText);
 
 	if(bResult)
 		MessageBox("저장되었습니다", "확인", MB_ICONINFORMATION);
@@ -156,7 +156,7 @@ LONG CSmsNewBulkMentDlg::OnSendEmoticon(WPARAM wParam, LPARAM lParam)
 {
 	char const *strValue = reinterpret_cast<char const *>(wParam);
 
-	::AddTextMiddle(strValue, &m_edtMent[m_nLastSelectIndex]);
+	LF->AddTextMiddle(strValue, &m_edtMent[m_nLastSelectIndex]);
 
 	delete strValue;
 

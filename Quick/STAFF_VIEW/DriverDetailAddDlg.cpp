@@ -165,7 +165,7 @@ void CDriverDetailAddDlg::OnBnClickedCustomerButton()
 		m_List.SetItemText(i, nSubItem++, sCName);
 		m_List.SetItemText(i, nSubItem++, sDong);
 		m_List.SetItemText(i, nSubItem++, sLocation);
-		m_List.SetItemText(i, nSubItem++, GetDashPhoneNumber(sTel1));
+		m_List.SetItemText(i, nSubItem++, LF->GetDashPhoneNumber(sTel1));
 		m_List.SetItemText(i, nSubItem++, dtLastUse.Format("%m-%d %H:%M"));
 
 		CString strGrade;

@@ -205,9 +205,9 @@ void CCustomerMileageDlg::RefreshList()
 		m_Report.SetItemText(nItem, nCol++, (!bOrder && nState >= 100) ? sState : sStart);
 		m_Report.SetItemText(nItem, nCol++, sDest);
 		m_Report.SetItemText(nItem, nCol++, sState);
-		m_Report.SetItemText(nItem, nCol++, GetMyNumberFormat(nChargeSum));
-		m_Report.SetItemText(nItem, nCol++, GetMyNumberFormat(nMileage));
-		m_Report.SetItemText(nItem, nCol++, GetMyNumberFormat(nMileageBalance));	
+		m_Report.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nChargeSum));
+		m_Report.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nMileage));
+		m_Report.SetItemText(nItem, nCol++, LF->GetMyNumberFormat(nMileageBalance));	
 		m_Report.SetItemText(nItem, nCol++, sUserEtc);
 		m_Report.SetItemText(nItem, nCol++, sWName);
 		m_Report.SetItemText(nItem, nCol++, bOrder?"1":"0");
@@ -225,8 +225,8 @@ void CCustomerMileageDlg::RefreshList()
 	pRs2.Close();
 	m_Report.InsertItem(nItem, "");
 	m_Report.SetItemText(nItem, 5, "합계:");
-	m_Report.SetItemText(nItem, 7,GetMyNumberFormat(nTotalCharge) );
-	//m_Report.SetItemText(nItem, 8,GetMyNumberFormat(nTotalMileage) );
+	m_Report.SetItemText(nItem, 7,LF->GetMyNumberFormat(nTotalCharge) );
+	//m_Report.SetItemText(nItem, 8,LF->GetMyNumberFormat(nTotalMileage) );
 	m_Report.SetItemText(nItem, 8, "");
 	m_Report.SetItemData(nItem, 0 );
 
@@ -236,7 +236,7 @@ void CCustomerMileageDlg::RefreshList()
 
 void CCustomerMileageDlg::OnBnClickedChangeMileageBtn()
 {
-	if(!POWER_CHECK(2040, "마일리지금액수정", TRUE))
+	if(!LF->POWER_CHECK(2040, "마일리지금액수정", TRUE))
 		return;
 
 	CMileageBalanceDlg dlg;
@@ -260,7 +260,7 @@ void CCustomerMileageDlg::OnBnClickedChangeMileageBtn()
 
 		CString sCharge = dlg.m_sCharge;
 		sCharge.Replace(",", "");
-		if(!IsStringDigit(sCharge))
+		if(!LF->IsStringDigit(sCharge))
 		{
 			MessageBox("숫자를 입력하세요", "확인", MB_ICONINFORMATION);
 			return;
@@ -298,7 +298,7 @@ void CCustomerMileageDlg::OnBnClickedChangeMileageBtn()
 			MessageBox("수정하였습니다.", "확인", MB_ICONINFORMATION);
 			
 			m_nMileageBalance = nMileageSettingCount;
-			//((CRcpDlg*)m_pWnd)->m_edtMileageBalance.SetWindowText(GetMyNumberFormat(m_nMileageBalance));
+			//((CRcpDlg*)m_pWnd)->m_edtMileageBalance.SetWindowText(LF->GetMyNumberFormat(m_nMileageBalance));
 			m_bApply = TRUE;
 			
 		}
@@ -313,7 +313,7 @@ void CCustomerMileageDlg::OnBnClickedRefreshBtn()
 
 void CCustomerMileageDlg::OnBnClickedInitMileageBtn()
 {
-	if(!POWER_CHECK(2040, "마일리지금액수정", TRUE))
+	if(!LF->POWER_CHECK(2040, "마일리지금액수정", TRUE))
 		return;
 
 	if(MessageBox("마일리지를 초기화 하시겠습니까?", "확인", MB_YESNO | MB_ICONINFORMATION) == IDYES)
@@ -376,7 +376,7 @@ void CCustomerMileageDlg::MileageModify(int nType, long nAmount)
 
 void CCustomerMileageDlg::OnBnClickedSaveSettingBtn()
 {
-	if(!POWER_CHECK(2040, "마일리지금액수정", TRUE))
+	if(!LF->POWER_CHECK(2040, "마일리지금액수정", TRUE))
 		return;
 
 	UpdateData();
@@ -387,7 +387,7 @@ void CCustomerMileageDlg::OnBnClickedSaveSettingBtn()
 	sMileage.Replace(",", "");
 	if( (m_cmbPercent.GetCurSel() >= 1 && m_cmbPercent.GetCurSel() <= 2) && sMileage.GetLength() == 0)
 	{
-		MsgBox("마일리지 값을 입력하세요","확인",  MB_ICONINFORMATION );
+		LF->MsgBox("마일리지 값을 입력하세요","확인",  MB_ICONINFORMATION );
 		return;
 	}
 	long nMileage = atol(sMileage);
@@ -486,7 +486,7 @@ void CCustomerMileageDlg::OnBnClickedCloseBtn()
 
 void CCustomerMileageDlg::OnBnClickedMileagePayBtn()
 {
-	if(!POWER_CHECK(2040, "마일리지금액수정", TRUE))
+	if(!LF->POWER_CHECK(2040, "마일리지금액수정", TRUE))
 		return;
 
 	CString sMileage, sEtc=""; 

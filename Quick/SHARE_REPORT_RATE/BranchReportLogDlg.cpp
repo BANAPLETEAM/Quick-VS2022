@@ -11,8 +11,8 @@ CAccountRecord::CAccountRecord(COleDateTime dtGenerate,CString sState,long nDepo
 {
 	AddItem(new CMyDateRecordItem(dtGenerate));
 	AddItem(new CXTPGridRecordItemText(sState));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nDeposit)));
-	AddItem(new CXTPGridRecordItemText(::GetMyNumberFormat(nBalance)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nDeposit)));
+	AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nBalance)));
 	AddItem(new CXTPGridRecordItemText(sEtc));
 }
 
@@ -199,9 +199,9 @@ void CBranchReportLogDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CBranchReportLogDlg::OnViewExcel()
 {
-	if(!POWER_CHECK(2010, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(2010, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 102, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 102, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }

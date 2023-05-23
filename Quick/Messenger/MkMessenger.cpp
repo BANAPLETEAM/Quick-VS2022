@@ -434,7 +434,7 @@ void CMkMessenger::OnMsgDataRead(QPACKET *p)
 			}			
 		}
 
-		//g_bana_log->Print(::GetStringFromLong(p->nSubType) + " subtype\r\n");
+		//g_bana_log->Print(LF->GetStringFromLong(p->nSubType) + " subtype\r\n");
 		OnRecvOKProtocol(p);
 	}
 	else if(p->nType == PT_ERROR)

@@ -38,7 +38,7 @@ END_MESSAGE_MAP()
 		if(x.GetLength() > 0)\
 		{\
 			m_List.InsertItem(nItem, title);\
-			m_List.SetItemText(nItem++, 1, GetDashPhoneNumber(x));\
+			m_List.SetItemText(nItem++, 1, LF->GetDashPhoneNumber(x));\
 		}
 
 BOOL CCallPhoneDlg::OnInitDialog()
@@ -84,7 +84,7 @@ void CCallPhoneDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	int nItem = m_List.GetNextItem(-1, LVNI_SELECTED);
 	if(nItem < 0) return;
 
-	m_pRcpView->MakeCall(m_nOrderCompany, GetNoneDashNumber(m_List.GetItemText(nItem, 1)), TRUE);
+	m_pRcpView->MakeCall(m_nOrderCompany, LF->GetNoneDashNumber(m_List.GetItemText(nItem, 1)), TRUE);
 
 	*pResult = 0;
 }

@@ -168,7 +168,7 @@ void CSmsNewBulkTestDlg::RefreshList()
 		rs.GetFieldValue("sNetFail", strNetFail);
 
 		m_lstReport.InsertItem(i, dtGenerate.Format("%Y-%m-%d %H:%M"));
-		m_lstReport.SetItemText(i, 1, ::GetDashPhoneNumber(strPhone));
+		m_lstReport.SetItemText(i, 1, LF->GetDashPhoneNumber(strPhone));
 		m_lstReport.SetItemText(i, 2, strNet);
 		m_lstReport.SetItemText(i, 3, strMsg);
 		m_lstReport.SetItemText(i, 4, strNetResult);
@@ -202,7 +202,7 @@ void CSmsNewBulkTestDlg::OnBnClickedSendBtn2()
 
 void CSmsNewBulkTestDlg::SendTestSms(CString strPhone, CString strMent, CString strBackPhone)
 {
-	if(!::IsMobilePhoneNumber(strPhone))
+	if(!LF->IsMobilePhoneNumber(strPhone))
 	{
 		MessageBox("휴대폰번호를 입력하세요", "확인", MB_ICONINFORMATION);
 		return;
@@ -220,7 +220,7 @@ void CSmsNewBulkTestDlg::SendTestSms(CString strPhone, CString strMent, CString 
 		return;
 	}
 
-	if(::SendSmsBulkTest(m_ci.m_nCompanyCode, SMS_TYPE_TEST, strPhone, strBackPhone, strMent, "테스트"))
+	if(LF->SendSmsBulkTest(m_ci.m_nCompanyCode, SMS_TYPE_TEST, strPhone, strBackPhone, strMent, "테스트"))
 	{
 		RefreshList();
 		MessageBox("전송되었습니다.\r\n리스트에서 우클릭후 실제 전송내역의 상태값을 변경하세요.", "확인", MB_ICONINFORMATION);
@@ -348,7 +348,7 @@ LONG CSmsNewBulkTestDlg::OnSendEmoticon(WPARAM wParam, LPARAM lParam)
 
 	CEdit *pEdit = (CEdit*)GetDlgItem(m_nSelectedID);
 
-	::AddTextMiddle(strValue, pEdit);
+	LF->AddTextMiddle(strValue, pEdit);
 
 	if(m_nSelectedID == IDC_MENT_EDIT1)
 		OnEnChangeMentEdit1(); 

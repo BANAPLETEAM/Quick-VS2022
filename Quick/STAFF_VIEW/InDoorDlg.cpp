@@ -181,7 +181,7 @@ BOOL CInDoorDlg::AddNewInDoor()
 	CMkCommand pCmd(m_pMkDb, "insert_manager_indoor_admin_1");
 
 	CMkParameter *pPar = pCmd.AddParameter(typeLong, typeReturn, sizeof(long));
-	//pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetCurBranchInfo()->nCompanyCode);
+	//pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCompany);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), dtEnter);
 	pCmd.AddParameter(typeString, typeInput, sName.GetLength(), sName);
@@ -398,7 +398,7 @@ void CInDoorDlg::OnBnClickedSaveBtn()
 		{
 			m_bNewMode = FALSE;
 			m_WNoPageRefresh = TRUE;
-			m_nCompany = GetCurBranchInfo()->nCompanyCode;
+			m_nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 			m_nWorkState = 0;
 			m_WNoEdt.EnableWindow(FALSE);
             MessageBox("저장완료", "확인", MB_ICONINFORMATION);
@@ -616,7 +616,7 @@ void CInDoorDlg::InitData()
 	m_WorkStateCmb.SetCurSel(m_nWorkState);
 	m_WorkTypeCmb.SetCurSel(nWorkType);
 	m_WagesTypeCmb.SetCurSel(nWagesType);
-	m_WagesBasicEdt.SetWindowText(::GetMyNumberFormat(nWagesBasic));
+	m_WagesBasicEdt.SetWindowText(LF->GetMyNumberFormat(nWagesBasic));
 	m_strPW = sPW;
 
 	SetEtcEdit(sWagesAid, sWagesAidCharge);
@@ -645,7 +645,7 @@ void CInDoorDlg::InitData()
 	m_EtcInsEdt.SetWindowText(sEtcIns);
 	m_EtcInsFeeEdt.SetWindowText(sEtcInsFee);
 	m_InDoorMemo.SetWindowText(sInDoorEtc);
-	m_edtAuthPhone.SetWindowText(::GetDashPhoneNumber(strAuthPhone));
+	m_edtAuthPhone.SetWindowText(LF->GetDashPhoneNumber(strAuthPhone));
 
 
 	if(m_nWorkState != 2) // 퇴사자는 사번 경가능

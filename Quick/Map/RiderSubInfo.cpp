@@ -135,7 +135,7 @@ int CRiderSubInfo::IsFaraway(long nPosX, long nPosY, long nPosX2, long nPosY2, i
 	if(abs(nPosX - nPosX2) > nAboutValue ||
 		abs(nPosY - nPosY2) > nAboutValue)
 	{
-		int nMeter = GetDistanceMeter(nPosX, nPosY, nPosX2, nPosY2);
+		int nMeter = LF->GetDistanceMeter(nPosX, nPosY, nPosX2, nPosY2);
 		if(nMeter > nFarMeter)
 			return nMeter;
 	}

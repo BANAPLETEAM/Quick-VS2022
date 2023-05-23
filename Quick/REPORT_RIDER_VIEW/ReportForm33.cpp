@@ -117,8 +117,8 @@ void CReportForm33::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_rt_change_log");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 	cmd.AddParameter(m_cmbState.GetCurSel());
@@ -145,7 +145,7 @@ void CReportForm33::RefreshList()
 
 		m_lstReport.InsertItem(i, "");
 		m_lstReport.SetItemText(i, 1, dtLog.Format("%Y-%m-%d %H:%M"));
-		m_lstReport.SetItemText(i, 2, ::GetStringFromLong(nRNo));
+		m_lstReport.SetItemText(i, 2, LF->GetStringFromLong(nRNo));
 		m_lstReport.SetItemText(i, 3, strName);
 		m_lstReport.SetItemText(i, 4, strID);
 		m_lstReport.SetItemText(i, 5, strRTID);
@@ -232,10 +232,10 @@ void CReportForm33::OnApproval()
 
 void CReportForm33::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "Á¤»ê ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(3900, "Á¤»ê ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	::AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 327, m_lstReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 327, m_lstReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 void CReportForm33::OnContextMenu(CWnd* pWnd, CPoint point)

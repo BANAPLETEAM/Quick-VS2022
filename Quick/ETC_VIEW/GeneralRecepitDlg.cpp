@@ -93,9 +93,9 @@ void CGeneralReceiptDlg::RefreshDlg()
 	rs.GetFieldValue("sOAddress", m_strOAddress);
 	rs.GetFieldValue("sEtc", m_strEtc);
 
-	m_strRequestCount = ::GetStringFromLong(nRequestCount, FALSE);
-	m_strUseMonth = ::GetStringFromLong(nUseMonth, FALSE);
-	m_strOPhone = ::GetMyNumberFormat(m_strOPhone);
+	m_strRequestCount = LF->GetStringFromLong(nRequestCount, FALSE);
+	m_strUseMonth = LF->GetStringFromLong(nUseMonth, FALSE);
+	m_strOPhone = LF->GetMyNumberFormat(m_strOPhone);
 
 	UpdateData(FALSE);
 }

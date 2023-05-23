@@ -56,7 +56,7 @@ CString CUpdateExeCheck::GetUpdateExeVersion(CString exe)
 	CString fileName = GetUpdateExeName(exe);
 	VS_FIXEDFILEINFO pvsf;
 
-	if (::GetFileVersion((LPSTR)(LPCTSTR)fileName, &pvsf))
+	if (LF->GetFileVersion((LPSTR)(LPCTSTR)fileName, &pvsf))
 	{
 		CString strVersion;
 		strVersion.Format("%d.%d%d",

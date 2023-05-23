@@ -277,24 +277,24 @@ void CChargeDistanceType::RefreshList()
 			strStartKm.Format("%.1f", start_km);
 			strEndKm.Format("%.1f", end_km);
 
-			m_List.InsertItem(nItem, ::GetStringFromLong(number));
+			m_List.InsertItem(nItem, LF->GetStringFromLong(number));
 			m_List.SetItemText(nItem, 1, strStartKm );
 			m_List.SetItemText(nItem, 3, strEndKm );
-			m_List.SetItemText(nItem, 4, ::GetStringFromLong(amount));
+			m_List.SetItemText(nItem, 4, LF->GetStringFromLong(amount));
 
 			if(m_bTruck) {		
 				int col = 5;
-				pRs2.GetFieldValue("amount_truck_add_1_4", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_2_5", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_3_5", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_5", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_5_5", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_8", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_11", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_14", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_15", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_18", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_25", amount); m_List.SetItemText(nItem, col++, ::GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_1_4", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_2_5", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_3_5", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_5", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_5_5", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_8", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_11", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_14", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_15", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_18", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_25", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
 			}
 		
 			
@@ -403,7 +403,7 @@ BOOL CChargeDistanceType::CheckData()
 
 			if((fStartKm < 0 || fStartKm > 500)  || 
 				(fDestKm < 0 || fDestKm > 500)  ||  
-				!IsStringDigit(strAmount) )
+				!LF->IsStringDigit(strAmount) )
 			{
 				strError.Format("%d번째 행에 데이터에 숫자를 기입하세요", i);
 				throw(strError);

@@ -104,8 +104,8 @@ void CReportForm32::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_rcp_rider_with_draw2");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -135,16 +135,16 @@ void CReportForm32::RefreshList()
 
 		m_lstReport.InsertItem(i, "");
 		m_lstReport.SetItemText(i, 1, dtLog.Format("%Y-%m-%d %H:%M"));
-		m_lstReport.SetItemText(i, 2, ::GetStringFromLong(nRNo));
+		m_lstReport.SetItemText(i, 2, LF->GetStringFromLong(nRNo));
 		m_lstReport.SetItemText(i, 3, strRName);
 		m_lstReport.SetItemText(i, 4, strBank);
 		m_lstReport.SetItemText(i, 5, strAccount);
 		m_lstReport.SetItemText(i, 6, strDepositName);
-		m_lstReport.SetItemText(i, 7, ::GetMyNumberFormat(nBalance));
-		m_lstReport.SetItemText(i, 8, ::GetMyNumberFormat(nReqAmount));
-		m_lstReport.SetItemText(i, 9, ::GetMyNumberFormat(nReqAmount * 0.03));
-		m_lstReport.SetItemText(i, 10, ::GetMyNumberFormat((nReqAmount * 0.03) * 0.1));
-		m_lstReport.SetItemText(i, 11, ::GetMyNumberFormat(nRealAmount));
+		m_lstReport.SetItemText(i, 7, LF->GetMyNumberFormat(nBalance));
+		m_lstReport.SetItemText(i, 8, LF->GetMyNumberFormat(nReqAmount));
+		m_lstReport.SetItemText(i, 9, LF->GetMyNumberFormat(nReqAmount * 0.03));
+		m_lstReport.SetItemText(i, 10, LF->GetMyNumberFormat((nReqAmount * 0.03) * 0.1));
+		m_lstReport.SetItemText(i, 11, LF->GetMyNumberFormat(nRealAmount));
 
 		CString strTemp;
 
@@ -179,7 +179,7 @@ void CReportForm32::OnBnClickedRefreshBtn()
 
 void CReportForm32::OnApprovalNot()
 {
-	if(!POWER_CHECK(4091, "상태변경", TRUE))
+	if(!LF->POWER_CHECK(4091, "상태변경", TRUE))
 		return;
 
 	if(m_lstReport.GetFirstSelectedRecord() == NULL)
@@ -208,7 +208,7 @@ void CReportForm32::OnApprovalNot()
 		cmd.AddParameter(m_ui.nCompany);
 		cmd.AddParameter(m_ui.strName);
 		cmd.AddParameter(m_ei.strMac1);
-		cmd.AddParameter(GetHddId());
+		cmd.AddParameter(LF->GetHddId());
 		CMkParameter *parOutRet = cmd.AddParameter(typeString, typeOutput, 100, "");
 
 		if(!cmd.Execute())
@@ -247,7 +247,7 @@ void CReportForm32::OnApprovalNot()
 
 void CReportForm32::OnApproval()
 {
-	if(!POWER_CHECK(4091, "상태변경", TRUE))
+	if(!LF->POWER_CHECK(4091, "상태변경", TRUE))
 		return;
 
 	if(m_lstReport.GetFirstSelectedRecord() == NULL)
@@ -276,7 +276,7 @@ void CReportForm32::OnApproval()
 		cmd.AddParameter(m_ui.nCompany);
 		cmd.AddParameter(m_ui.strName);
 		cmd.AddParameter(m_ei.strMac1);
-		cmd.AddParameter(GetHddId());
+		cmd.AddParameter(LF->GetHddId());
 		CMkParameter *parOutRet = cmd.AddParameter(typeString, typeOutput, 100, "");
 
 		if(!cmd.Execute())
@@ -315,10 +315,10 @@ void CReportForm32::OnApproval()
 
 void CReportForm32::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "정산 엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "정산 엑셀변환", TRUE))
 		return;
 
-	::AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 326, m_lstReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 326, m_lstReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 void CReportForm32::OnContextMenu(CWnd* pWnd, CPoint point)

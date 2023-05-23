@@ -261,9 +261,9 @@ void CCustomerDlg::ChangeTelDepartInfo()
 
 	CString strPhone1, strPhone2, strPhone3;
 	GetCustomerPhoneNumber(pc->nTelID, strPhone1, strPhone2, strPhone3);
-	m_pSub1->m_edtTel.SetWindowText(::GetDashPhoneNumber(strPhone1));
-	m_pSub1->m_edtMobile.SetWindowText(::GetDashPhoneNumber(strPhone2));
-	m_pSub1->m_edtSms.SetWindowText(::GetDashPhoneNumber(strPhone3));
+	m_pSub1->m_edtTel.SetWindowText(LF->GetDashPhoneNumber(strPhone1));
+	m_pSub1->m_edtMobile.SetWindowText(LF->GetDashPhoneNumber(strPhone2));
+	m_pSub1->m_edtSms.SetWindowText(LF->GetDashPhoneNumber(strPhone3));
 }
 
 void CCustomerDlg::GetCustomerPhoneNumber(long nTelID, CString &strPhone1, CString &strPhone2, CString &strPhone3)
@@ -910,9 +910,9 @@ BOOL CCustomerDlg::EditCustomer()
 		m_pSub2->m_edtDiscountRange.GetWindowText(sDiscountRange);
 		m_pSub2->m_strMileage.Replace(",","");
 
-		nDiscountRange = GetMyUnNumberFormat(sDiscountRange);
+		nDiscountRange = LF->GetMyUnNumberFormat(sDiscountRange);
 
-		if(!IsPhoneNumber(strPhone1) || !IsPhoneNumber(strPhone2))
+		if(!LF->IsPhoneNumber(strPhone1) || !LF->IsPhoneNumber(strPhone2))
 		{
 			MessageBox("전화번호에 숫자/대쉬 이외의 문자는 사용하실수 없습니다.",
 				"조건확인", MB_ICONINFORMATION);
@@ -1009,9 +1009,9 @@ BOOL CCustomerDlg::EditCustomer()
 		long nCustomerColor = m_pSub1->m_edtCompany.GetUserTextColor(), nMemoColor = m_pSub1->m_edtMemo.GetUserTextColor();
 		pCmd.AddParameter(pc->strName);
 		pCmd.AddParameter(pc->strDepart);
-		pCmd.AddParameter(::GetRemoveDDDNumber(strPhone1));
-		pCmd.AddParameter(::GetRemoveDDDNumber(strPhone2));
-		pCmd.AddParameter(::GetRemoveDDDNumber(strPhone3));
+		pCmd.AddParameter(LF->GetRemoveDDDNumber(strPhone1));
+		pCmd.AddParameter(LF->GetRemoveDDDNumber(strPhone2));
+		pCmd.AddParameter(LF->GetRemoveDDDNumber(strPhone3));
 		pCmd.AddParameter(m_pSub1->m_bNotAutoShareOrder);
 		pCmd.AddParameter(m_pSub2->m_strFax);
 		pCmd.AddParameter(nDiscountRange);
@@ -1022,7 +1022,7 @@ BOOL CCustomerDlg::EditCustomer()
 		pCmd.AddParameter(m_pSub1->m_chkShowPhoneType.GetCheck());
 
 		pCmd.AddParameter(m_pSub2->m_bOnlinePopup);
-		pCmd.AddParameter(::GetLongFromEdit(&m_pSub2->m_edtOnlinePopupCharge));
+		pCmd.AddParameter(LF->GetLongFromEdit(&m_pSub2->m_edtOnlinePopupCharge));
 		pCmd.AddParameter(m_ui.nCompany);
 		pCmd.AddParameter(m_ui.nWNo);
 		pCmd.AddParameter(m_ui.strName);
@@ -1032,7 +1032,7 @@ BOOL CCustomerDlg::EditCustomer()
 
 		m_pSub3->UpdatePBizInfo();
 
-		m_strLastTel = ::GetRemoveDDDNumber(::GetRemoveDDDNumber(strPhone1));
+		m_strLastTel = LF->GetRemoveDDDNumber(LF->GetRemoveDDDNumber(strPhone1));
 		InitOneList();
 		m_cus.GetNewCustomer();
 		//RefreshTelList(m_nTelID);
@@ -1124,7 +1124,7 @@ void CCustomerDlg::OnBnClickedOk()
 			return;
 	}
 
-	if(GetCurBranchInfo()->bUseChargeDong && m_nDongID <= 0)
+	if(LF->GetCurBranchInfo()->bUseChargeDong && m_nDongID <= 0)
 	{
 		MessageBox("동기반배차방식에서는, 주소에서 반드시 동을 선택하셔야 합니다.", 
 			"확인", 
@@ -1141,7 +1141,7 @@ void CCustomerDlg::OnBnClickedOk()
 
 	if(m_pRcpDlg)
 	{
-		m_pRcpDlg->m_nDiscountRange = GetMyUnNumberFormat(sDiscountRangeCharge);
+		m_pRcpDlg->m_nDiscountRange = LF->GetMyUnNumberFormat(sDiscountRangeCharge);
 		m_pParent->SearchCustomerCNo(m_nCNo, TRUE, TRUE, m_nTelID);
 		m_pRcpDlg->GotoNextFocus(m_pParent->m_nPlaceType);
 		LU->DestorySearchPoiDlg();
@@ -1569,7 +1569,7 @@ void CCustomerDlg::GetCurInfo(ST_CUSTOMER_INFO *pc)
 	m_pSub1->m_strCompany = pc->strCompany;
 	m_pSub1->m_strDepart = pc->strDepart;
 	m_pSub1->m_strName = pc->strName;
-	//m_pSub1->m_strTel = GetDashPhoneNumber(pc->strTel1);
+	//m_pSub1->m_strTel = LF->GetDashPhoneNumber(pc->strTel1);
 	m_pSub1->m_strDisplayDong = pc->strDong;
 	m_pSub1->m_strLocation = pc->strLocation;
 	//m_pSub1->m_bCredit = pc->bCredit != 0 ? TRUE : FALSE;
@@ -1577,7 +1577,7 @@ void CCustomerDlg::GetCurInfo(ST_CUSTOMER_INFO *pc)
 	m_pSub2->m_strDiscount.Format("%d", pc->nDiscount);
 	m_pSub2->m_cmbAllocGroup.SetCurSel(pc->nAllocGroup);
 	m_pSub2->m_strCoupon.Format("%d", pc->nCouponCharge);
-	//m_pSub1->m_strMobile = GetDashPhoneNumber(pc->strMobile);
+	//m_pSub1->m_strMobile = LF->GetDashPhoneNumber(pc->strMobile);
 	m_pSub1->m_strMemo = pc->strMemo;
 	m_pSub1->m_strCustomerType = pc->nCustomerType == 0 ? "거래처" : "일반고객";
 	m_pSub1->m_strFirstUse = pc->dtRegister.Format("%y-%m-%d %H:%M");
@@ -1645,7 +1645,7 @@ void CCustomerDlg::GetCurInfo(ST_CUSTOMER_INFO *pc)
 	}
 	else
 	{
-		m_pSub2->m_strMileage = GetMyNumberFormat(m_nMileage);
+		m_pSub2->m_strMileage = LF->GetMyNumberFormat(m_nMileage);
 		m_pSub2->m_edtMileage.SetWindowText(m_pSub2->m_strMileage);
 		m_pSub2->m_edtMileage.EnableWindow(FALSE);
 	}
@@ -1654,8 +1654,8 @@ void CCustomerDlg::GetCurInfo(ST_CUSTOMER_INFO *pc)
 	m_pSub1->m_chkPopupCustomerDlg.SetCheck(pc->bPopupCustomerDlg);
 
 	m_pSub2->m_cmbDiscount.SetCurSel(pc->nDiscountType);
-	m_pSub2->m_edtDiscount.SetWindowText(GetMyNumberFormat(pc->nDiscount));
-	m_pSub2->m_edtDiscountRange.SetWindowText(GetMyNumberFormat(pc->nDiscountRange));
+	m_pSub2->m_edtDiscount.SetWindowText(LF->GetMyNumberFormat(pc->nDiscount));
+	m_pSub2->m_edtDiscountRange.SetWindowText(LF->GetMyNumberFormat(pc->nDiscountRange));
 
 	m_pSub2->m_cmbCoupon.SetCurSel(pc->nCouponType);
 
@@ -1682,7 +1682,7 @@ void CCustomerDlg::GetCurInfo(ST_CUSTOMER_INFO *pc)
 	m_strLastTel = pc->strMobile;
 
 	m_pSub2->m_bOnlinePopup = pc->bOnlinePopup;
-	m_pSub2->m_strOnlinePopupCharge = ::GetMyNumberFormat(pc->nOnlinePopupCharge);
+	m_pSub2->m_strOnlinePopupCharge = LF->GetMyNumberFormat(pc->nOnlinePopupCharge);
 
 	m_pSub1->ShowUseCount();
 }
@@ -2187,7 +2187,7 @@ void CCustomerDlg::BatchUpdateGetCustomerInfo(CString strCNoList)
 		m_List.SetItemText(pRecord, 4, pc->strName);
 		m_List.SetItemText(pRecord, 5, pc->strUserID);
 		m_List.SetItemText(pRecord, 6, pc->strLoginID);
-		m_List.SetItemText(pRecord, 7, GetDashPhoneNumber(pc->strTel1));
+		m_List.SetItemText(pRecord, 7, LF->GetDashPhoneNumber(pc->strTel1));
 		m_List.SetItemText(pRecord, 8, pc->strDong);
 		m_List.SetItemText(pRecord, 9, strTotalName);
 		m_List.SetItemText(pRecord, 10, pc->strLocation);
@@ -2291,7 +2291,7 @@ BOOL CCustomerDlg::SearchGroupData(CString strGNo, BOOL bOneGroup)
 		m_List.SetItemText(pRecord, 4, pc->strName);
 		m_List.SetItemText(pRecord, 5, pc->strUserID);
 		m_List.SetItemText(pRecord, 6, pc->strLoginID);
-		m_List.SetItemText(pRecord, 7, GetDashPhoneNumber(pc->strTel1));
+		m_List.SetItemText(pRecord, 7, LF->GetDashPhoneNumber(pc->strTel1));
 		m_List.SetItemText(pRecord, 8, pc->strDong);
 		m_List.SetItemText(pRecord, 9, strTotalName);
 		m_List.SetItemText(pRecord, 10, pc->strLocation);
@@ -2397,7 +2397,7 @@ void CCustomerDlg::OnBnClickedEditPersonBtn()
 
 		if(pc == NULL)
 		{
-			MsgBox("복사원본인 고객이 지정되지 않았습니다.");
+			LF->MsgBox("복사원본인 고객이 지정되지 않았습니다.");
 			return;
 		}
 		
@@ -2421,7 +2421,7 @@ void CCustomerDlg::OnBnClickedEditPersonBtn()
 
 		if(m_List.GetSelectedRows()->GetCount() == 0)
 		{
-			MsgBox("복사되어질 고객을 선택하여주세요");
+			LF->MsgBox("복사되어질 고객을 선택하여주세요");
 			return;
 		}	
 
@@ -3018,7 +3018,7 @@ void CCustomerDlg::HistoryChargeDelete(int nOriginalCurSel)
 	CMkCommand pCmd(m_pMkDb, "	select_history_charge_member_sub_delete2");
 	CMkRecordset pRs(m_pMkDb);
 	pCmd.AddParameter(m_nCNo);
-	pCmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(m_pSub2->m_cmbPriceGrade.GetCurSel());
 	
 	CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -3130,7 +3130,7 @@ void CCustomerDlg::HistoryChargeAdd(int nOriginalCurSel)
 					if(nOUTPUT == 200)
 					{
 						pc->nPriceGrade = 4;
-						MsgBox("등록 되었습니다.");
+						LF->MsgBox("등록 되었습니다.");
 						m_pSub2->m_cmbPriceGrade.SetCurSel(4);
 					}
 				}
@@ -3170,7 +3170,7 @@ void CCustomerDlg::HistoryChargeAdd(int nOriginalCurSel)
 				"수정하시려면 예(Y)\n\r\n\r"			\
 				"취소하시려면 아니로(N)를 눌러주세요";				
 			
-			strMessage.Format(szTemp, strChargeName, strCompanyName, strDepart, GetDashPhoneNumber(strTel1),
+			strMessage.Format(szTemp, strChargeName, strCompanyName, strDepart, LF->GetDashPhoneNumber(strTel1),
 				nOUTPUT == 100 ? "메인으로 등록" : "그룹에 참가");
 				
 			if(MessageBox(strMessage, "확인",  MB_ICONINFORMATION | MB_YESNO) == IDYES	)
@@ -3338,7 +3338,7 @@ void CCustomerDlg::RefreshTelList(long nTelID)
 			}
 
 			m_pSub1->m_lstTel.InsertItem(nCount, strTemp);
-			m_pSub1->m_lstTel.SetItemText(nCount, ONE, ::GetDashPhoneNumber(it->second.strTel));
+			m_pSub1->m_lstTel.SetItemText(nCount, ONE, LF->GetDashPhoneNumber(it->second.strTel));
 			m_pSub1->m_lstTel.SetItemData(nCount++, (DWORD_PTR)&it->second);
 		} 
 	}
@@ -3360,7 +3360,7 @@ void CCustomerDlg::RefreshTelList(long nTelID)
 			else
 				m_pSub1->m_lstTel.InsertItem(nCount, "");
 		
-			m_pSub1->m_lstTel.SetItemText(nCount, ONE, ::GetDashPhoneNumber(pInfo->strTel));
+			m_pSub1->m_lstTel.SetItemText(nCount, ONE, LF->GetDashPhoneNumber(pInfo->strTel));
 			m_pSub1->m_lstTel.SetItemData(nCount++, (DWORD_PTR)pInfo);
 		}
 	}

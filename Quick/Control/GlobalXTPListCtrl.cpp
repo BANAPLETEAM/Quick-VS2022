@@ -479,7 +479,7 @@ void CXTPListCtrl18::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrForeground = RGB(255,255,255);
 	}
 
-	if(::GetCurBranchInfo()->bIntegrated)
+	if(LF->GetCurBranchInfo()->bIntegrated)
 	{
 		if((pDrawArgs->pColumn->GetIndex() == 1) ||
 			(pDrawArgs->pColumn->GetIndex() == 3) ||
@@ -865,7 +865,7 @@ void CXTPListCtrl40::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	if(nTNo == MINUS_ONE)
 		pItemMetrics->pFont = &pDrawArgs->pControl->GetPaintManager()->m_fontBoldText;
 
-	if(nCol == 5 && IsCash(nPayType) == FALSE)
+	if(nCol == 5 && LF->IsCash(nPayType) == FALSE)
 		pItemMetrics->clrBackground = RGB(255, 0, 0);
 }
 

@@ -120,7 +120,7 @@ void CIncomeForm10::RefreshList()
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "VRCardRider_select");
 	cmd.AddParameter(m_ci.m_nShareCode1);
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 
 	if(!rs.Execute(&cmd))
 		return;
@@ -142,11 +142,11 @@ void CIncomeForm10::RefreshList()
 		rs.GetFieldValue("dtRegister", dtRegister);
 		rs.GetFieldValue("sRName", strRName);
 		
-		m_lstCard.InsertItem(i, ::GetDashCardNumber(strCardNumber)); 
+		m_lstCard.InsertItem(i, LF->GetDashCardNumber(strCardNumber));
 		m_lstCard.SetItemText(i, 1, strCardKey.IsEmpty() ? "불가" : "");
 		m_lstCard.SetItemText(i, 2, bActive == TRUE ? "" : "X");
 		m_lstCard.SetItemText(i, 3, dtRegister.Format("%Y-%m-%d %H:%M"));
-		m_lstCard.SetItemText(i, 4, ::GetStringFromLong(nRNo, FALSE));
+		m_lstCard.SetItemText(i, 4, LF->GetStringFromLong(nRNo, FALSE));
 		m_lstCard.SetItemText(i, 5, strRName);
 		m_lstCard.SetItemText(i, 6, strErrorMent);
 
@@ -168,7 +168,7 @@ void CIncomeForm10::OnBnClickedRefreshBtn()
 void CIncomeForm10::OnBnClickedInsertCardBtn()
 {
 	CString strCardNumber; m_edtCardNumber.GetWindowText(strCardNumber);
-	strCardNumber =::GetNoneDashNumber(strCardNumber);
+	strCardNumber =LF->GetNoneDashNumber(strCardNumber);
 
 	if(strCardNumber.IsEmpty())
 	{
@@ -176,7 +176,7 @@ void CIncomeForm10::OnBnClickedInsertCardBtn()
 		return;
 	}
 
-	if(InsertNewCard(strCardNumber, 0, 0))
+	if(LF->InsertNewCard(strCardNumber, 0, 0))
 		RefreshList();
 }
 
@@ -246,10 +246,10 @@ BOOL CIncomeForm10::ChargeCardRiderState(CXTPGridRecord *pRecord, long nCompany,
 {
 	CString strRName;
 
-	if(UpdateRiderCardState(m_lstCard.GetItemString(pRecord), nCompany, nRNo, strRName) == FALSE)
+	if(LF->UpdateRiderCardState(m_lstCard.GetItemString(pRecord), nCompany, nRNo, strRName) == FALSE)
 		return FALSE;
 
-	pRecord->GetItem(4)->SetCaption(::GetStringFromLong(nRNo, FALSE));
+	pRecord->GetItem(4)->SetCaption(LF->GetStringFromLong(nRNo, FALSE));
 	pRecord->GetItem(5)->SetCaption(strRName);
 
 	m_lstCard.SetItemLong(pRecord, nCompany);
@@ -309,7 +309,7 @@ void CIncomeForm10::OnCardRecharge()
 	if(dlg.DoModal() != IDOK)
 		return;
 
-	CString strValue = GetNoneDashNumber(dlg.m_sValue);
+	CString strValue = LF->GetNoneDashNumber(dlg.m_sValue);
 	long nCharge = atoi(strValue);
 
 	if(nCharge <= 0)
@@ -349,7 +349,7 @@ void CIncomeForm10::OnCardRecharge()
 
 	if(nApplyCount > 0)
 	{
-		CString strTemp = GetStringFromLong(nApplyCount) + "건에 적용되었습니다.";
+		CString strTemp = LF->GetStringFromLong(nApplyCount) + "건에 적용되었습니다.";
 		MessageBox(strTemp, "확인", MB_ICONINFORMATION);
 		RefreshLogList(FALSE);
 	}
@@ -397,9 +397,9 @@ void CIncomeForm10::RefreshLogList(BOOL bAll)
 		rs.GetFieldValue("nChargeAmount", nChargeAmount);
 		rs.GetFieldValue("dtReq", dtReq);
 
-		m_lstLog.InsertItem(i, ::GetDashCardNumber(strCardNumber));
+		m_lstLog.InsertItem(i, LF->GetDashCardNumber(strCardNumber));
 		m_lstLog.SetItemText(i, 1, strProcess);
-		m_lstLog.SetItemText(i, 2, ::GetMyNumberFormat(nChargeAmount));
+		m_lstLog.SetItemText(i, 2, LF->GetMyNumberFormat(nChargeAmount));
 		m_lstLog.SetItemText(i, 3, dtReq.Format("%Y-%m-%d %H:%M"));
 		m_lstLog.SetItemText(i, 4, strErrorMsg);
 

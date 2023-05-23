@@ -347,7 +347,7 @@ void CAllocateReportPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS*
 		else if(order.nRunType == RUN_SLOW)
 			LF->FillGradient(pDC, RGB(255, 182, 68), CRect(x + 20, y - 2, x + 135, y + 13));
 
-		m_imgList.Draw(pDC, GetImageNumber(order.nState), CPoint(x + 2, y - 4), ILD_NORMAL);
+		m_imgList.Draw(pDC, LF->GetImageNumber(order.nState), CPoint(x + 2, y - 4), ILD_NORMAL);
 
 
 		if(!m_bWideColumn)
@@ -459,7 +459,7 @@ void CAllocateReportPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS*
 			strPayInfo.Format("%d°Ç/%s¿ø", 
 					nAllocCount + 
 					nFinishCount, 
-					GetMyNumberFormat(nTotalCharge));
+					LF->GetMyNumberFormat(nTotalCharge));
 		}
 
 		if(bEmptyCar && m_bShowPosName)
@@ -479,7 +479,7 @@ void CAllocateReportPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS*
 			strPayInfo.Format("%d / %s ", 
 				nAllocCount + 
 				nFinishCount, 
-				GetMyNumberFormat(nTotalCharge));
+				LF->GetMyNumberFormat(nTotalCharge));
 		}
 
 		if(pRecordItem->pAllocRiderInfo->strPhone.GetLength() > 0)

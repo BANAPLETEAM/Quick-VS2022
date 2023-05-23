@@ -254,8 +254,8 @@ void CReportForm51::RefreshOrderList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_order3");
-	pCmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(::GetCurBranchInfo()->bIntegrated);	
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);	
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);	
 	pCmd.AddParameter(m_sSelectGNo);
@@ -306,13 +306,13 @@ void CReportForm51::RefreshOrderList()
 		m_lstOrder.MyAddItem( strLoginID);
 		m_lstOrder.MyAddItem( strSDong);
 		m_lstOrder.MyAddItem( strDDong);
-		m_lstOrder.MyAddItem( ::GetStateString(nState));
-		m_lstOrder.MyAddItem( ::GetPayTypeFromLong(nPayType));
-		m_lstOrder.MyAddItem( ::GetMyNumberFormat(nChargeBasic));
-		m_lstOrder.MyAddItem( ::GetMyNumberFormat(nChargeAdd));
-		m_lstOrder.MyAddItem( ::GetMyNumberFormat(nChargeDis));
-		m_lstOrder.MyAddItem( ::GetMyNumberFormat(nChargeSum));
-		m_lstOrder.MyAddItem( ::GetMyNumberFormat(nChargeTrans));
+		m_lstOrder.MyAddItem( LF->GetStateString(nState));
+		m_lstOrder.MyAddItem( LF->GetPayTypeFromLong(nPayType));
+		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeBasic));
+		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeAdd));
+		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeDis));
+		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeSum));
+		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeTrans));
 		m_lstOrder.MyAddItem( strItemType);
 		m_lstOrder.MyAddItem( strEtc);		
 		m_lstOrder.MyAddItem( ltoa(nCompany, buffer,10));		
@@ -348,13 +348,13 @@ void CReportForm51::RefreshOrderList()
 
 	for(int i =0;  i < 8; i ++)
 		m_lstOrder.MyAddItem("");
-	m_lstOrder.MyAddItem(7, GetMyNumberFormat(nTotalCount -1) + "건", "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(8, GetMyNumberFormat(nChargeSumBasic), "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(9, GetMyNumberFormat(nChargeSumAdd), "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(10, GetMyNumberFormat(nChargeSumDis), "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(11, GetMyNumberFormat(nChargeTotalSum), "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(12, GetMyNumberFormat(nChargeSumTrans), "", 0, FALSE, DT_LEFT);	
-	m_lstOrder.MyAddItem(13, GetMyNumberFormat(nChargeTotalSum + nChargeSumTrans), "", 0, FALSE, DT_LEFT);	
+	m_lstOrder.MyAddItem(7, LF->GetMyNumberFormat(nTotalCount -1) + "건", "", 0, FALSE, DT_LEFT);
+	m_lstOrder.MyAddItem(8, LF->GetMyNumberFormat(nChargeSumBasic), "", 0, FALSE, DT_LEFT);
+	m_lstOrder.MyAddItem(9, LF->GetMyNumberFormat(nChargeSumAdd), "", 0, FALSE, DT_LEFT);
+	m_lstOrder.MyAddItem(10, LF->GetMyNumberFormat(nChargeSumDis), "", 0, FALSE, DT_LEFT);
+	m_lstOrder.MyAddItem(11, LF->GetMyNumberFormat(nChargeTotalSum), "", 0, FALSE, DT_LEFT);
+	m_lstOrder.MyAddItem(12, LF->GetMyNumberFormat(nChargeSumTrans), "", 0, FALSE, DT_LEFT);	
+	m_lstOrder.MyAddItem(13, LF->GetMyNumberFormat(nChargeTotalSum + nChargeSumTrans), "", 0, FALSE, DT_LEFT);	
 	m_lstOrder.EndItem();
 	m_lstOrder.Populate();		
 }
@@ -446,7 +446,7 @@ void CReportForm51::OnOrderReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	CString strCName = m_lstOrder.GetItemDataRecordString(pItemNotify->pRow->GetIndex());
 	CString strCompany = m_lstOrder.GetItemText(pRow->GetIndex(),17 );
 	long nCompany = 0;
-	if(IsNumeric(strCompany))
+	if(LF->IsNumeric(strCompany))
 		nCompany = atol(strCompany);
 	
 	if(nCompany <= 0)
@@ -457,7 +457,7 @@ void CReportForm51::OnOrderReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	
 
 	
-	CBranchInfo *pBranchInfo =GetBranchInfo(nCompany);
+	CBranchInfo *pBranchInfo = LF->GetBranchInfo(nCompany);
 	if(pBranchInfo)
 	{
 		if(!LU->GetRcpView() )
@@ -470,7 +470,7 @@ void CReportForm51::OnOrderReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	}
 
 	
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	LU->GetRcpView()->CreateRcpDlg(pBranchInfo, 
@@ -597,7 +597,7 @@ void CReportForm51::OnLButtonUp(UINT nFlags, CPoint point)
 
 		if(nResult == IDYES)
 		{
-			if(::CheckGroupReport("0;", pDestRecord->m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
+			if(LF->CheckGroupReport("0;", pDestRecord->m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
 				return;
 
 			//long nCNo = m_lstOrder.GetItemLong(pOrderRecord);
@@ -610,7 +610,7 @@ void CReportForm51::OnLButtonUp(UINT nFlags, CPoint point)
 			{
 				if(strNeedReportID != "")
 				{
-					if(::ReReport(strNeedReportID))
+					if(LF->ReReport(strNeedReportID))
 					{
 						MessageBox("완료되었습니다.", "확인", MB_ICONINFORMATION);
 						RefreshOrderList();
@@ -715,10 +715,10 @@ void CReportForm51::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result
 
 void CReportForm51::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 316, m_ui.nWNo, m_lstOrder.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 316, m_ui.nWNo, m_lstOrder.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_lstOrder);
 }
 
@@ -747,20 +747,20 @@ void CReportForm51::OnMakeGroupReport()
 
 	if(m_mapGNoList.size() <= 0)
 	{
-		MsgBox("정산할 부서를 선택하여 주세요");
+		LF->MsgBox("정산할 부서를 선택하여 주세요");
 		return;
 	}	
 	else if(m_mapGNoList.size() == 1)
 	{
 		CString sGNo = "";
 		sGNo = m_sSelectGNo; sGNo.Replace(",","");
-		if(IsNumeric(sGNo))
+		if(LF->IsNumeric(sGNo))
 			nReportGNo = atol(sGNo);
 		strGNoList = sGNo;
 	}
 	else if(m_mapGNoList.size() > 1)
 	{
-		MsgBox("대표로 정산할 부서를 검색하여 다시 선택하여 주세요");
+		LF->MsgBox("대표로 정산할 부서를 검색하여 다시 선택하여 주세요");
 
 		if(m_mapGNoList.size() > 0 )
 		{
@@ -770,7 +770,7 @@ void CReportForm51::OnMakeGroupReport()
 		}
 
 		CSearchGroupDlg dlg;
-		dlg.m_nCompany = GetCurBranchInfo()->nCompanyCode;
+		dlg.m_nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 		dlg.m_nDataType = SG_GROUP;
 		dlg.m_strSearch = strSearchGroup.GetLength() > 0 ? strSearchGroup : "";
 		dlg.m_nAutoSearch = TRUE;
@@ -869,7 +869,7 @@ void CReportForm51::OnBnClickedDeptWebViewBtn()
 		else
 			return;
 
-		if(!IsNumeric(strOGNo)) return;
+		if(!LF->IsNumeric(strOGNo)) return;
 
 		nGNo = atol(strOGNo);
 
@@ -947,7 +947,7 @@ void CReportForm51::OnBnClickedMainWebViewBtn()
 		else
 			return;
 
-		if(!IsNumeric(strOGNo)) return;
+		if(!LF->IsNumeric(strOGNo)) return;
 
 		nGNo = atol(strOGNo);
 

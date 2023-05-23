@@ -180,7 +180,7 @@ void COtherRiderTransferDlg::RefreshRiderInfo()
 
 	m_edtCompanyName.SetWindowText(strCompanyName);
 	m_edtBranchName.SetWindowText(strBranchName);
-	m_edtRNo.SetWindowText(::GetMyNumberFormat(m_nRNo));
+	m_edtRNo.SetWindowText(LF->GetMyNumberFormat(m_nRNo));
 	m_edtName.SetWindowText(strRName);
 	m_edtID.SetWindowText(strID);
 	m_edtHp.SetWindowText(strHp);
@@ -204,7 +204,7 @@ void COtherRiderTransferDlg::OnBnClickedSearchRider()
 
 void COtherRiderTransferDlg::OnBnClickedSaveButton()
 {
-	if(!POWER_CHECK(1531, "타기사충전"))
+	if(!LF->POWER_CHECK(1531, "타기사충전"))
 		return;
 
 	if((m_nRiderCompany == 0) || (m_nRNo == 0))
@@ -242,7 +242,7 @@ void COtherRiderTransferDlg::SendPayLater(long nTransCharge)
 {	/*
 	if(m_nTransReadyCompany <= 0)
 	{
-		fc.MsgBox("잔액이 차감될 회사가 정해지지 않았습니다", "확인" , MB_ICONINFORMATION);
+		fc.LF->MsgBox("잔액이 차감될 회사가 정해지지 않았습니다", "확인" , MB_ICONINFORMATION);
 		return;
 	}
 	*/
@@ -311,7 +311,7 @@ void COtherRiderTransferDlg::GetBranchBalance()
 	{
 		rs.GetFieldValue("nAbility", m_nAbility);
 
-		m_edtAbleCharge.SetWindowText(::GetMyNumberFormat(m_nAbility) + "원");
+		m_edtAbleCharge.SetWindowText(LF->GetMyNumberFormat(m_nAbility) + "원");
 	}
 }
 

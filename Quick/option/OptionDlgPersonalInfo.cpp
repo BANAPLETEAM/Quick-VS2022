@@ -561,8 +561,8 @@ BOOL COptionDlgPersonalInfo::Save(long nCompany, BOOL bAll)
 	cmd.AddParameter(m_strBizNo);
 	cmd.AddParameter(m_strOwner);
 	cmd.AddParameter(m_strOwnerSSN);
-	cmd.AddParameter(::GetNoneDashNumber(m_strTel));
-	cmd.AddParameter(::GetNoneDashNumber(m_strHp));
+	cmd.AddParameter(LF->GetNoneDashNumber(m_strTel));
+	cmd.AddParameter(LF->GetNoneDashNumber(m_strHp));
 	cmd.AddParameter(m_strEMail);
 	cmd.AddParameter(m_nHomeDongID);
 	cmd.AddParameter(m_strHomeAddress);
@@ -699,7 +699,7 @@ void COptionDlgPersonalInfo::ChangeControl()
 	CMainOptionDlg2* pDlg = (CMainOptionDlg2*)GetParent()->GetParent();
 	long nCompany = pDlg->GetSelCompanyCode(); 
 
-	BOOL bMainCompany = GetBranchInfo(nCompany)->bRcpIntMode1;
+	BOOL bMainCompany = LF->GetBranchInfo(nCompany)->bRcpIntMode1;
 
 	CRect rcTop, rcBottom, rcCard;
 

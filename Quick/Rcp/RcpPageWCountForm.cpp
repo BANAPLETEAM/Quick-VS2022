@@ -266,7 +266,7 @@ void CRcpPageWCountForm::AddGraphData(vector <ST_WCOUNT> *vec, long nType, long 
  
 	pSeries->GetStyle()->GetLabel()->SetVisible(TRUE);
   
-	if(!POWER_CHECK(1895, "접수자통계")) 
+	if(!LF->POWER_CHECK(1895, "접수자통계")) 
 		pSeries->GetStyle()->GetLabel()->SetFormat("{V}%%");
 }
 
@@ -294,7 +294,7 @@ void CRcpPageWCountForm::RefreshChart()
 	pContent->GetLegend()->SetVisible(TRUE);   
 
 
-	if(!POWER_CHECK(1895, "접수자통계"))
+	if(!LF->POWER_CHECK(1895, "접수자통계"))
 		ChangeDatePer();
 
 	vector <ST_WCOUNT> vec;

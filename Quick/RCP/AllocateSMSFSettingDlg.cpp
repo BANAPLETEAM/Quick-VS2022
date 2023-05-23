@@ -96,7 +96,7 @@ void CAllocateSMSFSettingDlg::FillMap(CMkRecordset *pRs)
 
 		m_edtInput.SetWindowText(m_strInput);
 		m_edtSample.SetWindowText(GetReplaceChar((CStringW)m_strInput));
-		m_stcByte.SetWindowText(::GetStringFromLong(m_edtSample.GetWindowTextLength()) + " Byte");
+		m_stcByte.SetWindowText(LF->GetStringFromLong(m_edtSample.GetWindowTextLength()) + " Byte");
 	}
 	else
 	{
@@ -126,7 +126,7 @@ void CAllocateSMSFSettingDlg::OnEnChangeInputEdit()
 	CStringW sInputW(sInput);
 
     m_edtSample.SetWindowText(GetReplaceChar(sInputW));
-	m_stcByte.SetWindowText(::GetStringFromLong(m_edtSample.GetWindowTextLength()) + " Byte");
+	m_stcByte.SetWindowText(LF->GetStringFromLong(m_edtSample.GetWindowTextLength()) + " Byte");
 }
 
 CString CAllocateSMSFSettingDlg::GetReplaceChar(CStringW &sInputW, long nNextStartIndex)
@@ -219,7 +219,7 @@ void CAllocateSMSFSettingDlg::GetLastIndex(CStringW sInput, long nStartIndex, lo
 		
 		if(bFInd)
 		{
-            if(IsNumeric((CString)sInput.Mid(j,1)) == TRUE)
+            if(LF->IsNumeric((CString)sInput.Mid(j,1)) == TRUE)
 			{
 				sCount += sInput.Mid(j,1);
 				nLastIndex = j;

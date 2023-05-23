@@ -69,49 +69,49 @@ int CIncomeView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LU->CreateFormViewTabControl(this, &m_wndTabControl);
 
-	if(POWER_CHECK(7010, "입금관리_direct"))
+	if(LF->POWER_CHECK(7010, "입금관리_direct"))
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm4), _T("입금관리"), 0,CIncomeForm4::IDD);
 		m_nIncomeForm7Tab++;
 	}
-	if(POWER_CHECK(7020, "통장식로그_direct"))
+	if(LF->POWER_CHECK(7020, "통장식로그_direct"))
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm5), _T("통장식로그"), 0,CIncomeForm5::IDD);
 		m_nIncomeForm7Tab++;
 	}
-	if(POWER_CHECK(7030, "선입금충전전용"))
+	if(LF->POWER_CHECK(7030, "선입금충전전용"))
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm3), _T("선입금충전전용"), 0,CIncomeForm3::IDD);
 		m_nIncomeForm7Tab++;
 	}
-	if(POWER_CHECK(7040, "지입금관리"))
+	if(LF->POWER_CHECK(7040, "지입금관리"))
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm7), _T("지입금관리"), 0,CIncomeForm7::IDD);
 	}
 	else
 		m_nIncomeForm7Tab = -100;
 
-	if(POWER_CHECK(7050, "지입금로그"))
+	if(LF->POWER_CHECK(7050, "지입금로그"))
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm6), _T("지입금로그"), 0,CIncomeForm6::IDD);
 	}
 
-	if(POWER_CHECK(7080, "지입금로그"))
+	if(LF->POWER_CHECK(7080, "지입금로그"))
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm8), _T("최종정산 마감고지"), 0,CIncomeForm8::IDD);
 	}
 
-	if(POWER_CHECK(7090, "기사가상계좌") )
+	if(LF->POWER_CHECK(7090, "기사가상계좌") )
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm9), _T("기사가상계좌"), 0,CIncomeForm9::IDD);
 	}
 
-	if(POWER_CHECK(7100, "선불카드") )
+	if(LF->POWER_CHECK(7100, "선불카드") )
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm10), _T("선불카드"), 0,CIncomeForm10::IDD);
 	}
 
-	if(POWER_CHECK(7110, "기사가상계좌충전") )
+	if(LF->POWER_CHECK(7110, "기사가상계좌충전") )
 	{
 		LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CIncomeForm11), _T("기사가상계좌충전"), 0,CIncomeForm11::IDD);
 
@@ -147,7 +147,7 @@ LONG CIncomeView::OnBranchClickEvent(UINT nBranch, LPARAM lParam)
 	CXTPTabManagerItem *pItem = m_wndTabControl.GetItem(m_wndTabControl.GetCurSel());
 	CMyFormView *pView = (CMyFormView*)CWnd::FromHandle(pItem->GetHandle());
 
-	if(m_CurCodeInfo[pView] != GetCurBranchInfo())
+	if(m_CurCodeInfo[pView] != LF->GetCurBranchInfo())
 	{
 		pView->RefreshList();
 	}

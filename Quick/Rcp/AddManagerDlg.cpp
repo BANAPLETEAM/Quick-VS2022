@@ -56,14 +56,14 @@ void CAddManagerDlg::OnBnClickedOk()
 	CMkCommand pCmd(m_pMkDb, "insert_customer_phone_with_manager_2");
 	CMkParameter *pPar = pCmd.AddParameter(typeLong, typeReturn, sizeof(int), 0);
 	//pCmd.AddParameter(m_nCompany);
-	pCmd.AddParameter(::GetBranchInfo(m_nCompany)->nCustomerTable);
+	pCmd.AddParameter(LF->GetBranchInfo(m_nCompany)->nCustomerTable);
 	pCmd.AddParameter(m_nCNo);
-	pCmd.AddParameter(::GetNoneDashNumberRemoveDDD(m_strDepart));
-	pCmd.AddParameter(::GetNoneDashNumberRemoveDDD(m_strManager));
-	pCmd.AddParameter(::GetNoneDashNumberRemoveDDD(m_strTel));
-	pCmd.AddParameter(::GetNoneDashNumberRemoveDDD(m_strTel2));
-	pCmd.AddParameter(::GetNoneDashNumberRemoveDDD(m_strTel3));
-	pCmd.AddParameter(::GetNoneDashNumberRemoveDDD(m_strTel4));
+	pCmd.AddParameter(LF->GetNoneDashNumberRemoveDDD(m_strDepart));
+	pCmd.AddParameter(LF->GetNoneDashNumberRemoveDDD(m_strManager));
+	pCmd.AddParameter(LF->GetNoneDashNumberRemoveDDD(m_strTel));
+	pCmd.AddParameter(LF->GetNoneDashNumberRemoveDDD(m_strTel2));
+	pCmd.AddParameter(LF->GetNoneDashNumberRemoveDDD(m_strTel3));
+	pCmd.AddParameter(LF->GetNoneDashNumberRemoveDDD(m_strTel4));
 
 	if(!pCmd.Execute()) return;
 

@@ -150,8 +150,8 @@ void CRcpPageRecordFileForm::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_record_file_name");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -204,12 +204,12 @@ void CRcpPageRecordFileForm::RefreshList()
 			}
 		}
 		else
-			strBranch = GetBranchInfo(nCompany)->strBranchName;
+			strBranch = LF->GetBranchInfo(nCompany)->strBranchName;
 
 		if(nInsertType == 0 && nStartMiliSec > 0 && nEndMiliSec >= 0)
 			dtDate = dtDate - COleDateTimeSpan(0, 0, 0, nStartMiliSec / 1000);
 
-		m_List.AddRecord(new CXTPRecFileRecord(dtDate, strBranch, RemoveZero(nTNo), strKeyPhoneID
+		m_List.AddRecord(new CXTPRecFileRecord(dtDate, strBranch, LF->RemoveZero(nTNo), strKeyPhoneID
 			, strOperator, strTellNumber, nBound, nStartMiliSec, nEndMiliSec, strFileName));
 
 		rs.MoveNext();
@@ -229,8 +229,8 @@ void CRcpPageRecordFileForm::RefreshListToday()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_record_file_name_today");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	CMkParameter *parRestartDate = cmd.AddParameter(typeDate, typeOutput, sizeof(COleDateTime), m_dtLast);
 
 	if(!rs.Execute(&cmd)) return;
@@ -277,12 +277,12 @@ void CRcpPageRecordFileForm::RefreshListToday()
 			}
 		}
 		else
-			strBranch = GetBranchInfo(nCompany)->strBranchName;
+			strBranch = LF->GetBranchInfo(nCompany)->strBranchName;
 
 		if(nInsertType == 0 && nStartMiliSec > 0 && nEndMiliSec >= 0)
 			dtDate = dtDate - COleDateTimeSpan(0, 0, 0, nStartMiliSec / 1000);
 
-		m_List.AddRecord(new CXTPRecFileRecord(dtDate, strBranch, RemoveZero(nTNo), strKeyPhoneID
+		m_List.AddRecord(new CXTPRecFileRecord(dtDate, strBranch, LF->RemoveZero(nTNo), strKeyPhoneID
 			, strOperator, strTellNumber, nBound, nStartMiliSec, nEndMiliSec, strFileName));
 
 		rs.MoveNext();
@@ -328,11 +328,11 @@ void CRcpPageRecordFileForm::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * 
 		if(strFileName.GetLength() == 0)
 			return;
 
-		if(!POWER_CHECK(1951, "파일 재생"))
+		if(!LF->POWER_CHECK(1951, "파일 재생"))
 		{
 			if(strOperator == m_ui.strName)
 			{
-				if(!POWER_CHECK(1953, "본인 파일 재생", TRUE))
+				if(!LF->POWER_CHECK(1953, "본인 파일 재생", TRUE))
 					return;
 			}
 			else
@@ -344,7 +344,7 @@ void CRcpPageRecordFileForm::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * 
 
 		if(nCol == 9)			//전화기 듣기
 		{
-			CString strFolderDate = GetFolderDate(strFileName);
+			CString strFolderDate = LF->GetFolderDate(strFileName);
 			strFolderDate.Format("%s-%s-%s", strFolderDate.Left(4), strFolderDate.Mid(4, 2), strFolderDate.Right(2));
 			if(LU->GetRcpView())
 				LU->GetRcpView()->PlayRecordFile(strFolderDate, strFileName);
@@ -354,7 +354,7 @@ void CRcpPageRecordFileForm::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * 
 			if(MessageBox("파일을 다운로드 하시겠습니까?", "확인", MB_OKCANCEL) != IDOK)
 				return;
 
-			LU->PlayRecFile(pRecord->GetItemDate(), GetFolderDate(strFileName), pRecord->GetItem(4)->GetCaption(NULL)
+			LU->PlayRecFile(pRecord->GetItemDate(), LF->GetFolderDate(strFileName), pRecord->GetItem(4)->GetCaption(NULL)
 				, pRecord->GetItem(6)->GetCaption(NULL), strFileName, pRecord->GetItemBound());
 		}
 	}
@@ -505,9 +505,9 @@ void CRcpPageRecordFileForm::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CRcpPageRecordFileForm::OnViewExcel()
 {
-	if(!POWER_CHECK(1952, "녹취파일 엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(1952, "녹취파일 엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 105,m_List.GetRecords()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 105,m_List.GetRecords()->GetCount());  
 	CMyExcel::ToExcel(&m_List);
 }

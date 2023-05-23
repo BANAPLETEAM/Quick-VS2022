@@ -112,8 +112,8 @@ void CDepositJopUpdateLogDlg::RefreshJobLogList()
 		pRs.GetFieldValue("sWName", strWName);
 		pRs.GetFieldValue("sUpdateEtc", strUpdateEtc);
 
-		m_List.InsertItem(i, GetStringFromLong(i + 1));
-		m_List.SetItemText(i, 1, GetStringFromLong(nID));
+		m_List.InsertItem(i, LF->GetStringFromLong(i + 1));
+		m_List.SetItemText(i, 1, LF->GetStringFromLong(nID));
 		m_List.SetItemText(i, 2, m_ci.GetBranchName(nCompany));
 		m_List.SetItemText(i, 3, strDisplayName);
 		m_List.SetItemText(i, 4, bUse == TRUE ? "사용" : "사용안함");
@@ -157,10 +157,10 @@ void CDepositJopUpdateLogDlg::RefreshRiderLogList()
 		pRs.GetFieldValue("sName", strRiderName);
 		pRs.GetFieldValue("nRNo", nRNo);
 
-		m_List.InsertItem(i, GetStringFromLong(i + 1));
-		m_List.SetItemText(i, 1, GetStringFromLong(nScheduleID));
+		m_List.InsertItem(i, LF->GetStringFromLong(i + 1));
+		m_List.SetItemText(i, 1, LF->GetStringFromLong(nScheduleID));
 		m_List.SetItemText(i, 2, strDisplayName);
-		m_List.SetItemText(i, 3, GetStringFromLong(nRNo));
+		m_List.SetItemText(i, 3, LF->GetStringFromLong(nRNo));
 		m_List.SetItemText(i, 4, strRiderName);
 		m_List.SetItemText(i, 5, dtChange.Format("%Y-%m-%d %H:%M:%S"));
 		m_List.SetItemText(i, 6, strUpdateWName);

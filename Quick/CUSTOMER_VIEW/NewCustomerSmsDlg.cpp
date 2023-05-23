@@ -114,7 +114,7 @@ void CNewCustomerSmsDlg::OnBnClickedSendBtn()
 	int nTotCount = 0;
 
 	ST_SMS_INFO smsi;
-	smsi = ::GetSMSBalance(m_ci.m_nCompanyCode);
+	smsi = LF->GetSMSBalance(m_ci.m_nCompanyCode);
 	if(smsi.nSMSType >= 10)
 	{
 		if(smsi.nSMSBarance < DEFINE_SMS_AMOUNT - 1){

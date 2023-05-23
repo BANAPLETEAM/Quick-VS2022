@@ -21,7 +21,7 @@ BOOL CJibunData::LoadJibunData()
 		return TRUE;
 
 	CMkRecordset pRs;
-	if(pRs.OpenFromFile(GetModuleFullPath() + "npoi_jb.dat", TRUE)) 
+	if(pRs.OpenFromFile(LF->GetModuleFullPath() + "npoi_jb.dat", TRUE)) 
 	{
 		for(int i=0; i < pRs.GetRecordCount(); i++)
 		{
@@ -68,7 +68,7 @@ int CJibunData::GetJibunPoi(POI_DATA *pDongPoi, CString strLi, int nSan, CString
 		strFullName = m_poi.GetDisplayName(pDongPoi);
 		if(strFullName.Right(2) == "°¡")
 		{
-			if(IsStringDigit(strFullName.Mid(strFullName.GetLength() - 4, 1)))
+			if(LF->IsStringDigit(strFullName.Mid(strFullName.GetLength() - 4, 1)))
 			{
 				strFullName.Insert(strFullName.GetLength() - 4, "µ¿");
 			}

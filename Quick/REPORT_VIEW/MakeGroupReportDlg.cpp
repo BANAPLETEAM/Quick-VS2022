@@ -119,16 +119,16 @@ void CMakeGroupReportDlg::RefreshList()
 		pRs.GetFieldValue("nUnCollection", nUnCollection);	
 		pRs.GetFieldValue("bPressBill", bPressBill);	
 
-		m_lstReport.InsertItem(i, GetMyNumberFormat(i+ 1));
+		m_lstReport.InsertItem(i, LF->GetMyNumberFormat(i+ 1));
 		m_lstReport.SetItemText(i, 1, dtReportStart.Format("%y-%m-%d") + " ~ " + dtReportEnd.Format("%y-%m-%d"));
 		m_lstReport.SetItemText(i, 2, GetReportState(nReportState));
 		m_lstReport.SetItemText(i, 3, dtCreate.Format("%Y-%m-%d"));
 
-		m_lstReport.SetItemText(i, 4, GetMyNumberFormat(nCreditCount));
-		m_lstReport.SetItemText(i, 5, GetMyNumberFormat(nCreditCharge));
-		m_lstReport.SetItemText(i, 6, GetMyNumberFormat(nTransCharge));
+		m_lstReport.SetItemText(i, 4, LF->GetMyNumberFormat(nCreditCount));
+		m_lstReport.SetItemText(i, 5, LF->GetMyNumberFormat(nCreditCharge));
+		m_lstReport.SetItemText(i, 6, LF->GetMyNumberFormat(nTransCharge));
 
-		m_lstReport.SetItemText(i, 7, GetMyNumberFormat(nUnCollection));
+		m_lstReport.SetItemText(i, 7, LF->GetMyNumberFormat(nUnCollection));
 		m_lstReport.SetItemText(i, 8, bPressBill ? "발행" : "미발행");
 
 

@@ -275,8 +275,8 @@ void CReportForm52::RefreshOrderList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_report_list");
-	pCmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(::GetCurBranchInfo()->bIntegrated);	
+	pCmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);	
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);	
 	pCmd.AddParameter(m_sSelectGNo);
@@ -349,7 +349,7 @@ void CReportForm52::RefreshOrderList()
 			strDTPayMent.Format("%02d-%02d", dtPayMent.GetMonth(), dtPayMent.GetDay());
 			dtPaySpan = dtPayMent - dtNow;
 			if(nReceivableAmount > 0)
-				strPayDay.Format("%s" , dtPaySpan.GetDays() >= 0 ? "" :  GetMyNumberFormat(dtPaySpan.GetDays()) + "일" );
+				strPayDay.Format("%s" , dtPaySpan.GetDays() >= 0 ? "" :  LF->GetMyNumberFormat(dtPaySpan.GetDays()) + "일" );
 		}
 		if(dtCreate.GetStatus() == COleDateTime::valid) 
 			strDTCreate.Format("%02d-%02d", dtCreate.GetMonth(), dtCreate.GetDay()) ;
@@ -372,27 +372,27 @@ void CReportForm52::RefreshOrderList()
 		m_lstOrder.MyAddItem(strIntegrated);
 		m_lstOrder.MyAddItem(strDTCreate);
 		m_lstOrder.MyAddItem(dtReportStart.Format("%y-%m-%d") + " ~ " + dtReportEnd.Format("%y-%m-%d"));
-		m_lstOrder.MyAddItem( GetReportState(nReportState));
-		m_lstOrder.MyAddItem( strDiscount);
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nCreditCount));
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nCreditCharge));
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nDiscountCharge));
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nTransCharge));
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nBillTotalCharge));
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nCreditTax));
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nUnCollection));
-		m_lstOrder.MyAddItem( strDTBillCollection);
-		m_lstOrder.MyAddItem( strDTPayMent);
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nBillCollection));
-		m_lstOrder.MyAddItem( GetMyNumberFormat(nReceivableAmount));		
-		m_lstOrder.MyAddItem( strPayDay);
-		m_lstOrder.MyAddItem( strDTInputDebit);
-		m_lstOrder.MyAddItem( strSendSMS);
-		m_lstOrder.MyAddItem( strSendEmail);		
-		m_lstOrder.MyAddItem( strReadEmail);		
-		m_lstOrder.MyAddItem( strSendBill);
-		m_lstOrder.MyAddItem( strWName);
-		m_lstOrder.MyAddItem( strEtc);		
+		m_lstOrder.MyAddItem(LF->GetReportState(nReportState));
+		m_lstOrder.MyAddItem(strDiscount);
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nCreditCount));
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nCreditCharge));
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nDiscountCharge));
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nTransCharge));
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nBillTotalCharge));
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nCreditTax));
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nUnCollection));
+		m_lstOrder.MyAddItem(strDTBillCollection);
+		m_lstOrder.MyAddItem(strDTPayMent);
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nBillCollection));
+		m_lstOrder.MyAddItem(LF->GetMyNumberFormat(nReceivableAmount));		
+		m_lstOrder.MyAddItem(strPayDay);
+		m_lstOrder.MyAddItem(strDTInputDebit);
+		m_lstOrder.MyAddItem(strSendSMS);
+		m_lstOrder.MyAddItem(strSendEmail);		
+		m_lstOrder.MyAddItem(strReadEmail);		
+		m_lstOrder.MyAddItem(strSendBill);
+		m_lstOrder.MyAddItem(strWName);
+		m_lstOrder.MyAddItem(strEtc);		
 		m_lstOrder.InsertItemDataLong(nID);
 		m_lstOrder.InsertItemDataLong2(nGNo);		
 		m_lstOrder.InsertItemDataLong3(nReceivableAmount);		
@@ -423,17 +423,17 @@ void CReportForm52::RefreshOrderList()
 	{
 		for(int j=0;  j < 7; j++)
 			m_lstOrder.MyAddItem("");
-		m_lstOrder.MyAddItem(7, GetMyNumberFormat(i) + "건", "", 0, FALSE, DT_LEFT);
-		m_lstOrder.MyAddItem(8, GetMyNumberFormat(nTotalCreditCharge), "", 0, FALSE, DT_LEFT);
-		m_lstOrder.MyAddItem(9, GetMyNumberFormat(nTotalDiscountCharge), "", 0, FALSE, DT_LEFT);
-		m_lstOrder.MyAddItem(10, GetMyNumberFormat(nTotalTransCharge), "", 0, FALSE, DT_LEFT);
-		m_lstOrder.MyAddItem(11, GetMyNumberFormat(nTotalBillTotalCharge), "", 0, FALSE, DT_LEFT);
-		m_lstOrder.MyAddItem(12, GetMyNumberFormat(nTotalCreditTax), "", 0, FALSE, DT_LEFT);		
-		m_lstOrder.MyAddItem(13, GetMyNumberFormat(nTotalUnCollection), "", 0, FALSE, DT_LEFT);		
+		m_lstOrder.MyAddItem(7, LF->GetMyNumberFormat(i) + "건", "", 0, FALSE, DT_LEFT);
+		m_lstOrder.MyAddItem(8, LF->GetMyNumberFormat(nTotalCreditCharge), "", 0, FALSE, DT_LEFT);
+		m_lstOrder.MyAddItem(9, LF->GetMyNumberFormat(nTotalDiscountCharge), "", 0, FALSE, DT_LEFT);
+		m_lstOrder.MyAddItem(10, LF->GetMyNumberFormat(nTotalTransCharge), "", 0, FALSE, DT_LEFT);
+		m_lstOrder.MyAddItem(11, LF->GetMyNumberFormat(nTotalBillTotalCharge), "", 0, FALSE, DT_LEFT);
+		m_lstOrder.MyAddItem(12, LF->GetMyNumberFormat(nTotalCreditTax), "", 0, FALSE, DT_LEFT);		
+		m_lstOrder.MyAddItem(13, LF->GetMyNumberFormat(nTotalUnCollection), "", 0, FALSE, DT_LEFT);		
 		m_lstOrder.MyAddItem(14, "", "", 0, FALSE, DT_LEFT);		
 		m_lstOrder.MyAddItem(15, "", "", 0, FALSE, DT_LEFT);		
-		m_lstOrder.MyAddItem(16, GetMyNumberFormat(nTotalBillCollection), "", 0, FALSE, DT_LEFT);		
-		m_lstOrder.MyAddItem(17, GetMyNumberFormat(nTotalReceivableAmount), "", 0, FALSE, DT_LEFT);		
+		m_lstOrder.MyAddItem(16, LF->GetMyNumberFormat(nTotalBillCollection), "", 0, FALSE, DT_LEFT);		
+		m_lstOrder.MyAddItem(17, LF->GetMyNumberFormat(nTotalReceivableAmount), "", 0, FALSE, DT_LEFT);		
 		
 		m_lstOrder.EndItem();
 		m_lstOrder.Populate();		
@@ -646,7 +646,7 @@ void CReportForm52::OnLButtonUp(UINT nFlags, CPoint point)
 
 		if(nResult == IDYES)
 		{
-			if(::CheckGroupReport("0;", pDestRecord->m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
+			if(LF->CheckGroupReport("0;", pDestRecord->m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
 				return;
 
 			//long nCNo = m_lstOrder.GetItemLong(pOrderRecord);
@@ -659,7 +659,7 @@ void CReportForm52::OnLButtonUp(UINT nFlags, CPoint point)
 			{
 				if(strNeedReportID != "")
 				{
-					if(::ReReport(strNeedReportID))
+					if(LF->ReReport(strNeedReportID))
 					{
 						MessageBox("완료되었습니다.", "확인", MB_ICONINFORMATION);
 						RefreshOrderList();
@@ -768,10 +768,10 @@ void CReportForm52::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result
 
 void CReportForm52::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 316, m_ui.nWNo, m_lstOrder.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 316, m_ui.nWNo, m_lstOrder.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_lstOrder);
 }
 
@@ -797,7 +797,7 @@ void CReportForm52::OnPayIncome()
 	CString strState = pRow->GetRecord()->GetItem(nCol)->GetCaption(pCol);
 	if(strState.Compare("입금완료") == 0)
 	{
-		MsgBox("입금완료된 곳은 재입금이 불가능합니다.");
+		LF->MsgBox("입금완료된 곳은 재입금이 불가능합니다.");
 		return;
 	}
 
@@ -830,7 +830,7 @@ void CReportForm52::OnPayEnd()
 	CString strState = pRow->GetRecord()->GetItem(nCol)->GetCaption(pCol);
 	if(strState.Compare("입금완료") == 0)
 	{
-		MsgBox("입금완료된 곳은 재입금이 불가능합니다.");
+		LF->MsgBox("입금완료된 곳은 재입금이 불가능합니다.");
 		return;
 	}
 
@@ -886,7 +886,7 @@ void CReportForm52::IncomeWork(int nType)
 
 	if(nBillID <= 0 || nGNo <= 0 )
 	{
-		MsgBox("정산할 그룹이나 정산리포트가 없습니다 로지소프트로 문의하세요");
+		LF->MsgBox("정산할 그룹이나 정산리포트가 없습니다 로지소프트로 문의하세요");
 		return;
 	}
 
@@ -922,7 +922,7 @@ void CReportForm52::OnPayView()
 
 	if(nBillID <= 0 || nGNo <= 0 )
 	{
-		MsgBox("정산할 그룹이나 정산리포트가 없습니다 로지소프트로 문의하세요");
+		LF->MsgBox("정산할 그룹이나 정산리포트가 없습니다 로지소프트로 문의하세요");
 		return;
 	}
 
@@ -962,20 +962,20 @@ void CReportForm52::OnMakeGroupReport()
 
 	if(m_mapGNoList.size() <= 0)
 	{
-		MsgBox("정산할 부서를 선택하여 주세요");
+		LF->MsgBox("정산할 부서를 선택하여 주세요");
 		return;
 	}	
 	else if(m_mapGNoList.size() == 1)
 	{
 		CString sGNo = "";
 		sGNo = m_sSelectGNo; sGNo.Replace(",","");
-		if(IsNumeric(sGNo))
+		if(LF->IsNumeric(sGNo))
 			nReportGNo = atol(sGNo);
 		strGNoList = sGNo;
 	}
 	else if(m_mapGNoList.size() > 1)
 	{
-		MsgBox("대표로 정산할 부서를 검색하여 다시 선택하여 주세요");
+		LF->MsgBox("대표로 정산할 부서를 검색하여 다시 선택하여 주세요");
 
 		if(m_mapGNoList.size() > 0 )
 		{
@@ -985,7 +985,7 @@ void CReportForm52::OnMakeGroupReport()
 		}
 
 		CSearchGroupDlg dlg;
-		dlg.m_nCompany = GetCurBranchInfo()->nCompanyCode;
+		dlg.m_nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 		dlg.m_nDataType = SG_GROUP;
 		dlg.m_strSearch = strSearchGroup.GetLength() > 0 ? strSearchGroup : "";
 		if(dlg.DoModal() != IDOK) return;
@@ -1042,7 +1042,7 @@ void CReportForm52::OnBnClickedWebViewBtn()
 	
 	if( m_lstOrder.GetSelectedCount() <= 0 )
 	{
-		MsgBox("정산을 생성한 리스트를 선택하여주세요");
+		LF->MsgBox("정산을 생성한 리스트를 선택하여주세요");
 		return;
 	}
 	CString strGNoList = "";
@@ -1058,7 +1058,7 @@ void CReportForm52::OnBnClickedWebViewBtn()
 		strGNoList = pRecord->GetItemDataString();
 		if(nReportNo <= 0 || nGNo <= 0)
 		{
-			MsgBox("리포트의 생성시 그룹이 정해져 있지 않거나 리포트 번호가 없습니다.");
+			LF->MsgBox("리포트의 생성시 그룹이 정해져 있지 않거나 리포트 번호가 없습니다.");
 			return;
 		}
 
@@ -1343,7 +1343,7 @@ void CReportForm52::LogiTest(int nType)
 			strGNoList = pRecord->GetItemDataString();
 			if(nReportNo <= 0 || nGNo <= 0)
 			{
-				MsgBox("리포트의 생성시 그룹이 정해져 있지 않거나 리포트 번호가 없습니다.");
+				LF->MsgBox("리포트의 생성시 그룹이 정해져 있지 않거나 리포트 번호가 없습니다.");
 				return;
 			}
 		}

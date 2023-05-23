@@ -296,7 +296,7 @@ BOOL CShareOrderAllocate::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 	InitControl();
-	m_btnApplyAll.EnableWindow(GetCurBranchInfo()->bIntegrated);
+	m_btnApplyAll.EnableWindow(LF->GetCurBranchInfo()->bIntegrated);
 	if(m_nMode) // 1신규 0 수정
 	{
 		NewUser();

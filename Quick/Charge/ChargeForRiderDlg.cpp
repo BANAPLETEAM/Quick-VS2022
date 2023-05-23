@@ -46,8 +46,8 @@ END_MESSAGE_MAP()
 
 void CChargeForRiderDlg::OnBnClickedChargeForBtn()
 {
-	long nCharge = ::GetLongFromEdit(&m_edtCharge);
-	CString strEtc = ::GetStringFromEdit(&m_edtEtc);
+	long nCharge = LF->GetLongFromEdit(&m_edtCharge);
+	CString strEtc = LF->GetStringFromEdit(&m_edtEtc);
 
 	if(nCharge < 1000)
 	{

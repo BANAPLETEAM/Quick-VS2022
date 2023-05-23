@@ -92,7 +92,7 @@ COrderChangeRecord :: COrderChangeRecord(int nCount, int nRNo, CString strEditor
 										 CString sState, CString sBeforeEtc, CString sAfterEtc, int nColor)
 {
 	AddItem(new CXTPGridRecordItemNumber(nCount));
-	AddItem(new CXTPGridRecordItemText(strEditor + "(" + ::GetStringFromLong(nRNo) + ")"));
+	AddItem(new CXTPGridRecordItemText(strEditor + "(" + LF->GetStringFromLong(nRNo) + ")"));
 	AddItem(new CXTPGridRecordItemCompanyNumber(nWCompany));
 	AddItem(new CXTPGridRecordItemMyDateTime(dtLog));
 	AddItem(new CXTPGridRecordItemText(sState));
@@ -274,7 +274,7 @@ BOOL COrderLogDetailDlg::OnInitDialog()
 	strFormat.Format("오더번호 - %d", m_nTNo);
 
 	SetWindowText(strFormat);
-	GetDlgItem(IDC_TNO_EDIT)->SetWindowText(::GetStringFromLong(m_nTNo));
+	GetDlgItem(IDC_TNO_EDIT)->SetWindowText(LF->GetStringFromLong(m_nTNo));
 
 	m_tooltip.Create(this, FALSE);
 	m_tooltip.SetBehaviour(PPTOOLTIP_MULTIPLE_SHOW);
@@ -645,37 +645,37 @@ void COrderLogDetailDlg::ReFreshOrderChangeReport()
 
 		EditHistory.item[nItem++] = EditHistory.strEtc;
 		EditHistory.item[nItem++] = EditHistory.strItemType;
-		EditHistory.item[nItem++] = ::GetPayTypeFromLong(EditHistory.nPayType);
-		EditHistory.item[nItem++] = ::GetCarTypeFromLong(EditHistory.nCarType);
-		EditHistory.item[nItem++] = ::GetWayTypeFromLong(EditHistory.nWayType);
-		EditHistory.item[nItem++] = ::GetRunTypeFromLong(EditHistory.nRunType);
+		EditHistory.item[nItem++] = LF->GetPayTypeFromLong(EditHistory.nPayType);
+		EditHistory.item[nItem++] = LF->GetCarTypeFromLong(EditHistory.nCarType);
+		EditHistory.item[nItem++] = LF->GetWayTypeFromLong(EditHistory.nWayType);
+		EditHistory.item[nItem++] = LF->GetRunTypeFromLong(EditHistory.nRunType);
 
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeAdd);
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeBasic);
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeTrans);
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeDis);
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeSum);
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nDeposit);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeAdd);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeBasic);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeTrans);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeDis);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeSum);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nDeposit);
 
 		if(EditHistory.nCouponCharge < 100)
-			EditHistory.item[nItem++] = "퍼센트 : " + ::GetMyNumberFormat(EditHistory.nCouponCharge);
+			EditHistory.item[nItem++] = "퍼센트 : " + LF->GetMyNumberFormat(EditHistory.nCouponCharge);
 		else
-			EditHistory.item[nItem++] = "금액 : " + ::GetMyNumberFormat(EditHistory.nCouponCharge);
+			EditHistory.item[nItem++] = "금액 : " + LF->GetMyNumberFormat(EditHistory.nCouponCharge);
 
 		EditHistory.item[nItem++] = EditHistory.strChargeBet;
 		EditHistory.item[nItem++] = EditHistory.strSmsNumber;
-		EditHistory.item[nItem++] = ::GetStateString(EditHistory.nState);
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeReturn);
+		EditHistory.item[nItem++] = LF->GetStateString(EditHistory.nState);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeReturn);
 		EditHistory.item[nItem++] = GetReservedState(EditHistory.nReserved, EditHistory.dtReserved);
 
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeDriving);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeDriving);
 		EditHistory.item[nItem++] = EditHistory.nShowPhoneTypeOrder > 0 ? "체크" : "체크해지";
 		EditHistory.item[nItem++] = EditHistory.nShowPhoneTypeStart > 0 ? " 체크" : "체크해지";
 		EditHistory.item[nItem++] = EditHistory.nShowPhoneTypeDest > 0 ? "체크" : "체크해지";
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeCompany);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeCompany);
 		EditHistory.item[nItem++] = GetFoodOrderState(EditHistory.bFoodOrder, EditHistory.dtFoodComplete);
 		EditHistory.item[nItem++] = EditHistory.bAutoShareOrder > 0 ? "체크" : "체크해지";
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nChargeRevision);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nChargeRevision);
 		
 		m_EditHistoryMap[i] = EditHistory;
 

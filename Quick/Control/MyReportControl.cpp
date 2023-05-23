@@ -40,7 +40,7 @@ void CMyReportControl::LoadListInfo()
 
 		int nItemSize = sizeof(m_nHWidth) + sizeof(m_nHOrder) + sizeof(m_nColumnCount);
 		if(pBytes != (nItemSize + sizeof(int))) throw "size not match";
-		int nSum = CheckSum((void*)buffer, nItemSize);
+		int nSum = LF->CheckSum((void*)buffer, nItemSize);
 		if(nSum != (int)buffer[nItemSize / sizeof(int)]) throw "check sum error";	
 
 		memcpy((void*)&m_nHWidth, (void*)buffer, sizeof(m_nHWidth));
@@ -70,7 +70,7 @@ void CMyReportControl::SaveListInfo()
 	memcpy((void*)&buffer, (void*)&m_nHWidth, sizeof(m_nHWidth));
 	memcpy((void*)&buffer[sizeof(m_nHWidth) / sizeof(int)], (void*)&m_nHOrder, sizeof(m_nHOrder));
 	memcpy((void*)&buffer[(sizeof(m_nHWidth) + sizeof(m_nHOrder)) / sizeof(int)], (void*)&m_nColumnCount, sizeof(int));
-	int nCheckSum = CheckSum((void*)&buffer, nBytes);
+	int nCheckSum = LF->CheckSum((void*)&buffer, nBytes);
 	memcpy((void*)&buffer[nBytes / sizeof(int)], (void*)&nCheckSum, sizeof(int));
 
 	nBytes += sizeof(int);

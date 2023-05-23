@@ -87,14 +87,14 @@ BOOL CRecFileSelectDlg::OnInitDialog()
 
 	if(nRecordCount == 1)
 	{
-		if(!POWER_CHECK(1951, "파일 재생"))
+		if(!LF->POWER_CHECK(1951, "파일 재생"))
 		{
 			CXTPGridRecord *pRecord = m_lst.GetRecords()->GetAt(0);
 			ST_REC_FILE *st = (ST_REC_FILE*)m_lst.GetItemData(pRecord);
 
 			if(st->strOperator == m_ui.strName)
 			{
-				if(!POWER_CHECK(1953, "본인 녹취 듣기", TRUE))
+				if(!LF->POWER_CHECK(1953, "본인 녹취 듣기", TRUE))
 					return TRUE;
 			}
 			else
@@ -137,11 +137,11 @@ void CRecFileSelectDlg::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*
 	{
 		ST_REC_FILE *st = (ST_REC_FILE*)m_lst.GetItemData(pRecord);
 
-		if(!POWER_CHECK(1951, "파일 재생"))
+		if(!LF->POWER_CHECK(1951, "파일 재생"))
 		{
 			if(st->strOperator == m_ui.strName)
 			{
-				if(!POWER_CHECK(1953, "본인 녹취 듣기", TRUE))
+				if(!LF->POWER_CHECK(1953, "본인 녹취 듣기", TRUE))
 					return;
 			}
 			else

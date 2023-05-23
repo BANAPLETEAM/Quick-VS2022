@@ -284,7 +284,7 @@ void CRcpPageCTIForm::OnInitialUpdate()
 
 	BOOL bShowLastPhoneNumber = FALSE;
 #ifdef _DAERI
-	bShowLastPhoneNumber = POWER_CHECK(2009, "고객전화번호 끝번호 보이기");
+	bShowLastPhoneNumber = LF->POWER_CHECK(2009, "고객전화번호 끝번호 보이기");
 #else
 	bShowLastPhoneNumber = TRUE;
 #endif
@@ -303,7 +303,7 @@ void CRcpPageCTIForm::OnInitialUpdate()
 	m_wndOPReport.EnableToolTips(FALSE);
 	m_wndOPReport.GetPaintManager()->m_bHideSelection = TRUE;
 
-	if (GetCurBranchInfo()->bIPPBXType)
+	if (LF->GetCurBranchInfo()->bIPPBXType)
 	{
 		m_pOPPaintManagerEx = new COPStatePaintManagerEx;
 		m_pOPPaintManagerEx->m_bShowLastPhoneNumber = bShowLastPhoneNumber;
@@ -356,13 +356,13 @@ void CRcpPageCTIForm::OnInitialUpdate()
 	SetTimer(2, 10000, NULL);
 	SetTimer(4, 1000, NULL); //링인포 색 변화 타이머
 
-	//if(::IsThisCompany("올바로") || ::IsThisCompany("로지"))
+	//if(LF->IsThisCompany("올바로") || LF->IsThisCompany("로지"))
 	//	SetTimer(10, 10000, NULL);
 }
 
 void CRcpPageCTIForm::MoveTopControl()
 {
-	if(!GetCurBranchInfo()->bIPPBXType)
+	if(!LF->GetCurBranchInfo()->bIPPBXType)
 	{
 		GetDlgItem(IDC_QUEUE_STATE_EDIT)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_QUEUE_PAUSE_BTN)->ShowWindow(SW_HIDE);
@@ -662,7 +662,7 @@ void CRcpPageCTIForm::SetCallList(int nType,const char* szPhoneNumber,const char
 		pRecord->m_strLastAnswer = GetLastAnswerOP(szPhoneNumber, COleDateTime::GetCurrentTime());
 
 #ifdef _DAERI
-		pRecord->m_bShowLastPhoneNumber = POWER_CHECK(2009, "고객전화번호 끝번호 보이기");
+		pRecord->m_bShowLastPhoneNumber = LF->POWER_CHECK(2009, "고객전화번호 끝번호 보이기");
 #else
 		pRecord->m_bShowLastPhoneNumber = TRUE;
 #endif		
@@ -725,7 +725,7 @@ void CRcpPageCTIForm::SetCallList(int nType,const char* szPhoneNumber,const char
 				pRecord->m_strBranch = pBi->strBranchName;
 				pRecord->m_nCompany = pBi->nCompanyCode;
 				pRecord->m_strCallingLine = pBi->strCallingLine;
-				CString strTemp1 = GetNoneDashNumber(pBi->strPhone);
+				CString strTemp1 = LF->GetNoneDashNumber(pBi->strPhone);
 				if(strTemp1.Left(m_ci.m_strDDD.GetLength()) == m_ci.m_strDDD)
 					strTemp1 = strTemp1.Right(strTemp1.GetLength() - m_ci.m_strDDD.GetLength());
 				pRecord->m_strCompanyPhone = strTemp1;
@@ -808,7 +808,7 @@ void CRcpPageCTIForm::SetCallList(int nType,const char* szPhoneNumber,const char
 		EnsureVisibleFirstRow();
 		m_wndReport.Populate();
 
-		/*if(::IsThisCompany("올바로") || ::IsThisCompany("로지"))
+		/*if(LF->IsThisCompany("올바로") || LF->IsThisCompany("로지"))
 		{
 			if(m_strKeyPhoneID == pRecord->m_strKeyPhoneID && (pRecord->m_strPhone.GetLength() == 10 || pRecord->m_strPhone.GetLength() == 11))
 			{
@@ -1340,7 +1340,7 @@ void CRcpPageCTIForm::SetOPState(int nType,const char* szPhoneNumber,const char*
 	OP_STATE_MAP::iterator it;
 	it = GetOPStateMap()->find(strKeyPhoneID);
 
-	CString strCName = ::GetValueByArg(strCustomer, "CUST_NAME");;
+	CString strCName = LF->GetValueByArg(strCustomer, "CUST_NAME");;
 
 	if(it == GetOPStateMap()->end())
 	{
@@ -1429,7 +1429,7 @@ void CRcpPageCTIForm::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*re
 
 		if(nCol == 16 || nCol == 17) //녹취관련
 		{
-			if(!POWER_CHECK(1951, "파일 재생") && !POWER_CHECK(1953, "본인 파일 재생"))
+			if(!LF->POWER_CHECK(1951, "파일 재생") && !LF->POWER_CHECK(1953, "본인 파일 재생"))
 			{
 				MessageBox("녹취 파일듣기 권한이 없습니다.", "확인", MB_ICONINFORMATION);
 				return;
@@ -1461,7 +1461,7 @@ void CRcpPageCTIForm::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*re
 				if(MessageBox("파일을 다운로드 하시겠습니까?", "확인", MB_OKCANCEL) != IDOK)
 					return;
 
-				LU->PlayRecFile(dlg.m_dtRetDate, GetFolderDate(dlg.m_strRetFileName), dlg.m_strRetKeyPhoneID, pRecord->m_strPhone, dlg.m_strRetFileName, dlg.m_nRetBound);
+				LU->PlayRecFile(dlg.m_dtRetDate, LF->GetFolderDate(dlg.m_strRetFileName), dlg.m_strRetKeyPhoneID, pRecord->m_strPhone, dlg.m_strRetFileName, dlg.m_nRetBound);
 			}
 		}
 		else
@@ -1512,8 +1512,8 @@ void CRcpPageCTIForm::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*resu
 		CPoint pt; 
 		GetCursorPos(&pt);
 		CString strPhone;
-		strPhone.Format("전화걸기 (%s)", GetDashPhoneNumber(pRecord->m_strPhone));
-		m_selected.strPhone = GetNoneDashNumber(pRecord->m_strPhone);
+		strPhone.Format("전화걸기 (%s)", LF->GetDashPhoneNumber(pRecord->m_strPhone));
+		m_selected.strPhone = LF->GetNoneDashNumber(pRecord->m_strPhone);
 		m_selected.strKeyPhoneID = pRecord->m_strKeyPhoneID;
 		m_selected.strDID = pRecord->m_strDID;
 		m_selected.strCallingLine = pRecord->m_strCallingLine;
@@ -1524,7 +1524,7 @@ void CRcpPageCTIForm::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*resu
 		pMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_POPUP_RCP_DLG, "접수창 팝업");
 		pMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_SEARCH_RCP_LIST, "메인리스트에서 검색");
 		pMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_SEARCH_RCP_LIST2, "고객의 마지막 접수오더 팝업");
-		if(POWER_CHECK(1350, "진상고객수신거부"))
+		if(LF->POWER_CHECK(1350, "진상고객수신거부"))
 			pMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_ADD_BLOCKING_NUMBER, "전화번호 자동차단 등록");
 		pMenu->AppendMenu(MF_BYCOMMAND, ID_EXCEL, "엑셀변환");
 		pMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, pt.x, pt.y, this);
@@ -1631,19 +1631,19 @@ void CRcpPageCTIForm::AddPhoneCustomer(CString strPhone, CString strInfo, BOOL b
 
 	if(strInfo.GetLength() > 0)
 	{
-		CString strCName = ::GetValueByArg(strInfo, "CUST_NAME");
+		CString strCName = LF->GetValueByArg(strInfo, "CUST_NAME");
 
 		if(strCName.IsEmpty())
 			return;
 
-		stInfo->strCName = ::GetValueByArg(strInfo, "CUST_NAME");
-		stInfo->strID = ::GetValueByArg(strInfo, "CUST_NUM");
+		stInfo->strCName = LF->GetValueByArg(strInfo, "CUST_NAME");
+		stInfo->strID = LF->GetValueByArg(strInfo, "CUST_NUM");
 		stInfo->strID = stInfo->strID == "0" ? "" : stInfo->strID;
-		stInfo->strDepart = ::GetValueByArg(strInfo, "DEPART");
-		stInfo->strManager = ::GetValueByArg(strInfo, "MANAGER");
-		stInfo->strDong = ::GetValueByArg(strInfo, "DONG");
-		stInfo->strInfo = ::GetValueByArg(strInfo, "COUNT_INFO");
-		stInfo->strDesc = ::GetValueByArg(strInfo, "DESC");
+		stInfo->strDepart = LF->GetValueByArg(strInfo, "DEPART");
+		stInfo->strManager = LF->GetValueByArg(strInfo, "MANAGER");
+		stInfo->strDong = LF->GetValueByArg(strInfo, "DONG");
+		stInfo->strInfo = LF->GetValueByArg(strInfo, "COUNT_INFO");
+		stInfo->strDesc = LF->GetValueByArg(strInfo, "DESC");
 
 		if(stInfo->strInfo.IsEmpty() == FALSE)
 			stInfo->strCName += " [" + stInfo->strInfo + "]";
@@ -1870,7 +1870,7 @@ void CRcpPageCTIForm::FilterList(CString strPhone, BOOL bRedraw)
 	}
 
 	CString strText = strPhone;
-	strPhone = GetNoneDashNumber(strPhone);
+	strPhone = LF->GetNoneDashNumber(strPhone);
 	m_strLastFilterPhone = strPhone;
 	BOOL bVisibleAll = TRUE;
 
@@ -1906,7 +1906,7 @@ void CRcpPageCTIForm::SearchRecvCID(CString strPhone)
 	if(!m_bAutoBlocking)
 	{
 		m_strRecvCID = strPhone;
-		m_edtSearch.SetTitle(GetDashPhoneNumber(strPhone));
+		m_edtSearch.SetTitle(LF->GetDashPhoneNumber(strPhone));
 		FilterList(strPhone, TRUE);
 	}
 }
@@ -1979,7 +1979,7 @@ void CRcpPageCTIForm::DisplayRingInfo(long nRing, long nAnswer, long nMissingCal
 	strTemp.Format(szTemp, nRing, nAnswer, nMissingCallCount, nMissingCallPerMin); 
 
 #ifdef _DAERI
-	if(!POWER_CHECK(2007, "카운트 표시"))
+	if(!LF->POWER_CHECK(2007, "카운트 표시"))
 		strTemp = "";
 #endif
 
@@ -2059,7 +2059,7 @@ void CRcpPageCTIForm::MakeCall(int nCompany, CString strPhone, CString strCallin
 {
 	if(strPhone.GetLength() > 1)
 	{
-		CString strPhone1 = ::GetNoneDashNumber(strPhone), strOriginNumber;
+		CString strPhone1 = LF->GetNoneDashNumber(strPhone), strOriginNumber;
 		if(strPhone1.Left(m_ci.m_strDDD.GetLength()) == m_ci.m_strDDD)
 			strPhone1 = strPhone1.Right(strPhone1.GetLength() - m_ci.m_strDDD.GetLength());
 
@@ -2075,7 +2075,7 @@ void CRcpPageCTIForm::MakeCall(int nCompany, CString strPhone, CString strCallin
 			{
 				if(strDID.IsEmpty())
 				{
-					strDID = GetBranchInfo(nCompany)->strLineGroup;
+					strDID = LF->GetBranchInfo(nCompany)->strLineGroup;
 					if(strDID.Find(",") != -1)
 						strDID = strDID.Mid(strDID.Find(",") + 1, strDID.Find(",", strDID.Find(",") + 1) - strDID.Find(",") - 1);
 				}
@@ -2085,7 +2085,7 @@ void CRcpPageCTIForm::MakeCall(int nCompany, CString strPhone, CString strCallin
 				strDID = strDID + "OP" + strOriginNumber;
 			}
 
-			strCallingLine = ::GetAutoDDDSetting(nCompany, strCallingLine);
+			strCallingLine = LF->GetAutoDDDSetting(nCompany, strCallingLine);
 			if(strCallingLine.Find("A") != -1 && strPhone1.Find("0") != 0)
 			{
 				//strPhone1 = GetBranchInfo(nCompany)->strDDD + strPhone1;
@@ -2379,8 +2379,8 @@ void CRcpPageCTIForm::OnContextMenu(CWnd* pWnd, CPoint point)
 				pRs.GetFieldValue("sPhone", strPhone);
 				pRs.GetFieldValue("sName", strName);
 
-				strMenuText.Format("%s (%s)", strName, GetDashPhoneNumber(strPhone));
-				m_saHotNumberList.Add(GetNoneDashNumber(strPhone));
+				strMenuText.Format("%s (%s)", strName, LF->GetDashPhoneNumber(strPhone));
+				m_saHotNumberList.Add(LF->GetNoneDashNumber(strPhone));
 
 				UINT nID = ID_MENU_HOT_NUMBER + i;
 				pMainMenu->AppendMenu(MF_BYCOMMAND, nID, strMenuText);
@@ -2644,7 +2644,7 @@ BOOL CRcpPageCTIForm::OnLoadReportState()
 	for(int i=0; i<nCount; i = i+2)
 	{
 		CString strTemp = strRcpList.Mid(i, 2);
-		pData[nItem++] = HexStrToInt(strTemp);
+		pData[nItem++] = LF->HexStrToInt(strTemp);
 	}
 
 	AfxGetApp()->WriteProfileBinary(_T("ReportControl"), _T("CTI"), pData, nSize);
@@ -2759,7 +2759,7 @@ BOOL CRcpPageCTIForm::SetRecordData(CCallListRecord *pRecord, CString szPhoneNum
 
 void CRcpPageCTIForm::OnViewExcel()
 {
-	if(!POWER_CHECK(1511, "콜리스트 엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(1511, "콜리스트 엑셀변환", TRUE))
 		return;
 
 	CMyExcel::ToExcel(&m_wndReport);
@@ -2845,7 +2845,7 @@ void CRcpPageCTIForm::AddRecordFileNameInsertID(CString strKeyPhoneID, CString s
 
 long CRcpPageCTIForm::GetRecordFileNameInsertID(CString strPhoneNumber)
 {
-	CString strNumber = GetNoneDashNumber(strPhoneNumber);
+	CString strNumber = LF->GetNoneDashNumber(strPhoneNumber);
 	RECORDFILENAME_INSERTID_MAP::iterator it = m_mapRecordFileID.find(strNumber);
 	if(it != m_mapRecordFileID.end())
 	{
@@ -3062,7 +3062,7 @@ BOOL CRcpPageCTIForm::SendAllbaroSMS()
 			//TRACE("SendAllbaroSMS %s, %s, %d \r\n", it->first, it->second.first, GetTickCount() - it->second.second);
 			CMkRecordset rs(m_pMkDb);
 			CMkCommand cmd(m_pMkDb, "insert_sms_allbaro_hangup");
-			cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
+			cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 			cmd.AddParameter(it->first);
 			cmd.AddParameter(it->second.first);
 			cmd.AddParameter(m_ui.nCompany); 

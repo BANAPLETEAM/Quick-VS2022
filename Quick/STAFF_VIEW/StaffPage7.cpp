@@ -272,7 +272,7 @@ void CStaffPage7::RefreshList()
 
 		m_List.SetItemData(i, (DWORD_PTR)ri);
 
-		if(IsStringDigit(m_strRider)) {
+		if(LF->IsStringDigit(m_strRider)) {
 			if(atol(m_strRider) == nMNo)
 				nCurSel = i; 
 		}
@@ -306,7 +306,7 @@ void CStaffPage7::RefreshList()
 
 void CStaffPage7::OnMenuMsg()
 {
-	if(!POWER_CHECK(1200, "기사공지창 보기", TRUE))
+	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
 	int nSelItem = m_List.GetNextItem(-1, LVNI_SELECTED);
@@ -332,10 +332,10 @@ void CStaffPage7::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStaffPage7::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(5900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 403, m_ui.nWNo, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 403, m_ui.nWNo, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 
@@ -666,7 +666,7 @@ BOOL CStaffPage7::PreTranslateMessage(MSG* pMsg)
 void CStaffPage7::OnBnClickedRiderMoveButton()
 {
 	CMoveRiderDlg1 dlg;
-	dlg.SetIntegrated(GetCurBranchInfo()->bIntegrated);
-	dlg.SetCompanyCode(GetCurBranchInfo()->nCompanyCode);
+	dlg.SetIntegrated(LF->GetCurBranchInfo()->bIntegrated);
+	dlg.SetCompanyCode(LF->GetCurBranchInfo()->nCompanyCode);
 	dlg.DoModal();	
 }

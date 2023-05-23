@@ -201,7 +201,7 @@ BOOL CSmsDlg::OnInitDialog()
 		CString strInfoStatic2,strInfoStatic3,strInfoStatic4,strInfoStatic5;
 		strInfoStatic2.Format("지사명: %s", strBranchName);
 		strInfoStatic3.Format("기사명: %s", strRiderName);
-		strInfoStatic4.Format("전화번호: %s",GetDashPhoneNumber(m_strRiderPhone));
+		strInfoStatic4.Format("전화번호: %s",LF->GetDashPhoneNumber(m_strRiderPhone));
 		strInfoStatic5.Format("사번: %d",m_nRNo);
 		
 		m_stcInfo2.SetWindowText(strInfoStatic2);			
@@ -340,7 +340,7 @@ void CSmsDlg::OnBnClickedSendBtn()
 			nCursor = PAGE_SIZE - strHead.GetAllocLength();
 			//strPage = strHead + strMsg.Mid(0, nCursor);
 			strPage = strMsg.Mid(0, nCursor);
-			if(IsBrokenHangul(strPage)) {
+			if(LF->IsBrokenHangul(strPage)) {
 				strPage = strPage.Left(PAGE_SIZE - 1);
 				nCursor--;
 			}
@@ -356,7 +356,7 @@ void CSmsDlg::OnBnClickedSendBtn()
 			else
 				strPage = strHead + strMsg.Mid(0, nCursor);
 
-			if(IsBrokenHangul(strPage)) {
+			if(LF->IsBrokenHangul(strPage)) {
 				strPage = strPage.Left(PAGE_SIZE - 1);
 				nCursor--;
 			}
@@ -373,7 +373,7 @@ void CSmsDlg::OnBnClickedSendBtn()
 					strPage = strHead + strMsg.Mid(nCursor, PAGE_SIZE - strHead.GetLength());
 
 				nCursor += PAGE_SIZE - strHead.GetLength(); 
-				if(IsBrokenHangul(strPage)) {
+				if(LF->IsBrokenHangul(strPage)) {
 					strPage = strPage.Left(PAGE_SIZE - 1);
 					nCursor--;
 				}
@@ -388,7 +388,7 @@ void CSmsDlg::OnBnClickedSendBtn()
 					else
 						strPage = strHead + strMsg.Mid(nCursor, PAGE_SIZE - strHead.GetLength());
 
-					if(IsBrokenHangul(strPage)) {
+					if(LF->IsBrokenHangul(strPage)) {
 						strPage = strPage.Left(PAGE_SIZE - 1);
 						nCursor--;
 					}
@@ -426,7 +426,7 @@ void CSmsDlg::OnBnClickedSendBtn()
 	CString strCustomer = "";
 	for(int i = 0; i < saMsg.GetCount(); i++)
 	{		 
-        if(!SendSmsNew(m_nRCompany, m_nTNo, m_strRiderPhone, m_strTel[i], saMsg.GetAt(i), "배차(접수프로그램)", "", "", FALSE)) return;
+        if(!LF->SendSmsNew(m_nRCompany, m_nTNo, m_strRiderPhone, m_strTel[i], saMsg.GetAt(i), "배차(접수프로그램)", "", "", FALSE)) return;
 	}
 	
 	OnOK();
@@ -626,22 +626,22 @@ void CSmsDlg::MakeCallBackPhone()
 CString CSmsDlg::GetRealNumber(CString strMobile, CString strPhone)
 {
 	if((strMobile.GetLength() > 0) && 
-		(IsNumeric(::GetNoneDashNumber(strMobile)) == TRUE))
+		(LF->IsNumeric(LF->GetNoneDashNumber(strMobile)) == TRUE))
 	{
 		if(strMobile.GetLength() >= 10)
 		{
-            return ::GetNoneDashNumber(strMobile);
+            return LF->GetNoneDashNumber(strMobile);
 		}
 		else if(strMobile.GetLength() >= 6)
 			return m_ci.m_strDDD + strMobile;
 	}
 
 	if((strPhone.GetLength() > 0) && 
-		(IsNumeric(::GetNoneDashNumber(strPhone)) == TRUE))
+		(LF->IsNumeric(LF->GetNoneDashNumber(strPhone)) == TRUE))
 	{
 		if(strPhone.GetLength() >= 10)
 		{
-			return ::GetNoneDashNumber(strPhone);
+			return LF->GetNoneDashNumber(strPhone);
 		}
 		else
 			return m_ci.m_strDDD + strPhone;
@@ -714,10 +714,10 @@ CString CSmsDlg::GetBType()
 
 	if((m_ASI->strDPhone.GetLength() > 0) && (m_ASI->strDMobile.GetLength() > 0))
 	{
-		if(::IsNumeric(::GetNoneDashNumber(m_ASI->strDMobile)) == TRUE)
-			strMsg += "☎" + GetDashPhoneNumber(m_ASI->strDMobile) + ",";
-		else if(::IsNumeric(::GetNoneDashNumber(m_ASI->strDPhone)) == TRUE)
-			strMsg += "☎" + GetDashPhoneNumber(m_ASI->strDPhone) + ",";
+		if(LF->IsNumeric(LF->GetNoneDashNumber(m_ASI->strDMobile)) == TRUE)
+			strMsg += "☎" + LF->GetDashPhoneNumber(m_ASI->strDMobile) + ",";
+		else if(LF->IsNumeric(LF->GetNoneDashNumber(m_ASI->strDPhone)) == TRUE)
+			strMsg += "☎" + LF->GetDashPhoneNumber(m_ASI->strDPhone) + ",";
 	}
 
 	if(m_ASI->strOName.GetLength() > 0)
@@ -749,10 +749,10 @@ CString CSmsDlg::GetCType()
 
 	if((m_ASI->strOPhone.GetLength() > 0) && (m_ASI->strOMobile.GetLength() > 0))
 	{
-		if(::IsNumeric(::GetNoneDashNumber(m_ASI->strOMobile)) == TRUE)
-			strMsg += "☏" + ::GetDashPhoneNumber(m_ASI->strOMobile) + ",";
-		else if(::IsNumeric(::GetNoneDashNumber(m_ASI->strOPhone)) == TRUE)
-			strMsg += "☏" + ::GetDashPhoneNumber(m_ASI->strOPhone) + ",";
+		if(LF->IsNumeric(LF->GetNoneDashNumber(m_ASI->strOMobile)) == TRUE)
+			strMsg += "☏" + LF->GetDashPhoneNumber(m_ASI->strOMobile) + ",";
+		else if(LF->IsNumeric(LF->GetNoneDashNumber(m_ASI->strOPhone)) == TRUE)
+			strMsg += "☏" + LF->GetDashPhoneNumber(m_ASI->strOPhone) + ",";
 	}
 
 	if(m_ASI->strOName.GetLength() > 0)

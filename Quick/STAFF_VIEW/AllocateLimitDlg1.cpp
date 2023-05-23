@@ -343,7 +343,7 @@ BOOL CAllocateLimitDlg1::ModfiyProcess(void)
 		return	FALSE;
 	}
 
-	if(SaveAllocateInfo(&m_stRiderAllocate, FALSE))
+	if(LF->SaveAllocateInfo(&m_stRiderAllocate, FALSE))
 	{
 		//UpdateData(FALSE);
 		return TRUE;

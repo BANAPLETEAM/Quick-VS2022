@@ -58,7 +58,7 @@ BOOL CRiderInfoLogDlg::OnInitDialog()
 
 void CRiderInfoLogDlg::InitControlData()
 {
-	FillBankCode(TRUE, &m_cmbBankID);
+	LF->FillBankCode(TRUE, &m_cmbBankID);
 
 	m_List.InsertColumn(0, "순번", LVCFMT_CENTER, 40);
 	m_List.InsertColumn(1, "지사", LVCFMT_LEFT, 95);
@@ -141,8 +141,8 @@ void CRiderInfoLogDlg::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_info_log_1"); 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 
 	if(!pRs.Execute(&pCmd))
 		return;
@@ -211,9 +211,9 @@ void CRiderInfoLogDlg::RefreshList()
 
 		if(pstLog->nPreInfoID == 0)
 		{
-			m_List.InsertItem(nRecordIndex, GetStringFromLong(nRecordIndex + 1));
+			m_List.InsertItem(nRecordIndex, LF->GetStringFromLong(nRecordIndex + 1));
 			m_List.SetItemText(nRecordIndex, 1, m_ci.GetBranchName(pstLog->nCompany));
-			m_List.SetItemText(nRecordIndex, 2, GetStringFromLong(pstLog->nRNo));
+			m_List.SetItemText(nRecordIndex, 2, LF->GetStringFromLong(pstLog->nRNo));
 			m_List.SetItemText(nRecordIndex, 3, pstLog->strName);
 			m_List.SetItemText(nRecordIndex, 4, pstLog->dtChange.Format("%Y-%m-%d %H:%M:%S"));
 			m_List.SetItemText(nRecordIndex, 5, pstLog->strWName);
@@ -245,103 +245,8 @@ void CRiderInfoLogDlg::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*resu
 		if(!pTemp)
 			return;
 
-		SelectControlData(pTemp);
 		InsertListData(m_List.GetItemText(pRecord, 0), pTemp);
 	}
-}
-
-void CRiderInfoLogDlg::SelectControlData(ST_RIDER_INFO_LOG *pData)
-{
-	/*m_cmbDepositAllocateType.ResetContent();
-
-	m_cmbDepositAllocateType.InsertString(0, "선입금");
-	m_cmbDepositAllocateType.InsertString(1, "후입금");
-
-	if(::GetDepositTypeToComboSel(pData->nDepositType) <= TWO) //월비,주비,일비
-		m_cmbDepositAllocateType.InsertString(2, "프로제");
-
-	m_dtEnter = pData->dtEnter;
-
-	m_strName = pData->strName;
-	m_strRNo = GetStringFromLong(pData->nRNo);
-	m_strMp = pData->strHp;
-	m_strPhone = pData->strTel;
-	m_strRT = pData->strRTID;
-	m_strPDA = pData->strID;
-	m_strBankOwner = pData->strBankAccountOwner;
-	m_strBankAccount = pData->strBankAccount;
-	m_strAddress = pData->strAddress;
-	m_strMemo = pData->strEtc;
-	m_strInnerMemo = pData->strInnerMemo;
-	//m_strMyCallRateType = GetStringFromLong(pData->nMyCallRateType);
-	//m_strOtherCallRateType = GetStringFromLong(pData->nOtherCallRateType);
-	m_strMyCallRateType = pData->strMyCallRateType;
-	m_strOtherCallRateType = pData->strOtherCallRateType;
-	m_strDailyReportCharge = GetStringFromLong(pData->nDailyDepositCharge);
-	m_strRtSerial = pData->strRTSerial;
-	m_strTruckMyDepositRate = GetStringFromLong(pData->nTruckMyDepositRate);
-	m_strTruckOtherDepositRate = GetStringFromLong(pData->nTruckOtherDepositRate);
-	m_strMaxWithDrawMoneyPerDay = GetStringFromLong(pData->nMaxWithdrawMoneyPerDay);
-	m_strMinLeftMoneyForWithDraw = GetStringFromLong(pData->nMinLeftMoneyForWithdraw);
-
-	m_bAuto = pData->bAutoShow;
-	m_bBigAuto = pData->bBigAutoShow;
-	m_bDama = pData->bDamaShow;
-	m_bRabo = pData->bRaboShow;
-	m_bBan = pData->bBanShow;
-	m_bTruck = pData->bTruckShow;
-	m_bSubway = pData->bSubwayShow;
-	m_bParcelService = pData->bParcelServiceShow;
-	m_bNotShowRightOrder = pData->nThShareExceptType > ZERO ? TRUE : FALSE;;
-	m_b6Ban = pData->b6BanShow;
-	m_bMyCall = pData->nMyCallRateType > ZERO ? TRUE : FALSE;
-	m_bOtherCall = pData->nOtherCallRateType > ZERO ? TRUE : FALSE;
-	m_bWithDrawType = pData->nWithdrawType > ZERO ? TRUE : FALSE;
-	m_bAutoAllocate = pData->bAutoAlloc;
-	m_bUseRiderTax = pData->bUseRiderTax;
-
-	if(pData->nAllocType == TWO)
-	{
-		m_bPDAAllocate = TRUE;
-		m_bSMSAllocate = FALSE;
-	}
-	else if(pData->nAllocType == ONE)
-	{
-		m_bPDAAllocate = FALSE;
-		m_bSMSAllocate = TRUE;
-	}
-	else
-	{
-		m_bPDAAllocate = FALSE;
-		m_bSMSAllocate = FALSE;
-	}
-
-	if(m_bAuto && m_bBigAuto && m_bDama && m_bRabo && m_bBan && m_bTruck && m_bSubway && m_bParcelService)
-		m_bAll = TRUE;
-	else
-		m_bAll = FALSE; 
-
-	if(pData->nLockTime == ZERO || pData->nLockCount >= 100)
-	{ 
-		m_bAllocateLimit = FALSE;
-		m_cmbAllocateLimitMinute.SetWindowText("");
-		m_cmbAllocateLimitCount.SetWindowText("무제한");
-	}
-	else 
-	{
-		m_bAllocateLimit = TRUE;
-		m_cmbAllocateLimitMinute.SetWindowText(GetStringFromLong(pData->nLockTime));
-		m_cmbAllocateLimitCount.SetWindowText(GetStringFromLong(pData->nLockCount));
-	}
-
-	::SetCarType(&m_cmbCarType, pData->nCarType);
-	m_cmbShareLimit.SetCurSel(pData->nPanaltyTypeShowOrder);
-	m_cmbAllocGroup.SetCurSel(pData->nAllocGroup);
-	m_cmbDepositType.SetCurSel(::GetDepositTypeToComboSel(pData->nDepositType));
-	m_cmbDepositAllocateType.SetCurSel(::GetDepositAllocateTypeToComboSel(pData->nDepositAllocateType));
-	FillBankCode(FALSE, &m_cmbBankID, pData->nBankID);	
-
-	UpdateData(FALSE);*/
 }
 
 void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData)
@@ -388,7 +293,7 @@ void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData
 	if(pData->nCarType != pOriginData->nCarType)
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
-			"차종 변경", GetCarTypeFromLong(pData->nCarType), GetCarTypeFromLong(pOriginData->nCarType), pMainRecord);
+			"차종 변경", LF->GetCarTypeFromLong(pData->nCarType), LF->GetCarTypeFromLong(pOriginData->nCarType), pMainRecord);
 	}
 	if(pData->nAllocGroup != pOriginData->nAllocGroup)
 	{
@@ -422,9 +327,9 @@ void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData
 	}
 	if(pData->nBankID != pOriginData->nBankID)
 	{
-		FillBankCode(FALSE, &m_cmbBankID, pOriginData->nBankID);
+		LF->FillBankCode(FALSE, &m_cmbBankID, pOriginData->nBankID);
 		m_cmbBankID.GetLBText(m_cmbBankID.GetCurSel(), strOriginData);
-		FillBankCode(FALSE, &m_cmbBankID, pData->nBankID);
+		LF->FillBankCode(FALSE, &m_cmbBankID, pData->nBankID);
 		m_cmbBankID.GetLBText(m_cmbBankID.GetCurSel(), strData);
 
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
@@ -498,12 +403,12 @@ void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData
 	if(pData->nMaxWithdrawMoneyPerDay != pOriginData->nMaxWithdrawMoneyPerDay)
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
-			"출금가능금액 변경", GetMyNumberFormat(pData->nMaxWithdrawMoneyPerDay), GetMyNumberFormat(pOriginData->nMaxWithdrawMoneyPerDay), pMainRecord);
+			"출금가능금액 변경", LF->GetMyNumberFormat(pData->nMaxWithdrawMoneyPerDay), LF->GetMyNumberFormat(pOriginData->nMaxWithdrawMoneyPerDay), pMainRecord);
 	}
 	if(pData->nMinLeftMoneyForWithdraw != pOriginData->nMinLeftMoneyForWithdraw)
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
-			"최소잔액 변경", GetMyNumberFormat(pData->nMinLeftMoneyForWithdraw), GetMyNumberFormat(pOriginData->nMinLeftMoneyForWithdraw), pMainRecord);
+			"최소잔액 변경", LF->GetMyNumberFormat(pData->nMinLeftMoneyForWithdraw), LF->GetMyNumberFormat(pOriginData->nMinLeftMoneyForWithdraw), pMainRecord);
 	}
 	if(pData->bUseRiderTax != pOriginData->bUseRiderTax)
 	{
@@ -533,22 +438,22 @@ void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData
 	if(pData->nDailyDepositCharge != pOriginData->nDailyDepositCharge)
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
-			"일비 변경", GetMyNumberFormat(pData->nDailyDepositCharge), GetMyNumberFormat(pOriginData->nDailyDepositCharge), pMainRecord);
+			"일비 변경", LF->GetMyNumberFormat(pData->nDailyDepositCharge), LF->GetMyNumberFormat(pOriginData->nDailyDepositCharge), pMainRecord);
 	}
 	if(pData->nTruckMyDepositRate != pOriginData->nTruckMyDepositRate)
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
-			"트럭자사입금액 변경", GetStringFromLong(pData->nTruckMyDepositRate), GetStringFromLong(pOriginData->nTruckMyDepositRate), pMainRecord);
+			"트럭자사입금액 변경", LF->GetStringFromLong(pData->nTruckMyDepositRate), LF->GetStringFromLong(pOriginData->nTruckMyDepositRate), pMainRecord);
 	}
 	if(pData->nTruckOtherDepositRate != pOriginData->nTruckOtherDepositRate)
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
-			"트럭타사입금액 변경", GetStringFromLong(pData->nTruckOtherDepositRate), GetStringFromLong(pOriginData->nTruckOtherDepositRate), pMainRecord);
+			"트럭타사입금액 변경", LF->GetStringFromLong(pData->nTruckOtherDepositRate), LF->GetStringFromLong(pOriginData->nTruckOtherDepositRate), pMainRecord);
 	}
 	if(pData->nAllocMinCharge != pOriginData->nAllocMinCharge)
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
-			"배차최소금액 변경", GetMyNumberFormat(pData->nAllocMinCharge), GetMyNumberFormat(pOriginData->nAllocMinCharge), pMainRecord);
+			"배차최소금액 변경", LF->GetMyNumberFormat(pData->nAllocMinCharge), LF->GetMyNumberFormat(pOriginData->nAllocMinCharge), pMainRecord);
 	}
 	if(pData->strCarNo != pOriginData->strCarNo)
 	{
@@ -563,7 +468,7 @@ void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData
 	if(pData->strVRCardNumber != pOriginData->strVRCardNumber)
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
-			"선불카드 변경", GetDashCardNumber(pData->strVRCardNumber), GetDashCardNumber(pOriginData->strVRCardNumber), pMainRecord);
+			"선불카드 변경", LF->GetDashCardNumber(pData->strVRCardNumber), LF->GetDashCardNumber(pOriginData->strVRCardNumber), pMainRecord);
 	}
 
 	m_ListDetail.Populate();

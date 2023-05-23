@@ -57,7 +57,7 @@ void CBranchNameDlg::OnBnClickedOk()
 
 	m_strOfficePhone.Trim();
 
-	if(!IsStringDigit(m_strOfficePhone.Left(1))){
+	if(!LF->IsStringDigit(m_strOfficePhone.Left(1))){
 		MessageBox("상황실폰 전화번호가 올바르지 않습니다..", "확인", MB_ICONEXCLAMATION);
 		return;
 	}
@@ -96,14 +96,14 @@ BOOL CBranchNameDlg::OnInitDialog()
 	rs.GetFieldValue("sOfficePhoneSMS", strOfficePhoneSMS);
 	rs.GetFieldValue("sTelSMS", strTelSMS);
 
-	m_strTel = GetDashPhoneNumber(strTel);
-	m_strTelSMS	= GetDashPhoneNumber(strTelSMS);
+	m_strTel = LF->GetDashPhoneNumber(strTel);
+	m_strTelSMS	= LF->GetDashPhoneNumber(strTelSMS);
 
 	strOfficePhone.Replace("-", "");
 	m_strPreOfficePhone = strOfficePhone;
 
-	m_strOfficePhone = GetDashPhoneNumber(strOfficePhone );
-	m_strOfficePhoneSMS = GetDashPhoneNumber(strOfficePhoneSMS );
+	m_strOfficePhone = LF->GetDashPhoneNumber(strOfficePhone );
+	m_strOfficePhoneSMS = LF->GetDashPhoneNumber(strOfficePhoneSMS );
 
 	UpdateData(FALSE);
 

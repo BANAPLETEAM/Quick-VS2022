@@ -46,7 +46,7 @@ BOOL CWithdrawManualDlg::OnInitDialog()
 	m_dtpDate.SetTime(COleDateTime::GetCurrentTime());
 	m_dtpTime.SetTime(COleDateTime::GetCurrentTime());
 
-	m_edtRealWithdraw.SetWindowText(::GetMyNumberFormat(m_nCharge));
+	m_edtRealWithdraw.SetWindowText(LF->GetMyNumberFormat(m_nCharge));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -54,7 +54,7 @@ BOOL CWithdrawManualDlg::OnInitDialog()
 
 void CWithdrawManualDlg::OnBnClickedOk()
 {
-	m_nCharge = ::GetLongFromEdit(&m_edtRealWithdraw);
+	m_nCharge = LF->GetLongFromEdit(&m_edtRealWithdraw);
 
 	if(m_nCharge <= 0)
 	{

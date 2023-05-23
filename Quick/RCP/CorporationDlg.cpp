@@ -223,7 +223,7 @@ void CCorporationDlg2::LocalRefeshGroup()
 		CMyXTPGridRecord *pRecord = m_GroupList.GetRecordsGetAt(nRow);
 		if(pRecord == NULL)
 		{
-			MsgBox("작업중 오류 로지소프트로 문의하세요");
+			LF->MsgBox("작업중 오류 로지소프트로 문의하세요");
 			return;
 		}
 		

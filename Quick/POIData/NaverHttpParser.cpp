@@ -30,11 +30,11 @@ void CNaverHttpParser::Refresh2(QUERY_INFO &QI)
 	//CString sUrl = "search2/local.nhn?sm=hty&query=#query&menu=location";
 	CString strUrl = "v5/api/search?caller=pcweb&query=#query&type=all&page=1&displayCount=20&isPlaceRecommendationReplace=true&lang=ko";
 	//CString strUrl = "search2/local.nhn?sm=hty&isFirstSearch=true&query=#query&menu=location";
-	CString strKeyword = QI.bPhoneSearch ? ::GetDashPhoneNumber(QI.strKeyword) : QI.strKeyword;
+	CString strKeyword = QI.bPhoneSearch ? LF->GetDashPhoneNumber(QI.strKeyword) : QI.strKeyword;
 
 	CString sSendUrl = strUrl;
 	sSendUrl.Replace("#page" ,   "1");
-	sSendUrl.Replace("#query", ::ConvertStringToSendData(strKeyword));
+	sSendUrl.Replace("#query", LF->ConvertStringToSendData(strKeyword));
 
 
 	CString strUrlResult = "http://map.naver.com/" + sSendUrl;
@@ -268,7 +268,7 @@ again:
 			}						
 		}
 
-		char* pszAnsi = ::UTF8ToANSI(pData);
+		char* pszAnsi = LF->UTF8ToANSI(pData);
 		strJson = pszAnsi;
 		delete pszAnsi;
 		delete pData;

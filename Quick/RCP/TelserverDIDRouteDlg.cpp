@@ -82,7 +82,7 @@ void CTelserverDIDRouteDlg::OnDIDRouteReportItemClick(NMHDR * pNotifyStruct, LRE
 
 		if(nCol == 2)
 		{
-			if(POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
+			if(LF->POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
 			{
 				if(!m_pCall->IsConnected())
 					MessageBox("텔서버에 접속되지 않아 변경 하실 수 없습니다.", "확인", MB_ICONINFORMATION);
@@ -105,7 +105,7 @@ void CTelserverDIDRouteDlg::OnDIDRouteReportItemClick(NMHDR * pNotifyStruct, LRE
 
 void CTelserverDIDRouteDlg::OnBnClickedDIDRouteAddBtn()
 {
-	if(!POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
+	if(!LF->POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
 		return;
 
 	if(!m_pCall->IsConnected())
@@ -128,7 +128,7 @@ void CTelserverDIDRouteDlg::OnBnClickedDIDRouteAddBtn()
 
 void CTelserverDIDRouteDlg::OnBnClickedDIDRouteDeleteBtn()
 {
-	if(!POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
+	if(!LF->POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
 		return;
 
 	if(!m_pCall->IsConnected())
@@ -149,7 +149,7 @@ void CTelserverDIDRouteDlg::OnBnClickedDIDRouteDeleteBtn()
 
 void CTelserverDIDRouteDlg::OnBnClickedDIDRouteAllUseBtn()
 {
-	if(!POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
+	if(!LF->POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
 		return;
 
 	if(!m_pCall->IsConnected())
@@ -164,7 +164,7 @@ void CTelserverDIDRouteDlg::OnBnClickedDIDRouteAllUseBtn()
 
 void CTelserverDIDRouteDlg::OnBnClickedDIDRouteAllUnuseBtn()
 {
-	if(!POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
+	if(!LF->POWER_CHECK(8121, "텔서버라우팅세팅", TRUE))
 		return;
 
 	if(!m_pCall->IsConnected())

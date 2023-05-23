@@ -136,7 +136,7 @@ void CRiderDepositEditHistoryDlg::RefreshList()
 
 		EditHistory.item[nItem++] = GetDepositType(EditHistory.nDepositType);
 		EditHistory.item[nItem++] = EditHistory.nDepositAllocateType == 0 ? "선입금" : "후입금";
-		EditHistory.item[nItem++] = ::GetMyNumberFormat(EditHistory.nFixedDeposit);
+		EditHistory.item[nItem++] = LF->GetMyNumberFormat(EditHistory.nFixedDeposit);
 		EditHistory.item[nItem++] = EditHistory.sMyCallRateType;
 		EditHistory.item[nItem++] = EditHistory.sOtherCallRateType;
 		EditHistory.item[nItem++] = GetPayMentDay(EditHistory.nDepositType, EditHistory.nPayMentDay);

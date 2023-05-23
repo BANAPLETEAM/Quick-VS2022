@@ -129,8 +129,8 @@ void CStatForm5::RefreshList()
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_dorder_for_nWNo_stat");
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 
@@ -293,9 +293,9 @@ void CStatForm5::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStatForm5::OnViewExcel()
 {
-	if(!POWER_CHECK(8900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(8900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 402, m_ui.nWNo, m_wndReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 402, m_ui.nWNo, m_wndReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }

@@ -590,7 +590,7 @@ void CSearchPOIDlg::SetSearchSido(CString strSido)
 void CSearchPOIDlg::SetCenterSido(CString strSido)
 {
 	near_sido_.clear();
-	near_sido_ = ::GetNeighboringCity(strSido);
+	near_sido_ = LF->GetNeighboringCity(strSido);
 	center_sido_ = strSido;
 
 	CString strPreSido;
@@ -1096,7 +1096,7 @@ void CSearchPOIDlg::SaveCurPOI(long nType, CPOIUnit *pPOI, CPOIUnit *pDetailPOI,
 	if(pInfo->m_pDetailPOI && pInfo->m_pDetailPOI->m_nClass == PN_TEMP)	//주소와 웹POI
 	{  
 		//문덕환이 삭제하라고해서 삭제하고 업데이트 했는데 다시 삭제하지람말고함 choi 2011-08-05
-		CBranchInfo *pBi = GetBranchInfo(m_nCustomerTable);
+		CBranchInfo *pBi = LF->GetBranchInfo(m_nCustomerTable);
 		if(pBi->bInitDongInfo && (m_pRcpPlace->GetPlaceType() == PLACE_TYPE_START || m_pRcpPlace->GetPlaceType() == PLACE_TYPE_DEST))
 			m_pRcpPlace->Clear();
 
@@ -1136,7 +1136,7 @@ void CSearchPOIDlg::SaveCurPOI(long nType, CPOIUnit *pPOI, CPOIUnit *pDetailPOI,
 	else if(!pInfo->m_pDetailPOI && pInfo->m_pPOI->IsDongPOI())	//동
 	{
 		//문덕환이 삭제하라고해서 삭제하고 업데이트 했는데 다시 삭제하지람말고함 choi 2011-08-05
-		CBranchInfo *pBi = GetBranchInfo(m_nCustomerTable);
+		CBranchInfo *pBi = LF->GetBranchInfo(m_nCustomerTable);
 		if(pBi->bInitDongInfo && (m_pRcpPlace->GetPlaceType() == PLACE_TYPE_START || m_pRcpPlace->GetPlaceType() == PLACE_TYPE_DEST))
 			m_pRcpPlace->Clear();
 

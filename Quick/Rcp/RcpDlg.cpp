@@ -96,7 +96,7 @@ static BOOL bRouteSend = FALSE;
 static float fRouteDistance = 0.0;
 
 
-#define GET_CUR_CHARGE()	m_EDT_CHARGE_BASIC.pEdit->SetWindowText(::GetMyNumberFormat( \
+#define GET_CUR_CHARGE()	m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat( \
 	m_pCharge->GetCharge(m_pBi->nCompanyCode, \
 	m_pStart->GetPOI() == NULL ? 0 : m_pStart->GetPOI()->GetDongID(), \
 	m_pDest->GetPOI() == NULL ? 0 : m_pDest->GetPOI()->GetDongID(), \
@@ -799,7 +799,7 @@ void CRcpDlg::Construct(BOOL bFirstInit)
 {
 	if(bFirstInit)
 	{
-		::LoadFromReg(CRcpDlgSetupDlg::m_info);
+		LF->LoadFromReg(CRcpDlgSetupDlg::m_info);
 
 		m_pRcpView = NULL;
 		m_pSearchPOIDlg = NULL;
@@ -994,7 +994,7 @@ void CRcpDlg::InitCommon()
 	m_BTN_NOT_SEND_COMPLETE_SMS.pButton->SetCheck(FALSE);
 	m_chkSameCarTypeOnly.SetCheck(FALSE);
 
-	if(::IsThisCompany("올바로"))
+	if(LF->IsThisCompany("올바로"))
 		m_chkSameCarTypeOnly.SetCheck(TRUE);
 
 	m_CMB_CHARGE_TYPE.pCombo->SetCurSel(0);
@@ -1011,7 +1011,7 @@ void CRcpDlg::GetCompanyCodeForRevisitCustomer(long &nCompany, long &nLastDay, l
 	CMkCommand pCmd(m_pMkDb, "select_revisit_customer_1");
 	pCmd.AddParameter(m_pBi->nShareCode1);
 	pCmd.AddParameter(m_pBi->nCompanyCode);
-	pCmd.AddParameter(::GetRemoveDDDNumber(m_strCID, m_pBi->nCompanyCode));
+	pCmd.AddParameter(LF->GetRemoveDDDNumber(m_strCID, m_pBi->nCompanyCode));
 	pCmd.AddParameter(m_pBi->nRevisitCustomerSendDay);
 	CMkParameter *parCompany = pCmd.AddParameter(typeLong, typeOutput, sizeof(int), 0);
 	CMkParameter *parLastDay = pCmd.AddParameter(typeLong, typeOutput, sizeof(int), 0);
@@ -1029,7 +1029,7 @@ void CRcpDlg::InitControl()
 {
 	MakeReserveDlg();
 
-	::SetHanEngMode(this->GetSafeHwnd(), TRUE);
+	LF->SetHanEngMode(this->GetSafeHwnd(), TRUE);
 
 
 	m_pOrder->SetOtherPlaceInfo(m_pOrder, m_pStart, m_pDest);
@@ -1050,30 +1050,7 @@ void CRcpDlg::InitControl()
 	m_pDisplayChargeInfo->RemoveAllData();
 
 	//choe
-	::MakeCarTypeCombo(&m_cmbCarType);
-
-	/*
-	m_cmbCarType.AddString("오토바이");
-	m_cmbCarType.AddString("짐받이");
-	m_cmbCarType.AddString("다마스");
-	m_cmbCarType.AddString("라보");
-	m_cmbCarType.AddString("3밴");
-	m_cmbCarType.AddString("6밴");
-	m_cmbCarType.AddString("트럭");
-	m_cmbCarType.AddString("1.4톤");
-	m_cmbCarType.AddString("지하철");
-	m_cmbCarType.AddString("당일택배");
-	m_cmbCarType.AddString("2.5톤");
-	m_cmbCarType.AddString("3.5톤");
-	m_cmbCarType.AddString("5톤");
-	m_cmbCarType.AddString("11톤");
-	m_cmbCarType.AddString("18톤");
-	m_cmbCarType.AddString("25톤");
-	*/
-	
-
-	//if(m_ui.nCompany == 10)
-	//	m_cmbPayType.InsertString(6, "마일");
+	LF->MakeCarTypeCombo(&m_cmbCarType);
 
 	DisplayReserveInfo();
 
@@ -1247,7 +1224,7 @@ void CRcpDlg::InitControl()
 	if(!m_bRiderSmsSend)
 		m_btnRiderSmsSend.SetWindowText("타사기사검색");
 
-	if(::IsThisCompany("사천퀵", m_pBi->nCompanyCode))
+	if(LF->IsThisCompany("사천퀵", m_pBi->nCompanyCode))
 		SetGrade(-100); //노란색 
 
 }
@@ -1551,7 +1528,7 @@ void CRcpDlg::InitData()
 	m_chkFoodOrder.SetCheck(m_bPreFoodOrder);
 	m_edtOrderMemo.SetUserTextColor(nMemoColor);
 
-	if(::IsThisCompany("사천퀵", m_pBi->nCompanyCode))
+	if(LF->IsThisCompany("사천퀵", m_pBi->nCompanyCode))
 		SetGrade(-100); //노란색 
 	else
 		SetGrade(nCustomerGrade);
@@ -1567,7 +1544,7 @@ void CRcpDlg::InitData()
 	m_dtsDBTime = COleDateTime::GetCurrentTime() - dtDBCur;	
 
 
-	m_EDT_CID.pEdit->SetWindowText(IsPhoneNumber(m_strCID) ? m_strCID : "");
+	m_EDT_CID.pEdit->SetWindowText(LF->IsPhoneNumber(m_strCID) ? m_strCID : "");
 	m_CMB_CHARGE_TYPE.pCombo->SetCurSel(nChargeType);
 	m_BTN_AUTO_SHARE_ORDER.pButton->SetCheck(bAutoShareOrder);
 	m_chkSameCarTypeOnly.SetCheck(bSameCarTypeOnly);
@@ -1581,9 +1558,9 @@ void CRcpDlg::InitData()
 		CString strMsg;
 		strMsg = "해당 아이템의 상태가 다른 사람에 의해서 변경되었습니다.\n";
 		strMsg += "확인 하시기 바랍니다.\n\n\n상태: ";
-		strMsg += GetStateString(m_nPreState);
+		strMsg += LF->GetStateString(m_nPreState);
 		strMsg += " --> ";
-		strMsg += GetStateString(m_nState);
+		strMsg += LF->GetStateString(m_nState);
 		MessageBox(strMsg, "확인", MB_ICONINFORMATION);
 
 		LU->m_pDelayOrderPane->m_bRcpPageRefresh = TRUE;
@@ -1598,12 +1575,12 @@ void CRcpDlg::InitData()
 		m_nCardProcess = 0;
 	}
 
-	m_edtMileReserve.SetWindowText(::GetMyNumberFormat(m_nLoadMileage));
+	m_edtMileReserve.SetWindowText(LF->GetMyNumberFormat(m_nLoadMileage));
 
 	//오더번호 접수상태 접수자 접수시간
 
 	m_EDT_TNO.pEdit->SetWindowText(itoa(nTNo, buffer, 10));
-	m_EDT_STATE.pEdit->SetWindowText(GetStateString(m_nState));
+	m_EDT_STATE.pEdit->SetWindowText(LF->GetStateString(m_nState));
 	m_EDT_WNAME.pEdit->SetWindowText(m_strWName);
 
 	if(m_nState == STATE_RESERVED || (m_nState == STATE_INTERNET && nReserveAfter > 0 ) )
@@ -1618,16 +1595,16 @@ void CRcpDlg::InitData()
 	m_EDT_ETC.pEdit->SetWindowText(m_strEtc);
 
 	//요금관련
-	m_strChargeAdd = RemoveZero(::GetMyNumberFormat(nChargeAdd));
-	m_strChargeBasic = RemoveZero(::GetMyNumberFormat(nChargeBasic));
-	m_strChargeTrans = RemoveZero(::GetMyNumberFormat(nChargeTrans)); 
-	m_strChargeDis = RemoveZero(::GetMyNumberFormat(nChargeDis));
-	m_strChargeSum = RemoveZero(::GetMyNumberFormat(nChargeSum));
-	m_strDeposit = RemoveZero(::GetMyNumberFormat(nDeposit));
-	m_strValueAdd = RemoveZero(::GetMyNumberFormat(nValueAdd));
-	m_strChargeDriving = RemoveZero(::GetMyNumberFormat(nChargeDriving));
-	m_strChargeReturn = RemoveZero(::GetMyNumberFormat(nChargeReturn));
-	m_strChargeRevision = RemoveZero(::GetMyNumberFormat(nChargeRevision));
+	m_strChargeAdd = LF->RemoveZero(LF->GetMyNumberFormat(nChargeAdd));
+	m_strChargeBasic = LF->RemoveZero(LF->GetMyNumberFormat(nChargeBasic));
+	m_strChargeTrans = LF->RemoveZero(LF->GetMyNumberFormat(nChargeTrans)); 
+	m_strChargeDis = LF->RemoveZero(LF->GetMyNumberFormat(nChargeDis));
+	m_strChargeSum = LF->RemoveZero(LF->GetMyNumberFormat(nChargeSum));
+	m_strDeposit = LF->RemoveZero(LF->GetMyNumberFormat(nDeposit));
+	m_strValueAdd = LF->RemoveZero(LF->GetMyNumberFormat(nValueAdd));
+	m_strChargeDriving = LF->RemoveZero(LF->GetMyNumberFormat(nChargeDriving));
+	m_strChargeReturn = LF->RemoveZero(LF->GetMyNumberFormat(nChargeReturn));
+	m_strChargeRevision = LF->RemoveZero(LF->GetMyNumberFormat(nChargeRevision));
 	
 	m_nLoadChargeBasic = nChargeBasic;  // 수정시 읽어들인 기본금액
 	m_EDT_CHARGE_ADD.pEdit->SetWindowText(m_strChargeAdd);
@@ -1638,11 +1615,11 @@ void CRcpDlg::InitData()
 	m_edtDeposit.SetWindowText(m_strDeposit);
 	m_edtValueAdd.SetWindowText(m_strValueAdd);
 	m_EDT_CHARGE_DRIVING.pEdit->SetWindowText(m_strChargeDriving);
-	m_edtChargeSumTotal.SetWindowText(RemoveZero(::GetMyNumberFormat(nChargeSum + nChargeTrans)));
+	m_edtChargeSumTotal.SetWindowText(LF->RemoveZero(LF->GetMyNumberFormat(nChargeSum + nChargeTrans)));
 	m_edtChargeReturn.SetWindowText(m_strChargeReturn);
-	m_edtChargeLogi.SetWindowText(::GetMyNumberFormat(nChargeLogi));
-	m_edtChargeCompany.SetWindowText(::GetMyNumberFormat(nChargeCompany));
-	m_edtChargeRevision.SetWindowText(::GetMyNumberFormat(nChargeRevision));
+	m_edtChargeLogi.SetWindowText(LF->GetMyNumberFormat(nChargeLogi));
+	m_edtChargeCompany.SetWindowText(LF->GetMyNumberFormat(nChargeCompany));
+	m_edtChargeRevision.SetWindowText(LF->GetMyNumberFormat(nChargeRevision));
 
 	SetDiscountType(nOGNo,nDiscountType, nDiscount);
 	
@@ -1670,10 +1647,10 @@ void CRcpDlg::InitData()
 	parMileagePersonType->GetValue(m_nPersonMileageType);
 	parMileagePerson->GetValue(m_nPersonMileage);
 	m_nPreRiderAutoCharge = m_nLoadChargeRiderAuto;
-	m_strMileageAutoCharge = ::GetStringFromLong(m_nPreRiderAutoCharge);
+	m_strMileageAutoCharge = LF->GetStringFromLong(m_nPreRiderAutoCharge);
 	
 	m_edtAutoCharge.SetWindowText(m_strMileageAutoCharge);
-	m_edtMileageBalance.SetWindowText(::GetMyNumberFormat(m_nMileageBalance));
+	m_edtMileageBalance.SetWindowText(LF->GetMyNumberFormat(m_nMileageBalance));
 
 	//기타
 	m_BTN_NOT_SEND_COMPLETE_SMS.pButton->SetCheck(bNotSendCompleteSms);
@@ -1682,7 +1659,7 @@ void CRcpDlg::InitData()
 	m_strCouponCharge = itoa(nCouponCharge, buffer, 10);
 	m_cmbCouponCharge.SetWindowText(m_strCouponCharge);
 	m_edtIntercallEtc.SetWindowText(m_strIntercallEtc);
-	m_edtSmsPhone.SetWindowText(::GetDashPhoneNumber(m_strSmsPhone));
+	m_edtSmsPhone.SetWindowText(LF->GetDashPhoneNumber(m_strSmsPhone));
 	SetCarTypeNew(nCarType);
 
 	if(nConsignTNo > 0)
@@ -1772,7 +1749,7 @@ void CRcpDlg::InitControlAfterGetData()
 
 	if(!IsEditMode())
 	{ 
-		if(::IsThisCompany("퀵오케이_적요", m_pBi->nCompanyCode))
+		if(LF->IsThisCompany("퀵오케이_적요", m_pBi->nCompanyCode))
 			AddEtcOK();
 	}
 
@@ -1787,11 +1764,11 @@ void CRcpDlg::InitControlAfterGetData()
 	m_btnPayType4.SetWindowText(STR_PAY_TYPE[m_pBi->nPayType4]);
 	m_btnPayType5.SetWindowText(STR_PAY_TYPE[m_pBi->nPayType5]);
 
-	m_btnCarType1.SetWindowText(::GetCarTypeFromLong(m_pBi->nCarType1));
-	m_btnCarType2.SetWindowText(::GetCarTypeFromLong(m_pBi->nCarType2));
-	m_btnCarType3.SetWindowText(::GetCarTypeFromLong(m_pBi->nCarType3));
-	m_btnCarType4.SetWindowText(::GetCarTypeFromLong(m_pBi->nCarType4));
-	m_btnCarType5.SetWindowText(::GetCarTypeFromLong(m_pBi->nCarType5));
+	m_btnCarType1.SetWindowText(LF->GetCarTypeFromLong(m_pBi->nCarType1));
+	m_btnCarType2.SetWindowText(LF->GetCarTypeFromLong(m_pBi->nCarType2));
+	m_btnCarType3.SetWindowText(LF->GetCarTypeFromLong(m_pBi->nCarType3));
+	m_btnCarType4.SetWindowText(LF->GetCarTypeFromLong(m_pBi->nCarType4));
+	m_btnCarType5.SetWindowText(LF->GetCarTypeFromLong(m_pBi->nCarType5));
 
 	if(!m_pBi->sEtcUserTitle1.IsEmpty())
 	{
@@ -1869,7 +1846,7 @@ void CRcpDlg::InitControlAfterGetData()
 	if(m_bScheduleOrder)
 		m_edtChargeReturn.EnableWindow(TRUE);
 	
-	if( ::IsThisCompany("전주퀵서비스") && !IsEditMode())
+	if( LF->IsThisCompany("전주퀵서비스") && !IsEditMode())
 		m_BTN_NOT_SEND_COMPLETE_SMS.pButton->SetCheck(TRUE);
 
 	GetDlgItem(IDC_RCP_STATIC31)->SetWindowText(m_nInitItem <= 0 ? "검색" : "번호");	
@@ -1951,8 +1928,8 @@ void CRcpDlg::SetButtonShowHide()
 		m_btnNewAfterCopy.ShowWindow(SW_HIDE);
 		m_btnWaitAfterCopy.ShowWindow(SW_HIDE);
 
-		if(!::IsThisCompany("올바로") &&
-			!::IsThisCompany("로지") )
+		if(!LF->IsThisCompany("올바로") &&
+			!LF->IsThisCompany("로지") )
 			m_btnRcpCopy.SetWindowText("기사위치");	
 
 		m_btnInquiry.SetWindowText("오더상태");
@@ -1982,7 +1959,7 @@ void CRcpDlg::ReSetItemCombo()
 	CString strItem = AfxGetApp()->GetProfileString("CEditItemDlg", "Item", "서류봉투;소박스;중박스;대박스;컴퓨터;");
 
 	CStringArray strArry;
-	::GetItemCommaToArray(strItem, strArry);
+	LF->GetItemCommaToArray(strItem, strArry);
 
 	m_cmbItemType.ResetContent();
 	m_cmbItemType.SetWindowText("");
@@ -2203,7 +2180,7 @@ void CRcpDlg::SetMileageData(int nAutoCharge , int nMileageValue, BOOL bRefreshC
 
 	if(nMileage > 0)
 	{
-		m_strMileReserve = GetMyNumberFormat(nMileage);
+		m_strMileReserve = LF->GetMyNumberFormat(nMileage);
 		m_edtMileReserve.SetWindowText(m_strMileReserve);	
 	}
 	else
@@ -2244,20 +2221,20 @@ void CRcpDlg::SaveCurInfo(ST_EDIT_HISTORY &st)
 
 	st.item[nItem++] = m_strEtc;
 	st.item[nItem++] = m_strItemType;
-	st.item[nItem++] = ::GetPayTypeFromLong(m_nPayType);
-	st.item[nItem++] = ::GetCarTypeFromLong(GetCarTypeNew() );
-	st.item[nItem++] = ::GetWayTypeFromLong(m_nWayType);
-	st.item[nItem++] = ::GetRunTypeFromLong(m_nRunType);
+	st.item[nItem++] = LF->GetPayTypeFromLong(m_nPayType);
+	st.item[nItem++] = LF->GetCarTypeFromLong(GetCarTypeNew() );
+	st.item[nItem++] = LF->GetWayTypeFromLong(m_nWayType);
+	st.item[nItem++] = LF->GetRunTypeFromLong(m_nRunType);
 
-	st.item[nItem++] = ::RemoveZero(::GetMyNumberFormat(m_strChargeAdd));
-	st.item[nItem++] = ::RemoveZero(::GetMyNumberFormat(m_strChargeBasic));
-	st.item[nItem++] = ::RemoveZero(::GetMyNumberFormat(m_strChargeTrans));
-	st.item[nItem++] = ::RemoveZero(::GetMyNumberFormat(m_strChargeDis));
-	st.item[nItem++] = ::RemoveZero(::GetMyNumberFormat(m_strChargeSum));
-	st.item[nItem++] = ::RemoveZero(::GetMyNumberFormat(m_strDeposit));
+	st.item[nItem++] = LF->RemoveZero(LF->GetMyNumberFormat(m_strChargeAdd));
+	st.item[nItem++] = LF->RemoveZero(LF->GetMyNumberFormat(m_strChargeBasic));
+	st.item[nItem++] = LF->RemoveZero(LF->GetMyNumberFormat(m_strChargeTrans));
+	st.item[nItem++] = LF->RemoveZero(LF->GetMyNumberFormat(m_strChargeDis));
+	st.item[nItem++] = LF->RemoveZero(LF->GetMyNumberFormat(m_strChargeSum));
+	st.item[nItem++] = LF->RemoveZero(LF->GetMyNumberFormat(m_strDeposit));
 	st.item[nItem++] = m_strCouponCharge;;
 	//	st.item[nItem++] = m_strChargeBet;
-	//	st.item[nItem++] = ::GetDashPhoneNumber(m_strSmsNumber);
+	//	st.item[nItem++] = LF->GetDashPhoneNumber(m_strSmsNumber);
 
 	st.nCompany = m_pBi->nCompanyCode;
 	st.nRiderCompany = m_nRiderCompany;
@@ -2416,18 +2393,18 @@ HBRUSH CRcpDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 BOOL CRcpDlg::MakeSearchQuery(CString strSource, CString &strKeyword, UINT *pnType)
 {
-	if(IsPhoneNumber(strSource)) 
+	if(LF->IsPhoneNumber(strSource))
 	{
 		if(strSource.GetAt(0) == '-')
 		{
-			//strSearchQuery.Format("c.nID = '%s' ", GetNoneDashNumber(strSource));
-			strKeyword = GetNoneDashNumber(strSource);
+			//strSearchQuery.Format("c.nID = '%s' ", LF->GetNoneDashNumber(strSource));
+			strKeyword = LF->GetNoneDashNumber(strSource);
 			*pnType = ST_ID;
 		}
 		else
 		{
 			//remove some dash
-			strKeyword = GetNoneDashNumber(strSource);
+			strKeyword = LF->GetNoneDashNumber(strSource);
 			//remove a local DDD number, if the number is not this country...just go~
 			if(strKeyword.Left(m_ci.m_strDDD.GetLength()) == m_ci.m_strDDD)
 				strKeyword = strKeyword.Right(strKeyword.GetLength() - m_ci.m_strDDD.GetLength());
@@ -2439,7 +2416,7 @@ BOOL CRcpDlg::MakeSearchQuery(CString strSource, CString &strKeyword, UINT *pnTy
 			//if(nLen == 5 || nLen == 6)
 			//{
 			//	//the number must be last four number or full number except for the local DDD number
-			//	MsgBox(IDS_NUMBER_WRONG);
+			//	LF->MsgBox(IDS_NUMBER_WRONG);
 			//	return FALSE;
 			//}
 
@@ -2578,7 +2555,7 @@ BOOL CRcpDlg::PreTranslateMessage(MSG* pMsg)
 		{
 			if(m_edtProperCharge1.GetWindowTextLength() > 0)
 			{
-				m_EDT_CHARGE_BASIC.pEdit->SetWindowText(::GetMyNumberFormat(::GetStringFromEdit(&m_edtProperCharge1)));
+				m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat(LF->GetStringFromEdit(&m_edtProperCharge1)));
 				RefreshCharge();
 			}
 		}
@@ -2586,7 +2563,7 @@ BOOL CRcpDlg::PreTranslateMessage(MSG* pMsg)
 		{
 			if(m_edtProperCharge2.GetWindowTextLength() > 0)
 			{
-				m_EDT_CHARGE_BASIC.pEdit->SetWindowText(::GetMyNumberFormat(::GetStringFromEdit(&m_edtProperCharge2)));
+				m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat(LF->GetStringFromEdit(&m_edtProperCharge2)));
 				RefreshCharge();
 			}
 		}
@@ -3042,7 +3019,7 @@ BOOL CRcpDlg::PreTranslateMessage(MSG* pMsg)
 		}
 		// 올바로 발신 Edit 창에서 복사시 전화번호 '-' 삭제
 		else if(GetKeyState(VK_CONTROL) & 0x8000 && (pMsg->wParam == 'c' || pMsg->wParam == 'C')
-			&& ::IsThisCompany("올바로"))
+			&& LF->IsThisCompany("올바로"))
 		{
 			switch(::GetDlgCtrlID(pMsg->hwnd))
 			{
@@ -3087,12 +3064,12 @@ void CRcpDlg::OnCbnSelchangeBranchCombo()
 		m_pBi = GetBranchComboToBranchInfo();
 		InitControlAfterGetData();
 
-		if(::IsThisCompany("퀵오케이_적요", m_pBi->nCompanyCode))
+		if(LF->IsThisCompany("퀵오케이_적요", m_pBi->nCompanyCode))
 			AddEtcOK();
  
 		m_BTN_AUTO_SHARE_ORDER.pButton->SetCheck(m_pBi->bAutoShareOrder);
 
-		if(::IsThisCompany("사천퀵", m_pBi->nCompanyCode))
+		if(LF->IsThisCompany("사천퀵", m_pBi->nCompanyCode))
 			SetGrade(-100); //노란색 
 		else
 			SetGrade(0);
@@ -3197,7 +3174,7 @@ long CRcpDlg::GetRcpBasicCharge()
 	CString strChargeBasic = "0";
 	strChargeBasic = m_strChargeBasic;
 	strChargeBasic.Replace(",", "");
-	if(! IsStringDigit(strChargeBasic))
+	if(! LF->IsStringDigit(strChargeBasic))
 		return 0;
 
 	long nCharge = 0;
@@ -3212,7 +3189,7 @@ long CRcpDlg::GetStringChargeToNumber(CString strCharge)
 	CString strTempCharge = "0";
 	strTempCharge = strCharge;
 	strTempCharge.Replace(",", "");
-	if(! IsStringDigit(strTempCharge))
+	if(! LF->IsStringDigit(strTempCharge))
 		return 0;
 
 	return atol(strTempCharge);
@@ -3376,7 +3353,7 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 	else if(m_mi.IsBranchUseMile(m_pBi->nCompanyCode, m_nPersonMileageType )  )
 	{
 
-		nMileageSetting = ::GetLongFromEdit(&m_edtMileReserve);
+		nMileageSetting = LF->GetLongFromEdit(&m_edtMileReserve);
 		nMileageReserveControl = GetMileageControlAmount();
 		nMileageAutoCharge = GetRiderAutoChargeControlAmount();
 		bMileException = (nMileageSetting != nMileageReserveControl && nMileageReserveControl > 0) ? TRUE : FALSE;		
@@ -3394,7 +3371,7 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 		}
 	}
 	
-	if(GetCurBranchInfo()->bAddDisChargeRound)
+	if(LF->GetCurBranchInfo()->bAddDisChargeRound)
 		CheckChargeRound(); 
 		
 		
@@ -3409,10 +3386,10 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 	//  m_pCharge->m_nCharge != GetRcpBasicCharge() && m_pCharge->m_nChargeType == m_cmbChargeType.GetCurSel() && m_pCharge)
 	if(	 m_chkSaveCharge.GetCheck() && GetRcpBasicCharge() > 0 ) 
 	{
-		sChargeHistoryName = GetDashPhoneNumber( m_pOrder->GetPhone() ) + "_" + m_pOrder->GetCompany();
-		nStartChargeType = ::GetChargeDongTypeInfo(m_pStart->GetPOI()->GetDongID());
-		nDestChargeType = ::GetChargeDongTypeInfo(m_pDest->GetPOI()->GetDongID());
-		nStartDestChargeType = GetChargeType(nStartChargeType, nDestChargeType);
+		sChargeHistoryName = LF->GetDashPhoneNumber( m_pOrder->GetPhone() ) + "_" + m_pOrder->GetCompany();
+		nStartChargeType = LF->GetChargeDongTypeInfo(m_pStart->GetPOI()->GetDongID());
+		nDestChargeType = LF->GetChargeDongTypeInfo(m_pDest->GetPOI()->GetDongID());
+		nStartDestChargeType = LF->GetChargeType(nStartChargeType, nDestChargeType);
 		bHistoryType = m_chkSaveCharge.GetCheck() ? TRUE : FALSE;	
 	}	
 
@@ -3485,7 +3462,7 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 	{
 		pCmd.AddParameter(m_pStart->GetPOI()->GetID());		
 		pCmd.AddParameter(m_pStart->GetPOI()->GetDongID(TRUE));  // RealDongID
-		pCmd.AddParameter(IsExceptionDetailDongUse(m_pStart->GetPOI()) ? 
+		pCmd.AddParameter(LF->IsExceptionDetailDongUse(m_pStart->GetPOI()) ?
 			m_pStart->GetPOI()->GetDongID(TRUE) : m_pStart->GetPOI()->GetMainDongID());  // 요금관련
 		pCmd.AddParameter(m_pStart->GetPosX());
 		pCmd.AddParameter(m_pStart->GetPosY());
@@ -3513,7 +3490,7 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 	{
 		pCmd.AddParameter(m_pDest->GetPOI()->GetID());		
 		pCmd.AddParameter(m_pDest->GetPOI()->GetDongID(TRUE));	
-		pCmd.AddParameter(IsExceptionDetailDongUse(m_pDest->GetPOI()) ? 
+		pCmd.AddParameter(LF->IsExceptionDetailDongUse(m_pDest->GetPOI()) ?
 			m_pDest->GetPOI()->GetDongID(TRUE) : m_pDest->GetPOI()->GetMainDongID());  // 요금관련
 		pCmd.AddParameter(m_pDest->GetPosX());
 		pCmd.AddParameter(m_pDest->GetPosY());
@@ -3523,7 +3500,7 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 	{
 		pCmd.AddParameter(0);	//dongid
 		pCmd.AddParameter(0);	//real dongid
-		pCmd.AddParameter(0);	//charge dongid   IsExceptionDetailDongUse(종로구, 중구)예외
+		pCmd.AddParameter(0);	//charge dongid   LF->IsExceptionDetailDongUse(종로구, 중구)예외
 		pCmd.AddParameter(0);	//posx
 		pCmd.AddParameter(0);	//posy
 		pCmd.AddParameter("");	
@@ -3588,7 +3565,7 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 	pCmd.AddParameter(nMileageAutoCharge);
 	pCmd.AddParameter(m_bNotOrderMileage);
 	pCmd.AddParameter(m_pBi->bUserIDSequence);
-	pCmd.AddParameter(::GetDashPhoneNumberRemoveDDD(m_strSmsPhone));
+	pCmd.AddParameter(LF->GetDashPhoneNumberRemoveDDD(m_strSmsPhone));
 	pCmd.AddParameter(m_bOrderSpecialMileage); // 2009-05-20 해당오더의 개별마일
 	pCmd.AddParameter(m_strChargeGeneralOption);
 	pCmd.AddParameter(m_strChargeAddOption);
@@ -3597,9 +3574,9 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 	long nCount = m_pOrder->GetUseCount();
 	pCmd.AddParameter(m_pOrder->GetUseCount()); 
 	pCmd.AddParameter(nConsignLinkTNo); 
-	pCmd.AddParameter(GetMyUnNumberFormatEdit(&m_edtConCommissionCharge)); 
+	pCmd.AddParameter(LF->GetMyUnNumberFormatEdit(&m_edtConCommissionCharge)); 
 	pCmd.AddParameter(m_nTerminalWayID); 
-	pCmd.AddParameter(GetMyUnNumberFormatEdit(&m_edtConTotalCharge)); 
+	pCmd.AddParameter(LF->GetMyUnNumberFormatEdit(&m_edtConTotalCharge)); 
 	pCmd.AddParameter(m_chkSameCarTypeOnly.GetCheck());
 	pCmd.AddParameter(m_nRiderCompany);
 	pCmd.AddParameter(m_nRNo);
@@ -3612,7 +3589,7 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 	pCmd.AddParameter(m_chkFoodOrder.GetCheck());
 	pCmd.AddParameter(m_dtPreFoodComplete);
 	pCmd.AddParameter(atoi(m_strChargeRevision));
-	pCmd.AddParameter(GetMyUnNumberFormatEdit(&m_edtChargeCompany));
+	pCmd.AddParameter(LF->GetMyUnNumberFormatEdit(&m_edtChargeCompany));
 
 	pCmd.AddParameter(IsInsungDlg());
 	pCmd.AddParameter(GetSpecialTruckType());
@@ -3646,18 +3623,18 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 		{
 			if(nOutReturn == 1000)  //@MILE_BALANCE_SHORTAGE
 			{
-				MsgBox("마일잔액이 부족하여 접수되지 않았습니다.");
+				LF->MsgBox("마일잔액이 부족하여 접수되지 않았습니다.");
 			}
 
 			if(nTNo == 100)  //@MILE_BALANCE_SHORTAGE
 			{
-				MsgBox("출발지 위치정보가 올바르지 않습니다.\r\n출발지 위치 수정 후 다시 등록하세요");
+				LF->MsgBox("출발지 위치정보가 올바르지 않습니다.\r\n출발지 위치 수정 후 다시 등록하세요");
 				return 0;
 			}
 
 			if(nTNo == 101)  //@MILE_BALANCE_SHORTAGE
 			{
-				MsgBox("도착지 위치정보가 올바르지 않습니다.\r\n도착지 위치 수정 후 다시 등록하세요");
+				LF->MsgBox("도착지 위치정보가 올바르지 않습니다.\r\n도착지 위치 수정 후 다시 등록하세요");
 				return 0;
 			}
 
@@ -3757,12 +3734,12 @@ BOOL CRcpDlg::IsSpanMile()
 
 long CRcpDlg::GetRiderAutoChargeControlAmount()
 {	
-	return GetMyUnNumberFormatEdit(&m_edtAutoCharge);
+	return LF->GetMyUnNumberFormatEdit(&m_edtAutoCharge);
 }
 
 long CRcpDlg::GetMileageControlAmount()
 {
-	return GetMyUnNumberFormatEdit(&m_edtMileReserve);
+	return LF->GetMyUnNumberFormatEdit(&m_edtMileReserve);
 }
 
 
@@ -3888,7 +3865,7 @@ void CRcpDlg::OnMileagePopupWindow()
 		m_nPersonMileageType = dlg.m_nPersonMileageType;
 		m_nPersonMileage = dlg.m_nPersonMileage;
 		m_nMileageBalance = dlg.m_nMileageBalance;
-		m_edtMileageBalance.SetWindowText(GetMyNumberFormat(m_nMileageBalance));
+		m_edtMileageBalance.SetWindowText(LF->GetMyNumberFormat(m_nMileageBalance));
 			
 		m_edtAutoCharge.SetWindowText("");
 
@@ -3914,7 +3891,7 @@ void CRcpDlg::OnUserMileage()
 	{
 		if(m_nPersonMileageType == NO_MILEAGE_PERSON || m_chkAutoCharge.GetCheck())
 		{
-			MsgBox("해당고객님은 마일리지를 사용하고 있지 않습니다.");
+			LF->MsgBox("해당고객님은 마일리지를 사용하고 있지 않습니다.");
 			return;
 		}
 
@@ -3935,7 +3912,7 @@ void CRcpDlg::OnUserMileage()
 		sValue.Replace("," ,"");
 		sValue.Replace("\\", "");
 
-		if(!IsStringDigit(sValue))
+		if(!LF->IsStringDigit(sValue))
 			throw("숫자가 아닙니다.");
 		/*
 		1. 1회만 미적용  m_bNotOrderMileage TRUE  ,  m_bOrderSpecialMileage = 0
@@ -3948,16 +3925,16 @@ void CRcpDlg::OnUserMileage()
 		m_bOrderSpecialMileage = TRUE;
 		
 		m_edtMileReserve.SetUserBkColor(RGB(255, 204, 193));
-		m_edtMileReserve.SetWindowText(GetMyNumberFormat(m_nOrderSpecialMileage));
+		m_edtMileReserve.SetWindowText(LF->GetMyNumberFormat(m_nOrderSpecialMileage));
 
 	}
 	catch(char *e)
 	{
-		MsgBox(e);
+		LF->MsgBox(e);
 	}
 	catch (CString s)
 	{
-		MsgBox(s);
+		LF->MsgBox(s);
 	}
 }
 
@@ -3967,7 +3944,7 @@ void CRcpDlg::OnUseOrderMileage()
 	{
 		if(m_nPersonMileageType == NO_MILEAGE_PERSON || m_chkAutoCharge.GetCheck())
 		{
-			MsgBox("해당고객님은 마일리지를 사용하고 있지 않습니다.");
+			LF->MsgBox("해당고객님은 마일리지를 사용하고 있지 않습니다.");
 			return;
 		}
 
@@ -3995,7 +3972,7 @@ void CRcpDlg::OnUseOrderMileage()
 	}
 	catch(char *e)
 	{
-		MsgBox(e);
+		LF->MsgBox(e);
 	}
 }
 
@@ -4005,7 +3982,7 @@ void CRcpDlg::OnNotOrderMileage()
 	{
 		if(m_nPersonMileageType == NO_MILEAGE_PERSON)
 		{
-			MsgBox("해당고객님은 마일리지를 사용하고 있지 않습니다.");
+			LF->MsgBox("해당고객님은 마일리지를 사용하고 있지 않습니다.");
 			return;
 		}
 
@@ -4040,17 +4017,17 @@ void CRcpDlg::OnNotOrderMileage()
 		m_bOrderSpecialMileage = FALSE;
 		m_nOrderSpecialMileage = 0;
 		m_edtMileReserve.SetUserBkColor(RGB(255, 204, 193));
-		m_edtMileReserve.SetWindowText(GetMyNumberFormat(m_nOrderSpecialMileage));
+		m_edtMileReserve.SetWindowText(LF->GetMyNumberFormat(m_nOrderSpecialMileage));
 
 		
 	}
 	catch (char * e)
 	{
-		MsgBox(e);
+		LF->MsgBox(e);
 	}
 	catch (CString s)
 	{
-		MsgBox(s);
+		LF->MsgBox(s);
 	}
 }
 
@@ -4075,10 +4052,10 @@ void CRcpDlg::OnNotCompanyMileage()
 	pCmd.AddParameter(m_ui.nCompany);
 
 	if(!pCmd.Execute())
-		MsgBox("작업중 오류가 났습니다.");
+		LF->MsgBox("작업중 오류가 났습니다.");
 	else
 	{
-		MsgBox("해당고객의 마일리지를 금일부로 적용하지 않습니다");			
+		LF->MsgBox("해당고객의 마일리지를 금일부로 적용하지 않습니다");			
 		m_nMileageBalance = 0;
 		m_edtMileageBalance.SetWindowText("");
 
@@ -4236,7 +4213,7 @@ LONG CRcpDlg::OnGetCnsInfo(WPARAM wParam, LPARAM lParam)
 
 	if(IsUseDirectDistance())
 	{
-		double fDistance = ::GetDistanceMeter(m_pStart->GetPosX(), m_pStart->GetPosY(), 
+		double fDistance = LF->GetDistanceMeter(m_pStart->GetPosX(), m_pStart->GetPosY(),
 			m_pDest->GetPosX(), m_pDest->GetPosY());
 		fDistance = fDistance / 1000;
 
@@ -4270,7 +4247,7 @@ LONG CRcpDlg::OnGetCnsInfo(WPARAM wParam, LPARAM lParam)
 
 	m_EDT_CHARGE_BASIC.pEdit->GetWindowText(strCharge);
 	strCharge.Replace(",", "");			
-	if(IsStringDigit(strCharge))
+	if(LF->IsStringDigit(strCharge))
 		nOldCharge = atol(strCharge);	
 	
 	long nTempCarType = GetCarTypeNew();
@@ -4294,11 +4271,11 @@ LONG CRcpDlg::OnGetCnsInfo(WPARAM wParam, LPARAM lParam)
 	nNewCharge = m_pCharge->GetTotalCharge( nMemCharge, 
 		m_pStart->GetPOI(), m_pDest->GetPOI(),  m_pOrder->GetGNo(),
 		m_pBi, m_nCNoChargeDriving, m_nCNoDiscount, m_fDirectDistance, 
-		m_CMB_CHARGE_TYPE.pCombo->GetCurSel(), 	GetCarTypeForCharge(nCarType),m_nRunType, 0, nCarType );
+		m_CMB_CHARGE_TYPE.pCombo->GetCurSel(), LF->GetCarTypeForCharge(nCarType),m_nRunType, 0, nCarType );
 
 	g_bana_log->Print("OnGetCNS Info GetTotalCahrge %ld", nNewCharge);
 
-	m_EDT_CHARGE_BASIC.pEdit->SetWindowText(::GetMyNumberFormat( nNewCharge));
+	m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat( nNewCharge));
 	RefreshCharge();
 	return 0;
 }
@@ -4412,7 +4389,7 @@ void CRcpDlg::OnTimer(UINT nIDEvent)
 					if(m_nOriginalCompany == m_CMB_BRANCH.pCombo->GetItemData(i))
 					{					 
 						m_CMB_BRANCH.pCombo->SetCurSel(i);
-						m_pBi = GetBranchInfo(m_nOriginalCompany); 
+						m_pBi = LF->GetBranchInfo(m_nOriginalCompany);
 
 						if(m_pSearchPOIDlg)
 							m_pSearchPOIDlg->SetPreData("");
@@ -4427,7 +4404,7 @@ void CRcpDlg::OnTimer(UINT nIDEvent)
 			else //외부 콜센터
 			{
 				CString strTemp = "";
-				strTemp.Format("[%s]지사에 %d일전에 접수한 내역이 있습니다. (보장고객)", GetBranchInfo(m_nOriginalCompany)->strBranchName, nLastDay);
+				strTemp.Format("[%s]지사에 %d일전에 접수한 내역이 있습니다. (보장고객)", LF->GetBranchInfo(m_nOriginalCompany)->strBranchName, nLastDay);
 
 				m_nRevisitCustomer = InsertRevisitCustomerLog(FALSE, FALSE, nCNo, nPreCompany);
 			}
@@ -4474,7 +4451,7 @@ void CRcpDlg::InsertChargeChangeRequest()
 	cmd.AddParameter(m_ui.strName);
 	//cmd.AddParameter(m_nRiderCompany);
 	cmd.AddParameter(atoi(m_strDeposit));
-	cmd.AddParameter(GetMyUnNumberFormatEdit(&m_edtChargeCompany));
+	cmd.AddParameter(LF->GetMyUnNumberFormatEdit(&m_edtChargeCompany));
 	cmd.AddParameter(atoi(m_strChargeReturn));
 
 	cmd.Execute();
@@ -4496,7 +4473,7 @@ BOOL CRcpDlg::IsNeedRequest()
 	cmd.AddParameter(GetCarTypeNew());
 	cmd.AddParameter(GetPayTypeNew());
 	cmd.AddParameter(atoi(m_strChargeReturn));
-	cmd.AddParameter(GetMyUnNumberFormatEdit(&m_edtChargeCompany));
+	cmd.AddParameter(LF->GetMyUnNumberFormatEdit(&m_edtChargeCompany));
 
 	CMkParameter *pParPre = cmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
 	CMkParameter *pParNew = cmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -4546,7 +4523,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 
 	if(m_strYear != "")
 	{
-		if(!POWER_CHECK(2012, "이전오더 수정", TRUE))
+		if(!LF->POWER_CHECK(2012, "이전오더 수정", TRUE))
 			return FALSE;
 	}
 
@@ -4651,7 +4628,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 		nMileageSetting = GetMileageControlAmount();
 	else if(m_mi.IsBranchUseMile(m_pBi->nCompanyCode,m_nPersonMileageType)  )
 	{
-		nMileage = ::GetLongFromEdit(&m_edtMileReserve);
+		nMileage = LF->GetLongFromEdit(&m_edtMileReserve);
 			
 		nMileageReserveControl = GetMileageControlAmount();
 		bMileException = (nMileage != nMileageReserveControl && nMileageReserveControl > 0) ? TRUE : FALSE;
@@ -4670,7 +4647,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 	
 	if(m_mi.IsBranchUseMile(m_pBi->nCompanyCode,m_nPersonMileageType)  )
 	{
-		nMileage = ::GetLongFromEdit(&m_edtMileReserve);
+		nMileage = LF->GetLongFromEdit(&m_edtMileReserve);
 
 		nMileageReserveControl = GetMileageControlAmount();
 		bMileException = (nMileage != nMileageReserveControl && nMileageReserveControl > 0) ? TRUE : FALSE;
@@ -4712,7 +4689,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 	if(CheckDeposit() == FALSE)
 		return FALSE;
 
-	if(GetCurBranchInfo()->bAddDisChargeRound )
+	if(LF->GetCurBranchInfo()->bAddDisChargeRound )
 		CheckChargeRound();
 		
 
@@ -4755,11 +4732,11 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 		(m_chkSaveCharge.GetCheck() || m_nChargeMemCNo > 0 ) // 업체요금체크나  업체요금 타입일때
 		)
 	{
-		sChargeHistoryName = GetDashPhoneNumber( m_pOrder->GetPhone()) + "_" + m_pOrder->GetCompany();
+		sChargeHistoryName = LF->GetDashPhoneNumber( m_pOrder->GetPhone()) + "_" + m_pOrder->GetCompany();
 
-		nStartChargeType = ::GetChargeDongTypeInfo(m_pStart->GetPOI()->GetDongID());
-		nDestChargeType = ::GetChargeDongTypeInfo(m_pDest->GetPOI()->GetDongID());
-		nStartDestChargeType = GetChargeType(nStartChargeType, nDestChargeType);			
+		nStartChargeType = LF->GetChargeDongTypeInfo(m_pStart->GetPOI()->GetDongID());
+		nDestChargeType = LF->GetChargeDongTypeInfo(m_pDest->GetPOI()->GetDongID());
+		nStartDestChargeType = LF->GetChargeType(nStartChargeType, nDestChargeType);
 		bHistoryType = m_chkSaveCharge.GetCheck()  ? TRUE : FALSE;			
 	}	
  
@@ -4768,7 +4745,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 
 	if(m_nPreCharge != atoi(m_strChargeSum) && m_bTodayOrder == FALSE)
 	{
-		if(!POWER_CHECK(2030, "이전오더 요금수정", TRUE))
+		if(!LF->POWER_CHECK(2030, "이전오더 요금수정", TRUE))
 			return FALSE;
 	}
 
@@ -4850,7 +4827,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 	if(m_pStart->GetPOI()) {
 		pCmd.AddParameter(m_pStart->GetPOI()->GetID());		
 		pCmd.AddParameter(m_pStart->GetPOI()->GetDongID(TRUE));	
-		pCmd.AddParameter(IsExceptionDetailDongUse(m_pStart->GetPOI()) ? 
+		pCmd.AddParameter(LF->IsExceptionDetailDongUse(m_pStart->GetPOI()) ?
 			m_pStart->GetPOI()->GetDongID(TRUE) : m_pStart->GetPOI()->GetMainDongID());  // 요금관련
 		pCmd.AddParameter(m_pStart->GetPosX());
 		pCmd.AddParameter(m_pStart->GetPosY());
@@ -4876,7 +4853,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 	if(m_pDest->GetDBPOI()) {
 		pCmd.AddParameter(m_pDest->GetPOI()->GetID());		
 		pCmd.AddParameter(m_pDest->GetPOI()->GetDongID(TRUE));	
-		pCmd.AddParameter(IsExceptionDetailDongUse(m_pDest->GetPOI()) ? 
+		pCmd.AddParameter(LF->IsExceptionDetailDongUse(m_pDest->GetPOI()) ?
 			m_pDest->GetPOI()->GetDongID(TRUE) : m_pDest->GetPOI()->GetMainDongID());  // 요금관련
 		pCmd.AddParameter(m_pDest->GetPosX());
 		pCmd.AddParameter(m_pDest->GetPosY());
@@ -4943,7 +4920,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 	pCmd.AddParameter(nMileageSetting);
 	pCmd.AddParameter(nMileageAutoCharge);
 	pCmd.AddParameter(m_bNotOrderMileage);
-	pCmd.AddParameter(::GetDashPhoneNumberRemoveDDD(m_strSmsPhone));
+	pCmd.AddParameter(LF->GetDashPhoneNumberRemoveDDD(m_strSmsPhone));
 	pCmd.AddParameter(m_bOrderSpecialMileage);
 	pCmd.AddParameter(m_strChargeGeneralOption);
 	pCmd.AddParameter(m_strChargeAddOption);
@@ -4953,14 +4930,14 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 	pCmd.AddParameter(bAfterRcp);
 	pCmd.AddParameter(0);   /// 탁송연계오더인지여부
 	//pCmd.AddParameter(m_bConsignLink);   /// 탁송연계오더인지여부
-	pCmd.AddParameter(GetMyUnNumberFormatEdit(&m_edtConCommissionCharge)); 
+	pCmd.AddParameter(LF->GetMyUnNumberFormatEdit(&m_edtConCommissionCharge)); 
 	pCmd.AddParameter(m_nTerminalWayID); 
-	pCmd.AddParameter(GetMyUnNumberFormatEdit(&m_edtConTotalCharge)); 
+	pCmd.AddParameter(LF->GetMyUnNumberFormatEdit(&m_edtConTotalCharge)); 
 	pCmd.AddParameter(m_chkSameCarTypeOnly.GetCheck());
 	pCmd.AddParameter(m_pOrder->GetShowPhoneType());
 	pCmd.AddParameter(m_pStart->GetShowPhoneType());
 	pCmd.AddParameter(m_pDest->GetShowPhoneType());
-	pCmd.AddParameter(GetMyUnNumberFormatEdit(&m_edtChargeCompany));
+	pCmd.AddParameter(LF->GetMyUnNumberFormatEdit(&m_edtChargeCompany));
 	pCmd.AddParameter(m_chkAbleAllocLoadIns.GetCheck());
 	pCmd.AddParameter(m_chkFoodOrder.GetCheck());
 	pCmd.AddParameter(m_dtPreFoodComplete);
@@ -4975,7 +4952,7 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 		long nRet = parRet->GetLong();
 		if(nRet == 0)
 		{
-			MsgBox("하루가 지난 공유된 신용오더는\r\n정산이 이루어진 관계로 금액수정이 불가합니다", "확인", MB_ICONINFORMATION);
+			LF->MsgBox("하루가 지난 공유된 신용오더는\r\n정산이 이루어진 관계로 금액수정이 불가합니다", "확인", MB_ICONINFORMATION);
 			return FALSE;
 		}
 		else if(nRet == 2)
@@ -5005,11 +4982,11 @@ BOOL CRcpDlg::EditOrder(BOOL bWait, BOOL bAfterCopy, BOOL bAfterRcp)
 			CString strMsg;
 			strMsg = "해당 아이템의 상태가 다른 사람에 의해서 변경되었습니다.\n";
 			strMsg += "계속 하시려면 수정버튼을 한번 더 눌러주세요.\n\n\n상태: ";
-			strMsg += GetStateString(m_nState);
+			strMsg += LF->GetStateString(m_nState);
 			strMsg += " --> ";
-			strMsg += GetStateString(nRet);
+			strMsg += LF->GetStateString(nRet);
 			m_nState = nRet;
-			m_EDT_STATE.pEdit->SetWindowText(CString("    ") + GetStateString(m_nState));
+			m_EDT_STATE.pEdit->SetWindowText(CString("    ") + LF->GetStateString(m_nState));
 			m_pRcpView->PostMessage(WM_REFRESH_LIST, m_nInitItem, 0L);
 			MessageBox(strMsg, "확인", MB_ICONINFORMATION);
 			return FALSE;
@@ -5107,30 +5084,30 @@ BOOL CRcpDlg::IsOrderAfterChangeDetail(long &nFinalDeposit, CString &sEtc)
 		nFinalDeposit = nPreDeposit - nCurDeposit;
 
 		if(nFinalDeposit != 0)
-			sEtc += "[입금액변경 " + ::GetMyNumberFormat(nPreDeposit) + "->" + ::GetMyNumberFormat(nCurDeposit) + "] ";
+			sEtc += "[입금액변경 " + LF->GetMyNumberFormat(nPreDeposit) + "->" + LF->GetMyNumberFormat(nCurDeposit) + "] ";
 	}
 
 	if(::CCompleteAfterEditDlg::IsDifferentPayType(m_stPreInfo.nPayType, stCur.nPayType) == FALSE)
 	{
-		if(::IsCash(m_stPreInfo.nPayType))//현금->신용
+		if(LF->IsCash(m_stPreInfo.nPayType))//현금->신용
 		{
-			sEtc += "[입금방식변경 현->외 " + ::GetMyNumberFormat(stCur.nChargeSum + stCur.nChargeTrans) + "] ";
+			sEtc += "[입금방식변경 현->외 " + LF->GetMyNumberFormat(stCur.nChargeSum + stCur.nChargeTrans) + "] ";
 			nFinalDeposit += stCur.nChargeSum + stCur.nChargeTrans;
 		}
 		else //신용 -> 현금
 		{
-			sEtc += "[입금방식변경 외->현 " + ::GetMyNumberFormat(m_stPreInfo.nChargeSum + m_stPreInfo.nChargeTrans) + "] ";
+			sEtc += "[입금방식변경 외->현 " + LF->GetMyNumberFormat(m_stPreInfo.nChargeSum + m_stPreInfo.nChargeTrans) + "] ";
 			nFinalDeposit -= m_stPreInfo.nChargeSum + m_stPreInfo.nChargeTrans;					
 		}
 	}
 	else
 	{
-		if(!::IsCash(m_stPreInfo.nPayType))//신용->신용
+		if(!LF->IsCash(m_stPreInfo.nPayType))//신용->신용
 		{
 			if(m_stPreInfo.nChargeSum != stCur.nChargeSum ||
 				m_stPreInfo.nChargeTrans != stCur.nChargeTrans)
 			{
-				sEtc += "[금액변경 " + ::GetMyNumberFormat(stCur.nChargeSum + stCur.nChargeTrans) + "->" + ::GetMyNumberFormat(m_stPreInfo.nChargeSum + m_stPreInfo.nChargeTrans) +"]";
+				sEtc += "[금액변경 " + LF->GetMyNumberFormat(stCur.nChargeSum + stCur.nChargeTrans) + "->" + LF->GetMyNumberFormat(m_stPreInfo.nChargeSum + m_stPreInfo.nChargeTrans) +"]";
 				nFinalDeposit += (stCur.nChargeSum + stCur.nChargeTrans) - (m_stPreInfo.nChargeSum + m_stPreInfo.nChargeTrans);
 			}
 		}
@@ -5163,13 +5140,13 @@ void CRcpDlg::CheckOrderAfterChange(long nDeposit, CString sEtc)
 
 		if(nRet == 1)
 		{
-			sTemp.Format("[%s]지사로 %s원 이체하였습니다", m_ci.GetName(m_stPreInfo.nRiderCompany), ::GetMyNumberFormat(nDeposit));
+			sTemp.Format("[%s]지사로 %s원 이체하였습니다", m_ci.GetName(m_stPreInfo.nRiderCompany), LF->GetMyNumberFormat(nDeposit));
 			MessageBox(sTemp, "확인", MB_ICONINFORMATION);
 			return;
 		}
 		else if(nRet == 2)
 		{
-			sTemp.Format("[%s]지사로 %s원 청구요청하였습니다", m_ci.GetName(m_stPreInfo.nRiderCompany), ::GetMyNumberFormat(-1 * nDeposit));
+			sTemp.Format("[%s]지사로 %s원 청구요청하였습니다", m_ci.GetName(m_stPreInfo.nRiderCompany), LF->GetMyNumberFormat(-1 * nDeposit));
 			MessageBox(sTemp, "확인", MB_ICONINFORMATION);
 			return;
 		}
@@ -5294,15 +5271,15 @@ long CRcpDlg::RefreshCharge(BOOL bApplyChargeSum, BOOL bApplyAddCharge)
 
 	long nTotal = CheckAddDisCharge();
 	m_strChargeSum = itoa(nTotal, buf, 10);
-	m_EDT_CHARGE_SUM.pEdit->SetWindowText(::GetMyNumberFormat(_ttoi(m_strChargeSum)));
-	m_edtChargeSumTotal.SetWindowText(::GetMyNumberFormat(nTotal + _ttoi(m_strChargeTrans)));
+	m_EDT_CHARGE_SUM.pEdit->SetWindowText(LF->GetMyNumberFormat(_ttoi(m_strChargeSum)));
+	m_edtChargeSumTotal.SetWindowText(LF->GetMyNumberFormat(nTotal + _ttoi(m_strChargeTrans)));
 
 	if(m_bChangeDrivingCharge == TRUE)
-		m_EDT_CHARGE_DRIVING.pEdit->SetWindowText(::GetMyNumberFormat(_ttoi(m_strChargeSum)));
+		m_EDT_CHARGE_DRIVING.pEdit->SetWindowText(LF->GetMyNumberFormat(_ttoi(m_strChargeSum)));
 
 	if(m_nCNoChargeDriving > 0)
 	{
-		m_EDT_CHARGE_DRIVING.pEdit->SetWindowText(::GetMyNumberFormat(m_nCNoChargeDriving));
+		m_EDT_CHARGE_DRIVING.pEdit->SetWindowText(LF->GetMyNumberFormat(m_nCNoChargeDriving));
 	}
 
 	long nMileageValue=0, nMileageAuto= 0;
@@ -5362,7 +5339,7 @@ void CRcpDlg::SetDiscountType(long nGNo, long nDiscountType, long nDiscount )
 
 long CRcpDlg::CheckAllbaroRoound(long nCharge)
 {
-	if(::IsThisCompany("올바로"))
+	if(LF->IsThisCompany("올바로"))
 	{
 		long nPer = nCharge % 1000;
 
@@ -5607,13 +5584,13 @@ long CRcpDlg::CheckAddOptionCharge()
 			{			
 				nAddperCustomerOption = m_nChargeAdd;
 				nAddperCustomerOption = CheckAllbaroRoound(nAddperCustomerOption);	
-				strFormat.Format("고객할증(%s),", GetMyNumberFormat(	m_nChargeAdd));			
+				strFormat.Format("고객할증(%s),", LF->GetMyNumberFormat(	m_nChargeAdd));			
 			}			
 			else if( m_nDiscountType == 1 && m_nChargeDis < -100 )
 			{			
 				nSubtractCustomerOption = m_nChargeDis * -1;		
 				nSubtractCustomerOption = CheckAllbaroRoound(nSubtractCustomerOption);	
-				strFormat.Format("고객할인(%s),", GetMyNumberFormat(	m_nChargeDis));						
+				strFormat.Format("고객할인(%s),", LF->GetMyNumberFormat(	m_nChargeDis));						
 			}
 			m_strChargeAddOption += strFormat;
 
@@ -5634,13 +5611,13 @@ long CRcpDlg::CheckAddOptionCharge()
 				{
 					nAddperCustomerOption = nChargeDis;
 					nAddperCustomerOption = CheckAllbaroRoound(nAddperCustomerOption);	
-					strFormat.Format("고객할증(%s),", GetDiscountType(	m_nDiscountType));	
+					strFormat.Format("고객할증(%s),", LF->GetDiscountType(	m_nDiscountType));
 				}
 				else 
 				{
 					nSubtractCustomerOption = nChargeDis * -1;
 					nSubtractCustomerOption = CheckAllbaroRoound(nSubtractCustomerOption);	
-					strFormat.Format("고객할인(%s),", GetDiscountType(	m_nDiscountType));	
+					strFormat.Format("고객할인(%s),", LF->GetDiscountType(	m_nDiscountType));
 				}
 				m_strChargeAddOption += strFormat;
 			}
@@ -5667,13 +5644,13 @@ long CRcpDlg::CheckAddOptionCharge()
 				{			
 					nAddperCustomerOption = m_nChargeAdd;
 					nAddperCustomerOption = CheckAllbaroRoound(nAddperCustomerOption);
-					strFormat.Format("그룹할증(%s),", GetMyNumberFormat(	m_nChargeAdd));			
+					strFormat.Format("그룹할증(%s),", LF->GetMyNumberFormat(	m_nChargeAdd));			
 				}			
 				else if( m_nDiscountType == 100 && m_nChargeDis < -100 )
 				{			
 					nSubtractCustomerOption = m_nChargeDis * -1;
 					nSubtractCustomerOption = CheckAllbaroRoound(nSubtractCustomerOption);
-					strFormat.Format("그룹할인(%s),", GetMyNumberFormat(	m_nChargeDis));						
+					strFormat.Format("그룹할인(%s),", LF->GetMyNumberFormat(	m_nChargeDis));						
 				}
 				m_strChargeAddOption += strFormat;
 			}
@@ -5717,7 +5694,7 @@ long CRcpDlg::CheckAddOptionCharge()
 		m_strChargeAddOption += "긴급요금(" + CString(itoa(nAddperEmergency, buffer, 10)) + "),";
 	}
 
-	if(IsCarTypeTruck(GetCarTypeNew()))  //카고
+	if(LF->IsCarTypeTruck(GetCarTypeNew()))  //카고
 	{
 		int cargo_type = 0;
 
@@ -5733,23 +5710,23 @@ long CRcpDlg::CheckAddOptionCharge()
 			if(it != g_special_truck_charge.end()) {
 				if(cargo_type == CARGO_JABARA) {
 					nSpecialTruckAdd = it->second.jabara_add;
-					strFormat.Format("자바라할증(%s),", GetMyNumberFormat(nSpecialTruckAdd));	
+					strFormat.Format("자바라할증(%s),", LF->GetMyNumberFormat(nSpecialTruckAdd));	
 				}
 				else if(cargo_type == CARGO_LIFT) {
 					nSpecialTruckAdd = it->second.lift_add;
-					strFormat.Format("리프트할증(%s),", GetMyNumberFormat(nSpecialTruckAdd));	
+					strFormat.Format("리프트할증(%s),", LF->GetMyNumberFormat(nSpecialTruckAdd));	
 				}
 				else if(cargo_type == CARGO_WING_BODY) {
 					nSpecialTruckAdd = it->second.wing_body_add;
-					strFormat.Format("윙바디할증(%s),", GetMyNumberFormat(nSpecialTruckAdd));	
+					strFormat.Format("윙바디할증(%s),", LF->GetMyNumberFormat(nSpecialTruckAdd));	
 				}
 				else if(cargo_type == CARGO_LIFT_WING) {
 					nSpecialTruckAdd = it->second.lift_wing_add;
-					strFormat.Format("리프트윙할증(%s),", GetMyNumberFormat(nSpecialTruckAdd));	
+					strFormat.Format("리프트윙할증(%s),", LF->GetMyNumberFormat(nSpecialTruckAdd));	
 				}
 				else if(cargo_type == CARGO_FREEZER) {
 					nSpecialTruckAdd = it->second.freezer_add;
-					strFormat.Format("냉동할증(%s),", GetMyNumberFormat(nSpecialTruckAdd));	
+					strFormat.Format("냉동할증(%s),", LF->GetMyNumberFormat(nSpecialTruckAdd));	
 				}
 				m_strChargeAddOption += strFormat;
 			}
@@ -5818,7 +5795,7 @@ long CRcpDlg::CheckAddOptionCharge()
 		dtOrderInputTime = m_dt1;
 	*/ 
 	nTempTimeCharge = LU->m_pChargeAdd->GetChargeAdd(m_pBi->nCompanyCode,dt.GetDayOfWeek(), 
-		::GetCarChargeType(GetCarTypeNew()), nBasicCharge, dtOrderInputTime );
+		LF->GetCarChargeType(GetCarTypeNew()), nBasicCharge, dtOrderInputTime );
   
 	if(nTempTimeCharge > 0)
 		nAddperTimeCharge = nTempTimeCharge;
@@ -5830,9 +5807,9 @@ long CRcpDlg::CheckAddOptionCharge()
 
 
 	if(nAddperTimeCharge > 0)
-		m_strChargeAddOption += "시간할증(" + GetMyNumberFormat(nAddperTimeCharge) + "),";
+		m_strChargeAddOption += "시간할증(" + LF->GetMyNumberFormat(nAddperTimeCharge) + "),";
 	if(nDisperTimeCharge < 0)
-		m_strChargeAddOption += "시간할인(" + GetMyNumberFormat(nDisperTimeCharge) + "),";
+		m_strChargeAddOption += "시간할인(" + LF->GetMyNumberFormat(nDisperTimeCharge) + "),";
 
 	long nTotal = nAddperBoth +  nAddperEmergency + nAddperCarType + nAddperTimeCharge + nAddperCustomerOption + nAddBranchDiscount + nAddWeather + nAddWeatherSnow + nSpecialTruckAdd;
 	long nTotalDis = nSubtractCustomerOption + ( nDisperTimeCharge * -1 ) +  nDisBranchDiscount + nSlowDiscount;  // 접수창에는 + 로 표시 
@@ -5841,7 +5818,7 @@ long CRcpDlg::CheckAddOptionCharge()
 		m_strChargeAddOption = m_strChargeAddOption.Left(m_strChargeAddOption.GetLength() - 1);
 
 	
-	//m_strChargeAdd = ::GetMyNumberFormat(nAddperBoth +  nAddperEmergency + nAddperCarType);
+	//m_strChargeAdd = LF->GetMyNumberFormat(nAddperBoth +  nAddperEmergency + nAddperCarType);
 
 	
 	if(nTotal > 0)
@@ -5849,7 +5826,7 @@ long CRcpDlg::CheckAddOptionCharge()
 		if(nTotal / 1000.0 != 0 && m_pBi->bAddDisChargeRound)
 			nTotal = round(nTotal, -3);
 
-		m_EDT_CHARGE_ADD.pEdit->SetWindowText(::GetMyNumberFormat(nTotal));
+		m_EDT_CHARGE_ADD.pEdit->SetWindowText(LF->GetMyNumberFormat(nTotal));
 	}
 	
 
@@ -5858,7 +5835,7 @@ long CRcpDlg::CheckAddOptionCharge()
 		if(nTotalDis / 1000.0 != 0 && m_pBi->bAddDisChargeRound)
 			nTotalDis = round(nTotalDis, -3);
 
-		m_EDT_CHARGE_DIS.pEdit->SetWindowText(::GetMyNumberFormat(nTotalDis));
+		m_EDT_CHARGE_DIS.pEdit->SetWindowText(LF->GetMyNumberFormat(nTotalDis));
 		//RefreshBasicCharge(TRUE, FALSE);
 	}
 	return nTotal;
@@ -5898,7 +5875,7 @@ BOOL CRcpDlg::CheckChargeRound()
 		sErrorMsg.Format("%s %s\n\r\n\r수정(반올림)하시면서 등록하시겠습니까?", "기본금",sDefaultMsg);
 		if( MessageBox(sErrorMsg, "확인", MB_YESNO ) == IDYES)
 		{
-			m_strChargeBasic = GetMyNumberFormat(nCalChargeBasic);
+			m_strChargeBasic = LF->GetMyNumberFormat(nCalChargeBasic);
 			m_EDT_CHARGE_BASIC.pEdit->SetWindowText(m_strChargeBasic);
 			return TRUE;
 		}
@@ -5910,7 +5887,7 @@ BOOL CRcpDlg::CheckChargeRound()
 		sErrorMsg.Format("%s %s\n\r\n\r수정(반올림)하시면서 등록하시겠습니까?", "추가금",sDefaultMsg);
 		if( MessageBox(sErrorMsg, "확인", MB_YESNO ) == IDYES)
 		{
-			m_strChargeAdd = GetMyNumberFormat(nCalChargeAdd);
+			m_strChargeAdd = LF->GetMyNumberFormat(nCalChargeAdd);
 			m_EDT_CHARGE_ADD.pEdit->SetWindowText(m_strChargeAdd);
 			return TRUE;
 		}
@@ -5922,7 +5899,7 @@ BOOL CRcpDlg::CheckChargeRound()
 		sErrorMsg.Format("%s %s\n\r\n\r수정(반올림)하시면서 등록하시겠습니까?", "할인금",sDefaultMsg);
 		if( MessageBox(sErrorMsg, "확인", MB_YESNO ) == IDYES)
 		{
-			m_strChargeDis = GetMyNumberFormat(nCalChargeDis);
+			m_strChargeDis = LF->GetMyNumberFormat(nCalChargeDis);
 			m_EDT_CHARGE_DIS.pEdit->SetWindowText(m_strChargeDis);
 			return TRUE;
 		}
@@ -5934,7 +5911,7 @@ BOOL CRcpDlg::CheckChargeRound()
 		sErrorMsg.Format("%s %s\n\r\n\r수정(반올림)하시면서 등록하시겠습니까?", "정산금",sDefaultMsg);
 		if( MessageBox(sErrorMsg, "확인", MB_YESNO ) == IDYES)
 		{
-			m_strChargeSum = GetMyNumberFormat(nCalChargeSum);
+			m_strChargeSum = LF->GetMyNumberFormat(nCalChargeSum);
 			m_EDT_CHARGE_SUM.pEdit->SetWindowText(m_strChargeSum);
 			return TRUE;
 		}
@@ -5983,7 +5960,7 @@ long  CRcpDlg::CheckAddDisCharge(long nChargeInpuBasic)
 	//if(nDisPer / 1000.0 !=0 && nDisPer >999 && m_pBi->bAddDisChargeRound )
 	//{
 	//	nDisPer = round(nDisPer, -3);
-	//	m_strChargeDis = ::GetMyNumberFormat(nDisPer);
+	//	m_strChargeDis = LF->GetMyNumberFormat(nDisPer);
 	//	m_EDT_CHARGE_DIS.pEdit->SetWindowText(m_strChargeDis);
 	//}
 
@@ -5993,7 +5970,7 @@ long  CRcpDlg::CheckAddDisCharge(long nChargeInpuBasic)
 	/*if(nAddPer / 1000.0 !=0 && nAddPer > 999 && m_pBi->bAddDisChargeRound )
 	{
 	nAddPer = round(nAddPer, -3);
-	m_strChargeAdd = ::GetMyNumberFormat(nAddPer);
+	m_strChargeAdd = LF->GetMyNumberFormat(nAddPer);
 	m_EDT_CHARGE_ADD.pEdit->SetWindowText(m_strChargeAdd);
 
 	}*/
@@ -6168,7 +6145,7 @@ void CRcpDlg::DisplayChargeInfo(BOOL bHasData)
 
 		int nIndex = m_CMB_CHARGE_TYPE.pCombo->GetCurSel();
 
-		CString strCarType = ::GetCarTypeFromLong(GetCarTypeNew(), TRUE);
+		CString strCarType = LF->GetCarTypeFromLong(GetCarTypeNew(), TRUE);
 		CString strChargeType; 	m_CMB_CHARGE_TYPE.pCombo->GetLBText(m_CMB_CHARGE_TYPE.pCombo->GetCurSel(), strChargeType);
 
 		strStartDest.Replace("<", ",");
@@ -6219,7 +6196,7 @@ BOOL CRcpDlg::GetRouteDistance(BOOL bShowMap, BOOL bViaApply,BOOL bChargeCalcula
 	if(IsUseDirectDistance() && bShowMap == FALSE)
 	{
 		bRouteSend = TRUE;
-		double fDistance = ::GetDistanceMeter(m_pStart->GetPosX(), m_pStart->GetPosY(), 
+		double fDistance = LF->GetDistanceMeter(m_pStart->GetPosX(), m_pStart->GetPosY(),
 				m_pDest->GetPosX(), m_pDest->GetPosY());
 		fDistance = fDistance / 1000;
 		double* pfDistance = new double;
@@ -6342,7 +6319,7 @@ void CRcpDlg::AddTran()
 
 	long nCompany = pBi->nCompanyCode;
 	if(nCompany <= 0)
-		nCompany = GetCurBranchInfo()->nCompanyCode;*/
+		nCompany = LF->GetCurBranchInfo()->nCompanyCode;*/
 
 //	dlg.m_nCompany = nCompany;
 //
@@ -6499,14 +6476,14 @@ long CRcpDlg::GetSectionCharge(BOOL bMustApply, int nModifyPoiConfirmCharge, BOO
 	if( m_pOrder->GetGNo() > 0 && ! IsNoGroupCharge(m_pOrder->GetGNo()) )
 		nMemCharge = 0; 
 	
-	 if(GetCurBranchInfo()->bNotMemberCharge )
+	 if(LF->GetCurBranchInfo()->bNotMemberCharge )
 		 nMemCharge = 0;
 	
 	
 	if(!IsStartDestPoi()) 
 		return 0;
 
-	if(::IsThisCompany("엔콜") || ::IsThisCompany("로지"))  /// 엔콜 업체요금 + 긴급 
+	if(LF->IsThisCompany("엔콜") || LF->IsThisCompany("로지"))  /// 엔콜 업체요금 + 긴급 
 	{
 		if( !m_pCharge->IsSameRunType(m_nRunType) )
 		{
@@ -6532,11 +6509,11 @@ long CRcpDlg::GetSectionCharge(BOOL bMustApply, int nModifyPoiConfirmCharge, BOO
 	{ 
 		nCharge = m_pCharge->GetCashCharge(nMemCharge,m_pStart->GetPOI(), m_pDest->GetPOI(),  m_pOrder->GetGNo(),
 			m_pBi,	m_nCNoChargeDriving, m_nCNoDiscount, m_fDirectDistance,m_CMB_CHARGE_TYPE.pCombo->GetCurSel(), 			
-			::GetCarTypeForCharge(nCarType),
+			LF->GetCarTypeForCharge(nCarType),
 			bChargeTypeCelChange	);
 
 		//g_bana_log->Print("skip CRcpDlg::GetSectionCharge  CashCahrge 실행 ******\n");
-		m_EDT_CHARGE_BASIC.pEdit->SetWindowText(::GetMyNumberFormat( nCharge));
+		m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat( nCharge));
 
 		return RefreshCharge();
 	}
@@ -6592,7 +6569,7 @@ long CRcpDlg::GetSectionCharge(BOOL bMustApply, int nModifyPoiConfirmCharge, BOO
 			m_pStart->GetPOI(), m_pDest->GetPOI(),  m_pOrder->GetGNo(),
 			m_pBi,m_nCNoChargeDriving, m_nCNoDiscount, m_fDirectDistance, m_CMB_CHARGE_TYPE.pCombo->GetCurSel(),  
 			
-			::GetCarTypeForCharge(nCarType),
+			LF->GetCarTypeForCharge(nCarType),
 			IsNoGroupCharge(m_pOrder->GetGNo()), m_nRunType);		
 
 
@@ -6624,7 +6601,7 @@ long CRcpDlg::GetSectionCharge(BOOL bMustApply, int nModifyPoiConfirmCharge, BOO
 		}	
 	}
 	m_EDT_CHARGE_DIS.pEdit->SetWindowText(m_strChargeDis);
-	m_EDT_CHARGE_BASIC.pEdit->SetWindowText(::GetMyNumberFormat( nCharge));
+	m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat( nCharge));
 	nSumCharge = RefreshCharge(TRUE);
 	RefreshProperCharge();
 	return nSumCharge;
@@ -6665,9 +6642,9 @@ void CRcpDlg::RefreshProperCharge()
 	}
 
 	if(nProper1 > 0)
-		m_edtProperCharge1.SetWindowText(::GetMyNumberFormat(nProper1));
+		m_edtProperCharge1.SetWindowText(LF->GetMyNumberFormat(nProper1));
 	if(nProper2 > 0)
-		m_edtProperCharge2.SetWindowText(::GetMyNumberFormat(nProper2));
+		m_edtProperCharge2.SetWindowText(LF->GetMyNumberFormat(nProper2));
 }
 
 
@@ -6683,7 +6660,7 @@ BOOL CRcpDlg::ChangePOIConfirmString(int nModifyPoiConfirmCharge, long nOldCharg
 
 	CString sMessage = "";
 	sMessage.Format("출발지 수정으로 이전요금 %s -> 변경요금 %s원 \n\r변경하시겠습니까? ",
-		GetMyNumberFormat(nOldCharge), GetMyNumberFormat(nNewCharge) );
+		LF->GetMyNumberFormat(nOldCharge), LF->GetMyNumberFormat(nNewCharge) );
 
 	/*if(nModifyPoiConfirmCharge == MODIFY_POI_DEST)
 	sMessage.Replace("출발지", "도착지");
@@ -6712,7 +6689,7 @@ long CRcpDlg::GetNowChargeControlAmount()
 	long nOldCharge = 0;
 	m_EDT_CHARGE_BASIC.pEdit->GetWindowText(strCharge);
 	strCharge.Replace(",", "");			
-	if(IsStringDigit(strCharge))
+	if(LF->IsStringDigit(strCharge))
 		nOldCharge = atol(strCharge);
 
 	return nOldCharge;
@@ -6772,9 +6749,9 @@ void CRcpDlg::CheckCustomerUsageCharge(long nBasicCharge)
 			m_strChargeAdd.Format("%d", dlg.m_nChargeAdd);
 			m_strChargeDis.Format("%d", dlg.m_nChargeDis);
 
-			m_strChargeBasic = RemoveZero(m_strChargeBasic);
-			m_strChargeAdd = RemoveZero(m_strChargeAdd);
-			m_strChargeDis = RemoveZero(m_strChargeDis);
+			m_strChargeBasic = LF->RemoveZero(m_strChargeBasic);
+			m_strChargeAdd = LF->RemoveZero(m_strChargeAdd);
+			m_strChargeDis = LF->RemoveZero(m_strChargeDis);
 
 			m_EDT_CHARGE_BASIC.pEdit->SetWindowText(m_strChargeBasic);
 			m_EDT_CHARGE_ADD.pEdit->SetWindowText(m_strChargeAdd);
@@ -6832,10 +6809,10 @@ void CRcpDlg::RequestCharge(BOOL bClose, long nFindCompany, long nFindRNo)
 		m_EDT_DEST_NAME.pEdit->GetWindowText(m_pDest->GetCompany());
 		m_EDT_ORDER_NAME.pEdit->GetWindowText(strOrderName);
 
-		strOrderName += "[" + GetCarTypeFromLong(GetCarTypeNew()) + "]";
-		strOrderName += "[" + GetWayTypeFromLong(m_nWayType) + "]";
-		strOrderName += "[" + GetRunTypeFromLong(m_nRunType) + "]";
-		strOrderName += "[" + GetPayTypeFromLong(m_nPayType) + "]";
+		strOrderName += "[" + LF->GetCarTypeFromLong(GetCarTypeNew()) + "]";
+		strOrderName += "[" + LF->GetWayTypeFromLong(m_nWayType) + "]";
+		strOrderName += "[" + LF->GetRunTypeFromLong(m_nRunType) + "]";
+		strOrderName += "[" + LF->GetPayTypeFromLong(m_nPayType) + "]";
 
 		if(m_nQueryChargeUniqueID == 0)
 			m_nQueryChargeUniqueID = m_nCurQueryChargeUniqueID++;
@@ -6893,13 +6870,13 @@ void CRcpDlg::GetPhoneNumberByRider(BCMenu *pRMenu)
 
 	if(sTel != "")
 	{
-		pRMenu->SetMenuText(ID_PHONE1 + nItem, ::GetDashPhoneNumber(sTel), MF_BYCOMMAND);
+		pRMenu->SetMenuText(ID_PHONE1 + nItem, LF->GetDashPhoneNumber(sTel), MF_BYCOMMAND);
 		m_strCallPhone[nItem++] = sTel;
 	}
 
 	if(sHp != "")
 	{
-		pRMenu->SetMenuText(ID_PHONE1 + nItem, ::GetDashPhoneNumber(sHp), MF_BYCOMMAND);
+		pRMenu->SetMenuText(ID_PHONE1 + nItem, LF->GetDashPhoneNumber(sHp), MF_BYCOMMAND);
 		m_strCallPhone[nItem++] = sHp;
 	}
 
@@ -6982,8 +6959,8 @@ void CRcpDlg::GetPhoneNumberByServer(BCMenu* pRMenu,long nCNo)
 			break;
 
 		pRs.GetFieldValue("sTel", sTel);
-		pRMenu->SetMenuText(ID_PHONE1 + i, ::GetDashPhoneNumber(sTel), MF_BYCOMMAND);
-		pRMenu->SetMenuText(ID_PHONE11 + i, ::GetDashPhoneNumber(sTel) + "(SMS)", MF_BYCOMMAND);
+		pRMenu->SetMenuText(ID_PHONE1 + i, LF->GetDashPhoneNumber(sTel), MF_BYCOMMAND);
+		pRMenu->SetMenuText(ID_PHONE11 + i, LF->GetDashPhoneNumber(sTel) + "(SMS)", MF_BYCOMMAND);
 
 		m_strCallPhone[i] = sTel;
 
@@ -7044,7 +7021,7 @@ void CRcpDlg::GetPhoneNumberByClient(BCMenu* pRMenu,UINT nFlagPhone, UINT nFlagM
 
 void CRcpDlg::OnPhoneControl(UINT nFlag)
 {	
-	m_pRcpView->MakeCall(m_pBi->nCompanyCode, GetNoneDashNumber(m_strCallPhone[nFlag - ID_PHONE1]), m_nToCallingType);
+	m_pRcpView->MakeCall(m_pBi->nCompanyCode, LF->GetNoneDashNumber(m_strCallPhone[nFlag - ID_PHONE1]), m_nToCallingType);
 }
 
 void CRcpDlg::OnPhoneControlSMS(UINT nFlag)
@@ -7107,7 +7084,7 @@ void CRcpDlg::InsertCharge(BOOL bShuttle)
 		m_strChargeBasic.Replace(",","");
 		m_strChargeBasic.Replace("\\", "");
 
-		if(!IsStringDigit(m_strChargeBasic))
+		if(!LF->IsStringDigit(m_strChargeBasic))
 			throw("금액이 숫자가 아닙니다.");
 
 		nCharge = GetStringChargeToNumber(m_strChargeBasic);
@@ -7318,7 +7295,7 @@ void CRcpDlg::OnCbnEditchangeCouponChargeCombo()
 
 void CRcpDlg::OnBnClickedInputChargeNewBtn()
 {
-	if(!POWER_CHECK(1100, "요금창 보기", TRUE))
+	if(!LF->POWER_CHECK(1100, "요금창 보기", TRUE))
 		return;
 
 	if(m_pStart->GetPOI() == NULL || m_pDest->GetPOI() == NULL) return;
@@ -7331,7 +7308,7 @@ void CRcpDlg::OnBnClickedInputChargeNewBtn()
 
 	long nChargeType, nCarType;
 
-	nCarType = ::GetCarTypeForCharge(GetCarTypeNew());
+	nCarType = LF->GetCarTypeForCharge(GetCarTypeNew());
 	nChargeType = m_CMB_CHARGE_TYPE.pCombo->GetCurSel();
 
 	BOOL bUpdateChargeOk = FALSE;
@@ -7396,7 +7373,7 @@ void CRcpDlg::OnBnClickedConsignBtn()
 	{
 		if(dlg.m_nCharge > 0)
 		{			
-			m_EDT_CHARGE_TRANS.pEdit->SetWindowText(GetMyNumberFormat(dlg.m_nCharge));
+			m_EDT_CHARGE_TRANS.pEdit->SetWindowText(LF->GetMyNumberFormat(dlg.m_nCharge));
 			RefreshCharge();
 		}
 	}
@@ -7428,7 +7405,7 @@ void CRcpDlg::OnEnKillfocusChargeBasicEdit()
 {
 
 
-	if(GetCurBranchInfo()->bNotMemberCharge)  // 업체요금 사용안함.
+	if(LF->GetCurBranchInfo()->bNotMemberCharge)  // 업체요금 사용안함.
 		return;
 
 	if(m_EDT_CHARGE_BASIC.pEdit->IsWindowVisible() == FALSE ||
@@ -7440,12 +7417,12 @@ void CRcpDlg::OnEnKillfocusChargeBasicEdit()
 	strCharge.Replace(",", "");
 	if(atol(strCharge) < 500 && atol(strCharge) > 0)
 	{
-		m_strChargeBasic = GetMyNumberFormat(atol(strCharge) * 1000);
+		m_strChargeBasic = LF->GetMyNumberFormat(atol(strCharge) * 1000);
 		m_EDT_CHARGE_BASIC.pEdit->SetWindowText(m_strChargeBasic);
 		OnEnChangeChargeBasicEdit();
 	}
 
-	if(IsEditMode() && m_nLoadChargeBasic != GetRcpBasicCharge() && m_bDirtyBasicCharge && !GetCurBranchInfo()->bNotMemberCharge )
+	if(IsEditMode() && m_nLoadChargeBasic != GetRcpBasicCharge() && m_bDirtyBasicCharge && !LF->GetCurBranchInfo()->bNotMemberCharge )
 	{
 		m_chkSaveCharge.SetCheck(TRUE);	
 		m_CMB_CHARGE_TYPE.pCombo->SetCurSel(TYPE_GNO);
@@ -7468,14 +7445,14 @@ void CRcpDlg::OnEnKillfocusChargeBasicEdit()
 		nCashCharge = m_pCharge->GetCashCharge(m_nChargeMemCNo, m_pStart->GetPOI(), m_pDest->GetPOI(), 
 			m_pOrder->GetGNo(), m_pBi,	m_nCNoChargeDriving, m_nCNoDiscount,  m_fDirectDistance, m_CMB_CHARGE_TYPE.pCombo->GetCurSel(), 
 			
-			::GetCarTypeForCharge(nCarType),
+			LF->GetCarTypeForCharge(nCarType),
 			FALSE);
 
 		if(
 			GetRcpBasicCharge() != nCashCharge &&
 			GetRcpBasicCharge() > 0 &&  nCashCharge > 0 &&  // 1.캐쉬된금액과 현재금액이 틀리고 ,  2. 금액이 0이상이고 
 			( m_pCharge->GetStartPoi() > 0 && m_pCharge->GetDestPoi() > 0 ) && // POI 가 입력되어 요금계산이 된적
-			!GetCurBranchInfo()->bNotMemberCharge
+			!LF->GetCurBranchInfo()->bNotMemberCharge
 			)
 		{
 			m_chkSaveCharge.SetCheck(TRUE);	
@@ -7494,7 +7471,7 @@ void CRcpDlg::OnEnKillfocusChargeSumEdit()
 	strCharge.Replace(",", "");
 	if(atol(strCharge) < 500 && atol(strCharge) > 0)
 	{
-		m_strChargeSum = GetMyNumberFormat(atol(strCharge) * 1000);
+		m_strChargeSum = LF->GetMyNumberFormat(atol(strCharge) * 1000);
 		m_EDT_CHARGE_SUM.pEdit->SetWindowText(m_strChargeSum);
 		OnEnChangeChargeSumEdit();
 	}
@@ -7508,7 +7485,7 @@ void CRcpDlg::OnEnKillfocusChargeTransEdit()
 	strCharge.Replace(",", "");
 	if(atol(strCharge) < 500 && atol(strCharge) > 0)
 	{
-	m_strChargeTrans = GetMyNumberFormat(atol(strCharge) * 1000);
+	m_strChargeTrans = LF->GetMyNumberFormat(atol(strCharge) * 1000);
 	m_EDT_CHARGE_TRANS.pEdit->SetWindowText(m_strChargeTrans);
 	}
 	*/
@@ -7540,7 +7517,7 @@ BOOL CRcpDlg::MileageUse(long nOrderCNo)
 		long nCompany = GetBranchComboToBranchInfo()->nCompanyCode;
 		long nMileSpan = m_mi.GetMileData(nCompany)->nMileageSpan;
 
-		strMsg.Format("마일리지 최소사용 금액은 %s원 입니다. ",::GetMyNumberFormat(nMileSpan) );
+		strMsg.Format("마일리지 최소사용 금액은 %s원 입니다. ",LF->GetMyNumberFormat(nMileSpan) );
 		if(nMileSpan > nMileageBalance)
 			throw(strMsg);
 
@@ -7562,16 +7539,16 @@ BOOL CRcpDlg::MileageUse(long nOrderCNo)
 			nFixedMileage = nChargeSum;				
 		else
 		{
-			MsgBox("금액적용을 다시하여주세요");
+			LF->MsgBox("금액적용을 다시하여주세요");
 			return FALSE;
 		}
-		m_edtAutoCharge.SetWindowText(::GetMyNumberFormat(nFixedMileage));
+		m_edtAutoCharge.SetWindowText(LF->GetMyNumberFormat(nFixedMileage));
 		m_EDT_ETC.pEdit->GetWindowText(strEtc);
-		strMent.Format("※마일리지적용[%s원]", ::GetMyNumberFormat(nFixedMileage));
+		strMent.Format("※마일리지적용[%s원]", LF->GetMyNumberFormat(nFixedMileage));
 		strEtc += strMent;
 		m_EDT_ETC.pEdit->SetWindowText(strEtc);
 
-		MsgBox("오더를 수정하시거나 신규로올리셔야만 적용이 됩니다.");
+		LF->MsgBox("오더를 수정하시거나 신규로올리셔야만 적용이 됩니다.");
 		return TRUE;
 	}
 	catch(char *sMsg)
@@ -7603,7 +7580,7 @@ void CRcpDlg::MileCheck( int nPrePayType)
 			return;
 		}
 
-		long nRcpDlgCharge =  GetMyUnNumberFormatEdit(m_EDT_CHARGE_SUM.pEdit);
+		long nRcpDlgCharge =  LF->GetMyUnNumberFormatEdit(m_EDT_CHARGE_SUM.pEdit);
 		m_nMileageBalance = 
 			m_mi.GetNowMileageBalance(m_pOrder->GetCNo(), m_nInitItem);// - GetNowRiderAutoCharge();
 		if(m_nMileageBalance <= 0)
@@ -7632,7 +7609,7 @@ void CRcpDlg::MileCheck( int nPrePayType)
 		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->SetWindowText("마일사용");
 		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->ShowWindow(SW_HIDE);
 		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->ShowWindow(SW_SHOW);
-		m_edtAutoCharge.SetWindowText(GetMyNumberFormat(nRcpDlgCharge));
+		m_edtAutoCharge.SetWindowText(LF->GetMyNumberFormat(nRcpDlgCharge));
 		m_edtAutoCharge.SetFocus();		
 		m_chkAutoCharge.SetWindowText("O");
 
@@ -7716,7 +7693,7 @@ void CRcpDlg::OnEnChangeRiderAutoChargeEdit()
 
 		//m_strMileageAutoCharge.Format("%d", nMileageBalance);
 		m_strMileageAutoCharge.Format("%d", 0);
-		m_edtAutoCharge.SetWindowText(GetMyNumberFormat(m_strMileageAutoCharge));
+		m_edtAutoCharge.SetWindowText(LF->GetMyNumberFormat(m_strMileageAutoCharge));
 
 		MessageBox("마일리지잔액보다 마일리지사용액이 더 많습니다", "확인", MB_ICONINFORMATION);
 		//return;
@@ -7728,7 +7705,7 @@ void CRcpDlg::OnEnChangeRiderAutoChargeEdit()
 		MessageBox("요금보다 마일리지사용액이 더 많습니다", "확인", MB_ICONINFORMATION);
 
 		m_strMileageAutoCharge = strChargeSum;
-		m_edtAutoCharge.SetWindowText(GetMyNumberFormat(m_strMileageAutoCharge));
+		m_edtAutoCharge.SetWindowText(LF->GetMyNumberFormat(m_strMileageAutoCharge));
 	}
 
 	m_EDT_ETC.pEdit->GetWindowText(strEtc);
@@ -7760,26 +7737,26 @@ void CRcpDlg::OnEnChangeRiderAutoChargeEdit()
 	long nMileage = m_mi.GetMileageVal(m_pBi->nCompanyCode, m_cmbCarType.GetCurSel(), m_nPersonMileageType, 
 		m_nPersonMileage, GetStringChargeToNumber(m_strChargeSum), GetCarTypeNew());
 
-	if(GetPayTypeNew() == PAY_CREDIT && !::IsThisCompany("빨간모자퀵") && !::IsThisCompany("주식회사대구조합"))
+	if(GetPayTypeNew() == PAY_CREDIT && !LF->IsThisCompany("빨간모자퀵") && !LF->IsThisCompany("주식회사대구조합"))
 		nMileage = 0;
 	//if(m_cmbPayType.GetCurSel() == PAY_TYPE_MILEAGE_CREDIT)
 	if(atoi(m_strMileageAutoCharge) > 0)
 	{
 		if(GetPayTypeNew() == PAY_PRE || GetPayTypeNew() == PAY_AFTER || GetPayTypeNew() == PAY_DIRECT)
 		{
-			strPayMsg.Format("{현금%s/마일리지(신용)%s/}", ::GetMyNumberFormat(_ttoi(strChargeSum) - _ttoi(m_strMileageAutoCharge)), ::GetMyNumberFormat(m_strMileageAutoCharge));
+			strPayMsg.Format("{현금%s/마일리지(신용)%s/}", LF->GetMyNumberFormat(_ttoi(strChargeSum) - _ttoi(m_strMileageAutoCharge)), LF->GetMyNumberFormat(m_strMileageAutoCharge));
 		}	
 		else
 		{
 			strPayMsg.Format("{신용%s/마일리지(신용)%s/}", 
-				::GetMyNumberFormat(_ttoi(strChargeSum) - _ttoi(m_strMileageAutoCharge)), 
-				::GetMyNumberFormat(m_strMileageAutoCharge));		
+				LF->GetMyNumberFormat(_ttoi(strChargeSum) - _ttoi(m_strMileageAutoCharge)), 
+				LF->GetMyNumberFormat(m_strMileageAutoCharge));		
 		}
 
 		m_edtMileReserve.SetWindowText("");
 	}
 	else
-		m_edtMileReserve.SetWindowText(::GetMyNumberFormat(nMileage));
+		m_edtMileReserve.SetWindowText(LF->GetMyNumberFormat(nMileage));
 
 
 	m_EDT_ETC.pEdit->SetWindowText(strPayMsg + strEtc);
@@ -7797,10 +7774,10 @@ BOOL CRcpDlg::JustInsertNewCustomer(int nCtrl)
 		m_EDT_ORDER_PHONE.pEdit->GetWindowText(strPhone);
 		m_edtOrderMP.GetWindowText(strMP);
 
-		strPhone1 = GetNoneDashNumber(strPhone);
-		strPhone2 = GetNoneDashNumber(strMP);
+		strPhone1 = LF->GetNoneDashNumber(strPhone);
+		strPhone2 = LF->GetNoneDashNumber(strMP);
 
-		if(!IsPhoneNumber(strPhone1) || !IsPhoneNumber(strPhone2))
+		if(!LF->IsPhoneNumber(strPhone1) || !LF->IsPhoneNumber(strPhone2))
 		{
 			MessageBox("전화번호에 숫자/대쉬 이외의 문자는 사용하실수 없습니다.",
 				"의뢰지 자동추가 과정에서 오류발생", MB_ICONINFORMATION);
@@ -7833,10 +7810,10 @@ BOOL CRcpDlg::JustInsertNewCustomer(int nCtrl)
 		m_EDT_START_PHONE.pEdit->GetWindowText(strPhone);
 		m_edtStartMP.GetWindowText(strMP);
 
-		strPhone1 = GetNoneDashNumber(strPhone);
-		strPhone2 = GetNoneDashNumber(strMP);
+		strPhone1 = LF->GetNoneDashNumber(strPhone);
+		strPhone2 = LF->GetNoneDashNumber(strMP);
 
-		if(!IsPhoneNumber(strPhone1) || !IsPhoneNumber(strPhone2))
+		if(!LF->IsPhoneNumber(strPhone1) || !LF->IsPhoneNumber(strPhone2))
 		{
 			MessageBox("전화번호에 숫자/대쉬 이외의 문자는 사용하실수 없습니다.",
 				"의뢰지 자동추가 과정에서 오류발생", MB_ICONINFORMATION);
@@ -7868,10 +7845,10 @@ BOOL CRcpDlg::JustInsertNewCustomer(int nCtrl)
 		m_EDT_DEST_PHONE.pEdit->GetWindowText(strPhone);
 		m_edtDestMP.GetWindowText(strMP);
 
-		strPhone1 = GetNoneDashNumber(strPhone);
-		strPhone2 = GetNoneDashNumber(strMP);
+		strPhone1 = LF->GetNoneDashNumber(strPhone);
+		strPhone2 = LF->GetNoneDashNumber(strMP);
 
-		if(!IsPhoneNumber(strPhone1) || !IsPhoneNumber(strPhone2))
+		if(!LF->IsPhoneNumber(strPhone1) || !LF->IsPhoneNumber(strPhone2))
 		{
 			MessageBox("전화번호에 숫자/대쉬 이외의 문자는 사용하실수 없습니다.",
 				"의뢰지 자동추가 과정에서 오류발생", MB_ICONINFORMATION);
@@ -8225,7 +8202,7 @@ CString CRcpDlg::GetJibunFromFullName(CString sFullName)
 		//CString sChar = (LPSTR)(LPCTSTR)wszBuffer[i];
 		//CString sNextChar = "a";//(LPSTR)(LPCTSTR)wszBuffer[min(i+1, strlen(sFullName) -1)];
 
-		if((IsNumeric(sChar) == TRUE) && 
+		if((LF->IsNumeric(sChar) == TRUE) && 
 			(sNextChar!= "가") &&
 			(sNextChar != "로") &&
 			(sNextChar != "동"))
@@ -8362,7 +8339,7 @@ BOOL CRcpDlg::IsGroupInsertOk()
 			if(nGroupCharge > nGroupAbleCharge)
 			{
 				CString strTemp = "";
-				strTemp.Format("해당 고객이 속한 그룹(%s)은 %s원까지 사용가능 하므로접수 하실수 없습니다.\r\n금일까지 사용금액 %s원", pCFInfo->strFullName, ::GetMyNumberFormat(nGroupAbleCharge), ::GetMyNumberFormat(nGroupCharge));
+				strTemp.Format("해당 고객이 속한 그룹(%s)은 %s원까지 사용가능 하므로접수 하실수 없습니다.\r\n금일까지 사용금액 %s원", pCFInfo->strFullName, LF->GetMyNumberFormat(nGroupAbleCharge), LF->GetMyNumberFormat(nGroupCharge));
 
 				MessageBox(strTemp, "확인", MB_ICONINFORMATION);
 
@@ -8410,13 +8387,13 @@ void CRcpDlg::AddEtcOK()
 	CString strEtc;
 	CString strMsg;
 
-	if(::IsThisCompany("퀵오케이_2904", m_pBi->nCompanyCode))
+	if(LF->IsThisCompany("퀵오케이_2904", m_pBi->nCompanyCode))
 		strMsg = QUICK_OK_2904_MENT;
-	else if(::IsThisCompany("퀵오케이_2920", m_pBi->nCompanyCode))
+	else if(LF->IsThisCompany("퀵오케이_2920", m_pBi->nCompanyCode))
 		strMsg = QUICK_OK_2920_MENT;
-	else if(::IsThisCompany("퀵오케이_2931", m_pBi->nCompanyCode))
+	else if(LF->IsThisCompany("퀵오케이_2931", m_pBi->nCompanyCode))
 		strMsg = QUICK_OK_2931_MENT;
-	else if(::IsThisCompany("퀵오케이_2907", m_pBi->nCompanyCode))
+	else if(LF->IsThisCompany("퀵오케이_2907", m_pBi->nCompanyCode))
 		strMsg = QUICK_OK_2907_MENT;
 
 	CString strFind = strMsg.Left(5);
@@ -8548,7 +8525,7 @@ void CRcpDlg::ShowSearchPOIDlg(CString strKeyword, CRcpPlaceInfo *pPlace, BOOL b
 		{
 			CString strTemp = strKeyword;
 			strTemp.Replace("-", "");
-			if(IsNumeric(strTemp))
+			if(LF->IsNumeric(strTemp))
 			{
 				//if(m_ci.m_strDDD == strTemp.Left(m_ci.m_strDDD.GetLength()))
 				bWebPosAutoSelect = TRUE;
@@ -8587,7 +8564,7 @@ void CRcpDlg::OnEnSetfocusDestEdit()
 	CString strText;
 	m_EDT_DEST.pEdit->GetWindowText(strText);
 
-	if(IsThisCompany("엔콜"))
+	if(LF->IsThisCompany("엔콜"))
 		ShowSearchPOIDlg(strText, m_pDest, TRUE, m_EDT_ETC.pEdit);
 	else
 		ShowSearchPOIDlg(strText, m_pDest, TRUE, m_EDT_CHARGE_BASIC.pEdit);
@@ -8612,7 +8589,7 @@ void CRcpDlg::OnEnChangeDestEdit()
 	CString strText;
 	m_EDT_DEST.pEdit->GetWindowText(strText);
 
-	if(IsThisCompany("엔콜"))
+	if(LF->IsThisCompany("엔콜"))
 		ShowSearchPOIDlg(strText, m_pDest, TRUE, m_EDT_ETC.pEdit);
 	else
 		ShowSearchPOIDlg(strText, m_pDest, TRUE, m_EDT_CHARGE_BASIC.pEdit);
@@ -8807,7 +8784,7 @@ void CRcpDlg::SetDiscountInfo(BOOL bCreditAfterDis, long nDiscount, long nDiscou
 				(bDiscountApplyOnlyCredit == TRUE && IsCash(GetPayTypeNew()) == FALSE)) //고객창에 외상오더만 할인 여부
 			{
 				m_strChargeAdd.Format("%d", abs(nDiscount));
-				m_EDT_CHARGE_ADD.pEdit->SetWindowText(RemoveZero(m_strChargeAdd));
+				m_EDT_CHARGE_ADD.pEdit->SetWindowText(LF->RemoveZero(m_strChargeAdd));
 				m_strChargeDis = "";
 				m_EDT_CHARGE_DIS.pEdit->SetWindowText(m_strChargeDis);
 			}			
@@ -8817,7 +8794,7 @@ void CRcpDlg::SetDiscountInfo(BOOL bCreditAfterDis, long nDiscount, long nDiscou
 				(bDiscountApplyOnlyCredit == TRUE && IsCash(GetPayTypeNew()) == FALSE))
 			{
 				m_strChargeDis.Format("%d", abs(nDiscount));
-				m_EDT_CHARGE_DIS.pEdit->SetWindowText(RemoveZero(m_strChargeDis));
+				m_EDT_CHARGE_DIS.pEdit->SetWindowText(LF->RemoveZero(m_strChargeDis));
 				m_strChargeAdd = "";
 				m_EDT_CHARGE_ADD.pEdit->SetWindowText(m_strChargeAdd);
 			}
@@ -8871,7 +8848,7 @@ void CRcpDlg::SetMileageInfo(long nMileageType, long nMileageValue, long nMileag
 	m_nPersonMileage = nMileageValue;
 	m_nPersonMileageType = nMileageType;
 	m_nMileageBalance = nMileageBalance;		
-	m_edtMileageBalance.SetWindowText(GetMyNumberFormat(m_nMileageBalance));
+	m_edtMileageBalance.SetWindowText(LF->GetMyNumberFormat(m_nMileageBalance));
 
 
 	SetMileageData(0, 0);
@@ -8955,7 +8932,7 @@ void CRcpDlg::OnMenuContextEtc(UINT nFlag)
 
 	BOOL bFront = AfxGetApp()->GetProfileInt(m_ui.strID + "_Etc", "Front", 0);
 
-	SetEditText(m_EDT_ETC.pEdit, strArry[nFlag - ID_MENU_ETC_URGE], bFront);
+	LF->SetEditText(m_EDT_ETC.pEdit, strArry[nFlag - ID_MENU_ETC_URGE], bFront);
 }
 
 void CRcpDlg::OnMenuContextCharge(UINT nFlag)
@@ -8978,7 +8955,7 @@ void CRcpDlg::OnMenuContextCharge(UINT nFlag)
 		RefreshCharge(FALSE);
 		break;
 	case ID_MENU_CHARGE_DEPOSIT_EDIT:
-		if(!POWER_CHECK(1710, "입금테이블 설정", TRUE))
+		if(!LF->POWER_CHECK(1710, "입금테이블 설정", TRUE))
 			return;
 
 		if(m_ui.strPW != "")
@@ -9204,7 +9181,7 @@ void CRcpDlg::RefreshOrderLog(int nTNo)
 			pRs.GetFieldValue("nWNo", nWNo);
 			pRs.GetFieldValue("sEtc", strEtc);
 			m_lstOrderLog.InsertItem(i, dtLog.Format("%H:%M"));
-			m_lstOrderLog.SetItemText(i, 1, GetStateString(nState));
+			m_lstOrderLog.SetItemText(i, 1, LF->GetStateString(nState));
 
 			if(nWNo == m_ui.nWNo)
 				m_lstOrderLog.SetItemText(i, 2, "본인");
@@ -9428,7 +9405,7 @@ void CRcpDlg::OnCbnSelchangeRunTypeCombo()
 		m_nRunType = m_cmbRunType.GetCurSel(); 
 
 	//GET_CUR_CHARGE();
-	/*if(::IsThisCompany("엔콜") || ::IsThisCompany("로지") )
+	/*if(LF->IsThisCompany("엔콜") || LF->IsThisCompany("로지") )
 	{
 		if(m_pCharge)
 		{
@@ -9569,7 +9546,7 @@ void CRcpDlg::ShowReserveDlg()
 
 	if(!IsReserve())
 	{ 
-		if(::IsThisCompany("코리아바이크") || ::IsThisCompany("엔콜"))
+		if(LF->IsThisCompany("코리아바이크") || LF->IsThisCompany("엔콜"))
 			m_pReserveOrderDlg->SetReserveTime(COleDateTime::GetCurrentTime());
 		else
 			m_pReserveOrderDlg->SetReserveTime(COleDateTime::GetCurrentTime() + COleDateTimeSpan(0, 1, 0, 0));
@@ -9629,7 +9606,7 @@ void CRcpDlg::OnMenuContextCID(UINT nID)
 		else
 			m_EDT_CID.pEdit->GetWindowText(strPhone1);
 
-		strPhone1 = GetNoneDashNumber(strPhone1);
+		strPhone1 = LF->GetNoneDashNumber(strPhone1);
 
 
 		if( !strPhone1.IsEmpty() )
@@ -9641,7 +9618,7 @@ void CRcpDlg::OnMenuContextCID(UINT nID)
 		}
 
 		if((strPhone1.GetLength() < 9) ||
-			(::IsStringDigit(strPhone1) == FALSE))
+			(LF->IsStringDigit(strPhone1) == FALSE))
 		{
 			MessageBox("번호가 유효하지 않습니다", "확인", MB_ICONINFORMATION);
 			return;
@@ -9693,16 +9670,16 @@ void CRcpDlg::OnMenuContextCID(UINT nID)
 	else if(nID == ID_MENU_MAKE_CALL_CID)
 	{
 		m_EDT_CID.pEdit->GetWindowText(m_strCID);
-		m_pRcpView->MakeCall(m_pBi->nCompanyCode, GetNoneDashNumber(m_strCID), CALL_TO_CUSTOMER);
+		m_pRcpView->MakeCall(m_pBi->nCompanyCode, LF->GetNoneDashNumber(m_strCID), CALL_TO_CUSTOMER);
 	}
 	else if(nID == ID_MENU_ADD_CID)
 	{
 		m_EDT_CID.pEdit->GetWindowText(m_strCID);
-		if(AddCustomerTel(m_pBi->nCustomerTable, m_pOrder->GetCNo(), m_pOrder->GetTelID(), m_strCID))
+		if(LF->AddCustomerTel(m_pBi->nCustomerTable, m_pOrder->GetCNo(), m_pOrder->GetTelID(), m_strCID))
 		{
 			MessageBox("등록되었습니다", "확인", MB_ICONINFORMATION);
 		}
-		//m_pRcpView->MakeCall(m_pBi->nCompanyCode, GetNoneDashNumber(m_strCID), CALL_TO_CUSTOMER);
+		//m_pRcpView->MakeCall(m_pBi->nCompanyCode, LF->GetNoneDashNumber(m_strCID), CALL_TO_CUSTOMER);
 	}
 	else if(nID == ID_MENU_COPY_CID)
 	{
@@ -9832,7 +9809,7 @@ void CRcpDlg::ReInitControl()
 	m_chkDirectDistance.SetCheck(FALSE);
 	m_chkClientShareOrder.SetCheck(FALSE);
 
-	if(::IsThisCompany("사천퀵", m_pBi->nCompanyCode))
+	if(LF->IsThisCompany("사천퀵", m_pBi->nCompanyCode))
 		SetGrade(-100); //노란색 
 	else
 		SetGrade(0);
@@ -10026,7 +10003,7 @@ void CRcpDlg::DisplayRiderInfo()
 		char buffer[10];
 		strRiderInfo = "<Run Foreground='black' FontSize='13' FontWeight='Normal'> "+ m_strRiderName + "/" + CString(itoa(m_nRNo, buffer, 10)) + "</Run>";
 		strRiderCompany += m_ci.GetName(m_nRiderCompany) + "/" + m_ci.GetPhone(m_nRiderCompany) + "</Run>";
-		strRiderPhone = "<Run Foreground='black' FontSize='13' FontWeight='Normal'> "+ GetDashPhoneNumber(m_strRPhone) + "</Run>";
+		strRiderPhone = "<Run Foreground='black' FontSize='13' FontWeight='Normal'> "+ LF->GetDashPhoneNumber(m_strRPhone) + "</Run>";
 
 		m_btnRiderSearch.SetWindowText("기사정보");
 		m_btnRiderSmsSend.SetWindowText("독촉문자");
@@ -10095,8 +10072,8 @@ void CRcpDlg::SetConsignViewInfo(long nConsignTNo,long nConsignCommission,long n
 		//m_btnConsignView.Set
 
 
-		m_edtConBackOrderCharge.SetWindowText(GetMyNumberFormat(nBackOrderChargeSum));
-		m_edtConCommissionCharge.SetWindowText(GetMyNumberFormat(nConsignCommission));
+		m_edtConBackOrderCharge.SetWindowText(LF->GetMyNumberFormat(nBackOrderChargeSum));
+		m_edtConCommissionCharge.SetWindowText(LF->GetMyNumberFormat(nConsignCommission));
 
 		if(!m_bConsignLink)
 			RefreshConsignCharge();
@@ -10211,7 +10188,7 @@ BOOL CRcpDlg::CheckDeposit()
 					nDeposit = atoi(m_strChargeSum) * 0.23;
 
 					m_strDeposit.Format("%d", nDeposit);
-					m_edtDeposit.SetWindowText(::GetMyNumberFormat(m_strDeposit));
+					m_edtDeposit.SetWindowText(LF->GetMyNumberFormat(m_strDeposit));
 					*/
 				}				
 			}
@@ -10459,7 +10436,7 @@ void CRcpDlg::CheckCardTax()
 			CString strChargeSum; m_EDT_CHARGE_SUM.pEdit->GetWindowText(strChargeSum);
 			long nTax = atoi(m_strChargeSum) * 0.1;
 
-			m_edtValueAdd.SetWindowText(::GetMyNumberFormat(nTax));
+			m_edtValueAdd.SetWindowText(LF->GetMyNumberFormat(nTax));
 		}
 		else
 			m_edtValueAdd.SetWindowText("");
@@ -10501,7 +10478,7 @@ long CRcpDlg::GetDeposit(long nTotal)
 		if((GetCarTypeNew() == CAR_TRUCK || GetCarTypeNew() == CAR_1_4_TON || GetCarTypeNew() == CAR_2_5_TON || GetCarTypeNew() == CAR_3_5_TON || 
 			GetCarTypeNew() == CAR_5_TON || GetCarTypeNew() == CAR_11_TON || GetCarTypeNew() == CAR_18_TON || GetCarTypeNew() == CAR_25_TON ||
 			GetCarTypeNew() == CAR_5_TON_PLUS || GetCarTypeNew() == CAR_8_TON || GetCarTypeNew() == CAR_14_TON || GetCarTypeNew() == CAR_15_TON) && 
-			!IsThisCompany("퀵콜"))
+			!LF->IsThisCompany("퀵콜"))
 			nDeposit = nTotal * 0.15;
 		else
 			nDeposit = LU->GetDepositRate(m_pBi->nDOrderTable, nTotal);
@@ -10512,7 +10489,7 @@ long CRcpDlg::GetDeposit(long nTotal)
 
 BOOL CRcpDlg::CheckAutoSave()
 {
-	if(IsThisCompany("월드코리아퀵"))
+	if(LF->IsThisCompany("월드코리아퀵"))
 		return FALSE;
 
 	if(m_nInitItem > ZERO)
@@ -10527,7 +10504,7 @@ BOOL CRcpDlg::CheckAutoSave()
 	CString strCID = m_strCID;
 	strCID.Replace("-", "");
 
-	if(IsNumeric(strCID) && strCID.GetLength() > FIVE)
+	if(LF->IsNumeric(strCID) && strCID.GetLength() > FIVE)
 	{ 		
 		if(CheckAutoSaveServer(strCID) == TRUE)
 		{
@@ -10568,7 +10545,7 @@ BOOL CRcpDlg::OnPretransMessageWM_KEYUP(MSG *pMsg)
 	{
 	case IDC_CID_EDIT:
 		m_EDT_CID.pEdit->GetWindowText(strText);
-		if(IsPhoneNumber(strText))
+		if(LF->IsPhoneNumber(strText))
 			m_strCID = strText;
 
 		if(!m_ci.m_bUseSearchPopup)
@@ -10669,7 +10646,7 @@ void CRcpDlg::ShowSearchPOIDlgForAddressEdit(CFlatEdit2 *pEdit, CRcpPlaceInfo *p
 	strCompare.Replace("산", "");
 
 	//지번의 구조가 전화번호와 비슷한 DASH구조라 IsPhoneNumber로 체크함
-	if(IsPhoneNumber(strCompare) && pPlace->GetPOI())
+	if(LF->IsPhoneNumber(strCompare) && pPlace->GetPOI())
 	{
 		CPOIUnit *pPOI = pPlace->GetPOI()->GetDongPOI();
 		if(pPOI)
@@ -10725,7 +10702,7 @@ void CRcpDlg::OnBnClickedItemMenuBtn()
 	CString strItem = AfxGetApp()->GetProfileString("CEditItemDlg", "Item", "서류봉투;소박스;중박스;대박스;컴퓨터;");
 
 	CStringArray strArry;
-	::GetItemCommaToArray(strItem, strArry);
+	LF->GetItemCommaToArray(strItem, strArry);
 
 	for(int i=0; i<strArry.GetCount(); i++)
 		pMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_ITEM_SELECT + i, strArry.GetAt(i));
@@ -10760,7 +10737,7 @@ void CRcpDlg::OnMenuContextItem(UINT nFlag)
 	CString strItem = AfxGetApp()->GetProfileString("CEditItemDlg", "Item", "서류봉투;소박스;중박스;대박스;컴퓨터;");
 
 	CStringArray strArry;
-	::GetItemCommaToArray(strItem, strArry);
+	LF->GetItemCommaToArray(strItem, strArry);
 
 	m_cmbItemType.SetWindowText(strArry.GetAt(nIndex));
 }
@@ -10818,7 +10795,7 @@ void CRcpDlg::OnMenuCall(UINT nID)
 void CRcpDlg::OnMenuSetSms(UINT nID)
 {
 	CString strPhone = m_arryPhone.GetAt(nID - ID_MENU_PHONE_SET_SMS);
-	m_edtSmsPhone.SetWindowText(::GetDashPhoneNumber(strPhone));
+	m_edtSmsPhone.SetWindowText(LF->GetDashPhoneNumber(strPhone));
 }
 
 void CRcpDlg::OnBnClickedEditOrderCheck()
@@ -11005,7 +10982,7 @@ void CRcpDlg::OpenManagerSearchDlg()
 			SEARCH_CUS_VEC::iterator it;
 			for(it = vecCus.begin(); it != vecCus.end(); it++)
 			{ 
-				pControl->InsertItem(nCount, ::GetDashPhoneNumber(it->strPhone));
+				pControl->InsertItem(nCount, LF->GetDashPhoneNumber(it->strPhone));
 				pControl->SetItemText(nCount, 1, it->strDepart);
 				pControl->SetItemText(nCount++, 2, it->strName);
 			}
@@ -11153,7 +11130,7 @@ void CRcpDlg::OnEnKillfocusChargeDrivingEdit()
 	long nCharge = LF->GetControlDigit(m_EDT_CHARGE_DRIVING.pEdit);
 
 	if(nCharge < 500 && nCharge > 0)
-		m_EDT_CHARGE_DRIVING.pEdit->SetWindowText(GetMyNumberFormat(nCharge * 1000));
+		m_EDT_CHARGE_DRIVING.pEdit->SetWindowText(LF->GetMyNumberFormat(nCharge * 1000));
 }
 
 void CRcpDlg::OnBnClickedPayTypeOnlineBtn()
@@ -11166,7 +11143,7 @@ void CRcpDlg::OnEnChangeChargeDrivingEdit()
 	CString strChargeDriving; m_EDT_CHARGE_DRIVING.pEdit->GetWindowText(strChargeDriving);
 	strChargeDriving.Replace(",", "");
 
-	m_edtDeposit.SetWindowText(::GetMyNumberFormat(GetDeposit(_ttoi(strChargeDriving))));
+	m_edtDeposit.SetWindowText(LF->GetMyNumberFormat(GetDeposit(_ttoi(strChargeDriving))));
 }
 
 void CRcpDlg::OnBnClickedNotSendCompleteSmsCheck()
@@ -11206,7 +11183,7 @@ void CRcpDlg::OnBnClickedSmsBtn()
 		pRs.GetFieldValue("sTel", strPhone);
 		m_arryPhone.Add(strPhone);
 
-		pMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_SET_SMS + i, ::GetDashPhoneNumber(strPhone));
+		pMenu->AppendMenu(MF_BYCOMMAND, ID_MENU_PHONE_SET_SMS + i, LF->GetDashPhoneNumber(strPhone));
 
 		pRs.MoveNext();
 	} 
@@ -11276,16 +11253,16 @@ void CRcpDlg::RefreshConsignCharge()
 
 	//long nTempTotalCharge = 0, nConsignCharge = 0, nBackOrderCharge = 0, nCommissionCharge = 0,  nConsignTotalCharge = 0;
 	long nConsignTotalCharge = 0,  nTempSumCharge = 0;
-	if(IsStringDigit(m_strChargeSum))
+	if(LF->IsStringDigit(m_strChargeSum))
 	{
 		nTempSumCharge = atol(m_strChargeSum);
 	}
 
-	nConsignTotalCharge = GetMyUnNumberFormatEdit(m_EDT_CHARGE_SUM.pEdit) + GetMyUnNumberFormatEdit(m_EDT_CHARGE_TRANS.pEdit)+
-		//nConsignTotalCharge =	nTempSumCharge + GetMyUnNumberFormatEdit(&m_edtChargeTrans)+
-		GetMyUnNumberFormatEdit(&m_edtConBackOrderCharge) + GetMyUnNumberFormatEdit(&m_edtConCommissionCharge);
+	nConsignTotalCharge = LF->GetMyUnNumberFormatEdit(m_EDT_CHARGE_SUM.pEdit) + LF->GetMyUnNumberFormatEdit(m_EDT_CHARGE_TRANS.pEdit)+
+		//nConsignTotalCharge =	nTempSumCharge + LF->GetMyUnNumberFormatEdit(&m_edtChargeTrans)+
+		LF->GetMyUnNumberFormatEdit(&m_edtConBackOrderCharge) + LF->GetMyUnNumberFormatEdit(&m_edtConCommissionCharge);
 
-	m_edtConTotalCharge.SetWindowText(GetMyNumberFormat(nConsignTotalCharge));
+	m_edtConTotalCharge.SetWindowText(LF->GetMyNumberFormat(nConsignTotalCharge));
 
 
 }
@@ -11327,13 +11304,13 @@ void CRcpDlg::OnBnClickedNiceCardBtn()
 		return;
 	}
 
-	if(!POWER_CHECK(1890, "카드결제", FALSE) && !POWER_CHECK(1891, "카드취소", FALSE))
+	if(!LF->POWER_CHECK(1890, "카드결제", FALSE) && !LF->POWER_CHECK(1891, "카드취소", FALSE))
 	{
 		MessageBox("카드결제/취소권한이 없습니다", "확인", MB_ICONINFORMATION);
 		return;
 	}
 
-	long nCardVendor = ::GetCardVendor(m_pBi->nCompanyCode); 
+	long nCardVendor = LF->GetCardVendor(m_pBi->nCompanyCode);
 
 	if(nCardVendor != NICE_CARD_WAIT && nCardVendor != NICE_CARD_WAIT_QUICKCALL)
 	{
@@ -11357,7 +11334,7 @@ void CRcpDlg::OnBnClickedNiceCardBtn()
 			SetPayTypeNew(PAY_CARD);
 			//m_cmbPayType.SetCurSel(2);
 
-			//m_edtRiderAutoCharge.SetWindowText(::GetMyNumberFormat(nCharge));
+			//m_edtRiderAutoCharge.SetWindowText(LF->GetMyNumberFormat(nCharge));
 			//m_chkCardPay.SetCheck(TRUE);			
 
 			if(m_nInitItem = AddNewOrder(TRUE, FALSE, FALSE, ZERO, TRUE))
@@ -11372,7 +11349,7 @@ void CRcpDlg::OnBnClickedNiceCardBtn()
 			return;
 	} 
 
-	long nMileage = ::GetLongFromEdit(&m_edtAutoCharge);
+	long nMileage = LF->GetLongFromEdit(&m_edtAutoCharge);
 
 	if((m_nPreCharge - nMileage) != nCharge)
 	{
@@ -11385,7 +11362,7 @@ void CRcpDlg::OnBnClickedNiceCardBtn()
 	dlg.m_nTNo = m_nInitItem;
 	dlg.m_nCharge = nCharge;
 	dlg.m_nCNo = m_pOrder->GetCNo();
-	dlg.m_strEMail = ::GetCustomerEMail(m_pOrder->GetCNo());
+	dlg.m_strEMail = LF->GetCustomerEMail(m_pOrder->GetCNo());
 
 	if(dlg.DoModal() == IDOK)
 	{
@@ -11450,7 +11427,7 @@ long CRcpDlg::GetCardPayVaild()
 
 	CString strError;
 
-	if(!::CheckCardPayCondition(m_nInitItem, nCharge, nDeposit, strError))
+	if(!LF->CheckCardPayCondition(m_nInitItem, nCharge, nDeposit, strError))
 	{
 		MessageBox(strError, "확인", MB_ICONINFORMATION);
 		return 0;
@@ -11480,7 +11457,7 @@ void CRcpDlg::ShowCardPayInfo()
 	{ 
 		strTemp += "<Run Foreground='Red' FontWeight='Bold'>카드결제</Run> ";
 		strTemp += "<Run Foreground='Green' FontWeight='Bold'>[</Run>";
-		strTemp += "<Run Foreground='Blue' FontWeight='Bold'>" + ::GetMyNumberFormat(::GetCardRealPay(m_nInitItem)) + "</Run>";
+		strTemp += "<Run Foreground='Blue' FontWeight='Bold'>" + LF->GetMyNumberFormat(LF->GetCardRealPay(m_nInitItem)) + "</Run>";
 		strTemp += "<Run Foreground='Green' FontWeight='Bold'>]</Run> ";
 		strTemp += "<Run Foreground='Red' FontWeight='Bold'>원</Run> ";
 		strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Left' VerticalAlignment='Center'>" + strTemp;
@@ -11717,7 +11694,7 @@ void CRcpDlg::OnBnClickedRunTypeBtn2()
 void CRcpDlg::OnBnClickedRunTypeBtn3()
 {
 	SetRunTypeNew(RUN_FAST);
-	/*if(::IsThisCompany("엔콜") || ::IsThisCompany("로지") )
+	/*if(LF->IsThisCompany("엔콜") || LF->IsThisCompany("로지") )
 	{
 		if(m_pCharge)
 		{
@@ -11871,13 +11848,13 @@ void CRcpDlg::HideSubHistoryDlgExeMe()
 
 void CRcpDlg::SetCarTypeNew(long nCarType)
 {
-	::SetCarType(&m_cmbCarType, nCarType);
+	LF->SetCarType(&m_cmbCarType, nCarType);
 }
 
 long CRcpDlg::GetCarTypeNew()
 {
 	//choe
-	return ::GetCarType(&m_cmbCarType);
+	return LF->GetCarType(&m_cmbCarType);
 }
 
 void CRcpDlg::InitEtcCombo()
@@ -11949,7 +11926,7 @@ BOOL CRcpDlg::IsReleaseAfterWait()
 
 void CRcpDlg::OnBnClickedNewRcpDlgBtn()
 {
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 	//최상위가 카고이면, 퀵메인을 넣어준다. 항상 퀵메인 접수창이 떠야한다.
 	LU->GetRcpView()->CreateRcpDlg(m_ci.IsCargoMain() ? m_ci.m_pQuickMainBranch : NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount());
@@ -11965,13 +11942,13 @@ void CRcpDlg::OnBnClickedProPerBtn()
 	dlg.m_nStartID = m_pStart->GetPOI()->GetDongID();
 	dlg.m_nDestID = m_pDest->GetPOI()->GetDongID();
 	dlg.m_nCarType = GetCarTypeNew();
-	dlg.m_nCharge = GetLongFromEdit(m_EDT_CHARGE_BASIC.pEdit);
-	dlg.m_nProperCharge1 = GetLongFromEdit(&m_edtProperCharge1);
-	dlg.m_nProperCharge2 = GetLongFromEdit(&m_edtProperCharge2);
+	dlg.m_nCharge = LF->GetLongFromEdit(m_EDT_CHARGE_BASIC.pEdit);
+	dlg.m_nProperCharge1 = LF->GetLongFromEdit(&m_edtProperCharge1);
+	dlg.m_nProperCharge2 = LF->GetLongFromEdit(&m_edtProperCharge2);
 
 	if(dlg.DoModal() == IDOK)
 	{
-		m_EDT_CHARGE_BASIC.pEdit->SetWindowText(::GetMyNumberFormat(dlg.m_nProperCharge1));
+		m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat(dlg.m_nProperCharge1));
 		RefreshCharge();
 	}
 
@@ -12178,7 +12155,7 @@ void CRcpDlg::OnPayCash()
 
 	CPayCashDlg dlg;
 	dlg.m_strInfo = strPhone;
-	dlg.m_strEMail = ::GetCustomerEMail(m_pOrder->GetCNo());
+	dlg.m_strEMail = LF->GetCustomerEMail(m_pOrder->GetCNo());
 
 	if(dlg.DoModal() != IDOK) 
 		return;
@@ -12192,7 +12169,7 @@ void CRcpDlg::OnPayCash()
 
 	CString strAddr; long nPort;
 
-	if(!::GetConnetcInfo(strAddr, nPort))
+	if(!LF->GetConnetcInfo(strAddr, nPort))
 	{
 		MessageBox("서버 접속실패\r\n다시 시도해주세요", "확인", MB_ICONERROR);
 		return;	
@@ -12260,7 +12237,7 @@ void CRcpDlg::OnReSendEMail()
 	}
 
 	CEMailDlg dlg;
-	dlg.m_strEMail = ::GetCustomerEMail(m_pOrder->GetCNo());
+	dlg.m_strEMail = LF->GetCustomerEMail(m_pOrder->GetCNo());
 
 	if (dlg.DoModal() == IDOK) {
 		if(!dlg.m_strEMail.IsEmpty()) {
@@ -12304,8 +12281,8 @@ void CRcpDlg::OnEnChangeChargeCompanyEdit()
 		}
 	}
 
-	long nChargeCompany = ::GetLongFromEdit(&m_edtChargeCompany);
-	strTemp = "{업체부담금(신용):" + ::GetMyNumberFormat(nChargeCompany)  + "}";
+	long nChargeCompany = LF->GetLongFromEdit(&m_edtChargeCompany);
+	strTemp = "{업체부담금(신용):" + LF->GetMyNumberFormat(nChargeCompany)  + "}";
 
 	m_EDT_ETC.pEdit->SetWindowText(strTemp + strEtc);
 
@@ -12407,7 +12384,7 @@ void CRcpDlg::OnSpecialTrcukSelect(UINT nFlag)
 
 void CRcpDlg::ChangeCargoControl()
 {
-	if(IsCarTypeTruck(GetCarTypeNew())) {
+	if(LF->IsCarTypeTruck(GetCarTypeNew())) {
 		m_chkCargoJabara.EnableWindow(TRUE);
 		m_chkCargoLift.EnableWindow(TRUE);
 		m_chkCargoWingBody.EnableWindow(TRUE);

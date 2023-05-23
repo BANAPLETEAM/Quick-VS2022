@@ -92,11 +92,11 @@ void CRiderCashLogDlg::RefreshList()
 		pRs.GetFieldValue("nWNo", nWNo);
 		pRs.GetFieldValue("sEtc", strEtc);
 
-		m_lstReport.InsertItem(i, ::GetDateTimeToString(dtGenerate, 3, TRUE));
+		m_lstReport.InsertItem(i, LF->GetDateTimeToString(dtGenerate, 3, TRUE));
 		m_lstReport.SetItemText(i, 1, itoa(nRNo, buffer, 10));
 		m_lstReport.SetItemText(i, 2, strRName);
-		m_lstReport.SetItemText(i, 3, GetFixedDepositStateString(nState));
-		m_lstReport.SetItemText(i, 4, ::GetMyNumberFormat(nAmount));
+		m_lstReport.SetItemText(i, 3, LF->GetFixedDepositStateString(nState));
+		m_lstReport.SetItemText(i, 4, LF->GetMyNumberFormat(nAmount));
 		m_lstReport.SetItemText(i, 5, itoa(nWNo, buffer, 10));
 		m_lstReport.SetItemText(i, 6, strEtc);
 
@@ -110,7 +110,7 @@ void CRiderCashLogDlg::RefreshList()
 	if(nCount > 0)
 	{
 		CString strTemp;
-		strTemp.Format("충전로그(%d/%s) 합계:%s원", m_nRNo, m_strRName, ::GetMyNumberFormat(nAmountS));
+		strTemp.Format("충전로그(%d/%s) 합계:%s원", m_nRNo, m_strRName, LF->GetMyNumberFormat(nAmountS));
 		this->SetWindowText(strTemp);
 	}
 }

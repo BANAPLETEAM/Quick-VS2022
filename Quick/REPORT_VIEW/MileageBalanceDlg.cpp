@@ -84,7 +84,7 @@ void CMileageBalanceDlg::OnEnChangeChargeEdit()
 	if(m_cmbType.GetCurSel() != 0)
 		nBalance = nBalance * -1;
 
-	m_stcAfter.SetWindowText(::GetMyNumberFormat(m_nMileageBalance + nBalance) + "원");
+	m_stcAfter.SetWindowText(LF->GetMyNumberFormat(m_nMileageBalance + nBalance) + "원");
 }
 
 BOOL CMileageBalanceDlg::OnInitDialog()
@@ -107,9 +107,9 @@ BOOL CMileageBalanceDlg::OnInitDialog()
 		long nMileageBalance = 0;
 		pParMileage->GetValue(nMileageBalance);
 		m_nMileageBalance = nMileageBalance;
-		m_stcBefore.SetWindowText(::GetMyNumberFormat(nMileageBalance) + "원");
-		m_stcAfter.SetWindowText(::GetMyNumberFormat(nMileageBalance) + "원");
-		//m_stcBefore.SetWindowText(GetMyNumberFormat(nMileageBalance));
+		m_stcBefore.SetWindowText(LF->GetMyNumberFormat(nMileageBalance) + "원");
+		m_stcAfter.SetWindowText(LF->GetMyNumberFormat(nMileageBalance) + "원");
+		//m_stcBefore.SetWindowText(LF->GetMyNumberFormat(nMileageBalance));
 	}
 
 	

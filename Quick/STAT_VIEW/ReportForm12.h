@@ -47,7 +47,7 @@ protected:
 
 		CString GetCaption(CXTPGridColumn* )
 		{
-			return GetMyNumberFormat(GetValue());
+			return LF->GetMyNumberFormat(GetValue());
 		}
 	};	
 

@@ -101,7 +101,7 @@ BOOL CPOIDataNew::SaveVector(MyVector &vec, T &t, CString strFile, BOOL bDefault
 	DWORD dwDriveList;
 	HANDLE hFile = NULL;
 	int nRecordSize = 0;
-	CString strFileName = (bDefaultPath ? GetModuleFullPath() : "") + strFile;
+	CString strFileName = (bDefaultPath ? LF->GetModuleFullPath() : "") + strFile;
 
 	//if(vec.size() == 0)
 	if(vec.empty())
@@ -144,7 +144,7 @@ BOOL CPOIDataNew::LoadVector(MyVector &vec, T &t, CString strFile, BOOL bDefault
 	HANDLE hFile, hFileMap;
 	unsigned char *pBasePointer;
 	DWORD dwSize;
-	CString strFileName = (bDefaultPath ? GetModuleFullPath() : "") + strFile;
+	CString strFileName = (bDefaultPath ? LF->GetModuleFullPath() : "") + strFile;
 
 	hFile = CreateFile(strFileName, GENERIC_READ, 
 		FILE_SHARE_READ, NULL, 
@@ -2842,14 +2842,14 @@ void CPOIDataNew::ClearPOIFile(CString strCity, BOOL bCapitalArea)
 {
 	CString strHead = bCapitalArea ? "¼öµµ±Ç" : strCity;
 	strHead += "_";
-	DeleteFile(GetModuleFullPath() + DONG_POI_FILE_NAME);
-	DeleteFile(GetModuleFullPath() + DONG_PART_POI_FILE_NAME);
-	DeleteFile(GetModuleFullPath() + DONG_NOR_FILE_NAME);
-	DeleteFile(GetModuleFullPath() + strHead + POI_FILE_NAME);
-	DeleteFile(GetModuleFullPath() + strHead + PART_POI_FILE_NAME);
-	DeleteFile(GetModuleFullPath() + strHead + POI_MAIN_VEC_NAME);
-	DeleteFile(GetModuleFullPath() + strHead + POI_PHONE_VEC_NAME);
-	DeleteFile(GetModuleFullPath() + strHead + POI_ID_VEC_NAME);
+	DeleteFile(LF->GetModuleFullPath() + DONG_POI_FILE_NAME);
+	DeleteFile(LF->GetModuleFullPath() + DONG_PART_POI_FILE_NAME);
+	DeleteFile(LF->GetModuleFullPath() + DONG_NOR_FILE_NAME);
+	DeleteFile(LF->GetModuleFullPath() + strHead + POI_FILE_NAME);
+	DeleteFile(LF->GetModuleFullPath() + strHead + PART_POI_FILE_NAME);
+	DeleteFile(LF->GetModuleFullPath() + strHead + POI_MAIN_VEC_NAME);
+	DeleteFile(LF->GetModuleFullPath() + strHead + POI_PHONE_VEC_NAME);
+	DeleteFile(LF->GetModuleFullPath() + strHead + POI_ID_VEC_NAME);
 }
 
 AFX_INLINE BOOL CPOIDataNew::IsCapitalArea()

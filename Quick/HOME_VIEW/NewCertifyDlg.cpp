@@ -5,8 +5,6 @@
 #include "resource.h"
 #include "NewCertifyDlg.h"
 
-extern CString GetHostName();
-
 // CNewCertifyDlg 대화 상자입니다.
 
 IMPLEMENT_DYNAMIC(CNewCertifyDlg, CMyDialog)
@@ -73,9 +71,9 @@ void CNewCertifyDlg::OnBnClickedRecvBtn()
 {
 	UpdateData(TRUE);
 
-	GetMacAddress();
-	CString strInternalIP = GetHostName();
-	CString strHddID = GetHddId();
+	LF->GetMacAddress();
+	CString strInternalIP = LF->GetHostName();
+	CString strHddID = LF->GetHddId();
 	CString strProgramKey = "manager2008_2984345";
 	m_ei.strMac1.Trim();
 	m_ei.strMac2.Trim();

@@ -69,8 +69,8 @@ void CTRSRiderDlg::RefreshList()
 {
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_trs_rider");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 
 	if(!rs.Execute(&cmd))
 		return;
@@ -98,8 +98,8 @@ void CTRSRiderDlg::RefreshList()
 			continue;
 		}
 
-		m_lstRider.InsertItem(nIndex, GetBranchInfo(nRCompany)->strBranchName);
-		m_lstRider.SetItemText(nIndex, 1, GetStringFromLong(nRNo));
+		m_lstRider.InsertItem(nIndex, LF->GetBranchInfo(nRCompany)->strBranchName);
+		m_lstRider.SetItemText(nIndex, 1, LF->GetStringFromLong(nRNo));
 		m_lstRider.SetItemText(nIndex, 2, strRName);
 		m_lstRider.SetItemText(nIndex, 3, strExten);
 		m_lstRider.SetItemText(nIndex, 4, strPhone);

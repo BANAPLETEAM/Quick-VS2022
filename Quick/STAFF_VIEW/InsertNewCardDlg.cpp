@@ -37,7 +37,7 @@ END_MESSAGE_MAP()
 void CInsertNewCardDlg::OnBnClickedInsertCardBtn()
 {
 	m_edtCardNumber.GetWindowText(m_strCardNumber);
-	m_strCardNumber = ::GetNoneDashNumber(m_strCardNumber);
+	m_strCardNumber = LF->GetNoneDashNumber(m_strCardNumber);
 
 	if(m_strCardNumber.IsEmpty())
 	{

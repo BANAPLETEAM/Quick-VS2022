@@ -177,7 +177,7 @@ long CMileageInfo::GetMileageVal(long nCompany, int nUiCarType, int nPersonMilea
 		if(m_mi.GetMileData(nCompany)->nMileageSettingCount == 0)
 			return 0;
 
-		if(::IsCarTypeTruck(nRcpCarType) == TRUE && m_mi.GetMileData(nCompany)->nMileageSettingCountTruck != 0)
+		if(LF->IsCarTypeTruck(nRcpCarType) == TRUE && m_mi.GetMileData(nCompany)->nMileageSettingCountTruck != 0)
 		{
 			if(m_mi.GetMileData(nCompany)->nMileageSettingCountTruck > -100 && 
 				m_mi.GetMileData(nCompany)->nMileageSettingCountTruck  < -1)
@@ -194,7 +194,7 @@ long CMileageInfo::GetMileageVal(long nCompany, int nUiCarType, int nPersonMilea
 		else if(m_mi.GetMileData(nCompany)->nMileageSettingCount == SECTION_MILEAGE ||
 			m_mi.GetMileData(nCompany)->nMileageSettingCount == COUNT_MILEAGE)  // ±¸°£´ç
 		{
-			int nCarType = ::GetCarTypeForCharge(nUiCarType);
+			int nCarType = LF->GetCarTypeForCharge(nUiCarType);
 			long nTermCount = m_mi.GetMileData(nCompany)->nTermCount[nCarType];
 			long nStartAmount, nDestAmount;
 			for(int i = 0; i < nTermCount; i++)

@@ -11,8 +11,6 @@ public:
 	CCustomerData(void);
 	virtual ~CCustomerData(void);
 
-	static CString GetModuleFullPath();
-
 	template<typename MyVector, typename T>
 	void EncVector(MyVector &vec, T &t);
 

@@ -106,7 +106,7 @@ void CWCountPaintManager::DrawRankInfo( CDC *pDC, CRect rc, long nRank, long nPr
 
 		rc.left += bmpInfo.bmWidth;
 
-		pDC->DrawText(::GetStringFromLong(abs(nRank - nPreRank)), rc, DT_SINGLELINE | DT_CENTER);
+		pDC->DrawText(LF->GetStringFromLong(abs(nRank - nPreRank)), rc, DT_SINGLELINE | DT_CENTER);
 	}
 
 	MemDC.SelectObject(pOldBmp);	 

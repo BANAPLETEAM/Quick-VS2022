@@ -256,7 +256,6 @@ public:
 	void InsertSearchAllColumn(int nCol);
 
 	void DeleteAllItems();
-	BOOL IsStringDigit(CString &strText);
 
 	void InsertTypeList(CString strTitle, int nCol, CString strKeyword, long dwItemData = -1);	
 	CXTPGridColumn *InsertColumnReturn(int nCol, CString strColumnHeading, int nAlignment, int nWidth);

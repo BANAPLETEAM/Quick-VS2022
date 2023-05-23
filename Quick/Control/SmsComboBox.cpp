@@ -105,7 +105,7 @@ void CSmsComboBox::InitSmsPhoneNumber(long nCompany, long nSelTelType, long nDro
 		if(strTel.IsEmpty())
 			break;
 
-		InsertString(i, ::GetDashPhoneNumber(strTel) + " (" + strEtc + ")");
+		InsertString(i, LF->GetDashPhoneNumber(strTel) + " (" + strEtc + ")");
 		SetItemData(i, nTelType);
 
 		if(nSelTelType == nTelType)

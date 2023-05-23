@@ -108,8 +108,8 @@ void CStaffPage2::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_pay_allocate_new6_device_login_2");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(dtFrom), dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(dtTo), dtTo);
 	CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -126,12 +126,12 @@ void CStaffPage2::RefreshList()
 			pRs.GetFieldValue("nCount", nCount);
 			pRs.GetFieldValue("nWorkState", nWorkState);
 
-			m_List.InsertItem(nItem, GetStringFromLong(nRNo)); 
+			m_List.InsertItem(nItem, LF->GetStringFromLong(nRNo)); 
 			m_List.SetItemText(nItem, 1, m_ci.GetBranchName(nCompany)); 
 			m_List.SetItemText(nItem, 2, strRName); 
 			m_List.SetItemText(nItem, 3, dtLastLogin.Format("%m-%d")); 
-			m_List.SetItemText(nItem, 4, GetStringFromLong(nCount)); 
-			m_List.SetItemText(nItem, 5, GetMyNumberFormat(nCount * day_charge)); 
+			m_List.SetItemText(nItem, 4, LF->GetStringFromLong(nCount)); 
+			m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(nCount * day_charge)); 
 
 			m_List.SetItemLong2(nItem++, nWorkState);
 			nTotal += nCount;
@@ -144,10 +144,10 @@ void CStaffPage2::RefreshList()
 			m_List.InsertItem(nItem++, "");
 			m_List.InsertItem(nItem, "ÇÕ°è");
 			m_List.SetItemText(nItem, 1, "ÃÑ°Ç¼ö(°Ç)");
-			m_List.SetItemText(nItem, 2, GetStringFromLong(nItem - 1));
+			m_List.SetItemText(nItem, 2, LF->GetStringFromLong(nItem - 1));
 			m_List.SetItemText(nItem, 3, "ÃÑÇÕ°è(¿ø)"); 
-			m_List.SetItemText(nItem, 4, GetStringFromLong(nTotal)); 
-			m_List.SetItemText(nItem, 5, GetMyNumberFormat(nTotal * day_charge)); 
+			m_List.SetItemText(nItem, 4, LF->GetStringFromLong(nTotal)); 
+			m_List.SetItemText(nItem, 5, LF->GetMyNumberFormat(nTotal * day_charge)); 
 
 			m_List.SetItemLong2(nItem++, 0);
 		}
@@ -175,7 +175,7 @@ void CStaffPage2::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CStaffPage2::OnMenuMsg()
 {
-	if(!POWER_CHECK(1200, "±â»ç°øÁöÃ¢ º¸±â", TRUE))
+	if(!LF->POWER_CHECK(1200, "±â»ç°øÁöÃ¢ º¸±â", TRUE))
 		return;
 
 	int nSelItem = m_List.GetNextItem(-1, LVNI_SELECTED);
@@ -277,10 +277,10 @@ void CStaffPage2::OnWorkOk()
 
 void CStaffPage2::OnViewExcel()
 {
-	if(!POWER_CHECK(5900, "¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(5900, "¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 404, m_ui.nWNo, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 404, m_ui.nWNo, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 

@@ -157,7 +157,7 @@ void CCustomerPage7::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_analysis_dong4");
-	pCmd.AddParameter(typeInt, typeInput, sizeof(int), ::GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeInt, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeInt, typeInput, sizeof(int), atol(strMinCount));
 	pCmd.AddParameter(typeInt, typeInput, sizeof(int), nType);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
@@ -174,7 +174,7 @@ void CCustomerPage7::RefreshList()
 	else
 	{
 		strCount.Format("%d개의 통계데이타가 검색되었습니다.", pRs.GetRecordCount());
-		StatusText(0, strCount);
+		LF->StatusText(0, strCount);
 		m_lcData.Populate();
 	}
 
@@ -193,7 +193,7 @@ void CCustomerPage7::RefreshList()
 
 	//		m_lcData.InsertItem(index, strDong);
 	//		m_lcData.SetItemText(index, 1, ltoa(nCount, buffer, 10));
-	//		m_lcData.SetItemText(index++, 2, GetMyNumberFormat(ltoa(nTotal, buffer, 10)));
+	//		m_lcData.SetItemText(index++, 2, LF->GetMyNumberFormat(ltoa(nTotal, buffer, 10)));
 
 	//		pRs.MoveNext();		
 	//	}
@@ -214,7 +214,7 @@ void CCustomerPage7::RefreshList()
 		m_lcData.InsertItem(index, strStart);
 		m_lcData.SetItemText(index, kArrivalDong, strDest);
 		m_lcData.SetItemText(index, kNumber, ltoa(nCount, buffer, 10));
-		m_lcData.SetItemText(index++, kAmount , GetMyNumberFormat(ltoa(nTotal, buffer, 10)));
+		m_lcData.SetItemText(index++, kAmount , LF->GetMyNumberFormat(ltoa(nTotal, buffer, 10)));
 
 		pRs.MoveNext();		
 	}		
@@ -243,16 +243,16 @@ void CCustomerPage7::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage7::OnViewExcel()
 {
-	if(!POWER_CHECK(8900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(8900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(::GetCurBranchInfo()->nCompanyCode, 603, m_ui.nWNo, m_lcData.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 603, m_ui.nWNo, m_lcData.GetItemCount());  
 
 	CMyExcel::ToExcel(&m_lcData);
 }
 
 void CCustomerPage7::OnCbnSelchangeTypeCombo()
 {
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 603, m_ui.nWNo, m_lcData.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 603, m_ui.nWNo, m_lcData.GetItemCount());  
 	RefreshList();
 }

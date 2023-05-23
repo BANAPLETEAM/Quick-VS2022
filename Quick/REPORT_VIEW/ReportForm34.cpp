@@ -96,8 +96,8 @@ void CReportForm34::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_cash_receipt_order_log");
-	cmd.AddParameter(::GetCurBranchInfo(TRUE)->nCompanyCode);
-	cmd.AddParameter(::GetCurBranchInfo(TRUE)->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo(TRUE)->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo(TRUE)->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 
@@ -124,17 +124,17 @@ void CReportForm34::RefreshList()
 		rs.GetFieldValue("dt1", dt1);
 
 		m_lstReport.InsertItem(i, "");
-		m_lstReport.SetItemText(i, 1, ::GetStringFromLong(nTNo));
+		m_lstReport.SetItemText(i, 1, LF->GetStringFromLong(nTNo));
 		m_lstReport.SetItemText(i, 2, dtLog.Format("%Y-%m-%d %H:%M:%S"));
-		m_lstReport.SetItemText(i, 3, ::GetMyNumberFormat(nAmt));
+		m_lstReport.SetItemText(i, 3, LF->GetMyNumberFormat(nAmt));
 		m_lstReport.SetItemText(i, 4, nIssueType == 1 ? "소득공제" : "지출증빙");
 		m_lstReport.SetItemText(i, 5, strIssueKey);
-		m_lstReport.SetItemText(i, 6, ::GetStringFromLong(nWNo));
+		m_lstReport.SetItemText(i, 6, LF->GetStringFromLong(nWNo));
 		m_lstReport.SetItemText(i, 7, m_ci.GetBranchName(nCompany));
 		m_lstReport.SetItemText(i, 8, strStart);
 		m_lstReport.SetItemText(i, 9, strDest);
-		m_lstReport.SetItemText(i, 10, ::GetMyNumberFormat(nCharge));
-		m_lstReport.SetItemText(i, 11, ::GetMyNumberFormat(nDeposit));
+		m_lstReport.SetItemText(i, 10, LF->GetMyNumberFormat(nCharge));
+		m_lstReport.SetItemText(i, 11, LF->GetMyNumberFormat(nDeposit));
 		m_lstReport.SetItemText(i, 12, dt1.m_status  != 2 ? dt1.Format("%Y-%m-%d %H:%M:%S") : "");
 		m_lstReport.SetItemLong(i, nTNo);
 
@@ -151,10 +151,10 @@ void CReportForm34::OnBnClickedRefreshBtn()
 
 void CReportForm34::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "정산 엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "정산 엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCompanyCode, 330, m_ui.nWNo, m_lstReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCompanyCode, 330, m_ui.nWNo, m_lstReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 
@@ -212,7 +212,7 @@ void CReportForm34::OnCancelPayCash()
 
 	CString strAddr; long nPort;
 
-	if(!::GetConnetcInfo(strAddr, nPort))
+	if(!LF->GetConnetcInfo(strAddr, nPort))
 	{
 		MessageBox("서버 접속실패\r\n다시 시도해주세요", "확인", MB_ICONERROR);
 		return;	
@@ -229,7 +229,7 @@ void CReportForm34::OnCancelPayCash()
 
 	CString strTemp;
 	strTemp.Format("<USAGE_ID=3><SEND_SMS=0><COMPANY=%d><WCOMPANY=%d><WNO=%d><TNO=%d><CANCEL_MSG=고객취소>",
-		::GetCurBranchInfo()->nCompanyCode, m_ui.nCompany, m_ui.nWNo, nTNo);
+		LF->GetCurBranchInfo()->nCompanyCode, m_ui.nCompany, m_ui.nWNo, nTNo);
 
 	char data[300];
 	strcpy(data, strTemp); 

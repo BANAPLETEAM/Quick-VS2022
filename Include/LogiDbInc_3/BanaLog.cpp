@@ -131,6 +131,8 @@ void CBanaLog::ReallyPrint(char* function_name, const char* format, va_list arg)
 #ifdef _MKSERVER
 	if (g_server_info->bNoLogFile)	return;
 #endif
+	if (!this) return;
+
 	string line_text;
 
 	if (!is_pure_log_) {

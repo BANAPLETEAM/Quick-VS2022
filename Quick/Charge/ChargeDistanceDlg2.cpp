@@ -484,7 +484,7 @@ BOOL CChargeDistanceDlg2::CheckAreaSelect()
 
 void CChargeDistanceDlg2::OnBnClickedTypeEditBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	try
@@ -572,7 +572,7 @@ void CChargeDistanceDlg2::OnBnClickedTypeEditBtn()
 
 void CChargeDistanceDlg2::OnBnClickedDeleteBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(!ChargeLinkUpdate())
@@ -910,7 +910,7 @@ void CChargeDistanceDlg2::OnCbnSelchangeCompanyCombo()
 
 void CChargeDistanceDlg2::OnBnClickedCopyDongBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(m_CopyDongDlg2 == NULL)

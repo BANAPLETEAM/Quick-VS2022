@@ -119,11 +119,11 @@ void CIncomeForm3::FillListData()
 		m_lstSearch.InsertItem(nItem, itRider->second.strBranchName);
 		m_lstSearch.SetItemText(nItem, 1, itoa(itRider->second.nMNo, buffer, 10));
 		m_lstSearch.SetItemText(nItem, 2, itRider->second.strName);
-		m_lstSearch.SetItemText(nItem, 3, ::GetDepositTypeStringFromType(itRider->second.nDepositType));
+		m_lstSearch.SetItemText(nItem, 3, LF->GetDepositTypeStringFromType(itRider->second.nDepositType));
 		m_lstSearch.SetItemText(nItem, 4, itRider->second.nWorkState == 1 ? "중지" : "");
 		m_lstSearch.SetItemText(nItem, 5, itRider->second.strHp);
 		m_lstSearch.SetItemText(nItem, 6, itRider->second.strID);
-		m_lstSearch.SetItemText(nItem, 7, ::GetCarTypeFromLong(itRider->second.nCarType));
+		m_lstSearch.SetItemText(nItem, 7, LF->GetCarTypeFromLong(itRider->second.nCarType));
 
 		m_lstSearch.SetItemLong(nItem, itRider->second.lCode);
 		m_lstSearch.SetItemLong2(nItem, itRider->second.nMNo);
@@ -203,15 +203,15 @@ void CIncomeForm3::RefreshHistory()
 		m_lstHistory.SetItemText(nItem, 2, itoa(nRNo, buffer, 10));
 
 		if((nState >= 40 && nState <= 60) || nState == 61)
-			m_lstHistory.SetItemText(nItem, 3, nAmount == -1 ? "-" : GetMyNumberFormat(nAmount));
+			m_lstHistory.SetItemText(nItem, 3, nAmount == -1 ? "-" : LF->GetMyNumberFormat(nAmount));
 
 		if(nState >= 10 && nState <= 30)
-			m_lstHistory.SetItemText(nItem, 4, nAmount == -1 ? "-" : GetMyNumberFormat(nAmount));
+			m_lstHistory.SetItemText(nItem, 4, nAmount == -1 ? "-" : LF->GetMyNumberFormat(nAmount));
 
-		m_lstHistory.SetItemText(nItem, 5, GetFixedDepositStateString(nState));
+		m_lstHistory.SetItemText(nItem, 5, LF->GetFixedDepositStateString(nState));
 		m_lstHistory.SetItemText(nItem, 6, (nWNo == 100000) ? "서버" : ltoa(nWNo, buffer, 10));
 		m_lstHistory.SetItemText(nItem, 7, strEtc);
-		m_lstHistory.SetItemText(nItem, 8, nBalance == -1 ? "-" : GetMyNumberFormat(nBalance));
+		m_lstHistory.SetItemText(nItem, 8, nBalance == -1 ? "-" : LF->GetMyNumberFormat(nBalance));
 		m_lstHistory.SetItemData(nItem, nState);
 	//	m_lstHistory.SetItemLong(nItem, nTNo);
 
@@ -249,8 +249,8 @@ void CIncomeForm3::RefreshAllLog()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_deposit_input");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int),	::GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), ::GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int),	LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
 
 	pRs.Execute(&pCmd);
 
@@ -276,15 +276,15 @@ void CIncomeForm3::RefreshAllLog()
 		m_AllList.SetItemText(nItem, 2, itoa(nRNo, buffer, 10));
 
 		if((nState >= 40 && nState <= 60) || nState == 61)
-			m_AllList.SetItemText(nItem, 3, nAmount == -1 ? "-" : GetMyNumberFormat(nAmount));
+			m_AllList.SetItemText(nItem, 3, nAmount == -1 ? "-" : LF->GetMyNumberFormat(nAmount));
 
 		if(nState >= 10 && nState <= 30)
-			m_AllList.SetItemText(nItem, 4, nAmount == -1 ? "-" : GetMyNumberFormat(nAmount));
+			m_AllList.SetItemText(nItem, 4, nAmount == -1 ? "-" : LF->GetMyNumberFormat(nAmount));
 
-		m_AllList.SetItemText(nItem, 5, GetFixedDepositStateString(nState));
+		m_AllList.SetItemText(nItem, 5, LF->GetFixedDepositStateString(nState));
 		m_AllList.SetItemText(nItem, 6, (nWNo == 100000) ? "서버" : ltoa(nWNo, buffer, 10));
 		m_AllList.SetItemText(nItem, 7, strEtc);
-		m_AllList.SetItemText(nItem, 8, nBalance == -1 ? "-" : GetMyNumberFormat(nBalance));
+		m_AllList.SetItemText(nItem, 8, nBalance == -1 ? "-" : LF->GetMyNumberFormat(nBalance));
 		m_AllList.SetItemData(nItem, nState);
 		//	m_lstHistory.SetItemLong(nItem, nTNo);
 
@@ -337,7 +337,7 @@ BOOL CIncomeForm3::IsCountOne()
 
 void CIncomeForm3::OnBnClickedChargeBtn()
 {
-	if(!POWER_CHECK(7031, "선입금충전전용", TRUE))
+	if(!LF->POWER_CHECK(7031, "선입금충전전용", TRUE))
 		return;
 
 

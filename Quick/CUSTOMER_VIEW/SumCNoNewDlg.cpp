@@ -81,7 +81,7 @@ void CSumCNoNewDlg::RefreshInfo(long nCNo, CListBox *pListBox, CStatic *stcName,
 	long nID; pParID->GetValue(nID);
 
 	stcName->SetWindowText(strName);
-	strNo->SetWindowText(::GetStringFromLong(nID));
+	strNo->SetWindowText(LF->GetStringFromLong(nID));
 
 	for(int i=0; i<rs.GetRecordCount(); i++)
 	{

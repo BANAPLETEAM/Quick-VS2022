@@ -193,7 +193,7 @@ BOOL CRiderDepositInfoDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	::InitRiderIncomeStruct(&m_stRiderInfo);
+	LF->InitRiderIncomeStruct(&m_stRiderInfo);
 	CenterWindow();
 	m_btnChange.InitButton(this);
 
@@ -283,8 +283,8 @@ void CRiderDepositInfoDlg::RefreshFixedList()
 		m_wndFixedReport.InsertItem(i, dtGenerate.Format("%Y-%m-%d %H:%M"));
 		m_wndFixedReport.SetItemText(i, 1, sTakeDate.Left(4) + "-" + sTakeDate.Mid(4, 2) + "-" + sTakeDate.Right(2));
 		m_wndFixedReport.SetItemText(i, 2, bWeeklyDeposit == TRUE ? "주납" : "월납");
-		m_wndFixedReport.SetItemText(i, 3, ::GetMyNumberFormat(nFixedDeposit));
-		m_wndFixedReport.SetItemText(i, 4, ::GetMyNumberFormat(nCreditOrderSum));
+		m_wndFixedReport.SetItemText(i, 3, LF->GetMyNumberFormat(nFixedDeposit));
+		m_wndFixedReport.SetItemText(i, 4, LF->GetMyNumberFormat(nCreditOrderSum));
 		m_wndFixedReport.SetItemText(i, 5, dtCreditOrderStart.Format("%y-%m-%d"));
 		m_wndFixedReport.SetItemText(i, 6, dtCreditOrderEnd.Format("%y-%m-%d"));
 
@@ -296,7 +296,7 @@ void CRiderDepositInfoDlg::RefreshFixedList()
 			m_wndFixedReport.SetItemText(i, 7, "입금완료");
 		
 		m_wndFixedReport.SetItemText(i, 8, nWNo == -1 ? "서버" : itoa(nWNo, buffer, 10));
-		m_wndFixedReport.SetItemText(i, 9, ::GetMyNumberFormat(nFixedDeposit - nCreditOrderSum));
+		m_wndFixedReport.SetItemText(i, 9, LF->GetMyNumberFormat(nFixedDeposit - nCreditOrderSum));
 		m_wndFixedReport.SetItemText(i, 10, sEtc);
 
 		m_wndFixedReport.SetItemData(i, nID);
@@ -425,8 +425,8 @@ void CRiderDepositInfoDlg::InitRiderState()
 	//m_stRiderInfo.nDepositType = m_stRiderInfo.nDepositType / 10; 
 
 	m_nPreDepositAllocateType = m_stRiderInfo.nDepositAllocateType;
-	m_cmbDepositType.SetCurSel(::GetDepositTypeToComboSel(m_stRiderInfo.nDepositType));
-	m_cmbDepositAllocateType.SetCurSel(::GetDepositAllocateTypeToComboSel(m_stRiderInfo.nDepositAllocateType));
+	m_cmbDepositType.SetCurSel(LF->GetDepositTypeToComboSel(m_stRiderInfo.nDepositType));
+	m_cmbDepositAllocateType.SetCurSel(LF->GetDepositAllocateTypeToComboSel(m_stRiderInfo.nDepositAllocateType));
 
 	m_chkMyCall.SetCheck(m_stRiderInfo.nMyCallRateType);
 	m_chkOtherCall.SetCheck(m_stRiderInfo.nOtherCallRateType);
@@ -449,7 +449,7 @@ void CRiderDepositInfoDlg::InitRiderState()
 	m_cmbRiderIncomeDay1.SetCurSel(m_stRiderInfo.nSameRiderIncomeDay);
 
 	//m_edtFixDeposit.SetWindowText(itoa(m_stRiderInfo.nFixedDeposit, buffer, 10)); //위에서이상하게찍힘
-	m_stcCurCharge.SetWindowText(::GetMyNumberFormat(nBalance));
+	m_stcCurCharge.SetWindowText(LF->GetMyNumberFormat(nBalance));
 }
 
 void CRiderDepositInfoDlg::OnCbnSelchangeIncomeDayCombo1()
@@ -602,8 +602,8 @@ void CRiderDepositInfoDlg::OnBnClickedOk()
 {
 	UpdateData(TRUE);
 
-	m_stRiderInfo.nDepositType = ::GetDepositTypeFromComboSel(m_cmbDepositType.GetCurSel());
-	m_stRiderInfo.nDepositAllocateType = ::GetDepositAllocateTypeFromComboSel(m_cmbDepositAllocateType.GetCurSel());
+	m_stRiderInfo.nDepositType = LF->GetDepositTypeFromComboSel(m_cmbDepositType.GetCurSel());
+	m_stRiderInfo.nDepositAllocateType = LF->GetDepositAllocateTypeFromComboSel(m_cmbDepositAllocateType.GetCurSel());
 
 	if(m_nPreDepositAllocateType != m_stRiderInfo.nDepositAllocateType)
 	{
@@ -643,14 +643,14 @@ void CRiderDepositInfoDlg::OnBnClickedOk()
 	else
 		m_stRiderInfo.bUseDTPercent = FALSE;
 
-	SaveIncomeInfo(&m_stRiderInfo, FALSE);
+	LF->SaveIncomeInfo(&m_stRiderInfo, FALSE);
 
 	OnOK();
 }
 
 void CRiderDepositInfoDlg::OnBnClickedMakeFixedepositBtn()
 {
-	if(!POWER_CHECK(7070, "지입금관련", TRUE))
+	if(!LF->POWER_CHECK(7070, "지입금관련", TRUE))
 		return;
 
 	CMakeFixedDepositDlg dlg;
@@ -666,7 +666,7 @@ void CRiderDepositInfoDlg::OnBnClickedMakeFixedepositBtn()
 
 void CRiderDepositInfoDlg::OnBnClickedDeleteFixedDepositBtn()
 {
-	if(!POWER_CHECK(7070, "지입금관련", TRUE))
+	if(!LF->POWER_CHECK(7070, "지입금관련", TRUE))
 		return;
 
 	long index = m_wndFixedReport.GetNextItem(-1, LVNI_SELECTED);
@@ -700,7 +700,7 @@ void CRiderDepositInfoDlg::OnBnClickedDeleteFixedDepositBtn()
 
 void CRiderDepositInfoDlg::OnBnClickedHalfInsertFixedepositBtn()
 {
-	if(!POWER_CHECK(7070, "지입금관련", TRUE))
+	if(!LF->POWER_CHECK(7070, "지입금관련", TRUE))
 		return;
 
 	long index = m_wndFixedReport.GetNextItem(-1, LVNI_SELECTED);
@@ -760,7 +760,7 @@ void CRiderDepositInfoDlg::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT *
 	if (!pItemNotify->pRow || !pItemNotify->pColumn)
 		return; 
 
-	if(!POWER_CHECK(7070, "지입금관련", TRUE))
+	if(!LF->POWER_CHECK(7070, "지입금관련", TRUE))
 		return;
 
 	OpenRiderReportDlg();

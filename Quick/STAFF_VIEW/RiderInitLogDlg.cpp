@@ -75,9 +75,9 @@ void CRiderInitLogDlg::RefreshList()
 
 		m_lstReport.InsertItem(i, dtGenerate.Format("%Y-%m-%d %H:%M"));
 		m_lstReport.SetItemText(i, 1, m_ci.GetBranchName(nCompany));
-		m_lstReport.SetItemText(i, 2, ::GetStringFromLong(nRNo));
+		m_lstReport.SetItemText(i, 2, LF->GetStringFromLong(nRNo));
 		m_lstReport.SetItemText(i, 3, strRName);
-		m_lstReport.SetItemText(i, 4, strWName + "(" + ::GetStringFromLong(nWNo) + ")");
+		m_lstReport.SetItemText(i, 4, strWName + "(" + LF->GetStringFromLong(nWNo) + ")");
 	}
 
 	m_lstReport.Populate();

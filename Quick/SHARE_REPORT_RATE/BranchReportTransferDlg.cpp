@@ -150,7 +150,7 @@ void CBranchReportTransferDlg::RefreshList()
 	pPar->GetValue(nBalance);
 	parBasicRate->GetValue(nBasicRate);
 
-	CString str = CString(GetMyNumberFormat(nBalance - nBasicRate)) + "원";
+	CString str = CString(LF->GetMyNumberFormat(nBalance - nBasicRate)) + "원";
     
 	pBranchReportMainDlg->m_MoneyEdt.SetWindowText(str);
 
@@ -317,7 +317,7 @@ void CBranchReportTransferDlg::RefreshMoney()
 	pPar->GetValue(nBalance);
 	parBasicRate->GetValue(nBasicRate);
 
-	CString str = CString(GetMyNumberFormat(nBalance - nBasicRate)) + "원";
+	CString str = CString(LF->GetMyNumberFormat(nBalance - nBasicRate)) + "원";
 
 	pBranchReportMainDlg->m_MoneyEdt.SetWindowText(str);
 }

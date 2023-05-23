@@ -200,22 +200,22 @@ void CGenerateOpenAPIRegisterDlg::OnBnClickedRegisterBtn()
 
 	cmd.AddParameter(m_nIndex);
 	cmd.AddParameter(m_ci.m_nCompanyCode);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtManagerName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtManagerPosition));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtManagerTel));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtManagerEMail));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtManagerName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtManagerPosition));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtManagerTel));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtManagerEMail));
 
-	cmd.AddParameter(::GetStringFromEdit(&m_edtTaxManagerName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtTaxManagerTel));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtTaxManagerEMail));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtTaxManagerName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtTaxManagerTel));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtTaxManagerEMail));
 	
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizName));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizNumber));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizOwner));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizType1));
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizType2));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizName));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizNumber));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizOwner));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizType1));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizType2));
 	cmd.AddParameter(m_strBizLicenseUrl);
-	cmd.AddParameter(::GetStringFromEdit(&m_edtBizAddr));
+	cmd.AddParameter(LF->GetStringFromEdit(&m_edtBizAddr));
 	
 	if(cmd.Execute())
 	{

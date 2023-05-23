@@ -156,13 +156,13 @@ void CReceiptPrint::InnerPrintText(CDC &dcPrint, RECEIPT_INFO *pReceiptInfo)
 	dcPrint.ExtTextOut(1200,0,ETO_CLIPPED, &rt, sTNo, sTNo.GetLength(),NULL );
 
 	dcPrint.ExtTextOut(260,	42,ETO_CLIPPED, &rt, pReceiptInfo->sCompany, pReceiptInfo->sCompany.GetLength(),NULL );
-	dcPrint.ExtTextOut(670,	42,ETO_CLIPPED, &rt, GetDashPhoneNumber(pReceiptInfo->sTel), GetDashPhoneNumber(pReceiptInfo->sTel).GetLength(),NULL );
-	dcPrint.ExtTextOut(1230,42,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nBasicCharge), GetMyNumberFormat(pReceiptInfo->nBasicCharge).GetLength(),NULL );	
+	dcPrint.ExtTextOut(670,	42,ETO_CLIPPED, &rt, LF->GetDashPhoneNumber(pReceiptInfo->sTel), LF->GetDashPhoneNumber(pReceiptInfo->sTel).GetLength(),NULL );
+	dcPrint.ExtTextOut(1230,42,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nBasicCharge), LF->GetMyNumberFormat(pReceiptInfo->nBasicCharge).GetLength(),NULL );	
 
 	//부서
 	dcPrint.ExtTextOut(260,92,ETO_CLIPPED, &rt, pReceiptInfo->sDept, pReceiptInfo->sDept.GetLength(),NULL );
 	dcPrint.ExtTextOut(670,92,ETO_CLIPPED, &rt, pReceiptInfo->sName, pReceiptInfo->sName.GetLength(),NULL );
-	dcPrint.ExtTextOut(1230,92,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nAddCharge), GetMyNumberFormat(pReceiptInfo->nAddCharge).GetLength(),NULL );
+	dcPrint.ExtTextOut(1230,92,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nAddCharge), LF->GetMyNumberFormat(pReceiptInfo->nAddCharge).GetLength(),NULL );
 
 	//지명
 	dcPrint.ExtTextOut(260,	132,ETO_CLIPPED, &rt, pReceiptInfo->sDestDong, pReceiptInfo->sDestDong.GetLength(),NULL );
@@ -171,16 +171,16 @@ void CReceiptPrint::InnerPrintText(CDC &dcPrint, RECEIPT_INFO *pReceiptInfo)
 
 	//상호
 	dcPrint.ExtTextOut(260,	181,ETO_CLIPPED, &rt, pReceiptInfo->sDestCompany, pReceiptInfo->sDestCompany.GetLength(),NULL );
-	dcPrint.ExtTextOut(670,	181,ETO_CLIPPED, &rt, GetDashPhoneNumber(pReceiptInfo->sDestTel), GetDashPhoneNumber(pReceiptInfo->sDestTel).GetLength(),NULL );
+	dcPrint.ExtTextOut(670,	181,ETO_CLIPPED, &rt, LF->GetDashPhoneNumber(pReceiptInfo->sDestTel), LF->GetDashPhoneNumber(pReceiptInfo->sDestTel).GetLength(),NULL );
 	if(pReceiptInfo->nTransCharge > 0)
-		dcPrint.ExtTextOut(1230,181,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nTransCharge), GetMyNumberFormat(pReceiptInfo->nTransCharge).GetLength(),NULL );
+		dcPrint.ExtTextOut(1230,181,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nTransCharge), LF->GetMyNumberFormat(pReceiptInfo->nTransCharge).GetLength(),NULL );
 	
     // 부서
 	dcPrint.ExtTextOut(260,	220,ETO_CLIPPED, &rt, pReceiptInfo->sDestDept, pReceiptInfo->sDestDept.GetLength(),NULL );
 	dcPrint.ExtTextOut(670,	220,ETO_CLIPPED, &rt, pReceiptInfo->sDestName, pReceiptInfo->sDestName.GetLength(),NULL );
-	dcPrint.ExtTextOut(1230,220,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nTotalCharge), GetMyNumberFormat(pReceiptInfo->nTotalCharge).GetLength(),NULL );
+	dcPrint.ExtTextOut(1230,220,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nTotalCharge), LF->GetMyNumberFormat(pReceiptInfo->nTotalCharge).GetLength(),NULL );
 
-	dcPrint.ExtTextOut(310,	265,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nRNo), GetMyNumberFormat(pReceiptInfo->nRNo).GetLength(),NULL );
+	dcPrint.ExtTextOut(310,	265,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nRNo), LF->GetMyNumberFormat(pReceiptInfo->nRNo).GetLength(),NULL );
 	dcPrint.ExtTextOut(670,	265,ETO_CLIPPED, &rt, pReceiptInfo->sRName, pReceiptInfo->sRName.GetLength(),NULL );
 
 	/*dcPrint.SelectObject(&font2);*/
@@ -210,12 +210,12 @@ dcPrint.ExtTextOut(980,	10,ETO_CLIPPED, &rt, pReceiptInfo->sDate, pReceiptInfo->
 dcPrint.ExtTextOut(1180,10,ETO_CLIPPED, &rt, sTNo, sTNo.GetLength(),NULL );
 
 dcPrint.ExtTextOut(239,	52,ETO_CLIPPED, &rt, pReceiptInfo->sCompany, pReceiptInfo->sCompany.GetLength(),NULL );
-dcPrint.ExtTextOut(649,	52,ETO_CLIPPED, &rt, GetDashPhoneNumber(pReceiptInfo->sTel), GetDashPhoneNumber(pReceiptInfo->sTel).GetLength(),NULL );
-dcPrint.ExtTextOut(1210,52,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nBasicCharge), GetMyNumberFormat(pReceiptInfo->nBasicCharge).GetLength(),NULL );	
+dcPrint.ExtTextOut(649,	52,ETO_CLIPPED, &rt, LF->GetDashPhoneNumber(pReceiptInfo->sTel), LF->GetDashPhoneNumber(pReceiptInfo->sTel).GetLength(),NULL );
+dcPrint.ExtTextOut(1210,52,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nBasicCharge), LF->GetMyNumberFormat(pReceiptInfo->nBasicCharge).GetLength(),NULL );	
 
 dcPrint.ExtTextOut(239,102,ETO_CLIPPED, &rt, pReceiptInfo->sDept, pReceiptInfo->sDept.GetLength(),NULL );
 dcPrint.ExtTextOut(649,102,ETO_CLIPPED, &rt, pReceiptInfo->sName, pReceiptInfo->sName.GetLength(),NULL );
-dcPrint.ExtTextOut(1210,102,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nAddCharge), GetMyNumberFormat(pReceiptInfo->nAddCharge).GetLength(),NULL );
+dcPrint.ExtTextOut(1210,102,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nAddCharge), LF->GetMyNumberFormat(pReceiptInfo->nAddCharge).GetLength(),NULL );
 
 dcPrint.ExtTextOut(239,	142,ETO_CLIPPED, &rt, pReceiptInfo->sDestDong, pReceiptInfo->sDestDong.GetLength(),NULL );
 dcPrint.ExtTextOut(649,	142,ETO_CLIPPED, &rt, pReceiptInfo->sCarNameAndChargeType, pReceiptInfo->sCarNameAndChargeType.GetLength(),NULL );
@@ -223,16 +223,16 @@ dcPrint.ExtTextOut(649,	142,ETO_CLIPPED, &rt, pReceiptInfo->sCarNameAndChargeTyp
 
 
 dcPrint.ExtTextOut(239,	191,ETO_CLIPPED, &rt, pReceiptInfo->sDestCompany, pReceiptInfo->sDestCompany.GetLength(),NULL );
-dcPrint.ExtTextOut(649,	191,ETO_CLIPPED, &rt, GetDashPhoneNumber(pReceiptInfo->sDestTel), GetDashPhoneNumber(pReceiptInfo->sDestTel).GetLength(),NULL );
+dcPrint.ExtTextOut(649,	191,ETO_CLIPPED, &rt, LF->GetDashPhoneNumber(pReceiptInfo->sDestTel), LF->GetDashPhoneNumber(pReceiptInfo->sDestTel).GetLength(),NULL );
 if(pReceiptInfo->nTransCharge > 0)
-dcPrint.ExtTextOut(1210,191,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nTransCharge), GetMyNumberFormat(pReceiptInfo->nTransCharge).GetLength(),NULL );
+dcPrint.ExtTextOut(1210,191,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nTransCharge), LF->GetMyNumberFormat(pReceiptInfo->nTransCharge).GetLength(),NULL );
 
 
 dcPrint.ExtTextOut(239,	230,ETO_CLIPPED, &rt, pReceiptInfo->sDestDept, pReceiptInfo->sDestDept.GetLength(),NULL );
 dcPrint.ExtTextOut(649,	230,ETO_CLIPPED, &rt, pReceiptInfo->sDestName, pReceiptInfo->sDestName.GetLength(),NULL );
-dcPrint.ExtTextOut(1210,230,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nTotalCharge), GetMyNumberFormat(pReceiptInfo->nTotalCharge).GetLength(),NULL );
+dcPrint.ExtTextOut(1210,230,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nTotalCharge), LF->GetMyNumberFormat(pReceiptInfo->nTotalCharge).GetLength(),NULL );
 
-dcPrint.ExtTextOut(290,	275,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nRNo), GetMyNumberFormat(pReceiptInfo->nRNo).GetLength(),NULL );
+dcPrint.ExtTextOut(290,	275,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nRNo), LF->GetMyNumberFormat(pReceiptInfo->nRNo).GetLength(),NULL );
 dcPrint.ExtTextOut(649,	275,ETO_CLIPPED, &rt, pReceiptInfo->sRName, pReceiptInfo->sRName.GetLength(),NULL );
 
 
@@ -252,13 +252,13 @@ dcPrint.ExtTextOut(970,	0,ETO_CLIPPED, &rt, pReceiptInfo->sDate, pReceiptInfo->s
 dcPrint.ExtTextOut(1170,	0,ETO_CLIPPED, &rt, sTNo, sTNo.GetLength(),NULL );
 
 dcPrint.ExtTextOut(229,	42,ETO_CLIPPED, &rt, pReceiptInfo->sCompany, pReceiptInfo->sCompany.GetLength(),NULL );
-dcPrint.ExtTextOut(639,	42,ETO_CLIPPED, &rt, GetDashPhoneNumber(pReceiptInfo->sTel), GetDashPhoneNumber(pReceiptInfo->sTel).GetLength(),NULL );
-dcPrint.ExtTextOut(1200,	42,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nBasicCharge), GetMyNumberFormat(pReceiptInfo->nBasicCharge).GetLength(),NULL );
-//dcPrint.ExtTextOut(1055,	42,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nBasicCharge), GetMyNumberFormat(pReceiptInfo->nBasicCharge).GetLength(),NULL );
+dcPrint.ExtTextOut(639,	42,ETO_CLIPPED, &rt, LF->GetDashPhoneNumber(pReceiptInfo->sTel), LF->GetDashPhoneNumber(pReceiptInfo->sTel).GetLength(),NULL );
+dcPrint.ExtTextOut(1200,	42,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nBasicCharge), LF->GetMyNumberFormat(pReceiptInfo->nBasicCharge).GetLength(),NULL );
+//dcPrint.ExtTextOut(1055,	42,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nBasicCharge), LF->GetMyNumberFormat(pReceiptInfo->nBasicCharge).GetLength(),NULL );
 
 dcPrint.ExtTextOut(229,	92,ETO_CLIPPED, &rt, pReceiptInfo->sDept, pReceiptInfo->sDept.GetLength(),NULL );
 dcPrint.ExtTextOut(639,	92,ETO_CLIPPED, &rt, pReceiptInfo->sName, pReceiptInfo->sName.GetLength(),NULL );
-dcPrint.ExtTextOut(1200,	92,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nAddCharge), GetMyNumberFormat(pReceiptInfo->nAddCharge).GetLength(),NULL );
+dcPrint.ExtTextOut(1200,	92,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nAddCharge), LF->GetMyNumberFormat(pReceiptInfo->nAddCharge).GetLength(),NULL );
 
 dcPrint.ExtTextOut(229,	132,ETO_CLIPPED, &rt, pReceiptInfo->sDestDong, pReceiptInfo->sDestDong.GetLength(),NULL );
 dcPrint.ExtTextOut(639,	132,ETO_CLIPPED, &rt, pReceiptInfo->sCarNameAndChargeType, pReceiptInfo->sCarNameAndChargeType.GetLength(),NULL );
@@ -266,16 +266,16 @@ dcPrint.ExtTextOut(639,	132,ETO_CLIPPED, &rt, pReceiptInfo->sCarNameAndChargeTyp
 
 
 dcPrint.ExtTextOut(229,	181,ETO_CLIPPED, &rt, pReceiptInfo->sDestCompany, pReceiptInfo->sDestCompany.GetLength(),NULL );
-dcPrint.ExtTextOut(639,	181,ETO_CLIPPED, &rt, GetDashPhoneNumber(pReceiptInfo->sDestTel), GetDashPhoneNumber(pReceiptInfo->sDestTel).GetLength(),NULL );
+dcPrint.ExtTextOut(639,	181,ETO_CLIPPED, &rt, LF->GetDashPhoneNumber(pReceiptInfo->sDestTel), LF->GetDashPhoneNumber(pReceiptInfo->sDestTel).GetLength(),NULL );
 if(pReceiptInfo->nTransCharge > 0)
-dcPrint.ExtTextOut(1200,	181,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nTransCharge), GetMyNumberFormat(pReceiptInfo->nTransCharge).GetLength(),NULL );
+dcPrint.ExtTextOut(1200,	181,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nTransCharge), LF->GetMyNumberFormat(pReceiptInfo->nTransCharge).GetLength(),NULL );
 
 
 dcPrint.ExtTextOut(229,	220,ETO_CLIPPED, &rt, pReceiptInfo->sDestDept, pReceiptInfo->sDestDept.GetLength(),NULL );
 dcPrint.ExtTextOut(639,	220,ETO_CLIPPED, &rt, pReceiptInfo->sDestName, pReceiptInfo->sDestName.GetLength(),NULL );
-dcPrint.ExtTextOut(1200,	220,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nTotalCharge), GetMyNumberFormat(pReceiptInfo->nTotalCharge).GetLength(),NULL );
+dcPrint.ExtTextOut(1200,	220,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nTotalCharge), LF->GetMyNumberFormat(pReceiptInfo->nTotalCharge).GetLength(),NULL );
 
-dcPrint.ExtTextOut(280,	265,ETO_CLIPPED, &rt, GetMyNumberFormat(pReceiptInfo->nRNo), GetMyNumberFormat(pReceiptInfo->nRNo).GetLength(),NULL );
+dcPrint.ExtTextOut(280,	265,ETO_CLIPPED, &rt, LF->GetMyNumberFormat(pReceiptInfo->nRNo), LF->GetMyNumberFormat(pReceiptInfo->nRNo).GetLength(),NULL );
 dcPrint.ExtTextOut(639,	265,ETO_CLIPPED, &rt, pReceiptInfo->sRName, pReceiptInfo->sRName.GetLength(),NULL );
 
 

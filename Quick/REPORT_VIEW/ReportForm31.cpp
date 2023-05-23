@@ -118,8 +118,8 @@ void CReportForm31::RefreshList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_card_rider_tax_case_by_case_4");
-	cmd.AddParameter(GetCurBranchInfo()->nCompanyCode);
-	cmd.AddParameter(GetCurBranchInfo()->bIntegrated);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	cmd.AddParameter(m_dtFrom);
 	cmd.AddParameter(m_dtTo);
 	cmd.AddParameter(m_cmbType.GetCurSel());
@@ -181,27 +181,27 @@ void CReportForm31::RefreshList()
 
 		m_lstReport.InsertItem(i, "");
 		m_lstReport.SetItemText(i, nCol++, strBranchName);
-		m_lstReport.SetItemText(i, nCol++, ::GetStringFromLong(nTNo));
+		m_lstReport.SetItemText(i, nCol++, LF->GetStringFromLong(nTNo));
 		m_lstReport.SetItemText(i, nCol++, dt1.Format("%y-%m-%d %H:%M"));
 	
 		m_lstReport.SetItemText(i, nCol++, strOName);
 		m_lstReport.SetItemText(i, nCol++, strManager);
 		m_lstReport.SetItemText(i, nCol++, strSName);
 		m_lstReport.SetItemText(i, nCol++, strDName);		
-		m_lstReport.SetItemText(i, nCol++, ::GetStateString(nState));
+		m_lstReport.SetItemText(i, nCol++, LF->GetStateString(nState));
 		m_lstReport.SetItemText(i, nCol++, strRName);
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nRNo));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nRNo));
 
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeBasic));
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeAdd));
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeDis));
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeSum));
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nCardCharge));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeBasic));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeAdd));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeDis));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeSum));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nCardCharge));
 		
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeTrans));
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nChargeDriving));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeTrans));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nChargeDriving));
 		
-		m_lstReport.SetItemText(i, nCol++, ::GetMyNumberFormat(nDeposit));
+		m_lstReport.SetItemText(i, nCol++, LF->GetMyNumberFormat(nDeposit));
 
 		m_lstReport.SetItemText(i, nCol++, sBCCardTranNumber);
 		m_lstReport.SetItemText(i, nCol++, GetCardClassType(nCardPayCompany));		
@@ -221,9 +221,9 @@ void CReportForm31::RefreshList()
 	if(nRecordCount > 0)
 	{
 		m_lstReport.InsertItem(nRecordCount, "");
-		m_lstReport.SetItemText(i, 6, ::GetMyNumberFormat(nChargeS));
-		m_lstReport.SetItemText(i, 7, ::GetMyNumberFormat(nDepositS));
-		m_lstReport.SetItemText(i, 8, ::GetMyNumberFormat(nOrgAmtS));
+		m_lstReport.SetItemText(i, 6, LF->GetMyNumberFormat(nChargeS));
+		m_lstReport.SetItemText(i, 7, LF->GetMyNumberFormat(nDepositS));
+		m_lstReport.SetItemText(i, 8, LF->GetMyNumberFormat(nOrgAmtS));
 	}
 
 	SearchFilter();
@@ -261,10 +261,10 @@ void CReportForm31::OnBnClickedRefreshBtn()
 
 void CReportForm31::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "Á¤»ê ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(3900, "Á¤»ê ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	::AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 324, m_lstReport.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 324, m_lstReport.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstReport);
 }
 void CReportForm31::OnContextMenu(CWnd* pWnd, CPoint point)

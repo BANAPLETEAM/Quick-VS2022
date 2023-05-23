@@ -163,18 +163,18 @@ void CCreditHistoryDlg::RefreshList()
 // 		m_wndReport.InsertColumn(11, "입금", LVCFMT_LEFT, 80);
 // 		m_wndReport.InsertColumn(12, "적요", LVCFMT_LEFT,  110);
 
-		m_wndReport.InsertItem(i, GetStringFromLong(i + 1), FALSE); 
-		m_wndReport.SetItemText(i, 1, GetStringFromLong(nTNo));
+		m_wndReport.InsertItem(i, LF->GetStringFromLong(i + 1), FALSE); 
+		m_wndReport.SetItemText(i, 1, LF->GetStringFromLong(nTNo));
 		m_wndReport.SetItemText(i, 2, m_ci.GetBranchName(nCompany));
 		m_wndReport.SetItemText(i, 3, dt1.Format("%m-%d %H:%M"));
 		m_wndReport.SetItemText(i, 4, strSDong);
 		m_wndReport.SetItemText(i, 5, strDDong);
 		m_wndReport.SetItemText(i, 6, strODepart);
 		m_wndReport.SetItemText(i, 7, strOManager);
-		m_wndReport.SetItemText(i, 8, ::GetMyNumberFormat(nChargeTrans));
-		m_wndReport.SetItemText(i, 9, ::GetMyNumberFormat(nChargeSum));
-		m_wndReport.SetItemText(i, 10, ::GetMyNumberFormat(nChargeDisAfter == 0 ? nChargeSum : nChargeDisAfter));
-		m_wndReport.SetItemText(i, 11, ::GetPayTypeFromLong(nPayType));
+		m_wndReport.SetItemText(i, 8, LF->GetMyNumberFormat(nChargeTrans));
+		m_wndReport.SetItemText(i, 9, LF->GetMyNumberFormat(nChargeSum));
+		m_wndReport.SetItemText(i, 10, LF->GetMyNumberFormat(nChargeDisAfter == 0 ? nChargeSum : nChargeDisAfter));
+		m_wndReport.SetItemText(i, 11, LF->GetPayTypeFromLong(nPayType));
 		m_wndReport.SetItemText(i, 12, strEtc);
 
 		pRs.MoveNext();

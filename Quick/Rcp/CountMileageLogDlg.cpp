@@ -130,11 +130,11 @@ void CCountMileageLogDlg::RefreshCharge()
 	pCMCountInternet->GetValue(pCMInternetDlg->m_nCMCount);
 	pCMChargeInternet->GetValue(pCMInternetDlg->m_nCMCharge);
 
-	CString sTemp = ""; sTemp.Format("현재잔액은 %s원 입니다.", ::GetMyNumberFormat(nBalance));
+	CString sTemp = ""; sTemp.Format("현재잔액은 %s원 입니다.", LF->GetMyNumberFormat(nBalance));
 	this->SetWindowText(sTemp);
 	sTemp = ""; sTemp.Format("전화접수오더 %d건에 %s원, 인터콜접수오더 %d건에 %s원 적용중입니다", 
-		pCMPhoneDlg->m_nCMCount, ::GetMyNumberFormat(pCMPhoneDlg->m_nCMCharge), 
-		pCMInternetDlg->m_nCMCount, ::GetMyNumberFormat(pCMInternetDlg->m_nCMCharge));
+		pCMPhoneDlg->m_nCMCount, LF->GetMyNumberFormat(pCMPhoneDlg->m_nCMCharge), 
+		pCMInternetDlg->m_nCMCount, LF->GetMyNumberFormat(pCMInternetDlg->m_nCMCharge));
 	m_stcHelp.SetWindowText(sTemp);
 
 	COleDateTime dtLog;
@@ -148,7 +148,7 @@ void CCountMileageLogDlg::RefreshCharge()
 		pRs.GetFieldValue("sEtc", sEtc);
 
 		m_List.InsertItem(i, dtLog.Format("%m-%d"));
-		m_List.SetItemText(i, 1, ::GetMyNumberFormat(nSpanMileage));
+		m_List.SetItemText(i, 1, LF->GetMyNumberFormat(nSpanMileage));
 		m_List.SetItemText(i, 2, sEtc);
 
 		pRs.MoveNext();

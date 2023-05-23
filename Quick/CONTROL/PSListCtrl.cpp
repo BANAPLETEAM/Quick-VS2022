@@ -30,7 +30,7 @@ BOOL CPSListCtrl::EndLabelEdit(LV_ITEM *plvItem)
 {
 	if(plvItem->iSubItem == 2)
 	{
-		if(!IsStringDigit(CString(plvItem->pszText)))
+		if(!LF->IsStringDigit(CString(plvItem->pszText)))
 		{
 			SetItemText(plvItem->iItem, plvItem->iSubItem, "");
 			return TRUE;

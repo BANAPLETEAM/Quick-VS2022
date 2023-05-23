@@ -80,12 +80,12 @@ void CCustomerPage16::RefreshData(CMkRecordset *pRs)
 		pRs->GetFieldValue("dtLastUse", dtLastUse);
 		pRs->GetFieldValue("sMemo", strMemo);
 
-		m_lstCustomer.InsertItem(i, ::GetStringFromLong(nID));
+		m_lstCustomer.InsertItem(i, LF->GetStringFromLong(nID));
 		m_lstCustomer.SetItemText(i, 1, strCompany);
-		m_lstCustomer.SetItemText(i, 2, ::GetDashPhoneNumber(strTel1));
+		m_lstCustomer.SetItemText(i, 2, LF->GetDashPhoneNumber(strTel1));
 		m_lstCustomer.SetItemText(i, 3, dtRegister.Format("%Y-%m-%d %H:%M:%S"));
 		m_lstCustomer.SetItemText(i, 4, dtLastUse.Format("%Y-%m-%d %H:%M:%S"));
-		m_lstCustomer.SetItemText(i, 5, ::GetMyNumberFormat(nCount));
+		m_lstCustomer.SetItemText(i, 5, LF->GetMyNumberFormat(nCount));
 		m_lstCustomer.SetItemText(i, 6, strMemo);
 		m_lstCustomer.SetItemText(i, 7, strLocation);
 
@@ -100,11 +100,11 @@ void CCustomerPage16::OnClickedRefreshBtn1()
 {	
 	COleDateTime dtDate; m_dtpMain.GetTime(dtDate);
 
-	long nCount = ::GetLongFromEdit(&m_cmbCount1);
+	long nCount = LF->GetLongFromEdit(&m_cmbCount1);
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_customer_report_compare");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	cmd.AddParameter(dtDate);
 	cmd.AddParameter(m_cmbDate1.GetCurSel());
 	cmd.AddParameter(nCount);
@@ -121,11 +121,11 @@ void CCustomerPage16::OnClickedRefreshBtn2()
 	COleDateTime dtFrom; m_dtpFrom.GetTime(dtFrom);
 	COleDateTime dtTo; m_dtpTo.GetTime(dtTo);
 
-	long nCount = ::GetLongFromEdit(&m_cmbCount2);
+	long nCount = LF->GetLongFromEdit(&m_cmbCount2);
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_customer_report_main");
-	cmd.AddParameter(::GetCurBranchInfo()->nCompanyCode);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	cmd.AddParameter(dtFrom);
 	cmd.AddParameter(dtTo);
 	cmd.AddParameter(nCount);
@@ -180,10 +180,10 @@ void CCustomerPage16::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CCustomerPage16::OnViewExcel()
 {
-	if(!POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
+	if(!LF->POWER_CHECK(6900, "°í°´ ¿¢¼¿º¯È¯", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nCustomerTable, 213, m_lstCustomer.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCustomerTable, 213, m_lstCustomer.GetItemCount());  
 	CMyExcel::ToExcel(&m_lstCustomer);
 }
 

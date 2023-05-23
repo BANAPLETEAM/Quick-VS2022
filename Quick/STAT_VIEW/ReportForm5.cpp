@@ -203,7 +203,7 @@ void CReportForm5::OnInitialUpdate()
 /*
 void CReportForm5::RefreshList()
 {
-	if(GetCurBranchInfo()->bIntegrated) {
+	if(LF->GetCurBranchInfo()->bIntegrated) {
 		MessageBox("지점간 정산은 통합보기를 지원하지 않습니다.", "확인", MB_ICONINFORMATION);
 		return;
 	}
@@ -215,8 +215,8 @@ void CReportForm5::RefreshList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_interchange_order");
-	pCmd.AddParameter(typeInt, typeInput, sizeof(int), GetCurBranchInfo()->nDOrderTable);
-	pCmd.AddParameter(typeInt, typeInput, sizeof(int), LASTBRANCH(1, GetCurBranchInfo()->nDOrderTable));
+	pCmd.AddParameter(typeInt, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(typeInt, typeInput, sizeof(int), LASTBRANCH(1, LF->GetCurBranchInfo()->nDOrderTable));
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 	if(!pRs.Execute(&pCmd)) 
@@ -288,9 +288,9 @@ void CReportForm5::RefreshList()
 		m_List.SetItemText(nItem, 6, strDest);
 		m_List.SetItemText(nItem, 7, m_ShareCompanyMap[nRiderCompany].szName);
 		m_List.SetItemText(nItem, 8, ltoa(nRNo, buffer, 10));
-		m_List.SetItemText(nItem, 9, GetMyNumberFormat(nCharge));
-		m_List.SetItemText(nItem, 10, GetMyNumberFormat(nDeposit));
-		m_List.SetItemText(nItem, 11, GetStateString(nState));
+		m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(nCharge));
+		m_List.SetItemText(nItem, 10, LF->GetMyNumberFormat(nDeposit));
+		m_List.SetItemText(nItem, 11, LF->GetStateString(nState));
 		bLastTake = bTake;
 		nItem++;
 
@@ -314,8 +314,8 @@ void CReportForm5::RefreshList()
 			SET_COLOR_LIST(p2, 255, 200, 200);
 			m_List.SetItemText(nItem, 4, m_ShareCompanyMap[i].szName);
 			m_List.SetItemText(nItem, 7, ltoa(m_nTakeCount[i], buffer, 10));
-			m_List.SetItemText(nItem, 9, GetMyNumberFormat(m_nTakeFee[i]));
-			m_List.SetItemText(nItem++, 10, GetMyNumberFormat(m_nTakeDeposit[i]));
+			m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(m_nTakeFee[i]));
+			m_List.SetItemText(nItem++, 10, LF->GetMyNumberFormat(m_nTakeDeposit[i]));
 		}
 	}
 	
@@ -332,8 +332,8 @@ void CReportForm5::RefreshList()
 			SET_COLOR_LIST(p4, 255, 255, 200);
 			m_List.SetItemText(nItem, 4, m_ShareCompanyMap[i].szName);
 			m_List.SetItemText(nItem, 7, ltoa(m_nGiveCount[i], buffer, 10));
-			m_List.SetItemText(nItem, 9, GetMyNumberFormat(m_nGiveFee[i]));
-			m_List.SetItemText(nItem++, 10, GetMyNumberFormat(m_nGiveDeposit[i]));
+			m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(m_nGiveFee[i]));
+			m_List.SetItemText(nItem++, 10, LF->GetMyNumberFormat(m_nGiveDeposit[i]));
 
 		}
 	}
@@ -361,8 +361,8 @@ void CReportForm5::RefreshList()
 			SET_COLOR_LIST(p4, 200, 200, 255);
 			m_List.SetItemText(nItem, 4, CString(m_ShareCompanyMap[i].szName));
 			m_List.SetItemText(nItem, 7, ltoa(m_nTakeCount[i] - m_nGiveCount[i], buffer, 10));
-			m_List.SetItemText(nItem, 9, GetMyNumberFormat(ltoa(nTotalFee, buffer, 10)));
-			m_List.SetItemText(nItem++, 10, GetMyNumberFormat(ltoa(nTotalDeposit , buffer, 10)));
+			m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(ltoa(nTotalFee, buffer, 10)));
+			m_List.SetItemText(nItem++, 10, LF->GetMyNumberFormat(ltoa(nTotalDeposit , buffer, 10)));
 		}
 	}
 
@@ -411,7 +411,7 @@ void CReportForm5::RefreshList()
 	bShowShare3 = m_ThirdShareCheck.GetCheck() > 0 ? TRUE : FALSE;
 
 	m_List.DeleteAllItems();
-	if(GetCurBranchInfo()->bIntegrated) {
+	if(LF->GetCurBranchInfo()->bIntegrated) {
 		MessageBox("지점간 정산은 통합보기를 지원하지 않습니다.", 
 				"확인", MB_ICONINFORMATION);
 		return;
@@ -420,7 +420,7 @@ void CReportForm5::RefreshList()
 	int i = 0;
 	for(i = 0; i < m_ba.GetCount(); i++) {
 		pCurBi = m_ba.GetAt(i);
-		if(pCurBi->nCompanyCode == GetCurBranchInfo()->nDOrderTable) {
+		if(pCurBi->nCompanyCode == LF->GetCurBranchInfo()->nDOrderTable) {
 			nShareCode1 = pCurBi->nShareCode1 == 0 ? -1 : pCurBi->nShareCode1;
 			nShareCode2 = pCurBi->nShareCode2 == 0 ? -1 : pCurBi->nShareCode2;
 			nShareCode3 = pCurBi->nShareCode3 == 0 ? -1 : pCurBi->nShareCode3;
@@ -439,7 +439,7 @@ void CReportForm5::RefreshList()
 	MakeSharedCompanyList();
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_interchange_shared_order7");
-	pCmd.AddParameter(typeInt, typeInput, sizeof(int), GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(typeInt, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 	if(!pRs.Execute(&pCmd)) 
@@ -609,13 +609,13 @@ void CReportForm5::RefreshList()
 		m_List.SetItemText(nItem, 5, strDest);
 		m_List.SetItemText(nItem, 6, m_icm[nRiderCompany].szCompany);
 		m_List.SetItemText(nItem, 7, ltoa(nRNo, buffer, 10));
-		m_List.SetItemText(nItem, 8, GetMyNumberFormat(nCharge));
-		m_List.SetItemText(nItem, 9, GetMyNumberFormat(nDisCharge));
-		m_List.SetItemText(nItem, 10, GetMyNumberFormat(nDeposit));
-		m_List.SetItemText(nItem, 11, GetMyNumberFormat(nRcpShare));
-		m_List.SetItemText(nItem, 12, GetMyNumberFormat(nProcessShare));
-		m_List.SetItemText(nItem, 13, GetMyNumberFormat(nOperateShare));
-		m_List.SetItemText(nItem, 14, GetStateString(nState));
+		m_List.SetItemText(nItem, 8, LF->GetMyNumberFormat(nCharge));
+		m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(nDisCharge));
+		m_List.SetItemText(nItem, 10, LF->GetMyNumberFormat(nDeposit));
+		m_List.SetItemText(nItem, 11, LF->GetMyNumberFormat(nRcpShare));
+		m_List.SetItemText(nItem, 12, LF->GetMyNumberFormat(nProcessShare));
+		m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(nOperateShare));
+		m_List.SetItemText(nItem, 14, LF->GetStateString(nState));
 		m_List.SetItemText(nItem, 15, CString(ltoa(nShareLevel, buffer, 10)) + "차" );
 		m_List.SetItemText(nItem, 16, szAPayMask[nAPay]);
 
@@ -630,23 +630,23 @@ void CReportForm5::RefreshList()
 		m_List.SetItemText(nItem, 7, strDest);
 		m_List.SetItemText(nItem, 8, m_icm[nRiderCompany].szCompany);
 		m_List.SetItemText(nItem, 9, ltoa(nRNo, buffer, 10));
-		m_List.SetItemText(nItem, 10, GetMyNumberFormat(nCharge));
+		m_List.SetItemText(nItem, 10, LF->GetMyNumberFormat(nCharge));
 
 		if(pCurBi->bCreditAfterDiscount && bCreditAfterDiscount && nDisCount != 0 )
-			m_List.SetItemText(nItem, 11,  (atoi(sDisCount) >= 100) ? "-" +GetMyNumberFormat(sDisCount) :"-" +sDisCount +"%" );
+			m_List.SetItemText(nItem, 11,  (atoi(sDisCount) >= 100) ? "-" +LF->GetMyNumberFormat(sDisCount) :"-" +sDisCount +"%" );
 		else
 			m_List.SetItemText(nItem, 11, "");
 
-		m_List.SetItemText(nItem, 12, GetMyNumberFormat(nDisCharge));
-		m_List.SetItemText(nItem, 13, GetMyNumberFormat(nDeposit));
-		m_List.SetItemText(nItem, 14, GetMyNumberFormat(nRcpShare));
-		m_List.SetItemText(nItem, 15, GetMyNumberFormat(nProcessShare));
-		m_List.SetItemText(nItem, 16, GetMyNumberFormat(nOperateShare));
-		m_List.SetItemText(nItem, 17, GetStateString(nState));
+		m_List.SetItemText(nItem, 12, LF->GetMyNumberFormat(nDisCharge));
+		m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(nDeposit));
+		m_List.SetItemText(nItem, 14, LF->GetMyNumberFormat(nRcpShare));
+		m_List.SetItemText(nItem, 15, LF->GetMyNumberFormat(nProcessShare));
+		m_List.SetItemText(nItem, 16, LF->GetMyNumberFormat(nOperateShare));
+		m_List.SetItemText(nItem, 17, LF->GetStateString(nState));
 		m_List.SetItemText(nItem, 18, CString(ltoa(nShareLevel, buffer, 10)) + "차" );
 		m_List.SetItemText(nItem, 19, szAPayMask[nAPay]);
-		m_List.SetItemText(nItem, 20, nAPay == 4 ? GetMyNumberFormat(nCharge) : "");
-		m_List.SetItemText(nItem, 21, GetMyNumberFormat(nChargeTrans));
+		m_List.SetItemText(nItem, 20, nAPay == 4 ? LF->GetMyNumberFormat(nCharge) : "");
+		m_List.SetItemText(nItem, 21, LF->GetMyNumberFormat(nChargeTrans));
 		
 		bLastTake = bTake;
 		nItem++;
@@ -676,9 +676,9 @@ void CReportForm5::RefreshList()
 			SET_COLOR_LIST(p2, 255, 255, 200);
 			m_List.SetItemText(nItem, 6, m_icm[nCompany].szCompany);
 			m_List.SetItemText(nItem, 8, ltoa(ii.nGiveCount, buffer, 10));
-			m_List.SetItemText(nItem, 12, GetMyNumberFormat(ii.nGiveFee));
-			m_List.SetItemText(nItem, 13, GetMyNumberFormat(ii.nGiveDeposit));
-			m_List.SetItemText(nItem++, 14, GetMyNumberFormat(ii.nGiveRcpShare));
+			m_List.SetItemText(nItem, 12, LF->GetMyNumberFormat(ii.nGiveFee));
+			m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(ii.nGiveDeposit));
+			m_List.SetItemText(nItem++, 14, LF->GetMyNumberFormat(ii.nGiveRcpShare));
 		}
 	}
 	
@@ -700,10 +700,10 @@ void CReportForm5::RefreshList()
 			SET_COLOR_LIST(p4, 255, 200, 200);
 			m_List.SetItemText(nItem, 6, m_icm[nCompany].szCompany);
 			m_List.SetItemText(nItem, 8, ltoa(ii.nTakeCount, buffer, 10));
-			m_List.SetItemText(nItem, 12, GetMyNumberFormat(ii.nTakeFee));
-			m_List.SetItemText(nItem, 13, GetMyNumberFormat(ii.nTakeDeposit));
-			m_List.SetItemText(nItem, 14, GetMyNumberFormat(ii.nTakeRcpShare));
-			m_List.SetItemText(nItem++, 16, GetMyNumberFormat(- ii.nTakeOperateShare));
+			m_List.SetItemText(nItem, 12, LF->GetMyNumberFormat(ii.nTakeFee));
+			m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(ii.nTakeDeposit));
+			m_List.SetItemText(nItem, 14, LF->GetMyNumberFormat(ii.nTakeRcpShare));
+			m_List.SetItemText(nItem++, 16, LF->GetMyNumberFormat(- ii.nTakeOperateShare));
 		}
 	}
 	
@@ -734,10 +734,10 @@ void CReportForm5::RefreshList()
 			SET_COLOR_LIST(p4, 200, 200, 255);
 			m_List.SetItemText(nItem, 6, m_icm[nCompany].szCompany);
 			m_List.SetItemText(nItem, 8, ltoa(ii.nGiveCount - ii.nTakeCount, buffer, 10));
-			m_List.SetItemText(nItem, 12, GetMyNumberFormat(ltoa(nTotalFee, buffer, 10)));
-			m_List.SetItemText(nItem, 13, GetMyNumberFormat(ltoa(nTotalDeposit , buffer, 10)));
-			m_List.SetItemText(nItem, 14, GetMyNumberFormat(ii.nGiveRcpShare - ii.nTakeRcpShare));
-			m_List.SetItemText(nItem++, 16, GetMyNumberFormat(- ii.nTakeOperateShare));
+			m_List.SetItemText(nItem, 12, LF->GetMyNumberFormat(ltoa(nTotalFee, buffer, 10)));
+			m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(ltoa(nTotalDeposit , buffer, 10)));
+			m_List.SetItemText(nItem, 14, LF->GetMyNumberFormat(ii.nGiveRcpShare - ii.nTakeRcpShare));
+			m_List.SetItemText(nItem++, 16, LF->GetMyNumberFormat(- ii.nTakeOperateShare));
 		}
 	}
 	
@@ -772,10 +772,10 @@ void CReportForm5::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm5::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 305, m_ui.nWNo, m_List.GetItemCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 305, m_ui.nWNo, m_List.GetItemCount());  
 	CMyExcel::ToExcel(&m_List);
 }
 
@@ -786,7 +786,7 @@ void CReportForm5::MakeSharedCompanyList()
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_all_company");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
 	
 	if(pRs.Execute(&pCmd)) {
 		int nID;
@@ -855,7 +855,7 @@ void CReportForm5::RefreshCallcenter()
 	bShowShare3 = m_ThirdShareCheck.GetCheck() > 0 ? TRUE : FALSE;
 
 	m_List.DeleteAllItems();
-	if(GetCurBranchInfo()->bIntegrated) {
+	if(LF->GetCurBranchInfo()->bIntegrated) {
 		MessageBox("지점간 정산은 통합보기를 지원하지 않습니다.", 
 				"확인", MB_ICONINFORMATION);
 		return;
@@ -864,7 +864,7 @@ void CReportForm5::RefreshCallcenter()
 	int i = 0;
 	for(i = 0; i < m_ba.GetCount(); i++) {
 		pCurBi = m_ba.GetAt(i);
-		if(pCurBi->nCompanyCode == GetCurBranchInfo()->nDOrderTable) {
+		if(pCurBi->nCompanyCode == LF->GetCurBranchInfo()->nDOrderTable) {
 			nShareCode1 = pCurBi->nShareCode1 == 0 ? -1 : pCurBi->nShareCode1;
 			nShareCode2 = pCurBi->nShareCode2 == 0 ? -1 : pCurBi->nShareCode2;
 			nShareCode3 = pCurBi->nShareCode3 == 0 ? -1 : pCurBi->nShareCode3;
@@ -883,7 +883,7 @@ void CReportForm5::RefreshCallcenter()
 	MakeSharedCompanyList();
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_callcenter_report6");
-	pCmd.AddParameter(typeInt, typeInput, sizeof(int), GetCurBranchInfo()->nDOrderTable);
+	pCmd.AddParameter(typeInt, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
 	if(!pRs.Execute(&pCmd)) 
@@ -994,15 +994,15 @@ void CReportForm5::RefreshCallcenter()
 		m_List.SetItemText(nItem, 7, strDest);
 		m_List.SetItemText(nItem, 8, m_icm[nRiderCompany].szCompany);
 		m_List.SetItemText(nItem, 9, ltoa(nRNo, buffer, 10));
-		m_List.SetItemText(nItem, 10, GetMyNumberFormat(nCharge));
+		m_List.SetItemText(nItem, 10, LF->GetMyNumberFormat(nCharge));
 		
 		if(pCurBi->bCreditAfterDiscount && bCreditAfterDiscount && nDisCount != 0 )
-			m_List.SetItemText(nItem, 11, "-" + (atoi(sDisCount) >= 100) ? GetMyNumberFormat(sDisCount) :sDisCount +"%" );
+			m_List.SetItemText(nItem, 11, "-" + (atoi(sDisCount) >= 100) ? LF->GetMyNumberFormat(sDisCount) :sDisCount +"%" );
 		else
 			m_List.SetItemText(nItem, 11, "");
 
-		m_List.SetItemText(nItem, 12, GetMyNumberFormat(nDisCharge));
-		m_List.SetItemText(nItem, 13, GetMyNumberFormat(nDeposit));
+		m_List.SetItemText(nItem, 12, LF->GetMyNumberFormat(nDisCharge));
+		m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(nDeposit));
 
 		if(bMyCall) {
 			nRcpCount++;
@@ -1012,9 +1012,9 @@ void CReportForm5::RefreshCallcenter()
 			int nRcpShare = (nDeposit - nOffset) * nRcpRate / 100;
 			nRcpTotal += nRcpShare;
 			nOperateTotal += nOperateShare;
-			m_List.SetItemText(nItem, 13, GetMyNumberFormat(nRcpShare));
+			m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(nRcpShare));
 			if(nOperateShare > 0)
-				m_List.SetItemText(nItem, 15, GetMyNumberFormat(nOperateShare));
+				m_List.SetItemText(nItem, 15, LF->GetMyNumberFormat(nOperateShare));
 		}
 		else {
 			nProcessCount++;
@@ -1024,10 +1024,10 @@ void CReportForm5::RefreshCallcenter()
 			int nOffset = (nOperateRate >= 100) ? nOperateRate : 0;
 			int nProcessShare = (nDeposit - nOffset) * nProcessRate / 100;
 			nProcessTotal += nProcessShare;
-			m_List.SetItemText(nItem, 14, GetMyNumberFormat(nProcessShare));
+			m_List.SetItemText(nItem, 14, LF->GetMyNumberFormat(nProcessShare));
 		}
 
-		m_List.SetItemText(nItem, 16, GetStateString(nState));
+		m_List.SetItemText(nItem, 16, LF->GetStateString(nState));
 		m_List.SetItemText(nItem, 17, CString(ltoa(nShareLevel, buffer, 10)) + "차" );
 		m_List.SetItemText(nItem, 18, szAPayMask[nAPay]);
 		nItem++;
@@ -1041,25 +1041,25 @@ void CReportForm5::RefreshCallcenter()
 	m_List.SetItemText(nItem, 8, "접수총액");
 	m_List.SetItemText(nItem, 9, CString(ltoa(100 - nProcessRate, buffer, 10)) + "%");
 	m_List.SetItemText(nItem, 10, CString(ltoa(nRcpCount, buffer, 10)) + "건");
-	m_List.SetItemText(nItem++, 12, GetMyNumberFormat(nRcpTotal) + "원");
+	m_List.SetItemText(nItem++, 12, LF->GetMyNumberFormat(nRcpTotal) + "원");
 
 	m_List.InsertItem(nItem, "");
 	SET_COLOR_LIST(p3, 200, 200, 255);
 	m_List.SetItemText(nItem, 8, "처리총액");
 	m_List.SetItemText(nItem, 9, CString(ltoa(nProcessRate, buffer, 10)) + "%");
 	m_List.SetItemText(nItem, 10, CString(ltoa(nProcessCount, buffer, 10)) + "건");
-	m_List.SetItemText(nItem++, 12, GetMyNumberFormat(nProcessTotal) + "원");
+	m_List.SetItemText(nItem++, 12, LF->GetMyNumberFormat(nProcessTotal) + "원");
 
 	m_List.InsertItem(nItem, "");
 	SET_COLOR_LIST(p5, 200, 200, 255);
 	m_List.SetItemText(nItem, 8, "운영총액");
-	m_List.SetItemText(nItem++, 12, GetMyNumberFormat(nOperateTotal) + "원");
+	m_List.SetItemText(nItem++, 12, LF->GetMyNumberFormat(nOperateTotal) + "원");
 
 	m_List.InsertItem(nItem, "");
 	SET_COLOR_LIST(p2, 255, 200, 200);
 	m_List.SetItemText(nItem, 8, "총합계");
 	m_List.SetItemText(nItem, 10, CString(ltoa(nRcpCount + nProcessCount, buffer, 10)) + "건");
-	m_List.SetItemText(nItem++, 12, GetMyNumberFormat(nRcpTotal + nProcessTotal + nOperateTotal) + "원");
+	m_List.SetItemText(nItem++, 12, LF->GetMyNumberFormat(nRcpTotal + nProcessTotal + nOperateTotal) + "원");
 
 	AfxGetApp()->WriteProfileInt("Share", "ProcessShareRate", atol(m_strProcessRate));
 	AfxGetApp()->WriteProfileInt("Share", "OperateShareRate", atol(m_strOperateRate));

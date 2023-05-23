@@ -282,7 +282,7 @@ void COptionDlgGeneral2::OnInitialUpdate()
 
 	SetOptiobView(TRUE);
  
-	if(!POWER_CHECK(1301, "일반"))
+	if(!LF->POWER_CHECK(1301, "일반"))
 		EnableWindow(FALSE);
 
 	CMainOptionDlg2* pDlg = (CMainOptionDlg2*)GetParent()->GetParent(); 
@@ -372,11 +372,11 @@ BOOL COptionDlgGeneral2::Save(long nCompany, BOOL bAll)
 	pCmd.AddParameter(m_chkNotClientPhone1.GetCheck());
 	pCmd.AddParameter(m_chkNotCustomerAddCID.GetCheck());
 	pCmd.AddParameter(m_chkInsertPhoneToInterCallID.GetCheck());
-	pCmd.AddParameter(::GetStringFromEdit(&m_edtInterCallPassword));
+	pCmd.AddParameter(LF->GetStringFromEdit(&m_edtInterCallPassword));
 	pCmd.AddParameter(m_chkCustomerAutoInsert.GetCheck());	
 	pCmd.AddParameter(m_chkFirstWaitTimePast.GetCheck());
 	pCmd.AddParameter(m_chkNotChangedt1ForDelay.GetCheck());
-	pCmd.AddParameter(::GetStringFromEdit(&m_edtNewCustomerName));
+	pCmd.AddParameter(LF->GetStringFromEdit(&m_edtNewCustomerName));
 	pCmd.AddParameter(m_chkHistoryDetailAllView.GetCheck());
 	pCmd.AddParameter(m_chkPopupFocus.GetCheck());
 	pCmd.AddParameter(m_chkColorChange.GetCheck());
@@ -624,7 +624,7 @@ void COptionDlgGeneral2::SaveCarType(long nCarType)
 	}
 
 	*nSel = nCarType;
-	pButton->SetWindowText(::GetCarTypeFromLong(nCarType));
+	pButton->SetWindowText(LF->GetCarTypeFromLong(nCarType));
 }
 
 void COptionDlgGeneral2::SetCarOrder(CString strCarTypeOrder)
@@ -635,7 +635,7 @@ void COptionDlgGeneral2::SetCarOrder(CString strCarTypeOrder)
 	long nNewVisible = ZERO;
 	long nStrIndex = ZERO;
 
-	if(GetCommaCount(strCarTypeOrder) == 5)
+	if(LF->GetCommaCount(strCarTypeOrder) == 5)
 	{ 
 		for(int i = ZERO; i < 5; i++)
 		{
@@ -646,32 +646,32 @@ void COptionDlgGeneral2::SetCarOrder(CString strCarTypeOrder)
 			if(i == ZERO)
 			{
 				m_nCarType1 = nCarType;
-				m_btnCarType1.SetWindowText(::GetCarTypeFromLong(nCarType));
+				m_btnCarType1.SetWindowText(LF->GetCarTypeFromLong(nCarType));
 			}
 			else if(i == ONE)
 			{
 				m_nCarType2 = nCarType;
-				m_btnCarType2.SetWindowText(::GetCarTypeFromLong(nCarType));
+				m_btnCarType2.SetWindowText(LF->GetCarTypeFromLong(nCarType));
 			}
 			else if(i == 2)
 			{
 				m_nCarType3 = nCarType;
-				m_btnCarType3.SetWindowText(::GetCarTypeFromLong(nCarType));
+				m_btnCarType3.SetWindowText(LF->GetCarTypeFromLong(nCarType));
 			}
 			else if(i == 3)
 			{
 				m_nCarType4 = nCarType;
-				m_btnCarType4.SetWindowText(::GetCarTypeFromLong(nCarType));
+				m_btnCarType4.SetWindowText(LF->GetCarTypeFromLong(nCarType));
 			}
 			else if(i == 4)
 			{
 				m_nCarType5 = nCarType;
-				m_btnCarType5.SetWindowText(::GetCarTypeFromLong(nCarType));
+				m_btnCarType5.SetWindowText(LF->GetCarTypeFromLong(nCarType));
 			}
 			nFirstFind = nSecondFind + 1;
 		}
 	}
-	else if(GetCommaCount(strCarTypeOrder) == 3)
+	else if(LF->GetCommaCount(strCarTypeOrder) == 3)
 	{
 		for(int i = ZERO; i < 3; i++)
 		{
@@ -680,17 +680,17 @@ void COptionDlgGeneral2::SetCarOrder(CString strCarTypeOrder)
 			if(i == ZERO)
 			{
 				m_nCarType1 = nCarType;
-				m_btnCarType1.SetWindowText(::GetCarTypeFromLong(nCarType));
+				m_btnCarType1.SetWindowText(LF->GetCarTypeFromLong(nCarType));
 			}
 			else if(i == ONE)
 			{
 				m_nCarType2 = nCarType;
-				m_btnCarType2.SetWindowText(::GetCarTypeFromLong(nCarType));
+				m_btnCarType2.SetWindowText(LF->GetCarTypeFromLong(nCarType));
 			}
 			else if(i == 2)
 			{
 				m_nCarType3 = nCarType;
-				m_btnCarType3.SetWindowText(::GetCarTypeFromLong(nCarType));
+				m_btnCarType3.SetWindowText(LF->GetCarTypeFromLong(nCarType));
 			}
 			nFirstFind = nSecondFind + 1;
 		}
@@ -705,13 +705,13 @@ void COptionDlgGeneral2::SetCarOrder(CString strCarTypeOrder)
 				if(bFindCarType4 == FALSE)
 				{
 					m_nCarType4 = i;
-					m_btnCarType4.SetWindowText(::GetCarTypeFromLong(m_nCarType4));
+					m_btnCarType4.SetWindowText(LF->GetCarTypeFromLong(m_nCarType4));
 					bFindCarType4 = TRUE;
 				}
 				else
 				{
 					m_nCarType5 = i;
-					m_btnCarType5.SetWindowText(::GetCarTypeFromLong(m_nCarType5));
+					m_btnCarType5.SetWindowText(LF->GetCarTypeFromLong(m_nCarType5));
 					break;
 				}
 			}
@@ -720,21 +720,21 @@ void COptionDlgGeneral2::SetCarOrder(CString strCarTypeOrder)
 	else
 	{
 		m_nCarType1 = CAR_AUTO;
-		m_btnCarType1.SetWindowText(::GetCarTypeFromLong(m_nCarType1));
+		m_btnCarType1.SetWindowText(LF->GetCarTypeFromLong(m_nCarType1));
 		m_nCarType2 = CAR_DAMA;
-		m_btnCarType2.SetWindowText(::GetCarTypeFromLong(m_nCarType2));
+		m_btnCarType2.SetWindowText(LF->GetCarTypeFromLong(m_nCarType2));
 		m_nCarType3 = CAR_LABO;
-		m_btnCarType3.SetWindowText(::GetCarTypeFromLong(m_nCarType3));
+		m_btnCarType3.SetWindowText(LF->GetCarTypeFromLong(m_nCarType3));
 		m_nCarType4 = CAR_BIGBIKE;
-		m_btnCarType4.SetWindowText(::GetCarTypeFromLong(m_nCarType4));
+		m_btnCarType4.SetWindowText(LF->GetCarTypeFromLong(m_nCarType4));
 		m_nCarType5 = CAR_TRUCK;
-		m_btnCarType5.SetWindowText(::GetCarTypeFromLong(m_nCarType5));
+		m_btnCarType5.SetWindowText(LF->GetCarTypeFromLong(m_nCarType5));
 	}
 }
 
 void COptionDlgGeneral2::SetPayOrder(CString strPayTypeOrder)
 {
-	if(GetCommaCount(strPayTypeOrder) == 5) 
+	if(LF->GetCommaCount(strPayTypeOrder) == 5) 
 	{
 		long nPayType = ZERO;
 		long nFirstFind = ZERO;
@@ -774,7 +774,7 @@ void COptionDlgGeneral2::SetPayOrder(CString strPayTypeOrder)
 			nFirstFind = nSecondFind + 1;
 		}
 	}
-	else if(GetCommaCount(strPayTypeOrder) == 4)
+	else if(LF->GetCommaCount(strPayTypeOrder) == 4)
 	{
 		long nPayType = ZERO;
 		long nFirstFind = ZERO;

@@ -64,7 +64,7 @@ BOOL CKingoHttp::AddParamValue(CString sName, CString sValue)
 		return FALSE;
 	}
 	if(m_sParamData != "")	m_sParamData += "&";
-	m_sParamData				= m_sParamData + sName + "=" + ((sValue.GetLength() < 1000 ) ? EnCodeStr(sValue) : sValue);
+	m_sParamData				= m_sParamData + sName + "=" + ((sValue.GetLength() < 1000 ) ? LF->EnCodeStr(sValue) : sValue);
 	return TRUE;
 }
 

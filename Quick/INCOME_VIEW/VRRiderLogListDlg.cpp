@@ -84,7 +84,7 @@ void CVRRiderLogListDlg::RefreshList2()
 	
 		CString sAccount = m_sAccount;
 
-		if(!IsStringDigit(sAccount))
+		if(!LF->IsStringDigit(sAccount))
 		{
 			MessageBox("숫자가 아닙니다.", "확인", MB_ICONINFORMATION);
 			return;

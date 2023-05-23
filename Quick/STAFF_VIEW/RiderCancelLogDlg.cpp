@@ -83,7 +83,7 @@ void CRiderCancelLogDlg::RefreshList()
 
 		strNum.Format("%d", i+1);
 		m_wndReport.InsertItem(i, strNum);
-		m_wndReport.SetItemText(i, 1, GetStringFromLong(nTNo));
+		m_wndReport.SetItemText(i, 1, LF->GetStringFromLong(nTNo));
 		m_wndReport.SetItemText(i, 2, m_ci.GetName(nTCompany));
 		m_wndReport.SetItemText(i, 3, dtLog.Format("%y-%m-%d %H:%M:%S"));
 
@@ -108,7 +108,7 @@ void CRiderCancelLogDlg::RefreshList()
 
 		m_wndReport.SetItemText(i, 7, sPenalty);
 		m_wndReport.SetItemText(i, 8, sCancel);
-		m_wndReport.SetItemText(i, 9, ::GetCancelReason(nReason));
+		m_wndReport.SetItemText(i, 9, LF->GetCancelReason(nReason));
 		m_wndReport.SetItemText(i, 10, sCancel == "본인" && nState2 >= 2 ? "상세배차창" : "가배차창");
 	
 		pRs.MoveNext();

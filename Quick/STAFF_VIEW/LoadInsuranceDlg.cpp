@@ -106,7 +106,7 @@ BOOL CLoadInsuranceDlg::IsLoadInsuranceRegister(CString strSSN, CLoadInsuranceDa
 void CLoadInsuranceDlg::RefreshDlg(CLoadInsuranceData *st)
 {
 	m_edtCompanyName.SetWindowText(st->strCompanyName);
-	m_edtRNo.SetWindowText(::GetStringFromLong(st->nRNo));
+	m_edtRNo.SetWindowText(LF->GetStringFromLong(st->nRNo));
 
 	if(st->strSSN.GetLength() == 13)
 		m_edtSSN.SetWindowText(st->strSSN.Left(6) + "-" + st->strSSN.Right(7));
@@ -147,8 +147,8 @@ void CLoadInsuranceDlg::GetLoadInsurancePremiun(long nCarType)
 	long nDay; pParDay->GetValue(nDay);
 	long nMonth; pParMonth->GetValue(nMonth);
 
-	m_edtDailyPremium.SetWindowText(::GetMyNumberFormat(nDay));
-	m_edtMonthlyPremium.SetWindowText(::GetMyNumberFormat(nMonth)); 
+	m_edtDailyPremium.SetWindowText(LF->GetMyNumberFormat(nDay));
+	m_edtMonthlyPremium.SetWindowText(LF->GetMyNumberFormat(nMonth)); 
 }
 
 BOOL CLoadInsuranceDlg::OnInitDialog()
@@ -178,7 +178,7 @@ BOOL CLoadInsuranceDlg::OnInitDialog()
 	else
 	{
 		m_edtCompanyName.SetWindowText(m_ci.GetShareCompanyName(m_nCompany));
-		m_edtRNo.SetWindowText(GetStringFromLong(m_nRNo));
+		m_edtRNo.SetWindowText(LF->GetStringFromLong(m_nRNo));
 		m_edtSSN.SetWindowText(m_strSSN);
 		m_edtCarNumber.SetWindowText(m_strCarNo);
 		m_edtName.SetWindowText(m_strName);

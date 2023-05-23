@@ -106,7 +106,7 @@ void COrderProcessStateDlg::OnMenuPhone(UINT nFlag)
 
 	if(m_bPhoneMenuRiderType)
 	{
-		m_stcRiderPhone.SetWindowText("기사 : " + ::GetDashPhoneNumber(strPhone));
+		m_stcRiderPhone.SetWindowText("기사 : " + LF->GetDashPhoneNumber(strPhone));
 		if(nPhoneType == 0)
 			m_stcCustomerSMSPhone.SetWindowText("<- 기사번호로 전송됨");
 		else if(nPhoneType == 1)
@@ -116,7 +116,7 @@ void COrderProcessStateDlg::OnMenuPhone(UINT nFlag)
 	}
 	else
 	{
-		m_stcCustomerPhone.SetWindowText("고객 : " + ::GetDashPhoneNumber(strPhone));
+		m_stcCustomerPhone.SetWindowText("고객 : " + LF->GetDashPhoneNumber(strPhone));
 		if(nPhoneType == 0)
 			m_stcRiderSMSPhone.SetWindowText("<- 고객번호로 전송됨");
 		else if(nPhoneType == 1)
@@ -307,8 +307,8 @@ void COrderProcessStateDlg::Refresh()
 	}
 
 	bitmap.DeleteObject();
-	m_stcState.SetWindowText(::GetStateString(nLastState));
-	GetBitmapFromImageList(LU->GetRcpView()->GetImageList(), GetImageNumber(nLastState), bitmap);
+	m_stcState.SetWindowText(LF->GetStateString(nLastState));
+	GetBitmapFromImageList(LU->GetRcpView()->GetImageList(), LF->GetImageNumber(nLastState), bitmap);
 	m_picState.SetBitmap((HBITMAP)bitmap.GetSafeHandle());
 	Invalidate(TRUE);
 
@@ -335,7 +335,7 @@ void COrderProcessStateDlg::Refresh()
 				nRiderPosY = nRiderPosY * 0.36;
 			}
 	
-			GetOnlyDistance(nRiderPosX, nRiderPosY, nDestPosX, nDestPosY, this);
+			LF->GetOnlyDistance(nRiderPosX, nRiderPosY, nDestPosX, nDestPosY, this);
 		}
 	}
 /*
@@ -438,11 +438,11 @@ void COrderProcessStateDlg::FillData()
 		m_bHasRiderInfo = FALSE;
 
 	if(m_stSmsInfo.strOMobile.IsEmpty())
-		m_stcCustomerPhone.SetWindowText("고객 : " + ::GetDashPhoneNumber(m_stSmsInfo.strOPhone));
+		m_stcCustomerPhone.SetWindowText("고객 : " + LF->GetDashPhoneNumber(m_stSmsInfo.strOPhone));
 	else
-		m_stcCustomerPhone.SetWindowText("고객 : " + ::GetDashPhoneNumber(m_stSmsInfo.strOMobile));
+		m_stcCustomerPhone.SetWindowText("고객 : " + LF->GetDashPhoneNumber(m_stSmsInfo.strOMobile));
 
-	m_stcRiderPhone.SetWindowText("기사 : " + ::GetDashPhoneNumber(m_stSmsInfo.strRiderPhone));
+	m_stcRiderPhone.SetWindowText("기사 : " + LF->GetDashPhoneNumber(m_stSmsInfo.strRiderPhone));
 }
 
 BOOL COrderProcessStateDlg::GetBitmapFromImageList(CImageList *imglist,int nIndex,CBitmap &bmp)
@@ -565,7 +565,7 @@ void COrderProcessStateDlg::OnBnClickedSendSmsCustomerBtn()
 	CString sCallBackPhone; m_stcRiderPhone.GetWindowText(sCallBackPhone);
 	sCallBackPhone.Replace("기사 : ", "");
 
-	::SendSmsNew(m_ci.m_nCompanyCode, m_stSmsInfo.nTNo, sTranPhone,
+	LF->SendSmsNew(m_ci.m_nCompanyCode, m_stSmsInfo.nTNo, sTranPhone,
 		sCallBackPhone, sMsg, "독촉문자",  "", "", TRUE);
 }
 
@@ -589,7 +589,7 @@ void COrderProcessStateDlg::OnBnClickedSendSmsRiderBtn()
 	CString sCallBackPhone; m_stcCustomerPhone.GetWindowText(sCallBackPhone);
 	sCallBackPhone.Replace("고객 : ", "");
 
-	::SendSmsNew(m_ci.m_nCompanyCode, m_stSmsInfo.nTNo, m_stSmsInfo.strRiderPhone,
+	LF->SendSmsNew(m_ci.m_nCompanyCode, m_stSmsInfo.nTNo, m_stSmsInfo.strRiderPhone,
 		sCallBackPhone, sMsg, "독촉문자", "", "", TRUE);
 }
 
@@ -651,7 +651,7 @@ void COrderProcessStateDlg::OnBnClickedSaveMentBtn()
 void COrderProcessStateDlg::RefreshCombo(BOOL bDbRefresh)
 {
 	if(m_mapStateMent.size() == ZERO || bDbRefresh == TRUE)
-		::FillStateMent();
+		LF->FillStateMent();
 
 	m_cmbMent.ResetContent();
 	
@@ -757,13 +757,13 @@ void COrderProcessStateDlg::OnPaint()
 		dc.DrawText("기사명 : " + m_stSmsInfo.strRName + "(" + CString(itoa(m_stSmsInfo.nRNo, buffer, 10)) + ")", rc, DT_LEFT | DT_VCENTER);
 
 		rc.top = rc.bottom + FONT_SPACE; rc.bottom = rc.top + FONT_HEIGHT;
-		dc.DrawText("차   종 : " + ::GetCarTypeFromLong(m_stSmsInfo.nCarType), rc, DT_LEFT | DT_VCENTER);
+		dc.DrawText("차   종 : " + LF->GetCarTypeFromLong(m_stSmsInfo.nCarType), rc, DT_LEFT | DT_VCENTER);
 
 		rc.top = rc.bottom + FONT_SPACE; rc.bottom = rc.top + FONT_HEIGHT;
-		dc.DrawText("단말ID : " + ::GetDashPhoneNumber(m_stSmsInfo.strID), rc, DT_LEFT | DT_VCENTER);
+		dc.DrawText("단말ID : " + LF->GetDashPhoneNumber(m_stSmsInfo.strID), rc, DT_LEFT | DT_VCENTER);
 
 		rc.top = rc.bottom + FONT_SPACE; rc.bottom = rc.top + FONT_HEIGHT;
-		dc.DrawText("휴대폰 : " + ::GetDashPhoneNumber(m_stSmsInfo.strRiderPhone), rc, DT_LEFT | DT_VCENTER);
+		dc.DrawText("휴대폰 : " + LF->GetDashPhoneNumber(m_stSmsInfo.strRiderPhone), rc, DT_LEFT | DT_VCENTER);
 	}
 	else
 	{
@@ -898,20 +898,20 @@ void COrderProcessStateDlg::LoadPhoneMenu()
 	for(int i=ZERO; i<nCount; i++)
 	{
 		pRs.GetFieldValue("sPhone", strPhone);
-		pMenu->AppendMenu(MF_BYCOMMAND, ID_PHONE + i, ::GetDashPhoneNumber(strPhone));
+		pMenu->AppendMenu(MF_BYCOMMAND, ID_PHONE + i, LF->GetDashPhoneNumber(strPhone));
 		m_arryPhone.Add(strPhone);
 		pRs.MoveNext(); 
 	}
 
 	if(!m_ci.m_strPhone.IsEmpty())
 	{
-		pMenu->AppendMenu(MF_BYCOMMAND, ID_PHONE + nCount++, ::GetDashPhoneNumber(m_ci.m_strPhone) + " [대표번호]");
+		pMenu->AppendMenu(MF_BYCOMMAND, ID_PHONE + nCount++, LF->GetDashPhoneNumber(m_ci.m_strPhone) + " [대표번호]");
 		m_arryPhone.Add(m_ci.m_strPhone);
 	} 
 
 	if(!m_ci.m_strOfficePhone.IsEmpty())
 	{
-		pMenu->AppendMenu(MF_BYCOMMAND, ID_PHONE + nCount++, ::GetDashPhoneNumber(m_ci.m_strOfficePhone) + " [상황실]");
+		pMenu->AppendMenu(MF_BYCOMMAND, ID_PHONE + nCount++, LF->GetDashPhoneNumber(m_ci.m_strOfficePhone) + " [상황실]");
 		m_arryPhone.Add(m_ci.m_strOfficePhone);
 	}
 

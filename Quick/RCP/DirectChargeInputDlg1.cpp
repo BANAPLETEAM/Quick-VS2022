@@ -181,11 +181,11 @@ void CDirectChargeInputDlg1::SetRecordText(CXTPGridRecord *pRecord, long nCol, C
 void CDirectChargeInputDlg1::SetRecordText(CXTPGridRecord *pRecord, long nCol, long nItem)
 {
 	CXTPGridRecordItemText *pItem = (CXTPGridRecordItemText*)pRecord->GetItem(nCol);
-	CString strItem = ::RemoveZero(::GetMyNumberFormat(nItem));
+	CString strItem = LF->RemoveZero(LF->GetMyNumberFormat(nItem));
  
 	pItem->SetValue(strItem);
 	//pItem->SetCaption(strItem);
-	//pRecord->GetItem(nCol)->SetCaption(::RemoveZero(::GetMyNumberFormat(nItem)));
+	//pRecord->GetItem(nCol)->SetCaption(LF->RemoveZero(LF->GetMyNumberFormat(nItem)));
 }
 
 long CDirectChargeInputDlg1::GetRecordText(CXTPGridRecord *pRecord, long nCol)
@@ -265,7 +265,7 @@ long CDirectChargeInputDlg1::GetExceptionID(CPOIUnit *pPoi)
 {
 
 	long nDongID = 0;
-	if(	m_ci.m_bUseDetailDong ||  IsExceptionDetailDongUse(pPoi) )
+	if(	m_ci.m_bUseDetailDong ||  LF->IsExceptionDetailDongUse(pPoi) )
 		nDongID = pPoi->GetID();
 	else
 	{
@@ -384,7 +384,7 @@ void CDirectChargeInputDlg1::RefreshChargeCNoList()
 
 void CDirectChargeInputDlg1::OnBnClickedSaveBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(!m_bUpdateChargeOk)
@@ -443,7 +443,7 @@ void CDirectChargeInputDlg1::OnBnClickedSaveBtn()
 
 void CDirectChargeInputDlg1::OnBnClickedSaveGnoBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(m_nGNo <= 0)
@@ -489,7 +489,7 @@ void CDirectChargeInputDlg1::OnBnClickedSaveGnoBtn()
 
 void CDirectChargeInputDlg1::OnBnClickedSaveCnoBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(m_nCNo <= 0)

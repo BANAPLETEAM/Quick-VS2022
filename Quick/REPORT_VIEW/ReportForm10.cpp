@@ -178,8 +178,8 @@ void CReportForm10::RefreshList()
 	m_dtFrom.GetTime(dtFrom);
 	m_dtTo.GetTime(dtTo);
 
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->bIntegrated);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->bIntegrated);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), dtFrom);
 	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), dtTo);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_cmbType.GetCurSel());
@@ -223,7 +223,7 @@ void CReportForm10::RefreshList()
 			m_wndReport.InsertItem(nItem, ""); 
 			m_wndReport.SetItemText(nItem, 2, strPrevOName);
 			m_wndReport.SetItemText(nItem, 9, "합계");
-			m_wndReport.SetItemText(nItem, 10, ::GetMyNumberFormat(nChargeSumAll));
+			m_wndReport.SetItemText(nItem, 10, LF->GetMyNumberFormat(nChargeSumAll));
 			m_wndReport.SetItemLong(nItem,1);
 			m_wndReport.SetItemNoSort(nItem, TRUE);
 			m_wndReport.SetItemDataText(nItem++, "합계");
@@ -233,7 +233,7 @@ void CReportForm10::RefreshList()
 		nChargeSumAll += nChargeSum;
 
 		m_wndReport.InsertCheckItem(nItem, "", -1, FALSE);
-		m_wndReport.SetItemText(nItem, 1, ::GetStringFromLong(nTNo));
+		m_wndReport.SetItemText(nItem, 1, LF->GetStringFromLong(nTNo));
 		m_wndReport.SetItemText(nItem, 2, m_ci.GetBranchName(nCompany));
 		m_wndReport.SetItemText(nItem, 3, dt1.Format("%m-%d %H:%M"));
 		m_wndReport.SetItemText(nItem, 4, sOName);
@@ -241,15 +241,15 @@ void CReportForm10::RefreshList()
 		m_wndReport.SetItemText(nItem, 6, sDDong);
 		m_wndReport.SetItemText(nItem, 7, sODepart);
 		m_wndReport.SetItemText(nItem, 8, sOManager);
-		m_wndReport.SetItemText(nItem, 9, ::GetMyNumberFormat(nChargeTrans));
-		m_wndReport.SetItemText(nItem, 10, ::GetMyNumberFormat(nChargeSum));
+		m_wndReport.SetItemText(nItem, 9, LF->GetMyNumberFormat(nChargeTrans));
+		m_wndReport.SetItemText(nItem, 10, LF->GetMyNumberFormat(nChargeSum));
 
 		if(nChargeDisAfter == 0) 
-			m_wndReport.SetItemText(nItem, 11, ::GetMyNumberFormat(nChargeSum));
+			m_wndReport.SetItemText(nItem, 11, LF->GetMyNumberFormat(nChargeSum));
 		else
-			m_wndReport.SetItemText(nItem, 11, ::GetMyNumberFormat(nChargeDisAfter));
+			m_wndReport.SetItemText(nItem, 11, LF->GetMyNumberFormat(nChargeDisAfter));
 
-		m_wndReport.SetItemText(nItem, 12, ::GetPayTypeFromLong(nPayType));
+		m_wndReport.SetItemText(nItem, 12, LF->GetPayTypeFromLong(nPayType));
 		if(nTransferState == 0 || dtInput.m_status == 2)
 			m_wndReport.SetItemText(nItem, 13, "");
 		else
@@ -277,7 +277,7 @@ void CReportForm10::RefreshList()
 		m_wndReport.InsertItem(nItem, "");
 		m_wndReport.SetItemText(nItem, 2, strPrevOName);
 		m_wndReport.SetItemText(nItem, 9, "합계");
-		m_wndReport.SetItemText(nItem, 10, ::GetMyNumberFormat(nChargeSumAll));
+		m_wndReport.SetItemText(nItem, 10, LF->GetMyNumberFormat(nChargeSumAll));
 		m_wndReport.SetItemLong(nItem,1);
 		m_wndReport.SetItemNoSort(nItem, TRUE);
 		m_wndReport.SetItemDataText(nItem++, "합계");
@@ -320,17 +320,17 @@ void CReportForm10::RefreshCount()
 			stTotalData.nCompleteCount += stData.nCompleteCount;
 			stTotalData.nNotCompleteCount += stData.nNotCompleteCount;
 
-			m_wndReport.SetItemText(pRecord, 3, "건수 : " + ::GetStringFromLong(stData.nOCNoCount));
-			m_wndReport.SetItemText(pRecord, 4, "금액 : " + ::GetMyNumberFormat(stData.nOCNoChargeSum));
-			m_wndReport.SetItemText(pRecord, 5, "DC금액 : " + ::GetMyNumberFormat(stData.nOCNoChargeDisAfter));
-			m_wndReport.SetItemText(pRecord, 6, "탁송 " + ::GetStringFromLong(stData.nOCNoCountTrans) + "건");
-			m_wndReport.SetItemText(pRecord, 7, ::GetMyNumberFormat(stData.nOCNoChargeTrans));
-			m_wndReport.SetItemText(pRecord, 8, "신용 " + ::GetStringFromLong(stData.nOCNoCountCredit) + "건");
-			m_wndReport.SetItemText(pRecord, 9, ::GetMyNumberFormat(stData.nOCNoChargeCredit));
-			m_wndReport.SetItemText(pRecord, 10, "송금 " + ::GetStringFromLong(stData.nOCNoCountOnline) + "건");
-			m_wndReport.SetItemText(pRecord, 11, ::GetMyNumberFormat(stData.nOCNoChargeOnline));
-			m_wndReport.SetItemText(pRecord, 12, "입금 " + ::GetStringFromLong(stData.nCompleteCount) + "건");
-			m_wndReport.SetItemText(pRecord, 13, "미입금 " + ::GetStringFromLong(stData.nNotCompleteCount) + "건");
+			m_wndReport.SetItemText(pRecord, 3, "건수 : " + LF->GetStringFromLong(stData.nOCNoCount));
+			m_wndReport.SetItemText(pRecord, 4, "금액 : " + LF->GetMyNumberFormat(stData.nOCNoChargeSum));
+			m_wndReport.SetItemText(pRecord, 5, "DC금액 : " + LF->GetMyNumberFormat(stData.nOCNoChargeDisAfter));
+			m_wndReport.SetItemText(pRecord, 6, "탁송 " + LF->GetStringFromLong(stData.nOCNoCountTrans) + "건");
+			m_wndReport.SetItemText(pRecord, 7, LF->GetMyNumberFormat(stData.nOCNoChargeTrans));
+			m_wndReport.SetItemText(pRecord, 8, "신용 " + LF->GetStringFromLong(stData.nOCNoCountCredit) + "건");
+			m_wndReport.SetItemText(pRecord, 9, LF->GetMyNumberFormat(stData.nOCNoChargeCredit));
+			m_wndReport.SetItemText(pRecord, 10, "송금 " + LF->GetStringFromLong(stData.nOCNoCountOnline) + "건");
+			m_wndReport.SetItemText(pRecord, 11, LF->GetMyNumberFormat(stData.nOCNoChargeOnline));
+			m_wndReport.SetItemText(pRecord, 12, "입금 " + LF->GetStringFromLong(stData.nCompleteCount) + "건");
+			m_wndReport.SetItemText(pRecord, 13, "미입금 " + LF->GetStringFromLong(stData.nNotCompleteCount) + "건");
 
 			INIT_REPORT10_STRUCT(stData);
 		}
@@ -339,11 +339,11 @@ void CReportForm10::RefreshCount()
 			nPayType = m_wndReport.GetItemData(pRecord);
 
 			stData.nOCNoCount++;
-			stData.nOCNoChargeSum += ::GetRemoveMyNumberFormat(m_wndReport.GetItemText(pRecord, 10));
-			nChargeTrans = ::GetRemoveMyNumberFormat(m_wndReport.GetItemText(pRecord, 9));
+			stData.nOCNoChargeSum += LF->GetRemoveMyNumberFormat(m_wndReport.GetItemText(pRecord, 10));
+			nChargeTrans = LF->GetRemoveMyNumberFormat(m_wndReport.GetItemText(pRecord, 9));
 			stData.nOCNoChargeTrans += nChargeTrans;
 			stData.nOCNoCountTrans += nChargeTrans == 0 ? 0 : 1;
-			nChargeDisAfter = ::GetRemoveMyNumberFormat(m_wndReport.GetItemText(pRecord, 11));
+			nChargeDisAfter = LF->GetRemoveMyNumberFormat(m_wndReport.GetItemText(pRecord, 11));
 			stData.nOCNoChargeDisAfter += nChargeDisAfter;
 			if(nPayType == 2)
 			{
@@ -367,10 +367,10 @@ void CReportForm10::RefreshCount()
 
 	if(stTotalData.nOCNoCount > 0)
 	{
-		CString sTrans; sTrans.Format("%s건 %s원", ::GetMyNumberFormat(stTotalData.nOCNoCountTrans), ::GetMyNumberFormat(stTotalData.nOCNoChargeTrans));
-		CString sCredit; sCredit.Format("%s건 %s원", ::GetMyNumberFormat(stTotalData.nOCNoCountCredit), ::GetMyNumberFormat(stTotalData.nOCNoChargeCredit));
-		CString sOnline; sOnline.Format("%s건 %s원", ::GetMyNumberFormat(stTotalData.nOCNoCountOnline), ::GetMyNumberFormat(stTotalData.nOCNoChargeOnline));
-		CString sTransfetState; sTransfetState.Format("입금 : %s건 미입급 : %s건", ::GetMyNumberFormat(stTotalData.nCompleteCount), ::GetMyNumberFormat(stTotalData.nNotCompleteCount));
+		CString sTrans; sTrans.Format("%s건 %s원", LF->GetMyNumberFormat(stTotalData.nOCNoCountTrans), LF->GetMyNumberFormat(stTotalData.nOCNoChargeTrans));
+		CString sCredit; sCredit.Format("%s건 %s원", LF->GetMyNumberFormat(stTotalData.nOCNoCountCredit), LF->GetMyNumberFormat(stTotalData.nOCNoChargeCredit));
+		CString sOnline; sOnline.Format("%s건 %s원", LF->GetMyNumberFormat(stTotalData.nOCNoCountOnline), LF->GetMyNumberFormat(stTotalData.nOCNoChargeOnline));
+		CString sTransfetState; sTransfetState.Format("입금 : %s건 미입급 : %s건", LF->GetMyNumberFormat(stTotalData.nCompleteCount), LF->GetMyNumberFormat(stTotalData.nNotCompleteCount));
 
 		m_wndReport.InsertItem(nRecordCount, "");
 		m_wndReport.SetItemNoSort(nRecordCount++, TRUE);
@@ -387,14 +387,14 @@ void CReportForm10::RefreshCount()
 		m_wndReport.SetItemNoSort(nRecordCount++, TRUE);
 
 		m_wndReport.InsertItem(nRecordCount, "");
-		m_wndReport.SetItemText(nRecordCount, 3, ::GetMyNumberFormat(stTotalData.nOCNoCount));
-		m_wndReport.SetItemText(nRecordCount, 4, ::GetMyNumberFormat(stTotalData.nOCNoChargeSum));
-		m_wndReport.SetItemText(nRecordCount, 5, ::GetMyNumberFormat(stTotalData.nOCNoChargeDisAfter));
+		m_wndReport.SetItemText(nRecordCount, 3, LF->GetMyNumberFormat(stTotalData.nOCNoCount));
+		m_wndReport.SetItemText(nRecordCount, 4, LF->GetMyNumberFormat(stTotalData.nOCNoChargeSum));
+		m_wndReport.SetItemText(nRecordCount, 5, LF->GetMyNumberFormat(stTotalData.nOCNoChargeDisAfter));
 		m_wndReport.SetItemText(nRecordCount, 6, sTrans);
 		m_wndReport.SetItemText(nRecordCount, 7, sCredit);
 		m_wndReport.SetItemText(nRecordCount, 8, sOnline);
 		m_wndReport.SetItemText(nRecordCount, 9, sTransfetState);
-		m_wndReport.SetItemText(nRecordCount, 10, ::GetMyNumberFormat(stTotalData.nOCNoChargeSum + stTotalData.nOCNoChargeTrans));
+		m_wndReport.SetItemText(nRecordCount, 10, LF->GetMyNumberFormat(stTotalData.nOCNoChargeSum + stTotalData.nOCNoChargeTrans));
 
 
 		m_wndReport.SetItemNoSort(nRecordCount++, TRUE);
@@ -656,10 +656,10 @@ void CReportForm10::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CReportForm10::OnViewExcel()
 {
-	if(!POWER_CHECK(3900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(3900, "엑셀변환", TRUE))
 		return;
 
-	AddSecurityLog(GetCurBranchInfo()->nDOrderTable, 310, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 310, m_ui.nWNo, m_wndReport.GetRows()->GetCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }
 
@@ -737,7 +737,7 @@ void CReportForm10::OnBnClickedInputBtn()
 {
 	CReceiveMoneyDlg dlg;
 	dlg.m_bIntegrated = m_ba.GetCount() > 1 ? TRUE : FALSE;	
-	dlg.m_nCompany = GetCurBranchInfo()->nCompanyCode;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nCompanyCode;
 	dlg.DoModal();
 }
 
@@ -768,12 +768,12 @@ void CReportForm10::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resu
 	CString strTNo = m_wndReport.GetItemText(pRows->GetAt(0)->GetRecord(), 1);
 	strTNo.Replace("오더 " , "");
 
-	if(!IsNumeric(strTNo)) return;
+	if(!LF->IsNumeric(strTNo)) return;
 	if(atoi(strTNo) < 100000) return;
 
 	CString strCName; long nState;
 
-	if(::IsCrossOrder(atoi(strTNo), strCName, nState))
+	if(LF->IsCrossOrder(atoi(strTNo), strCName, nState))
 	{ 
 		COrderLogDetailDlg DetailLog;
 		//DetailLog.m_pCurDb = IsSecondServerOrder(nSelItem) ? m_pMkSecondDb : m_pMkDb;
@@ -784,7 +784,7 @@ void CReportForm10::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resu
 		return;
 	}
 
-	if(!POWER_CHECK(2001, "접수창 열기", TRUE))
+	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
 	if(!LU->GetRcpView()) {

@@ -150,7 +150,7 @@ void CIPass::PassData()
 		pOptionOrderMemo = GetSubWnd(pOptionOrderMemo, 0);
 		pOptionOrderMemo = GetSubWnd(pOptionOrderMemo, 0);
 		pOptionOrderMemo = GetSubWnd(pOptionOrderMemo, 1);
-		::SendMessage(pOptionOrderMemo->GetSafeHwnd(), WM_SETTEXT, 0, (LPARAM)(LPCTSTR)::GetStringFromEdit(&m_pRcpDlg->m_edtIntercallEtc));
+		::SendMessage(pOptionOrderMemo->GetSafeHwnd(), WM_SETTEXT, 0, (LPARAM)(LPCTSTR)LF->GetStringFromEdit(&m_pRcpDlg->m_edtIntercallEtc));
 
 		CWnd *pRcpDataTitle = GetSubWnd(pRcpDataMain, 3);
 		pRcpDataTitle = GetSubWnd(pRcpDataTitle, 3);
@@ -274,7 +274,7 @@ void CIPass::InsertOptionData(CWnd *pWnd)
 		{
 			pTemp = GetSubWnd(pChildWnd, 1);
 
-			CString strTemp = ::GetStringFromEdit(m_pRcpDlg->m_EDT_ETC.pEdit);
+			CString strTemp = LF->GetStringFromEdit(m_pRcpDlg->m_EDT_ETC.pEdit);
 
 			int nStart = strTemp.Find("{업체부담금");
 			int nEnd = strTemp.Find("}", nStart);
@@ -304,7 +304,7 @@ void CIPass::InsertOptionData(CWnd *pWnd)
 
 	CWnd *pEtc = GetSubWnd(pWnd, 28);
 	pEtc = GetSubWnd(pEtc, 1);
-	::SendMessage(pEtc->GetSafeHwnd(), WM_SETTEXT, 0, (LPARAM)(LPCTSTR)::GetStringFromEdit(m_pRcpDlg->m_EDT_ETC.pEdit)); //적요
+	::SendMessage(pEtc->GetSafeHwnd(), WM_SETTEXT, 0, (LPARAM)(LPCTSTR)LF->GetStringFromEdit(m_pRcpDlg->m_EDT_ETC.pEdit)); //적요
 	
 
 	CWnd *pShare = GetSubWnd(pWnd, 8); //공유체크
@@ -589,48 +589,48 @@ void CIPass::InsertChargeData(CWnd *pWnd)
 {	
 	CWnd *pDefault = GetSubWnd(pWnd, 17);
 	pDefault = GetSubWnd(pDefault, 0);
-	AddCharge(pDefault, ::RemoveComma(::GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_BASIC.pEdit)));//기본요금
+	AddCharge(pDefault, LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_BASIC.pEdit)));//기본요금
 
 	CWnd *pAdd = GetSubWnd(pWnd, 2);
 	pAdd = GetSubWnd(pAdd, 0);
-	long nAdd = atoi(::RemoveComma(::GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_ADD.pEdit)));	
-	AddCharge(pAdd, ::GetStringFromLong(nAdd));//추가
+	long nAdd = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_ADD.pEdit)));	
+	AddCharge(pAdd, LF->GetStringFromLong(nAdd));//추가
 
 	CWnd *pDis = GetSubWnd(pWnd, 12);
 	pDis = GetSubWnd(pDis, 0);
-	long nDis = atoi(::RemoveComma(::GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_DIS.pEdit)));
-	//long nChargeCompany = atoi(::RemoveComma(::GetStringFromEdit(&m_pRcpDlg->m_edtChargeCompany)));
-	AddCharge(pDis, ::GetStringFromLong(nDis)); //할인
+	long nDis = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_DIS.pEdit)));
+	//long nChargeCompany = atoi(LF->RemoveComma(LF->GetStringFromEdit(&m_pRcpDlg->m_edtChargeCompany)));
+	AddCharge(pDis, LF->GetStringFromLong(nDis)); //할인
 
 	CWnd *pTran = GetSubWnd(pWnd, 14);
 	pTran = GetSubWnd(pTran, 0);
 
-	long nTran = atoi(::RemoveComma(::GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_TRANS.pEdit)));	
-	AddCharge(pTran, ::GetStringFromLong(nTran));//탁송
+	long nTran = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_TRANS.pEdit)));	
+	AddCharge(pTran, LF->GetStringFromLong(nTran));//탁송
 
 
 	/*
 	// 핸들명 요금
 	CWnd *pDefault = GetSubWnd(pWnd, 17);
 	pDefault = GetSubWnd(pDefault, 0);
-	AddCharge(pDefault, ::RemoveComma(::GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_BASIC.pEdit)));//기본요금
+	AddCharge(pDefault, LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_BASIC.pEdit)));//기본요금
 
 	CWnd *pAdd = GetSubWnd(pWnd, 2);
 	pAdd = GetSubWnd(pAdd, 0);
-	long nAdd = atoi(::RemoveComma(::GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_ADD.pEdit)));	
-	AddCharge(pAdd, ::GetStringFromLong(nAdd));//추가
+	long nAdd = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_ADD.pEdit)));	
+	AddCharge(pAdd, LF->GetStringFromLong(nAdd));//추가
 
 	CWnd *pDis = GetSubWnd(pWnd, 12);
 	pDis = GetSubWnd(pDis, 0);
-	long nDis = atoi(::RemoveComma(::GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_DIS.pEdit)));
-	long nChargeCompany = atoi(::RemoveComma(::GetStringFromEdit(&m_pRcpDlg->m_edtChargeCompany)));
-	AddCharge(pDis, ::GetStringFromLong(nDis + nChargeCompany)); //할인
+	long nDis = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_DIS.pEdit)));
+	long nChargeCompany = atoi(LF->RemoveComma(LF->GetStringFromEdit(&m_pRcpDlg->m_edtChargeCompany)));
+	AddCharge(pDis, LF->GetStringFromLong(nDis + nChargeCompany)); //할인
 
 	CWnd *pTran = GetSubWnd(pWnd, 14);
 	pTran = GetSubWnd(pTran, 0);
 
-	long nTran = atoi(::RemoveComma(::GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_TRANS.pEdit)));	
-	AddCharge(pTran, ::GetStringFromLong(nTran));//탁송
+	long nTran = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_TRANS.pEdit)));	
+	AddCharge(pTran, LF->GetStringFromLong(nTran));//탁송
 
 	*/
 }

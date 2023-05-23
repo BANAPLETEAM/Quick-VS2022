@@ -595,7 +595,7 @@ void CChargeDongNewDlg::MakeDongList()
    
 	for(MAP_DONG::iterator it = m_mapDest.begin(); it != m_mapDest.end(); it++)
 	{  
-		CString strDong = ::GetRemoveLastDong(it->second.strDong); 
+		CString strDong = LF->GetRemoveLastDong(it->second.strDong); 
 
 		CSize szSize = dc.GetTextExtent(strDong); 
 		CStringW strW(strDong);
@@ -636,7 +636,7 @@ void CChargeDongNewDlg::MakeDongList()
 
 	for(MAP_DONG::iterator it = m_mapStart.begin(); it != m_mapStart.end(); it++)
 	{
-		CString strDong = ::GetRemoveLastDong(it->second.strDong);
+		CString strDong = LF->GetRemoveLastDong(it->second.strDong);
 		CSize szSize = dc.GetTextExtent(strDong);
 
 		nMaxCol = max(nMaxCol, szSize.cx);
@@ -658,7 +658,7 @@ void CChargeDongNewDlg::OnBnClickedCloseButton()
 
 void CChargeDongNewDlg::OnBnClickedSaveButton()
 {
-	if(!::POWER_CHECK(1101, "요금수정/삭제", TRUE)) 
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE)) 
 		return;
 
 	long nSaveCount = IsChargeChange(TRUE);
@@ -728,7 +728,7 @@ void CChargeDongNewDlg::ReLoadCharge()
 	/*
 	CChargeDongReportRecord *pRecord1 = (CChargeDongReportRecord*)m_lstDong.GetRecords()->GetAt(1);
 	pRecord1->SetCharge(1, 200000);
-	pRecord1->GetItem(1)->SetCaption(fc.GetStringFromLong(200000));
+	pRecord1->GetItem(1)->SetCaption(fc.LF->GetStringFromLong(200000));
 	m_lstDong.Populate();
 	return; 
 
@@ -742,7 +742,7 @@ void CChargeDongNewDlg::ReLoadCharge()
 	{
 	pRecord1->SetCharge(st.nCol, st.nCharge);
 	pRecord1->SetChange(st.nCol, FALSE); 
-	pRecord1->GetItem(st.nCol)->SetCaption(fc.GetStringFromLong(st.nCharge));
+	pRecord1->GetItem(st.nCol)->SetCaption(fc.LF->GetStringFromLong(st.nCharge));
 	}
 	}
 
@@ -948,10 +948,10 @@ void CChargeDongNewDlg::OnInsertCharge()
 
 void CChargeDongNewDlg::OnExcel()
 {
-	if(!POWER_CHECK(1900, "엑셀변환", TRUE))
+	if(!LF->POWER_CHECK(1900, "엑셀변환", TRUE))
 		return;
 	
-	::AddSecurityLog(m_ci.m_nCompanyCode, 801, m_lstDong.GetRecords()->GetCount());
+	LF->AddSecurityLog(m_ci.m_nCompanyCode, 801, m_lstDong.GetRecords()->GetCount());
 	CMyExcel::ToExcel(&m_lstDong);
 }
 
@@ -1047,7 +1047,7 @@ void CChargeDongNewDlg::OnBnClickedSearchBtn()
 
 void CChargeDongNewDlg::OnBnClickedDiscountCompanyBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	CString sChargeName = "";
@@ -1062,7 +1062,7 @@ void CChargeDongNewDlg::OnBnClickedDiscountCompanyBtn()
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "insert_chargetype_name");
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nPayTable);
 		pCmd.AddParameter(typeString, typeInput, sChargeName.GetLength(), sChargeName);
 		pCmd.AddParameter(typeString, typeInput, m_ui.strName.GetLength(), m_ui.strName);
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -1099,7 +1099,7 @@ void CChargeDongNewDlg::OnBnClickedDiscountCompanyBtn()
 
 void CChargeDongNewDlg::OnBnClickedDiscountCompanyDelBtn()
 {
-	if(!POWER_CHECK(1101, "요금수정/삭제", TRUE))
+	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
 	if(m_cmbDiscountCompany.GetCount() <= 0 )
@@ -1126,7 +1126,7 @@ void CChargeDongNewDlg::OnBnClickedDiscountCompanyDelBtn()
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "delete_chargetype_name2");
-		pCmd.AddParameter(typeLong, typeInput, sizeof(long), GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nPayTable);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), nChargeTypeID);
 
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);

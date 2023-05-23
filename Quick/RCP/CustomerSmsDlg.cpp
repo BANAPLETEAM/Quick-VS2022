@@ -93,29 +93,29 @@ BOOL CCustomerSmsDlg::OnInitDialog()
 
 	//m_edtMent.SetFontSize(17);
 	ST_SMS_INFO smsi;
-	smsi = ::GetSMSBalance(m_nCompany);
+	smsi = LF->GetSMSBalance(m_nCompany);
 	//리턴값으로 잔액과 지원하지 못한다는 문구 뿌려줌.  선입금과 본지점만 막는다.
 	UpdateData(TRUE);
 	if(smsi.nSMSType >= 10){ 		
 
 		if(smsi.nSMSBarance <= DEFINE_SMS_AMOUNT - 1 )
 		{
-			m_strBalance = (smsi.nSMSBarance != 0) ? GetMyNumberFormat(smsi.nSMSBarance) : "0";
+			m_strBalance = (smsi.nSMSBarance != 0) ? LF->GetMyNumberFormat(smsi.nSMSBarance) : "0";
 			m_btnConfirm.EnableWindow(0);
 		}
 		else
 		{
-			m_strBalance = GetMyNumberFormat(smsi.nSMSBarance);
+			m_strBalance = LF->GetMyNumberFormat(smsi.nSMSBarance);
 			int nSMCount = smsi.nSMSBarance / DEFINE_SMS_AMOUNT;
-			m_strSMSCount.Format("수량: %s건", GetMyNumberFormat((long)nSMCount));
+			m_strSMSCount.Format("수량: %s건", LF->GetMyNumberFormat((long)nSMCount));
 
 		}
 	}
 	else
 	{
-		m_strBalance = GetMyNumberFormat(smsi.nSMSBarance);
+		m_strBalance = LF->GetMyNumberFormat(smsi.nSMSBarance);
 		int nSMCount = smsi.nSMSBarance / DEFINE_SMS_AMOUNT;
-		m_strSMSCount.Format("수량: %s건", GetMyNumberFormat((long)nSMCount));
+		m_strSMSCount.Format("수량: %s건", LF->GetMyNumberFormat((long)nSMCount));
 	}
 
 	UpdateData(FALSE);
@@ -213,7 +213,7 @@ void CCustomerSmsDlg::MakeCustomerList()
 	BOOL bShopCustomer = FALSE;
 	for(int i = 0; i < m_pSourceList->GetItemCount(); i++)
 	{
-		CString strPhone = GetNoneDashNumber(m_pSourceList->GetItemText(i, m_nPhoneCol));
+		CString strPhone = LF->GetNoneDashNumber(m_pSourceList->GetItemText(i, m_nPhoneCol));
 		bShopCustomer = m_pSourceList->GetItemText(i, m_nCTypeCol).GetLength() > 0 ? TRUE : FALSE;
 		bNotWanted = m_pSourceList->GetItemText(i, m_nNotWantedCol).GetLength() > 0 ? TRUE : FALSE;
 
@@ -423,7 +423,7 @@ void CCustomerSmsDlg::OnBnClickedOk()
 	int nTotCount = 0;
 
 	ST_SMS_INFO smsi;
-	smsi = ::GetSMSBalance(m_nCompany);
+	smsi = LF->GetSMSBalance(m_nCompany);
 	if(smsi.nSMSType >= 10)
 	{
 		if(smsi.nSMSBarance < DEFINE_SMS_AMOUNT - 1){

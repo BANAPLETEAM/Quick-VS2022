@@ -340,7 +340,7 @@ void CMainOptionDlg2::OptionControlApply(CMkRecordset *pRs,COptionDlgGeneral2*	p
 	pOptionDlgGeneral->m_chkUseRTIDOnSpeedAllocate.SetCheck(pOptionDlgGeneral->m_bUseRTIDOnSpeedAllocate);
 	pOptionDlgGeneral->m_chkUsePayBonggoFromLabo.SetCheck(bUsePayBonggoFromLabo);
 	pOptionDlgGeneral->m_chkUseCardTax.SetCheck(pOptionDlgGeneral->m_bUseCardTax);
-	pOptionDlgGeneral->m_strRevisitCustomerSendDay = ::RemoveZero(nRevisitCustomerSendDay);
+	pOptionDlgGeneral->m_strRevisitCustomerSendDay = LF->RemoveZero(nRevisitCustomerSendDay);
 	pOptionDlgGeneral->m_chkRevisitCustomer.SetCheck(nRevisitCustomerSendDay);
 	pOptionDlgGeneral->m_edtRevisitCustomerSendDay.EnableWindow(nRevisitCustomerSendDay);
 	pOptionDlgGeneral->m_edtEtcAuto.SetWindowText(pOptionDlgGeneral->m_strEtcAuto);
@@ -480,33 +480,33 @@ void CMainOptionDlg2::OptionControlApply(CMkRecordset *pRs,COptionDlgCharge*	pOp
 		pOptionDlgCharge->m_chkUpChargeForNotAllocateAuto.SetCheck(FALSE);
 	}  
 
-	pOptionDlgCharge->m_strUpChargeForNotAllocateManual1 = ::GetMyNumberFormat(nUpChargeForNotAllocate1);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateManual2 = ::GetMyNumberFormat(nUpChargeForNotAllocate2);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateManual3 = ::GetMyNumberFormat(nUpChargeForNotAllocate3);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute1 = ::GetMyNumberFormat(nUpChargeForNotAllocateMinute1);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute2 = ::GetMyNumberFormat(nUpChargeForNotAllocateMinute2);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute3 = ::GetMyNumberFormat(nUpChargeForNotAllocateMinute3);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute4 = ::GetMyNumberFormat(nUpChargeForNotAllocateMinute4);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute5 = ::GetMyNumberFormat(nUpChargeForNotAllocateMinute5);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto1 = ::GetMyNumberFormat(nUpChargeForNotAllocateAuto1);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto2 = ::GetMyNumberFormat(nUpChargeForNotAllocateAuto2);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto3 = ::GetMyNumberFormat(nUpChargeForNotAllocateAuto3);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto4 = ::GetMyNumberFormat(nUpChargeForNotAllocateAuto4);
-	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto5 = ::GetMyNumberFormat(nUpChargeForNotAllocateAuto5);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateManual1 = LF->GetMyNumberFormat(nUpChargeForNotAllocate1);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateManual2 = LF->GetMyNumberFormat(nUpChargeForNotAllocate2);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateManual3 = LF->GetMyNumberFormat(nUpChargeForNotAllocate3);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute1 = LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute1);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute2 = LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute2);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute3 = LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute3);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute4 = LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute4);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateMinute5 = LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute5);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto1 = LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto1);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto2 = LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto2);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto3 = LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto3);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto4 = LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto4);
+	pOptionDlgCharge->m_strUpChargeForNotAllocateAuto5 = LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto5);
 
-	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute1.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateMinute1));
-	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto1.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateAuto1));
-	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute2.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateMinute2));
-	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto2.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateAuto2));
-	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute3.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateMinute3));
-	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto3.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateAuto3));
-	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute4.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateMinute4));
-	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto4.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateAuto4));
-	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute5.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateMinute5));
-	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto5.SetWindowText(::GetMyNumberFormat(nUpChargeForNotAllocateAuto5));
+	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute1.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute1));
+	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto1.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto1));
+	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute2.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute2));
+	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto2.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto2));
+	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute3.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute3));
+	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto3.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto3));
+	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute4.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute4));
+	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto4.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto4));
+	pOptionDlgCharge->m_cmbUpChargeForNotAllocateMinute5.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateMinute5));
+	pOptionDlgCharge->m_edtUpChargeForNotAllocateAuto5.SetWindowText(LF->GetMyNumberFormat(nUpChargeForNotAllocateAuto5));
 	pOptionDlgCharge->m_chkUpChargeForNotAllocateReserve.SetCheck(bUpChargeForNotAllocateReserve);
 	pOptionDlgCharge->m_chkUpChargeForNotAllocateDeposit.SetCheck(bUpChargeForNotAllocateDeposit);
-	pOptionDlgCharge->m_edtNewCustomerMileage.SetWindowText(::GetMyNumberFormat(nNewCustomerMileage));
+	pOptionDlgCharge->m_edtNewCustomerMileage.SetWindowText(LF->GetMyNumberFormat(nNewCustomerMileage));
 				 
 	pOptionDlgCharge->m_chkAddDisChargeRound.SetCheck(bAddDisChargeRound);
 	pOptionDlgCharge->m_chkNoGroupCharge.SetCheck(bNoGroupCharge);
@@ -514,9 +514,9 @@ void CMainOptionDlg2::OptionControlApply(CMkRecordset *pRs,COptionDlgCharge*	pOp
 	pOptionDlgCharge->m_chkMemChaNoGeneralData.SetCheck(bMemChaNoGeneralData);
 
 	pOptionDlgCharge->m_chkUseDirectDistance.SetCheck(bUseDirectDistance);
-	pOptionDlgCharge->m_edtBranchDis.SetWindowText(::GetStringFromLong(nBranchDiscount));
+	pOptionDlgCharge->m_edtBranchDis.SetWindowText(LF->GetStringFromLong(nBranchDiscount));
 	m_ci.m_nDefaultCharge = nDefaultCharge;
-	pOptionDlgCharge->m_strDefaultCharge = GetMyNumberFormat(nDefaultCharge);	 
+	pOptionDlgCharge->m_strDefaultCharge = LF->GetMyNumberFormat(nDefaultCharge);	 
 	pOptionDlgCharge->m_chkDistanceCharge.SetCheck( pOptionDlgCharge->m_bDistanceChargeCheck);
 	//pOptionDlgCharge->m_cmbDistanceCharge.EnableWindow( pOptionDlgCharge->m_bDistanceChargeCheck);
 	pOptionDlgCharge->m_edtMinCharge.EnableWindow( pOptionDlgCharge->m_bDistanceChargeCheck);
@@ -532,19 +532,19 @@ void CMainOptionDlg2::OptionControlApply(CMkRecordset *pRs,COptionDlgCharge*	pOp
 	pOptionDlgCharge->m_chkDongPosLiUse.SetCheck(bDongPosLiUse);
 
 	pOptionDlgCharge->m_chkWeatherCharge.SetCheck(bWeatherCharge);
-	pOptionDlgCharge->m_edtBikeWeatherAdd.SetWindowText( ::GetStringFromLong( nBikeWeatherCharge ));
-	pOptionDlgCharge->m_edtDamaWeatherAdd.SetWindowText( ::GetStringFromLong( nDamaWeatherCharge ));
-	pOptionDlgCharge->m_edtLaboWeatherAdd.SetWindowText( ::GetStringFromLong( nLaboWeatherCharge ));
-	pOptionDlgCharge->m_edtVanWeatherAdd.SetWindowText(  ::GetStringFromLong( nVanWeatherCharge	 ));
-	pOptionDlgCharge->m_edtTruckWeatherAdd.SetWindowText(::GetStringFromLong( nTruckWeatherCharge));
+	pOptionDlgCharge->m_edtBikeWeatherAdd.SetWindowText( LF->GetStringFromLong( nBikeWeatherCharge ));
+	pOptionDlgCharge->m_edtDamaWeatherAdd.SetWindowText( LF->GetStringFromLong( nDamaWeatherCharge ));
+	pOptionDlgCharge->m_edtLaboWeatherAdd.SetWindowText( LF->GetStringFromLong( nLaboWeatherCharge ));
+	pOptionDlgCharge->m_edtVanWeatherAdd.SetWindowText(  LF->GetStringFromLong( nVanWeatherCharge	 ));
+	pOptionDlgCharge->m_edtTruckWeatherAdd.SetWindowText(LF->GetStringFromLong( nTruckWeatherCharge));
 
 	pOptionDlgCharge->m_chkWeatherChargeSnow.SetCheck(bWeatherChargeSnow);
-	pOptionDlgCharge->m_edtBikeWeatherSnowAdd.SetWindowText( ::GetStringFromLong( nBikeWeatherChargeSnow ));
-	pOptionDlgCharge->m_edtDamaWeatherSnowAdd.SetWindowText( ::GetStringFromLong( nDamaWeatherChargeSnow ));
-	pOptionDlgCharge->m_edtLaboWeatherSnowAdd.SetWindowText( ::GetStringFromLong( nLaboWeatherChargeSnow ));
-	pOptionDlgCharge->m_edtVanWeatherSnowAdd.SetWindowText(  ::GetStringFromLong( nVanWeatherChargeSnow	 ));
-	pOptionDlgCharge->m_edtTruckWeatherSnowAdd.SetWindowText(::GetStringFromLong( nTruckWeatherChargeSnow));
-	pOptionDlgCharge->m_edtSlowDis.SetWindowText(::GetStringFromLong( nSlowDiscount));
+	pOptionDlgCharge->m_edtBikeWeatherSnowAdd.SetWindowText( LF->GetStringFromLong( nBikeWeatherChargeSnow ));
+	pOptionDlgCharge->m_edtDamaWeatherSnowAdd.SetWindowText( LF->GetStringFromLong( nDamaWeatherChargeSnow ));
+	pOptionDlgCharge->m_edtLaboWeatherSnowAdd.SetWindowText( LF->GetStringFromLong( nLaboWeatherChargeSnow ));
+	pOptionDlgCharge->m_edtVanWeatherSnowAdd.SetWindowText(  LF->GetStringFromLong( nVanWeatherChargeSnow	 ));
+	pOptionDlgCharge->m_edtTruckWeatherSnowAdd.SetWindowText(LF->GetStringFromLong( nTruckWeatherChargeSnow));
+	pOptionDlgCharge->m_edtSlowDis.SetWindowText(LF->GetStringFromLong( nSlowDiscount));
 
 	pOptionDlgCharge->m_chkWeatherChargeAuto.SetCheck(bWeatherChargeAuto);
 	pOptionDlgCharge->m_cmbMileageSavingType.SetCurSel(nMileageSavingType);
@@ -608,7 +608,7 @@ void CMainOptionDlg2::OptionControlApply(CMkRecordset *pRs,COptionDlgCharge*	pOp
 		else
 			pOptionDlgCharge->m_cmbPercentTruck.SetCurSel(0);
 
-		pOptionDlgCharge->m_edtMileageTruck.SetWindowText(::GetStringFromLong(abs(pOptionDlgCharge->m_nMileageTruck)));
+		pOptionDlgCharge->m_edtMileageTruck.SetWindowText(LF->GetStringFromLong(abs(pOptionDlgCharge->m_nMileageTruck)));
 	}
 
 	pOptionDlgCharge->RefreshSpecialTruckCharge(GetSelCompanyCode());
@@ -872,13 +872,13 @@ void CMainOptionDlg2::OptionControlApply(CMkRecordset *pRs,COptionDlgSMS3*	pOpti
 	pRs->GetFieldValue("sHappyCallMentInquiryToday", pOptionDlgSMS3->m_strHappyCallMentInquiryToday); 
 	pRs->GetFieldValue("nHappyCallDelayInquiryToday", nHappyCallDelayInquiryToday); 
 	
-	pOptionDlgSMS3->m_cmbHappyCallDelayInquiryToday.SetWindowText(::GetStringFromLong(nHappyCallDelayInquiryToday));
+	pOptionDlgSMS3->m_cmbHappyCallDelayInquiryToday.SetWindowText(LF->GetStringFromLong(nHappyCallDelayInquiryToday));
 
 	pRs->GetFieldValue("bUseHappyCancelToday",	pOptionDlgSMS3->m_bUseHappyCallCancelToday); 
 	pRs->GetFieldValue("sHappyCallMentCancelToday", pOptionDlgSMS3->m_strHappyCallMentCancelToday); 
 	pRs->GetFieldValue("nHappyCallDelayCancelToday", nHappyCallDelayCancelToday); 
 
-	pOptionDlgSMS3->m_cmbHappyCallDelayCancelToday.SetWindowText(::GetStringFromLong(nHappyCallDelayCancelToday));
+	pOptionDlgSMS3->m_cmbHappyCallDelayCancelToday.SetWindowText(LF->GetStringFromLong(nHappyCallDelayCancelToday));
 		
 	
 	// 기사개별
@@ -907,7 +907,7 @@ void CMainOptionDlg2::OptionControlApply(CMkRecordset *pRs,COptionDlgSMS3*	pOpti
  
 	pOptionDlgSMS3->InitControl();			
 
-	pOptionDlgSMS3->m_cmbCompleteSmsDelay.SetWindowText(::GetStringFromLong(nHappyCallDelayCompletedToday));
+	pOptionDlgSMS3->m_cmbCompleteSmsDelay.SetWindowText(LF->GetStringFromLong(nHappyCallDelayCompletedToday));
 }
 
 

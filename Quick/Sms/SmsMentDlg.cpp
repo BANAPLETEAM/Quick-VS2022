@@ -308,8 +308,8 @@ void CSmsMentDlg::OnCbnSelchangeContentCombo()
 			m_lstRegister.SetItemText(nItem,2,dtRegister.Format("%y-%m-%d"));
 			m_lstRegister.SetItemText(nItem,3,bDefault ? "Àû¿ë":"");
 			m_lstRegister.SetItemText(nItem,4,sContent);
-			m_lstRegister.SetItemText(nItem,5,GetDashPhoneNumber(sReceiveTel));
-			m_lstRegister.SetItemText(nItem,6,GetDashPhoneNumber(sSendTel));
+			m_lstRegister.SetItemText(nItem,5,LF->GetDashPhoneNumber(sReceiveTel));
+			m_lstRegister.SetItemText(nItem,6,LF->GetDashPhoneNumber(sSendTel));
 			
 			m_lstRegister.SetItemData(nItem, nID);
 			nItem++; nNum++;

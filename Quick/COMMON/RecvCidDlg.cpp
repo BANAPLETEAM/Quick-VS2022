@@ -93,7 +93,7 @@ void CRecvCidDlg::AddRecvCid(CString strPhone, DWORD dwData)
 			int nItem = m_List.GetItemCount();
 			COleDateTime dt = COleDateTime::GetCurrentTime();
 			m_List.InsertItem(nItem, dt.Format("%m-%d %H:%M:%S"));
-			m_List.SetItemText(nItem, 1, GetDashPhoneNumber(pCIDInfo->strPhone));
+			m_List.SetItemText(nItem, 1, LF->GetDashPhoneNumber(pCIDInfo->strPhone));
 			m_List.SetItemText(nItem, 2, ltoa(pCIDInfo->nGroupID, buffer, 10));
 			m_List.SetItemText(nItem, 3, pCIDInfo->strChannel);
 			m_List.SetItemData(nItem, (DWORD)pCIDInfo);
@@ -153,7 +153,7 @@ void CRecvCidDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 
 		char data[255] = {0,};
 		STRCPY(data, "D",VL_END); 
-		STRCAT(data, (LPSTR)(LPCTSTR) GetDashPhoneNumber( m_List.GetItemText(nItem, 1) ),VL_END); //번호
+		STRCAT(data, (LPSTR)(LPCTSTR) LF->GetDashPhoneNumber( m_List.GetItemText(nItem, 1) ),VL_END); //번호
 		STRCAT(data, (LPSTR)(LPCTSTR) m_List.GetItemText(nItem, 2),VL_END); //채널
 		LU->SendCopyDataToTelClient(data);
 
@@ -216,7 +216,7 @@ void CRecvCidDlg::RemoveRecvCid(CString strPhone, CString strGroup, CString strC
 	EnterCriticalSection(&m_csListLock);
 	int nItem = 0;
 
-	strPhone = GetDashPhoneNumber(strPhone);
+	strPhone = LF->GetDashPhoneNumber(strPhone);
 	int nItemCount =  m_List.GetItemCount();
 
 

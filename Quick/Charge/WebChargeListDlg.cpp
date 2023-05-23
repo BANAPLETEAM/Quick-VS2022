@@ -71,7 +71,7 @@ void CWebChargeListDlg::OnBnClickedGroupInqueryBtn()
 {
 
 	CSearchGroupDlg dlg;
-	dlg.m_nCompany = GetCurBranchInfo()->nPayTable;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nPayTable;
 	dlg.m_nDataType = SG_GROUP;
 	if(dlg.DoModal() == IDOK)
 	{
@@ -137,7 +137,7 @@ void CWebChargeListDlg::OnBnClickedGroupInqueryBtn()
 			else
 				strMsg += " 으로 책정되며 지정요금은 없는게 맞습니까?";
 			
-			if(MsgBox(strMsg, "확인", MB_ICONINFORMATION | MB_YESNO) == IDYES)
+			if(LF->MsgBox(strMsg, "확인", MB_ICONINFORMATION | MB_YESNO) == IDYES)
 			{
 				m_cmbType.SetCurSel(nType);
 				m_edtGroupName.SetWindowText(strGroupName);
@@ -170,7 +170,7 @@ void CWebChargeListDlg::OnBnClickedChargeCheck()
 void CWebChargeListDlg::OnBnClickedChargeInqueryBtn2()
 {	
 	CSearchGroupDlg dlg;
-	dlg.m_nCompany = GetCurBranchInfo()->nPayTable;
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nPayTable;
 	dlg.m_nDataType = SG_DISCOUNT_COMPANY;
 	if(dlg.DoModal() == IDOK)
 	{
@@ -373,7 +373,7 @@ BOOL CWebChargeListDlg::OnInitDialog()
 	m_edtCol.SetWindowText(ltoa(m_nCol,buffer,10));
 
 	CString strTitle = "";
-	strTitle.Format(" %s(%s) 의 기준요금표입니다. ",  GetCurBranchInfo()->strBranchName, GetCurBranchInfo()->strPhone);
+	strTitle.Format(" %s(%s) 의 기준요금표입니다. ",  LF->GetCurBranchInfo()->strBranchName, LF->GetCurBranchInfo()->strPhone);
 	m_edtTitle.SetWindowText(strTitle);
 
 

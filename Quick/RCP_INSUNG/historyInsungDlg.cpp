@@ -279,32 +279,32 @@ void ChistoryInsungDlg::RefreshList()
 
 		CString strData =  dt1.Format("%m:%d %H:%M(%a)");
 
-		m_lstHistory.InsertItem(nItem, ::GetStateString(nState));
+		m_lstHistory.InsertItem(nItem, LF->GetStateString(nState));
 		m_lstHistory.SetItemText(nItem, 1, strData);
 		m_lstHistory.SetItemText(nItem, 2, strSName);
 		m_lstHistory.SetItemText(nItem, 3, strSDong);
 		m_lstHistory.SetItemText(nItem, 4, strDName);
 		m_lstHistory.SetItemText(nItem, 5, strDDong);
-		m_lstHistory.SetItemText(nItem, 6, ::GetCarTypeFromLong(nCarType));
-		m_lstHistory.SetItemText(nItem, 7, ::GetWayTypeFromLong(nWayType));
-		m_lstHistory.SetItemText(nItem, 8, ::GetMyNumberFormat(nChargeSum));
-		m_lstHistory.SetItemText(nItem, 9, ::GetMyNumberFormat(nDeposit));
+		m_lstHistory.SetItemText(nItem, 6, LF->GetCarTypeFromLong(nCarType));
+		m_lstHistory.SetItemText(nItem, 7, LF->GetWayTypeFromLong(nWayType));
+		m_lstHistory.SetItemText(nItem, 8, LF->GetMyNumberFormat(nChargeSum));
+		m_lstHistory.SetItemText(nItem, 9, LF->GetMyNumberFormat(nDeposit));
 
 		CString strTemp = "";
 
 		if(nRCompany == 0) strTemp = "";
 		else if(m_ci.IsChildCompany(nRCompany))
-			strTemp = ::GetStringFromLong(nRNo);
+			strTemp = LF->GetStringFromLong(nRNo);
 		else
-			strTemp = "¨Ï" + ::GetStringFromLong(nRNo);
+			strTemp = "¨Ï" + LF->GetStringFromLong(nRNo);
 
 		m_lstHistory.SetItemText(nItem, 10, strTemp);
 		m_lstHistory.SetItemText(nItem, 11, m_ci.GetCompanyName(nCompany));
 		m_lstHistory.SetItemText(nItem, 12, strWName);
 		m_lstHistory.SetItemText(nItem, 13, strEtc);
-		m_lstHistory.SetItemText(nItem, 14, ::GetMyNumberFormat(nChargeBasic));
-		m_lstHistory.SetItemText(nItem, 15, ::GetMyNumberFormat(nChargeAdd));
-		m_lstHistory.SetItemText(nItem, 16, ::GetMyNumberFormat(nChargeTrans));
+		m_lstHistory.SetItemText(nItem, 14, LF->GetMyNumberFormat(nChargeBasic));
+		m_lstHistory.SetItemText(nItem, 15, LF->GetMyNumberFormat(nChargeAdd));
+		m_lstHistory.SetItemText(nItem, 16, LF->GetMyNumberFormat(nChargeTrans));
 		m_lstHistory.SetItemLong(nItem, nState);
 		m_lstHistory.SetItemData(nItem++, (DWORD)pItem);
 

@@ -13,9 +13,9 @@ CFileSocket::CFileSocket(void)
 	memcpy(&m_encode.m_ExternalKey[0], &nKey[0], sizeof(nKey));
 
 #if defined(_LABEL) || defined(_SCHEDULE) || defined(_LABEL_MONITOR) || defined(_DUTCH) || defined(_BANA_STOCK) || defined(_BANA_HELP)
-	m_strBasePath = GetModuleFullPath();
+	m_strBasePath = LF->GetModuleFullPath();
 #else
-	m_strBasePath = GetModuleFullPath() + "RecvFiles\\";
+	m_strBasePath = LF->GetModuleFullPath() + "RecvFiles\\";
 	CreateDirectory(m_strBasePath, NULL);
 #endif
 	m_pBuffer = NULL;
@@ -211,7 +211,7 @@ BOOL CFileSocket::CreateRecvFile(CString &strLocalPath)
 	{
 		if(strLocalPath.Find(":") < 0)
 		{
-			strPath = GetModuleFullPath() + strLocalPath;
+			strPath = LF->GetModuleFullPath() + strLocalPath;
 			strPath.Replace("\\\\", "\\");
 		}
 		else

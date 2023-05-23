@@ -38,8 +38,8 @@ END_MESSAGE_MAP()
 
 void CSetPoiDlg::OnBnClickedClearPoiBtn()
 {
-	DeleteFile(GetModuleFullPath() + "poi_d.dat");
-	DeleteFile(GetModuleFullPath() + "poi.ini");
+	DeleteFile(LF->GetModuleFullPath() + "poi_d.dat");
+	DeleteFile(LF->GetModuleFullPath() + "poi.ini");
 	if(m_poiNew.IsDataLoadOK())
 		MessageBox("프로그램 재시작 바랍니다.", "확인", MB_ICONINFORMATION);
 	else
@@ -48,7 +48,7 @@ void CSetPoiDlg::OnBnClickedClearPoiBtn()
 
 void CSetPoiDlg::OnBnClickedClearNewAddressBtn()
 {
-	CString strName = ::GetModuleFullPath() + "RDATA.txt";
+	CString strName = LF->GetModuleFullPath() + "RDATA.txt";
 	DeleteFile(strName);
 
 	if(m_poiNew.IsDataLoadOK())

@@ -336,7 +336,7 @@ BOOL CSmsNewBulkDlg::ReadExcel()
 
 		while (VARIANT_TRUE != Rs1->GetadoEOF())
 		{
-			strTemp = ::ChangeStringFromExcel(Rs1->Fields->GetItem(_variant_t((long)2))->Value);
+			strTemp = LF->ChangeStringFromExcel(Rs1->Fields->GetItem(_variant_t((long)2))->Value);
 
 			m_cmbExcelSheet.AddString(strTemp);
 			Rs1->MoveNext();
@@ -422,7 +422,7 @@ void CSmsNewBulkDlg::OnBnClickedSendBtn()
 	{
 		char szPhone[20];
 		CString strItem = (CString)pRecords->GetAt(i)->GetItem(0)->GetCaption(NULL);
-		strItem = ::GetNoneDashNumber(strItem);
+		strItem = LF->GetNoneDashNumber(strItem);
 		strcpy(szPhone, strItem);
 		int nLen = strlen(szPhone);
 		strcpy(&szTemp[nCur], szPhone);
@@ -478,7 +478,7 @@ void CSmsNewBulkDlg::OnBnClickedSendBtn()
 	for(int i=0; i<nCount; i++)
 	{
 		CString strItem = (CString)pRecords->GetAt(i)->GetItem(0)->GetCaption(NULL);
-		strItem = ::GetNoneDashNumber(strItem);
+		strItem = LF->GetNoneDashNumber(strItem);
 
 		if((i > 0) && ((i % 660) == 0))
 		{
@@ -609,7 +609,7 @@ void CSmsNewBulkDlg::OnBnClickedLoadTextBtn()
 		while(ar.ReadString(strPhone))
 		{
 			strPhone.Replace("-", "");
-			if(::IsMobilePhoneNumber(strPhone))
+			if(LF->IsMobilePhoneNumber(strPhone))
 				AddRealPhoneMap(strPhone);
 		}
 
@@ -713,10 +713,10 @@ void CSmsNewBulkDlg::ReadSheet()
 
 					ADODB::Field20Ptr pField2 = pListRecordset->GetFields()->GetItem(_variant_t((long)col) );										
 					pField2->get_Value(&val);										
-					strVal = ::ChangeStringFromExcel(val);
+					strVal = LF->ChangeStringFromExcel(val);
 					strVal.Replace("-", "");
 
-					if(strVal.Left(2) == "01" && ::IsNumber(strVal) && (strVal.GetLength() == 10 || strVal.GetLength() == 11))
+					if(strVal.Left(2) == "01" && LF->IsNumber(strVal) && (strVal.GetLength() == 10 || strVal.GetLength() == 11))
 						AddRealPhoneMap(strVal);
 				} // col µ¹¸®±â
 
@@ -830,7 +830,7 @@ void CSmsNewBulkDlg::RefreshList()
 		if(bOverlap && st.bOverlap)
 			continue;
 
-		m_lstPhone.InsertItem(nItem++, ::GetDashPhoneNumber(st.strPhone));
+		m_lstPhone.InsertItem(nItem++, LF->GetDashPhoneNumber(st.strPhone));
 	}
 
 	m_lstPhone.Populate();

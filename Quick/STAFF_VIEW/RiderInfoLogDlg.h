@@ -109,7 +109,6 @@ protected:
 public:
 	void InitControlData();
 	void RemoveControlData();
-	void SelectControlData(ST_RIDER_INFO_LOG *pData);
 	void RefreshList();
 	void InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData);
 	CXTPGridRecord * InsertChangeRecord(CString strCount, int nRNo, CString strWName, CString strDate, CString strChange, 

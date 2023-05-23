@@ -187,7 +187,7 @@ void COptionDlgCharge::OnInitialUpdate()
 
 	SetOptiobView(TRUE);
 
-	if(!POWER_CHECK(1301, "요금"))
+	if(!LF->POWER_CHECK(1301, "요금"))
 		EnableWindow(FALSE);
 
 	CMainOptionDlg2* pDlg = (CMainOptionDlg2*)GetParent()->GetParent(); 
@@ -258,7 +258,7 @@ BOOL COptionDlgCharge::Save(long nCompany, BOOL bAll)
 		nMileageTruck = 0;
 	else
 	{
-		long nTemp = ::GetLongFromEdit(&m_edtMileageTruck);
+		long nTemp = LF->GetLongFromEdit(&m_edtMileageTruck);
 
 		if(m_cmbPercentTruck.GetCurSel() == 1)
 			nMileageTruck = nTemp * -1;
@@ -314,41 +314,41 @@ BOOL COptionDlgCharge::Save(long nCompany, BOOL bAll)
 	else
 		pCmd.AddParameter(0);
 
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtUpChargeForNotAllocateManual1));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtUpChargeForNotAllocateManual2));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtUpChargeForNotAllocateManual3));
-	pCmd.AddParameter(::GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute1));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto1));
-	pCmd.AddParameter(::GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute2));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto2));
-	pCmd.AddParameter(::GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute3));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto3));
-	pCmd.AddParameter(::GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute4));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto4));
-	pCmd.AddParameter(::GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute5));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto5));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtUpChargeForNotAllocateManual1));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtUpChargeForNotAllocateManual2));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtUpChargeForNotAllocateManual3));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute1));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto1));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute2));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto2));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute3));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto3));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute4));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto4));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_cmbUpChargeForNotAllocateMinute5));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtUpChargeForNotAllocateAuto5));
 	pCmd.AddParameter(m_chkUpChargeForNotAllocateReserve.GetCheck());
 	pCmd.AddParameter(m_chkUpChargeForNotAllocateDeposit.GetCheck());
 	pCmd.AddParameter(m_chkDongPosLiUse.GetCheck());
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtNewCustomerMileage));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtBranchDis));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtNewCustomerMileage));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtBranchDis));
 
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtBikeWeatherAdd));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtDamaWeatherAdd));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtLaboWeatherAdd));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtVanWeatherAdd));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtTruckWeatherAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtBikeWeatherAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtDamaWeatherAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtLaboWeatherAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtVanWeatherAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtTruckWeatherAdd));
 	pCmd.AddParameter(m_chkWeatherCharge.GetCheck());
 
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtBikeWeatherSnowAdd));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtDamaWeatherSnowAdd));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtLaboWeatherSnowAdd));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtVanWeatherSnowAdd));
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtTruckWeatherSnowAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtBikeWeatherSnowAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtDamaWeatherSnowAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtLaboWeatherSnowAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtVanWeatherSnowAdd));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtTruckWeatherSnowAdd));
 	pCmd.AddParameter(m_chkWeatherChargeSnow.GetCheck());
 	pCmd.AddParameter(m_chkWeatherChargeAuto.GetCheck());
 
-	pCmd.AddParameter(::GetLongFromEdit(&m_edtSlowDis));
+	pCmd.AddParameter(LF->GetLongFromEdit(&m_edtSlowDis));
 	pCmd.AddParameter(m_cmbMileageSavingType.GetCurSel());
 	
 
@@ -453,7 +453,7 @@ void COptionDlgCharge::OnBnClickedMileageTermBtn()
 		dlg.m_nInitClass = 0;
 
 		if(dlg.DoModal() == IDOK)
-			MsgBox("금액을 수정하신경우에는 모든 접수자가 재로그인을 해주셔야 적용됩니다.");
+			LF->MsgBox("금액을 수정하신경우에는 모든 접수자가 재로그인을 해주셔야 적용됩니다.");
 	}
 	else if(m_cmbPercent.GetCurSel() == 3)
 	{
@@ -641,7 +641,7 @@ void COptionDlgCharge::AddSpecialTruckCharge(int car_type, int special_truck_typ
 	CWnd *wnd = GetSpecialTruckTypeControl(car_type, special_truck_type);
 
 	if(wnd) 
-		wnd->SetWindowText(::RemoveZero(::GetMyNumberFormat(charge)));
+		wnd->SetWindowText(LF->RemoveZero(LF->GetMyNumberFormat(charge)));
 }
 
 void COptionDlgCharge::UpdateSpecialTruckCharge(long nCompany, BOOL bAll)
@@ -659,7 +659,7 @@ void COptionDlgCharge::UpdateSpecialTruckCharge(long nCompany, BOOL bAll)
 	UpdateSpecialTruckChargeSub(nCompany, CAR_18_TON);
 	UpdateSpecialTruckChargeSub(nCompany, CAR_25_TON);
 
-	::FillSpeicalTruckChage();
+	LF->FillSpeicalTruckChage();
 }
 
 void COptionDlgCharge::UpdateSpecialTruckChargeSub(long nCompany, int car_type)
@@ -681,7 +681,7 @@ int COptionDlgCharge::GetSpecialTruckCharge(int car_type, int special_truck_type
 	CWnd *wnd = GetSpecialTruckTypeControl(car_type, special_truck_type);
 
 	if(wnd) 
-		return ::GetLongFromEdit(wnd);
+		return LF->GetLongFromEdit(wnd);
 
 	return 0;
 

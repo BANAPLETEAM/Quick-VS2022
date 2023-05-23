@@ -309,7 +309,7 @@ void CConsignModiDlg::SearchData()
 		m_cmbCarWay.SetCurSel(nTranWay);
 		m_edtDest.SetWindowText(sDest);
 		m_edtDetail.SetWindowText(sWayEtc);
-		m_edtCharge.SetWindowText(GetMyNumberFormat(nCharge));
+		m_edtCharge.SetWindowText(LF->GetMyNumberFormat(nCharge));
 		m_edtTel.SetWindowText(sTel);
 		m_edtStart.SetWindowText(sStart);
 		m_edtEnd.SetWindowText(sEnd);
