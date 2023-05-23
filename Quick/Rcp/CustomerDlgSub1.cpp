@@ -686,10 +686,6 @@ void CCustomerDlgSub1::OnTimer(UINT_PTR nIDEvent)
 						LU->HideSearchPOIDlg();				
 					}
 				}
-				//else
-				//{
-				//	LU->HideSearchPOIDlg();
-				//}
 			}
 		}
 	}

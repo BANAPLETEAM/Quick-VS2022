@@ -4686,10 +4686,7 @@ void CRcpView::OnTimer(UINT nIDEvent)
 		CMkLock lock(&m_csOrder,FALSE,FALSE); 
 		BOOL bLock = lock.IsLocked();
 		BOOL bToday = IsTodaySearch();
-		long nType = LU->GetCurView(); 
 
-		//g_bana_log->Print("lock %d, %d\r\n", lock.GetLockCount(), LU->GetCurView() == RCP_VIEW);
-	
 		if(FALSE == lock.IsLocked() && 
 			!m_bRefreshWithCID &&  
 			!IsRcpDlgVisible() &&

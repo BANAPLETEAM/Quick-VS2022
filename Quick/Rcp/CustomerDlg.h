@@ -121,7 +121,6 @@ public:
 	void ChangeTelDepartInfo();
 	BOOL IsDataHas(ST_TEL *st);
 	void GetCustomerPhoneNumber(long nTelID, CString &strPhone1, CString &strPhone2, CString &strPhone3);
-	void FillCompanyChargeList();
 	void OnOK();
 	void OnCancel();
 	long GetLastSelRow();

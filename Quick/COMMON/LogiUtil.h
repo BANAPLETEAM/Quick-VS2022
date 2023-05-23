@@ -115,7 +115,6 @@ public:
 	BOOL ReleaseRightOfMessenger();
 	void GetRightOfAllocation(BOOL bMsgBox = TRUE);
 	void ReleaseRightOfAllocation();
-	int MessageBox(CString strMsg, CString strCaption = "", UINT nType = MB_OK | MB_ICONINFORMATION);
 	CBranchInfo* SearchLineGroup(char *szLine);
 	void SendCIDInfo(char *szData);
 	void ShowRecvCidDlg();
@@ -156,7 +155,6 @@ public:
 	CRiderMapDlg* GetRiderMapDlg();
 	CRiderMapDlg* GetRiderMapDlg2();
 	CAllocateBoardDlg* GetAllocateBoardDlg();
-	CAllocateBoardTRSDlg* GetAllocateBoardTRSDlg();
 	void CreateChargeForRiderLogDlg();
 	void CloseRiderMapDlg();
 	void CloseAllocateBoardDlg();
@@ -175,10 +173,9 @@ public:
 	BOOL LoadMemberCharge(BOOL bInit = FALSE);
 	void ShowMemberChargeDlg( BOOL bOnlyCreate = FALSE);
 	CChargeHistoryMemDlg * GetMemberChargeDlg();
-	void ModifyRecord(ST_MEMBER_CHARGE_CNO *stNew );
 	CLogiMapCns* GetLogiMapCns();
-	void ShowSecurityLogDlg();	void AddRiderPos(CRealTimeRiderPos &pos,
-					COleDateTime dtUpdate = COleDateTime::GetCurrentTime());
+	void ShowSecurityLogDlg();	
+	void AddRiderPos(CRealTimeRiderPos &pos, COleDateTime dtUpdate = COleDateTime::GetCurrentTime());
 	CRiderSubInfo* GetRiderPos(long nCompany, long nRNo);
 	void OnAutoSelectEvent(int nType, BOOL bJustRefresh, BOOL bFocusNotChange, BOOL bSelectWhenSingleResult);
 	CMyMkMessenger *GetMessenger() { return m_pMsg; }
@@ -190,7 +187,6 @@ public:
 	void GpsPosRevision(long &nPosX, long &nPosY, long nDeviceType, CString strDeviceName, CString strVersion);
 	void OpenCurOrderState(long nTNo);
 	void MakePoiAndCusData();
-	void MakeTransInfo();
 	CBranchInfo* GetConsignMakeBranchInfo(CString sCity);
 	long GetConsignCustomerCNo(CString sCity);
 	long GetConsignCustomerCNoTelID(CString sCity);		
@@ -207,7 +203,6 @@ public:
 	void MakeFunctionTable();
 	CString GetSpecialLog() { return m_strSpecialLog; }
 	void AddSpecialLog(const char* format, ...);
-	BOOL GetGcmIDForSmartQ2(long nTNo, CString &strGcmID, CString &strText);
 	BOOL SendGcmMsgForSmartQ2(long nTNo);
 	CString GetRecordFileServerIP(COleDateTime dtDate);
 	CString GetAllocateGroup(int nCurGroup);
@@ -215,27 +210,28 @@ public:
 	void SetTodayCompleteCount(long nCount) {m_nTodayCompleteCount = nCount;}
 	void SetYesterDayCompleteCount();
 	BOOL IsSSNOk(CString strSSN);
-	//BOOL IsSSNOk1(CString strSSN);
 	BOOL IsOtherCompanyRegist(CString strSSN, long nCompany, long nRNo);
 
 	void SaveLogOut(BOOL bRunTimeError = FALSE);
 	void LogOutRestore();
 	BOOL IsSystemFile(CString strFileName);
-	CString GetFileExtension(CString strFileName);
 	void InsertINaviCnsLog(BOOL bSuccess, CString strParameter, CString strResult, CString strLocation);
-	BOOL SendEMail(CString subject, CString msg, CString recipient, BOOL html_use);
 	CString SendEMailCardResult(int tno, CString send_customer_email, bool re_send = false);
 
-	CString CheckCardEmailResend(int tno, CString send_customer_email);
-	CString GetCardEmailBody(CString body_url);
-	CString GetEncodeForEMail(CString content);
-	std::string ChangeMultiByteToUtf8(CString content);
-	std::string base64_encode(const std::string& in);
-	void InsertCardEmailResendLog(int tno, CString send_customer_email);
 	CString GetReplaceChar(CString strInput, CString strSendTel, CString strReceiveTel, CString strRiderPhone);
 	void ConvChar(CString& input, CString keyword, CString conv);
 
 protected:
+	int MessageBox(CString strMsg, CString strCaption = "", UINT nType = MB_OK | MB_ICONINFORMATION);
+	void ModifyRecord(ST_MEMBER_CHARGE_CNO* stNew);
+	BOOL GetGcmIDForSmartQ2(long nTNo, CString& strGcmID, CString& strText);
+	CString GetFileExtension(CString strFileName);
+	CString CheckCardEmailResend(int tno, CString send_customer_email);
+	CString GetEncodeForEMail(CString content);
+	CString GetCardEmailBody(CString body_url);
+	std::string ChangeMultiByteToUtf8(CString content);
+	std::string base64_encode(const std::string& in);
+	void InsertCardEmailResendLog(int tno, CString send_customer_email);
 	void MakeRiderInfoDlg();
 	COleDateTime  m_dtCur;
 

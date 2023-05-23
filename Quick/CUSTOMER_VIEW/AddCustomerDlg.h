@@ -30,12 +30,8 @@ public:
 	afx_msg void OnEnChangeAddrDongEdit();
 	afx_msg void OnTimer(UINT nIDEvent);
 	afx_msg void OnBnClickedShowMapBtn();
-	afx_msg void OnEnSetfocusAddrDongEdit();
-	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
-	afx_msg void OnEnKillfocusAddrDongEdit();
 
 public:
-
 	HBRUSH m_hBrush1;
 
 public:
@@ -107,14 +103,12 @@ public:
 	int m_nAllocGroup;
 	long m_nCNo;
 	long m_nCustomerTable;
-	long	m_nDongID;
-	long	m_nPosX;
-	long	m_nPosY;
-	long	m_nTempCNo;
-	BOOL	m_bInternet;
+	long m_nDongID;
+	long m_nPosX;
+	long m_nPosY;
+	long m_nTempCNo;
+	BOOL m_bInternet;
 	BOOL m_bCredit;
 			
 	CRcpPlaceInfo *m_pPlace;
-	afx_msg void OnEnSetfocusTelEdit();
-	afx_msg void OnEnChangeTelEdit();
 };

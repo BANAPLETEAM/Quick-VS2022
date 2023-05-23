@@ -378,11 +378,6 @@ BOOL COrderProcessStateDlg::OnInitDialog()
 	m_wndRiderMap.SetRefereshAdminState();
 	m_wndRiderMap.CreateWait();
 
-	//CLogiUtil::OpenCurOrderState(long nTNo) 에서 호출
-	//FillData();
-    //Refresh();
-	//RefreshOrderList();
-	
 	BOOL bRider = AfxGetApp()->GetProfileInt("OrderProcessStateDlg", "Rider", ZERO);
 
 	if(bRider == TRUE)
@@ -400,11 +395,8 @@ BOOL COrderProcessStateDlg::OnInitDialog()
 
 	//이부분은 창생성이 완료된후에 넣는게 좋다.
 	LU->GetMessenger()->AddRecvRiderPosWnd(this);
-	//RefreshCombo(TRUE);
-	
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void COrderProcessStateDlg::FillData()

@@ -841,9 +841,6 @@ void CReportForm21::OnMakeGroupReport()
 
 	if(MessageBox(strTemp, "È®ÀÎ", MB_YESNO) == IDNO) return;
 
-//	LU->OpenGroupReportDlg(this,nReportGNo,TRUE, m_dtFrom, m_dtTo,
-//		strGNoList,m_nCalculateCount, m_nCalculateSum,m_nCalculateTrans);
-
 	CMakeGroupReportNewDlg dlg;
 	dlg.m_nGNo = nReportGNo;
 	dlg.m_dtFrom = m_dtFrom;
@@ -854,14 +851,4 @@ void CReportForm21::OnMakeGroupReport()
 	dlg.m_nCalculateTrans = m_nCalculateTrans;
 
 	dlg.DoModal();
-	/*
-	if(dlg.m_bRefresh == TRUE)
-	{
-		CReportForm24 * pReport = (CReportForm24*)(GetParent()->GetParent());
-
-		CString sGNo = "";
-		sGNo.Format("%d;", dlg.m_nGNo);
-		pReport->SetData(sGNo);
-	}*/
-
 }

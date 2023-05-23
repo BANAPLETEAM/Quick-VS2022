@@ -840,9 +840,7 @@ void CLogonDlg::OnOK()
 		MakeLineGroupMap();
 		LU->MakeDepositRate();
 		LU->ChargeAddDataInitLoad();
-		//LU->ShowMemberChargeDlg(  TRUE);
-		//LU->LoadMemberCharge(TRUE);
-		LU->MakeTransInfo();
+
 		m_mi.FillData();  // 회사마일리지
 		LF->LoadCardInfo();
 

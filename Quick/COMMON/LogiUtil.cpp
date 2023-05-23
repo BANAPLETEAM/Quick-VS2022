@@ -620,8 +620,8 @@ void CLogiUtil::InitFieldChooser()
 		m_pwndFieldChooser->EnableDocking(0);
 		m_pwndFieldChooser->SetWindowText(_T("컬럼 선택창"));
 
-		((CFrameWnd*)m_pFrameWnd)->ShowControlBar(LU->GetFieldChooser(), FALSE, FALSE);
-		((CFrameWnd*)m_pFrameWnd)->FloatControlBar(LU->GetFieldChooser(), 
+		((CFrameWnd*)m_pFrameWnd)->ShowControlBar(GetFieldChooser(), FALSE, FALSE);
+		((CFrameWnd*)m_pFrameWnd)->FloatControlBar(GetFieldChooser(), 
 			CPoint(100, GetSystemMetrics(SM_CYSCREEN) / 3));
 
 	}
@@ -757,7 +757,7 @@ void CLogiUtil::MakeRiderList()
 		pRs.GetFieldValue("nAllocType", nAllocType);
 		pRs.GetFieldValue("sRTID", strRTID);
 
-		ST_ALLOC_RIDER *pRider = LU->GetAllocRider(lCode, nMNo);
+		ST_ALLOC_RIDER *pRider = GetAllocRider(lCode, nMNo);
 
 		if(pRider == NULL)
 			return;
@@ -1233,7 +1233,7 @@ void CLogiUtil::SendCIDInfo(char *szData)
 	{
 		COleDateTime dt = COleDateTime::GetCurrentTime();
 
-		if(LU->m_pRcpView != NULL)
+		if(m_pRcpView != NULL)
 		{
 			WINDOWPLACEMENT wndpl;
 			wndpl.length = sizeof(WINDOWPLACEMENT);
@@ -1245,7 +1245,7 @@ void CLogiUtil::SendCIDInfo(char *szData)
 			m_pFrameWnd->SetForegroundWindow();
 			m_pFrameWnd->SetFocus();
 
-			LU->GetRcpView()->PostMessage(WM_RECV_CID, (WPARAM)pCIDInfo, 0);				
+			GetRcpView()->PostMessage(WM_RECV_CID, (WPARAM)pCIDInfo, 0);				
 		}
 		else
 		{
@@ -1312,13 +1312,13 @@ void CLogiUtil::ShowMessenger()
 		return;
 
 
-	if(LU->GetMessenger() == NULL)
+	if(GetMessenger() == NULL)
 	{
 		MessageBox("메신저 로그인이 되지 않은 상태입니다.", "확인", MB_ICONINFORMATION);
 		return;
 	}
 
-	LU->GetMessenger()->ShowMsgConnList();
+	GetMessenger()->ShowMsgConnList();
 }
 
 void CLogiUtil::RunRemoteControl(int nType)
@@ -1598,7 +1598,7 @@ void CLogiUtil::MakeNetworkPane(CXTPDockingPaneManager *pwndPaneManager, CXTPDoc
 	{
 		(*pwndPaneNetwork)->Select();
 		m_pbiCur = m_ba.GetAt(nStartBranchID);
-		if(LU->ChangeBranchItemInTaskPanel(pwndTaskPanel, m_pbiCur, (*pwndPaneNetwork)))
+		if(ChangeBranchItemInTaskPanel(pwndTaskPanel, m_pbiCur, (*pwndPaneNetwork)))
 			pwndPaneManager->RedrawPanes();
 		(*pwndPaneNetwork)->Hide();
 	}
@@ -2104,7 +2104,7 @@ CRiderMapDlg* CLogiUtil::_CreateRiderMapDlg(CRiderMapDlg **pRiderMapDlg, BOOL bO
 		{
 			pMyRiderMapDlg = new CRiderMapDlg(m_pFrameWnd);
 			pMyRiderMapDlg->m_bOtherRiderMap = bOtherRiderMap;
-			pMyRiderMapDlg->m_pRcpView = LU->GetRcpView();
+			pMyRiderMapDlg->m_pRcpView = GetRcpView();
 			pMyRiderMapDlg->Create(IDD_RIDER_MAP_DLG, m_pFrameWnd);
 		}
 		else
@@ -2199,7 +2199,7 @@ CRiderMapDlg* CLogiUtil::_CreateRiderMapDlg(CRiderMapDlg **pRiderMapDlg, BOOL bO
 			pMyRiderMapDlg->ShowWindow(SW_SHOW);
 		}
 
-		LU->GetMessenger()->SetRecvRiderPosMsg(TRUE);
+		GetMessenger()->SetRecvRiderPosMsg(TRUE);
 	}
 	else
 	{
@@ -2257,7 +2257,7 @@ CAllocateBoardDlg* CLogiUtil::CreateAllocateBoardDlg()
 			m_pAllocateBoardDlg->ShowWindow(SW_SHOW);
 			m_pAllocateBoardDlg->SetFocus();
 		}
-		LU->GetMessenger()->SetRecvRiderPosMsg(TRUE);	
+		GetMessenger()->SetRecvRiderPosMsg(TRUE);	
 	}
 	else
 	{
@@ -2279,7 +2279,7 @@ CAllocateBoardDlg* CLogiUtil::GetAllocateBoardDlg()
 
 CAllocateBoardTRSDlg* CLogiUtil::CreateAllocateBoardTRSDlg()
 {
-	if(!(LU->m_pRcpView))
+	if(!(m_pRcpView))
 	{
 		MessageBox("접수창을 먼저 실행해주세요.", "확인", MB_ICONINFORMATION);
 		return NULL;
@@ -2314,11 +2314,6 @@ CAllocateBoardTRSDlg* CLogiUtil::CreateAllocateBoardTRSDlg()
 void CLogiUtil::CloseAllocateBoardTRSDlg()
 {
 	DELETE_OBJECT(m_pAllocateBoardTRSDlg);
-}
-
-CAllocateBoardTRSDlg* CLogiUtil::GetAllocateBoardTRSDlg()
-{
-	return m_pAllocateBoardTRSDlg;
 }
 
 BOOL CLogiUtil::IsDetailPos(long nDongID, long nPosX, long nPosY)
@@ -2911,8 +2906,8 @@ void CLogiUtil::AddRiderPos(CRealTimeRiderPos &pos, COleDateTime dtUpdate)
 CRiderSubInfo* CLogiUtil::GetRiderPos(long nCompany, long nRNo)
 {
 	CRiderSubInfoMap::iterator it;
-	it = LU->m_mapRiderSub.find(std::make_pair(nCompany, nRNo));
-	if(it != LU->m_mapRiderSub.end())
+	it = m_mapRiderSub.find(std::make_pair(nCompany, nRNo));
+	if(it != m_mapRiderSub.end())
 	{
 		return &(it->second);
 	}
@@ -3069,26 +3064,17 @@ BOOL CLogiUtil::IsConsignCity(CString sCity)
 
 CBranchInfo* CLogiUtil::GetConsignMakeBranchInfo(CString sCity)
 {
-
-	
 	COMPANY_APPLY_FROM_CITY_MAP3::iterator it;
 
 	it = m_mapConCitySetting.find(sCity);
 	if(it == m_mapConCitySetting.end())
 		return FALSE;
-
 	
 	return it->second;
-
 }
-
 
 long CLogiUtil::GetConsignCustomerCNo(CString sCity)
 {
-
-	/*if(m_mapConCitySetting.size() <= 0)
-		MakeTransInfo();*/
-
 	COMPANY_APPLY_FROM_CITY_MAP3::iterator it;
 
 	it = m_mapConCitySetting.find(sCity);
@@ -3097,14 +3083,10 @@ long CLogiUtil::GetConsignCustomerCNo(CString sCity)
 
 
 	return it->second->nOtherCompanyCNo;
-
 }
+
 long CLogiUtil::GetConsignCustomerCNoTelID(CString sCity)
 {
-
-	/*if(m_mapConCitySetting.size() <= 0)
-	MakeTransInfo();*/
-
 	COMPANY_APPLY_FROM_CITY_MAP3::iterator it;
 
 	it = m_mapConCitySetting.find(sCity);
@@ -3113,53 +3095,6 @@ long CLogiUtil::GetConsignCustomerCNoTelID(CString sCity)
 
 
 	return it->second->nOtherCompanyCNoTelID;
-
-}
-
-
-
-void CLogiUtil::MakeTransInfo()
-{
-
-	//CMkCommand pCmd(m_pMkDb, "select_consign_setting_company_list2011");
-	//CMkRecordset pRs(m_pMkDb);
-	//pCmd.AddParameter(m_ci.m_nCompanyCode);
-	//pRs.Execute(&pCmd);
-	//
-	//COMPANY_APPLY_FROM_CITY_MAP3::iterator it;
-	//for(int i=0; i<pRs.GetRecordCount(); i++)
-	//{
-	//	TRANS_INFO st;
-
-	//	pRs.GetFieldValue("sCity", st.sCity);
-	//	pRs.GetFieldValue("nOtherCompany", st.nOtherCompany);	
-	//	pRs.GetFieldValue("sOtherCompanyName", st.sOtherCompanyName);
-	//	pRs.GetFieldValue("nNowRate", st.nNowRate);
-	//	pRs.GetFieldValue("dtAcceptApply",	st.dtAcceptApply);
-	//	pRs.GetFieldValue("dtInitDay",	st.dtInitDay);
-	//	pRs.GetFieldValue("bTodayDelete",	st.bTodayDelete);
-	//	pRs.GetFieldValue("dtTodayDelete",	st.dtTodayDelete);
-	//	pRs.GetFieldValue("nID",	st.nID);		
-
-	//	pRs.GetFieldValue("nUsePayTable",	st.nUsePayTable);		
-	//	pRs.GetFieldValue("nUseDorderTable",	st.nUseDorderTable);		
-	//	pRs.GetFieldValue("nUseCustomerTable",	st.nUseCustomerTable);		
-	//	pRs.GetFieldValue("nFinalSMSSend",	st.nFinalSMSSend);		
-	//	pRs.GetFieldValue("bNoGroupCharge",	st.bNoGroupCharge);		
-	//	pRs.GetFieldValue("bUserIDSequence",	st.bUserIDSequence);		
-	//	pRs.GetFieldValue("bClearDestForAfterCopy",	st.bClearDestForAfterCopy);				
-	//	pRs.GetFieldValue("sTel",	st.sTel);
-	//	pRs.GetFieldValue("nOtherCompanyCNo",	st.nOtherCompanyCNo);
-	//	
-	//	it = m_mapConCitySetting.find(st.sCity);
-	//	if(it == m_mapConCitySetting.end() )
-	//	{
-	//		m_mapConCitySetting.insert(COMPANY_APPLY_FROM_CITY_MAP3::value_type(st.sCity,st ));
-	//	}	
-	//	pRs.MoveNext();
-	//}
-	//pRs.Close();
-
 }
 
 void CLogiUtil::AddCall(CString strName, long nTNo, long nState)
@@ -3167,7 +3102,7 @@ void CLogiUtil::AddCall(CString strName, long nTNo, long nState)
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	LU->GetRcpView()->CreateRcpDlg(NULL, 
+	GetRcpView()->CreateRcpDlg(NULL, 
 		strName,
 		nTNo, 
 		nState, "", TRUE, -1, 0, 0, FALSE, "");
@@ -3178,7 +3113,7 @@ void CLogiUtil::CreateRcpDlg(CString strName, long nTNo, long nState)
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	LU->GetRcpView()->CreateRcpDlg(NULL, 
+	GetRcpView()->CreateRcpDlg(NULL, 
 		strName,
 		nTNo, 
 		nState, "", FALSE, -1, 0, 0, FALSE, "");
@@ -3372,40 +3307,6 @@ BOOL CLogiUtil::IsSSNOk(CString strSSN) //외국인번호 함께체크
 	else 
 		return FALSE; 
 }
-
-/*
-BOOL CLogiUtil::IsSSNOk(CString strSSN)
-{
-	BOOL bRet = FALSE;
-
-	int nArrSSN[13] = {0};
-	int nArrCmp[12] = {2,3,4,5,6,7,8,9,2,3,4,5};
-
-	if(strSSN.GetLength() < 13)
-		bRet = FALSE;
-	{
-		int i=0, nCnt = strSSN.GetLength() - 1, nTotal = 0, nCheck = 0;
-		
-		for(i=0; i<nCnt+1; i++)
-			nArrSSN[i] = strSSN.GetAt(i) - 0x30;
-
-		for(i=0; i<nCnt; i++)
-			nArrCmp[i] = nArrSSN[i] * nArrCmp[i];
-
-		for(i=0; i<nCnt; i++)
-			nTotal += nArrCmp[i];
-
-		nCheck = nTotal%11;
-
-		if(((11-nCheck) % 10) == nArrSSN[12])
-			bRet = TRUE;
-		else
-			bRet = FALSE;
-	}
-
-	return bRet;
-}
-*/
 
 BOOL CLogiUtil::IsOtherCompanyRegist(CString strSSN, long nCompany, long nRNo)
 {

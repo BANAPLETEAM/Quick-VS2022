@@ -877,15 +877,6 @@ void CMainFrame::OnViewPay()
 
 	LU->InitChargeContainer(this);
 	LU->ChargeContainerShow();
-	/*
-	CChargeDongNewDlg *p = new CChargeDongNewDlg;
-	p->Create(CChargeDongNewDlg::IDD, this);
-	p->ShowWindow(SW_SHOW);
-	*/
-
-	//ViewCharge();
-	//LU->InitChargeContainer(this);
-	//LU->ChargeContainerShow();
 }
 
 void CMainFrame::OnViewCar()

@@ -396,7 +396,6 @@ void CMkMessenger::OnMsgDataRead(QPACKET *p)
 		{
 			CString strLog;
 			strLog.Format("m_pMsgClient = %X, m_pmi = %X\r\n", m_pMsgClient, m_pmi);
-			//LU->AddSpecialLog(strLog);
 
 			if(m_pMsgClient)
 			{

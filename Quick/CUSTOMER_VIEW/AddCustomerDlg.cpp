@@ -101,11 +101,6 @@ BEGIN_MESSAGE_MAP(CAddCustomerDlg, CMyDialog)
 	ON_EN_CHANGE(IDC_ADDR_DONG_EDIT, OnEnChangeAddrDongEdit)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_SHOW_MAP_BTN, &CAddCustomerDlg::OnBnClickedShowMapBtn)
-	ON_EN_SETFOCUS(IDC_ADDR_DONG_EDIT, &CAddCustomerDlg::OnEnSetfocusAddrDongEdit)
-	ON_WM_SHOWWINDOW()
-	ON_EN_KILLFOCUS(IDC_ADDR_DONG_EDIT, &CAddCustomerDlg::OnEnKillfocusAddrDongEdit)
-	ON_EN_SETFOCUS(IDC_TEL_EDIT, &CAddCustomerDlg::OnEnSetfocusTelEdit)
-	ON_EN_CHANGE(IDC_TEL_EDIT, &CAddCustomerDlg::OnEnChangeTelEdit)
 END_MESSAGE_MAP()
 
 
@@ -367,9 +362,6 @@ BOOL CAddCustomerDlg::PreTranslateMessage(MSG* pMsg)
 			if(m_pPlace->GetPOI())
 			{
 				SetDisplayAddrEdt();
-				//CString strText; m_edtAddrDong.GetWindowText(strText);
-				//m_edtDisplayDong.SetWindowText(strText);
-				//m_edtDisplayDong.SetFocus();
 			}
 
 			return TRUE;
@@ -447,11 +439,7 @@ void CAddCustomerDlg::OnEnChangeAddrDongEdit()
 void CAddCustomerDlg::OnTimer(UINT nIDEvent)
 {
 	if(m_nSearchPoiDlg != IDD_ADD_CUSTOMER_DLG)
-			return;
-
-		//if(GetFocus() != this) 
-		//		return;
-
+		return;
 
 	CSearchPOIDlg *pDlg = LU->GetSearchPOIDlg();
 	if(pDlg)
@@ -502,11 +490,6 @@ void CAddCustomerDlg::OnBnClickedShowMapBtn()
 	m_pPlace->ShowMap();
 }
 
-void CAddCustomerDlg::OnEnSetfocusAddrDongEdit()
-{
-	//SearchDong(TRUE);
-}
-
 void CAddCustomerDlg::SearchDong(BOOL bFocus)
 {
 	m_nSearchPoiDlg = IDD_ADD_CUSTOMER_DLG;
@@ -518,39 +501,8 @@ void CAddCustomerDlg::SearchDong(BOOL bFocus)
 	}
 
 	CString strDong; m_edtAddrDong.GetWindowText(strDong);
-	//LU->ShowSearchPOIDlg(strDong, m_pPlace, m_pCustomerDlg->m_nCustomerTable, m_pCustomerDlg, &m_edtAddrDong, &m_edtDisplayDong);
 	LU->ShowSearchPOIDlg(strDong, m_pPlace, LF->GetCurBranchInfo()->nCompanyCode, GetParent(), &m_edtAddrDong, &m_edtDisplayDong, FALSE);
 
 	if(m_pCustomerDlg)
 		m_pCustomerDlg->m_bDirty = TRUE; 
-}
-
-void CAddCustomerDlg::OnShowWindow(BOOL bShow, UINT nStatus)
-{
-	CMyDialog::OnShowWindow(bShow, nStatus);
-
-	//m_bShowDlg = bShow;
-}
-
-void CAddCustomerDlg::OnEnKillfocusAddrDongEdit()
-{
-}
-
-void CAddCustomerDlg::OnEnSetfocusTelEdit()
-{
-	//CString strTel = "";
-	//m_edtTel.GetWindowText(strTel);
-	////CCustomerDlg *pDlg = (CCustomerDlg *)GetParent();
-	//LU->ShowSearchPOIDlg(strTel, m_pCustomerDlg->m_pPlace, m_pCustomerDlg->m_nCustomerTable, m_pCustomerDlg, &m_edtFax, &m_edtMobile);
-	//
-	////LU->ShowSearchPOIDlg(strCompany, pDlg->m_pPlace, pDlg->m_nCustomerTable, pDlg, &this->, &m_edtDisplayDong);
-	
-}
-
-void CAddCustomerDlg::OnEnChangeTelEdit()
-{
-	//CString strTel = "";
-	//m_edtTel.GetWindowText(strTel);
-	////CCustomerDlg *pDlg = (CCustomerDlg *)GetParent();
-	//LU->ShowSearchPOIDlg(strTel, m_pCustomerDlg->m_pPlace, m_pCustomerDlg->m_nCustomerTable, m_pCustomerDlg, &m_edtFax, &m_edtMobile);
 }
