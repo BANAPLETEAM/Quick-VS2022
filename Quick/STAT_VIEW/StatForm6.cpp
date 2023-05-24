@@ -86,9 +86,6 @@ void CStatForm6::OnInitialUpdate()
 	m_cmbType.SetCurSel(0);
 
 	SetResize(IDC_REPORT, sizingRightBottom);
-	
-	//m_lstReport.GetPaintManager()->SetTextFont(font);
-	//m_lstReport.Populate();
 
 	m_lstReport.InsertColumn(0, "일자", LVCFMT_LEFT, 120);
 	m_lstReport.InsertColumn(1, "상태", LVCFMT_LEFT, 80);
@@ -99,8 +96,6 @@ void CStatForm6::OnInitialUpdate()
 	m_lstReport.InsertColumn(6, "거래업체", LVCFMT_LEFT, 150);
 	m_lstReport.InsertColumn(7, "오더설명(기사기준)", LVCFMT_LEFT, 300);
 	m_lstReport.InsertColumn(8, "기사정보", LVCFMT_LEFT, 90);
-
-	//m_lstReport.InsertColumn(7, "오더수정적요", LVCFMT_LEFT, 500);
 
 	m_lstReport.Populate();
 }
@@ -321,7 +316,6 @@ void CStatForm6::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*result*
 	if(LF->IsCrossOrder(nTNo, sCName, nState))
 	{ 
 		COrderLogDetailDlg DetailLog;
-		//DetailLog.m_pCurDb = IsSecondServerOrder(nSelItem) ? m_pMkSecondDb : m_pMkDb;
 		DetailLog.m_nTNo = nTNo;
 		DetailLog.m_bCross = TRUE;
 		DetailLog.DoModal();
@@ -368,23 +362,6 @@ void CStatForm6::Filter()
 			pRecord->SetVisible(FALSE);
 	}
 	m_lstReport.Populate();
-	/*
-	CComboBox *pCombo = (CComboBox*)GetDlgItem(IDC_SEARCH_COMBO);
-	CEdit *pEdit = (CEdit*)GetDlgItem(IDC_SEARCH_EDIT);
-	CComboBox *pTypeCombo = NULL;
-
-	CString strText;
-	pEdit->GetWindowText(strText);
-	strText.Trim();
-
-	int nTypeData;
-	if(pTypeCombo == NULL)
-		nTypeData = -1;
-	else
-		nTypeData = (int)pTypeCombo->GetItemData(pTypeCombo->GetCurSel());
-
-	m_lstReport.Filter(strText, pCombo->GetCurSel(), nTypeData);
-	*/
 
 	CheckType();
 }

@@ -80,7 +80,6 @@ void CStaffForm27::OnBnClickedRefreshBtn()
 	cmd.AddParameter(LF->GetCurBranchInfo()->nCompanyCode);
 	cmd.AddParameter(LF->GetCurBranchInfo()->bIntegrated);
 	
-
 	int col_index = 0;
 
 	if(rs.Execute(&cmd)) {

@@ -86,25 +86,6 @@ void CReportForm5::OnInitialUpdate()
 	m_List.ModifyStyle(0, LVS_SHOWSELALWAYS | LVS_NOSORTHEADER);
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_FLATSB | LVS_EX_GRIDLINES);
 
-	/*
-	m_List.InsertColumn(0,"번호",LVCFMT_CENTER,50);
-	m_List.InsertColumn(1,"분류",LVCFMT_CENTER,40);
-	m_List.InsertColumn(2,"콜소속",LVCFMT_CENTER, 60);
-	m_List.InsertColumn(3,"주문일시",LVCFMT_LEFT,80);
-	m_List.InsertColumn(4,"출발지",LVCFMT_LEFT,80);
-	m_List.InsertColumn(5,"도착지",LVCFMT_LEFT,80);
-	m_List.InsertColumn(6,"기사소속", LVCFMT_CENTER,80);
-	m_List.InsertColumn(7,"기사",LVCFMT_CENTER,45);
-	m_List.InsertColumn(8,"운행료",LVCFMT_RIGHT,55);
-	m_List.InsertColumn(9,"할인비",LVCFMT_RIGHT,75);
-	m_List.InsertColumn(10,"콜비",LVCFMT_RIGHT,70);
-	m_List.InsertColumn(11,"접수비",LVCFMT_RIGHT,70);	
-	m_List.InsertColumn(12,"처리비",LVCFMT_RIGHT,50);
-	m_List.InsertColumn(13,"운영비",LVCFMT_RIGHT,65);
-	m_List.InsertColumn(14,"상태",LVCFMT_CENTER, 40);
-	m_List.InsertColumn(15,"레벨",LVCFMT_CENTER, 40);
-	m_List.InsertColumn(16,"지불",LVCFMT_CENTER, 40);*/
-
 	m_List.InsertColumn(0,"번호",LVCFMT_CENTER,40);
 	m_List.InsertColumn(1,"분류",LVCFMT_CENTER,40);
 	m_List.InsertColumn(2,"콜소속",LVCFMT_CENTER, 60);
@@ -199,177 +180,6 @@ void CReportForm5::OnInitialUpdate()
 										ppp->crBk = RGB(x,y,z);\
 										ppp->crText = RGB(0,0,0);\
 										m_List.SetItemData(nItem, (DWORD_PTR)ppp);
-
-/*
-void CReportForm5::RefreshList()
-{
-	if(LF->GetCurBranchInfo()->bIntegrated) {
-		MessageBox("지점간 정산은 통합보기를 지원하지 않습니다.", "확인", MB_ICONINFORMATION);
-		return;
-	}
-
-	CWaitCursor wait;;
-
-	UpdateData(TRUE);
-	m_List.DeleteAllItems();
-
-	CMkRecordset pRs(m_pMkDb);
-	CMkCommand pCmd(m_pMkDb, "select_interchange_order");
-	pCmd.AddParameter(typeInt, typeInput, sizeof(int), LF->GetCurBranchInfo()->nDOrderTable);
-	pCmd.AddParameter(typeInt, typeInput, sizeof(int), LASTBRANCH(1, LF->GetCurBranchInfo()->nDOrderTable));
-	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtFrom);
-	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime), m_dtTo);
-	if(!pRs.Execute(&pCmd)) 
-		return;
-
-	const char *szAPayMask[] = {"선불", "착불", "신용", "송금"};
-
-	int nItem = 0;
-	long nTNo, nCompany, nRiderCompany;
-	COleDateTime dt1;
-	CString strCName, strStart, strDest;
-	int nRNo, nState;
-	long nCharge;
-	long nTotalFee = 0, nTotalConFee = 0;
-	BOOL bTake, bLastTake = TRUE;
-	char buffer[20];
-	int nNumber = 1;
-	long nDeposit;
-
-	for(int i = 0; i < 10; i++) {
-		m_nTakeFee[i] = 0;
-		m_nGiveFee[i] = 0;
-		m_nTakeDeposit[i] = 0;
-		m_nGiveDeposit[i] = 0;
-		m_nTakeCount[i] = 0;
-		m_nGiveCount[i] = 0;
-	}
-
-	while(!pRs.IsEOF())
-	{	
-		pRs.GetFieldValue("nTNo", nTNo);
-		pRs.GetFieldValue("dt1", dt1);
-		pRs.GetFieldValue("sCName", strCName);
-		pRs.GetFieldValue("sStart", strStart);
-		pRs.GetFieldValue("sDest", strDest);
-		pRs.GetFieldValue("nRNo", nRNo);
-		pRs.GetFieldValue("nRiderCompany", nRiderCompany);
-		pRs.GetFieldValue("nCharge", nCharge);
-		pRs.GetFieldValue("nState", nState);
-		pRs.GetFieldValue("nCompany", nCompany);
-		pRs.GetFieldValue("nDeposit", nDeposit);
-		pRs.GetFieldValue("bTake", bTake);
-
-		if(bTake != bLastTake) {
-			nNumber = 1;
-			if(nItem != 0) {
-				nItem++;
-				m_List.InsertItem(nItem, "");
-			}
-		}
-
-		if(bTake) {
-  			m_nTakeFee[nCompany % 10] += nCharge;
-			m_nTakeDeposit[nCompany % 10] += nDeposit;
-			m_nTakeCount[nCompany % 10]++;
-		}
-		else {
-			m_nGiveFee[nRiderCompany % 10] += nCharge;
-			m_nGiveDeposit[nRiderCompany % 10] += nDeposit;
-			m_nGiveCount[nRiderCompany % 10]++;
-		}
-
-		m_List.InsertItem(nItem, ltoa(nNumber++, buffer, 10));
-		m_List.SetItemText(nItem, 1, bTake ? "받음" : "넘김");
-		m_List.SetItemText(nItem, 2, m_ci.GetName(nCompany));
-		m_List.SetItemText(nItem, 3, dt1.Format("%m-%d %H:%M"));
-		m_List.SetItemText(nItem, 4, strCName);
-		m_List.SetItemText(nItem, 5, strStart);
-		m_List.SetItemText(nItem, 6, strDest);
-		m_List.SetItemText(nItem, 7, m_ShareCompanyMap[nRiderCompany].szName);
-		m_List.SetItemText(nItem, 8, ltoa(nRNo, buffer, 10));
-		m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(nCharge));
-		m_List.SetItemText(nItem, 10, LF->GetMyNumberFormat(nDeposit));
-		m_List.SetItemText(nItem, 11, LF->GetStateString(nState));
-		bLastTake = bTake;
-		nItem++;
-
-		pRs.MoveNext();
-	}
-
-
-	if(nItem == 0) return;
-	m_List.InsertItem(nItem++, "");
-
-	m_List.InsertItem(nItem, "");
-	SET_COLOR_LIST(p1, 255, 200, 200);
-	m_List.SetItemText(nItem, 3, "받은오더");
-	m_List.SetItemText(nItem, 7, "건 수");
-	m_List.SetItemText(nItem, 9, "운행료");
-	m_List.SetItemText(nItem++, 10, "입금액");
-	
-	for(int i = 0; i < 10; i++) {
-		if(m_nTakeCount[i] > 0) {
-			m_List.InsertItem(nItem, "");
-			SET_COLOR_LIST(p2, 255, 200, 200);
-			m_List.SetItemText(nItem, 4, m_ShareCompanyMap[i].szName);
-			m_List.SetItemText(nItem, 7, ltoa(m_nTakeCount[i], buffer, 10));
-			m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(m_nTakeFee[i]));
-			m_List.SetItemText(nItem++, 10, LF->GetMyNumberFormat(m_nTakeDeposit[i]));
-		}
-	}
-	
-	m_List.InsertItem(nItem, "");
-	SET_COLOR_LIST(p3, 255, 255, 200);
-	m_List.SetItemText(nItem, 3, "넘긴오더");
-	m_List.SetItemText(nItem, 7, "건 수");
-	m_List.SetItemText(nItem, 9, "운행료");
-	m_List.SetItemText(nItem++, 10, "입금액");
-	
-	for(int i = 0; i < 10; i++) {
-		if(m_nGiveCount[i] > 0) {
-			m_List.InsertItem(nItem, "");
-			SET_COLOR_LIST(p4, 255, 255, 200);
-			m_List.SetItemText(nItem, 4, m_ShareCompanyMap[i].szName);
-			m_List.SetItemText(nItem, 7, ltoa(m_nGiveCount[i], buffer, 10));
-			m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(m_nGiveFee[i]));
-			m_List.SetItemText(nItem++, 10, LF->GetMyNumberFormat(m_nGiveDeposit[i]));
-
-		}
-	}
-	
-	m_List.InsertItem(nItem, "");
-	SET_COLOR_LIST(p4, 200, 200, 255);
-	m_List.SetItemText(nItem, 3, "받음-넘김");
-	m_List.SetItemText(nItem, 7, "건 수");
-	m_List.SetItemText(nItem, 9, "운행료");
-	m_List.SetItemText(nItem++, 10, "입금정산");
-
-	for(int i = 0; i < 10; i++) {
-		if(m_nTakeCount[i] > 0 || m_nGiveCount[i] > 0) {
-			int nTotalFee = m_nTakeFee[i] - m_nGiveFee[i];
-			nTotalFee = nTotalFee - nTotalFee % 100;
-			nTotalFee = - nTotalFee;
-
-			int nTotalDeposit = m_nTakeDeposit[i] - m_nGiveDeposit[i];
-			nTotalDeposit = nTotalDeposit - nTotalDeposit % 100;
-			nTotalDeposit = - nTotalDeposit;
-
-
-
-			m_List.InsertItem(nItem, "");
-			SET_COLOR_LIST(p4, 200, 200, 255);
-			m_List.SetItemText(nItem, 4, CString(m_ShareCompanyMap[i].szName));
-			m_List.SetItemText(nItem, 7, ltoa(m_nTakeCount[i] - m_nGiveCount[i], buffer, 10));
-			m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(ltoa(nTotalFee, buffer, 10)));
-			m_List.SetItemText(nItem++, 10, LF->GetMyNumberFormat(ltoa(nTotalDeposit , buffer, 10)));
-		}
-	}
-
-
-	pRs.Close();
-}
-*/
 
 void CReportForm5::RefreshList()
 {
@@ -600,26 +410,7 @@ void CReportForm5::RefreshList()
 			m_icm[nRiderCompany].nGiveProcessShare += nProcessShare;
 			m_icm[nRiderCompany].nGiveOperateShare += nOperateShare;
 		}
-/*
-		m_List.InsertItem(nItem, ltoa(nNumber++, buffer, 10));
-		m_List.SetItemText(nItem, 1, bTake ? "받음" : "넘김");
-		m_List.SetItemText(nItem, 2, m_icm[nCompany].szCompany);
-		m_List.SetItemText(nItem, 3, dt1.Format("%m-%d %H:%M"));
-		m_List.SetItemText(nItem, 4, strStart);
-		m_List.SetItemText(nItem, 5, strDest);
-		m_List.SetItemText(nItem, 6, m_icm[nRiderCompany].szCompany);
-		m_List.SetItemText(nItem, 7, ltoa(nRNo, buffer, 10));
-		m_List.SetItemText(nItem, 8, LF->GetMyNumberFormat(nCharge));
-		m_List.SetItemText(nItem, 9, LF->GetMyNumberFormat(nDisCharge));
-		m_List.SetItemText(nItem, 10, LF->GetMyNumberFormat(nDeposit));
-		m_List.SetItemText(nItem, 11, LF->GetMyNumberFormat(nRcpShare));
-		m_List.SetItemText(nItem, 12, LF->GetMyNumberFormat(nProcessShare));
-		m_List.SetItemText(nItem, 13, LF->GetMyNumberFormat(nOperateShare));
-		m_List.SetItemText(nItem, 14, LF->GetStateString(nState));
-		m_List.SetItemText(nItem, 15, CString(ltoa(nShareLevel, buffer, 10)) + "차" );
-		m_List.SetItemText(nItem, 16, szAPayMask[nAPay]);
 
-		*/
 		m_List.InsertItem(nItem, ltoa(nNumber++, buffer, 10));
 		m_List.SetItemText(nItem, 1, bTake ? "받음" : "넘김");
 		m_List.SetItemText(nItem, 2, m_icm[nCompany].szCompany);
@@ -805,7 +596,6 @@ void CReportForm5::MakeSharedCompanyList()
 
 void CReportForm5::OnTimer(UINT nIDEvent)
 {
-
 	CRect rc;
 	CWnd *pWnd = GetFocus();
 	if(pWnd->GetSafeHwnd() != NULL)

@@ -226,7 +226,6 @@ void CStaffForm14::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CStaffForm14, CMyFormView)
-	ON_NOTIFY(XTP_NM_GRID_COLUMNORDERCHANGED, IDC_LIST_REPORT, OnReportColumnChangeChanged)
 	ON_NOTIFY(NM_CLICK, IDC_LIST_REPORT, OnReportItemClick)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_REPORT, OnReportItemDblClick)
 	ON_BN_CLICKED(IDC_SEARCH_BTN, &CStaffForm14::OnBnClickedSearchBtn)
@@ -256,7 +255,6 @@ BEGIN_MESSAGE_MAP(CStaffForm14, CMyFormView)
 	ON_COMMAND(ID_WORK_OK, OnWorkOk)
 	ON_COMMAND(ID_MENU_MSG, OnMenuMsg)
 	ON_COMMAND(ID_VIEW_EXCEL, OnViewExcel)
-	ON_COMMAND(ID_CARD_INSERT_PRE, OnCardInsertPre)
 	ON_COMMAND(ID_CARD_INSERT_NEW, OnCardInsertNew)
 	ON_COMMAND(ID_CARD_RELEASE, OnCardRelease)
 	ON_COMMAND(ID_RIDER_INCOME, OnRiderIncome)
@@ -275,7 +273,6 @@ BEGIN_MESSAGE_MAP(CStaffForm14, CMyFormView)
 	ON_BN_CLICKED(IDC_MYCALL_CHECK, &CStaffForm14::OnBnClickedMycallCheck)
 	ON_BN_CLICKED(IDC_OTHERCALL_CHECK, &CStaffForm14::OnBnClickedOthercallCheck)
 	ON_CBN_SELCHANGE(IDC_CAR_TYPE_COMBO, &CStaffForm14::OnCbnSelchangeCarTypeCombo)
-	ON_CBN_SELCHANGE(IDC_SEARCH_COMBO, &CStaffForm14::OnCbnSelchangeSearchCombo)
 
 	ON_WM_SIZE()
 	ON_BN_CLICKED(IDC_JOB_ADD_BUTTON, &CStaffForm14::OnBnClickedJobAddButton)
@@ -300,7 +297,6 @@ BEGIN_MESSAGE_MAP(CStaffForm14, CMyFormView)
 	ON_COMMAND_RANGE_SINGLE(ID_CARD_NUMBER9, OnCardNumber)
 	ON_COMMAND_RANGE_SINGLE(ID_CARD_NUMBER10, OnCardNumber)
 
-	ON_EN_CHANGE(IDC_MEMO_EDIT, &CStaffForm14::OnEnChangeMemoEdit)
 	ON_BN_CLICKED(IDC_INIT_LOG_BTN, &CStaffForm14::OnBnClickedInitLogBtn)
 	ON_BN_CLICKED(IDC_LOAD_INSURANCE_BTN, &CStaffForm14::OnBnClickedLoadInsuranceBtn)
 	ON_BN_CLICKED(IDC_INS_REGISTER_CHECK, &CStaffForm14::OnBnClickedInsRegisterCheck)
@@ -413,10 +409,6 @@ BOOL CStaffForm14::PreTranslateMessage(MSG* pMsg)
 void CStaffForm14::OnReportItemChange(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-
-	//if(!pItemNotify->pRow || !pItemNotify->pColumn)
-	//	return;
-
 	SetDataFromMap();
 }
 
@@ -574,26 +566,10 @@ void CStaffForm14::SetDataFromMap()
 	m_edtMinLeftMoneyForWithDraw.SetWindowText(LF->RemoveZero(LF->GetMyNumberFormat(info->nMinLeftMoneyForWithdraw)));
 	m_edtCardNumber.SetWindowText(LF->GetDashCardNumber(info->strCardNumber));
 	LF->FillBankCode(FALSE, &m_cmbBankID, info->nBankID);
-	EnableShowControl();
 	UpdateData(FALSE);
 	ChangeSSNColor();
 
 	SetTimer(TIMER_REFRESH_JOB, 500, NULL);
-}
-
-void CStaffForm14::EnableShowControl()
-{
-	/*BOOL bEnable = !(LF->GetCarType(&m_cmbCarType) == CAR_1_4_TON);
-	m_chkAll.EnableWindow(bEnable);
-	m_chkAuto.EnableWindow(bEnable);
-	m_chkBigAuto.EnableWindow(bEnable);
-	m_chkDama.EnableWindow(bEnable);
-	m_chkRabo.EnableWindow(bEnable);
-	m_chkBan.EnableWindow(bEnable);
-	m_chk6Ban.EnableWindow(bEnable);
-	m_chkTruck.EnableWindow(bEnable);
-	m_chkSubway.EnableWindow(bEnable);
-	m_chkParcelService.EnableWindow(bEnable);*/
 }
 
 void CStaffForm14::OnInitialUpdate()
@@ -603,7 +579,6 @@ void CStaffForm14::OnInitialUpdate()
 	LF->MakeCarTypeCombo(&m_cmbCarType);
 
 	m_cmbIncome.SetCurSel(0);
-
 
 	m_lstReport.SetExternalControl(GetDlgItem(IDC_SEARCH_COMBO),
 		GetDlgItem(IDC_SEARCH_COMBO),			//SetExternalControl함수의 순서중요함
@@ -646,8 +621,6 @@ void CStaffForm14::OnInitialUpdate()
 	m_lstReport.InsertColumn(34, "단말기취소", LVCFMT_LEFT, 100);
 	m_lstReport.InsertColumn(35, "기기ID", LVCFMT_LEFT, 60);
 	m_lstReport.InsertColumn(36, "제조번호", LVCFMT_LEFT, 70);
-
-	//m_lstReport.InsertColumn(13, "무전기ID", LVCFMT_CENTER, 70);
 
 	m_lstReport.SetFreezeColumnsCount(FIVE);
 	m_lstReport.SetOrderIndexCol(ZERO);
@@ -702,9 +675,6 @@ void CStaffForm14::OnInitialUpdate()
 	m_edtSSN1.SetUserTextColorNoFocus(RGB(255, 0, 0));
 	m_edtSSN2.SetUserTextColorNoFocus(RGB(255, 0, 0));
 	m_edtCarNo.SetUserTextColorNoFocus(RGB(255, 0, 0));
-
-	//m_edtCardNumber.SetEditMask("0000-0000-0000-0000", LITERAL_CARD_NUMBER);
-	//m_edtCardNumber.SetPromptChar(' ');
 
 	LF->FillBankCode(TRUE, &m_cmbBankID);
 	
@@ -850,9 +820,6 @@ void CStaffForm14::OnBnClickedRiderConfidenceBtn()
 		MessageBox("주민번호가 유효하지 않습니다", "확인", MB_ICONINFORMATION);
 		return;
 	}
-
-	//if(IsRRN(strSSN, TRUE) == FALSE)
-	//	return;	
 
 	CString strCompany, strMemo;
 	COleDateTime dtPrevent;
@@ -1019,14 +986,6 @@ void CStaffForm14::OnUploadPic()
 	
 		CFileUpload fu;
 		fu.SetConnectInfo(FTP_IP, FTP_URL_ID_PICTURE, "", "");
-
-/*		
-		if(fu.UploadFile(strPath, strName, info->nANo))
-		{
-			MessageBox("등록되었습니다", "확인", MB_ICONINFORMATION);
-			ReLoadImage();
-		}
-*/		
 	}
 }
 
@@ -1290,8 +1249,6 @@ void CStaffForm14::RefreshOneRider(CXTPGridRecord *pRecord, BOOL bPopulate)
 	CMkCommand pCmd(m_pMkDb, "select_rider_one_new_19");
 	pCmd.AddParameter(nLastANo);
 	pCmd.AddParameter(bLastAdminTable);
-	//pCmd.AddParameter(m_nLastANo);
-	//pCmd.AddParameter(m_bLastAdminTable);
 
 	if(!pRs.Execute(&pCmd)) return;
 
@@ -1590,9 +1547,6 @@ BOOL CStaffForm14::UpdateUser()
 			return FALSE;
 	}
 
-	//if(!CheckRetireAble(info->nCompany, info->nRNo, info->strSSN1 + info->strSSN2)) // 프로시져 안에서 체크
-	//	return;
-
 	CMkCommand pCmd(m_pMkDb, "update_rider_info_19");
 	CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(int), 0);
 	pCmd.AddParameter(m_nLastANo);
@@ -1776,25 +1730,6 @@ void CStaffForm14::OnBnClickedIncomeBtn()
 
 void CStaffForm14::IncomeRider(long nCompany, long nRNo, CString strName, long nIncome, CString strIncomeMemo, long nType, CXTPGridRecord *pRecord , BOOL bPopulate)
 {
-	/*
-	CString strIncome; m_edtIncome.GetWindowText(strIncome);
-	CString strIncomeMemo; m_edtIncomeMemo.GetWindowText(strIncomeMemo);
-
-	if(atoi(strIncome) <= ZERO)
-	{
-		MessageBox("금액을 입력하세요", "확인", MB_ICONINFORMATION);
-		return;
-	}
-
-	if(strIncomeMemo.IsEmpty())
-	{
-		MessageBox("입금적요를 입력하세요", "확인", MB_ICONINFORMATION);
-		return;
-	}
-	*/
-
-	//long nType = (long)m_cmbIncome.GetItemData(m_cmbIncome.GetCurSel());
-
 	CMkCommand pCmd(m_pMkDb, "update_rider_deposit_balance_today");
 	CMkParameter *pPar = pCmd.AddParameter(typeLong, typeReturn, sizeof(long));
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCompany);
@@ -1960,9 +1895,6 @@ void CStaffForm14::OnEnChangeSaerchEdit()
 	CString strText;
 	pEdit->GetWindowText(strText);
 	strText.Trim(); 
- 
-	//if(pCombo->GetCurSel() == 9)
-	//	strText = fc.LF->GetDashPhoneNumber(strText);
 
 	int nTypeData;
 	if(pTypeCombo == NULL)
@@ -1971,31 +1903,6 @@ void CStaffForm14::OnEnChangeSaerchEdit()
 		nTypeData = (int)pTypeCombo->GetItemData(pTypeCombo->GetCurSel());
 
 	m_lstReport.Filter(strText, pCombo->GetCurSel(), nTypeData);
-
-	/*
-	CString strSearch;
-	m_edtSearch.GetWindowText(strSearch); 
-
-
-	CXTPGridRecords *pRecords = m_lstReport.GetRecords();
-
-	for(int i=ZERO; i<pRecords->GetCount(); i++)
-	{
-		CXTPGridRecord *pRecord = pRecords->GetAt(i);
-		CString strRNo = pRecord->GetItem(1)->GetCaption(NULL);
-		CString strPDA = pRecord->GetItem(3)->GetCaption(NULL);
-		CString strName = pRecord->GetItem(4)->GetCaption(NULL);
-
-		if(strRNo.Find(strSearch) >= ZERO ||
-			strPDA.Find(strSearch) >= ZERO ||
-			strName.Find(strSearch) >= ZERO)
-			pRecord->SetVisible(TRUE);
-		else
-			pRecord->SetVisible(FALSE);
-	}
-
-	m_lstReport.Populate();
-	*/
 }
 
 void CStaffForm14::OnBnClickedPdaAllocateCheck()
@@ -2156,17 +2063,6 @@ void CStaffForm14::OnMenuMsg()
 	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
 		return;
 
-	/*
-	ST_RIDER_INFO *info = GetCurSelRiderInfo();
-
-	if(info)
-	{
-		CRiderMsgDlg dlg;
-		dlg.m_nRNo = info->nRNo;
-		dlg.DoModal();
-	}
-	*/
-
 	CRiderMsgDlg dlg;
 
 	CXTPGridSelectedRows *pRows = m_lstReport.GetSelectedRows();
@@ -2296,11 +2192,6 @@ void CStaffForm14::OnBnClickedOthercallCheck()
 	}
 }
 
-void CStaffForm14::OnCbnSelchangeSearchCombo()
-{
-
-}
-
 void CStaffForm14::OnCbnSelchangeCarTypeCombo()
 {
 	// 아래 다시정리 // choe
@@ -2369,14 +2260,8 @@ void CStaffForm14::OnCbnSelchangeCarTypeCombo()
 		m_chkTruck.SetCheck(TRUE);
 		m_chkAll.SetCheck(TRUE);	
 	}
-	
-
-	EnableShowControl();
 }
 
-void CStaffForm14::OnReportColumnChangeChanged(NMHDR * pNotifyStruct, LRESULT * /*result*/)
-{
-}
 
 void CStaffForm14::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
@@ -2420,8 +2305,6 @@ void CStaffForm14::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resul
 void CStaffForm14::OnSize(UINT nType, int cx, int cy)
 {
 	CMyFormView::OnSize(nType, cx, cy);
-
-	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 }
 
 void CStaffForm14::OnBnClickedJobAddButton()
@@ -2603,8 +2486,6 @@ void CStaffForm14::OnCbnSelchangeDepositTypeCombo1()
 
 	if(m_cmbDepositType.GetCurSel() <= TWO) //월비,주비,일비
 		m_cmbDepositAllocateType.InsertString(2, "프로제");
-
-	//m_cmbDepositAllocateType.SetCurSel(min(nItem, m_cmbDepositAllocateType.GetItemCount() - 1));
 }
 
 void CStaffForm14::OnChangeRiderColor()
@@ -2657,7 +2538,6 @@ void CStaffForm14::OnBnClickedChangeLogBtn()
 	dlg.m_nRiderCompany = pInfo->nCompany;
 	dlg.m_nRNo = pInfo->nRNo;
 	dlg.DoModal();
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
 void CStaffForm14::OnCbnSelchangeConWorkingCombo()
@@ -2670,14 +2550,8 @@ void CStaffForm14::OnBnClickedRiderInfoLog()
 	if(!LF->POWER_CHECK(5016, "기사정보수정로그 보기", TRUE))
 		return;
 
-
 	CREATE_MODALESS(CRiderInfoLogDlg, NULL);
 	SHOW_MODALESS(CRiderInfoLogDlg, NULL);
-}
-
-void CStaffForm14::OnCardInsertPre()
-{
-
 }
 
 void CStaffForm14::OnCardInsertNew()
@@ -2796,16 +2670,6 @@ void CStaffForm14::OnShowDepositLog()
 	ShowDepositLog(TRUE);
 }
 
-void CStaffForm14::OnEnChangeMemoEdit()
-{
-	// TODO:  RICHEDIT 컨트롤인 경우, 이 컨트롤은
-	// CMyFormView::OnInitDialog() 함수를 재지정 
-	//하고 마스크에 OR 연산하여 설정된 ENM_CHANGE 플래그를 지정하여 CRichEditCtrl().SetEventMask()를 호출하지 않으면
-	// 이 알림 메시지를 보내지 않습니다.
-
-	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
-}
-
 void CStaffForm14::OnBnClickedInitLogBtn()
 {
 	if(!LF->POWER_CHECK(5017, "초기화수정로그 보기", TRUE))
@@ -2859,10 +2723,6 @@ void CStaffForm14::OnBnClickedLoadInsuranceBtn()
 	dlg.m_strSID = info->strID;
 	dlg.m_nCarType = info->nCarType;
 	dlg.DoModal();	
-
-//	CLoadInsurance d("");
-	//CLoadInsuranceDlg dlg;
-	//dlg.DoModal();	
 }
 
 void CStaffForm14::OnBnClickedInsRegisterCheck()

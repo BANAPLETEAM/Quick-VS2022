@@ -71,127 +71,41 @@ BOOL CShareOrderAllocate3::OnInitDialog()
 	m_cmbDay.SetCurSel(ZERO);
 	InitControl();
 	m_btnApplyAll.EnableWindow(LF->GetCurBranchInfo()->bIntegrated);
-	if(m_nMode) // 1신규 0 수정
-	{
-		NewUser();
-	}
-	else
+	if(!m_nMode) // 1신규 0 수정
 	{
 		m_edtCompanyName.EnableWindow(FALSE);
 		m_btnModify.EnableWindow(m_ModifyButtonEnable);
 		ModifyUser();
 	}
 
-
-	return TRUE;  // return TRUE unless you set the focus to a control
+	return TRUE;
 	
 }
 void CShareOrderAllocate3::InitControl()
 {
-	/*
-	for(int i=0; i<m_cmbCompany.GetCount(); i++)
-		m_cmbCompany.DeleteString(0);
-		*/
-
 	CImageList ImageList; 
 	ImageList.Create(1,17,ILC_COLOR,1,1); 
 	m_List.SetImageList(&ImageList,LVSIL_SMALL); 
 	m_List.ModifyStyle(0, LVS_SHOWSELALWAYS);
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-
-	//m_List.InsertColumn(0,"순서",LVCFMT_CENTER, 40);	
 	m_List.InsertColumn(0,"회사명", LVCFMT_LEFT, 100);
 	m_List.InsertColumn(1,"지사명",LVCFMT_LEFT,  100);
 	m_List.InsertColumn(2,"공유차수",LVCFMT_LEFT,  50);
 	m_List.InsertColumn(3,"사번",LVCFMT_LEFT,  60);
 	m_List.InsertColumn(4,"이름",LVCFMT_LEFT,  60);
-	//m_List.InsertColumn(3,"",LVCFMT_LEFT, 0);
-	/*	
-	int nItem = -1;
-	SHARED_COMPANY_MAP::iterator it;
-	int n = 0;
-
-
-	for(it = m_ci.GetShareMapBegin(); it != m_ci.GetShareMapEnd(); it++)
-	{
-		m_cmbCompany.InsertString(n, (*it).second.strBranchName);
-		m_cmbCompany.SetItemData(n, (*it).second.nCompany);
-
-		TRACE("n = %d\n", (*it).second.nCompany);
-		if((*it).second.nCompany == m_nRiderCompany)
-			nItem = n;
-
-		n++;
-	}	
-
-
-	if(nItem >= 0)
-	{
-		m_cmbCompany.SetCurSel(nItem);
-		VerifyRider(TRUE);
-	}
-	*/
-
-/*
-	char buffer[20];
-	//CWaitCursor wait;
-	CMkCommand pCmd(m_pMkDb, "select_share_company2_2");
-	CMkRecordset pRs(m_pMkDb);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_nCompany);
-
-	if(!pRs.Execute(&pCmd))
-		return;
-
-	int nItem = -1;
-
-	for(int i = 0; i < pRs.GetRecordCount(); i++)
-	{
-		long nID;
-		CString	sBranchName;
-
-		pRs.GetFieldValue("nID", nID);
-		pRs.GetFieldValue("sBranchName", sBranchName);
-
-		m_cmbCompany.InsertString(i,sBranchName);
-		m_cmbCompany.SetItemData(i,nID);
-
-		if(nID == m_nRiderCompany)
-		{
-			nItem = i;
-		}
-
-		pRs.MoveNext();
-	}	
-
-	if(nItem >= 0)
-	{
-		m_cmbCompany.SetCurSel(nItem);
-		VerifyRider(TRUE);
-	}
-*/
 }
 
-
-void CShareOrderAllocate3::NewUser()
-{
-	
-
-}
 void CShareOrderAllocate3::ModifyUser()
 {
-	
-	//m_cmbCompany.EnableWindow(FALSE);
 	m_edtRiderNO.EnableWindow(FALSE);
 
 	//CWaitCursor wait;
 	CMkCommand pCmd(m_pMkDb, "select_share_order_modify_2");
 	CMkRecordset pRs(m_pMkDb);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_nID);
-	
 	if(!pRs.Execute(&pCmd))
 		return;
 
-	
 	long nID,nCompany,nRiderCompany, nRNo, nDay;
 	nID = nCompany = nRiderCompany = nRNo = 0;
 
@@ -219,39 +133,21 @@ void CShareOrderAllocate3::ModifyUser()
 
 	if(nDay > 0)
 		m_cmbDay.SetWindowText(itoa(nDay, buffer, 10));
-/*
-	for(int i=0; i< m_cmbCompany.GetCount(); i++)
-	{
-		if( m_cmbCompany.GetItemData(i) == nRiderCompany)
-		{
-			m_cmbCompany.SetCurSel(i);
-			break;
-		}
-	}
-	*/
-	
 }
 
 
 void CShareOrderAllocate3::ModifyUserOk(BOOL bAll)
 {
-	
 	try
 	{
 		if(m_nID <= 0)
 			throw "선택을 다시 해주세요";
-			
 
-		
 		if(m_nRiderCompany <= 0 )
 			throw "지사선택을 해주세요";
 			
 		if(m_nRider <= 0 )
 			throw "기사를 다시기입해주세요";
-
-
-	//	if(IsBranch(m_nRiderCompany) )  -- 요청에 의한삭제
-	//		throw "자기소속 기사는 등록하실 수 없습니다.";
 
 		CString strDay; m_cmbDay.GetWindowText(strDay);
 		long nDay = 0;
@@ -261,13 +157,11 @@ void CShareOrderAllocate3::ModifyUserOk(BOOL bAll)
 
 		int nParameter = -1; 
 		UpdateData(TRUE);
-		//CWaitCursor wait;
 		CMkCommand pCmd(m_pMkDb, "update_share_order_rider_register_1");
 		CMkRecordset pRs(m_pMkDb);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_nID);
 		pCmd.AddParameter(typeString, typeInput, m_sDetailEdit.GetLength(), m_sDetailEdit );
 		pCmd.AddParameter(nDay);
-			
 		if(!pRs.Execute(&pCmd))
 			return;		
 	
@@ -284,18 +178,13 @@ void CShareOrderAllocate3::ModifyUserOk(BOOL bAll)
 
 void CShareOrderAllocate3::NewUserOk(BOOL bAll)
 {
-	
 	try
 	{	
-		
 		if(m_nRiderCompany <= 0 )
 			throw "지사선택을 해주세요";
 			
 		if(m_nRider <= 0 )
 			throw "기사번호를 다시기입해주세요";
-			
-		//if(IsBranch(m_nRiderCompany) )
-		//	throw "자기소속 기사는 등록하실 수 없습니다.";
 
 		CString strDay; m_cmbDay.GetWindowText(strDay);
 		long nDay = 0;
@@ -305,13 +194,11 @@ void CShareOrderAllocate3::NewUserOk(BOOL bAll)
 
 		int nParameter = -1; 
 		UpdateData(TRUE);
-		//CWaitCursor wait;
 		CMkCommand pCmd(m_pMkDb, "insert_share_order_rider_register_4");
 		CMkRecordset pRs(m_pMkDb);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
 		pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
 		pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), bAll);
-		
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nRiderCompany);
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nRider );
 		pCmd.AddParameter(typeString, typeInput, m_sRiderName.GetLength(), m_sRiderName);
@@ -321,7 +208,6 @@ void CShareOrderAllocate3::NewUserOk(BOOL bAll)
 		pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL),m_ci.m_bRcpIntMode1 );
 		pCmd.AddParameter(typeLong, typeInput, sizeof(long), nDay);
 		CMkParameter *parReturn = pCmd.AddParameter(typeLong, typeOutput, sizeof(int), 0);
-			
 		if(!pRs.Execute(&pCmd))
 			throw("등록이 되지않았습니다. 다시한번 시도하여 주세요");
 
@@ -344,10 +230,7 @@ void CShareOrderAllocate3::NewUserOk(BOOL bAll)
 		MessageBox(szMsg,"확인",MB_ICONINFORMATION);
 		return;
 	}
-	
-
 }
-
 
 void CShareOrderAllocate3::OnBnClickedButton7()
 {
@@ -359,10 +242,8 @@ void CShareOrderAllocate3::OnBnClickedTestButton()
 	VerifyRider();
 }
 
-
 void CShareOrderAllocate3::VerifyRider(BOOL bNoMsg)
 {
-	
 	UpdateData();
 	
 	if(m_nRiderCompany <= 0 )

@@ -33,7 +33,6 @@ public:
 	void SetCompany(int nCompany){m_nCompany = nCompany;}
 	void ModifyUser();
 	void ModifyUserOk();
-	void NewUser();
 	void NewUserOk(BOOL bAll);
 	void VerifyRider(BOOL bNoMsg = FALSE);
 

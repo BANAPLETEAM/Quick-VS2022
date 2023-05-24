@@ -26,11 +26,9 @@ public:
 	afx_msg void OnBnClickedRefresh();
 	afx_msg void OnBnClickedTRSMsg();
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
-	afx_msg void OnDeleteTRSRider();
 	afx_msg void OnEnChangeSearchEdit();
 	
 	void RefreshList();
-	void RefreshNearList();
 	void SearchRecord();
 
 public:

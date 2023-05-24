@@ -686,12 +686,6 @@ void CRiderMapDlg::OrderClickAutoMoveMap(long nPosX, long nPosY, long nRCompany,
 
 }
 
-void CRiderMapDlg::SetRiderConnState(long nCompany, long nRNo, long nState)
-{
-	if(m_pNormalForm)
-		m_pNormalForm->SetRiderConnState(nCompany, nRNo, nState);
-}
-
 LRESULT CRiderMapDlg::OnMapUIMouseUP(WPARAM wParam, LPARAM lParam)
 {
 	switch(wParam)

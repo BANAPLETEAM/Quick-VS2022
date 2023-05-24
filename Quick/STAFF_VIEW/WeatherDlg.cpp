@@ -34,16 +34,8 @@ void CWeatherDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CWeatherDlg, CMyDialog)
 	ON_BN_CLICKED(IDC_REFRESH_BTN, OnBnClickedRefreshBtn)
 	ON_CBN_SELCHANGE(IDC_DO_COMBO, OnCbnSelchangeDoCombo)
-	ON_NOTIFY(NM_RCLICK, IDC_EXPLORER, OnReportItemRClick)
-
 	ON_CBN_SELCHANGE(IDC_SI_COMBO, OnCbnSelchangeSiCombo)
 END_MESSAGE_MAP()
-
-
-void CWeatherDlg::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
-{
-	MessageBox("as");
-}
 
 
 void CWeatherDlg::OnBnClickedRefreshBtn()
@@ -168,22 +160,6 @@ BOOL CWeatherDlg::OnInitDialog()
 
 	long nDo = AfxGetApp()->GetProfileInt("City", "nDo", 0);
 	long nCity = AfxGetApp()->GetProfileInt("City", "nCity", 0);
-	
-	//for(int i=0; i<m_DoCmb.GetCount(); i++)
-	//{
-	//	CString strDo;
-	//	m_DoCmb.GetLBText(i, strDo);
-
-	//	if(strDo.Find(m_ci.m_strCity) >= 0)
-	//	{
-	//		m_DoCmb.SetCurSel(i);
-	//		bSelect = TRUE;
-	//		break;
-	//	}
-	//}
-
-	//if(!bSelect)
-	//	m_DoCmb.SetCurSel(0);
 
 	m_DoCmb.SetCurSel(nDo);
 
@@ -217,8 +193,7 @@ BOOL CWeatherDlg::OnInitDialog()
 
 	//서울경기;충청남도;충청북도;강원도;전라남도;전라북도;경상남도;경상북도;제주도;
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CWeatherDlg::OnCbnSelchangeDoCombo()
@@ -355,10 +330,6 @@ BOOL CWeatherDlg::PreTranslateMessage(MSG* pMsg)
 
 		if(rect.PtInRect(pt))
 			return TRUE;
-		//if(::GetDlgCtrlID(pMsg->hwnd) == IDC_EXPLORER)
-		//{		
-		//	return TRUE;
-		//}
 	}
 
 	return CMyDialog::PreTranslateMessage(pMsg);

@@ -27,8 +27,6 @@ public:
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedWorkStopCheck();
 	virtual BOOL OnInitDialog();
-	void RefreshList(void);
-	//CListCtrl *m_List2;
 
 	CListCtrl m_List;
 	CXTPListCtrl2 *m_List2;

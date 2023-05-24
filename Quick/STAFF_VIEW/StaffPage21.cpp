@@ -79,12 +79,9 @@ void CStaffPage21::OnInitialUpdate()
 
 	m_lstRider.Populate();
 
-	CXTPGridColumn *pCol0 = m_lstGrade.AddColumn(new CXTPGridColumn(0, "", 320, FALSE));
-
+	m_lstGrade.AddColumn(new CXTPGridColumn(0, "", 320, FALSE));
  	m_lstGrade.SetPaintManager(new CStaffFormPaintManager17);
 	m_lstGrade.GetReportHeader()->SetAutoColumnSizing(FALSE);
-	//	m_ListReport.GetReportHeader()->AllowColumnRemove(FALSE);
-	//	m_ListReport.GetReportHeader()->AllowColumnResize(TRUE);
 	m_lstGrade.GetReportHeader()->AllowColumnSort(FALSE);
 	m_lstGrade.AllowEdit(FALSE);
 	m_lstGrade.SetGridColor(RGB(212, 208, 200));
@@ -597,20 +594,6 @@ void CStaffPage21::OnReportItemClickRider(NMHDR * pNotifyStruct, LRESULT * /*res
 	long nRNo = atoi(m_lstRider.GetItemText(nRow, 1));
 
 	LU->ShowRiderInfoDlg(nCompany, nRNo);
-}
-
-BOOL CStaffPage21::PreTranslateMessage(MSG* pMsg)
-{
-	//if(pMsg->message == WM_LBUTTONDOWN)
-	//{
-	//	if(pMsg->hwnd == m_lstGrade.GetSafeHwnd())
-	//	{
-	//		m_lstGrade.GetSelectedRows()->Clear();
-	//		return TRUE;
-	//	}
-	//} 
-
-	return CMyFormView::PreTranslateMessage(pMsg);
 }
 
 void CStaffPage21::OnBnClickedSendMsgBtn()

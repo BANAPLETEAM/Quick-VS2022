@@ -68,13 +68,11 @@ public:
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
 
 	virtual BOOL OnInitDialog();
-	afx_msg void OnEnChangeSearchEdit();
 	CXTPListCtrl2 m_List;
 	CFlatEdit2 m_edtSearch;
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	void SearchRiderList();
 
-	void SetOnlyRiderSearch();
 	long GetRiderCompany() {return m_nGetRiderCompany;}
 	long GetRiderNo() {return m_nGetRNo;}
 	CString GetRiderName() {return m_strGetRName;}

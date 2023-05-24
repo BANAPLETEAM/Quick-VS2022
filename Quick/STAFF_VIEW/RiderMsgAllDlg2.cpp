@@ -61,8 +61,7 @@ BOOL CRiderMsgAllDlg2::OnInitDialog()
 	int nCol = 0;
 	m_List.InsertColumn(0,"No",LVCFMT_LEFT,38);
 	m_List.InsertColumn(++nCol,"사번",LVCFMT_LEFT, 50);
-	//if(m_bIntegrated)
-		m_List.InsertColumn(++nCol,"소속",LVCFMT_LEFT, 60);
+	m_List.InsertColumn(++nCol,"소속",LVCFMT_LEFT, 60);
 	m_List.InsertColumn(++nCol,"기사명",LVCFMT_LEFT,65);
 	m_List.InsertColumn(++nCol,"중지",LVCFMT_LEFT,40);
 	m_List.InsertColumn(++nCol,"휴대폰",LVCFMT_LEFT,90);
@@ -74,8 +73,6 @@ BOOL CRiderMsgAllDlg2::OnInitDialog()
 	nCol = 1;
 	nSourceCol = 0;
 
-	//long nCount = m_List2->GetRecords()->GetCount();
-	//CXTPGridRecords *pRecords = m_List2->GetRecords();
 	long nCount = m_List2->GetRows()->GetCount();
 	CXTPGridRows *pRows = m_List2->GetRows();
 
@@ -138,10 +135,8 @@ BOOL CRiderMsgAllDlg2::OnInitDialog()
 		}
 	}
 	m_edtMsg.SetFontSize(13);
-	//m_edtReceivePhone.SetWindowText(m_ci.m_strOfficePhone);
 
 	ST_SMS_INFO smsi;
-	//smsi = LF->GetSMSBalance(m_nOrderCompany); 
 	long nCompany = LF->GetNowBranchCode();
 	smsi = LF->GetSMSBalance(nCompany);
 
@@ -156,16 +151,9 @@ BOOL CRiderMsgAllDlg2::OnInitDialog()
 	m_cmbPhone.SetReadOnly(TRUE);
 	
 	OnEnChangeMsgEdit();
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
-
-void CRiderMsgAllDlg2::RefreshList(void)
-{
-
-
-}
 void CRiderMsgAllDlg2::OnBnClickedOk()
 {
 	int nSendCount = 0;
@@ -191,7 +179,6 @@ void CRiderMsgAllDlg2::OnBnClickedOk()
 				
 	CString sCallBack, sMsg,strEtc = "기사메시지";
 	sCallBack = m_cmbPhone.GetSmsPhoneNumber();
-	//m_edtReceivePhone.GetWindowText(sCallBack);	
 	m_edtMsg.GetWindowText(sMsg);
 
 	if(sCallBack.GetLength() <= 0 || sCallBack.GetLength() >= 16)
@@ -221,18 +208,6 @@ void CRiderMsgAllDlg2::OnBnClickedOk()
 			m_List.GetItemText(i, 6);
 			sHp.Replace("-","");
 
-			/*
-			CMkCommand pCmd(m_pMkDb, "insert_sms_data2");			
-			pCmd.AddParameter(typeLong, typeInput, sizeof(long), ::GetNowBranchCode());
-			pCmd.AddParameter(typeLong, typeInput, sizeof(long), 555);
-			pCmd.AddParameter(typeString, typeInput, sHp.GetLength(), sHp);
-			pCmd.AddParameter(typeString, typeInput, sCallBack.GetLength(), sCallBack);
-			pCmd.AddParameter(typeString, typeInput, sMsg.GetLength(), sMsg);
-			pCmd.AddParameter(typeString, typeInput, strEtc.GetLength(), strEtc);
-			if(!pCmd.Execute()) 
-				return;
-			*/
-
 			if(!LF->SendSmsNew(m_ci.m_nCompanyCode, 555, sHp, sCallBack, sMsg, "기사공지", "", ""))
 			{
 				MessageBox("SMS 전송 실패", "전송실패", MB_ICONINFORMATION);
@@ -253,13 +228,6 @@ void CRiderMsgAllDlg2::OnBnClickedOk()
 		
 	MessageBox(strSuccessCount, "확인", MB_ICONINFORMATION);
 	OnOK();
-		
-	/*smsi = LF->GetSMSBalance(::GetNowBranchCode()); 
-	CString sBalance, sSMSCount, sMsgLen;
-	sBalance.Format("%s원",LF->GetMyNumberFormat(smsi.nSMSBarance));
-	sSMSCount.Format("%s건", LF->GetMyNumberFormat(smsi.nSMSBarance /DEFINE_SMS_AMOUNT) );
-	m_stcBalance.SetWindowText(sBalance);
-	m_stcSmsCount.SetWindowText(sSMSCount);*/
 }
 
 void CRiderMsgAllDlg2::OnBnClickedMentBtn()
@@ -287,11 +255,6 @@ void CRiderMsgAllDlg2::OnEnChangeMsgEdit()
 void CRiderMsgAllDlg2::OnBnClickedButton2()
 {
 	int nItem  =  -1;
-
-	
-	
-	/*for(int i = 0; m_List.GetSelectedCount(); i++)
-	{*/
 	CUIntArray uArr;
 	POSITION pos = m_List.GetFirstSelectedItemPosition();
 	
@@ -305,13 +268,6 @@ void CRiderMsgAllDlg2::OnBnClickedButton2()
 		nItem = uArr.GetAt(i);
 		m_List.DeleteItem(nItem);
 	}
-
-
-	/*for(POSITION pos = m_List.GetNextItem())
-		m_List.GetNextSelectedItem(pos)
-		nItem = m_List.GetNextItem(nItem,LVNI_SELECTED );	
-		m_List.DeleteItem(nItem);
-	}*/
 }
 
 void CRiderMsgAllDlg2::OnBnClickedWorkStopCheck()

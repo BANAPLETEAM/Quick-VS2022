@@ -42,7 +42,6 @@ END_MESSAGE_MAP()
 
 
 // CRiderDepositGroupDlg 메시지 처리기입니다.
-
 BOOL CRiderDepositGroupDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
@@ -88,14 +87,12 @@ BOOL CRiderDepositGroupDlg::OnInitDialog()
 
 	RefreshDepositList();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderDepositGroupDlg::OnReportItemGroupClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-
 	if (!pItemNotify->pRow || !pItemNotify->pColumn)
 		return;
 
@@ -105,7 +102,6 @@ void CRiderDepositGroupDlg::OnReportItemGroupClick(NMHDR * pNotifyStruct, LRESUL
 void CRiderDepositGroupDlg::OnReportItemGroupDblClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-
 	if (!pItemNotify->pRow || !pItemNotify->pColumn)
 		return;
 
@@ -125,7 +121,6 @@ void CRiderDepositGroupDlg::OnReportItemGroupDblClick(NMHDR * pNotifyStruct, LRE
 void CRiderDepositGroupDlg::OnReportItemDepositClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-
 	if (!pItemNotify->pRow || !pItemNotify->pColumn)
 		return; 
 

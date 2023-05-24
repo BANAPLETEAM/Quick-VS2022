@@ -38,8 +38,6 @@ BEGIN_MESSAGE_MAP(CRiderBoardAddDlg, CMyDialog)
 END_MESSAGE_MAP()
 
 
-
-
 BOOL CRiderBoardAddDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
@@ -50,8 +48,7 @@ BOOL CRiderBoardAddDlg::OnInitDialog()
 		return FALSE;
 	}
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderBoardAddDlg::RefreshDlg()

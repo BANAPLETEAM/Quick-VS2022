@@ -44,7 +44,6 @@ public:
 	CComboBox m_YearCmb;
 	CComboBox m_MonthCmb;
 
-	afx_msg void OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnCbnSelchangeDoCombo();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnCbnSelchangeSiCombo();

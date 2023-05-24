@@ -112,15 +112,9 @@ BOOL CSmsRegisterLogDlg::OnInitDialog()
 	m_lstLogList.InsertColumn(13, "작업자",	LVCFMT_LEFT, 80);
 
 	m_lstLogList.SetOrderIndexCol(0);
-
-	//m_lstLogList.Populate();
-
 	RefreshLogList();
 
-
-
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 

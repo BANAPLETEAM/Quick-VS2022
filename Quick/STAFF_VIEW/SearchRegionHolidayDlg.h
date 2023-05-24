@@ -45,7 +45,6 @@ public:
 	BOOL m_bReturnLiID;
 	CString m_strSearchResult;
 	CString m_strSearchResultDetail;
-	afx_msg void OnEnChangeSearchEdit();
 	CString ConvertStringToSendData(const CString & s, CByteArray & msg);
 	CString ConvertStringToSendData(CString strText);
 	CString ConvertStringToSendData(CByteArray *msg);

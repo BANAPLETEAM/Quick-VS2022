@@ -40,7 +40,6 @@ END_MESSAGE_MAP()
 void CRiderBoardDlg::OnDelete()
 {
 	CXTPGridRecord *pRecord = m_lstReport.GetFirstSelectedRecord();
-
 	if(!pRecord)
 		return;
 
@@ -49,7 +48,6 @@ void CRiderBoardDlg::OnDelete()
 
 	CMkCommand cmd(m_pMkDb, "delete_rider_board");
 	cmd.AddParameter(m_lstReport.GetItemLong(pRecord));
-
 	if(cmd.Execute())
 	{
 		MessageBox("삭제되었습니다", "확인", MB_ICONINFORMATION);
@@ -60,18 +58,14 @@ void CRiderBoardDlg::OnDelete()
 void CRiderBoardDlg::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-
 	CXTPGridRecord *pRecord = m_lstReport.GetFirstSelectedRecord();
-
 	if(!pRecord)
 		return;
 
 	CRiderBoardAddDlg dlg;
 	dlg.m_nIndex = m_lstReport.GetItemLong(pRecord);
-
 	if(dlg.DoModal() == IDOK)
 		RefreshList();
-
 }
 
 BOOL CRiderBoardDlg::OnInitDialog()
@@ -79,7 +73,6 @@ BOOL CRiderBoardDlg::OnInitDialog()
 	CMyDialog::OnInitDialog();
 
 	m_cmbState.SetCurSel(0);
-
 	m_lstReport.InsertColumn(0, "등록일", LVCFMT_LEFT, 100);
 	m_lstReport.InsertColumn(1, "제목", LVCFMT_LEFT, 150);
 	m_lstReport.InsertColumn(2, "내용", LVCFMT_LEFT, 250);
@@ -88,8 +81,7 @@ BOOL CRiderBoardDlg::OnInitDialog()
 
 	RefreshList();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderBoardDlg::RefreshList()
@@ -132,13 +124,10 @@ void CRiderBoardDlg::RefreshList()
 void CRiderBoardDlg::OnCbnSelchangeStateCombo()
 {
 	long nIndex = m_cmbState.GetCurSel();
-
 	CXTPGridRecords *pRecords = m_lstReport.GetRecords();
-
 	for(int i=0; i<pRecords->GetCount(); i++)
 	{
 		CXTPGridRecord *pRecord = pRecords->GetAt(i);
-
 		BOOL bShow = m_lstReport.GetItemLong2(pRecord);
 
 		if((nIndex == 0) ||
@@ -156,7 +145,6 @@ void CRiderBoardDlg::OnBnClickedAddBtn()
 {
 	CRiderBoardAddDlg dlg;
 	dlg.m_nIndex = 0;
-
 	if(dlg.DoModal() == IDOK)
 		RefreshList();
 }

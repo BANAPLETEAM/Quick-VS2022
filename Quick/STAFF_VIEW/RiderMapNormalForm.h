@@ -44,9 +44,6 @@ public:
 	afx_msg int OnMouseActivate(CWnd* pDesktopWnd, UINT nHitTest, UINT message);
 	afx_msg void OnEnChangeXtplistctrlEdit();
 	afx_msg void OnCbnSelchangeXtplistctrlCombo();
-	afx_msg void OnBnClickedOnlyMyRiderCheck();
-	afx_msg void OnCbnSelchangeConnTypeCombo();
-	afx_msg void OnBnClickedGpsSignalBtn();
 	afx_msg void OnBnClickedRiderMapSetBtn();
 	afx_msg void OnBnClickedDeleteTextBtn();
 	afx_msg LONG OnRiderPosRealTime(WPARAM wParam, LPARAM lParam);
@@ -56,7 +53,6 @@ public:
 	afx_msg void OnBnClickedMyRiderCheck();
 
 	BOOL IsUserCheckOrderCount(OrderRecord *p);
-	void UpdateOrderStatic();
 
 protected:
 	BOOL m_bShowOrder;
@@ -128,7 +124,6 @@ public:
 	void CheckVisibleRider(CRiderSubInfo &info, BOOL bReportPoplate = TRUE);
 
 	void FindRNo(CString sRNo);
-	void SetRiderConnState(long nCompany, long nRNo,long nState);
 	void RefreshCustomerPOI();
 	void AddOrderPOI(OrderRecord &order);
 	CString GetOrderCaption(OrderRecord &order, BOOL bFull = FALSE);

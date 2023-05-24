@@ -66,25 +66,16 @@ void CCustomerPage7::OnInitialUpdate()
 	InitColumn();
 
 	SetResize(IDC_LIST1, sizingRightBottom);
-
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
 void CCustomerPage7::InitColumn()
 {
 	int nType = m_TypeCombo.GetCurSel();
-	//int nColumnCount = m_lcData.GetHeaderCtrl()->GetItemCount();
-
-	////컬럼 모두 지움
-	//for (int i=0;i < nColumnCount;i++)
-	//	m_lcData.DeleteColumn(0);
 
 	for(int nColumnIndex = 0; nColumnIndex < kColumnsNameTotal; ++nColumnIndex)
 	{
 		m_lcData.GetColumns()->Remove(m_columnData[nColumnIndex]);
 	}
- 
- 
 
 	if(nType == 0 || nType == 1 || nType == 3)
 	{
@@ -118,40 +109,6 @@ void CCustomerPage7::RefreshList()
 	UpdateData(TRUE);
 	m_lcData.DeleteAllItems();
 	InitColumn();
-	
-	/*
-	CADOParameter parInCompany(CADORecordset::typeInteger, sizeof(int), 
-	CADOParameter::paramInput);
-	CADOParameter parInLastBranch(CADORecordset::typeInteger, sizeof(int), 
-	CADOParameter::paramInput);
-	CADOParameter parInMinCount(CADORecordset::typeInteger, sizeof(int), 
-	CADOParameter::paramInput);
-	CADOParameter parInType(CADORecordset::typeInteger, sizeof(int), 
-	CADOParameter::paramInput);
-	CADOParameter parInFromDate(CADORecordset::typeDate, sizeof(COleDateTime), 
-	CADOParameter::paramInput);
-	CADOParameter parInToDate(CADORecordset::typeDate, sizeof(COleDateTime), 
-	CADOParameter::paramInput);
-
-	m_MinCountCombo.GetWindowText(strMinCount);
-	parInCompany.SetValue(m_nDOrderTable);
-	parInLastBranch.SetValue(LASTBRANCH(m_bIntegrated, m_nDOrderTable));
-	parInMinCount.SetValue(strMinCount);
-	parInType.SetValue(nType);
-	parInFromDate.SetValue(m_dtFrom);
-	parInToDate.SetValue(m_dtTo);
-
-	CADOCommand pCmd(&m_db, "select_analysis_dong2");
-	pCmd.AddParameter(&parInCompany);
-	pCmd.AddParameter(&parInLastBranch);
-	pCmd.AddParameter(&parInMinCount);
-	pCmd.AddParameter(&parInType);
-	pCmd.AddParameter(&parInFromDate);
-	pCmd.AddParameter(&parInToDate);
-
-	CADORecordset pRs(&m_db);
-	pRs.Execute(&pCmd);
-	*/
 
 	/**** 본사/지사 처리가 안되어 있음 ****/
 
@@ -178,28 +135,6 @@ void CCustomerPage7::RefreshList()
 		m_lcData.Populate();
 	}
 
-
-	//if(nType < 3)
-	//{
-	//	while(!pRs.IsEOF())
-	//	{
-	//		long nCount, nTotal;
-	//		char buffer[20];
-	//		CString strDong;
-
-	//		pRs.GetFieldValue("sDong", strDong);
-	//		pRs.GetFieldValue("nCount", nCount);
-	//		pRs.GetFieldValue("nTotal", nTotal);
-
-	//		m_lcData.InsertItem(index, strDong);
-	//		m_lcData.SetItemText(index, 1, ltoa(nCount, buffer, 10));
-	//		m_lcData.SetItemText(index++, 2, LF->GetMyNumberFormat(ltoa(nTotal, buffer, 10)));
-
-	//		pRs.MoveNext();		
-	//	}
-	//}
-	//else 
-	//{
 	while(!pRs.IsEOF())
 	{
 		long nCount, nTotal;

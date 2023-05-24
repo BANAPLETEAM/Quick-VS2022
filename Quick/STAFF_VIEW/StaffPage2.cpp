@@ -18,7 +18,6 @@ CStaffPage2::CStaffPage2()
 		m_dtDate.SetDateTime(dtCurrent.GetYear() -1, 12, 1, 0,0,0);
 	else
 		m_dtDate.SetDateTime(dtCurrent.GetYear(), dtCurrent.GetMonth() - 1, 1, 0,0,0);
-	//m_dtDate = dtCurrent;
 }
 
 CStaffPage2::~CStaffPage2()
@@ -63,13 +62,8 @@ void CStaffPage2::OnInitialUpdate()
 	m_List.InsertColumn(5, "요금(원)", LVCFMT_RIGHT, 100);
 	m_List.Populate();
 
-
 	m_DateDT.SetFormat("yyyy년 MM월");
-
 	SetResize(IDC_LIST_REPORT, sizingRightBottom);
-	
-
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
 void CStaffPage2::OnBnClickedRefreshBtn()
@@ -165,12 +159,8 @@ void CStaffPage2::OnContextMenu(CWnd* pWnd, CPoint point)
 	CMenu rMenu;
 	rMenu.LoadMenu(IDR_CONTEXT_MENU);
 	CMenu *pRMenu=rMenu.GetSubMenu(5);
-	//pRMenu->RemoveMenu(ID_CHANGE_RIDER_COLOR, MF_BYCOMMAND);
-	//pRMenu->RemoveMenu(ID_WORK_STOP, MF_BYCOMMAND);
-	//pRMenu->RemoveMenu(ID_WORK_OK, MF_BYCOMMAND);
 	pRMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);	
 }
-
 
 
 void CStaffPage2::OnMenuMsg()

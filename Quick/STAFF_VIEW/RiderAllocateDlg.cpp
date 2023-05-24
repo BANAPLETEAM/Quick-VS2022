@@ -33,14 +33,12 @@ void CRiderAllocateDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CRiderAllocateDlg, CMyDialog)
 	ON_BN_CLICKED(IDC_CLOSE_BTN, OnBnClickedCloseBtn)
-	ON_EN_CHANGE(IDC_SEARCH_EDIT, OnEnChangeSearchEdit)
 	ON_NOTIFY(NM_DBLCLK, IDC_CUSTOM1, OnNMDblclkList1)
 	ON_BN_CLICKED(IDC_SEARCH_BTN, &CRiderAllocateDlg::OnBnClickedSearchBtn)
 END_MESSAGE_MAP()
 
 
 // CRiderAllocateDlg 메시지 처리기입니다.
-
 void CRiderAllocateDlg::OnBnClickedCloseBtn()
 {
 	OnCancel();
@@ -49,9 +47,6 @@ void CRiderAllocateDlg::OnBnClickedCloseBtn()
 BOOL CRiderAllocateDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
-
-	//CDataBox m_List;
-
 
 	m_List.InsertColumn(0, "순번", DT_CENTER, 40);
 	m_List.InsertColumn(1, "회사명", DT_LEFT, 110);
@@ -63,18 +58,15 @@ BOOL CRiderAllocateDlg::OnInitDialog()
 	m_List.InsertColumn(7, "핸드폰", DT_LEFT, 110);
 	m_List.InsertColumn(8, "이름", DT_LEFT, 90);
 	m_List.SetOrderIndexCol(0);
-
 	m_List.Populate();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 
 void CRiderAllocateDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	XTP_NM_REPORTRECORDITEM* pNMListView = (XTP_NM_REPORTRECORDITEM*)pNMHDR;
-
 	if(pNMListView->pRow == NULL)
 		return;
 
@@ -82,9 +74,6 @@ void CRiderAllocateDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	long nCol = pNMListView->pColumn->GetItemIndex();
 
 	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pNMListView->pRow->GetRecord();
-
-	//CXTPGridRow *pRow = m_List.GetSelectedRows()->GetAt(pNMListView->pRow->GetIndex());
-	//CMyXTPGridRecord *pReocrd = (CMyXTPGridRecord *)pRow->GetRecord();
 	long nCompany = m_List.GetItemLong(pRecord);
 	long nRNo = m_List.GetItemLong2(pRecord);
 	CString strRName = m_List.GetItemString(pRecord);
@@ -93,11 +82,6 @@ void CRiderAllocateDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	m_nGetRNo = nRNo;
 	m_strGetRName = strRName;
 	OnOK();		
-}
-
-
-void CRiderAllocateDlg::OnEnChangeSearchEdit()
-{
 }
 
 BOOL CRiderAllocateDlg::PreTranslateMessage(MSG* pMsg)
@@ -180,11 +164,6 @@ void CRiderAllocateDlg::SearchRiderList()
 	m_List.Populate();
 
 }
-
-void CRiderAllocateDlg::SetOnlyRiderSearch()
-{
-}
-
 
 void CRiderAllocateDlg::OnBnClickedSearchBtn()
 {

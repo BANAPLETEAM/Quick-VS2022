@@ -32,7 +32,6 @@ BEGIN_MESSAGE_MAP(CTRSRiderMsgDlg, CMyDialog)
 	ON_NOTIFY(NM_RCLICK, IDC_TRS_MSG_REPORT, OnTRSReportItemRClick)
 	ON_BN_CLICKED(IDC_REFRESH_BTN, OnBnClickedRefreshNonRegRider)
 	ON_BN_CLICKED(IDC_TRS_MSG_REFRESH_BTN, OnBnClickedRefreshTRSMsg)
-	ON_COMMAND(ID_TRS_RIDER_DELETE, OnDeleteTRSRider)
 	ON_EN_CHANGE(IDC_SEARCH_EDIT, OnEnChangeNonRegSearchEdit)
 	ON_EN_CHANGE(IDC_SEARCH_EDIT2, OnEnChangeTRSMsgSearchEdit)
 END_MESSAGE_MAP()
@@ -61,8 +60,7 @@ BOOL CTRSRiderMsgDlg::OnInitDialog()
 	RefreshNonRegRiderList();
 	RefreshTRSMsgList();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CTRSRiderMsgDlg::RefreshNonRegRiderList()
@@ -269,11 +267,6 @@ void CTRSRiderMsgDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 		pMenu->AppendMenu(MF_BYCOMMAND, ID_TRS_RIDER_DELETE, strRName + " TRS 작업 삭제");
 		pMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);	
 	}
-}
-
-void CTRSRiderMsgDlg::OnDeleteTRSRider()
-{
-
 }
 
 void CTRSRiderMsgDlg::OnEnChangeNonRegSearchEdit()

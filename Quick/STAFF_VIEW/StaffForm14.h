@@ -40,12 +40,10 @@ public:
 	long GetCardID(long nID);
 	long GetIndexFromCardID(long nID);
 	afx_msg void OnCardNumber(UINT nFlag);
-	afx_msg void OnCardInsertPre();
 	afx_msg void OnCardInsertNew();
 	afx_msg void OnCardRelease();
 	afx_msg void OnRiderIncome();
 	afx_msg void OnBnClickedSearchBtn();
-	afx_msg void OnReportColumnChangeChanged(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnReportItemChange(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnBnClickedButtonNew();
 	afx_msg void OnBnClickedRiderConfidenceBtn();
@@ -80,7 +78,6 @@ public:
 	afx_msg void OnBnClickedMycallCheck();
 	afx_msg void OnBnClickedOthercallCheck();
 	afx_msg void OnCbnSelchangeCarTypeCombo();
-	afx_msg void OnCbnSelchangeSearchCombo();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnBnClickedJobAddButton();
 	afx_msg void OnBnClickedJobDeleteButton();
@@ -251,7 +248,6 @@ public:
 	afx_msg void OnBnClicked6banCheck();
 	CButton m_chkAutoAllocate;
 	afx_msg void OnBnClickedChangeLogBtn();
-	void EnableShowControl();
 	CFlatEdit2 m_edtTruckMyDepositRate;
 	CFlatEdit2 m_edtTruckOtherDepositRate;
 	CString m_strTruckMyDepositRate;
@@ -260,7 +256,6 @@ public:
 
 	CString m_strCardNumber[CARD_COUNT];
 	CFlatEdit2 m_edtCardNumber;
-	afx_msg void OnEnChangeMemoEdit();
 	CFlatEdit2 m_edtCarNo;
 	CString m_strCarNo;
 	CFlatEdit2 m_edtAllocMinCharge;

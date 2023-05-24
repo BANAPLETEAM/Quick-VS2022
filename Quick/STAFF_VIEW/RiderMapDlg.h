@@ -88,13 +88,8 @@ protected:
 	afx_msg void OnBnClickedRefreshMapBtn();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnClose();
-	afx_msg void OnPOIClickSmartmapx1(LPDISPATCH Poi);
-	afx_msg void OnMouseUpSmartmapx1(long Button, long Shift, long X, long Y);
-	afx_msg void OnPopupMenuSmartmapx1(long Index, LPCTSTR Caption, LPCTSTR Contents);
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnTimer(UINT nIDEvent);
 	afx_msg void OnEnChangeRnoEdt();
-	afx_msg void OnCbnSelchangeRefershTimerCombo();
 	afx_msg void OnPOIClick(LPDISPATCH POI, long nFlag, long X, long Y);
 	afx_msg LRESULT OnMapUIMouseUP(WPARAM wParam, LPARAM lParam);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
@@ -102,7 +97,6 @@ protected:
 public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	void UpdateShowRiderCount(long nCount);
-	void SetRiderConnState(long nCompany, long nRNo, long nState);
 	void SetRiderPosRealTime(CRealTimeRiderPos &pos);
 
 	CRiderMapCtrl *GetMap() { return &m_wndLogiMap; }

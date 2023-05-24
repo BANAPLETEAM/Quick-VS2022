@@ -36,8 +36,6 @@ public:
 	afx_msg void OnLvnDeleteallitemsListReport(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMClickListReport(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclkListReport(NMHDR *pNMHDR, LRESULT *pResult);
-	//afx_msg void OnDtnDatetimechangeDtpFrom(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedNotWorkCheck();
 
 	DECLARE_MESSAGE_MAP()
 
@@ -45,9 +43,7 @@ public:
 	void CreateHeader();
 	void SetRiderInfo();
 	void SetRiderState();
-	void SetRiderListIn();
 	void DeleteColumn();
-	void DateInArray();
 	void RefreshList();
 	void MonthInit();
 

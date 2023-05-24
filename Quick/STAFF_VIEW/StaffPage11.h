@@ -60,14 +60,12 @@ public:
 	
 	CFlatEdit2 m_RiderEdt;	
 	afx_msg void OnEnChangeRiderEdit();
-	afx_msg void OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 
 	void OnViewExcel();
 	void OnWorkOk();
 	void OnWorkStop();
-	void OnMenuMsg();
 	afx_msg void OnBnClickedButtonDelete();
 	afx_msg void OnReportItemChange(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	CStatic m_DrawStc;

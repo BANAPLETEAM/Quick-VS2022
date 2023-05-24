@@ -44,16 +44,12 @@ END_MESSAGE_MAP()
 
 
 // CRiderSMSDlg 메시지 처리기입니다.
-
-
 BOOL CRiderSMSDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
-	//SetWindowPos(&CWnd::wndTopMost, 0,0,0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
 	ST_SMS_INFO smsi;
 	smsi = LF->GetSMSBalance(m_nCompany); 
-
 
 	m_cmbPhone.InitSmsPhoneNumber(m_nCompany, TYPE_OFFICE_TEL, 160);
 	m_cmbPhone.SetReadOnly(TRUE);
@@ -83,11 +79,8 @@ BOOL CRiderSMSDlg::OnInitDialog()
 
 	m_MsgEdit.SetFontSize(12);
 	UpdateData(FALSE);
-
-
 	OnEnChangeMsgEdit();
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 
@@ -110,7 +103,6 @@ void CRiderSMSDlg::OnBnClickedOk()
 
 void CRiderSMSDlg::OnEnChangeMsgEdit()
 {
-
 	CString strMsg, strCount;
 	m_MsgEdit.GetWindowText(strMsg);
 	strCount.Format("글자수: %d", strMsg.GetLength());

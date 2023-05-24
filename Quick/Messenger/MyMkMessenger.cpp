@@ -390,12 +390,6 @@ void CMyMkMessenger::OnRiderConnState(char *pData)
 	{
 		if(AfxGetMainWnd())
 		{
-			if(LU->GetRiderMapDlg())
-			{
-				LU->GetRiderMapDlg()->SetRiderConnState(
-					atol(szCompanyCode), atol(szRNo), atol(szState));
-			}
-
 			if(LU->GetAllocateBoardDlg())
 			{
 				LU->GetAllocateBoardDlg()->SetRiderConnState(

@@ -67,10 +67,7 @@ BEGIN_MESSAGE_MAP(CTakerPage3, CMyFormView)
 	ON_NOTIFY(NM_DBLCLK, IDC_REPORT_LIST100, OnReportItemDblClick)
 	ON_NOTIFY(NM_CLICK, IDC_REPORT_LIST100, OnReportItemSMSCallBackLog)
 	ON_WM_CONTEXTMENU()
-	//ON_BN_CLICKED(IDC_ALL_REGISTER_BTN, &CTakerPage3::OnBnClickedAllRegisterBtn)
 	ON_MESSAGE(WM_USER + 200, OnReportRefresh)
-	ON_NOTIFY(XTP_NM_GRID_HYPERLINK, IDC_REPORT_LIST100, OnReportHyperlinkClick)
-	ON_BN_CLICKED(IDC_REGISTER_BTN, &CTakerPage3::OnBnClickedRegisterBtn)
 	ON_BN_CLICKED(IDC_MODIFY_BTN, &CTakerPage3::OnBnClickedModifyBtn)
 
 	/*ON_COMMAND(ID_TO_EXCEL, OnToExcel)*/
@@ -127,19 +124,10 @@ void CTakerPage3::OnInitialUpdate()
 
 	m_lstReport.SetOrderIndexCol(0);
 
-	/*
-	m_lstReport.InsertColumn(12, "등록일",	LVCFMT_CENTER, 90);
-	m_lstReport.InsertColumn(13, "등록자",	LVCFMT_CENTER, 60);
-	m_lstReport.InsertColumn(14, "등록회사",LVCFMT_CENTER, 90);
-	*/
-
 	m_lstReport.Populate();
 	m_lstReport.SetFreezeColumnsCount(6);
 	//////////////////////////////////
 	
-
-	//m_stc1.SetBkColor(RGB(255, 230 , 230));
-
 	m_cmbTelType.SetCurSel(0);
 
 	m_stc10.SetWindowText("※ 서류 등록(수정) 후 반드시 로지소프트(1599-0707)로 연락주세요");
@@ -159,10 +147,7 @@ void CTakerPage3::RefreshList()
 	CMyFormView::RefreshList();
 
 	UpdateData(TRUE); 
-
-
 	InnerDeleteAllItem();
-
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_smscallback_tel_customer_1");
@@ -278,47 +263,6 @@ void CTakerPage3::RefreshSub(CMkRecordset *pRs, CXTPGridRecord *pRecord)
 	m_lstReport.SetItemData(pRecord,(DWORD)pTakerPage3);
 }
 
-void CTakerPage3::OnReportHyperlinkClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
-{
-	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-	if(!pItemNotify->pRow || !pItemNotify->pColumn)
-		return;
-
-	/*
-	// if click on Hyperlink in Item
-	if (pItemNotify->nHyperlink >= 0)
-	{
-
-
-
-		int nRow = pItemNotify->pRow->GetIndex();
-		int nCol = pItemNotify->pColumn->GetItemIndex();
-
-		CXTPGridRecord *pRecord = pItemNotify->pRow->GetRecord();
-
-
-		CString strTelecomUrl = m_lstReport.GetItemDataText2(pRecord);
-		CString strIdentyCardUrl = m_lstReport.GetItemDataText3(pRecord);
-
-		int TYPE_DAERI = 0;
-		CString strHTTP = "";
-
-
-		if(nCol == TELECOM_DOC_COLUMN)
-		{
-			strHTTP = CSMSAllRegisterDlg::GetWebFolder(TYPE_DAERI, TELECOM_DOC);
-			ShowDocView(strHTTP + strTelecomUrl);
-		}
-		else
-		{
-			strHTTP = CSMSAllRegisterDlg::GetWebFolder(TYPE_DAERI, BUSINESS_DOC);
-			ShowDocView(strHTTP +strIdentyCardUrl);
-		}
-	}
-	*/
-}
-
-
 void CTakerPage3::ShowDocView(CString strUrl)
 {
 	if(m_pSMSDocViewDlg == NULL)
@@ -331,12 +275,6 @@ void CTakerPage3::ShowDocView(CString strUrl)
 	m_pSMSDocViewDlg->DocView();
 
 	m_pSMSDocViewDlg->ShowWindow(SW_SHOW);
-
-	/*
-	CREATE_MODALESS(CSMSDocViewDlg, this);
-	pDlg->m_strUrl = strUrl	;
-	SHOW_MODALESS(CSMSDocViewDlg, this);
-	*/
 }
 
 
@@ -361,15 +299,6 @@ void CTakerPage3::OnBnClickedSearchBtn()
 {
 	RefreshList();
 }
-void CTakerPage3::OnBnClickedAllRegisterBtn()
-{
-	//CSMSAllRegisterDlg dlg;
-	//dlg.DoModal();
-
-	/*CREATE_MODALESS(CSMSAllRegisterDlg, this);
-	SHOW_MODALESS(CSMSAllRegisterDlg, this);*/
-}
-
 
 void CTakerPage3::OnEnChangeSearchEdit()
 {
@@ -382,7 +311,6 @@ void CTakerPage3::FilterList()
 	CString strSearch; m_edtSearch.GetWindowText(strSearch);
 	CString strTelSearch = strSearch;
 	strTelSearch.Replace("-", "");
-	
 	 
 	if( LF->IsStringDigit(strTelSearch) && strTelSearch.GetLength() > 6 )
 	{
@@ -391,8 +319,6 @@ void CTakerPage3::FilterList()
 	}
 	else
 		m_lstReport.Filter(strSearch);
-
-
 
 	m_lstReport.Populate();
 }
@@ -421,8 +347,6 @@ void CTakerPage3::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result*/
 
 void CTakerPage3::OnReportItemSMSCallBackLog(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
-	//CBranchInfo *pBi = m_cBranch.GetBranchInfo();
-
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
 
 	if (!pItemNotify->pRow || !pItemNotify->pColumn)
@@ -437,7 +361,6 @@ void CTakerPage3::OnReportItemSMSCallBackLog(NMHDR * pNotifyStruct, LRESULT * /*
 
 	if( nCol == TELECOM_DOC_COLUMN || nCol == IDENTITY_CARD_DOC_COLUMN )
 	{
-
 		CString strHTTP = "";
 
 		TakePage3Struct *pTakerPage3;
@@ -464,7 +387,6 @@ void CTakerPage3::OnReportItemSMSCallBackLog(NMHDR * pNotifyStruct, LRESULT * /*
 				if(pTakerPage3->nTelecomState > 0)
 					MessageBox("업로드 된 데이터가 없습니다.", "확인", MB_ICONINFORMATION);
 			}
-
 		}
 		else
 		{
@@ -486,7 +408,6 @@ void CTakerPage3::OnReportItemSMSCallBackLog(NMHDR * pNotifyStruct, LRESULT * /*
 
 void CTakerPage3::OnBnClickedModifyBtn()
 {
-
 	if( m_lstReport.GetSelectedRows()->GetCount() <= 0)
 	{
 		MessageBox("적용할 행을 클릭후 수정버튼을 눌러주세요", "확인", MB_ICONINFORMATION);
@@ -515,54 +436,23 @@ void CTakerPage3::OnBnClickedModifyBtn()
 		SHOW_MODALESS(CSMSRegister, this);
 
 	}
-	WorkGofromRefresh(nModifyNo);
 
+	WorkGofromRefresh(nModifyNo);
 }
 
 
 void CTakerPage3::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-
 	if (!pItemNotify->pRow/* || !pItemNotify->pColumn*/)
 		return;
-	
-	//CXTPGridRecord *pRecord = (CXTPGridRecord *)pItemNotify->pRow->GetRecord();
-
-	/*
-	CXTPGridRecord *pRecord = m_lstReport.GetFirstSelectedRecord();
-
-	if(pRecord == NULL)
-		return;
-
-	long nCompany = m_lstReport.GetItemLong(pRecord);
-	long nModifyNo =  m_lstReport.GetItemLong2(pRecord);
-	long nLogiState =  m_lstReport.GetItemLong3(pRecord);
-
-	if( nLogiState == 2 || nLogiState == 3)
-	{
-		MessageBox("로지에서 진행중인건은 비고및 발신번호 사용/미사용만 수정가능합니다", "확인", MB_ICONINFORMATION);		
-	}
-
-	if(nModifyNo <= 0) return;
-
-	CREATE_MODALESS(CSMSRegister, this);
-	pDlg->m_nModifyNo = nModifyNo;
-	pDlg->m_nModifyCompany = nCompany;
-	pDlg->m_pParent = this;
-	SHOW_MODALESS(CSMSRegister, this);
-
-	WorkGofromRefresh(nModifyNo);
-	*/
 
 	OnBnClickedModifyBtn();
 }
 
 void CTakerPage3::WorkGofromRefresh(long nModifyNo)
 {
-	long nCount = m_lstReport.GetRows()->GetCount();
-
-	for(int i = 0; i < nCount; i ++)
+	for(int i = 0; i < m_lstReport.GetRows()->GetCount(); i ++)
 	{
 		long nSMSNo = 0;
 		CXTPGridRow *pRow = m_lstReport.GetRows()->GetAt(i);
@@ -587,16 +477,6 @@ void CTakerPage3::OnContextMenu(CWnd* pWnd, CPoint point)
 	rMenu.LoadMenu(IDR_CONTEXT_MENU_1);
 	CMenu *pRMenu=rMenu.GetSubMenu(16);
 	pRMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);	
-}
-
-void CTakerPage3::OnBnClickedRegisterBtn()
-{
-	/*
-	CREATE_MODALESS(CSMSRegister, this);
-	pDlg->m_bNew = TRUE;
-	pDlg->m_pParent = this;
-	SHOW_MODALESS(CSMSRegister, this);
-	*/
 }
 
 CXTPGridRecord* CTakerPage3::FindRecordFromNo(long nNo)
@@ -647,10 +527,7 @@ LONG CTakerPage3::OnReportRefresh(WPARAM wParam, LPARAM lParam)
 	RefreshOneRecord(nModifyID, pFindRecord);
 	m_lstReport.RedrawControl();
 	
-
 	return 0;
-
-
 }
 
 void CTakerPage3::UpdateMenuUse(BOOL bUse)
@@ -752,8 +629,6 @@ void CTakerPage3::OnMenCorpType1()
 void CTakerPage3::OnMenuManager()
 {
 	CSmsRegisterManagerDlg dlg;
-	 
-	
 	if(dlg.DoModal() != IDOK)
 		return;
 	

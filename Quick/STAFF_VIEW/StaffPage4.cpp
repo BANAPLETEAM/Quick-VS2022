@@ -55,8 +55,6 @@ BEGIN_MESSAGE_MAP(CStaffPage4, CMyFormView)
 	ON_NOTIFY(LVN_DELETEALLITEMS, IDC_LIST_REPORT, OnLvnDeleteallitemsListReport)
 	ON_NOTIFY(NM_CLICK, IDC_LIST_REPORT, OnNMClickListReport)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_REPORT, OnNMDblclkListReport)
-	//ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DTP_FROM, OnDtnDatetimechangeDtpFrom)
-	ON_BN_CLICKED(IDC_NOT_WORK_CHECK, OnBnClickedNotWorkCheck)
 END_MESSAGE_MAP()
 
 
@@ -84,7 +82,6 @@ void CStaffPage4::OnInitialUpdate()
 	MonthInit();
 
 	SetResize(IDC_LIST_REPORT, sizingRightBottom);
-
 }
 
 void CStaffPage4::MonthInit(void)
@@ -217,7 +214,6 @@ void CStaffPage4::CreateHeader()
 
 void CStaffPage4::SetRiderInfo(void) //기사정보
 {
-	//CWaitCursor wait;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_driver_attend_registerlist3");
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
@@ -257,13 +253,6 @@ void CStaffPage4::SetRiderInfo(void) //기사정보
 				m_XTPList.SetItemData(nItem,nWorkState);
 				m_XTPList.ChangeItemBackColor(nItem, 0, RGB(255,196,196));
 				m_XTPList.ChangeItemBackColor(nItem, 1, RGB(255,196,196));
-
-				// DB에서 가져올 때dtWorkStateDate값이 NULL 일 경우가 있고 이 경우 오류남
-				/*if( dtWorkStateDate.GetStatus() == COleDateTime::valid)
-				{
-					dtSpan = dtWorkStateDate - m_dtFrom;
-					m_XTPList.SetItemText(nItem, 0, "★");
-				}*/
 			}
 
 			m_XTPList.SetItemText(nItem, nSubItem++, m_ci.GetName(lCode));
@@ -279,6 +268,7 @@ void CStaffPage4::SetRiderInfo(void) //기사정보
 		m_XTPList.InsertItem(nItem, "합계");
 		pRs.Close();
 	}
+
 	m_XTPList.Populate();
 }
 
@@ -510,10 +500,7 @@ void CStaffPage4::OnBnClickedIncreseColBtn()
 void CStaffPage4::OnLvnDeleteallitemsListReport(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-
 	m_RiderInfo.clear();	
-
-
 	*pResult = 0;
 }
 
@@ -561,23 +548,4 @@ void CStaffPage4::OnNMDblclkListReport(NMHDR *pNMHDR, LRESULT *pResult)
 	dlg.DoModal();
 	
 	*pResult = 0;
-}
-/*
-void CStaffPage4::OnDtnDatetimechangeDtpFrom(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMDATETIMECHANGE pDTChange = reinterpret_cast<LPNMDATETIMECHANGE>(pNMHDR);
-
-	COleDateTime dtFrom; m_FromDT.GetTime(dtFrom);
-	COleDateTimeSpan span(30, 0, 0, 0);
-	COleDateTime dtTo = dtFrom + span;
-	
-	dtTo.SetDateTime(dtTo.GetYear(), dtTo.GetMonth(), dtTo.GetDay(), 23, 59, 59);
-	m_ToDT.SetTime(dtTo);
-
-	*pResult = 0;
-}
-*/
-void CStaffPage4::OnBnClickedNotWorkCheck()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

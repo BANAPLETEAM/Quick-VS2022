@@ -24,7 +24,6 @@ void CRiderOrderLogDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CMyDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_REPORT_LIST, m_wndReport);
-
 	DDX_Control(pDX, IDC_RIDER_NAME_STC, m_stcRiderName);
 	DDX_Control(pDX, IDC_RNO_STC, m_stcRNo);
 	DDX_Control(pDX, IDC_ATTENDANCE_STC, m_stcAttendance);
@@ -37,7 +36,6 @@ void CRiderOrderLogDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CREDIT_STC, m_stcCredit);
 	DDX_Control(pDX, IDC_REMITTANCE_STC, m_stcRemittance);
 	DDX_Control(pDX, IDC_TOTAL_STC, m_stcTotal);
-
 	DDX_Control(pDX, IDC_RIDER_NAME_EDT, m_RiderNameEdt);
 	DDX_Control(pDX, IDC_RNO_EDT, m_RnoEdt);
 	DDX_Control(pDX, IDC_ATTENDANCE_EDT, m_AttendanceEdt);
@@ -81,7 +79,6 @@ void CRiderOrderLogDlg::MakeTooltipData()
 
 	if(!pRs.Execute(&pCmd)) return ;
 
-//	long nCompany, nState, nChargeSum, nPayType, nChargeType;
 	COleDateTime dt1;
 	CString sSDong, sDDong;
 
@@ -101,16 +98,6 @@ void CRiderOrderLogDlg::MakeTooltipData()
 		pRs.GetFieldValue("nChargeType", data.nChargeType);
 		
 		m_mapRider[data.dt1] = data;
-		//m_mapRider.insert(m_mapRider::value_type(dt1, data));
-
-		//CString sChargeType;
-
-		//if(nChargeType == 0)	sChargeType = "A타입";
-		//else if(nChargeType == 1)	sChargeType = "B타입";
-		//else if(nChargeType == 2)	sChargeType = "C타입";
-		//else if(nChargeType == 3)	sChargeType = "D타입";
-		//else	"알수없음";
-
 		pRs.MoveNext();
 	}
 
@@ -191,19 +178,6 @@ void CRiderOrderLogDlg::NotifyDisplayTooltip(NMHDR * pNMHDR, LRESULT * result)
 
 BOOL CRiderOrderLogDlg::MakeHtmlTable(CMakeHtmlTable *pTable, CString sDate)
 {
-	//CMkRecordset pRs(m_pMkDb);
-	//CMkCommand pCmd(m_pMkDb, "select_rider_log_detail");
-
-	//pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nRiderCompany);
-	//pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nRNo);
-	//pCmd.AddParameter(typeString, typeInput, sDate.GetLength(), sDate);
-
-	//if(!pRs.Execute(&pCmd)) return FALSE;
-
-	//long nCompany, nState, nChargeSum, nPayType, nChargeType;
-	//COleDateTime dt1;
-	//CString sSDong, sDDong;
-
 	RIDER_ORDER_MAP::iterator pos;
 
 	COleDateTime dtFrom(_ttoi(sDate.Left(4)), _ttoi(sDate.Mid(5,2)), _ttoi(sDate.Right(2)), 0, 0, 0);
@@ -403,9 +377,6 @@ void CRiderOrderLogDlg::RefreshList()
 	m_RemittanceEdt.SetWindowText(LF->GetMyNumberFormat(nTypeRemittanceTotalCount) + "건 (" + LF->GetMyNumberFormat(nTypeRemittanceTotalCharge) + "원)");
 	m_TotalEdt.SetWindowText(LF->GetMyNumberFormat(nTypeCashTotalCount + nTypeCreditTotalCount + nTypeRemittanceTotalCount) + 
 			"건 (" + LF->GetMyNumberFormat(nTypeCashTotalCharge + nTypeCreditTotalCharge + nTypeRemittanceTotalCharge) + "원)");
-
-
-
 }
 
 void CRiderOrderLogDlg::GetEmptyString(CString &sFormat)
@@ -417,7 +388,6 @@ void CRiderOrderLogDlg::GetEmptyString(CString &sFormat)
 	{
 		sFormat += " ";
 	}
-
 }
 
 BOOL CRiderOrderLogDlg::OnInitDialog()
@@ -456,11 +426,6 @@ BOOL CRiderOrderLogDlg::OnInitDialog()
 	CXTPGridColumn * pCol4 = m_wndReport.AddColumn(new CXTPGridColumn(4,_T("현금,신용,송금"), 150, TRUE));
 	CXTPGridColumn * pCol5 = m_wndReport.AddColumn(new CXTPGridColumn(5,_T("총 합계"), 60, TRUE));
 
-	//pCol0->SetAlignment(DT_LEFT);
-	//pCol1->SetAlignment(DT_LEFT);
-	//pCol2->SetAlignment(DT_LEFT);
-	//pCol3->SetAlignment(DT_LEFT);
-	//pCol4->SetAlignment(DT_LEFT);
 	pCol5->SetAlignment(DT_VCENTER);
 
 	m_wndReport.SetPaintManager(new CPaintManager);
@@ -508,8 +473,7 @@ BOOL CRiderOrderLogDlg::OnInitDialog()
 	MakeTooltipData();
 	RefreshList();
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderOrderLogDlg::OnBnClickedWeatherBtn()

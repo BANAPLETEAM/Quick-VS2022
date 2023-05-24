@@ -119,7 +119,6 @@ public:
 	
 	afx_msg void OnReportItemSMSCallBackLog(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg LONG OnReportRefresh(WPARAM wParam, LPARAM lParam);
-	afx_msg void OnBnClickedAllRegisterBtn();
 	afx_msg void OnBnClickedSearchBtn();
 	afx_msg void OnEnChangeSearchEdit();
 	afx_msg void OnToExcel();
@@ -142,8 +141,6 @@ public:
 
 	CMyStatic m_stc1;
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
-	afx_msg void OnBnClickedRegisterBtn();
-	afx_msg void OnReportHyperlinkClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnBnClickedModifyBtn();
 
 	CXTPGridRecord* FindRecordFromNo(long nNo);

@@ -32,8 +32,6 @@ void CRiderColorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_YELLOW_CHECK, m_chkYellow);
 	DDX_Control(pDX, IDC_SKY_CHECK, m_chkSky);
 	DDX_Control(pDX, IDC_STATIC43, m_stc43);
-
-
 	DDX_Control(pDX, IDC_BLACK_CHECK, m_chkBlack);
 	DDX_Control(pDX, IDC_INDIGO_CHECK , m_chkIndigo);
 	DDX_Control(pDX, IDC_PINK_CHECK , m_chkPink);
@@ -92,8 +90,7 @@ BOOL CRiderColorDlg::OnInitDialog()
 	m_stc43.SetBkColor(RGB(255, 255, 255));
 	m_stc43.SetTextColor(RGB(0, 0, 0));
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 } 
 
 void CRiderColorDlg::OnBnClickedWhiteCheck()

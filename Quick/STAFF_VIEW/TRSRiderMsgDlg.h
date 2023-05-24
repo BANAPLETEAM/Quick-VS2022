@@ -28,7 +28,6 @@ public:
 	afx_msg void OnBnClickedRefreshNonRegRider();
 	afx_msg void OnBnClickedRefreshTRSMsg();
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
-	afx_msg void OnDeleteTRSRider();
 	afx_msg void OnEnChangeNonRegSearchEdit();
 	afx_msg void OnEnChangeTRSMsgSearchEdit();
 

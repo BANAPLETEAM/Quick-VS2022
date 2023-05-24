@@ -22,7 +22,6 @@ protected:
 public :
 	CExplorer m_Explorer;
 	CString m_strUrl;
-	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
 	afx_msg void OnBnClickedCloseBtn();
 	afx_msg void OnBnClickedZoomInBtn();
 	afx_msg void OnBnClickedZoomOutBtn();

@@ -77,24 +77,19 @@ BEGIN_MESSAGE_MAP(CRiderMsgDlg, CMyDialog)
 	ON_BN_CLICKED(IDCANCEL, OnBnClickedCancel)
 	ON_BN_CLICKED(IDC_SEND_BTN, OnBnClickedSendBtn)
 	ON_BN_CLICKED(IDC_ALL_COMPANY_BUTTON, OnBnClickedAllCompanyBtn)
-	//ON_NOTIFY(LVN_ITEMCHANGED, IDC_RIDER_LIST, OnLvnItemchangedRiderList)
 	ON_BN_CLICKED(IDC_NEW_BTN, OnBnClickedNewBtn)
 	ON_EN_CHANGE(IDC_MSG_EDIT, OnEnChangeMsgEdit)
 	ON_EN_CHANGE(IDC_SEARCH_EDIT, OnEnChangeSearchEdit)
 	ON_WM_TIMER()
-	//ON_NOTIFY(LVN_DELETEALLITEMS, IDC_HISTORY_LIST, OnLvnDeleteallitemsHistoryList)
-	//ON_NOTIFY(NM_CLICK, IDC_HISTORY_LIST, OnNMClickHistoryList)
 	ON_BN_CLICKED(IDC_DELETE_SEL_BTN, OnBnClickedDeleteSelBtn)
 	ON_BN_CLICKED(IDC_DELETE_ALL_BTN, OnBnClickedDeleteAllBtn)
 	ON_BN_CLICKED(IDC_CANCEL_BTN2, OnBnClickedCancelBtn2)
 	ON_BN_CLICKED(IDC_EDIT_BTN, &CRiderMsgDlg::OnBnClickedEditBtn)
 	ON_CBN_SELCHANGE(IDC_DELETE_INFO_COMBO, OnCbnSelchangeDeleteCombo)
 	ON_CBN_SELCHANGE(IDC_BRANCH_COMBO, OnCbnSelchangeBranchCombo)
-	ON_CBN_DROPDOWN(IDC_BRANCH_COMBO, OnCbnDropdownBranchCombo)
 	ON_NOTIFY(XTP_NM_GRID_SELCHANGED, IDC_RIDER_LIST, OnReportItemChange)
 	ON_NOTIFY(NM_CLICK, IDC_HISTORY_LIST, OnReportItemMsgClick)
 	ON_NOTIFY(NM_CLICK, IDC_CURRENT_USER_HISTORY_LIST, OnCurrentUSerHistoryReportItemMsgClick)
-
 	ON_BN_CLICKED(IDC_OPEN_BRNACH_BTN, &CRiderMsgDlg::OnBnClickedOpenBrnachBtn)
 	ON_MESSAGE(WM_CHANGE_BRANCH_ALL_CODE, OnChangeBrachAllCode)
 	ON_BN_CLICKED(IDC_WORKING_CHECK, &CRiderMsgDlg::OnBnClickedWorkingCheck)
@@ -109,7 +104,6 @@ END_MESSAGE_MAP()
 BOOL CRiderMsgDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
-	//SetWindowPos(&CWnd::wndTopMost, 0,0,0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
 	LF->MakeModaless();
 	CenterWindow();
@@ -122,7 +116,6 @@ BOOL CRiderMsgDlg::OnInitDialog()
 
 	int nCol = 0;
 	m_lstRider.InsertColumn(nCol,"번호",LVCFMT_CENTER, 40);
-	//if(m_bIntegrated)
 	m_lstRider.InsertColumn(++nCol, "소속", LVCFMT_CENTER, 60);
 	m_lstRider.InsertColumn(++nCol,"기사명",LVCFMT_LEFT, m_bIntegrated ? 90 : 120);
 	m_lstRider.InsertColumn(++nCol,"",LVCFMT_LEFT, 0);  // sHp
@@ -225,7 +218,7 @@ BOOL CRiderMsgDlg::OnInitDialog()
 	}
 
 	m_bStart = TRUE;
-	//OnCbnSelchangeRiderCombo();
+
 	OnEnChangeMsgEdit();
 	RefreshSelectCount();
 
@@ -236,8 +229,7 @@ BOOL CRiderMsgDlg::OnInitDialog()
 	m_edtMsg.SetMyFont("맑은 고딕", 15, FW_NORMAL);
 	m_edtMsg.SetUserOption(RGB(0, 0, 0), RGB(255, 255, 255), "");
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderMsgDlg::RefreshRiderList()
@@ -247,15 +239,13 @@ void CRiderMsgDlg::RefreshRiderList()
 	CMkCommand pCmd(m_pMkDb, "select_rider_list_for_report3");
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_ci.m_nCompanyCode);
 	pCmd.AddParameter(TRUE);
-	//pCmd.AddParameter(typeBool, typeInput, sizeof(int), m_ci.m_bRcpIntMode1);
 	if(!pRs.Execute(&pCmd)) return;
 
 	m_lstRider.DeleteAllItems();
 
 	int nCol = 1, nWorkState = 0;
 	m_lstRider.InsertItem(nItem, "0");
-	//if(m_bIntegrated)
-		m_lstRider.SetItemText(nItem, nCol++, "전체그룹");
+	m_lstRider.SetItemText(nItem, nCol++, "전체그룹");
 	m_lstRider.SetItemText(nItem, nCol++, "전체메시지");
 	m_lstRider.SetItemData(nItem++, m_nCompanyCode);
 
@@ -274,8 +264,7 @@ void CRiderMsgDlg::RefreshRiderList()
 
 		nCol = 1;
 		m_lstRider.InsertItem(nItem, ltoa(nRNo, buffer, 10));
-		//if(m_bIntegrated)
-			m_lstRider.SetItemText(nItem, nCol++, m_ci.GetBranchName(nCompany));
+		m_lstRider.SetItemText(nItem, nCol++, m_ci.GetBranchName(nCompany));
 		m_lstRider.SetItemText(nItem, nCol++, strRName);		
 		m_lstRider.SetItemText(nItem, nCol++, nWorkState ? "1" : "0");
 		m_lstRider.SetItemText(nItem, nCol++, strPhone);
@@ -293,8 +282,6 @@ void CRiderMsgDlg::RefreshRiderList()
 
 void CRiderMsgDlg::RefreshHistory(long nCompany, long nRNo)
 {
-	//	MessageBox("a");
-
 	int nItem = 0;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_rider_msg_history3");
@@ -328,13 +315,6 @@ void CRiderMsgDlg::RefreshHistory(long nCompany, long nRNo)
 		CString str;
 		if( bWholeMsg )
 		{
-			//CBranchInfo *pBi = (CBranchInfo*)m_BranchCombo.GetItemData(0);
-			//if(NULL == pBi) 
-			//{
-			//	AfxMessageBox("내부오류 0001");
-			//	return;
-			//}
-
 			long nCurCompany; BOOL bIntegrated;
 			CString sCodeList = "";
 
@@ -369,57 +349,13 @@ void CRiderMsgDlg::RefreshHistory(long nCompany, long nRNo)
 	m_lstHistory.Populate();
 }
 
-
-
-/*
-void CRiderMsgDlg::OnCbnSelchangeRiderCombo()
-{
-CString strMsg, strTemp;
-COleDateTime dtLast;
-BOOL bRead;
-
-CMkRecordset pRs(m_pMkDb);
-CMkCommand pCmd(m_pMkDb, "select_rider_msg");
-pCmd.AddParameter(typeLong, typeInput, sizeof(int), FIRSTBRANCH(m_bIntegrated, m_nCompanyCode)); 
-pCmd.AddParameter(typeLong, typeInput, sizeof(int), LASTBRANCH(m_bIntegrated, m_nCompanyCode));
-pCmd.AddParameter(typeLong, typeInput, sizeof(int), (int)m_cmbRider.GetItemData(m_cmbRider.GetCurSel()));
-if(!pRs.Execute(&pCmd)) return;
-
-if(pRs.GetRecordCount() > 0)
-{
-pRs.GetFieldValue("bReadRiderMsg", bRead); 
-pRs.GetFieldValue("sMessage", strMsg);
-pRs.GetFieldValue("dtLastMsg", dtLast);
-
-if(!strMsg.IsEmpty())
-{
-strTemp  = "[";
-strTemp +=  dtLast.Format("%Y-%m-%d %H:%M:%S");
-strTemp += "에 발송한 마지막 메세지]";
-if(m_cmbRider.GetCurSel() != 0)
-strTemp += bRead ? "(읽음)" : "(읽지않음)";
-strTemp += "\r\n\r\n";
-strTemp += strMsg;
-}
-m_OldMsgEdit.SetWindowText(strTemp);
-}
-else
-{
-m_OldMsgEdit.SetWindowText("");
-}
-pRs.Close();
-}
-*/
-
 void CRiderMsgDlg::OnOK()
 {
-	//	CMyDialog::OnOK();
+	//CMyDialog::OnOK();
 }
-
 
 void CRiderMsgDlg::OnBnClickedCancel()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	OnCancel();
 }
 
@@ -504,7 +440,6 @@ void CRiderMsgDlg::OnBnClickedSendBtn()
 			nCount++;
 	}
 
-
 	if(nCount == 0)
 	{
 		MessageBox("기사를 선택하여 주시기 바랍니다.", "확인", MB_ICONINFORMATION);
@@ -542,14 +477,12 @@ void CRiderMsgDlg::OnBnClickedSendBtn()
 		RefreshHistory(nCompany,nRNo);
 
 		RefreshWorkerHistory();
-		//CMyDialog::OnOK();
 	}
 }
 
 
 void CRiderMsgDlg::OnBnClickedSendVRAccountBtn()
 {	
-
 	int nItem = -1, nCount = 0;
 	for(int i = 0; i < m_lstRider.GetSelectedRows()->GetCount(); i++)
 	{
@@ -558,11 +491,6 @@ void CRiderMsgDlg::OnBnClickedSendVRAccountBtn()
 		if(SendVRAcoountMsg(nItem))		
 			nCount++;
 	}
-	/*while((nItem = m_lstRider.GetNextItem(nItem, LVNI_SELECTED)) != -1)
-	{
-		if(SendVRAcoountMsg(nItem))		
-			nCount++;
-	}*/
 
 	if(nCount == 0)
 	{
@@ -627,8 +555,6 @@ BOOL CRiderMsgDlg::SendPDAMsg(int nItem, BOOL bWholeAlliance)
 	CString sDay;
 	m_cmbDelete.GetLBText(nIndex, sDay);
 
-	//CBranchInfo *pBi = (CBranchInfo*)m_BranchCombo.GetItemData(m_BranchCombo.GetCurSel());
-
 	long nCurCompany = 0;
 	BOOL bIntegrated = 0;
 	CString sCodeList = "";
@@ -660,32 +586,6 @@ BOOL CRiderMsgDlg::SendPDAMsg(int nItem, BOOL bWholeAlliance)
 	return TRUE;
 }
 
-//void CRiderMsgDlg::OnLvnItemchangedRiderList(NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	//KillTimer(0);
-//	//SetTimer(0, 500, NULL);		
-//
-//	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-//	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
-//
-//	if(!(pNMListView->uNewState & LVIS_SELECTED)) return;
-//	
-//	
-//	long nCompany = (long)m_lstRider.GetItemData(pNMListView->iItem);
-//	long nRNo = atol(m_lstRider.GetItemText(pNMListView->iItem, 0));
-//
-//	if(nRNo == 0) nRNo = 0xFFFF;
-//	
-//	RefreshSelectCount();
-//	RefreshHistory(nCompany, nRNo);
-//	OnEnChangeMsgEdit();
-//	
-//	
-//	//
-//
-//	*pResult = 0;
-//}
-
 void CRiderMsgDlg::OnBnClickedNewBtn()
 {
 	m_edtMsg.SetWindowText("");
@@ -714,7 +614,6 @@ BOOL CRiderMsgDlg::IsAllRider()
 
 	return FALSE;
 }
-
 
 void CRiderMsgDlg::OnBnClickedSendBothBtn()
 {
@@ -759,21 +658,12 @@ void CRiderMsgDlg::OnBnClickedSendBothBtn()
 				CXTPGridRow *pRow = pRows->GetAt(nCount);
 				nItem = pRow->GetIndex();
 
-				//if(nItem == 0)
-				//	continue;
 				if(SendPDAMsg(nItem))
 					nCount++;
-				//}
 			}
 
 			if(nCount > 0)
 				RefreshWorkerHistory();
-
-			/*while((nItem = m_lstRider.GetNextItem(nItem, LVNI_SELECTED)) != -1)
-			{
-				if(SendPDAMsg(nItem))
-					nCount++;
-			}*/
 		}
 	}
 	else
@@ -787,12 +677,7 @@ void CRiderMsgDlg::OnBnClickedSendBothBtn()
 				if(SendPDAMsg(nItem))
 					nCount++;
 		}
-	/*	while((nItem = m_lstRider.GetNextItem(nItem, LVNI_SELECTED)) != -1)
-		{
-			if(SendRiderSMS(nItem))
-				if(SendPDAMsg(nItem))
-					nCount++;
-		}*/
+
 		if(nCount == 0)
 		{
 			MessageBox("기사를 선택하여 주시기 바랍니다.", "확인", MB_ICONINFORMATION);
@@ -840,7 +725,6 @@ BOOL CRiderMsgDlg::SendRiderSMS(int nItem)
 
 	long nCompany = (long)m_lstRider.GetItemData(nItem);
 	long nRNo = atol(m_lstRider.GetItemText(nItem, 0));
-	//CString strPhone = m_lstRider.GetItemText(nItem, m_bIntegrated ? 4 : 3);
 	CString strPhone = m_lstRider.GetItemText(nItem, 4);
 	if(strPhone.IsEmpty() || strPhone.Left(2) != "01") 
 	{
@@ -854,8 +738,6 @@ BOOL CRiderMsgDlg::SendRiderSMS(int nItem)
 	dlg.m_strMsg = m_strMsg;
 	if(IDOK == dlg.DoModal())
 	{
-		//encProfile.WriteString("sms", "callback", dlg.m_strRecvPN);
-
 		dlg.m_strRecvPhone = LF->GetNoneDashNumber(dlg.m_strRecvPhone);
 		dlg.m_strRiderPN = LF->GetNoneDashNumber(dlg.m_strRiderPN);
 
@@ -1013,11 +895,7 @@ void CRiderMsgDlg::FilterRider()
 		CXTPGridRecord *pRecord = m_lstRider.GetRecords()->GetAt(i);
 
 		sRNo = ((CXTPGridRecordItemText*)pRecord->GetItem(0))->GetCaption(pColumn);
-
-		//if(m_bIntegrated)
-			strName = ((CXTPGridRecordItemText*)pRecord->GetItem(2))->GetCaption(pColumn);
-		//else
-		//	strName = ((CXTPGridRecordItemText*)pRecord->GetItem(1))->GetCaption(pColumn);
+		strName = ((CXTPGridRecordItemText*)pRecord->GetItem(2))->GetCaption(pColumn);
 
 		long nCompany = m_lstRider.GetItemData(pRecord);
 		sCompany = (CString)itoa(nCompany, buffer, 10) + ",";
@@ -1031,14 +909,6 @@ void CRiderMsgDlg::FilterRider()
 				if(sCodeList.Find(sCompany) == -1)
 					bShow = FALSE;
 			}
-			//else
-			//{
-			//	if(nSelCompany != atoi(sCompany))
-			//	{
-			//		sCompany.Replace(",", "");
-			//		bShow = FALSE;
-			//	}
-			//}
 		}
 		else
 		{
@@ -1231,9 +1101,6 @@ void CRiderMsgDlg::OnBnClickedAllCompanyBtn()
 
 void CRiderMsgDlg::FilterListControl(int nCompany, int nRNo)
 {
-	// 	int nSel = m_BranchCombo.GetCurSel();
-	// 	int nComboCode = m_BranchCombo.GetItemData(nSel);
-
 	for(int i =m_lstRider.GetItemCount() - 1; i >= 0; --i)
 	{
 		int nListCode = m_lstRider.GetItemData(i);
@@ -1257,14 +1124,6 @@ void CRiderMsgDlg::FilterListControl(int nCompany, int nRNo)
 
 }
 
-void CRiderMsgDlg::OnCbnDropdownBranchCombo()
-{
-	//int nSel = m_BranchCombo.GetCurSel();
-	//if(nSel != 0)
-	//{
-	//	RefreshRiderList();
-	//}
-}
 void CRiderMsgDlg::OnBnClickedOpenBrnachBtn()
 {
 	m_cBranchCombo.OpenBranchDlg();

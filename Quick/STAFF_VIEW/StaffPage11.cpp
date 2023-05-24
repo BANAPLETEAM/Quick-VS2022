@@ -37,13 +37,11 @@ BEGIN_MESSAGE_MAP(CStaffPage11, CMyFormView)
 	ON_BN_CLICKED(IDC_BUTTON_MODIFY, OnBnClickedButtonModify)
 	ON_CBN_SELCHANGE(IDC_CON_WORKING_COMBO, OnCbnSelchangeConWorkingCombo)
 	ON_EN_CHANGE(IDC_RIDER_EDIT, OnEnChangeRiderEdit)
-	ON_NOTIFY(NM_CLICK, IDC_WNO_LIST, OnReportItemClick)
 	ON_NOTIFY(NM_DBLCLK, IDC_WNO_LIST, OnReportItemDblClick)
 	ON_WM_CONTEXTMENU()
 
 	ON_COMMAND(ID_WORK_STOP, OnWorkStop)
 	ON_COMMAND(ID_WORK_OK, OnWorkOk)
-	ON_COMMAND(ID_MENU_MSG, OnMenuMsg)
 	ON_COMMAND(ID_VIEW_EXCEL, OnViewExcel)
 	ON_BN_CLICKED(IDC_BUTTON_DELETE, OnBnClickedButtonDelete)
 	ON_NOTIFY(XTP_NM_GRID_SELCHANGED, IDC_WNO_LIST, OnReportItemChange)
@@ -266,7 +264,6 @@ void CStaffPage11::InitControl()
 	m_List.SetOrderIndexCol(0);
 
 	m_List.Populate();
-
 }
 
 void CStaffPage11::OnBnClickedButtonNew()
@@ -337,14 +334,7 @@ CString CStaffPage11::GetWorkType(long nWorkType)
 void CStaffPage11::OnBnClickedButtonModify()
 {
 	long nIndex = m_List.GetNextItem(-1, LVNI_SELECTED);
-
 	if(nIndex == -1) return;
-
-	//if(m_List.GetItemText(nIndex, 1) == "0")
-	//{
-	//	MessageBox("최고관리자는 수정하실 수 없습니다", "확인",MB_ICONINFORMATION);
-	//	return;
-	//}
 
 	CXTPGridSelectedRows *pRows = m_List.GetSelectedRows();
 	CXTPGridRow *pRow = pRows->GetAt(0);
@@ -356,30 +346,13 @@ void CStaffPage11::OnBnClickedButtonModify()
 	dlg.m_nANo = m_WnoMap[nIndex].nANo;
 	dlg.m_nWorkState = m_WnoMap[nIndex].nWorkState;
 	dlg.m_bNewMode = FALSE;
-
 	dlg.DoModal();
-	//dlg.m_nCompany = m_WnoMap[nIndex].nCompany;
 }
 
 
 void CStaffPage11::OnCbnSelchangeConWorkingCombo()
 {
 	RefreshList();
-}
-
-
-void CStaffPage11::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
-{
-	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-
-	if (!pItemNotify->pRow/* || !pItemNotify->pColumn*/)
-		return;
-
-//	CRect rc;
-//	m_DrawStc.GetWindowRect(rc); 
-//	ScreenToClient(rc); 
-
-//	InvalidateRect(rc);
 }
 
 
@@ -613,12 +586,6 @@ void CStaffPage11::OnWorkOk()
 	RefreshList();
 }
 
-void CStaffPage11::OnMenuMsg()
-{
-	return;
-}
-
-
 void CStaffPage11::OnBnClickedButtonDelete()
 {
 	if(!LF->POWER_CHECK(5012, "퇴사/삭제/재입사처리", TRUE))
@@ -686,13 +653,6 @@ void CStaffPage11::OnBnClickedButtonDelete()
 					CMkCommand pCmd(m_pMkDb, strStoredProc);
 					pCmd.AddParameter(typeInt, typeInput, sizeof(int), m_WnoMap[nIndex].nANo);
 					pCmd.Execute();
-					/*
-					CString strRNo = m_List.GetItemText(nSelItem,0);						
-					CMkCommand pCmd2(m_pMkDb, "delete_driver_group_alone");
-					pCmd2.AddParameter(typeLong, typeInput, sizeof(int), m_nCompanyCode);										
-					pCmd2.AddParameter(typeLong, typeInput, sizeof(int), atoi(strRNo));											
-					pCmd2.Execute();
-					*/
 
 					RefreshList();
 				}

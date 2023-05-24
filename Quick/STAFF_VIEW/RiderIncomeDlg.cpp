@@ -59,8 +59,7 @@ BOOL CRiderIncomeDlg::OnInitDialog()
 	m_cmbIncome.SetItemData(THREE, 49);
 	m_cmbIncome.SetCurSel(ZERO);
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderIncomeDlg::OnBnClickedIncomeBtn()

@@ -50,13 +50,10 @@ END_MESSAGE_MAP()
 
 
 // CShareOrderAllocate 메시지 처리기입니다.
-
-
 void CShareOrderAllocate::InitControl()
 {
 	for(int i=0; i<m_cmbCompany.GetCount(); i++)
 		m_cmbCompany.DeleteString(0);
-
 
 	int nItem = -1;
 	MAP_SHARED_COMPANY::iterator it;
@@ -79,66 +76,19 @@ void CShareOrderAllocate::InitControl()
 		m_cmbCompany.SetCurSel(nItem);
 		VerifyRider(TRUE);
 	}
-
-
-	/*
-	char buffer[20];
-	//CWaitCursor wait;
-	CMkCommand pCmd(m_pMkDb, "select_share_company2_2");
-	CMkRecordset pRs(m_pMkDb);
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_nCompany);
-
-	if(!pRs.Execute(&pCmd))
-	return;
-
-	int nItem = -1;
-
-	for(int i = 0; i < pRs.GetRecordCount(); i++)
-	{
-	long nID;
-	CString	sBranchName;
-
-	pRs.GetFieldValue("nID", nID);
-	pRs.GetFieldValue("sBranchName", sBranchName);
-
-	m_cmbCompany.InsertString(i,sBranchName);
-	m_cmbCompany.SetItemData(i,nID);
-
-	if(nID == m_nRiderCompany)
-	{
-	nItem = i;
-	}
-
-	pRs.MoveNext();
-	}	
-
-	if(nItem >= 0)
-	{
-	m_cmbCompany.SetCurSel(nItem);
-	VerifyRider(TRUE);
-	}
-	*/
 }
 
-
-void CShareOrderAllocate::NewUser()
-{
-
-
-}
 void CShareOrderAllocate::ModifyUser()
 {
 	m_cmbCompany.EnableWindow(FALSE);
 	m_edtRiderNO.EnableWindow(FALSE);
 
-	//CWaitCursor wait;
 	CMkCommand pCmd(m_pMkDb, "select_share_order_modify_1");
 	CMkRecordset pRs(m_pMkDb);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_nID);
 
 	if(!pRs.Execute(&pCmd))
 		return;
-
 
 	long nID,nCompany,nRiderCompany, nRNo;
 	nID = nCompany = nRiderCompany = nRNo = 0;
@@ -168,14 +118,12 @@ void CShareOrderAllocate::ModifyUser()
 	}
 }
 
-
 void CShareOrderAllocate::ModifyUserOk()
 {
 	try
 	{
 		if(m_nID <= 0)
 			throw "선택을 다시 해주세요";
-
 
 		long nRiderCompany = 0;
 		nRiderCompany = (long)m_cmbCompany.GetItemData(m_cmbCompany.GetCurSel());
@@ -221,10 +169,9 @@ void CShareOrderAllocate::ModifyUserOk()
 		MessageBox(szMsg,"확인",MB_ICONINFORMATION);
 		return;
 	}
-
-
-
 }
+
+
 void CShareOrderAllocate::NewUserOk(BOOL bAll)
 {
 	try
@@ -280,8 +227,8 @@ void CShareOrderAllocate::NewUserOk(BOOL bAll)
 		MessageBox(szMsg,"확인",MB_ICONINFORMATION);
 		return;
 	}
-
 }
+
 void CShareOrderAllocate::OnBnClickedButton1()
 {
 	BOOL bAll = FALSE;
@@ -297,17 +244,12 @@ BOOL CShareOrderAllocate::OnInitDialog()
 	CMyDialog::OnInitDialog();
 	InitControl();
 	m_btnApplyAll.EnableWindow(LF->GetCurBranchInfo()->bIntegrated);
-	if(m_nMode) // 1신규 0 수정
-	{
-		NewUser();
-	}
-	else
+	if(!m_nMode) // 1신규 0 수정
 	{
 		m_btnModify.EnableWindow(m_ModifyButtonEnable);
 		ModifyUser();
 	}
-	return TRUE;  // return TRUE unless you set the focus to a control
-
+	return TRUE;
 }
 
 void CShareOrderAllocate::OnBnClickedButton7()
@@ -320,11 +262,9 @@ void CShareOrderAllocate::OnBnClickedTestButton()
 	VerifyRider();
 }
 
-
 void CShareOrderAllocate::VerifyRider(BOOL bNoMsg)
 {
 	UpdateData();
-
 
 	long nCompany = 0;
 	nCompany = (long)m_cmbCompany.GetItemData(m_cmbCompany.GetCurSel());
@@ -370,8 +310,6 @@ void CShareOrderAllocate::VerifyRider(BOOL bNoMsg)
 	}
 }
 
-
-
 HBRUSH CShareOrderAllocate::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CMyDialog::OnCtlColor(pDC, pWnd, nCtlColor);
@@ -382,7 +320,6 @@ HBRUSH CShareOrderAllocate::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	return hbr;
 }
-
 
 void CShareOrderAllocate::OnEnChangeDetailEdit()
 {

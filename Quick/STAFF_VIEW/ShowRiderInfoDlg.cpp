@@ -78,15 +78,12 @@ BEGIN_MESSAGE_MAP(CShowRiderInfoDlg, CMyDialog)
 	ON_NOTIFY(NM_DBLCLK, IDC_ORDER_LIST, OnNMDblclkOrderList)
 	ON_BN_CLICKED(IDC_WORK_STATE_BTN, OnBnClickedWorkStateBtn)
 	ON_BN_CLICKED(IDC_SEND_MSG_BTN, OnBnClickedSendMsgBtn)
-	ON_BN_CLICKED(IDC_HISTORY_BTN, OnBnClickedHistoryBtn)
 	ON_BN_CLICKED(IDC_CANCEL_STATE_BTN, OnBnClickedCancelStateBtn)
 	ON_BN_CLICKED(IDC_RCP_STATE_BTN, OnBnClickedRcpStateBtn)
 	ON_BN_CLICKED(IDC_WAIT_STATE_BTN, OnBnClickedRcpWaitBtn)
 	ON_BN_CLICKED(IDC_LIMIT_SHARE_ORDER_BTN, OnBnClickedLimitShareOrderBtn)
 	ON_BN_CLICKED(IDC_RIDER_CANCEL_LOG_BTN, OnBnClickedRiderCancelLogBtn)
-	
 	ON_BN_CLICKED(IDC_TRANSFER_BTN, OnBnClickedTransferBtn)
-	ON_BN_CLICKED(IDC_RIDER_ROUTE_BTN, OnBnClickedRiderRouteBtn)
 	ON_BN_CLICKED(IDC_ATTEND_BTN, OnBnClickedAttendBtn)
 	ON_BN_CLICKED(IDC_RIDER_SHARE_BOARD_BTN, &CShowRiderInfoDlg::OnBnClickedRiderShareBoardBtn)
 	ON_BN_CLICKED(IDC_INIT_BTN, &CShowRiderInfoDlg::OnBnClickedInitBtn)
@@ -118,10 +115,7 @@ void CShowRiderInfoDlg::DrawRiderInfo(CDC *pDC)
 
 	CRect rc;
 	m_stc1.GetClientRect(rc);
-	//rc.left += 10;
 	rc.right = rc.left + 200;
-	//rc.top += 310;
-	//rc.bottom -= 5;
 	DrawInfoBox(pDC, rc);
 	rc.DeflateRect(5, 5, 5, 5);
 	PrintLine(pDC, rc, "회사명", m_strCompany);
@@ -137,14 +131,9 @@ void CShowRiderInfoDlg::DrawRiderInfo(CDC *pDC)
 	PrintLine(pDC, rc, "집전화", m_strHomePhone);
 	PrintLine(pDC, rc, "입사일", m_strEnterDate); 
 
-	//rc.bottom += 7;
-	//PrintLine(pDC, rc, "차종", m_strCarType);
-	
 	m_stc1.GetClientRect(rc);
 	rc.left += 201;
 	rc.right = rc.left + 200;
-	//rc.top += 310;
-	//rc.bottom -= 5;
 	DrawInfoBox(pDC, rc);
 	rc.DeflateRect(5, 5, 5, 5);
 	PrintLine(pDC, rc, "입금방식", m_strDepositType);
@@ -160,26 +149,15 @@ void CShowRiderInfoDlg::DrawRiderInfo(CDC *pDC)
 
 	m_stc1.GetClientRect(rc);
 	rc.left += 402; 
-	//rc.right = rc.left + 530;
-	//rc.top += 310;
-	//rc.bottom -= 5;
 	DrawInfoBox(pDC, rc);
 	rc.DeflateRect(5, 5, 5, 5); 
 	PrintLine(pDC, rc, "과거이력", "");
 	PrintLine(pDC, rc, "", "");
-	//font.SetFont(&GetPaintManager()->m_fontText);
-
-
 	PrintLine(pDC, rc, "벌점", m_strSumBlackMarks, TRUE, RGB(255, 0, 0)); 
 	PrintLine(pDC, rc, "차량번호", m_strCarNo, FALSE); 
 	PrintLine(pDC, rc, "영업용차량", m_strBusinessCar, FALSE); 
 	PrintLine(pDC, rc, "차종", m_strCarType, FALSE);
 	PrintLine(pDC, rc, "적재물보험", m_strLoadInsState, FALSE);
-	//m_strSumBlackMarks
-
-	//CXTPFontDC font2(pDC, m_FontManager.GetFont("돋움체", 11, FW_NORMAL));
-	//PrintLine(pDC, rc, m_strHistory, "", FALSE, RGB(255, 255, 255));
-	//PrintLine(pDC, rc, m_strHistory2, "", FALSE, RGB(255, 255, 255));
 
 	if(m_strPhone.Find("*") >= 0) 
 	{
@@ -187,7 +165,6 @@ void CShowRiderInfoDlg::DrawRiderInfo(CDC *pDC)
 		PrintLine(pDC, rc, "", "");
 		PrintLine(pDC, rc, "4시간지난오더 타사기사 전번 미표시상태", FALSE, RGB(200, 0, 0));
 	}
-
 
 //	PrintLine(pDC, rc, "", "");
 //	PrintLine(pDC, rc, "", "");
@@ -200,16 +177,6 @@ void CShowRiderInfoDlg::DrawInfoBox(CDC *pDC, CRect rc, BOOL bGreen)
 {
 	pDC->FillSolidRect(rc.left, rc.top, rc.Width(), rc.Height(), 
 		bGreen ? RGB(119, 185, 147) : RGB(119, 147, 185)); 
-/*
-	for (int i = rc.top + 1; i < rc.bottom; i+= 3)
-	{
-		pDC->FillSolidRect(rc.left, i, rc.Width(), 1, 
-			XTPDrawHelpers()->BlendColors(
-			bGreen ? RGB(122, 187, 149) : RGB(122, 149, 187), 
-			bGreen ? RGB(74, 165, 111) : RGB(74, 111, 165), 
-			(float)(1.0 - ((i - rc.top)) / (float)rc.Height())));
-	}
-*/
 }
 
 void CShowRiderInfoDlg::PrintLine(CDC *pDC, CRect &rc, CString strTitle, CString strText, 
@@ -348,9 +315,7 @@ void CShowRiderInfoDlg::ShowRiderInfo(BOOL bShow)
 	{
 		m_btnLimitShareOrder.EnableWindow(FALSE);
 		m_btnWorkState.EnableWindow(TRUE);
-		//m_btnSendMsg.EnableWindow(TRUE);
 		m_btnHistory.EnableWindow(TRUE);
-		//m_btnRiderWorkReport.EnableWindow(TRUE);
 		m_btnAttend.EnableWindow(TRUE);
 		m_btnCeritify.ShowWindow(SW_SHOW);
 		m_btnChargeFor.EnableWindow(FALSE);
@@ -359,14 +324,11 @@ void CShowRiderInfoDlg::ShowRiderInfo(BOOL bShow)
 	{
 		m_btnLimitShareOrder.EnableWindow(TRUE);
 		m_btnWorkState.EnableWindow(FALSE);
-		//m_btnSendMsg.EnableWindow(FALSE);
 		m_btnHistory.EnableWindow(FALSE);
 		m_btnAttend.EnableWindow(FALSE);
 		m_btnCeritify.ShowWindow(FALSE);
 		m_btnChargeFor.EnableWindow(TRUE);
-		//m_btnRiderWorkReport.EnableWindow(FALSE);
 	}
-
 
 	if(m_strCallBranch.GetLength() > 0)
 		SetWindowText(CString("기사 정보창 ") + m_strCallBranch);
@@ -375,7 +337,6 @@ void CShowRiderInfoDlg::ShowRiderInfo(BOOL bShow)
 
 	Invalidate();
 }
-
 
 HBRUSH CShowRiderInfoDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
@@ -402,7 +363,6 @@ void CShowRiderInfoDlg::RefreshRefusalList()
 
 	CMkRecordset rs(m_pMkDb);
 	CMkCommand cmd(m_pMkDb, "select_share_refusal_info_1");
-	//CMkParameter *pPar = cmd.AddParameter(typeLong, typeReturn,sizeof(long), 0);
 	cmd.AddParameter(m_nCompany);
 	cmd.AddParameter(m_nRNo);
 	CMkParameter *pParBlakcMarks = cmd.AddParameter(typeLong, typeOutput,sizeof(long), 0);
@@ -463,16 +423,6 @@ void CShowRiderInfoDlg::RefreshRefusalList()
 	}
 
 	m_lstShareRefusal.Populate();
-
-	/*
-	if(m_lstShareRefusal.GetRecords()->GetCount() == 0 && m_strSumBlackMarks != "0점")
-		m_lstShareRefusal.GetPaintManager()->m_strNoItems = "최근1달 동안의 데이터만 보여줍니다.";
-	else
-		m_lstShareRefusal.GetPaintManager()->m_strNoItems = "표시할 정보가 없거나, 조건에 해당하는 자료가 존재하지 않음";
-	*/
-
-
-	m_lstShareRefusal.Populate();
 }
 
 BOOL CShowRiderInfoDlg::OnInitDialog()
@@ -523,11 +473,7 @@ BOOL CShowRiderInfoDlg::OnInitDialog()
 		m_RiderStatList.InsertColumn(nCol++, strDay, LVCFMT_CENTER, 43);
 	}
 
-	//if(m_ui.bDeveloper)
-	//	GetDlgItem(IDC_TRS_BTN)->ShowWindow(SW_SHOW);
-
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CShowRiderInfoDlg::OnNMDblclkOrderList(NMHDR *pNMHDR, LRESULT *pResult)
@@ -589,17 +535,6 @@ void CShowRiderInfoDlg::OnBnClickedSendMsgBtn()
 		return;
 	}
 
-	/*
-	if(!m_ci.IsChildCompany(m_nCompany)) {
-		MessageBox("타사기사에 대해서, 적용할 수 없습니다.", 
-			"확인", MB_ICONINFORMATION);
-		return;
-	}
-	*/
-
-	if(!LF->POWER_CHECK(1200, "기사공지창 보기", TRUE))
-		return;
-
 	MSG_RIDER_INFO *pInfo = new MSG_RIDER_INFO;
 	CRiderMsgDlg dlg;
 	dlg.SetIntegrated(m_ba.GetCount() > 2);
@@ -609,11 +544,6 @@ void CShowRiderInfoDlg::OnBnClickedSendMsgBtn()
 	dlg.m_paSelected.Add((MSG_RIDER_INFO*)pInfo);
 	dlg.DoModal();
 	delete pInfo;
-
-}
-
-void CShowRiderInfoDlg::OnBnClickedHistoryBtn()
-{
 
 }
 
@@ -666,19 +596,6 @@ void CShowRiderInfoDlg::OnBnClickedLimitShareOrderBtn()
 	dlg.m_nRNo = m_nRNo;
 	dlg.m_nCompany = m_ci.m_nCompanyCode;
 	dlg.DoModal();
-	
-	/*
-	CShareOrderAllocate dlg;
-	dlg.m_nMode = 1;
-	dlg.m_nID = -1;
-	dlg.m_nRider = m_nRNo; 
-	dlg.m_nRiderCompany = m_nCompany;
-//	dlg.m_strCompany = m_strCompany;
-//	dlg.m_strRName	= m_strRName;
-//	MessageBox("name :::m_strRName"+m_strRName);
-	dlg.SetCompany(m_nOrderCompany);
-	dlg.DoModal();
-	*/
 }
 
 void CShowRiderInfoDlg::ShowRiderStatInfo(CMakeRiderStat &stat)
@@ -693,9 +610,6 @@ void CShowRiderInfoDlg::ShowRiderStatInfo(CMakeRiderStat &stat)
 	char buffer[20], buffer2[20];
 
 	m_RiderStatList.InsertItem(nItem++, "총콜수");
-	//m_RiderStatList.InsertItem(nItem++, "자사콜");
-	//m_RiderStatList.InsertItem(nItem++, "타사콜");
-	//m_RiderStatList.InsertItem(nItem++, "실수건");
 	m_RiderStatList.InsertItem(nItem++, "운행료");
 
 	int nCol = 0; 
@@ -709,15 +623,9 @@ void CShowRiderInfoDlg::ShowRiderStatInfo(CMakeRiderStat &stat)
 		CString strCharge = ltoa(stat.GetCharge(strDate), buffer, 10);
 
 		m_RiderStatList.SetItemText(0, i, LF->RemoveZero(ltoa(stat.GetAllocCount(strDate), buffer2, 10)));
-		//m_RiderStatList.SetItemText(1, i, LF->RemoveZero(ltoa(stat.GetMyCallCount(strDate), buffer3, 10)));
-		//m_RiderStatList.SetItemText(2, i, LF->RemoveZero(ltoa(stat.GetCrossCallCount(strDate), buffer4, 10)));
-		//m_RiderStatList.SetItemText(3, i, LF->RemoveZero(ltoa(stat.GetPenaltyCount(strDate), buffer5, 10)));
 		m_RiderStatList.SetItemText(1, i, strCharge == "0" ? "" : strCharge + "천");
 	}
 }
-
-
-
 
 void CShowRiderInfoDlg::OnBnClickedRiderCancelLogBtn()
 {
@@ -769,9 +677,6 @@ void CShowRiderInfoDlg::TransferOK()
 
 void CShowRiderInfoDlg::OnBnClickedTransferBtn()
 {
-//	MessageBox("준비중입니다", "확인", MB_ICONINFORMATION);
-//	return;
-
 	TransferReal();
 }
 
@@ -956,13 +861,6 @@ BOOL CShowRiderInfoDlg::IsTransfer()
 	return TRUE;
 
 }
-
-
-void CShowRiderInfoDlg::OnBnClickedRiderRouteBtn()
-{
-}
-
-
 
 void CShowRiderInfoDlg::RiderWorkReport()
 {
@@ -1170,7 +1068,4 @@ void CShowRiderInfoDlg::OnStnClickedDrawStatic()
 		CString strText = "휴대폰이 클립보드로 복사되었습니다.";
 		MessageBox(strText, "확인", MB_ICONINFORMATION);
 	}
-
-
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

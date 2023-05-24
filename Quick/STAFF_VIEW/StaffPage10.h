@@ -49,7 +49,6 @@ public:
 	CButton m_DeleteBtn;
 	CButton m_RefreshListBtn;
 
-	afx_msg void OnNMClickOtherriderList(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMClickMyriderList(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnCustomdrawOtherList(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnCustomdrawMyList(NMHDR *pNMHDR, LRESULT *pResult);

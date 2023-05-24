@@ -21,7 +21,6 @@
 
 IMPLEMENT_DYNCREATE(CStaffPage13, CMyFormView)
 CStaffPage13::CStaffPage13()	: CMyFormView(CStaffPage13::IDD)
-
 , m_strRider(_T(""))
 , m_sPenalty(_T(""))
 , m_sMount(_T(""))
@@ -46,7 +45,6 @@ void CStaffPage13::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_MOUNT_STC, m_sMount);
 	DDX_Text(pDX, IDC_INSURANCE_STC, m_sInsurance);
 	DDX_Control(pDX, IDC_SEARCH_BTN, m_btnAllSearch);
-	//	DDX_Control(pDX, IDC_MODIFY_BTN, m_btnModify);
 	DDX_Control(pDX, IDC_ALLAPPLY_BTN, m_btnAllAppy);
 	DDX_Control(pDX, IDC_RELEASE_BTN, m_btnLimittOff);
 	DDX_Control(pDX, IDC_AMOUNT_STATIC, m_stcAmount);
@@ -56,8 +54,6 @@ void CStaffPage13::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CStaffPage13, CMyFormView)
-	//ON_WM_SIZE()
-
 	ON_COMMAND(ID_WORK_OK, OnWorkOk)
 	ON_COMMAND(ID_WORK_STOP, OnWorkStop)
 	ON_COMMAND(ID_WORK_TIME, OnWorkTime)
@@ -82,9 +78,6 @@ BEGIN_MESSAGE_MAP(CStaffPage13, CMyFormView)
 	ON_COMMAND(ID_INSURANCE_COMPANY, OnInsuranceCompany)
 	ON_COMMAND(ID_VIEW_EXCEL, OnViewExcel)
 	ON_COMMAND(ID_MENU_MSG, OnMenuMsg)
-
-
-
 	ON_WM_CONTEXTMENU()
 	ON_NOTIFY(NM_DBLCLK, IDC_INFO_LIST, OnNMDblclkList)	
 	ON_BN_CLICKED(IDC_SEARCH_BTN, OnBnClickedSearchBtn)	
@@ -103,9 +96,6 @@ void CStaffPage13::OnInitialUpdate()
 
 	InitControl();
 	SetResize(IDC_INFO_LIST, sizingRightBottom);
-
-	//SetTimer(1000, 60000, NULL);
-
 }
 
 void CStaffPage13::InitControl()
@@ -297,24 +287,6 @@ void CStaffPage13::RefreshListSub(CMkRecordset *pRs, RIDER_INFO_NEW *ri, CXTPGri
 		strLockCount.Format("%d°Ç", nLockCount);
 		m_List.SetItemText(pRecord, nSubItem++, strLockCount);
 	}
-/*
-	if(ri->bAllocateLimit)
-	{
-		COleDateTimeSpan span = COleDateTime::GetCurrentTime() - ri->dtAllocateLimitDate;
-		int nRemain = (long)(ri->nReleaseMin - span.GetTotalMinutes());
-		if(nRemain > 0)
-		{
-			CString strTemp;
-			strTemp.Format("%d(%d)ºÐ", ri->nReleaseMin, nRemain);
-			m_List.SetItemText(i, 10, strTemp);
-		}
-		else {
-			ri->bAllocateLimit = FALSE;
-			m_List.SetItemText(i, 10, "");
-			m_List.SetItemText(i, 11, "");
-		}
-	}
-	*/
 
 	if(nLockTime4MyOrder == 0 || nLockCount4MyOrder >= 100)
 	{
@@ -439,6 +411,7 @@ void CStaffPage13::OnMenuMsg()
 	dlg.m_nRNo = atol(m_List.GetItemText(nSelItem, 0));
 	dlg.DoModal();
 }
+
 void CStaffPage13::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	CRect rect;
@@ -1184,8 +1157,6 @@ void CStaffPage13::OnInsuranceCompany()
 		if(UpdateInsuranceCompany_sub(ri, dlg.m_sInsCompany, dlg.m_sInsNumber))
 			RefreshListOne(ri, pRecord);
 	}
-
-	//m_List.Populate();
 }
 
 BOOL CStaffPage13::UpdateInsuranceCompany_sub(RIDER_INFO_NEW *ri, CString sInsCompany, CString sInsNumber)

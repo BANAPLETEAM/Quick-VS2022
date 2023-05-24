@@ -55,8 +55,6 @@ BEGIN_MESSAGE_MAP(CStaffPage17, CMyFormView)
 	ON_NOTIFY(LVN_DELETEALLITEMS, IDC_LIST_REPORT, OnLvnDeleteallitemsListReport)
 	ON_NOTIFY(NM_CLICK, IDC_LIST_REPORT, OnNMClickListReport)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_REPORT, OnNMDblclkListReport)
-	//ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DTP_FROM, OnDtnDatetimechangeDtpFrom)
-	ON_BN_CLICKED(IDC_NOT_WORK_CHECK, OnBnClickedNotWorkCheck)
 END_MESSAGE_MAP()
 
 
@@ -84,7 +82,6 @@ void CStaffPage17::OnInitialUpdate()
 	MonthInit();
 
 	SetResize(IDC_LIST_REPORT, sizingRightBottom);
-
 }
 
 void CStaffPage17::MonthInit(void)
@@ -325,202 +322,6 @@ void CStaffPage17::CreateHeader()
 	m_XTPList.Populate();
 }
 
-/*
-void CStaffPage17::SetRiderInfo(void) //기사정보
-{
-	//CWaitCursor wait;
-	CMkRecordset pRs(m_pMkDb);
-	CMkCommand pCmd(m_pMkDb, "select_driver_attend_registerlist3");
-	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
-	pCmd.AddParameter(m_chkNotWork.GetCheck());
-	pCmd.Execute();
-
-	if(pRs.Execute(&pCmd))
-	{
-		int nMNo, iCount, nSubItem, lCode, nItem, nWorkState;
-		CString sName, strCompanyMNo;
-		COleDateTime dtWorkStateDate;
-		COleDateTimeSpan dtSpan;
-		nMNo = iCount = nSubItem = lCode = nItem = nWorkState = 0;
-		m_RiderInfo.clear();
-
-		while(!pRs.IsEOF()) 
-		{
-			nSubItem = 1;
-			pRs.GetFieldValue(0, nMNo);
-			pRs.GetFieldValue(1, sName);			
-			pRs.GetFieldValue(2, lCode);
-			pRs.GetFieldValue(3, nWorkState);			
-			pRs.GetFieldValue(4, dtWorkStateDate);
-
-			RIDER_ATTEND_INFO2 rider;//= new RIDER_ATTEND_INFO2;			
-
-			strCompanyMNo = LF->GetStringFromLong(lCode);
-			rider.strCompanyCode = strCompanyMNo;
-
-			strCompanyMNo += LF->GetStringFromLong(nMNo);
-			rider.nRow = iCount;
-
-			m_XTPList.InsertItem(nItem, LF->GetStringFromLong(nMNo));
-			if(nWorkState == 1)
-			{
-				m_XTPList.SetItemData(nItem,nWorkState);
-				m_XTPList.ChangeItemBackColor(nItem, 0, RGB(255,196,196));
-				m_XTPList.ChangeItemBackColor(nItem, 1, RGB(255,196,196));
-
-				// DB에서 가져올 때dtWorkStateDate값이 NULL 일 경우가 있고 이 경우 오류남
-				if( dtWorkStateDate.GetStatus() == COleDateTime::valid)
-				{
-					dtSpan = dtWorkStateDate - m_dtFrom;
-					m_XTPList.SetItemText(nItem, 0, "★");
-				}
-			}
-
-			m_XTPList.SetItemText(nItem, nSubItem++, m_ci.GetName(lCode));
-			m_XTPList.SetItemText(nItem, nSubItem++, sName);
-
-			m_RiderInfo.insert(RIDER_ATTEND2::value_type(strCompanyMNo,rider));  
-
-			iCount++;
-			nItem++;
-			pRs.MoveNext();
-		}
-
-		m_XTPList.InsertItem(nItem, "합계");
-		pRs.Close();
-	}
-	m_XTPList.Populate();
-}
-
-void CStaffPage17::SetRiderState(void) //출근상태
-{
-	CMkRecordset pRs(m_pMkDb);
-	CMkCommand pCmd(m_pMkDb, "select_driver_device_login");  
-	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCompanyCode);
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), LF->GetCurBranchInfo()->bIntegrated);
-	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime),m_dtFrom );
-	pCmd.AddParameter(typeDate, typeInput, sizeof(COleDateTime),m_dtTo );
-	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL),  m_chkNotWork.GetCheck());
-
-	COleDateTimeSpan span = m_dtTo - m_dtFrom;
-	long nDays = span.GetTotalDays();
-
-	int nDayTotAttend[MAX_DAY];
-
-	for(int m = 0; m < MAX_DAY; m++)
-		nDayTotAttend[m] = 0;
-
-	if(pRs.Execute(&pCmd))
-	{
-		int nRNo, iCount, nCompany, nWorkState, nCount, nItem, nFindDay;
-		COleDateTime dt10;	
-		COleDateTimeSpan dtSpan;
-		CString strName, strTotal, strPercent, strCompanyRno, strTempRno;
-		RIDER_ATTEND2::iterator iter;
-		float fResult = 0;
-		nRNo = iCount = nCompany = nWorkState = nCount = nItem = nFindDay = 0;
-		strTempRno = "초기화";
-
-		while(!pRs.IsEOF()) 
-		{
-			pRs.GetFieldValue(0,nCompany );
-			pRs.GetFieldValue(1,nRNo );
-			pRs.GetFieldValue(2,strName );
-			pRs.GetFieldValue(3,nWorkState);
-			pRs.GetFieldValue(4,dt10);
-
-			strCompanyRno = LF->GetStringFromLong(nCompany);
-			strCompanyRno += LF->GetStringFromLong(nRNo);
-
-			if(strTempRno != strCompanyRno)
-			{
-				if(strTempRno != "초기화")
-				{
-					fResult = (float)(nCount * 100) / nDays;
-					strPercent.Format("%2.1f",fResult);
-					m_XTPList.SetItemText(nItem,3,strPercent);
-
-					strTotal = LF->GetStringFromLong(nCount);
-					strTotal += "일";
-					m_XTPList.SetItemText(nItem, nDays + 4, strTotal);
-					for(int i = nFindDay + 1; i < nDays + 4; i++)
-					{
-						if(m_XTPList.GetItemText(nItem, i) != "★")
-						{
-							m_XTPList.SetItemText(nItem, i, "X");
-							m_XTPList.ChangeItemBackColor(nItem, i, RGB(255, 100, 100));
-							m_XTPList.ChangeItemTextColor(nItem, i, RGB(255, 255, 255));
-						}
-						else if(m_XTPList.GetItemText(nItem, i) == "★")
-						{
-							m_XTPList.ChangeItemBackColor(nItem, 0, RGB(255, 196, 196));
-							m_XTPList.ChangeItemBackColor(nItem, 1, RGB(255, 196, 196));
-						}
-					}
-				}
-
-				iter = m_RiderInfo.find(strCompanyRno);
-
-				strTempRno = strCompanyRno; // 기사가 바뀌면
-				nCount = 0; // 초기화
-			}
-			nItem = iter->second.nRow;			
-
-			COleDateTimeSpan dtGap(0,0,10,0); // 자동생성 06: 50분
-			dtSpan = dt10 - (m_dtFrom - dtGap);			
-			nFindDay = dtSpan.GetDays() + 4; 
-
-			m_XTPList.SetItemText(nItem, nFindDay, "O");  // -1 어제
-			m_XTPList.ChangeItemBackColor(nItem, nFindDay, RGB(100, 255, 100));
-			m_XTPList.ChangeItemTextColor(nItem, nFindDay, RGB(255, 255, 255));
-			nDayTotAttend[nFindDay - 4]++;
-			m_XTPList.SetItemText(nItem, m_nLastCompanyCount,iter->second.strCompanyCode);
-			m_XTPList.SetItemData(nItem, _ttoi(iter->second.strCompanyCode));
-
-			nCount++;
-			pRs.MoveNext();			
-		}
-
-		pRs.Close();
-
-		if(nCount > 0)
-		{
-			fResult = (float)(nCount * 100) / nDays;
-			strPercent.Format("%2.1f",fResult);
-			m_XTPList.SetItemText(nItem, 3, strPercent);
-
-			m_XTPList.SetItemText(nItem, nDays + 4, LF->GetStringFromLong(nCount) + "일");
-			for(int i = nFindDay + 1; i < nDays + 4; i++)
-			{
-				if(m_XTPList.GetItemText(nItem, i) != "★")
-				{
-					m_XTPList.SetItemText(nItem, i, "X");
-					m_XTPList.ChangeItemBackColor(nItem, i, RGB(255, 100, 100));
-					m_XTPList.ChangeItemTextColor(nItem, i, RGB(255, 255, 255));
-				}
-
-				else if(m_XTPList.GetItemText(nItem, i) == "★")
-				{
-					m_XTPList.ChangeItemBackColor(nItem, 0, RGB(255, 196, 196));
-					m_XTPList.ChangeItemBackColor(nItem, 1, RGB(255, 196, 196));
-				}
-			}
-		}
-		
-		int nAllTotalAttend = 0;
-		for(int n = 0; n < nDays; n++)
-		{
-			nAllTotalAttend += nDayTotAttend[n];
-			m_XTPList.SetItemText(m_XTPList.GetRows()->GetCount() - 1, n + 4, LF->GetStringFromLong(nDayTotAttend[n]));
-		}
-		if(nAllTotalAttend != 0)
-			m_XTPList.SetItemText(m_XTPList.GetRows()->GetCount() - 1, nDays + 4, LF->GetStringFromLong(nAllTotalAttend));
-
-	}
-	m_XTPList.Populate();
-}*/
-
 void CStaffPage17::DeleteColumn(void)
 {
 	int nCount = m_XTPList.GetColumns()->GetCount();
@@ -619,10 +420,7 @@ void CStaffPage17::OnBnClickedIncreseColBtn()
 void CStaffPage17::OnLvnDeleteallitemsListReport(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-
 	m_RiderInfo.clear();	
-
-
 	*pResult = 0;
 }
 
@@ -670,23 +468,4 @@ void CStaffPage17::OnNMDblclkListReport(NMHDR *pNMHDR, LRESULT *pResult)
 	dlg.DoModal();
 	
 	*pResult = 0;
-}
-/*
-void CStaffPage17::OnDtnDatetimechangeDtpFrom(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMDATETIMECHANGE pDTChange = reinterpret_cast<LPNMDATETIMECHANGE>(pNMHDR);
-
-	COleDateTime dtFrom; m_FromDT.GetTime(dtFrom);
-	COleDateTimeSpan span(30, 0, 0, 0);
-	COleDateTime dtTo = dtFrom + span;
-	
-	dtTo.SetDateTime(dtTo.GetYear(), dtTo.GetMonth(), dtTo.GetDay(), 23, 59, 59);
-	m_ToDT.SetTime(dtTo);
-
-	*pResult = 0;
-}
-*/
-void CStaffPage17::OnBnClickedNotWorkCheck()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

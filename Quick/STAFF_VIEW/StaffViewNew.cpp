@@ -79,10 +79,6 @@ void CStaffViewNew::OnInitialUpdate()
 }
 
 
-//	for(int i = m_pSheet->GetPageCount() - 1; i >= 0; i--)
-//		m_pSheet->SetActivePage(i);
-
-
 void CStaffViewNew::OnSize(UINT nType, int cx, int cy)
 {
 	CView::OnSize(nType, cx, cy);

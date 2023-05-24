@@ -39,16 +39,13 @@ void CSearchRegionHolidayDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CSearchRegionHolidayDlg, CMyDialog)
 	ON_BN_CLICKED(IDC_SEARCH_BTN, OnBnClickedSearchBtn)
 	ON_BN_CLICKED(IDOK, OnBnClickedOk)
-	//ON_NOTIFY(NM_DBLCLK, IDC_LIST1, OnNMDblclkList1)
 	ON_NOTIFY(NM_CLICK, IDC_LIST1, OnNMDblclkList1)
 	ON_BN_CLICKED(IDC_SEAECH_BUTTON, &CSearchRegionHolidayDlg::OnBnClickedSeaechButton)
-	ON_EN_CHANGE(IDC_SEARCH_EDIT, &CSearchRegionHolidayDlg::OnEnChangeSearchEdit)
 	ON_EN_CHANGE(IDC_DETAIL_EDIT, &CSearchRegionHolidayDlg::OnEnChangeDetailEdit)
 END_MESSAGE_MAP()
 
 
 // CSearchRegionHolidayDlg 메시지 처리기입니다.
-
 BOOL CSearchRegionHolidayDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
@@ -57,13 +54,10 @@ BOOL CSearchRegionHolidayDlg::OnInitDialog()
 	m_List.InsertColumn(0, "신주소", LVCFMT_LEFT, 280);
 	m_List.InsertColumn(1, "구주소", LVCFMT_LEFT, 260);
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_FLATSB | LVS_EX_GRIDLINES | LVS_EX_ONECLICKACTIVATE);
-	//m_List.ShowHeader(FALSE);
-
 	if(m_strSearch.GetLength() > 0)
 		RefreshList();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CSearchRegionHolidayDlg::RefreshList()
@@ -125,7 +119,6 @@ void CSearchRegionHolidayDlg::RefreshList()
 	InternetCloseHandle( hInternet );
 
 	ParseXml(szXml);
-
 }
 
 
@@ -160,7 +153,6 @@ void CSearchRegionHolidayDlg::OnBnClickedOk()
 
 	m_strSearchResult = s3;
 
-	//m_nDongID = m_List.GetItemData(nItem);
 	OnOK();
 	
 }
@@ -246,11 +238,6 @@ void CSearchRegionHolidayDlg::SelectDown()
 void CSearchRegionHolidayDlg::OnBnClickedSeaechButton()
 {
 	RefreshList();
-}
-
-void CSearchRegionHolidayDlg::OnEnChangeSearchEdit()
-{
-	//RefreshList();
 }
 
 CString CSearchRegionHolidayDlg::ConvertStringToSendData(const CString & s, CByteArray & msg)

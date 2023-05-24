@@ -101,8 +101,6 @@ void CStaffPage15::RefreshList()
 	
 }
 
-
-
 void CStaffPage15::RefreshListMyLimit()
 {
 	char buffer[10]; 
@@ -169,8 +167,6 @@ void CStaffPage15::RefreshListMyLimit()
 
 void CStaffPage15::RefreshListOtherLimit()
 {
-
-
 	char buffer[10]; 
 	m_lstOtherReport.DeleteAllItems();
 
@@ -274,7 +270,6 @@ void CStaffPage15::OnBnClickedRefreshListButton()
 	RefreshListMyLimit();
 	RefreshListOtherLimit();
 }
-
 
 
 void CStaffPage15::OnEnChangeSearchOtherEdit()

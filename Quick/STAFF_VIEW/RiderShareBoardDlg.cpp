@@ -125,8 +125,7 @@ BOOL CRiderShareBoardDlg::OnInitDialog()
 	if(m_nRiderCompany > 0 && m_nRNo > 0)
 		SetTimer(1000, 100, NULL);
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderShareBoardDlg::OnBnClickedRefreshBtn()
@@ -266,22 +265,15 @@ void CRiderShareBoardDlg::OpenSmallTalkEdit(long nParentID, CString strText)
 
 LONG CRiderShareBoardDlg::OnTwitterUpdate(WPARAM wParam, LPARAM lParam)
 {	
-	BOOL bRet = (BOOL)wParam;
-
-	if(bRet)
-	{
+	if((BOOL)wParam)
 		RefreshList();
-		//m_edtMsg.SetWindowText("");
-	}
 
 	return 0;
 }
 
 LONG CRiderShareBoardDlg::OnTwitterWrite(WPARAM wParam, LPARAM lParam)
 {	
-	BOOL bRet = (BOOL)wParam;
-
-	if(bRet)
+	if ((BOOL)wParam)
 		RefreshList();
 
 	return 0;
@@ -361,7 +353,6 @@ void CRiderShareBoardDlg::OnDeleteTwitter()
 
 		if(DeleteTwitter(m_nParentID))
 		{
-		//	m_edtMsg.SetWindowText("");
 			RefreshList();
 		}
 	}
@@ -393,14 +384,6 @@ BOOL CRiderShareBoardDlg::UpdateTwitter(long nParentID, CString strMsg)
 
 BOOL CRiderShareBoardDlg::WriteTwitter(long nParentID,CString strMsg, long nRiderCompany, long nRNo, CString strRName)
 {
-	/*
-	if(strMsg.GetLength() < 5)
-	{
-		AfxMessageBox("5자이상으로 입력하여 주세요", MB_ICONINFORMATION);
-		return FALSE;
-	}
-	*/
-
 	CMkCommand pCmd(m_pMkDb, "insert_twitter_new");
 	CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(int), 0);
 	pCmd.AddParameter(nParentID);
@@ -412,9 +395,6 @@ BOOL CRiderShareBoardDlg::WriteTwitter(long nParentID,CString strMsg, long nRide
 	pCmd.AddParameter(nRiderCompany);
 	pCmd.AddParameter(nRNo);
 	pCmd.AddParameter(strRName);
-
-	//pCmd.AddParameter(m_ui.sLogiStaffName);
-
 	if(pCmd.Execute())
 	{
 		long nRet; parRet->GetValue(nRet);
@@ -529,25 +509,6 @@ void CRiderShareBoardDlg::OpenAddRiderShareInfoDlg(long nRiderCompany, long nRNo
 	m_pAddRiderShareInfoDlg->m_nRNo = nRNo;
 	m_pAddRiderShareInfoDlg->m_strRName = strRName;
 	m_pAddRiderShareInfoDlg->ShowWindow(TRUE);
-
-	/*
-	CAddRiderShareInfoDlg dlg;
-	dlg.m_nRiderCompany = nRiderCompany;
-	dlg.m_nRNo = nRNo;
-	dlg.m_strRName = strRName;
-
-	if(dlg.DoModal() == IDOK)
-	{
-		m_nRiderCompany = dlg.m_nRiderCompany;
-		m_nRNo = dlg.m_nRNo;
-		m_strRName = dlg.m_strRName;
-		
-		if(WriteTwitter(0, dlg.m_strMsg, m_nRiderCompany, m_nRNo, m_strRName))
-		{
-			RefreshList();
-		}
-	}
-	*/
 }
 
 void CRiderShareBoardDlg::AddRiderInfo()

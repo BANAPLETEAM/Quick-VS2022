@@ -52,8 +52,7 @@ BOOL CRiderInfoLogDlg::OnInitDialog()
 	InitControlData();
 	RefreshList();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderInfoLogDlg::InitControlData()
@@ -96,7 +95,6 @@ void CRiderInfoLogDlg::InitControlData()
 	m_ListDetail.GetReportHeader()->AllowColumnRemove(FALSE);
 	m_ListDetail.GetReportHeader()->AllowColumnResize(TRUE);
 	m_ListDetail.GetReportHeader()->AllowColumnSort(TRUE);
-	//m_ListDetail.GetReportHeader()->SetAutoColumnSizing(TRUE);
 	m_ListDetail.AllowEdit(TRUE);
 	m_ListDetail.FocusSubItems(TRUE);
 	m_ListDetail.GetPaintManager()->SetGridStyle(TRUE, xtpGridSolid);
@@ -473,11 +471,6 @@ void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData
 
 	m_ListDetail.Populate();
 }
-
-// CXTPGridRecord CRiderInfoLogDlg::InsertChangeMainRecord(CString strCount, int nRNo, CString strWName, CString strDate, CString strChange, CString strBefore, CString strAfter)
-// {
-// 	return m_ListDetail.AddRecord(new CRiderInfoLogDetailRecord(strCount, nRNo, strWName, strDate, strChange, strBefore, strAfter));
-// }
 
 CXTPGridRecord * CRiderInfoLogDlg::InsertChangeRecord(CString strCount, int nRNo, CString strWName, CString strDate, CString strChange, CString strBefore, CString strAfter, CXTPGridRecord* pMainRecord)
 {

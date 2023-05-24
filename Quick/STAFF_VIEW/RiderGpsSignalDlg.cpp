@@ -37,7 +37,6 @@ BOOL CRiderGpsSignalDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-
 	ModifyStyle(0, WS_CLIPCHILDREN|WS_CLIPSIBLINGS);
 
 	m_pRGS = new CRGSPaintManager;
@@ -50,7 +49,6 @@ BOOL CRiderGpsSignalDlg::OnInitDialog()
 	m_wndReport.AllowEdit(FALSE);
 	m_wndReport.FocusSubItems(FALSE);
 	m_wndReport.GetPaintManager()->SetGridStyle(TRUE, xtpGridSolid);
-	//m_wndReport.GetPaintManager()->SetTextFont(lfBoldFont);
 	m_wndReport.SetGridColor(RGB(150, 150, 180));
 
 	CXTPGridColumn *p1 = m_wndReport.AddColumn(new CXTPGridColumn(0, _T("번호"), 50, FALSE));
@@ -64,8 +62,7 @@ BOOL CRiderGpsSignalDlg::OnInitDialog()
 	RefreshRiderList();
 	RefreshList();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderGpsSignalDlg::RefreshRiderList()
@@ -82,9 +79,7 @@ void CRiderGpsSignalDlg::RefreshRiderList()
 		long nCompany, nMNo;
 		CString strName;
 
-
 		m_wndReport.AddRecord(new CRGSReportRecord(0, 0, "시각"));
-
 
 		for(int i = 0; i < pRs.GetRecordCount(); i++)
 		{

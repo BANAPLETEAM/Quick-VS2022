@@ -32,8 +32,6 @@ void CRiderAdviceDlg2010::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST, m_List);
 	DDX_Control(pDX, IDC_TNO_EDIT, m_edtTNo);
 	DDX_Text(pDX, IDC_TNO_EDIT, m_strTNo);
-
-
 	DDX_Control(pDX, IDC_SAVE_BTN3, m_btnSave3);
 }
 
@@ -41,16 +39,13 @@ void CRiderAdviceDlg2010::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CRiderAdviceDlg2010, CMyDialog)
 	ON_BN_CLICKED(IDC_SAVE_BTN, OnBnClickedSaveBtn)
 	ON_BN_CLICKED(IDC_CHECK_BTN, OnBnClickedCheckBtn)
-	
 	ON_BN_CLICKED(IDC_CANCEL_BTN, OnBnClickedCancelBtn)
 	ON_BN_CLICKED(IDC_SAVE_BTN2, OnBnClickedSaveBtn2)
-	ON_BN_CLICKED(IDC_ORDER_REJECT_BTN, &CRiderAdviceDlg2010::OnBnClickedOrderRejectBtn)
 	ON_BN_CLICKED(IDC_SAVE_BTN3, &CRiderAdviceDlg2010::OnBnClickedSaveBtn3)
 END_MESSAGE_MAP()
 
 
 // CRiderAdviceDlg2010 메시지 처리기입니다.
-
 BOOL CRiderAdviceDlg2010::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
@@ -80,24 +75,16 @@ BOOL CRiderAdviceDlg2010::OnInitDialog()
 	m_List.SetTreeIndent(30);
 	m_List.SetGridColor(RGB(222, 222, 222));
 	m_List.AllowEdit(TRUE);
-	//m_List.EditOnClick(FALSE);
 	m_List.GetPaintManager()->m_strNoItems = "표시할 대상이 존재하지 않음";
 
 	m_List.Populate();
-
 	RefreshList();
 
-	//if(::IsCallCenter())
-	//	m_btnSave3.ShowWindow(TRUE);
-		
-
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CRiderAdviceDlg2010::RefreshList()
 {
-//	
 	m_map.clear();
 
 	CMkRecordset rs(m_pMkDb);
@@ -170,9 +157,6 @@ void CRiderAdviceDlg2010::OnBnClickedSaveBtn()
 		MessageBox("배차제한 등록이 완료되었습니다.", "확인", MB_ICONINFORMATION);
 		OnOK();
 	}
-	//else
-	//	MessageBox("기타 사유는 메모사항을 반드시 입력하셔야 합니다", "확인", MB_ICONINFORMATION);
-
 }
 
 BOOL CRiderAdviceDlg2010::Save(BOOL bAll)
@@ -190,20 +174,10 @@ BOOL CRiderAdviceDlg2010::Save(BOOL bAll)
 		{
 			if(SaveSub(bAll, pRecord) == FALSE)
 				return FALSE;
-			else
-			{
-				SendMsg(pRecord);
-
-			}
 		}		
 	}
 
 	return TRUE;
-}
-
-void CRiderAdviceDlg2010::SendMsg(CRiderAdviceRecord2010 *pRecord)
-{
-	
 }
 
 BOOL CRiderAdviceDlg2010::SaveSub(BOOL bAll, CRiderAdviceRecord2010 *pRecord)
@@ -214,7 +188,6 @@ BOOL CRiderAdviceDlg2010::SaveSub(BOOL bAll, CRiderAdviceRecord2010 *pRecord)
 
 	if(m_ba.GetCount() > 1)  //통합이면
 		bIntegrated = TRUE; 
-
 	
 	m_edtTNo.GetWindowText(strTNo);
 	nTNo = atol(strTNo);
@@ -253,10 +226,6 @@ BOOL CRiderAdviceDlg2010::SaveSub(BOOL bAll, CRiderAdviceRecord2010 *pRecord)
 	cmd.AddParameter(m_nRNo);
 	cmd.AddParameter(pRecord->m_strType);
 	cmd.AddParameter(strMemo);
-	/*if(pRecord->m_nCode == 7000)
-		cmd.AddParameter(pRecord->GetComboValue());	
-	else
-		cmd.AddParameter(pRecord->m_nPenaltyDay);*/
 	cmd.AddParameter(pRecord->GetComboValue());	
 	cmd.AddParameter(nCode);
 	cmd.AddParameter(pRecord->m_nBlackMarks);
@@ -311,19 +280,6 @@ BOOL CRiderAdviceDlg2010::CheckCount()
 		}
 	}
 	
-	/*m_edtTNo.GetWindowText(strTNo);
-	if(strTNo.GetLength() <= 0)
-	{
-		MessageBox("오더번호가 없습니다.", "확인", MB_ICONINFORMATION);
-		return FALSE;
-	}
-
-	if(m_bConfirmTNo == FALSE)
-	{
-		MessageBox("기사가 수행한 오더번호를 등록하세요", "확인", MB_ICONINFORMATION);
-		return FALSE;
-	}*/
-
 	if(nCount == 0)
 	{
 		MessageBox("최소 하나 이상 체크하세요", "확인", MB_ICONINFORMATION);
@@ -335,24 +291,12 @@ BOOL CRiderAdviceDlg2010::CheckCount()
 		MessageBox("1개이상 체크 하실 수 없습니다", "확인", MB_ICONINFORMATION);
 		return FALSE;
 	}
-	
 
-	//pRecord->GetItem(3)->G
 	if(m_nModifyID == 0)
 		return CheckCountDb(nCount);
 	else
 		return TRUE;
-
-	/*if(nCount > 1)
-		return CheckCountDb(nCount);
-	else  
-	{
-		MessageBox("4개이상 체크 하실 수 없습니다", "확인", MB_ICONINFORMATION);
-		return FALSE;
-	}*/
 }
-
-
 
 BOOL CRiderAdviceDlg2010::CheckCountDb(long nCount)
 {
@@ -378,25 +322,9 @@ BOOL CRiderAdviceDlg2010::CheckCountDb(long nCount)
 		MessageBox("금일 해당 기사님에게 이미 벌점을 주었습니다", "확인", MB_ICONINFORMATION);
 		return FALSE;
 	}
-	/*
-	if(nTodayCount > 2)
-	{
-		MessageBox("금일 해당 기사님에게 이미 3번의 벌점을 주었습니다", "확인", MB_ICONINFORMATION);
-		return FALSE;
-	}
-
-	if((nCount + nTodayCount) > 4)
-	{
-		CString strMsg;
-		strMsg.Format("금일은 해당 기사님에게 %d번 까지 벌점을 줄 수 있습니다", 3 - nTodayCount);
-		MessageBox(strMsg, "확인", MB_ICONINFORMATION);
-		return FALSE;
-	}
-	*/
 
 	return TRUE;
 }
-
 
 void CRiderAdviceDlg2010::OnBnClickedCancelBtn()
 {
@@ -405,7 +333,6 @@ void CRiderAdviceDlg2010::OnBnClickedCancelBtn()
 
 void CRiderAdviceDlg2010::OnBnClickedCheckBtn()
 {
-
 	CString strTNo = ""; 
 	long nTNo = 0, nReturnValue = 0;
 	m_edtTNo.GetWindowText(strTNo);
@@ -432,8 +359,7 @@ void CRiderAdviceDlg2010::OnBnClickedCheckBtn()
 	CMkParameter *pPar = cmd.AddParameter(typeLong,typeOutput, sizeof(long), 0);
 	CMkParameter *pParOrderCompany = cmd.AddParameter(typeLong,typeOutput, sizeof(long), 0);
 	if(!cmd.Execute())
-	return;
-
+		return;
 
 	pPar->GetValue(nReturnValue);
 	if(nReturnValue == 0)
@@ -470,12 +396,6 @@ void CRiderAdviceDlg2010::OnBnClickedSaveBtn2()
 		MessageBox("배차제한 등록이 완료되었습니다.", "확인", MB_ICONINFORMATION);
 		OnOK();
 	}
-	//else
-	//	MessageBox("기타 사유는 메모사항을 반드시 입력하셔야 합니다", "확인", MB_ICONINFORMATION);
-}
-
-void CRiderAdviceDlg2010::OnBnClickedOrderRejectBtn()
-{
 }
 
 void CRiderAdviceDlg2010::OnBnClickedSaveBtn3()

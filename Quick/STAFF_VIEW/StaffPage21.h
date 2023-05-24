@@ -268,7 +268,6 @@ public:
 	afx_msg void OnReportItemClickRider(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	CMyStatic m_stcHelp;
 	void RefreshRiderListOne(long nItem, long nRiderCompany, long nRNo);
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	void OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnBnClickedSendMsgBtn();
 };

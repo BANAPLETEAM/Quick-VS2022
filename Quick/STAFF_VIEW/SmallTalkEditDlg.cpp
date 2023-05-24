@@ -52,7 +52,6 @@ void CSmallTalkEditDlg::OnBnClickedInsertBtn()
 	}
 
 	BOOL nRet = FALSE;
-	//CWnd *pParent =  GetParent()->GetParent();
 
 	if(m_bUpdate)
 	{
@@ -80,13 +79,9 @@ void CSmallTalkEditDlg::MoveControl()
 	CRect rc, rcEdit, rcInsert, rcCancel;
 
 	if(m_nParentID == -1)
-	{
 		m_btnInsert.EnableWindow(FALSE);
-	}
 	else
-	{
 		m_btnInsert.EnableWindow(TRUE);
-	}
 
 	GetWindowRect(rc);
 	m_edtText.GetWindowRect(rcEdit);
@@ -119,7 +114,6 @@ BOOL CSmallTalkEditDlg::PreTranslateMessage(MSG* pMsg)
 			{
 				OnBnClickedInsertBtn();
 			}
-
 
 			return FALSE;
 		}

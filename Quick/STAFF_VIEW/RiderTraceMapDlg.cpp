@@ -39,7 +39,6 @@ END_MESSAGE_MAP()
 
 
 // CRiderTraceMapDlg 메시지 처리기입니다.
-
 BOOL CRiderTraceMapDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
@@ -72,8 +71,7 @@ BOOL CRiderTraceMapDlg::OnInitDialog()
 
 	UpdateOrderStatic(); 
 	
-
-	return TRUE;  // return TRUE unless you set the focus to a control
+	return TRUE;
 }
 
 void CRiderTraceMapDlg::RefreshList()
@@ -108,7 +106,6 @@ void CRiderTraceMapDlg::RefreshList()
 			pRs.MoveNext();
 		}
 	}
-
 }
 
 void CRiderTraceMapDlg::UpdateOrderStatic()

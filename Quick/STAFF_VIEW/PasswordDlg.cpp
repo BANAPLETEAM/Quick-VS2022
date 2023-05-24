@@ -36,15 +36,11 @@ END_MESSAGE_MAP()
 
 
 // CPasswordDlg 메시지 처리기입니다.
-
 BOOL CPasswordDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
-	//SetWindowPos(&CWnd::wndTopMost, 0,0,0, 0, SWP_NOSIZE | SWP_NOMOVE);
-
 	UpdateData(FALSE);
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CPasswordDlg::OnBnClickedOk()

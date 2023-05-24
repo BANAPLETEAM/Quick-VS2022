@@ -100,13 +100,6 @@ void CRiderMapNormalForm::OnInitialUpdate()
 {
 	CMyFormView::OnInitialUpdate();
 
-	//if(!LU->IsShareInfoShowOk() && 
-	//	!LF->IsThisCompany("광주연합") &&
-	//	!LF->IsThisCompany("세븐특송"))
-	//{
-	//	m_chkOtherRider.EnableWindow(FALSE);
-	//}
-
 	m_pRiderMapDlg = (CRiderMapDlg*)GetOwner();
 	m_pMap = m_pRiderMapDlg->GetMap();
 
@@ -306,66 +299,7 @@ void CRiderMapNormalForm::RefreshOrderList(long nCompany, long nRNo)
 			UpdateRiderOrderCount(nCompany, nRNo);
 	}
 
-	UpdateOrderStatic();
 	m_lstOrder.Populate();
-}
-
-void CRiderMapNormalForm::UpdateOrderStatic()
-{
-	return;
-
-	CXTPGridRecords *pRecords = m_lstOrder.GetRecords();
-
-	long nCount = pRecords->GetCount();
-
-	long nDisplayCount = min(nCount, DISPLAY_ORDER_COUNT);
-
-	for(int i=0; i<nDisplayCount; i++)
-	{ 
-		CXTPGridRecord *pRecord = pRecords->GetAt(i);
-		//밑에꺼부터 0번임
-		CXUIStaticText *pText = &m_pRiderMapDlg->m_wndLogiMap.m_uistcOrder[nDisplayCount - i - 1];
-		CXUIImage *pImage = &m_pRiderMapDlg->m_wndLogiMap.m_uiimageOrder[nDisplayCount - i - 1];
- 
-		long nState = m_lstOrder.GetItemLong(pRecord);
-		long nCharge = m_lstOrder.GetItemLong2(pRecord);
-
-		CString strTemp; 
-		strTemp.Format(" (%s)%s  %s  %s->%s %s", pRecord->GetItem(0)->GetCaption(NULL), 
-												LF->GetStateString(nState),
-												pRecord->GetItem(1)->GetCaption(NULL), 
-												pRecord->GetItem(2)->GetCaption(NULL), 
-												pRecord->GetItem(3)->GetCaption(NULL), 
-												pRecord->GetItem(4)->GetCaption(NULL));
-
-		//int nT = pText->GetParentAlpha();
-		//pText->SetParentAlpha(0);  
-		//pText->SetShowImage(TRUE);
-
-		//CXUIImage* pImage = (CXUIImage*)pText->GetParent();
-		//pImage->SetVisible(TRUE);
-
-		//pText->SetBackColor(RGB(50, 50, 50));
-		pText->SetCaption(strTemp); 
-		pText->SetVisible(TRUE); 
-		pImage->SetVisible(TRUE);	
-	}
-
-	for(int i=nDisplayCount; i<DISPLAY_ORDER_COUNT; i++ ) 
-	{  
-		long nIndex = i;  
-		CXUIStaticText *pText = &m_pRiderMapDlg->m_wndLogiMap.m_uistcOrder[nIndex];
-		CXUIImage *pImage = &m_pRiderMapDlg->m_wndLogiMap.m_uiimageOrder[nIndex];
-		//pText->SetShowImage(0);
-		//pText->SetParentAlpha(255);
-		pText->SetVisible(0);
-		pImage->SetVisible(0);
-
-		//CXUIImage* pImage = (CXUIImage*)pText->GetParent();
-		//pImage->SetVisible(0);
-	}
-
-//	m_pRiderMapDlg->m_wndLogiMap.m_uistcOrder[0].SetVisible(0);
 }
 
 void CRiderMapNormalForm::UpdateRiderOrderCount(long nCompany, long nRNo)
@@ -496,59 +430,51 @@ void CRiderMapNormalForm::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*
 		m_pRiderMapDlg->OnPopupMapMenu(item, pt);
 }
 
-
-
-
 void CRiderMapNormalForm::OnTimer(UINT nIDEvent)
 {
-	//if(IsWindowVisible())
-	//{
-		KillTimer(nIDEvent);
-		//return; 
+	KillTimer(nIDEvent);
+	if(nIDEvent == MAP_FULL_REFRESH_TIMER)
+	{
+		if(!m_pMap->m_bSimulationMode) 
+			RefreshAllRider();
 
-		if(nIDEvent == MAP_FULL_REFRESH_TIMER)
+		SetTimer(MAP_FULL_REFRESH_TIMER, 10000, NULL);
+	}
+	else if(nIDEvent == 0)
+	{
+		OnBnClickedRiderMapSetBtn();
+	}
+	else if(nIDEvent == MAP_ORDER_REFRESH_TIMER)
+	{ 
+		if(!m_pMap->m_bSimulationMode && IsRealTimeMode())
 		{
-			if(!m_pMap->m_bSimulationMode) 
-				RefreshAllRider();
+			RefreshOrderState();
+			RefreshOrder();	
+			CheckVisibleAllRider();				
+		}
 
-			SetTimer(MAP_FULL_REFRESH_TIMER, 10000, NULL);
-		}
-		else if(nIDEvent == 0)
-		{
-			OnBnClickedRiderMapSetBtn();
-		}
-		else if(nIDEvent == MAP_ORDER_REFRESH_TIMER)
-		{ 
-			if(!m_pMap->m_bSimulationMode && IsRealTimeMode())
-			{
-				RefreshOrderState();
-				RefreshOrder();	
-				CheckVisibleAllRider();				
-			}
+		SetTimer(MAP_ORDER_REFRESH_TIMER, 10000, NULL);
+	}
+	else if(nIDEvent == RIDER_POS_INFO_EDIT_TIMER)
+	{
+		long nTime = 200;
 
-			SetTimer(MAP_ORDER_REFRESH_TIMER, 10000, NULL);
-		}
-		else if(nIDEvent == RIDER_POS_INFO_EDIT_TIMER)
+		if(m_stInfo.GetCount() > 0)
 		{
-			long nTime = 200;
+			CMkLock lock(m_csInfo);
+			m_edtInfo.SetWindowText(m_stInfo.RemoveHead());
 
 			if(m_stInfo.GetCount() > 0)
 			{
-				CMkLock lock(m_csInfo);
-				m_edtInfo.SetWindowText(m_stInfo.RemoveHead());
+				while(m_stInfo.GetCount() >= 20)
+					m_stInfo.RemoveHead();
 
-				if(m_stInfo.GetCount() > 0)
-				{
-					while(m_stInfo.GetCount() >= 20)
-						m_stInfo.RemoveHead();
-
-					nTime = 1000 / m_stInfo.GetCount();
-				}
+				nTime = 1000 / m_stInfo.GetCount();
 			}
-
-			SetTimer(RIDER_POS_INFO_EDIT_TIMER, nTime, NULL);
 		}
-	//}
+
+		SetTimer(RIDER_POS_INFO_EDIT_TIMER, nTime, NULL);
+	}
 
 	CMyFormView::OnTimer(nIDEvent);
 }
@@ -579,32 +505,6 @@ void CRiderMapNormalForm::RefreshAllRider(BOOL bClear)
 	CMkCommand pCmd(m_pMkDb, "select_rider_list_for_map2");
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int) , m_ci.m_nCompanyCode);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int) , m_chkOtherRider.GetCheck());
-
-
-
-
-	//long nPosX, nPosY;
-	//m_pMap->GetCenterPos(nPosX, nPosY);
-	//m_pMap->ClearAllLayer();
-	//m_wndReport.ResetContent();
-
-	//CXMapPos var = m_pMap->GetCoordSys().BesselToWGS84(nPosX, nPosY);
-	//nPosX = var.GetLon() / 0.36;
-	//nPosY = var.GetLat() / 0.36;
-
-	//CMkRecordset pRs(m_pMkDb);
-	//CMkCommand pCmd(m_pMkDb, "select_rider_list_for_map2_test");
-	//pCmd.AddParameter(typeLong, typeInput, sizeof(int) , nPosX);
-	//pCmd.AddParameter(typeLong, typeInput, sizeof(int) , nPosY);
-	//pCmd.AddParameter(typeLong, typeInput, sizeof(int) , m_ci.m_nCompanyCode);
-	//pCmd.AddParameter(typeLong, typeInput, sizeof(int) , m_chkOtherRider.GetCheck());
-
-	//g_bana_log->Print("%d, %d\n", nPosX, nPosY);
-
-
-
-
-
 	if(!pRs.Execute(&pCmd)) return;
 
 	CMkLock lock(m_cs);
@@ -844,7 +744,6 @@ CString CRiderMapNormalForm::GetRiderHint(CString &strRName, CString &strPhone, 
 int CRiderMapNormalForm::OnMouseActivate(CWnd* pDesktopWnd, UINT nHitTest, UINT message)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-
 	return CWnd::OnMouseActivate(pDesktopWnd, nHitTest, message);
 }
 
@@ -886,10 +785,6 @@ void CRiderMapNormalForm::OnEnChangeXtplistctrlEdit()
 void CRiderMapNormalForm::OnCbnSelchangeXtplistctrlCombo()
 {
 	OnEnChangeXtplistctrlEdit();
-}
-
-void CRiderMapNormalForm::OnCbnSelchangeConnTypeCombo()
-{
 }
 
 void CRiderMapNormalForm::RefreshOrderState()
@@ -940,22 +835,6 @@ void CRiderMapNormalForm::FindRNo(CString sRNo)
 			return;
 		}
 	}
-}
-
-void CRiderMapNormalForm::SetRiderConnState(long nCompany, long nRNo,long nState)
-{
-/*
-	CRiderSubInfo *pInfo = m_pMap->GetRiderSubInfo(nCompany, nRNo);
-	if(pInfo)
-	{
-		CXTPGridRecord *pRecord = pInfo->GetRecord();
-		if(pRecord)
-		{
-			m_wndReport.SetItemText(pRecord, 6, "0");
-			m_wndReport.RedrawControl();
-		}
-	}
-*/
 }
 
 void CRiderMapNormalForm::RefreshCustomerPOI()
@@ -1205,8 +1084,6 @@ void CRiderMapNormalForm::RefreshOrder()
 	}
 
 	m_pRiderMapDlg->SetShowOrderCount(m_setinfo.bShowOrderCount, nShowCount);
-
-	//m_pMap->RearrangeDupPosPOI();
 }
 
 void CRiderMapNormalForm::CheckVisibleAllRider()
@@ -1260,18 +1137,6 @@ void CRiderMapNormalForm::CheckVisibleRider(CRiderSubInfo &info, BOOL bReportPop
 		bVisible = FALSE;
 	}
 
-/*
-	//타기사 자사오더 종료시에 지도에서 삭제
-	if(bVisible &&
-		!m_ci.IsChildCompany(info.nCompany) && 
-		info.nHavingOrder == 0 &&
-		bCheckMyRider)
-	{
-//		g_bana_log->Print("타기사 자사오더 완료로 표시안함: %s, %d, %d\n", info.strName, info.nCompany, info.nRNo);
-		bVisible = FALSE;		
-	}
-*/
-
 	if(info.nRNo == 39) {
 		int a= 0;
 		int b= a;
@@ -1292,13 +1157,8 @@ void CRiderMapNormalForm::CheckVisibleRider(CRiderSubInfo &info, BOOL bReportPop
 		if(bOtherRiderWithMyOrder && info.bOtherRider && info.nMyOrderCount > 0)
 			break;
 
-		//if(bOtherRider && info.bOtherRider)
-		//	break;
-
 		bVisible = FALSE;
 	}
-
-
 
 	//접속시간/픽업/배차에 따른 표시
 	while(bVisible)

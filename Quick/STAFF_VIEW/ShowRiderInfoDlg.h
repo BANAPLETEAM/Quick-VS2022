@@ -51,14 +51,12 @@ public:
 	afx_msg void OnNMDblclkOrderList(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedWorkStateBtn();
 	afx_msg void OnBnClickedSendMsgBtn();
-	afx_msg void OnBnClickedHistoryBtn();
 	afx_msg void OnBnClickedCancelStateBtn();
 	afx_msg void OnBnClickedRcpStateBtn();
 	afx_msg void OnBnClickedRcpWaitBtn();
 	afx_msg void OnBnClickedLimitShareOrderBtn();
 	afx_msg void OnBnClickedRiderCancelLogBtn();
 	afx_msg void OnBnClickedTransferBtn();
-	afx_msg void OnBnClickedRiderRouteBtn();
 	afx_msg void OnBnClickedAttendBtn();
 	afx_msg void OnBnClickedOkBtn();
 	afx_msg void OnBnClickedRiderShareBoardBtn();

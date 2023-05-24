@@ -109,7 +109,6 @@ BEGIN_MESSAGE_MAP(CReportForm11, CMyFormView)
 	ON_BN_CLICKED(IDC_BUTTON_RIDER_FETCH, OnBnClickedButtonRiderFetch)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_VIEW_EXCEL, OnViewExcel)
-	ON_BN_CLICKED(IDC_DATE_BTN, OnBnClickedDateBtn)
 	ON_BN_CLICKED(IDC_HORIZONTAL_CHK, OnBnClickedHorizontalChk)
 	ON_NOTIFY(NM_RCLICK, IDC_REPORT_CTRL, OnReportItemRClick)
 	ON_BN_CLICKED(IDC_INTEGRATE_INQUERY_CHECK, &CReportForm11::OnBnClickedIntegrateInqueryCheck)
@@ -147,8 +146,6 @@ void CReportForm11::OnInitialUpdate()
 
 void CReportForm11::SetHeader(BOOL bIntegated)
 {
-
-
 	int nCol = 0; 
 
 	m_wndReport.GetColumns()->Clear();
@@ -204,18 +201,8 @@ void CReportForm11::SetHeader(BOOL bIntegated)
 		m_wndReport.GetPaintManager()->m_strNoItems = "";
 		m_wndReport.AllowEdit(FALSE);
 		m_wndReport.FocusSubItems(TRUE);
-		
-
-
-		//CRect rectGraph, rectView ;
-		//m_GraphStc.GetWindowRect(rectGraph);
-		//this->GetWindowRect(rectView);
-
-		//if(rectView.Width() > 1000)
-		//	m_wndReport.MoveWindow(0, 40, rectView.Width() , rectView.Height() - rectGraph.Height() -50);
 		m_wndReport.Populate();
 		m_wndReport.RedrawControl();
-
 
 		SetResize(IDC_REPORT_CTRL, sizingRight);
 		SetResize(IDC_GRAPH, sizingRightBottom);	
@@ -224,18 +211,11 @@ void CReportForm11::SetHeader(BOOL bIntegated)
 		pWnd->GetWindowRect(m_RcList);
 		ScreenToClient(m_RcList);
 
-		
-
 		CWnd *pWnd1 = (CWnd*)GetDlgItem(IDC_GRAPH);
 		pWnd1->GetWindowRect(m_RcStc);
 		ScreenToClient(m_RcStc);
 
 		m_GraphStc.ShowWindow(SW_SHOW);
-		
-		
-
-
-
 	}
 	else
 	{
@@ -286,26 +266,18 @@ void CReportForm11::SetHeader(BOOL bIntegated)
 		m_wndReport.ShowWindow(SW_SHOW);
 		m_GraphStc.ShowWindow(SW_HIDE);
 
-
 		Invalidate();
 
 		m_wndReport.Populate();
 		m_wndReport.RedrawControl();
-
-
 	}
-
-	
-
 }
+
 void CReportForm11::RefreshListRealtime()
 {
-
 	CMyFormView::RefreshList();
-UpdateData(TRUE);
+	UpdateData(TRUE);
 	SetHeader(TRUE);
-	
-
 	m_wndReport.GetRecords()->RemoveAll();
 
 	m_bGraphComplete = FALSE;
@@ -323,8 +295,6 @@ const char *dayofweek[] = {"일", "월", "화", "수", "목", "금", "토"};
 			return;
 		}		
 	}
-
-	
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_dailyreport_real_time");
@@ -349,8 +319,6 @@ const char *dayofweek[] = {"일", "월", "화", "수", "목", "금", "토"};
 		pRs.Close();
 		return;
 	}
-
-	
 
 	while(!pRs.IsEOF())
 	{
@@ -417,7 +385,6 @@ const char *dayofweek[] = {"일", "월", "화", "수", "목", "금", "토"};
 
 	if(nRecordCount > 0)
 	{
-
 		m_wndReport.AddRecord(new CReportFormRecord_RealTime11("합계",
 			LF->GetMyNumberFormat(nTotalCount),
 			LF->GetMyNumberFormat(nTotalCash),
@@ -438,11 +405,9 @@ const char *dayofweek[] = {"일", "월", "화", "수", "목", "금", "토"};
 			));		
 	}
 
-
 	m_wndReport.Populate();
 
 	pRs.Close();
-
 }
 
 
@@ -696,59 +661,7 @@ void CReportForm11::OnBnClickedButtonRiderFetch()
 
 void CReportForm11::OnViewExcel()
 {
-//	if(!LF->POWER_CHECK(7040, "업소입금관리", TRUE))
-//		return;
-
 	CoInitialize(NULL);
-
-	//long rows = m_wndReport.GetRecords()->GetCount() + 1;
-	//long cols = m_wndReport.GetColumns()->GetVisibleColumnsCount();
-
-	//COleSafeArray sa;
-	//unsigned long elements[] = {rows, cols};
-	//sa.Create(VT_VARIANT, 2, elements);
-
-	//CXTPGridColumn *pColumn = NULL;
-
-	//for(int r = 0; r < rows; r++)
-	//{
-	//	for(int c = 0; c < cols; c++)
-	//	{
-	//		long index[] = {r, c};
-	//		VARIANT v;
-	//		VariantInit(&v);
-	//		CString str;
-
-	//		if(r == 0)
-	//		{
-	//			CXTPGridColumn *pCol = m_wndReport.GetColumns()->GetVisibleAt(c);
-	//			str = pCol->GetCaption();
-	//			v.vt = VT_BSTR;
-	//			v.bstrVal = str.AllocSysString();
-	//			sa.PutElement(index, &v);
-	//			SysFreeString(v.bstrVal);
-	//		}
-	//		else
-	//		{
-	//			//int nValue = ((CXTPGridRecordItemNumber*)m_wndReport.GetRecords()->GetAt(nRow)->GetItem(11))->GetValue();
-
-	//			//str = m_OrderMap[r-1].Arry[c];
-	//			//str = m_wndReport.GetItemText(r-1, c);
-	//			str = ((CXTPGridRecordItemText*)m_wndReport.GetRecords()->GetAt(r-1)->GetItem(c))->GetCaption(pColumn);
-
-	//			if(str.GetLength() > 0 && str.Left(1) == "=")
-	//				str.Remove('=');
-
-	//			v.vt= VT_BSTR;
-	//			v.bstrVal = str.AllocSysString();
-	//			sa.PutElement(index, &v);
-	//			SysFreeString(v.bstrVal);
-
-	//		}
-	//		VariantClear(&v);
-	//	}
-	//}
-
 	LF->AddSecurityLog(LF->GetCurBranchInfo()->nCustomerTable, 304, m_wndReport.GetRecords()->GetCount());  
 	CMyExcel::ToExcel(&m_wndReport);
 }
@@ -763,11 +676,6 @@ void CReportForm11::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	rMenu.LoadMenu(IDR_CONTEXT_MENU);
 	CMenu *pRMenu=rMenu.GetSubMenu(2);
 	pRMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);	
-}
-
-void CReportForm11::OnBnClickedDateBtn()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
 void CReportForm11::OnBnClickedHorizontalChk()
@@ -844,46 +752,6 @@ void CReportForm11::Move(bool bWidth)
 		m_GraphStc.MoveWindow(rcGraph);
 		m_GraphStc.ShowWindow(SW_SHOW);
 		Invalidate();
-
-		//m_wndReport.MoveWindow(0,40, rcViewRect.Width(),rcViewRect.Height() /2 );
-		//m_wndReport.MoveWindow(rcList);
-
-		//m_wndReport.GetWindowRect(rcList);
-		//m_GraphStc.MoveWindow(0, rcList.bottom + 5, rcViewRect.Width(), rcViewRect.Height() /2);
-		//m_GraphStc.ShowWindow(SW_SHOW);
-		//Invalidate();
-			
-
-
-		//CRect ClientRc,listRc, StcRc;
-
-		//GetClientRect(ClientRc);
-		//
-		//CWnd *pWnd = (CWnd*)GetDlgItem(IDC_REPORT_CTRL);
-		//pWnd->GetWindowRect(listRc);
-		//ScreenToClient(listRc);
-
-		//CWnd *pWnd1 = (CWnd*)GetDlgItem(IDC_GRAPH);
-		//pWnd->GetWindowRect(StcRc);
-		//ScreenToClient(StcRc);
-
-		//if(pWnd && pWnd1) {
-		//	listRc.right = ClientRc.right;
-		//	listRc.bottom = m_RcList.bottom;
-
-		//	StcRc.top = m_RcList.bottom + 3;
-		//	StcRc.bottom = ClientRc.bottom;
-		//	StcRc.right = ClientRc.right;
-
-		//	pWnd->MoveWindow(listRc, FALSE);
-		//	pWnd1->MoveWindow(StcRc,FALSE);
-		//	//m_wndReport.MoveWindow(m_RcList);			
-		//	
-		//	//SetResize(IDC_LIST_REPORT, sizingRight);
-		//	//SetResize(IDC_GRAPH, sizingRightBottom);
-
-		//	Invalidate();
-		//}
 	}
 }
 
@@ -898,6 +766,7 @@ void CReportForm11::OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result
 	GetCursorPos(&pt);
 	OnContextMenu(&m_wndReport, pt);
 }
+
 void CReportForm11::OnBnClickedIntegrateInqueryCheck()
 {
 	if(m_chkIntegrteInquery.GetCheck() && m_HorizontalChk.GetCheck())

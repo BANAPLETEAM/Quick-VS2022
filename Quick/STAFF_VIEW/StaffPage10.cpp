@@ -52,29 +52,22 @@ BEGIN_MESSAGE_MAP(CStaffPage10, CMyFormView)
 	ON_COMMAND(ID_DELAY_ALLOCATE_LOG, OnDelayAllocateLog)
 	
 	ON_WM_CONTEXTMENU()
-	ON_NOTIFY(NM_CLICK, IDC_OTHERRIDER_LIST, OnNMClickOtherriderList)
 	ON_NOTIFY(NM_CLICK, IDC_MYRIDER_LIST, OnNMClickMyriderList)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_OTHERRIDER_LIST, OnCustomdrawOtherList)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_MYRIDER_LIST, OnCustomdrawMyList)
 	ON_EN_CHANGE(IDC_OTHER_RIDER_EDIT, OnEnChangeEdit1)
 	ON_EN_CHANGE(IDC_MY_RIDER_EDIT, OnEnChangeEdit2)
 
-	//ON_NOTIFY(HDN_ITEMCLICK, IDC_OTHERRIDER_LIST, OnHdnItemclickOtherriderList)
-	//ON_NOTIFY(HDN_ITEMCLICK, IDC_MYRIDER_LIST, OnHdnItemclickOtherriderList)
 	ON_BN_CLICKED(IDC_REGISTER_BUTTON2, &CStaffPage10::OnBnClickedRegisterButton2)
 END_MESSAGE_MAP()
 
 
 // CStaffPage10 메시지 처리기입니다.
-
-
 void CStaffPage10::OnInitialUpdate()
 {
 	CMyFormView::OnInitialUpdate();
 
 	SetResize(IDC_OTHERRIDER_LIST, sizingBottom);
-	SetResize(IDC_MYRIDER_LIST, sizingRightBottom);
-
 	InitControl();
 }
 
@@ -640,29 +633,9 @@ void CStaffPage10::OnCustomdrawMyList(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 }
 
-void CStaffPage10::OnNMClickOtherriderList(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	//NMITEMACTIVATE * pNMIA = (NMITEMACTIVATE*) pNMHDR;
-
-	//// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	//int index = m_OtherList.GetNextItem(-1, LVNI_SELECTED);
-	//int nColumn = pNMIA->iSubItem;
-
-	//if(index == -1) //굵은 글씨 이상
-	//	return;
-
-	//int nCompany = _ttoi(m_OtherList.GetItemText(index, 6));
-	//int nRNo = _ttoi(m_OtherList.GetItemText(index, 1));
-
-	//if(nColumn <=3)
-	//	LU->ShowRiderInfo(nCompany, nRNo);
-
-}
-
 void CStaffPage10::OnNMClickMyriderList(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 {
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*) pNotifyStruct;
-
 	if(!pItemNotify->pRow || !pItemNotify->pColumn)
 		return;
  

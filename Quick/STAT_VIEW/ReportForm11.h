@@ -126,7 +126,6 @@ public:
 	afx_msg void OnBnClickedButtonRiderFetch();
 	afx_msg void OnViewExcel();
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint point);
-	afx_msg void OnBnClickedDateBtn();
 	CButton m_HorizontalChk;
 	afx_msg void OnBnClickedHorizontalChk();
 	afx_msg void OnReportItemRClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);

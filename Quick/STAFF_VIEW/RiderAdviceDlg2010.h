@@ -200,7 +200,6 @@ public:
 	BOOL CheckCountDb(long nCount);
 	BOOL Save(BOOL bAll);
 	BOOL SaveSub(BOOL bAll, CRiderAdviceRecord2010 *pRecord);
-	void SendMsg(CRiderAdviceRecord2010 *pRecord);
 	
 	afx_msg void OnBnClickedCancelBtn();
 	afx_msg void OnBnClickedCheckBtn();
@@ -210,7 +209,6 @@ public:
 	afx_msg void OnBnClickedSaveBtn2();
 	long m_nModifyID;
 	BOOL m_bConfirmTNo;
-	afx_msg void OnBnClickedOrderRejectBtn();
 	afx_msg void OnBnClickedSaveBtn3();
 	CButton m_btnSave3;
 };

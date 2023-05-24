@@ -66,13 +66,9 @@ void CStaffPage19::OnInitialUpdate()
 	m_List.InsertColumn(4, "요금(원)", LVCFMT_RIGHT, 100);
 	m_List.Populate();
 
-
 	m_DateDT.SetFormat("yyyy년 MM월");
 
 	SetResize(IDC_LIST_REPORT, sizingRightBottom);
-	
-
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
 void CStaffPage19::OnBnClickedRefreshBtn()
@@ -179,13 +175,8 @@ void CStaffPage19::OnContextMenu(CWnd* pWnd, CPoint point)
 	CMenu rMenu;
 	rMenu.LoadMenu(IDR_CONTEXT_MENU);
 	CMenu *pRMenu=rMenu.GetSubMenu(5);
-	//pRMenu->RemoveMenu(ID_CHANGE_RIDER_COLOR, MF_BYCOMMAND);
-	//pRMenu->RemoveMenu(ID_WORK_STOP, MF_BYCOMMAND);
-	//pRMenu->RemoveMenu(ID_WORK_OK, MF_BYCOMMAND);
 	pRMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);	
 }
-
-
 
 void CStaffPage19::OnMenuMsg()
 {

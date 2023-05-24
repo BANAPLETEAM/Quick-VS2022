@@ -125,7 +125,6 @@ BOOL CRiderCancelLogDlg::OnInitDialog()
 	m_wndReport.InsertColumn(1, "오더번호", LVCFMT_CENTER, 70);
 	m_wndReport.InsertColumn(2, "발주사", LVCFMT_LEFT, 100);
 	m_wndReport.InsertColumn(3, "취소시간", LVCFMT_LEFT, 90);
-	//m_List.InsertColumn(2, "오더번호", LVCFMT_LEFT, 70);
 	m_wndReport.InsertColumn(4, "출발지", LVCFMT_LEFT, 80);
 	m_wndReport.InsertColumn(5, "도착지", LVCFMT_LEFT, 80);
 	m_wndReport.InsertColumn(6, "타입", LVCFMT_LEFT, 40);
@@ -152,25 +151,9 @@ BOOL CRiderCancelLogDlg::OnInitDialog()
 	m_DateBtn.InitDateButton((CDateTimeCtrl*)&m_dtFromCtl, (CDateTimeCtrl*)&m_dtToCtl);
 	m_DateBtn.OnMenuToday();
 
-
-	//Moving();
-
 	RefreshList(); 
 
-
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
-}
-
-void CRiderCancelLogDlg::Moving()
-{
-	/*
-	CRect  rect;
-
-	GetClientRect(&rect);
-
-	MoveWindow(m_ParentRect.right, m_ParentRect.top, rect.Width(), rect.Height(), NULL);
-	*/
+	return TRUE;
 }
 
 void CRiderCancelLogDlg::OnSize(UINT nType, int cx, int cy)

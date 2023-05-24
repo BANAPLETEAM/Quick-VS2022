@@ -2362,7 +2362,6 @@ BEGIN
     CONTROL         "",IDC_DTP_TO,"SysDateTimePick32",DTS_RIGHTALIGN | WS_DISABLED | WS_TABSTOP,91,7,52,13
     LTEXT           "-",IDC_STATIC,82,9,8,8
     CTEXT           "* 더블클릭시 상세내역 나타남!!",IDC_INFO_STATIC,146,10,166,10,SS_CENTERIMAGE
-    CONTROL         "업무 중지 제외",IDC_NOT_WORK_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,318,10,61,9
     CONTROL         "",IDC_LIST_REPORT,"XTPGrid",0x0,7,22,645,385,WS_EX_STATICEDGE
 END
 
@@ -26096,6 +26095,10 @@ BEGIN
         BOTTOMMARGIN, 447
     END
 
+    IDD_STAFF_PAGE4, DIALOG
+    BEGIN
+    END
+
     IDD_SHOW_RIDER_INFO_DLG, DIALOG
     BEGIN
         VERTGUIDE, 57
@@ -26340,14 +26343,6 @@ BEGIN
     END
 
     IDD_SMS_NEW_BULK_MENT_DLG, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 309
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 176
-    END
-
-    IDD_ADD_MMS_IMAGE_DLG, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 309
@@ -26641,15 +26636,26 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_STAFF_PAGE4 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
 STRINGTABLE
 BEGIN
-    // CSingleDocTemplate::SetDefaultTitle() { ENSURE(strDocName.LoadString(AFX_IDS_UNTITLED)); } 에서 에러 발생
-    // 리소스 언어가 vs2008 -> vs2022 로 변경시 미국->대한민국으로 변경되면서 발생한 문제로 추측
-    // 따라서 AFX_IDS_UNTITLED 의 string table을 추가함
-    AFX_IDS_UNTITLED "untitled"
+    AFX_IDS_UNTITLED        "untitled"
+    IDR_PANE_NETWORK        "네트웍(통합)"
+    IDR_PANE_CONNLIST       "접속리스트"
+    IDR_PANE_SHARECALL      "공유콜조회"
 END
 
 STRINGTABLE
@@ -26834,13 +26840,6 @@ END
 STRINGTABLE
 BEGIN
     IDC_ALLOCATE_BTN2       "개별배차2입니다"
-END
-
-STRINGTABLE
-BEGIN
-    IDR_PANE_NETWORK        "네트웍(통합)"
-    IDR_PANE_CONNLIST       "접속리스트"
-    IDR_PANE_SHARECALL      "공유콜조회"
 END
 
 STRINGTABLE

@@ -15,8 +15,9 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
-
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	DECLARE_MESSAGE_MAP()
+
 public:
 	afx_msg void OnBnClickedInsertBtn();
 	afx_msg void OnBnClickedCancelBtn();
@@ -32,5 +33,4 @@ public:
 	CFlatEdit2 m_edtText;
 	CString m_strText;
 	long m_nParentID;
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

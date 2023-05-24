@@ -78,12 +78,10 @@ public:
 	afx_msg void OnReportItemChange(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnReportItemMsgClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);
 	afx_msg void OnCurrentUSerHistoryReportItemMsgClick(NMHDR * pNotifyStruct, LRESULT * /*result*/);
-	afx_msg void OnCbnDropdownBranchCombo();
 	afx_msg void OnBnClickedAllianceMsgBtn();
 	afx_msg void OnBnClickedOpenBrnachBtn();
 	afx_msg void OnBnClickedWorkingCheck();
 	afx_msg void OnBnClickedNotWorkingCheck();
-	afx_msg void OnPaint();
 
 	void FilterRider();
 	void FilterListControl(int nCompany, int nRNo);

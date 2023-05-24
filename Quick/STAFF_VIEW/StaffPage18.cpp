@@ -37,8 +37,6 @@ END_MESSAGE_MAP()
 
 
 // CStaffPage18 메시지 처리기입니다.
-
-
 void CStaffPage18::OnInitialUpdate()
 {
 	CMyFormView::OnInitialUpdate();

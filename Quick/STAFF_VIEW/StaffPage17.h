@@ -17,8 +17,6 @@ public:
 public:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 	virtual void OnInitialUpdate();
-	afx_msg void OnBnClickedShowByPayBtn();
-	afx_msg void OnBnClickedDateBtn();
 	afx_msg void OnBnClickedRefreshBtn();
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
 	afx_msg void OnViewExcel();
@@ -29,15 +27,11 @@ public:
 	afx_msg void OnLvnDeleteallitemsListReport(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMClickListReport(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclkListReport(NMHDR *pNMHDR, LRESULT *pResult);
-	//afx_msg void OnDtnDatetimechangeDtpFrom(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedNotWorkCheck();
 
 	DECLARE_MESSAGE_MAP()
 
 public:
 	void CreateHeader();
-	//void SetRiderInfo();
-	//void SetRiderState();
 	void DeleteColumn();
 	void RefreshList();
 	void MonthInit();

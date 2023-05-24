@@ -76,4 +76,3 @@ BOOL CSendOtherRiderMsgDlg::OnInitDialog()
 
 	return TRUE;
 }
-// CSendOtherRiderMsgDlg 메시지 처리기입니다.
