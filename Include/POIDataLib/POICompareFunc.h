@@ -340,15 +340,15 @@ private:
 	}
 };
 
-struct PPOITempRemove: public binary_function <pair<UINT, CPOIUnit*>, UINT, bool>
+class PPOITempRemove
 {
-	bool operator() (const pair<UINT, CPOIUnit*> &poipair, const UINT &poiRemove) const
+	bool operator() (const pair<UINT, CPOIUnit*>& poipair, const UINT& poiRemove) const
 	{
 		return (UINT)poipair.second == poiRemove;
 	}
 };
 
-struct PPOITempRemoveGroup: public binary_function <pair<UINT, CPOIUnit*>, UINT, bool>
+class PPOITempRemoveGroup
 {
 	bool operator() (const pair<UINT, CPOIUnit*> &poipair, const UINT &nGroupID) const
 	{
@@ -356,8 +356,7 @@ struct PPOITempRemoveGroup: public binary_function <pair<UINT, CPOIUnit*>, UINT,
 	}
 };
 
-
-struct PPOIDeleteNotMainSidoDong: public binary_function <SEARCH_POI_PAIR, CPOIBoundary, bool>
+class PPOIDeleteNotMainSidoDong
 {
 	bool operator() (const SEARCH_POI_PAIR &poipair, const CPOIBoundary &pSearchSido) const
 	{

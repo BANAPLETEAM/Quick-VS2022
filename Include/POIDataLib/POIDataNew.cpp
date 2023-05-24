@@ -1324,7 +1324,11 @@ CString CPOIDataNew::AddressToLongName(CString &strKeyword)
 void CPOIDataNew::DeleteNotMainSidoDong(SEARCH_POI_VEC &vecPOI)
 {
 	SEARCH_POI_VEC::iterator it, itRemove;
-	itRemove = remove_if(vecPOI.begin(), vecPOI.end(), bind2nd(PPOIDeleteNotMainSidoDong(), *m_pSearchSido));
+	CPOIBoundary searchSido = *m_pSearchSido;
+	//itRemove = remove_if(vecPOI.begin(), vecPOI.end(), bind2nd(PPOIDeleteNotMainSidoDong(), *m_pSearchSido));
+	itRemove = remove_if(vecPOI.begin(), vecPOI.end(), [&searchSido](const SEARCH_POI_PAIR& poipair) {
+		return searchSido.Has(poipair.second.pPOI) == FALSE;
+		});
 	vecPOI.erase(itRemove, vecPOI.end());
 }
 

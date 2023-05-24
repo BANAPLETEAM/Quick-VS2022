@@ -149,7 +149,7 @@
       <AdditionalOptions>/MP -Zm121 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir);$(SolutionDir)BRANCH_CONTROL;$(SolutionDir)CHARGE;$(SolutionDir)COMMON;$(SolutionDir)CONTROL;$(SolutionDir)CTI;$(SolutionDir)CUSTOMER_VIEW;$(SolutionDir)ETC_VIEW;$(SolutionDir)FRAME_WORK;$(SolutionDir)FUNCTION_VIEW;$(SolutionDir)GRAPH;$(SolutionDir)HOME_VIEW;$(SolutionDir)INCOME_VIEW;$(SolutionDir)MAP;$(SolutionDir)MESSENGER;$(SolutionDir)OPTION;$(SolutionDir)PANE;$(SolutionDir)POIDATA;$(SolutionDir)RCP;$(SolutionDir)RCP_INSUNG;$(SolutionDir)REPORT_RIDER_VIEW;$(SolutionDir)REPORT_VIEW;$(SolutionDir)SHARE_REPORT_RATE;$(SolutionDir)SMS;$(SolutionDir)SMTP;$(SolutionDir)STAFF_VIEW;$(SolutionDir)STAT_VIEW;$(SolutionDir)UPDATE_EXE_CHECK;$(SolutionDir)XTPToolkitPro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;JSON_DEBUG;_RCPPROJ;_QUICK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;JSON_DEBUG;_RCPPROJ;_QUICK;_HAS_STD_BYTE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -162,6 +162,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4819;4018;4005;4244;4267;4311;4312;4065;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ShowIncludes>false</ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -197,7 +198,7 @@
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <OmitFramePointers>false</OmitFramePointers>
       <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir);$(SolutionDir)BRANCH_CONTROL;$(SolutionDir)CHARGE;$(SolutionDir)COMMON;$(SolutionDir)CONTROL;$(SolutionDir)CTI;$(SolutionDir)CUSTOMER_VIEW;$(SolutionDir)ETC_VIEW;$(SolutionDir)FRAME_WORK;$(SolutionDir)FUNCTION_VIEW;$(SolutionDir)GRAPH;$(SolutionDir)HOME_VIEW;$(SolutionDir)INCOME_VIEW;$(SolutionDir)MAP;$(SolutionDir)MESSENGER;$(SolutionDir)OPTION;$(SolutionDir)PANE;$(SolutionDir)POIDATA;$(SolutionDir)RCP;$(SolutionDir)RCP_INSUNG;$(SolutionDir)REPORT_RIDER_VIEW;$(SolutionDir)REPORT_VIEW;$(SolutionDir)SHARE_REPORT_RATE;$(SolutionDir)SMS;$(SolutionDir)SMTP;$(SolutionDir)STAFF_VIEW;$(SolutionDir)STAT_VIEW;$(SolutionDir)UPDATE_EXE_CHECK;$(SolutionDir)XTPToolkitPro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_RCPPROJ;_QUICK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_RCPPROJ;_QUICK;_HAS_STD_BYTE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -210,6 +211,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4819;4018;4005;4244;4267;4311;4312;4065;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ShowIncludes>false</ShowIncludes>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>

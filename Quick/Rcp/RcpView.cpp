@@ -2320,6 +2320,9 @@ void CRcpView::UpdateOrderCount()
 			!m_ci.IsChildCompany(it->second.nRiderCompany))
 			continue;
 
+		if (it->second.dtRcp.Format("%Y-%m-%d").IsEmpty())
+			continue;
+
 		if(it->second.dtRcp < dtFrom || it->second.dtRcp > dtTo)
 			continue;
 
@@ -2722,6 +2725,9 @@ long CRcpView::CheckFilter(BOOL *bUseFilter, OrderRecordList &order, OrderIndex 
 			}
 		}
 		*/
+
+		if (itOrder->second.dtRcp.Format("%Y-%m-%d").IsEmpty())
+			continue;
 		
 		if(bShowReserveOrder == FALSE)
 		{
