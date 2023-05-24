@@ -3523,7 +3523,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "공유콜 정산 비율 확인창"
 FONT 10, "돋움", 400, 0, 0x81
 BEGIN
-    LTEXT           "공동정산 도움말!",IDC_HELP_STATIC,272,53,59,8,NOT WS_VISIBLE
+    LTEXT           "공동정산 도움말!",IDC_HELP_STATIC,313,0,59,8,NOT WS_VISIBLE
     LTEXT           "- 공동정산을 하기 위한 기본 자료인 회원사간의 정산 비율을 입력하시기 바랍니다. ",IDC_STATIC,6,0,277,8
     LTEXT           "- 정산비율이 대상회원사에서 입력한 비율과 동일하지 않으면 공유가 되지 않습니다.",IDC_STATIC,6,11,280,8
     LTEXT           "- 아래의 파란색 콜비 부분을 클릭하셔서 집적 수정하시기 바랍니다.",IDC_STATIC,5,23,226,8
@@ -3532,9 +3532,9 @@ BEGIN
     LTEXT           "* 최소잔액은 일주일 최대치의 0.4배에 해당하며, 잔액부족시 모든 공유가 되지 않습니다.",IDC_STATIC,8,35,294,8
     LTEXT           "최소 잔액(기준율):",IDC_STATIC,357,24,66,8
     EDITTEXT        IDC_BALANCE_EDIT,432,6,76,13,ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
-    EDITTEXT        IDC_ACCOUNT_EDIT,58,51,88,13,ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
-    LTEXT           "예금주:",IDC_STATIC,152,53,25,8
-    EDITTEXT        IDC_ACCOUNT_EDIT2,181,51,76,13,ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
+    EDITTEXT        IDC_ACCOUNT_EDIT,58,51,116,13,ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
+    LTEXT           "예금주:",IDC_STATIC,178,53,25,8
+    EDITTEXT        IDC_ACCOUNT_EDIT2,207,51,116,13,ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
     LTEXT           "전일정산금:",IDC_STATIC,357,40,46,8
     EDITTEXT        IDC_BASIC_RATE_EDIT,432,21,76,13,ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
     EDITTEXT        IDC_YESTERDAY_EDIT,432,37,76,13,ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
@@ -8718,8 +8718,8 @@ BEGIN
     LTEXT           "- SMS 설정(부가세포함 건당 13원/크로스배차시 오더소속 회원사에 과금됨)",IDC_STATIC,7,23,321,8
     LTEXT           "- 배차후",IDC_STATIC,23,151,35,8
     LTEXT           "에 SMS 전송함(취소시 미전송)",IDC_STATIC,113,151,114,8
-    EDITTEXT        IDC_EDIT_BANK_ACCOUNT_SMS,115,3,98,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY
-    LTEXT           "- SMS 가상계좌(하나은행)",IDC_STATIC,14,6,93,8
+    EDITTEXT        IDC_EDIT_BANK_ACCOUNT_SMS,72,3,181,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "- SMS 가상계좌",IDC_STATIC,14,6,58,8
     LTEXT           "* 배차관련메세지 ",IDC_STATIC,9,39,65,8
     LTEXT           "* 임의의 SMS메세지의 회신번호를",IDC_STATIC,9,281,120,8
     LTEXT           "위 4가지의 SMS명칭을",IDC_STATIC,48,101,78,8

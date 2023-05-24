@@ -184,12 +184,13 @@ void CShareReportRateDlg1::RefreshList()
 	CShareReportRateDlg* pShareReportRateDlg = (CShareReportRateDlg*)(GetParent()->GetParent());
 
 	CMkRecordset pRs(m_pMkDb);
-	CMkCommand pCmd(m_pMkDb, "select_call_share_rate_a3", TRUE);
+	CMkCommand pCmd(m_pMkDb, "select_call_share_rate_a4", TRUE);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), m_ci.m_nCompanyCode);
 	pCmd.AddParameter(bShowData);
 	CMkParameter *parBalance = pCmd.AddParameter(typeLong, typeOutput, sizeof(int), 0);
 	CMkParameter *parBasicRate = pCmd.AddParameter(typeLong, typeOutput, sizeof(int), 0);
 	CMkParameter *parAccount = pCmd.AddParameter(typeString, typeOutput, 50, CString(""));
+	CMkParameter* parAccountOwner = pCmd.AddParameter(typeString, typeOutput, 50, CString(""));
 	CMkParameter *parYesterday = pCmd.AddParameter(typeLong, typeOutput, 50, CString(""));
 	CMkParameter *parGlobalSharTime = pCmd.AddParameter(typeLong, typeOutput, 0, CString(""));
 	CMkParameter *parHasAlliancePower = pCmd.AddParameter(typeBool, typeOutput, sizeof(int), 0);
@@ -209,13 +210,14 @@ void CShareReportRateDlg1::RefreshList()
 		long nShareTimeA, nShareTimeB;
 		COleDateTime dtInsert, dtLastEdit;
 		long nCompany, nAllianceID;
-		CString strAllianceName, strAllianceSymbol;
+		CString strAllianceName, strAllianceSymbol, strAccountOwner;
 		BOOL bNoShareA, bNoShareB;
 		BOOL bAlliancePower;
 
 		parBalance->GetValue(nBalance);
 		parBasicRate->GetValue(nBasicRate);
 		parAccount->GetValue(strAccount);
+		parAccountOwner->GetValue(strAccountOwner);
 		parYesterday->GetValue(nYesterday);
 		parGlobalSharTime->GetValue(nGlobalShareTime);
 		parHasAlliancePower->GetValue(bAlliancePower);
@@ -229,7 +231,8 @@ void CShareReportRateDlg1::RefreshList()
 
 		pShareReportRateDlg->m_BalanceEdit.SetWindowText(LF->GetMyNumberFormat(nBalance) + "원");
 		pShareReportRateDlg->m_BasicRateEdit.SetWindowText(LF->GetMyNumberFormat(nBasicRate) + "원");
-		pShareReportRateDlg->m_AccountEdit.SetWindowText(CString("하나은행 ") + strAccount);
+		pShareReportRateDlg->m_AccountEdit.SetWindowText(strAccount);
+		pShareReportRateDlg->m_AccountEdit2.SetWindowText(strAccountOwner);
 		pShareReportRateDlg->m_YesterdayEdit.SetWindowText(LF->GetMyNumberFormat(nYesterday) + "원");
 
 		CString strFormat;
@@ -1003,10 +1006,12 @@ void CShareReportRateDlg1::RefreshMoney()
 		pShareReportRateDlg->m_nBalance = nBalance;
 		pShareReportRateDlg->m_nBasicRate = nBasicRate;
 
+		/*
 		pShareReportRateDlg->m_BalanceEdit.SetWindowText(LF->GetMyNumberFormat(nBalance) + "원");
 		pShareReportRateDlg->m_BasicRateEdit.SetWindowText(LF->GetMyNumberFormat(nBasicRate) + "원");
 		pShareReportRateDlg->m_AccountEdit.SetWindowText(CString("하나은행 ") + strAccount);
 		pShareReportRateDlg->m_YesterdayEdit.SetWindowText(LF->GetMyNumberFormat(nYesterday) + "원");
+		*/
 		//RefreshList();
 	}
 }
