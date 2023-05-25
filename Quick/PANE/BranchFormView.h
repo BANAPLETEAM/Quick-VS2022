@@ -20,7 +20,7 @@ public:
 		m_nCompany = info->nCompany;
 	}
 
-	void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{
 		BOOL bMain = ((CBranchFormRecord*)pDrawArgs->pRow->GetRecord())->m_bMain;
 

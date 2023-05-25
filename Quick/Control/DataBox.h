@@ -508,8 +508,8 @@ public:
 	//void MyGetItemData(int &iVal){iVal =m_pMainRecord->m_nData;}	
 
 
-	XTP_REPORTRECORDITEM_DRAWARGS *m_pDrawArgs;
-	XTP_REPORTRECORDITEM_METRICS *m_pMetrics;
+	XTP_GRIDRECORDITEM_DRAWARGS *m_pDrawArgs;
+	XTP_GRIDRECORDITEM_METRICS *m_pMetrics;
 
 
 
@@ -605,7 +605,7 @@ public:
 	BOOL IsRowSelectCheck(CString strMsg = "");
 
 	// Virtual list
-	//void GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	//void GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 	// 필터관련
 	void Filter(CString strFilter, int nFilterCol = 0, int nTypeData = ALL_TYPE_COLUMN,  CString sReplaceData = "",BOOL bNotAllSearchWord = TRUE);
 	void Filter2(CString strFilter, int nFilterCol, CString strFilter2, int nFilterCol2);

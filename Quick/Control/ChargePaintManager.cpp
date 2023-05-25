@@ -10,8 +10,8 @@ CChargePaintManager::~CChargePaintManager(void)
 {
 }
 
-void CChargePaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, 
-											XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CChargePaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, 
+											XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	CString strText = pMetrics->strText;
 	CRect& rcItem = pDrawArgs->rcItem;

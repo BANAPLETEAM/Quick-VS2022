@@ -43,7 +43,7 @@ int CReportMultilinePaintManager::GetRowHeight(CDC* pDC, CXTPGridRow* pRow, int 
 	CXTPGridColumns* pColumns = pRow->GetControl()->GetColumns();
 	int nColumnCount = pColumns->GetCount();
 
-	XTP_REPORTRECORDITEM_DRAWARGS drawArgs;
+	XTP_GRIDRECORDITEM_DRAWARGS drawArgs;
 	drawArgs.pControl = pRow->GetControl();
 	drawArgs.pDC = pDC;
 	drawArgs.pRow = pRow;
@@ -59,7 +59,7 @@ int CReportMultilinePaintManager::GetRowHeight(CDC* pDC, CXTPGridRow* pRow, int 
 			//CXTPGridRecordItem* pItem = pRow->GetRecord()->GetItem(pColumn->GetIndex());
 			//drawArgs.pItem = pItem;
 
-			//XTP_REPORTRECORDITEM_METRICS itemMetrics;
+			//XTP_GRIDRECORDITEM_METRICS itemMetrics;
 			//pRow->GetItemMetrics(&drawArgs, &itemMetrics);
 
 			//CXTPFontDC fnt(pDC, itemMetrics.pFont);
@@ -81,7 +81,7 @@ int CReportMultilinePaintManager::GetRowHeight(CDC* pDC, CXTPGridRow* pRow, int 
 	return max(nHeight + 5, m_nRowHeight) + (IsGridVisible(FALSE)? 1: 0);
 }
 
-void CReportMultilinePaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CReportMultilinePaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	CRect& rcItem = pDrawArgs->rcItem;
 	CDC* pDC = pDrawArgs->pDC;

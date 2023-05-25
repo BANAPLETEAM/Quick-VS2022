@@ -31,7 +31,7 @@ SORT_TYPE_MAP CXTPListCtrl2::m_mapSortType;
 IMPLEMENT_DYNAMIC(CXTPListCtrl2, CXTPGridControl)
 
 //column coloring
-void CXTPListCtrlRecord2::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrlRecord2::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -151,7 +151,7 @@ void CXTPListCtrl2::InitControl()	//한번만 실행한다.
 		GetReportHeader()->AllowColumnRemove(FALSE);
 		SetPaintManager(new CMyReportPaintManager());
 		GetPaintManager()->m_strNoItems = "표시할 정보가 없거나, 조건에 해당하는 자료가 존재하지 않음";
-		GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
+		//GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
 		SetGridStyle(TRUE, xtpGridSolid);
 		SetGridColor(RGB(212, 208, 200));
 		AllowEdit(FALSE);

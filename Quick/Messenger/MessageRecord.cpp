@@ -63,7 +63,7 @@ CMessageRecord::~CMessageRecord()
 
 }
 
-void CMessageRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CMessageRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	CXTPGridRecord::GetItemMetrics(pDrawArgs, pItemMetrics);
 }
@@ -88,7 +88,7 @@ CMessageTitleRecord::~CMessageTitleRecord()
 
 }
 
-void CMessageTitleRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CMessageTitleRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	CXTPGridRecord::GetItemMetrics(pDrawArgs, pItemMetrics);
 }

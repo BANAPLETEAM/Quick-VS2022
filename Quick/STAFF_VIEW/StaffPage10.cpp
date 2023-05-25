@@ -68,6 +68,7 @@ void CStaffPage10::OnInitialUpdate()
 	CMyFormView::OnInitialUpdate();
 
 	SetResize(IDC_OTHERRIDER_LIST, sizingBottom);
+	SetResize(IDC_MYRIDER_LIST, sizingRightBottom);
 	InitControl();
 }
 

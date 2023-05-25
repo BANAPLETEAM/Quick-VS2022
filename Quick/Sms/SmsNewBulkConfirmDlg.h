@@ -8,7 +8,7 @@
 class CXTPSmsNewBulkConfirmControl : public CXTPListCtrl2
 {
 public:
-	void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{
 		CXTPGridRecord *pRecord = pDrawArgs->pRow->GetRecord();
 		/*long nCol = pDrawArgs->pColumn->GetIndex();

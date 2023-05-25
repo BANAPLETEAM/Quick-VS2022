@@ -2,7 +2,7 @@
 
 #define ROW_COL_SIZE 25
 
-class CChargePaintManager : public CXTPGridPaintManager
+class CChargePaintManager : public CXTPGridThemeResource
 {
 public:
 
@@ -15,6 +15,6 @@ public:
 
 	int GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow);
 
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 };
 

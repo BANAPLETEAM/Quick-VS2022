@@ -9,7 +9,7 @@ public:
 	COrderLogRecord :: COrderLogRecord(int nCount, COleDateTime dtLog, int nState, int nWNo, int nWCompany,
 		CString sLog, int nRNo, int nRCompany, CString strWName, int nColor);
 
-	void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 	long m_nColor;
 	long m_nWNo;
@@ -150,7 +150,7 @@ public:
 		CString sState, CString sBeforeEtc, CString sAfterEtc, int nColor);
 	COrderChangeRecord :: COrderChangeRecord(int nCount, CString sState, CString sBeforeEtc, CString sAfterEtc, int nColor);
 
-	void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 	int m_nColor;
 	int m_nCount;

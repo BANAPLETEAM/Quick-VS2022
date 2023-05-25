@@ -16,7 +16,7 @@ typedef vector<CMyXTPGridRecord*> CONSIGNCOMPANY_VEC;
 class CShareReport6 : public CDataBox
 {
 
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pItemMetrics )
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pItemMetrics )
 	{
 		CString strColumn = pDrawArgs->pColumn->GetCaption();
 		int nRow = pDrawArgs->pRow->GetIndex();

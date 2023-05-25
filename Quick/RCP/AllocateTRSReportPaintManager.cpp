@@ -64,8 +64,8 @@ int CAllocateTRSReportPaintManager::GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow
 */
 }
 
-void CAllocateTRSReportPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, 
-											XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CAllocateTRSReportPaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, 
+											XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -331,7 +331,7 @@ void CAllocateTRSReportPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWAR
 }
 
 
-void CAllocateTRSReportPaintManager::DrawTextLine(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, CString strText,
+void CAllocateTRSReportPaintManager::DrawTextLine(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, CString strText,
 										  CRect rcItem, int nFlag, int& nCharCounter, int& nHyperlikCounter)
 {
 	CDC* pDC = pDrawArgs->pDC;
@@ -479,7 +479,7 @@ int CAllocateTRSReportPaintManager::DrawString(int* pnCurrDrawPos, CDC* pDC, CSt
 	return nCharCount;
 }
 
-int CAllocateTRSReportPaintManager::DrawLink(int* pnCurrDrawPos, XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, CXTPGridHyperlink* pHyperlink,
+int CAllocateTRSReportPaintManager::DrawLink(int* pnCurrDrawPos, XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, CXTPGridHyperlink* pHyperlink,
 									 CString strText, CRect rcLink, int nFlag)
 {
 	CDC* pDC = pDrawArgs->pDC;

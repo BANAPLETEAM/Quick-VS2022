@@ -571,8 +571,6 @@ void CRcpView::OnInitialUpdate()
 	m_xList.GetReportHeader()->SetAutoColumnSizing(FALSE);
 	m_xList.SetPaintManager(new CMyReportPaintManager());
 	m_xList.SetGridStyle(TRUE, xtpGridSolid);
-	//m_xList.SetGridColor(RGB(212, 208, 200));
-	//m_xList.GetPaintManager()->SetGridColor(RGB(212, 208, 200));
 	m_xList.SetGridColor(RGB(0x9f, 0xb2, 0xc7));
 	m_xList.GetPaintManager()->SetGridColor(RGB(0x9f, 0xb2, 0xc7));
 
@@ -580,7 +578,7 @@ void CRcpView::OnInitialUpdate()
 	CMyReportPaintManager *pPaint = (CMyReportPaintManager*)m_xList.GetPaintManager();
 	pPaint->SetTextFont(m_lfList);
 	pPaint->m_strNoItems = "조건에 맞는 데이터가 존재하지 않습니다.";
-	pPaint->SetColumnStyle(xtpGridColumnResource);
+	//pPaint->SetColumnStyle(xtpGridColumnResource);
 	m_xList.SetSelectedColor(CVirtualRecord::m_crStateBack12);
 	m_xList.Populate();
 

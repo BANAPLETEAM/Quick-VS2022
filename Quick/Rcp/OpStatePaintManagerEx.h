@@ -73,7 +73,7 @@ public:
 };
 
 
-class COPStatePaintManagerEx : public CXTPGridPaintManager
+class COPStatePaintManagerEx : public CXTPGridThemeResource
 {
 	friend class CXTPGridControl;
 
@@ -84,7 +84,7 @@ public:
 
 
 public:
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 	virtual int GetRowHeight(CDC* pDC, CXTPGridRow* pRow);
 
 	void DrawRectLine(CDC* pDC, CRect rcRect);

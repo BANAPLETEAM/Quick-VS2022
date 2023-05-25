@@ -2,8 +2,8 @@
 #include "Quick.h"
 #include "GlobalPaintManager.h"
 
-void CRiderPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, 
-					 XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CRiderPaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, 
+					 XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	int nRow = pDrawArgs->pRow->GetIndex();
 	int nCount = pDrawArgs->pControl->GetRows()->GetCount();
@@ -71,7 +71,7 @@ int CGroupPaintManager::GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow)
 	return m_nRowHeight * (pRecord->m_stGroup.nReportRow + 1);
 } 
 
-void CGroupPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CGroupPaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {		
 	int nCol = pDrawArgs->pColumn->GetIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -151,7 +151,7 @@ int CGroupPaintManager24::GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow)
 	return m_nRowHeight * (pRecord->m_stGroup.nReportRow + 1);
 } 
 
-void CGroupPaintManager24::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CGroupPaintManager24::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {		
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -242,7 +242,7 @@ int CConsignDrawManager2::GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow)
 	return 20;
 } 
 
-void CConsignDrawManager2::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CConsignDrawManager2::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -264,7 +264,7 @@ void CConsignDrawManager2::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawA
 	pDC->DrawText(strText, rcTitle, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
 }
 
-void CEmptyPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CEmptyPaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {		
 	int nRow = pDrawArgs->pRow->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetIndex();
@@ -313,7 +313,7 @@ int CPaintManager::GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow)
 	return m_nRowHeight + 14;
 }
 
-void CPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CPaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetIndex();
 	CString strText = pMetrics->strText;

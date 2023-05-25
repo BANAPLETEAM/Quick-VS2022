@@ -23,14 +23,14 @@ CReportForm20::CReportForm20()
 	m_tmFrom= COleDateTime::GetCurrentTime() - span;
 	m_tmTo = COleDateTime::GetCurrentTime();
 
-	m_tmFrom.SetTime(0,0,0);
-	m_tmTo.SetTime(23,59,59);
+	m_tmFrom.SetDateTime(m_tmFrom.GetYear(), m_tmFrom.GetMonth(), m_tmFrom.GetDay(), 0, 0, 0);
+	m_tmTo.SetDateTime(m_tmTo.GetYear(), m_tmTo.GetMonth(), m_tmTo.GetDay(), 23, 59, 59);
 	
 	m_dtLogFrom = COleDateTime::GetCurrentTime() - span;
 	m_dtLogTo = COleDateTime::GetCurrentTime();
 
-	m_dtLogFrom.SetTime(0,0,0);
-	m_dtLogTo.SetTime(23,59,59);
+	m_dtLogFrom.SetDateTime(m_dtLogFrom.GetYear(), m_dtLogFrom.GetMonth(), m_dtLogFrom.GetDay(), 0, 0, 0);
+	m_dtLogTo.SetDateTime(m_dtLogTo.GetYear(), m_dtLogTo.GetMonth(), m_dtLogTo.GetDay(), 23, 59, 59);
 
 	m_bLaterDisCount = FALSE;
 	
@@ -56,7 +56,7 @@ void CReportForm20::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK2, m_bCredit);
 	DDX_Check(pDX, IDC_CHECK3, m_bOnline);
 
-		DDX_Text(pDX, IDC_EDIT_MNO, m_nMNo);
+	DDX_Text(pDX, IDC_EDIT_MNO, m_nMNo);
 	DDX_Text(pDX, IDC_EDIT_SNAME, m_sName);
 
 	DDX_Control(pDX, IDC_DATETIME_LOG_FROM,m_dtpFromLog );

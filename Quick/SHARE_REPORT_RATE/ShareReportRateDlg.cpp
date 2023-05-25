@@ -115,7 +115,7 @@ CMyRecord::CMyRecord(long nShareCode1, CString strName, CString strPhone, CStrin
 }
 
 
-void CMyRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CMyRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	if(1 == m_nShareReportTabIdx)
 	{

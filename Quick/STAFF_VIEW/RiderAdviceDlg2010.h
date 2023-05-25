@@ -123,7 +123,7 @@ public:
 		return ((CRiderAdviceRecord2010ItemCheck*)GetItem(2))->IsChecked();
 	}
 
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 	{
 		int nCol = pDrawArgs->pColumn->GetItemIndex();
 		int nRow = pDrawArgs->pRow->GetIndex();

@@ -33,7 +33,7 @@ CBranchRecord::CBranchRecord(long nCompany, CString sTel, CString sOfficePhone, 
 }
 
 
-void CBranchRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CBranchRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = this->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetItemIndex();

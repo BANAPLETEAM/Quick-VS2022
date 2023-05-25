@@ -16,7 +16,7 @@ CAccountRecord::CAccountRecord(COleDateTime dtGenerate,CString sState,long nDepo
 	AddItem(new CXTPGridRecordItemText(sEtc));
 }
 
-void CAccountRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CAccountRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long lVal = (long)((CXTPGridRecordItemNumber*)GetItem(2))->GetValue();
 	if( lVal < 0)

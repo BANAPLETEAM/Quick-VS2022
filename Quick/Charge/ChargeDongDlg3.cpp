@@ -257,7 +257,6 @@ BOOL CChargeDongDlg3::OnInitDialog()
 	m_lstDest.SetTreeIndent(30);
 	m_lstDest.SetGridColor(RGB(222, 222, 222));
 	m_lstDest.GetPaintManager()->m_strNoItems = "표시할 대상이 존재하지 않음";
-	//m_lstDest.SetPaintManager(new CPaintManager24);
 
 	m_lstStart.ModifyStyle(0, WS_CLIPCHILDREN|WS_CLIPSIBLINGS|WS_TABSTOP);
 	m_lstStart.GetReportHeader()->AllowColumnRemove(FALSE);

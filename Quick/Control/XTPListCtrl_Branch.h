@@ -57,7 +57,7 @@ public:
 	void SetItemData(CXTPGridRecord *pRecord, DWORD dwData);
 	void CheckChild();
 
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);

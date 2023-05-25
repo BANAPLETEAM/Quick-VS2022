@@ -44,7 +44,7 @@ CShareReportBranchRecord::CShareReportBranchRecord(long nCompany, CString strBra
 }
 
 
-void CShareReportBranchRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CShareReportBranchRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	CXTPGridRecord::GetItemMetrics(pDrawArgs, pItemMetrics);
 

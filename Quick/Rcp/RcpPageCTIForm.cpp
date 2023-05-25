@@ -265,7 +265,7 @@ void CRcpPageCTIForm::OnInitialUpdate()
 
 	m_wndReport.SetPaintManager(new CReportMultilinePaintManager);
 	m_wndReport.GetColumns()->SetSortColumn(pCol1, FALSE);
-	m_wndReport.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);	
+	//m_wndReport.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);	
 	m_wndReport.GetPaintManager()->m_strNoItems = "표시할 대상이 존재하지 않음";
 	m_wndReport.GetReportHeader()->AllowColumnRemove(TRUE);
 	m_wndReport.GetReportHeader()->AllowColumnResize(TRUE);
@@ -289,7 +289,7 @@ void CRcpPageCTIForm::OnInitialUpdate()
 	bShowLastPhoneNumber = TRUE;
 #endif
 
-	m_wndOPReport.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
+	//m_wndOPReport.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
 	m_wndOPReport.SetTreeIndent(10);
 	m_wndOPReport.GetPaintManager()->m_strNoItems = "";
 	m_wndOPReport.GetReportHeader()->AllowColumnRemove(FALSE);

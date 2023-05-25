@@ -11,12 +11,12 @@ public:
 	CBranchInfo *pBi;
 };
 
-class CMoveOrderPaintManager : public CXTPGridPaintManager
+class CMoveOrderPaintManager : public CXTPGridThemeResource
 {
 public:
 	CMoveOrderPaintManager();
 	virtual ~CMoveOrderPaintManager(void);
 public:
 	int GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow);
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 };

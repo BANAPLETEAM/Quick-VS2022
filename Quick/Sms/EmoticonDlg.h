@@ -11,7 +11,7 @@ public:
 			AddItem(new CXTPGridRecordItemText(""));
 	}
 
-	//virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	//virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 };
 // CEmoticonDlg 대화 상자입니다.
 

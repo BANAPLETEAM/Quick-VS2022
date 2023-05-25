@@ -30,14 +30,14 @@
 // which allows drawing record items text with word wrapping.
 // You can test this customization sample with "Multiline Sample" menu option.
 // It is implemented using DT_WORDBREAK mode, and uses 2 methods overriding.
-class CReportMultilinePaintManager : public CXTPGridPaintManager
+class CReportMultilinePaintManager : public CXTPGridThemeResource
 {
 public:
 	CReportMultilinePaintManager();
 	virtual ~CReportMultilinePaintManager();
 
 	// Draws Item Caption with word wrapping.
-	void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 
 	// Customized calculation of the row height in word wrapping mode, 
 	// which is required in other report drawing methods.

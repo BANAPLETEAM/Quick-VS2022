@@ -45,7 +45,7 @@ class CVirtualDataBox :public CDataBox
 public:
 	CK2Record *m_pRecord3;
 
-	void GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	void GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{
 		int nRow = pDrawArgs->pRow->GetIndex();
 		int nCount = pDrawArgs->pControl->GetRows()->GetCount();

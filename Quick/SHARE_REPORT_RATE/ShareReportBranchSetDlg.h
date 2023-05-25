@@ -240,7 +240,7 @@ public:
 		long nAutoCharge, long nBigAuto, long nDamaCharge, long nRaboCharge, long nBanCharge, long nTruckCharge, long nSubwayCharge, long nRiderCallCharge,
 		long nBalance, int nAccountDue, CString strInAccounts, CString strOutAccounts,  CString strReportHistory, BOOL bRiderVRDepositToMain, CString strMID);
 
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 	long GetCallUse()
 	{

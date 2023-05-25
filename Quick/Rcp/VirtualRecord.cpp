@@ -158,7 +158,7 @@ CVirtualRecord::~CVirtualRecord(void)
 }
 
 //Á¶¼ºÀÏ
-void CVirtualRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CVirtualRecord::GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	CXTPGridColumnOrder* pSortOrder = pDrawArgs->pControl->GetColumns()->GetSortOrder();
 
@@ -360,7 +360,7 @@ void CVirtualRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 		pItemMetrics->clrBackground = OnColorBack(pItemMetrics, nRow, nCol, nItemCol, itOrder);
 }
 
-COLORREF CVirtualRecord::OnColorText(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, 
+COLORREF CVirtualRecord::OnColorText(XTP_GRIDRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, 
 									 OrderRecordList::iterator &itOrder)
 {
 	
@@ -495,7 +495,7 @@ COLORREF CVirtualRecord::OnColorText(XTP_REPORTRECORDITEM_METRICS* pItemMetrics,
 	return RGB(0, 0, 0);
 }
 
-COLORREF CVirtualRecord::OnColorBack(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol,
+COLORREF CVirtualRecord::OnColorBack(XTP_GRIDRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol,
 									OrderRecordList::iterator &itOrder)
 {
 	//if(m_pMyControl->GetXListSelectedRecord() == this)

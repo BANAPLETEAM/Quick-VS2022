@@ -83,7 +83,7 @@ public:
 	{
 		m_nMemCNo = 0;
 	}
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pMetrics )
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics )
 	{
 		CString strColumn = pDrawArgs->pColumn->GetCaption();
 		int nRow = pDrawArgs->pRow->GetIndex();
@@ -111,7 +111,7 @@ public:
 	{
 		m_nCNo = 0;
 	}
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pMetrics )
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics )
 	{
 		CString strColumn = pDrawArgs->pColumn->GetCaption();
 		int nRow = pDrawArgs->pRow->GetIndex();

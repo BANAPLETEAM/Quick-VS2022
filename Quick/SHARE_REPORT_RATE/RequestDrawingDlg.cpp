@@ -20,7 +20,7 @@ CAccountLogRecord::CAccountLogRecord(COleDateTime dtGenerate,CString sState,long
 }
 
 
-void CAccountLogRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CAccountLogRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long lVal = ((CXTPGridRecordItemNumber*)GetItem(2))->GetValue();
 	if( lVal < 0)
@@ -88,7 +88,7 @@ CWaitDrawingRecord::CWaitDrawingRecord(long nCompany,
 }
 
 
-void CWaitDrawingRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CWaitDrawingRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	CString strState = ((CXTPGridRecordItemText*)GetItem(5))->GetValue();
 	if(strState == "´ë±â")

@@ -37,7 +37,7 @@ public:
 	CAccountLogRecord(COleDateTime dtGenerate,CString sState,long nDeposit,long nBalance,CString sEtc);
 
 protected:
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 };
 
@@ -107,7 +107,7 @@ public:
 	BOOL m_bRcpIntMode1;
 
 protected:
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 };
 

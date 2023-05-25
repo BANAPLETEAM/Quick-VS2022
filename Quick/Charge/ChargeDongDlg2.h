@@ -235,7 +235,7 @@ public:
 	BOOL m_bBonggoCharge;
 	BOOL m_bSubWayCharge;
 
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{
 
 		CXTPGridRecord *pRecord = pDrawArgs->pRow->GetRecord();
@@ -279,8 +279,8 @@ typedef vector<CDetailDestChargeRecord*> DEST_RECORD_VEC;
 //{
 //public:
 //
-//	void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, 
-//		XTP_REPORTRECORDITEM_METRICS* pMetrics)
+//	void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, 
+//		XTP_GRIDRECORDITEM_METRICS* pMetrics)
 //	{		
 //		int nCol = pDrawArgs->pColumn->GetIndex();
 //		int nRow = pDrawArgs->pRow->GetIndex();

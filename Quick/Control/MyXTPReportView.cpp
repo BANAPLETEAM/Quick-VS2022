@@ -285,7 +285,7 @@ void CK2ReportView::PrintRow(CDC* pDC, CXTPGridRow* pRow, CRect rcRow)
 	}
 
 
-	XTP_REPORTRECORDITEM_DRAWARGS drawArgs;
+	XTP_GRIDRECORDITEM_DRAWARGS drawArgs;
 	drawArgs.pDC = pDC;
 	drawArgs.pControl = &m_Data;
 	drawArgs.pRow = pRow;

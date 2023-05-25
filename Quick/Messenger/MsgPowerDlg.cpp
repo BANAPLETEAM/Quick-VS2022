@@ -209,7 +209,7 @@ public:
 		pItem->SetEditable(TRUE);
 	}
 
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{
 		int nCol = pDrawArgs->pColumn->GetIndex();
 		if(nCol == 4)

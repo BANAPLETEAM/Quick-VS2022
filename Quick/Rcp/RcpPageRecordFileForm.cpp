@@ -103,7 +103,8 @@ void CRcpPageRecordFileForm::OnInitialUpdate()
 	m_List.GetReportHeader()->AllowColumnSort(TRUE);
 	m_List.GetPaintManager()->SetGridStyle(TRUE, xtpGridSolid);
 	m_List.GetPaintManager()->m_strNoItems = "표시할 대상이 존재하지 않음";
-	m_List.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);	
+	m_List.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
+	m_List.SetGridStyle(TRUE, xtpGridSolid);
 	m_List.SetGridColor(RGB(180, 180, 200));
 	m_List.Populate();
 

@@ -47,7 +47,7 @@ public:
 	CProperChargePaintManager(void);
 	virtual ~CProperChargePaintManager(void);
 
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 	virtual int GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow);
 
 	void SetHilightCol(int nCol) { m_nHilightCol = nCol; }

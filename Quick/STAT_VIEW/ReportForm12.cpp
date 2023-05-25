@@ -67,7 +67,7 @@ CSmsRecord::CSmsRecord(CString sDate, long nBannerCount, long nAllocateCount,
 }
 
 
-void CSmsRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CSmsRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	//	int nCol = pDrawArgs->pColumn->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetItemIndex();

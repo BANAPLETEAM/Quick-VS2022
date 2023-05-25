@@ -3,7 +3,7 @@
 #include "Quick.h"
 #include "GlobalXTPListCtrl.h"
 
-void CMyXTPListCtrl_1::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CMyXTPListCtrl_1::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -70,7 +70,7 @@ void CMyXTPListCtrl_1::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, 
 		pItemMetrics->pFont = m_FontManager.GetFont("µ¸¿ò", 12, FW_BOLD);
 }
 
-void CXTPListCtrl3::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl3::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = pDrawArgs->pRow->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetIndex();
@@ -87,7 +87,7 @@ void CXTPListCtrl3::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP
 		pItemMetrics->clrBackground = RGB(245,200,245);
 }
 
-void CXTPListCtrl4::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl4::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = pDrawArgs->pRow->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetIndex();
@@ -110,7 +110,7 @@ void CXTPListCtrl4::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP
 		pItemMetrics->clrBackground = RGB(205, 255, 205);
 }
 
-void CXTPListCtrl5::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl5::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -152,7 +152,7 @@ void CXTPListCtrl5::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP
 	}
 }					
 
-void CXTPListCtrl6::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+void CXTPListCtrl6::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -168,7 +168,7 @@ void CXTPListCtrl6::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP
 	}
 }
 
-void CXTPListCtrl7::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+void CXTPListCtrl7::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -204,7 +204,7 @@ void CXTPListCtrl7::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP
 	}
 }
 
-void CXTPListCtrl8::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl8::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -250,7 +250,7 @@ void CXTPListCtrl8::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP
 	}
 }
 
-void CXTPListCtrl9::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl9::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -277,7 +277,7 @@ void CXTPListCtrl9::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP
 	}
 }
 
-void CXTPListCtrl10::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+void CXTPListCtrl10::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 {
 	if((pDrawArgs->pColumn->GetIndex() == 1) ||
 		(pDrawArgs->pColumn->GetIndex() == 2) ||
@@ -337,7 +337,7 @@ void CXTPListCtrl10::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl11::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl11::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -363,7 +363,7 @@ void CXTPListCtrl11::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl13::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl13::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -375,7 +375,7 @@ void CXTPListCtrl13::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl15::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl15::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nRow = pDrawArgs->pRow->GetIndex();
 	long nColumn = pDrawArgs->pColumn->GetIndex();
@@ -391,7 +391,7 @@ void CXTPListCtrl15::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl16::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl16::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nRow = pDrawArgs->pRow->GetIndex();
 	long nColumn = pDrawArgs->pColumn->GetIndex();
@@ -407,7 +407,7 @@ void CXTPListCtrl16::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl17::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl17::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -433,7 +433,7 @@ void CXTPListCtrl17::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CMyXTPListCtrl_IF3::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CMyXTPListCtrl_IF3::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -463,7 +463,7 @@ void CMyXTPListCtrl_IF3::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs
 
 }
 
-void CXTPListCtrl18::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl18::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -505,7 +505,7 @@ void CXTPListCtrl18::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl19::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pItemMetrics)
+void CXTPListCtrl19::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pItemMetrics)
 {
 	int nRow = pDrawArgs->pRow->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetIndex();
@@ -515,7 +515,7 @@ void CXTPListCtrl19::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XT
 		pItemMetrics->clrForeground = RGB(0, 0, 255);
 }
 
-void CXTPListCtrl20::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl20::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nReportState = GetItemLong(pDrawArgs->pRow->GetIndex());
 
@@ -525,7 +525,7 @@ void CXTPListCtrl20::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrForeground = RGB(255, 0, 0);
 }
 
-void CXTPListCtrl21::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl21::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {		
 	int nCol = pDrawArgs->pColumn->GetIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -538,7 +538,7 @@ void CXTPListCtrl21::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrForeground= RGB(0, 0, 255);
 }
 
-void CXTPListCtrl22::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl22::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nItem = GetItemLong(pDrawArgs->pRow->GetIndex());
 
@@ -554,7 +554,7 @@ void CXTPListCtrl22::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl23::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl23::GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = pDrawArgs->pRow->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetIndex();
@@ -581,7 +581,7 @@ void CXTPListCtrl23::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 	pItemMetrics->strText = str;
 }
 
-void CXTPListCtrl24::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl24::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nRow = pDrawArgs->pRow->GetIndex();
 	long nCol = pDrawArgs->pColumn->GetIndex();
@@ -595,7 +595,7 @@ void CXTPListCtrl24::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl25::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl25::GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nItemCol = pDrawArgs->pColumn->GetItemIndex();
 
@@ -615,7 +615,7 @@ void CXTPListCtrl25::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 	}
 }
 
-void CXTPListCtrl26::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl26::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {		
 	int nCol = pDrawArgs->pColumn->GetIndex();
 	int nRow = pDrawArgs->pRow->GetRecord()->GetIndex();
@@ -643,7 +643,7 @@ void CXTPListCtrl26::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl27::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl27::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -663,7 +663,7 @@ void CXTPListCtrl27::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl28::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+void CXTPListCtrl28::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex(); 
 	int nRow = pDrawArgs->pRow->GetIndex(); 
@@ -677,7 +677,7 @@ void CXTPListCtrl28::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrForeground = RGB(255, 0, 0);
 }
 
-void CXTPListCtrl29::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+void CXTPListCtrl29::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex(); 
 	int nRow = pDrawArgs->pRow->GetIndex(); 
@@ -687,7 +687,7 @@ void CXTPListCtrl29::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrBackground = RGB(180, 150, 255);
 }
 
-void CXTPListCtrl30::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl30::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nState = GetItemLong(pDrawArgs->pRow->GetRecord());
 
@@ -744,7 +744,7 @@ void CXTPListCtrl30::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl31::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl31::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nWorkState = GetItemLong2(pDrawArgs->pRow->GetRecord());
 
@@ -752,7 +752,7 @@ void CXTPListCtrl31::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrBackground = RGB(255, 220, 220);
 }
 
-void CXTPListCtrl32::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl32::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nRow = pDrawArgs->pRow->GetIndex();
 	long nCol = pDrawArgs->pColumn->GetIndex();
@@ -763,7 +763,7 @@ void CXTPListCtrl32::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrBackground = RGB(255, 220, 220);
 }
 
-void CXTPListCtrl34::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl34::GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	if(GetItemLong(pDrawArgs->pRow->GetRecord()))
 		pItemMetrics->clrBackground = RGB(242, 242, 255);
@@ -778,7 +778,7 @@ void CXTPListCtrl34::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 	pItemMetrics->pFont = m_FontManager.GetFont("¸¼Àº °íµñ", 18, FW_NORMAL);
 }
  
-void CXTPListCtrl35::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl35::GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	long nType = GetItemLong(pDrawArgs->pRow->GetRecord());
 	if(nType == 10)
@@ -787,7 +787,7 @@ void CXTPListCtrl35::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, X
 		pItemMetrics->clrBackground = RGB(255, 222, 222);
 }
 
-void CXTPListCtrl36::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl36::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -803,7 +803,7 @@ void CXTPListCtrl36::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl37::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl37::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -832,7 +832,7 @@ void CXTPListCtrl37::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl38::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl38::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -844,7 +844,7 @@ void CXTPListCtrl38::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl39::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl39::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -852,7 +852,7 @@ void CXTPListCtrl39::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	pItemMetrics->pFont = &pDrawArgs->pControl->GetPaintManager()->m_fontBoldText;
 }
 
-void CXTPListCtrl40::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+void CXTPListCtrl40::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex(); 
 	int nRow = pDrawArgs->pRow->GetIndex(); 
@@ -869,7 +869,7 @@ void CXTPListCtrl40::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrBackground = RGB(255, 0, 0);
 }
 
-void CXTPListCtrl41::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+void CXTPListCtrl41::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex(); 
 	int nRow = pDrawArgs->pRow->GetIndex(); 
@@ -881,7 +881,7 @@ void CXTPListCtrl41::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrForeground = RGB(0, 0, 255);	
 }
 
-void CXTPListCtrl42::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl42::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -922,7 +922,7 @@ void CXTPListCtrl42::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl43::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl43::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -931,7 +931,7 @@ void CXTPListCtrl43::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrBackground = RGB(255,200,200);
 }
 
-void CXTPListCtrl44::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+void CXTPListCtrl44::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 {
 	CXTPGridRecord * pRecord = pDrawArgs->pRow->GetRecord();
 
@@ -959,7 +959,7 @@ void CXTPListCtrl44::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pDrawArgs->nTextAlign = DT_CENTER;	
 }
 
-void CXTPListCtrl45::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl45::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -980,7 +980,7 @@ void CXTPListCtrl45::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	pItemMetrics->clrBackground = RGB(GetRValue(pBranchInfo->nRcpColor), GetGValue(pBranchInfo->nRcpColor), GetBValue(pBranchInfo->nRcpColor));
 } 
 
-void CXTPListCtrl46::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl46::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	ST_RIDER_ACCOUNT *st = (ST_RIDER_ACCOUNT*)GetItemData(pDrawArgs->pRow->GetRecord());
 
@@ -988,7 +988,7 @@ void CXTPListCtrl46::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 		pItemMetrics->clrBackground = RGB(255, 230, 230); 
 }
 
-void CXTPListCtrl47::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl47::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1001,7 +1001,7 @@ void CXTPListCtrl47::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl48::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl48::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1045,7 +1045,7 @@ void CXTPListCtrl48::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	}
 }
 
-void CXTPListCtrl49::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl49::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1062,7 +1062,7 @@ void CXTPListCtrl49::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	//pItemMetrics->pFont = m_pfntBold;
 }
 
-void CXTPListCtrl50::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl50::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1075,7 +1075,7 @@ void CXTPListCtrl50::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XT
 	//pItemMetrics->pFont = m_pfntBold;
 }
 
-void CCustomerGroupList::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CCustomerGroupList::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	CCustomerGroupList *pReport = (CCustomerGroupList *)pDrawArgs->pControl;
 	long nGroupOwner = pReport->GetItemLong2(pDrawArgs->pRow->GetRecord());		
@@ -1113,7 +1113,7 @@ void CGroupList24::SetSelected(long nGNo, BOOL bSelect)
 	}
 }
 
-void CXTPGridControl12::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPGridControl12::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	CUnBillRecord * pReocord = (CUnBillRecord*)pDrawArgs->pRow->GetRecord();
 
@@ -1164,7 +1164,7 @@ void CGroupListReport::SetGroupData(long nGNo, GROUP_REPORT st, BOOL bSumReport)
 	}
 }
 
-void CGroupList::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pMetrics )
+void CGroupList::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics )
 {
 	CString strColumn = pDrawArgs->pColumn->GetCaption();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1192,7 +1192,7 @@ void CGroupList::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_RE
 		}
 	}
 }
-void CustomerList::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pMetrics )
+void CustomerList::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics )
 {
 	CString strColumn = pDrawArgs->pColumn->GetCaption();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1204,7 +1204,7 @@ void CustomerList::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_
 		pMetrics->clrBackground = RGB(224,244,255);
 }
 
-void CMembers::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pMetrics )
+void CMembers::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics )
 {
 	CString strColumn = pDrawArgs->pColumn->GetCaption();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1216,7 +1216,7 @@ void CMembers::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPO
 		pMetrics->clrBackground = RGB(255,125,165);
 }
 
-void CGroupList2::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pItemMetrics )
+void CGroupList2::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pItemMetrics )
 {
 	CString strColumn = pDrawArgs->pColumn->GetCaption();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1234,7 +1234,7 @@ void CGroupList2::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_R
 	}		
 }
 
-void ChargeList::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_REPORTRECORDITEM_METRICS *pMetrics )
+void ChargeList::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics )
 {
 	CString strColumn = pDrawArgs->pColumn->GetCaption();
 	int nRow = pDrawArgs->pRow->GetIndex();
@@ -1254,7 +1254,7 @@ void ChargeList::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS *pDrawArgs, XTP_RE
 	}
 }
 
-void CMyMileageReport::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CMyMileageReport::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = pDrawArgs->pRow->GetIndex();
 	int nCount = pDrawArgs->pControl->GetRows()->GetCount();

@@ -59,7 +59,7 @@ COrderLogRecord :: COrderLogRecord(int nCount, COleDateTime dtLog, int nState, i
 }
 
 
-void COrderLogRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void COrderLogRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = this->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
@@ -123,7 +123,7 @@ COrderChangeRecord :: COrderChangeRecord(int nCount, CString sState, CString sBe
 	m_sAfterEtc = sAfterEtc;
 }
 
-void COrderChangeRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void COrderChangeRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = this->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetItemIndex();

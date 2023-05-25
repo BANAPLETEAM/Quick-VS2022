@@ -5,7 +5,7 @@
 class CRiderAllocateLimit : public CDataBox
 {
 public:
-	void CRiderAllocateLimit::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	void CRiderAllocateLimit::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{
 		int nCol = pDrawArgs->pColumn->GetIndex();
 		int nRow = pDrawArgs->pRow->GetIndex();

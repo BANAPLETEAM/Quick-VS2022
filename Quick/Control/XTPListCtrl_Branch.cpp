@@ -28,7 +28,7 @@ BEGIN_MESSAGE_MAP(CXTPListCtrl_Branch, CXTPGridControl)
 	ON_NOTIFY_REFLECT(NM_CLICK, OnReportItemClick)
 END_MESSAGE_MAP()
 
-void CXTPListCtrl_Branch::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CXTPListCtrl_Branch::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	CXTPGridRecord *pRecord = pDrawArgs->pRow->GetRecord();
 
@@ -77,7 +77,7 @@ void CXTPListCtrl_Branch::InitColumn()
 		GetReportHeader()->AllowColumnSort(TRUE);
 		GetReportHeader()->AllowColumnRemove(FALSE);
 		GetPaintManager()->m_strNoItems = "표시할 정보가 없거나, 조건에 해당하는 자료가 존재하지 않음";
-		GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
+		//GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
 		SetGridStyle(TRUE, xtpGridSolid);
 		SetGridColor(RGB(212, 208, 200));
 		AllowEdit(FALSE);

@@ -419,9 +419,9 @@ public:
 	void SortRecord(int nCol, SORT_TYPE type, BOOL bAsc = TRUE, BOOL bStateSecondSort = FALSE);
 
 public:
-	virtual void GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
-	virtual COLORREF OnColorText(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, OrderRecordList::iterator &itOrder);
-	virtual COLORREF OnColorBack(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, OrderRecordList::iterator &itOrder);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
+	virtual COLORREF OnColorText(XTP_GRIDRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, OrderRecordList::iterator &itOrder);
+	virtual COLORREF OnColorBack(XTP_GRIDRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, OrderRecordList::iterator &itOrder);
 
 	void MakeReserveOrderSortNumber();
 	

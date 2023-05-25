@@ -39,7 +39,7 @@ CNearRecord::CNearRecord(BOOL bCheck,long nTNo,int nState,int nCarType, int nRun
 	AddItem(new CXTPGridRecordItemText(strOption)); //5 <--
 }
 
-void CNearRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CNearRecord::GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = pDrawArgs->pRow->GetIndex();
 	int nCount = pDrawArgs->pControl->GetRows()->GetCount();
@@ -56,7 +56,7 @@ void CNearRecord::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_
 	pItemMetrics->clrForeground = OnColorText(pItemMetrics, nRow, nCol, nItemCol, pNearRecord->m_nRankType);
 }
 
-COLORREF CNearRecord::OnColorText(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, int &nRankType)
+COLORREF CNearRecord::OnColorText(XTP_GRIDRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, int &nRankType)
 {
 	if(nRankType < 9 )
 	{
@@ -93,7 +93,7 @@ COLORREF CNearRecord::OnColorText(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, in
 	return RGB(0, 0, 0);
 }
 
-COLORREF CNearRecord::OnColorBack(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, int &nTNo)
+COLORREF CNearRecord::OnColorBack(XTP_GRIDRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, int &nTNo)
 {
 	return RGB(255,255,255);
 }
@@ -197,7 +197,7 @@ void CGroupRecord::AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st)
 	m_strSearchData += st->strGroupName + "%" + st->strDept + "%" + st->strName + "%";
 }
 
-void CGroupRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CGroupRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	CGroupRecord *pReocrd = (CGroupRecord*)pDrawArgs->pRow->GetRecord();
 
@@ -329,7 +329,7 @@ void CGroupReportRecord::AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st)
 	m_strSearchDateData += "$" + (CString)itoa(st->nReportFirstDay, buffer, 10) + "%$" + (CString)itoa(st->nReportSecondDay, buffer, 10) + "%";
 }
 
-void CGroupReportRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CGroupReportRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	CGroupReportRecord* pRecord = (CGroupReportRecord*)pDrawArgs->pRow->GetRecord();
 
@@ -362,7 +362,7 @@ void CSimpleGroupRecord::AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st)
 	m_strSearchData += st->strGroupName + "%" + st->strDept + "%" + st->strName + "%";
 }
 
-void CSimpleGroupRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CSimpleGroupRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	CSimpleGroupRecord *pReocrd = (CSimpleGroupRecord*)pDrawArgs->pRow->GetRecord();
 
@@ -417,7 +417,7 @@ CCustomerGroupRecord::CCustomerGroupRecord(ST_CUSTOMER_GROUP_INFOMATION *st)
 	AddSearchData(st);
 }
 
-void CCustomerGroupRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CCustomerGroupRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	CCustomerGroupRecord *pReocrd = (CCustomerGroupRecord*)pDrawArgs->pRow->GetRecord();
 
@@ -461,7 +461,7 @@ void CGroupRecord24::AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st)
 	m_strSearchData += st->strGroupName + "%" + st->strDept + "%" + st->strName + "%";
 }
 
-void CGroupRecord24::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CGroupRecord24::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 { 
 	CGroupRecord24 *pReocrd = (CGroupRecord24*)pDrawArgs->pRow->GetRecord();
 
@@ -588,7 +588,7 @@ void CGroupReportRecord24::AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st)
 	m_strSearchDateData += "$" + (CString)itoa(st->nReportFirstDay, buffer, 10) + "%$" + (CString)itoa(st->nReportSecondDay, buffer, 10) + "%";
 }
 
-void CGroupReportRecord24::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CGroupReportRecord24::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {  
 	CGroupReportRecord24* pRecord = (CGroupReportRecord24*)pDrawArgs->pRow->GetRecord();
 
@@ -802,7 +802,7 @@ CUpdateBoardRecord::CUpdateBoardRecord(long nTNo,
 		AddItem(new CXTPGridRecordItemText(""));
 }
 
-void CUpdateBoardRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CUpdateBoardRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {  
 	if(pDrawArgs->pColumn && pDrawArgs->pRow)
 	{
@@ -873,7 +873,7 @@ CWantTransferRecord::CWantTransferRecord(long nID, long nToCompany, CString sMem
 	AddItem(new CXTPGridRecordItemText(strReceiveMessage));
 }
 
-void CWantTransferRecord::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CWantTransferRecord::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	int nRow = this->GetIndex();
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
@@ -948,7 +948,7 @@ CMyRecord::CMyRecord(COleDateTime dtGenerate,CString sState,long nDeposit,long n
 	}
 }
 
-void CMyRecord::GetItemMetrics_1(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CMyRecord::GetItemMetrics_1(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 	if(1 == m_nShareReportTabIdx)
 	{

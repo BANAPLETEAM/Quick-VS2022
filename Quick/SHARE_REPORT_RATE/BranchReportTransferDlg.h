@@ -36,7 +36,7 @@ protected:
 public:
 	CBranchRecord::CBranchRecord(long nCompany, CString sTel, CString sBranchName, bool bIsAllianceHead);
 
-	void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 	long m_nCompany;
 	bool m_bIsAllianceHead;

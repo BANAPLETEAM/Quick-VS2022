@@ -10,41 +10,41 @@ public:
 		return m_nRowHeight;
 	}
 
-	void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 };
 
 class CGroupPaintManager : public CMyReportPaintManager
 {
 public:
 	int GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow);
-	void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 };
 
 class CGroupPaintManager24 : public CMyReportPaintManager
 {
 public:
 	int GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow);
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs,	XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs,	XTP_GRIDRECORDITEM_METRICS* pMetrics);
 
 };
 
 class CConsignDrawManager2 : public CMyReportPaintManager
 {
 public:
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 	virtual int GetRowHeight(CDC* pDC, CXTPGridRow* pRow);
 };
 
 class CEmptyPaintManager : public CMyReportPaintManager
 {
 public:
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 };
 
 class CPaintManager : public CMyReportPaintManager
 {
 	int GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow);
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 };
 
 class CReportForm14PaintManager : public CMyReportPaintManager

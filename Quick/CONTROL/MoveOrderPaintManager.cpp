@@ -18,8 +18,8 @@ int CMoveOrderPaintManager::GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow)
 		return 0;
 }	
 
-void CMoveOrderPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, 
-									  XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CMoveOrderPaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, 
+									  XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();

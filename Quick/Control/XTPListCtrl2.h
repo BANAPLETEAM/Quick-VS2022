@@ -114,7 +114,7 @@ public:
 	BOOL m_bNoSort;
 	COleDateTime m_dtDate;
 
-	virtual void CXTPListCtrlRecord2::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void CXTPListCtrlRecord2::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 	long GetChecked(long nCol)	{return ((CCheckRecord*)GetItem(nCol))->IsChecked(); }
 };
 
@@ -263,7 +263,7 @@ public:
 	long m_nColor[ONE_YEAR];
 	long m_nDayCount;
 	//column coloring
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 	{
 		if(pDrawArgs->pColumn == NULL || pDrawArgs->pRow == NULL)
 			return;
@@ -409,7 +409,7 @@ public:
 	}
 
 	//column coloring
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{
 		if(pDrawArgs == NULL || pItemMetrics == NULL)
 			return;

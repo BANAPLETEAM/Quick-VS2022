@@ -14,13 +14,13 @@ public:
 };
 
 
-class CWCountPaintManager : public CXTPGridPaintManager
+class CWCountPaintManager : public CXTPGridThemeResource
 {
 public:
 	CWCountPaintManager();
 	virtual ~CWCountPaintManager(void);
 public:
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 
 public:
 	BOOL m_bLoadRabkImage;

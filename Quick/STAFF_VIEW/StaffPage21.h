@@ -17,7 +17,7 @@ RGB(0x33, 0x00, 0x00), RGB(0x33, 0x99, 0x00), RGB(0x99, 0x00, 0x00)};
 class CXTPListCtrl56 : public CXTPListCtrl2
 {
 public:
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics) 
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 
 	{		  
 		CXTPGridRecord *pRecord = pDrawArgs->pRow->GetRecord();
 
@@ -82,7 +82,7 @@ public:
 		AddItem(new CXTPGridRecordItemText(""));
 	}
 
-	void CStaffPage21Record::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	void CStaffPage21Record::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{   
 		CDC *pDC = pDrawArgs->pDC;
 		CStaffPage21Record *pRecord = (CStaffPage21Record*)pDrawArgs->pRow->GetRecord();
@@ -123,8 +123,8 @@ public:
 		return (m_nRowHeight * 5) + 12;  
 	} 
 
-	void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, 
-		XTP_REPORTRECORDITEM_METRICS* pMetrics)
+	void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, 
+		XTP_GRIDRECORDITEM_METRICS* pMetrics)
 	{		
 		
 		int nCol = pDrawArgs->pColumn->GetIndex();

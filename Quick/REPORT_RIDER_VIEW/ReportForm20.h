@@ -7,7 +7,7 @@
 class CMileageReport : public CDataBox
 {
 	public:
-		void CMileageReport::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+		void CMileageReport::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 		{
 			int nCol = pDrawArgs->pColumn->GetIndex();
 			int nRow = pDrawArgs->pRow->GetIndex();

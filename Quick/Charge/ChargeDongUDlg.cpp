@@ -192,7 +192,6 @@ BOOL CChargeDongUDlg::OnInitDialog()
 	m_lstSetDest.SetGridColor(RGB(222, 222, 222));
 	m_lstSetDest.GetPaintManager()->m_strNoItems = "표시할 대상이 존재하지 않음";
 	m_lstSetDest.ModifyStyle(0, WS_CLIPCHILDREN|WS_CLIPSIBLINGS|WS_TABSTOP);
-//	m_lstSetDest.SetPaintManager(new CXTPPaintChargeUDongDlgManager())
 	m_lstSetDest.GetReportHeader()->AllowColumnRemove(FALSE);
 	m_lstSetDest.GetReportHeader()->AllowColumnSort(FALSE);
 	m_lstSetDest.GetReportHeader()->AllowColumnResize(FALSE);

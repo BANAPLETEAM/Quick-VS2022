@@ -5,7 +5,7 @@
 #include "MyXTPReportView.h"
 
 
-class CGroupViewPaintManager 	: public CXTPGridPaintManager
+class CGroupViewPaintManager 	: public CXTPGridThemeResource
 {
 	friend class CXTPGridControl;
 public:
@@ -25,7 +25,7 @@ public:
 	}
 
 public:
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 	{
 		int nCol = pDrawArgs->pColumn->GetIndex();
 		int nRow = pDrawArgs->pRow->GetIndex();

@@ -24,12 +24,12 @@ public:
 	COleDateTime m_dt1;
 };
 
-class CMyPaintManager : public CXTPGridPaintManager
+class CMyPaintManager : public CXTPGridThemeResource
 {
 public:
 	CMyPaintManager();
 	virtual ~CMyPaintManager(void);
 public:
 	int GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow);
-	virtual void DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics);
+	virtual void DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics);
 };

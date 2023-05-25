@@ -53,8 +53,8 @@ int COPStatePaintManagerEx::GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow)
 	return m_nRowHeight + 16 + (ROW_OFFSET * 2);
 }
 
-void COPStatePaintManagerEx::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, 
-										   XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void COPStatePaintManagerEx::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, 
+										   XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	int nCol = pDrawArgs->pColumn->GetItemIndex();
 	int nRow = pDrawArgs->pRow->GetIndex();

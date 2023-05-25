@@ -179,7 +179,7 @@ public:
 		m_pvecDest = &vecDest;
 	}
 
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 	{
 
 		CDetailDistanceDestChargeRecord2 *pRecord = (CDetailDistanceDestChargeRecord2 *)pDrawArgs->pRow->GetRecord();

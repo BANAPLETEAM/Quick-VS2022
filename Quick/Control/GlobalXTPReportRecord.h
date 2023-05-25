@@ -42,9 +42,9 @@ public:
 	BOOL m_bNearRiderOrder;
 	BOOL m_bCheck;
 
-	virtual void GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
-	virtual COLORREF OnColorText(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, int &nRankType);
-	virtual COLORREF OnColorBack(XTP_REPORTRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, int &nRankType);
+	virtual void GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
+	virtual COLORREF OnColorText(XTP_GRIDRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, int &nRankType);
+	virtual COLORREF OnColorBack(XTP_GRIDRECORDITEM_METRICS* pItemMetrics, int &nRow, int &nCol, int &nItemCol, int &nRankType);
 };
 
 
@@ -74,7 +74,7 @@ class CGroupRecord : public  CXTPGridRecord
 public:
 	CGroupRecord::CGroupRecord(ST_CUSTOMER_GROUP_INFOMATION *st);
 	void AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st);
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 public:
 	long m_nGNo;
@@ -95,7 +95,7 @@ public:
 	CGroupReportRecord::CGroupReportRecord(ST_GROUP_REPORT st);
 
 	void AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st);
-	virtual	void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual	void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 public:
 	long m_nGNo;
@@ -115,7 +115,7 @@ class CSimpleGroupRecord : public  CXTPGridRecord
 public:
 	CSimpleGroupRecord::CSimpleGroupRecord(ST_CUSTOMER_GROUP_INFOMATION *st);
 	void AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st);
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 public:
 	long m_nGNo;
@@ -139,7 +139,7 @@ public:
 	}
 
 	CCustomerGroupRecord::CCustomerGroupRecord(ST_CUSTOMER_GROUP_INFOMATION *st);
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 	void AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st);
 public:
 	long m_nGNo;
@@ -153,7 +153,7 @@ class CGroupRecord24 : public  CXTPGridRecord
 public:
 	CGroupRecord24::CGroupRecord24(ST_CUSTOMER_GROUP_INFOMATION *st);
 	void AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st);
-	virtual void CGroupRecord24::GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void CGroupRecord24::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 public:
 	long m_nGNo;
@@ -174,7 +174,7 @@ public:
 	CGroupReportRecord24::CGroupReportRecord24(ST_GROUP_REPORT st);
 	void AddSearchData(ST_CUSTOMER_GROUP_INFOMATION *st);
 
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 	
 public:
 	long m_nGNo;
@@ -300,7 +300,7 @@ public:
 	COleDateTime m_dt;
 
 protected:
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 };
 
 class CWantTransferRecord : public CXTPGridRecord
@@ -382,7 +382,7 @@ protected:
 public:
 	CWantTransferRecord::CWantTransferRecord(long nID, long nToCompany, CString sMemo, long nState, COleDateTime dtRequest,
 		long nRequestCharge, COleDateTime dtReceive, long nReceiveCharge, CString strReceiveMessage);
-	void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 	long m_nState;
 };
@@ -707,8 +707,8 @@ public:
 
 	CMyRecord::CMyRecord(COleDateTime dtGenerate,CString sState,long nDeposit,long nBalance,CString sEtc,long nTrafficPenalty);
 
-	void	GetItemMetrics_1(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
-	virtual void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	void	GetItemMetrics_1(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
+	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 	BOOL GetDirtyFlag();
 	BOOL GetShareTimeDirtyFlag();

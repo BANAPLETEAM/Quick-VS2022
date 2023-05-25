@@ -390,7 +390,6 @@ void CDataBox::InitControl()
 		GetReportHeader()->AllowColumnSort(TRUE);
 		GetReportHeader()->AllowColumnRemove(FALSE);
 		GetReportHeader()->AllowColumnResize(TRUE);
-		//SetPaintManager(new CMyReportPaintManager());
 		GetPaintManager()->SetColumnStyle(xtpGridColumnResource);	
 		GetPaintManager()->m_strNoItems = "해당사항없음";
 		GetPaintManager()->SetGridStyle(TRUE,xtpGridSolid);
@@ -2496,7 +2495,7 @@ void CDataBox::PrintRow(CDC* pDC, CXTPGridRow* pRow, CRect rcRow)
 	}
 
 
-	XTP_REPORTRECORDITEM_DRAWARGS drawArgs;
+	XTP_GRIDRECORDITEM_DRAWARGS drawArgs;
 	drawArgs.pDC = pDC;
 	drawArgs.pControl = this;
 	drawArgs.pRow = pRow;
@@ -2967,7 +2966,7 @@ BOOL CDataBox::IsRowSelectCheck(CString strMsg)
 
 /*
 
-void CDataBox::GetItemMetrics (XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics)
+void CDataBox::GetItemMetrics (XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
 {
 CXTPGridColumnOrder* pSortOrder = pDrawArgs->pControl->GetColumns()->GetSortOrder();
 //CString strColumn = pDrawArgs->pColumn->GetCaption();

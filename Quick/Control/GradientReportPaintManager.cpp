@@ -11,7 +11,7 @@ CGradientReportPaintManager::~CGradientReportPaintManager(void)
 {
 }
 
-void CGradientReportPaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CGradientReportPaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 	COLORREF crBack = pMetrics->clrBackground;
 

@@ -60,7 +60,7 @@ public:
 		long nBannerFailCount, long nAllocateFailCount, long nCompletePer, long nRealCompletePer,
 		long n0, long n1, long n2, long n3, long n4, long n5, long n6,long nCustomerError, long nServiceError);
 public:
-	void GetItemMetrics(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pItemMetrics);
+	void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 
 	long m_nBannerCount;
 	long m_nBannerCompleteCount;

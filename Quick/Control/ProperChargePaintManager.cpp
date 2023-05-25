@@ -21,7 +21,7 @@ int CProperChargePaintManager::GetRowHeight(CDC* /*pDC*/, CXTPGridRow* pRow)
 	return 35;
 }
 
-void CProperChargePaintManager::DrawItemCaption(XTP_REPORTRECORDITEM_DRAWARGS* pDrawArgs, XTP_REPORTRECORDITEM_METRICS* pMetrics)
+void CProperChargePaintManager::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pMetrics)
 {
 
 	int nCol = pDrawArgs->pColumn->GetIndex();
