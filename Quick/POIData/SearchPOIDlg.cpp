@@ -136,7 +136,7 @@ void CSearchPOIDlg::InitReportControl()
 	CXTPGridColumn* pColDong1 = m_wndDong.AddColumn(new CXTPGridColumn(1, _T("지명2"), 80));
 	CXTPGridColumn* pColDong2 = m_wndDong.AddColumn(new CXTPGridColumn(2, _T("지명3"), 80));
 	pColDong0->SetAlignment(DT_LEFT);
-	m_wndDong.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);	
+	m_wndDong.SetPaintManager(new CMyReportPaintManager());
 	m_wndDong.GetPaintManager()->m_strNoItems = "";
 	m_wndDong.ShowHeader(FALSE);
 	m_wndDong.AllowEdit(FALSE);
@@ -159,6 +159,9 @@ void CSearchPOIDlg::InitReportControl()
 	pCol2->SetAlignment(DT_LEFT);
 	pCol3->SetAlignment(DT_LEFT);
 	pCol4->SetAlignment(DT_LEFT);
+	m_wndPOI.SetPaintManager(new CMyReportPaintManager());
+	m_wndPOI.GetPaintManager()->m_strNoItems = "웹 실시간 검색결과 입니다.\n";
+	m_wndPOI.GetPaintManager()->m_strNoItems += "고객데이터와 달리 자동선택되지 않습니다. 클릭바람!";
 	m_wndPOI.ShowHeader(TRUE);
 	m_wndPOI.AllowEdit(FALSE);
 	m_wndPOI.GetReportHeader()->AllowColumnSort(FALSE);
@@ -166,9 +169,6 @@ void CSearchPOIDlg::InitReportControl()
 	m_wndPOI.GetPaintManager()->SetGridStyle(TRUE, xtpGridSolid);
 	m_wndPOI.SetGridColor(RGB(222, 222, 222));
 	m_wndPOI.GetPaintManager()->m_bHideSelection = TRUE;
-	m_wndPOI.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);	
-	m_wndPOI.GetPaintManager()->m_strNoItems = "웹 실시간 검색결과 입니다.\n";
-	m_wndPOI.GetPaintManager()->m_strNoItems += "고객데이터와 달리 자동선택되지 않습니다. 클릭바람!";
 	m_wndPOI.EnableMarkup(TRUE);
 	m_wndPOI.GetPaintManager()->SetCaptionFont(lf);
 	m_wndPOI.GetPaintManager()->SetHeaderHeight(12);
@@ -199,20 +199,19 @@ void CSearchPOIDlg::InitReportControl()
 	pCol5->SetAlignment(DT_LEFT);
 	pCol6->SetAlignment(DT_CENTER);
 	pCol7->SetAlignment(DT_CENTER);
+	m_wndCustomer.SetPaintManager(new CMyReportPaintManager());
+	m_wndCustomer.GetPaintManager()->m_strNoItems = "검색된 고객이 없을시 최상위 지명이 자동선택됩니다.\n";
+	m_wndCustomer.GetPaintManager()->m_strNoItems += "아래의 웹검색결과 선택은 키보드 UP/DOWN 방향키 이용바람";
 	m_wndCustomer.ShowHeader(TRUE);
 	m_wndCustomer.AllowEdit(FALSE);
-	//m_wndCustomer.GetReportHeader()->AllowColumnSort(FALSE);
 	m_wndCustomer.GetReportHeader()->AllowColumnSort(TRUE);
 	m_wndCustomer.FocusSubItems(FALSE);
 	m_wndCustomer.GetPaintManager()->SetGridStyle(TRUE, xtpGridSolid);
 	m_wndCustomer.SetGridColor(RGB(222, 222, 222));
 	m_wndCustomer.GetPaintManager()->m_bHideSelection = TRUE;
-	m_wndCustomer.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);	
-	m_wndCustomer.GetPaintManager()->m_strNoItems = "검색된 고객이 없을시 최상위 지명이 자동선택됩니다.\n";
-	m_wndCustomer.GetPaintManager()->m_strNoItems += "아래의 웹검색결과 선택은 키보드 UP/DOWN 방향키 이용바람";
+	m_wndCustomer.EnableMarkup(TRUE);
 	m_wndCustomer.GetPaintManager()->SetCaptionFont(lf);
 	m_wndCustomer.GetPaintManager()->SetHeaderHeight(14);
-	m_wndCustomer.EnableMarkup(TRUE);
 
 	pCol0->SetTreeColumn(1);
 	//pCol0->SetVisible(FALSE);
