@@ -6639,7 +6639,7 @@ void CRcpView::ClickSeachCheckBox(UINT nFlag, long &nState, CString sTitle)
 {
 	nState = ++nState % CHECK_STATE_COUNT;
 
-	CXTPButton *pWnd = (CXTPButton*)GetDlgItem(nFlag);
+	CXTPButtonUniCode *pWnd = (CXTPButtonUniCode*)GetDlgItem(nFlag);
 
 	CString sTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Right' VerticalAlignment='Center'>";
 
@@ -6658,8 +6658,7 @@ void CRcpView::ClickSeachCheckBox(UINT nFlag, long &nState, CString sTitle)
 		sTemp += "<Run Foreground='Black' FontWeight='Normal'>"+ sTitle + "</Run></TextBlock>" ;
 	}
 
-	pWnd->SetWindowText(sTemp);
-	pWnd->EnableMarkup();
+	pWnd->SetMarkupText(sTemp);
 
 	ChangeSearchFilter();
 	DisplaySearchInfo();
@@ -8217,14 +8216,14 @@ CString CRcpView::GetShareCallBalance()
 		return "";
 
 	CString strTemp;  
-	strTemp = "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText1) + "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack1) + "' FontWeight='Normal'>접수:</Run>";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText1) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack1) + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareRcpCount) + " </Run> ";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText5) + "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack5) + "' FontWeight='Normal'>배차:</Run>";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText5) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack5) + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareAllocateCount) + " </Run> ";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText7) + "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack7) + "' FontWeight='Normal'>완료:</Run>";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText7) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack7) + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareCompleteCount) + " </Run> ";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText8) + "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack8) + "' FontWeight='Normal'>취소:</Run>";
-	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText8) + "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack8) + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareCancelCount) + " </Run> ";
+	strTemp = "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText1) /*+ "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack1)*/ + "' FontWeight='Normal'>접수:</Run>";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText1) /*+ "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack1)*/ + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareRcpCount) + " </Run> ";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText5) /*+ "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack5)*/ + "' FontWeight='Normal'>배차:</Run>";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText5) /*+ "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack5)*/ + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareAllocateCount) + " </Run> ";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText7) /*+ "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack7)*/ + "' FontWeight='Normal'>완료:</Run>";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText7) /*+ "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack7)*/ + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareCompleteCount) + " </Run> ";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText8) /*+ "'Background='"+ GetColorTo0x(CVirtualRecord::m_crStateBack8)*/ + "' FontWeight='Normal'>취소:</Run>";
+	strTemp += "<Run Foreground='" + GetColorTo0x(CVirtualRecord::m_crStateText8) /*+ "'Background='" + GetColorTo0x(CVirtualRecord::m_crStateBack8)*/ + "' FontWeight='Normal'>" + LF->GetMyNumberFormat(m_nShareCancelCount) + " </Run> ";
 	strTemp += "<Run Foreground='black' FontWeight='Bold'>합계:</Run>";
 	strTemp += "<Run Foreground='black' FontWeight='Bold'>" + LF->GetMyNumberFormat(m_nShareAllCount) + "</Run>";
  

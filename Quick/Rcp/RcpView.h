@@ -106,6 +106,32 @@ struct unary_function
 
 typedef map<long, long> DISTINCT_SHARE_CODE_MAP;
 
+class CXTPButtonUniCode : public CXTPButton
+{
+public:
+	void SetMarkupText(LPCTSTR lpszText)
+	{
+		m_bEnableMarkup = TRUE;
+		XTPMarkupReleaseContext(m_pMarkupContext);
+
+		if (m_bEnableMarkup)
+		{
+			m_pMarkupContext = XTPMarkupCreateContext(m_hWnd, TRUE);
+		}
+
+		USES_CONVERSION;
+		LPWSTR lpszwMarkup A2W(lpszText);
+
+		if (m_pMarkupContext)
+		{
+			XTPMarkupReleaseElement(m_pUIElement);
+			m_pUIElement = XTPMarkupParseText(m_pMarkupContext, lpszwMarkup);
+		}
+
+		//SetWindowText(lpszText);
+	}
+};
+
 #define STATE_BTN_COUNT 10
 // CRcpView Æû ºäÀÔ´Ï´Ù.
 class CRcpView : public CRcpViewBase 
