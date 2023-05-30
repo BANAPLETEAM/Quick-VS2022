@@ -157,9 +157,6 @@
     <ClCompile Include="Common\Bytes.cpp">
       <Filter>COMMON</Filter>
     </ClCompile>
-    <ClCompile Include="Common\d3des.c">
-      <Filter>COMMON</Filter>
-    </ClCompile>
     <ClCompile Include="Common\DataBindDlg.cpp">
       <Filter>COMMON</Filter>
     </ClCompile>
@@ -2239,9 +2236,6 @@
       <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="Common\Bytes.h">
-      <Filter>COMMON</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\d3des.h">
       <Filter>COMMON</Filter>
     </ClInclude>
     <ClInclude Include="Common\DataBindDlg.h">

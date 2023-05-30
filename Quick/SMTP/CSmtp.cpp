@@ -294,7 +294,6 @@ void CSmtp::AddRecipient(const char *email, const char *name)
 	Recipient recipient;
 	recipient.Mail = email;
 	if(name!=NULL) recipient.Name = name;
-	else recipient.Name.empty();
 
 	Recipients.insert(Recipients.end(), recipient);   
 }
@@ -319,7 +318,6 @@ void CSmtp::AddCCRecipient(const char *email, const char *name)
 	Recipient recipient;
 	recipient.Mail = email;
 	if(name!=NULL) recipient.Name = name;
-	else recipient.Name.empty();
 
 	CCRecipients.insert(CCRecipients.end(), recipient);
 }
@@ -344,7 +342,6 @@ void CSmtp::AddBCCRecipient(const char *email, const char *name)
 	Recipient recipient;
 	recipient.Mail = email;
 	if(name!=NULL) recipient.Name = name;
-	else recipient.Name.empty();
 
 	BCCRecipients.insert(BCCRecipients.end(), recipient);
 }

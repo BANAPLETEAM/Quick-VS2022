@@ -654,6 +654,7 @@ char* CStreamSocket::RecvPacket(UINT &nType, UINT &nSubType, DWORD &dwSize, UINT
 	}
 	catch(char *msg)
 	{
+		TRACE("RecvPacket: %s\n", msg);
 		//mkLog.Print("RecvPacket: %s\n", msg);
 		nType = 0;
 	}

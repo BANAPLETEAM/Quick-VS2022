@@ -29,7 +29,7 @@ void CMyExcel::ToExcel(CMkRecordset *pRs, const CString& filename, bool border)
 	long nColumnCount = pRs->GetFiledCount();
 
 	COleSafeArray sa;
-	unsigned long elements[] = {nRowCount, nColumnCount};
+	unsigned long elements[] = { static_cast<unsigned long>(nRowCount), static_cast<unsigned long>(nColumnCount) };
 	sa.Create(VT_VARIANT, 2, elements);
 
 	long nID = 0;
@@ -93,7 +93,7 @@ void CMyExcel::ToExcel(CXTPGridControl *pReport, const CString& filename, bool b
 	long cols = pReport->GetColumns()->GetVisibleColumnsCount();
 
 	COleSafeArray sa;
-	unsigned long elements[] = {rows, cols};
+	unsigned long elements[] = { static_cast<unsigned long>(rows), static_cast<unsigned long>(cols) };
 	sa.Create(VT_VARIANT, 2, elements);
 
 	CXTPGridColumn *pColumn = NULL;
@@ -184,7 +184,7 @@ void CMyExcel::ToExcel(const CListCtrl &listCtrl, const CString& filename, bool 
 //	SAFEARRAYBOUND rgsabounds[] = { {5, 2} };
 	COleSafeArray sa;
 
-	unsigned long elements[]={rows, cols};
+	unsigned long elements[] = { static_cast<unsigned long>(rows), static_cast<unsigned long>(cols) };
 	sa.Create(VT_VARIANT, 2, elements);
 
 	for(long r=0; r<rows; r++)
@@ -333,7 +333,7 @@ void CMyExcel::PrintExcel(const CListCtrl &listCtrl, bool border) // border=true
 	while(listCtrl.GetColumn(cols, &lvCol)) cols++;
 
 	COleSafeArray sa;
-	unsigned long elements[]={rows, cols};
+	unsigned long elements[]={ static_cast<unsigned long>(rows), static_cast<unsigned long>(cols) };
 	sa.Create(VT_BSTR, 2, elements);
 	for(long r=0; r<rows; r++)
 	{

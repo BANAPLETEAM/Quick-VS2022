@@ -252,8 +252,8 @@ BOOL CLoadInsurance::IsAbleCarType(long nCarType)
 		nCarType == CAR_SUBWAY ||
 		nCarType == CAR_6VAN)
 		return TRUE;
-
-	else FALSE;
+	else 
+		return FALSE;
 }
 
 BOOL CLoadInsurance::IsForceLoadInsuranceRegister(long nCompany)

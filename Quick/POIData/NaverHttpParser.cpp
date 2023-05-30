@@ -204,9 +204,8 @@ CString CNaverHttpParser::OpenNaver(CString strLocation)
 	}
 
 	char szPostData[2048] = {0};
-
 	char szHeader[2048] = {0};
-	char buffer[10];
+
 	sAddHeaders += "Connection: keep-alive\r\n";
 	sAddHeaders += "Content-Type:text/html\r\n";
 	sAddHeaders += "Keep-Alive: timeout=3\r\n";
@@ -248,6 +247,7 @@ again:
 	}
 	catch (CException* e)
 	{
+		e->GetErrorMessage(szPostData, 2048);
 		goto done;
 	}
 

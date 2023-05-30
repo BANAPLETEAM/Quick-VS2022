@@ -4374,7 +4374,7 @@ void CRcpView::OnViewExcel()
 	long cols = m_xList.GetColumns()->GetVisibleColumnsCount();
 
 	COleSafeArray sa;
-	unsigned long elements[] = {rows, cols};
+	unsigned long elements[] = { static_cast<unsigned long>(rows), static_cast<unsigned long>(cols) };
 	sa.Create(VT_VARIANT, 2, elements);
 
 	for(int r = 0; r < rows; r++)

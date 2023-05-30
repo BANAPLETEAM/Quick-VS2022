@@ -40,8 +40,7 @@ BOOL CSignDlg::OnInitDialog()
 	sTNo.Format("%d", m_nTNo);
 
  	this->SetWindowText("오더번호 - " + sTNo);
-	http://sign.logisoft.co.kr:83/logi_sign_display_quick.htm?sDBType=quick&nTNo=127000952&nCNo=16968989
-
+	// http://sign.logisoft.co.kr:83/logi_sign_display_quick.htm?sDBType=quick&nTNo=127000952&nCNo=16968989
 	CString sUrl = "http://sign.logisoft.co.kr:83/logi_sign_display_quick.htm?sDBType=quick&nTNo=" + sTNo;
 	sUrl += "&nCNo=" + LF->GetStringFromLong(m_nCNo);
 	// + sTNo.Left(3) + "/";	

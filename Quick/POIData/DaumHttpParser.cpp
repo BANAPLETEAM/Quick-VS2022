@@ -173,7 +173,7 @@ CString CDaumHttpParser::OpenKakaoLocation(CString strKey, CString strSearch)
 
 	if ( !(hConnect = InternetConnect ( hOpen, strServerName , dwPort, "",  "", INTERNET_SERVICE_HTTP, 0  , 0) ) )
 	{
-		printf ("InternetConnect %s", GetLastError());
+		printf ("InternetConnect %s", (char*)GetLastError());
 		return "";
 	}
 
@@ -221,6 +221,7 @@ again:
 	}
 	catch (CException* e)
 	{
+		e->GetErrorMessage(szPostData, 2048);
 		goto done;
 	} 
 

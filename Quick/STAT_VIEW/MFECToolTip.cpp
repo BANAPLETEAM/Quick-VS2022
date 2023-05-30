@@ -210,7 +210,7 @@ void CMFECToolTip::DisplayInfo( ToolTipInfo* pToolTip )
 	oFont.CreateFont(m_nFontSize, 0, 0, 0, FW_NORMAL, 0, 0, 0, HANGUL_CHARSET, 0, 0, 0, 0, "µ¸¿ò");
 	pOldFont = pDC->SelectObject(&oFont);
 
-	for( register UINT i = 0; i < pToolTip->nInfoSize; i++)
+	for(UINT i = 0; i < pToolTip->nInfoSize; i++)
 	{
 		CSize size;
 		size = pDC->GetTextExtent(pToolTip->nControlInfo[i]);
@@ -233,7 +233,7 @@ void CMFECToolTip::DisplayInfo( ToolTipInfo* pToolTip )
 	nX = oInfoRect.left + 8;
 	nY = oInfoRect.top + 5; 
 
-	for(register UINT i = 0; i < pToolTip->nInfoSize; i++)
+	for(UINT i = 0; i < pToolTip->nInfoSize; i++)
 	{
 		pDC->TextOut(nX, nY, pToolTip->nControlInfo[i]);
 		nY += m_nFontSize;
@@ -260,7 +260,7 @@ BOOL CMFECToolTip::AddControlInfo( UINT contolID, CStringArray& straInfo, COLORR
 	pToolTip->nControlInfo.RemoveAll();
 	pToolTip->nInfoSize  = nSize;
 	pToolTip->nControlID = contolID;
-	for( register int i = 0; i < nSize; i++ )
+	for( int i = 0; i < nSize; i++ )
 	{
 		pToolTip->nControlInfo.Add( straInfo[i] );
 	}
@@ -278,7 +278,7 @@ ToolTipInfo* CMFECToolTip::IsControlIDExisting( UINT controlID )
 {
 	ToolTipInfo *pToolTip = NULL;
 	int nSize = m_aControlInfo.GetSize();
-	for( register int i = 0; i < nSize; i++ )
+	for( int i = 0; i < nSize; i++ )
 	{
 		pToolTip = (ToolTipInfo*)m_aControlInfo.GetAt( i );
 		if( pToolTip->nControlID == controlID )		// if found!
@@ -296,7 +296,7 @@ BOOL CMFECToolTip::RemoveControlInfo( UINT controlID )
 {
 	ToolTipInfo *pToolTip = NULL;
 	int nSize = m_aControlInfo.GetSize();
-	for( register int i = 0; i < nSize; i++ )
+	for( int i = 0; i < nSize; i++ )
 	{
 		pToolTip = (ToolTipInfo*)m_aControlInfo.GetAt( i );
 		if( pToolTip->nControlID == controlID )		// if found!

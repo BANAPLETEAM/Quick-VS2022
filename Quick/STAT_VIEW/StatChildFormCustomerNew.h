@@ -17,13 +17,13 @@ public:
 // 대화 상자 데이터입니다.
 	enum { IDD = IDD_STAT_FORM_CUSTOMER_NEW };
 
-	typedef enum{
+	enum{
 		DAY_LIST_TYPE,
 		WEEK_LIST_TYPE,
-		MONTH_LIST_TYPE,
+		MONTH_LIST_TYPE
 	};
 
-	typedef enum{
+	enum{
 		DATE,
 		TOTALCUSTOMER,
 		TODAYCUSTOMER,
@@ -33,12 +33,12 @@ public:
 		MONTH_6,
 		YEAR_1,
 		YEAR_2,
-		YEAR_3,
+		YEAR_3
 	};
 
-	typedef enum{
+	enum{
 		PERCENT_ITEM_TYPE,
-		COUNT_ITEM_TYPE,
+		COUNT_ITEM_TYPE
 	};
 
 	typedef struct {

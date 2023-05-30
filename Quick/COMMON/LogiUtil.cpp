@@ -3459,7 +3459,7 @@ CString CLogiUtil::SendEMailCardResult(int tno, CString customer_email, bool re_
 
 		//unsigned short SrvPort
 		short sdata;
-		_stscanf(smtp_server_port, _T("%d"), &sdata);
+		_stscanf(smtp_server_port, _T("%d"), (int*)(&sdata));
 
         //mail.SetSMTPServer(smtp_server, atoi(smtp_server_port)); // smtp 서버
 		mail.SetSMTPServer(smtp_server, sdata); // smtp 서버

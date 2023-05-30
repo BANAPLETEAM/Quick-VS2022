@@ -127,9 +127,7 @@ void CMakeGroupReportSendDlg::OnDocumentComplete(LPDISPATCH pDisp, LPCTSTR szUrl
 
 void CMakeGroupReportSendDlg::SendKindReportWeb(int nSendType,  BOOL bReSend)
 {
-	
 	CoInitialize(NULL); 
-	HRESULT hr;
 	int nSum = 0;
 	BSTR bstrURL = NULL, bstrHeaders = NULL;
 	VARIANT vFlags = {0},vTargetFrameName = {0},vPostData = {0},vHeaders = {0};
