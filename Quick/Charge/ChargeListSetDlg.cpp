@@ -529,7 +529,7 @@ void CChargeListSetDlg::OnBnClickedChargelistCopyBtn()
 }
 
 void CChargeListSetDlg::OnBnClickedChargelistDelBtn()
-{
+{ 
 	if(MessageBox("해당 요금표를 정말로 삭제하시겠습니까", "확인", MB_ICONINFORMATION | MB_YESNO) == IDYES)
 	{
 		CString sChargeName = "";
