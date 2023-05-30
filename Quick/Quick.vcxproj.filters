@@ -4325,9 +4325,6 @@
     <ClInclude Include="REPORT_VIEW\GroupSearchDlg.h">
       <Filter>REPORT_VIEW</Filter>
     </ClInclude>
-    <ClInclude Include="REPORT_VIEW\JSCall.h">
-      <Filter>REPORT_VIEW</Filter>
-    </ClInclude>
     <ClInclude Include="REPORT_VIEW\MakeDepositJobNewDlg1.h">
       <Filter>REPORT_VIEW</Filter>
     </ClInclude>

@@ -1829,7 +1829,6 @@
     <ClInclude Include="REPORT_VIEW\GroupIncomeDlg.h" />
     <ClInclude Include="REPORT_VIEW\GroupReportView.h" />
     <ClInclude Include="REPORT_VIEW\GroupSearchDlg.h" />
-    <ClInclude Include="REPORT_VIEW\JSCall.h" />
     <ClInclude Include="REPORT_VIEW\MakeDepositJobNewDlg1.h" />
     <ClInclude Include="REPORT_VIEW\MakeFixedDepositDlg.h" />
     <ClInclude Include="REPORT_VIEW\MakeGroupReportDlg.h" />
