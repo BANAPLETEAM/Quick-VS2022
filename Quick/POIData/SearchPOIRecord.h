@@ -333,10 +333,17 @@ protected:
 			(m_pscus->pData->szCompany[0] == 0 ? "일반" : m_pscus->pData->szCompany), 
 			m_strKeyword);
 
+		/*
 		if(!GetHeadSymbol().IsEmpty())
 		{
 			int a= 0;
 		}
+
+		CString T = CSearchPOI::GetMarkupReplaceWordSlash(
+			GetHeadSymbol() +
+			(m_pscus->pData->szCompany[0] == 0 ? "일반" : m_pscus->pData->szCompany),
+			m_strKeyword);
+		*/
 
 		return CSearchPOI::GetMarkupReplaceWordSlash(
 			GetHeadSymbol() + 

@@ -159,7 +159,9 @@ void CSearchPOIDlg::InitReportControl()
 	pCol2->SetAlignment(DT_LEFT);
 	pCol3->SetAlignment(DT_LEFT);
 	pCol4->SetAlignment(DT_LEFT);
-	m_wndPOI.SetPaintManager(new CMyReportPaintManager());
+	//m_wndPOI.SetPaintManager(new CMyReportPaintManager());
+
+	m_wndPOI.GetPaintManager()->SetColumnStyle(xtpGridColumnOffice2007);
 	m_wndPOI.GetPaintManager()->m_strNoItems = "웹 실시간 검색결과 입니다.\n";
 	m_wndPOI.GetPaintManager()->m_strNoItems += "고객데이터와 달리 자동선택되지 않습니다. 클릭바람!";
 	m_wndPOI.ShowHeader(TRUE);
@@ -199,7 +201,9 @@ void CSearchPOIDlg::InitReportControl()
 	pCol5->SetAlignment(DT_LEFT);
 	pCol6->SetAlignment(DT_CENTER);
 	pCol7->SetAlignment(DT_CENTER);
-	m_wndCustomer.SetPaintManager(new CMyReportPaintManager());
+	//m_wndCustomer.SetPaintManager(new CMyReportPaintManager());
+	
+	m_wndCustomer.GetPaintManager()->SetColumnStyle(xtpGridColumnOffice2007);
 	m_wndCustomer.GetPaintManager()->m_strNoItems = "검색된 고객이 없을시 최상위 지명이 자동선택됩니다.\n";
 	m_wndCustomer.GetPaintManager()->m_strNoItems += "아래의 웹검색결과 선택은 키보드 UP/DOWN 방향키 이용바람";
 	m_wndCustomer.ShowHeader(TRUE);
