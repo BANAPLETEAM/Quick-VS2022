@@ -9,7 +9,7 @@
 #include "XTPReportRecordItemTextUniCode.h"
 
 #define DONG_COL_COUNT 3
-
+								
 class CSearchDongRecord : public CXTPGridRecordUniCode
 {
 public:
@@ -232,7 +232,7 @@ public:
 	long m_nApiType;
 };
 
-class CSearchCusRecord : public CXTPGridRecord
+class CSearchCusRecord : public CXTPGridRecordUniCode
 {
 public:
 
@@ -241,7 +241,7 @@ public:
 		m_bExpanded = FALSE;
 		m_pscus = &data;
 		m_strKeyword = strKeyword;
-		CXTPGridRecordItem *pItem = AddItem(new CXTPGridRecordItem);
+		CXTPGridRecordItem *pItem = AddItem(new CXTPGridRecordItemUniCode);
 		pItem->SetIconIndex(IsParent() ? GetIconIndex() : XTP_GRID_NOICON);
 		AddItem(new CXTPGridRecordItemTextUniCode(GetCompanyMU()));
 		AddItem(new CXTPGridRecordItemTextUniCode(GetDepartMU()));
