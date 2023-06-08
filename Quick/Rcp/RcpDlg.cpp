@@ -95,6 +95,7 @@
 static BOOL bRouteSend = FALSE;
 static float fRouteDistance = 0.0;
 
+#pragma comment(lib, "UxTheme.lib")
 
 #define GET_CUR_CHARGE()	m_EDT_CHARGE_BASIC.pEdit->SetWindowText(LF->GetMyNumberFormat( \
 	m_pCharge->GetCharge(m_pBi->nCompanyCode, \
@@ -964,6 +965,7 @@ BOOL CRcpDlg::OnInitDialog()
 		m_btnCallPass.ShowWindow(SW_SHOW);
 
 	OnInitialUpdate();	
+
 	return FALSE;
 }
 
@@ -1051,6 +1053,13 @@ void CRcpDlg::InitControl()
 
 	//choe
 	LF->MakeCarTypeCombo(&m_cmbCarType);
+
+	// 콤보박스 테마로인해 OnCtlColor 안먹히는 현상 수정
+	SetWindowTheme(m_cmbPayType.m_hWnd, L"", L"");
+	SetWindowTheme(m_cmbWayType.m_hWnd, L"", L"");
+	SetWindowTheme(m_cmbCarType.m_hWnd, L"", L"");
+	SetWindowTheme(m_cmbRunType.m_hWnd, L"", L"");
+	
 
 	DisplayReserveInfo();
 
@@ -2294,29 +2303,16 @@ HBRUSH CRcpDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 		if(m_pBi->nRcpTextColor != 0)
 			pDC->SetTextColor(m_pBi->nRcpTextColor);
-
 	}
-
-	/*
-	if(pWnd->GetDlgCtrlID() == IDC_TITLE_STATIC)
-	{
-	if(m_pBi->nRcpTextColor != 0)
-	pDC->SetTextColor(m_pBi->nRcpTextColor);
-
-	pDC->SetBkMode(TRANSPARENT);
-	return m_HandleManager.GetBrushObject(m_pBi->nRcpColor);
-	}
-	*/
 
 	switch(pWnd->GetDlgCtrlID()) 
 	{ 
-	case IDC_PAY_TYPE_COMBO:
-	case IDC_CAR_TYPE_COMBO:
-	case IDC_WAY_TYPE_COMBO:
-	case IDC_RUN_TYPE_COMBO:
-	case IDC_ALLOC_GROUP_COMBO:
-	case IDC_CHARGE_TYPE_COMBO:
-	//case IDC_TRUCK_TYPE_COMBO:
+		case IDC_PAY_TYPE_COMBO:
+		case IDC_CAR_TYPE_COMBO:
+		case IDC_WAY_TYPE_COMBO:
+		case IDC_RUN_TYPE_COMBO:
+		case IDC_ALLOC_GROUP_COMBO:
+		case IDC_CHARGE_TYPE_COMBO:
 		{
 			if(pWnd->GetDlgCtrlID() == IDC_PAY_TYPE_COMBO && ((CComboBox*)pWnd)->GetCurSel() == 2)
 				pDC->SetBkColor(RGB(255, 180, 180));
@@ -2327,61 +2323,7 @@ HBRUSH CRcpDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 			break;
 		}
-		/*
-		case IDC_PAY_TYPE_PRE_BTN: 
-		{
-		if(GetPayTypeNew() == m_pBi->nPayType1) 
-		{
-		pDC->SetBkColor(RGB(255,100,100));
-		pDC->SetBkMode(TRANSPARENT);
-		return (HBRUSH )CreateSolidBrush(RGB(255,100,100));
-		}
-		break; 
-		} 
-		case IDC_PAY_TYPE_AFTER_BTN:
-		{
-		pDC->SetBkMode(TRANSPARENT);
-		if(GetPayTypeNew() == m_pBi->nPayType2)
-		{
-		pDC->SetBkColor(RGB(255,100,100));
-		pDC->SetBkMode(TRANSPARENT);
-		return (HBRUSH )CreateSolidBrush(RGB(255,100,100));
-		}
-		break;
-		}
-		case IDC_PAY_TYPE_CREDIT_BTN:
-		{
-		pDC->SetBkMode(TRANSPARENT);
-		if(GetPayTypeNew() == m_pBi->nPayType3)
-		{
-		pDC->SetBkColor(RGB(255,100,100));
-		pDC->SetBkMode(TRANSPARENT);
-		return (HBRUSH )CreateSolidBrush(RGB(255,100,100));
-		}
-		break;
-		}
-		case IDC_PAY_TYPE_ONLINE_BTN:
-		{
-		pDC->SetBkMode(TRANSPARENT);
-		if(GetPayTypeNew() == m_pBi->nPayType4)
-		{
-		pDC->SetBkColor(RGB(255,100,100));
-		pDC->SetBkMode(TRANSPARENT);
-		return (HBRUSH )CreateSolidBrush(RGB(255,100,100));
-		}
-		break;
-		}		
-		*/
 	}
-
-	/*
-	if(pWnd->GetDlgCtrlID() == IDC_BRANCH_STATIC)
-	{
-	HBRUSH hRetBrush = DrawTopControlColor(pDC);
-	if(hRetBrush)
-	return hRetBrush;
-	}
-	*/
 
 	HBRUSH hUserBrush;
 	if(pWnd != this)
@@ -7564,100 +7506,6 @@ BOOL CRcpDlg::MileageUse(long nOrderCNo)
 }
 
 
-
-void CRcpDlg::MileCheck( int nPrePayType)
-{	
-	return;
-	/*
-	CString sRiderAuto; m_chkAutoCharge.GetWindowText(sRiderAuto);
-	if(sRiderAuto.Compare("X") == 0 && m_cmbPayType.GetCurSel() == PAY_TYPE_MILEAGE_CREDIT)
-	{
-
-		if(!m_mi.IsBranchUseMile(m_pBi->nCompanyCode, m_nPersonMileageType ) )
-		{
-			MessageBox("마일을 사용하지 않는 회사입니다." , "확인",MB_ICONINFORMATION);
-			m_cmbPayType.SetCurSel(nPrePayType);
-			return;
-		}
-
-		long nRcpDlgCharge =  LF->GetMyUnNumberFormatEdit(m_EDT_CHARGE_SUM.pEdit);
-		m_nMileageBalance = 
-			m_mi.GetNowMileageBalance(m_pOrder->GetCNo(), m_nInitItem);// - GetNowRiderAutoCharge();
-		if(m_nMileageBalance <= 0)
-		{
-			MessageBox("마일 잔액이 없습니다", "확인", MB_ICONINFORMATION);
-			m_cmbPayType.SetCurSel(nPrePayType);
-			return;
-		}
-
-		if(m_nMileageBalance < nRcpDlgCharge)
-		{
-			MessageBox("마일 잔액이 부족합니다", "확인", MB_ICONINFORMATION);
-			m_cmbPayType.SetCurSel(nPrePayType);
-			return;
-		}
-
-		if(nRcpDlgCharge <= 0 )
-		{
-			m_cmbPayType.SetCurSel(nPrePayType);
-			return;
-		}
-
-		m_edtAutoCharge.ShowWindow(SW_SHOW);
-		m_edtMileReserve.ShowWindow(SW_HIDE);
-
-		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->SetWindowText("마일사용");
-		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->ShowWindow(SW_HIDE);
-		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->ShowWindow(SW_SHOW);
-		m_edtAutoCharge.SetWindowText(LF->GetMyNumberFormat(nRcpDlgCharge));
-		m_edtAutoCharge.SetFocus();		
-		m_chkAutoCharge.SetWindowText("O");
-
-
-		SetPayTypeNew(PAY_TYPE_MILEAGE_CREDIT);
-		//m_cmbAfterPayType.SetCurSel(m_pBi->nAfterPayType);
-		OnEnChangeRiderAutoChargeEdit();
-	}
-	else
-	{
-		m_edtAutoCharge.SetWindowText("");
-
-		m_edtAutoCharge.ShowWindow(SW_HIDE);
-		m_edtMileReserve.ShowWindow(SW_SHOW);	
-
-		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->SetWindowText("마일적립");
-		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->ShowWindow(SW_HIDE);
-		((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->ShowWindow(SW_SHOW);
-
-		m_chkAutoCharge.SetWindowText("X");		
-		m_nMileageBalance = m_mi.GetNowMileageBalance(m_pOrder->GetCNo(), m_nInitItem);
-		if(m_cmbPayType.GetCurSel() == PAY_TYPE_MILEAGE_CREDIT )
-			SetPayTypeNew(0);  // 선불		
-
-		CString strEtc = "";
-		m_EDT_ETC.pEdit->GetWindowText(strEtc);
-		if(strEtc.Find("{마일사용") >= 0 )
-		{
-			int nStart = strEtc.Find("{마일사용");	
-
-			if(nStart >= 0)
-			{
-				int nEnd = strEtc.Find("}");
-
-				if(nEnd > nStart)
-				{
-					CString strDelete = strEtc.Mid(nStart, nEnd - nStart + 1);
-					strEtc.Replace(strDelete, "");
-				}
-			}
-			m_EDT_ETC.pEdit->SetWindowText(strEtc);
-		}		
-	}
-	*/
-}
-
-
-
 void CRcpDlg::OnBnClickedRiderAutoChargeChk()
 {
 	CString sRiderAuto; m_chkAutoCharge.GetWindowText(sRiderAuto);
@@ -7666,7 +7514,6 @@ void CRcpDlg::OnBnClickedRiderAutoChargeChk()
 		m_cmbPayType.SetCurSel(PAY_TYPE_MILEAGE_CREDIT);
 
 	SetConsignMode(FALSE);
-	MileCheck( nPrePayType	);
 }
 
 
@@ -9345,37 +9192,8 @@ void CRcpDlg::OnCbnSelchangePayTypeCombo()
 		
 		//m_edtAutoCharge.ShowWindow(SW_HIDE);
 		m_edtMileReserve.ShowWindow(SW_SHOW);
-		m_chkAutoCharge.SetWindowText("X");
-		MileCheck(nPrePayType);
-	
+		m_chkAutoCharge.SetWindowText("X");	
 		break;
-		/*
-	case 6: // 마일
-		
-		 m_EDT_CHARGE_SUM.pEdit->GetWindowText(sCharge);
-		sCharge.Replace(",", "");
-
-		// 잔액검사 사용할수 있는지
-		if((m_nMileageBalance >= m_pBi->nMileageSpan) && m_pBi->nMileageSpan != 0 )
-		{			
-			MileCheck(nPrePayType);	
-		}
-		else
-		{
-			//MessageBox("마일리지가 최소 사용금액보다 작습니다", "확인", MB_ICONINFORMATION);
-
-			m_edtAutoCharge.SetWindowText("");
-			m_edtAutoCharge.EnableWindow(FALSE);
-			
-			m_edtAutoCharge.ShowWindow(SW_HIDE);
-			m_edtMileReserve.ShowWindow(SW_SHOW);
-			
-			((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->SetWindowText("마일적립");
-			((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->ShowWindow(SW_HIDE);
-			((CStatic*)GetDlgItem(IDC_RCP_STATIC51))->ShowWindow(SW_SHOW);
-		}
-		break;
-		*/
 	}
 
 	OnEnChangeRiderAutoChargeEdit();
@@ -11396,9 +11214,8 @@ void CRcpDlg::RefreshRcpDlg(long nState)
 	m_nInitItem = nTempTNo; //위에서 초기화됨
 	m_nPreState = nTempState;
 	OnInitialUpdate();
-	//InitDataAll();
-
 }
+
 long CRcpDlg::GetCardPayVaild()
 {
 	CString strCharge, strDeposit, strMileage; 
