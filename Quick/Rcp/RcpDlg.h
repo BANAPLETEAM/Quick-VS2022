@@ -373,7 +373,6 @@ public:
 	virtual long CRcpDlg::GetMileageControlAmount();
 	virtual long CRcpDlg::GetRiderAutoChargeControlAmount();
 	virtual void CRcpDlg::OnEnChangeRiderAutoChargeEdit();
-	virtual void MileCheck(int nPrePayType);
 
 	virtual void DisplayReserveInfo();
 	virtual void DisplayRiderInfo();

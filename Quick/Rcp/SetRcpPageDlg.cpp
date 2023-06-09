@@ -520,14 +520,14 @@ void CSetRcpPageDlg::OnBnClickedOk()
 	CXTLogFont lf;
 	CString strFontSize;
 	m_cmbFont.GetSelFont(lf);
-	m_cmbFontSize.GetWindowText(strFontSize);
+	m_cmbFontSize.GetLBText(m_cmbFontSize.GetCurSel(), strFontSize);
 
 	AfxGetApp()->WriteProfileString("RcpPage", "FontName", lf.lfFaceName);
 	AfxGetApp()->WriteProfileString("RcpPage", "FontHeight", strFontSize);
 	AfxGetApp()->WriteProfileInt("RcpPage", "FontBold", m_chkBold.GetCheck());
 
 	CString strHeight;
-	m_cmbApplyCombo.GetWindowText(strHeight);
+	m_cmbApplyCombo.GetLBText(m_cmbApplyCombo.GetCurSel(), strHeight);
 	AfxGetApp()->WriteProfileString("RcpPage", "ColHeight", strHeight);
 	AfxGetApp()->WriteProfileInt("RcpPage", "ApplyHeight", m_chkApplyHeight.GetCheck());
 
@@ -610,23 +610,27 @@ void CSetRcpPageDlg::OnSelEndOKFontCombo()
 	CXTLogFont lf;
 	CString strFontSize;
 	m_cmbFont.GetSelFont(lf);
-	m_cmbFontSize.GetWindowText(strFontSize);
+	m_cmbFontSize.GetLBText(m_cmbFontSize.GetCurSel(), strFontSize);
 	m_edtFontText.SetMyFont(lf.lfFaceName, atol(strFontSize), m_chkBold.GetCheck() ? FW_BOLD : FW_NORMAL);
+	m_edtFontText.RedrawWindow();
 }
 
 
 void CSetRcpPageDlg::OnCbnSelchangeFontCombo()
 {
+	UpdateData();
 	OnSelEndOKFontCombo();
 }
 
 void CSetRcpPageDlg::OnCbnSelchangeFontSizeCombo()
 {
+	UpdateData();
 	OnSelEndOKFontCombo();
 }
 
 void CSetRcpPageDlg::OnBnClickedBoldCheck()
 {
+	UpdateData();
 	OnSelEndOKFontCombo();
 }
 
@@ -645,6 +649,8 @@ void CSetRcpPageDlg::OnBnClickedShowMapForm()
 void CSetRcpPageDlg::OnBnClickedApplyHeight()
 {
 	m_cmbApplyCombo.EnableWindow(m_chkApplyHeight.GetCheck());
+	if (!m_chkApplyHeight.GetCheck())
+		m_cmbApplyCombo.SetWindowText("30");
 }
 
 void CSetRcpPageDlg::OnSaveCompanySettingBtn()
@@ -708,15 +714,13 @@ void CSetRcpPageDlg::OnSaveCompanySettingBtn()
 	CXTLogFont lf;
 	CString strFontSize;
 	m_cmbFont.GetSelFont(lf);
-	m_cmbFontSize.GetWindowText(strFontSize);
+	m_cmbFontSize.GetLBText(m_cmbFontSize.GetCurSel(), strFontSize);
 
 	pCmd.AddParameter(lf.lfFaceName);
 	pCmd.AddParameter(atol(strFontSize));
 	pCmd.AddParameter(m_chkBold.GetCheck());
 
 	CString strDelayMin, strRejectCount;
-	//	m_cmbDelayMin.GetWindowText(strDelayMin);
-	//	m_cmbRejectCount.GetWindowText(strRejectCount);
 
 	pCmd.AddParameter(atol(strDelayMin));
 	pCmd.AddParameter(atol(strRejectCount));
