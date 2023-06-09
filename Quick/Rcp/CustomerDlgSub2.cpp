@@ -275,7 +275,7 @@ CString CCustomerDlgSub2::GetEtcInfo()
 		strInfo += "<Run Foreground='blue' FontWeight='Normal'>[E-Mail:" + m_strEMail + "]</Run> ";
 	}
 
-	strInfo = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Left' VerticalAlignment='Center'> " + strInfo ;
+	strInfo = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Left' VerticalAlignment='Center'> " + strInfo ;
 	strInfo += "</TextBlock>";
 
 	return strInfo;

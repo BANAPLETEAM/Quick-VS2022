@@ -1968,7 +1968,7 @@ void CRcpPageCTIForm::DisplayRingInfo(long nRing, long nAnswer, long nMissingCal
 {
 	static DWORD dwTickCount = 0;
 	const char szTemp[] =  
-		"<TextBlock FontFamily='Tahoma' HorizontalAlignment='Center' VerticalAlignment='Center'>" \
+		"<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Center' VerticalAlignment='Center'>" \
 		"<Run Foreground='#0000FF' FontWeight='Bold'>¸µ%d</Run>" \
 		"<Run Foreground='Green' FontWeight='Bold'>/ ÅëÈ­%d</Run>" \
 		"<Run Foreground='Black' FontWeight='Bold'>/ ²÷±è%d</Run>" \

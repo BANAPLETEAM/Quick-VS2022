@@ -6037,7 +6037,7 @@ void CRcpDlg::DisplayChargeInfo(BOOL bHasData)
 	{
 		strTemp = ""; 
 		strTemp += "<Border Padding='0'>";
-		strTemp +=  "<StackPanel TextBlock.FontFamily='Tahoma'>";  
+		strTemp +=  "<StackPanel TextBlock.FontFamily='Microsoft YaHei'>";  
 
 		/*
 		if(m_strChargeGeneralOption.IsEmpty() == FALSE)
@@ -6054,7 +6054,7 @@ void CRcpDlg::DisplayChargeInfo(BOOL bHasData)
 	}
 	else
 	{
-		strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='left' VerticalAlignment='center'>";
+		strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='left' VerticalAlignment='center'>";
 
 		CPOIUnit *pStart = m_pStart->GetPOI();
 		CPOIUnit *pDest = m_pDest->GetPOI();
@@ -6068,7 +6068,7 @@ void CRcpDlg::DisplayChargeInfo(BOOL bHasData)
 
 		strTemp = "";
 		strTemp += "<Border Padding='0'>";
-		strTemp +=  "<StackPanel TextBlock.FontFamily='Tahoma'>"; 
+		strTemp +=  "<StackPanel TextBlock.FontFamily='Microsoft YaHei'>"; 
 
 		CString strStartDest = "", strBasicCharge = "", strCNS = "";
 
@@ -9271,7 +9271,7 @@ void CRcpDlg::OnBnClickedContextChargeBtn()
 
 void CRcpDlg::DisplayReserveInfo()
 {
-	CString strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='left' VerticalAlignment='center'>";
+	CString strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='left' VerticalAlignment='center'>";
 	if(!IsReserve())
 	{ 
 		//strTemp += " <Run Foreground='Black' FontWeight='Bold'> 예약오더가 아닙니다</Run>";
@@ -9790,7 +9790,7 @@ LONG CRcpDlg::OnGetAllocateRider(WPARAM wParam, LPARAM lParam)
 
 void CRcpDlg::DisplayRiderInfo()
 {
-	/*CString strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='left' VerticalAlignment='center'>";
+	/*CString strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='left' VerticalAlignment='center'>";
 	if(m_nRiderCompany > 0 && m_nRNo > 0)
 	{ 
 		CString strTime;
@@ -9809,7 +9809,7 @@ void CRcpDlg::DisplayRiderInfo()
 
 	strTemp += "</TextBlock>";*/
 
-	CString strTitle = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='left' VerticalAlignment='center'>";
+	CString strTitle = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='left' VerticalAlignment='center'>";
 	CString strRiderInfo, strRiderCompany, strRiderPhone;
 	CString strEnd = "</TextBlock>";
 	if(m_nRiderCompany > 0 && m_nRNo > 0)
@@ -11278,7 +11278,7 @@ void CRcpDlg::ShowCardPayInfo()
 		strTemp += "<Run Foreground='Blue' FontWeight='Bold'>" + LF->GetMyNumberFormat(LF->GetCardRealPay(m_nInitItem)) + "</Run>";
 		strTemp += "<Run Foreground='Green' FontWeight='Bold'>]</Run> ";
 		strTemp += "<Run Foreground='Red' FontWeight='Bold'>원</Run> ";
-		strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Left' VerticalAlignment='Center'>" + strTemp;
+		strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Left' VerticalAlignment='Center'>" + strTemp;
 		strTemp += "</TextBlock>";
 
 		m_stcCardState.ShowWindow(TRUE);

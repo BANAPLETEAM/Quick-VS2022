@@ -6641,7 +6641,7 @@ void CRcpView::ClickSeachCheckBox(UINT nFlag, long &nState, CString sTitle)
 
 	CXTPButtonUniCode *pWnd = (CXTPButtonUniCode*)GetDlgItem(nFlag);
 
-	CString sTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Right' VerticalAlignment='Center'>";
+	CString sTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Right' VerticalAlignment='Center'>";
 
 	if(nState > CHECK_STATE_NO_CHECK)
 	{ 
@@ -6888,7 +6888,7 @@ void CRcpView::ChangeSearchFilter()
 	UpdateData(TRUE);
 
 	const char szTemp[] = 
-		"<TextBlock FontFamily='Tahoma' HorizontalAlignment='Center' VerticalAlignment='Center'>"\
+		"<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Center' VerticalAlignment='Center'>"\
 		"%s"\
 		">%s"\
 		"%s"\
@@ -6918,7 +6918,7 @@ void CRcpView::ChangeSearchFilter()
 	if(!m_strInfoEditSearch.IsEmpty())
 	{
 		m_strInfoEditSearch = "[" + m_strInfoEditSearch + "] ";
-		//m_strInfoEditSearch = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Center' VerticalAlignment='Center'>" + m_strInfoEditSearch;
+		//m_strInfoEditSearch = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Center' VerticalAlignment='Center'>" + m_strInfoEditSearch;
 		//m_strInfoEditSearch += "</TextBlock>";
 	}
 
@@ -6971,15 +6971,15 @@ void CRcpView::DisplaySearchInfo()
 
 	strTemp = m_strInfoCount + m_strInfoEditSearch + m_strInfoCheckSearch + GetCarTypeDisplay(FALSE) + GetPayTypeDisplay(FALSE) + strShareCount;
 
-	strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Center' VerticalAlignment='Center'>" + strTemp;
+	strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Center' VerticalAlignment='Center'>" + strTemp;
 	strTemp += "</TextBlock>";
 	m_stcDisplay.SetMarkupText(strTemp); 
 
-	strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Center' VerticalAlignment='Center'>" + GetCarTypeDisplay(TRUE);
+	strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Center' VerticalAlignment='Center'>" + GetCarTypeDisplay(TRUE);
 	strTemp += "</TextBlock>";
 	m_stcCarType.SetMarkupText(strTemp); 
 
-	strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Center' VerticalAlignment='Center'>" + GetPayTypeDisplay(TRUE);
+	strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Center' VerticalAlignment='Center'>" + GetPayTypeDisplay(TRUE);
 	strTemp += "</TextBlock>"; 
 	m_stcPayType.SetMarkupText(strTemp); 
  
@@ -6989,7 +6989,7 @@ void CRcpView::DisplaySearchInfo()
    
 	strTemp = "";    
 	strTemp += "<Border Padding='0'>";
-	strTemp += "<StackPanel TextBlock.FontFamily='Tahoma'>"; 
+	strTemp += "<StackPanel TextBlock.FontFamily='Microsoft YaHei'>"; 
 	strTemp += "   <TextBlock Padding='0'>" + m_strInfoCount + "</TextBlock>";
 
 	strTemp += "   <TextBlock Padding='0'>" + GetShareCallCount() + "</TextBlock>";

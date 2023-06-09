@@ -270,7 +270,7 @@ void COptionDlgPersonalInfo::DisplayDongInfo()
 	else
 	{
 		CString strTemp;
-		strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Left' VerticalAlignment='Center'><Run Foreground='red' FontWeight='Bold'>[동 선택]</Run> <Run Foreground='black' FontWeight='Bold'>클릭하세요</Run></TextBlock>";
+		strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Left' VerticalAlignment='Center'><Run Foreground='red' FontWeight='Bold'>[동 선택]</Run> <Run Foreground='black' FontWeight='Bold'>클릭하세요</Run></TextBlock>";
 		m_stcHomeDong.SetMarkupText(strTemp);
 	} 
  
@@ -289,7 +289,7 @@ void COptionDlgPersonalInfo::DisplayDongInfo()
 		m_edtCompanyDong.SetWindowText("");
 
 		CString strTemp;
-		strTemp = "<TextBlock FontFamily='Tahoma' HorizontalAlignment='Left' VerticalAlignment='Center'><Run Foreground='red' FontWeight='Bold'>[동 선택]</Run> <Run Foreground='black' FontWeight='Bold'>클릭하세요</Run></TextBlock>";
+		strTemp = "<TextBlock FontFamily='Microsoft YaHei' HorizontalAlignment='Left' VerticalAlignment='Center'><Run Foreground='red' FontWeight='Bold'>[동 선택]</Run> <Run Foreground='black' FontWeight='Bold'>클릭하세요</Run></TextBlock>";
 		m_stcCompanyDong.SetMarkupText(strTemp);
 	}
 }
