@@ -371,6 +371,12 @@ void CReportForm26::OnReportItemRightDblClick(NMHDR * pNotifyStruct, LRESULT * /
 
 	CBranchInfo *pBranch = LF->GetBranchInfo(nCompany);
 
+	if (!(LU->GetRcpView()))
+	{
+		MessageBox("접수창을 먼저 실행해주세요.", "확인", MB_ICONINFORMATION);
+		return;
+	}
+
 	LU->GetRcpView()->CreateRcpDlg(pBranch, 
 		sOName,
 		nTNo, 
