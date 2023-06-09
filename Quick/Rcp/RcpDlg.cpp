@@ -1055,6 +1055,7 @@ void CRcpDlg::InitControl()
 	LF->MakeCarTypeCombo(&m_cmbCarType);
 
 	// 콤보박스 테마로인해 OnCtlColor 안먹히는 현상 수정
+	SetWindowTheme(GetDlgItem(IDC_BRANCH_COMBO)->GetSafeHwnd(), L"", L"");
 	SetWindowTheme(m_cmbPayType.m_hWnd, L"", L"");
 	SetWindowTheme(m_cmbWayType.m_hWnd, L"", L"");
 	SetWindowTheme(m_cmbCarType.m_hWnd, L"", L"");
