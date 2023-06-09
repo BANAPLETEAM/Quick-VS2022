@@ -13,6 +13,7 @@
 #include "afxwin.h"
 #include "JusoGoKr.h"
 
+
 class CMarkupStatic;
 class CSearchDongRecord;
 class CSearchPOIRecord;

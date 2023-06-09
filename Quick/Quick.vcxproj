@@ -633,6 +633,7 @@
     <ClCompile Include="CONTROL\XTPListCtrl2.cpp" />
     <ClCompile Include="CONTROL\XTPListCtrl_Branch.cpp" />
     <ClCompile Include="CONTROL\XTPReportColumnUniCode.cpp" />
+    <ClCompile Include="Control\XTPReportControlUniCode.cpp" />
     <ClCompile Include="CONTROL\XTPReportRecordItemTextUniCode.cpp" />
     <ClCompile Include="CONTROL\XTPReportRecordItemUniCode.cpp" />
     <ClCompile Include="CONTROL\XTPReportRecordUniCode.cpp" />
@@ -1502,6 +1503,7 @@
     <ClInclude Include="CONTROL\XTPListCtrl2.h" />
     <ClInclude Include="CONTROL\XTPListCtrl_Branch.h" />
     <ClInclude Include="CONTROL\XTPReportColumnUniCode.h" />
+    <ClInclude Include="Control\XTPReportControlUniCode.h" />
     <ClInclude Include="CONTROL\XTPReportRecordItemTextUniCode.h" />
     <ClInclude Include="CONTROL\XTPReportRecordItemUniCode.h" />
     <ClInclude Include="CONTROL\XTPReportRecordUniCode.h" />

@@ -2212,6 +2212,9 @@
     <ClCompile Include="COMMON\SetPoiDlg.cpp">
       <Filter>COMMON</Filter>
     </ClCompile>
+    <ClCompile Include="Control\XTPReportControlUniCode.cpp">
+      <Filter>CONTROL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph\Graph.h">
@@ -4852,6 +4855,9 @@
     </ClInclude>
     <ClInclude Include="COMMON\SetPoiDlg.h">
       <Filter>COMMON</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\XTPReportControlUniCode.h">
+      <Filter>CONTROL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

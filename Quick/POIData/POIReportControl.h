@@ -1,7 +1,8 @@
 #pragma once
 
+#include "XTPReportControlUniCode.h"
 
-class CPOIReportControl : public CXTPGridControl
+class CPOIReportControl : public CXTPReportControlUniCode
 {
 public:
 	CPOIReportControl(void) {}
