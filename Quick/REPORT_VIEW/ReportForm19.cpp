@@ -79,8 +79,8 @@ void CReportForm19::OnInitialUpdate()
 	CMyFormView::OnInitialUpdate();
 
 	m_btnDate.InitDateButton(&m_FromDT, &m_ToDT);
-	m_FromDT.SetFormat("yyyy-MM-dd HH:00");
-	m_ToDT.SetFormat("yyyy-MM-dd HH:59");
+	//m_FromDT.SetFormat("yyyy-MM-dd HH:00");
+	//m_ToDT.SetFormat("yyyy-MM-dd HH:59");
 	m_btnDate.OnMenuToday();
 
 	CImageList ImageList; 

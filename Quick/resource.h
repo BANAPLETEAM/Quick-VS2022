@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by Quick.rc
+// Microsoft Visual C++에서 생성한 포함 파일입니다.
+// Quick.rc에서 사용되고 있습니다.
 //
 #define ID_INDICATOR_MESSENGER          1
 #define ID_INDICATOR_SOCKET             2
@@ -66,11 +66,11 @@
 #define IDD_FORMSERVICE                 103
 #define IDP_SOCKETS_INIT_FAILED         104
 #define ID_TABKEY                       104
-#define IDD_QUERY_LOG_DLG				105
+#define IDD_QUERY_LOG_DLG               105
 #define IDD_QUICK_MEMBER                106
 #define IDD_CUSTOMER_PAGE1              106
 #define IDD_QUICK_MANAGER               107
-#define IDC_COPY_CLIP_BTN				108
+#define IDC_COPY_CLIP_BTN               108
 #define IDD_REPORT_SHEET                110
 #define IDR_HTML_RCPDLG                 111
 #define IDD_QFORMVIEW                   113
@@ -150,7 +150,7 @@
 #define ID_CHANGE_STATE_CARRY           211
 #define ID_SHOW_NOTICE                  216
 #define ID_Menu217                      217
-#define IDB_DISPLAY_BAR_ROUND			218
+#define IDB_DISPLAY_BAR_ROUND           218
 #define IDB_SKIN_NOTICE                 219
 #define IDB_CLOSE_BTN                   224
 #define IDD_CUSTOMER_PAGE7              232
@@ -619,14 +619,14 @@
 #define IDD_REQUEST_DRAWING_DLG         937
 #define IDD_DIALOG50                    940
 #define IDD_VRRIDER_LOG_DLG             940
-#define IDC_PROGRESS1					941
+#define IDC_PROGRESS1                   941
 #define IDD_TANKVIEW_Q_DLG              943
 #define IDD_CONSIGN_LINK_DLG            945
 #define IDB_BITMAP27                    946
 #define IDB_PLUS_MINUS                  946
 #define IDD_CONSIGN_SETTING_DLG         947
-#define IDD_DIALOG_UPLOADING			948
-#define IDC_STATIC_INFO					949
+#define IDD_DIALOG_UPLOADING            948
+#define IDC_STATIC_INFO                 949
 #define IDD_DIALOG51                    950
 #define IDD_FAKE_DLG                    950
 #define IDD_REPORT29                    951
@@ -661,7 +661,6 @@
 #define IDD_DIALOG47                    995
 #define IDD_CHARGE_INSERT_DLG           995
 #define IDD_PW_DLG                      996
-#define IDD_DIALOG49                    998
 #define IDD_RIDER_SELECT_DLG            999
 #define IDC_EDIT_ID                     1000
 #define IDC_CONNECT_BTN                 1000
@@ -678,7 +677,6 @@
 #define IDC_EDIT_TEL1                   1003
 #define IDB_SERCH                       1003
 #define IDC_EDIT_PW2                    1003
-#define IDD_DIALOG52                    1003
 #define IDC_STATIC_MSG2                 1004
 #define IDB_PRINT                       1004
 #define IDB_RIDER                       1004
@@ -7186,7 +7184,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        1081
+#define _APS_NEXT_RESOURCE_VALUE        1113
 #define _APS_NEXT_COMMAND_VALUE         33961
 #define _APS_NEXT_CONTROL_VALUE         2726
 #define _APS_NEXT_SYMED_VALUE           159
