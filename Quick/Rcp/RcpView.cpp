@@ -6990,11 +6990,11 @@ void CRcpView::DisplaySearchInfo()
 	strTemp = "";    
 	strTemp += "<Border Padding='0'>";
 	strTemp += "<StackPanel TextBlock.FontFamily='Microsoft YaHei'>"; 
-	strTemp += "   <TextBlock Padding='0'>" + m_strInfoCount + "</TextBlock>";
+	strTemp += "   <TextBlock Padding='0' FontSize='11'>" + m_strInfoCount + "</TextBlock>";
 
-	strTemp += "   <TextBlock Padding='0'>" + GetShareCallCount() + "</TextBlock>";
+	strTemp += "   <TextBlock Padding='0' FontSize='11'>" + GetShareCallCount() + "</TextBlock>";
 	
-	strTemp += "   <TextBlock Padding='0'>" + GetShareCallBalance() + "</TextBlock>";
+	strTemp += "   <TextBlock Padding='0' FontSize='11'>" + GetShareCallBalance() + "</TextBlock>";
 	
 	
 	strTemp += "</StackPanel>"; 
