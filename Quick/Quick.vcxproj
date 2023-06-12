@@ -146,7 +146,7 @@
       <MkTypLibCompatible>false</MkTypLibCompatible>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/MP -Zm121 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir);$(SolutionDir)BRANCH_CONTROL;$(SolutionDir)CHARGE;$(SolutionDir)COMMON;$(SolutionDir)CONTROL;$(SolutionDir)CTI;$(SolutionDir)CUSTOMER_VIEW;$(SolutionDir)ETC_VIEW;$(SolutionDir)FRAME_WORK;$(SolutionDir)FUNCTION_VIEW;$(SolutionDir)GRAPH;$(SolutionDir)HOME_VIEW;$(SolutionDir)INCOME_VIEW;$(SolutionDir)MAP;$(SolutionDir)MESSENGER;$(SolutionDir)OPTION;$(SolutionDir)PANE;$(SolutionDir)POIDATA;$(SolutionDir)RCP;$(SolutionDir)RCP_INSUNG;$(SolutionDir)REPORT_RIDER_VIEW;$(SolutionDir)REPORT_VIEW;$(SolutionDir)SHARE_REPORT_RATE;$(SolutionDir)SMS;$(SolutionDir)SMTP;$(SolutionDir)STAFF_VIEW;$(SolutionDir)STAT_VIEW;$(SolutionDir)UPDATE_EXE_CHECK;$(SolutionDir)XTPToolkitPro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;JSON_DEBUG;_RCPPROJ;_QUICK;_HAS_STD_BYTE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -194,7 +194,7 @@
       <MkTypLibCompatible>false</MkTypLibCompatible>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/MP -Zm115 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <OmitFramePointers>false</OmitFramePointers>
