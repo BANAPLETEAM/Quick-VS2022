@@ -8513,7 +8513,7 @@ int CRcpDlg::SearchEditVK_RETURN(int nID, BOOL bSelectWhenSingleResult)
 		m_pSearchPOIDlg->SearchPOIJust(strText);
 
 		if(!m_pSearchPOIDlg->OnAutoSelectEvent(bSearchPhone ? TYPE_PHONE : TYPE_AUTO, 0, 
-			bSelectWhenSingleResult))
+			bSelectWhenSingleResult, strText))
 		{
 			if(bIsPhone) 
 			{

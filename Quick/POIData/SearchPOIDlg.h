@@ -146,7 +146,7 @@ public:
 	BOOL OnSelectPOI(CSearchPOIRecord *pItem, BOOL bFocusNotChange = FALSE);
 	void SetDatabase(CMkDatabase *pMkDb);
 	void SearchPOIJust(CString strKeyword = "");
-	BOOL OnAutoSelectEvent(int nType, BOOL bFocusNotChange = FALSE, BOOL bSelectWhenSingleResult = FALSE);
+	BOOL OnAutoSelectEvent(int nType, BOOL bFocusNotChange = FALSE, BOOL bSelectWhenSingleResult = FALSE, CString text = "");
 	void SaveCurPOI(long nType, CPOIUnit *pPOI = NULL, CPOIUnit *pDetailPOI = NULL,
 		CString strMarkupPOI = "", CString strNormalPOI = "", 
 		CString strMarkupDetail = "", CString strNormalDetail = "",

@@ -977,26 +977,49 @@ BOOL CSearchPOIDlg::ListKeyDownNextFocus(CXTPGridControl &wndMe, CXTPGridControl
 	return FALSE;
 }
 
-BOOL CSearchPOIDlg::OnAutoSelectEvent(int nType, BOOL bFocusNotChange, BOOL bSelectWhenSingleResult)
+BOOL CSearchPOIDlg::OnAutoSelectEvent(int nType, BOOL bFocusNotChange, BOOL bSelectWhenSingleResult, CString text)
 {
-	if(nType == TYPE_AUTO)
+	if (nType == TYPE_AUTO)
 	{
-		if(m_wndCustomer.GetRows()->GetCount() > 0)
+		int cus_cnt = m_wndCustomer.GetRows()->GetCount();
+		int poi_cnt = m_wndPOI.GetRows()->GetCount();
+		int dong_cnt = m_wndDong.GetRows()->GetCount();
+
+		BOOL bDong = FALSE;
+		if (dong_cnt > 0) {
+			CString strDong;
+			if (m_wndDong.GetSelectedRows()->GetCount() > 0)
+				strDong = m_wndDong.GetSelectedRows()->GetAt(0)->GetRecord()->GetItem(0)->GetCaption();
+			else
+				strDong = m_wndDong.GetRows()->GetAt(0)->GetRecord()->GetItem(0)->GetCaption();
+
+			if (strDong.Find(text) >= 0)
+				bDong = TRUE;
+		}
+
+		if (cus_cnt > 0)
 			nType = TYPE_CUSTOMER;
-		else if(m_wndPOI.GetRows()->GetCount() > 0 && 
-			((CSearchPOIRecord*)m_wndPOI.GetSelectedRows()->GetAt(0)->GetRecord())->m_pSearchPOI->bAddressSearch)
-			nType = TYPE_POI;
-		else if(m_wndDong.GetRows()->GetCount() > 0)
-			nType = TYPE_DONG;
-		else 
-		{
-			if(m_pRcpPlace->m_nPlaceType == PLACE_TYPE_ORDER)
-			{
-				m_pRcpPlace->Clear();
-				m_pRcpPlace->InitDiscountInfo();
+		else {
+			if (bDong) {
+				if (dong_cnt > 0)
+					nType = TYPE_DONG;
+				else if (poi_cnt > 0)
+					nType = TYPE_POI;
 			}
-			
-			return FALSE;
+			else {
+				if (poi_cnt > 0)
+					nType = TYPE_POI;
+				else if (dong_cnt > 0)
+					nType = TYPE_DONG;
+			}
+
+			if (nType == TYPE_AUTO) {
+				if (m_pRcpPlace->m_nPlaceType == PLACE_TYPE_ORDER) {
+					m_pRcpPlace->Clear();
+					m_pRcpPlace->InitDiscountInfo();
+				}
+				return FALSE;
+			}
 		}
 	}
 
