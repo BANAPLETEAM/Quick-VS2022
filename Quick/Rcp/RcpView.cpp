@@ -2272,11 +2272,14 @@ void CRcpView::InsertTodayOrder(OrderRecordList &order, OrderIndex &index, BOOL 
 	OrderRecordList::iterator it;
 	for(it = m_vrOrder->GetOrderRecordList().begin(); it != m_vrOrder->GetOrderRecordList().end(); it++)
 	{
-		if(it->second.dtRcp >= m_ei.dtTodayBound)
-		{
-			order.insert(OrderRecordList::value_type(it->first, it->second));
-			index.insert(OrderIndex::value_type(index.size(), it->first));
-			bInsertTodayOrder = TRUE;
+		CString strRcp = it->second.dtRcp.Format("%Y-%m-%d %H:%M:%S");
+		if (!strRcp.IsEmpty()) {
+			if (it->second.dtRcp >= m_ei.dtTodayBound)
+			{
+				order.insert(OrderRecordList::value_type(it->first, it->second));
+				index.insert(OrderIndex::value_type(index.size(), it->first));
+				bInsertTodayOrder = TRUE;
+			}
 		}
 	}
 }
