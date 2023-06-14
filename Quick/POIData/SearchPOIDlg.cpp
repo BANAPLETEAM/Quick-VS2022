@@ -248,8 +248,9 @@ void CSearchPOIDlg::SearchPOI(CString strData, BOOL bSearchOnlyPhone, BOOL bChan
 	{
 		if(m_wndDong.GetRecords()->GetCount() > 0 && CPOIDataAddress::CheckJibunSearch(strData))
 		{
-			OnBnClickedSearchAddressBtn(); 
-			return;
+			OnBnClickedSearchAddressBtn();
+			if (m_vecPOI.size() > 0)
+				return;
 		}
 
 		BOOL bSearchRoadAddress = SearchRoadAddress();
