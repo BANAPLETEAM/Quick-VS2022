@@ -418,7 +418,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	LU->StartMessenger();
 	SetForegroundWindow();
 
-	SetTimer(UPLOAD_TIMER, 5000, NULL);
+	//SetTimer(UPLOAD_TIMER, 5000, NULL);
 
 #ifndef _DEBUG
 	ShowHolidayDeliveryDlg(FALSE);

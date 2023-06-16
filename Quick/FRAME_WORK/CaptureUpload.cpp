@@ -189,7 +189,7 @@ BOOL CCaptureUpload::Upload()
 
 		CMkRecordset rs(pMkDb);
 		UINT nType = PT_OK, nSubType = PST_START_UPDATE_UPLOAD, nSize = 0;
-		if(!rs.ExecuteRecordsetOnly(nType, nSubType, nSize))
+		if(!rs.ExecuteRecordsetOnly(nType, nSubType, nSize, ""))
 			throw "통신중에 오류가 발생했습니다.";
 
 		rs.GetFieldValue(0, strServerPath);
