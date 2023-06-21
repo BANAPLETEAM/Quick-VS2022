@@ -69,7 +69,7 @@ BOOL CRiderAdviceDlg2010::OnInitDialog()
 	pColumn3->GetEditOptions()->m_bAllowEdit = TRUE; 
 	pColumn4->GetEditOptions()->m_bAllowEdit = FALSE;  
 	pColumn5->GetEditOptions()->m_bAllowEdit = TRUE; 
-
+	m_List.SetPaintManager(new CMyReportPaintManager);
 	m_List.GetReportHeader()->AllowColumnRemove(FALSE);
 	m_List.GetReportHeader()->AllowColumnSort(FALSE);
 	m_List.SetTreeIndent(30);

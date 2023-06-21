@@ -63,7 +63,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T("1분"), 60);
 			GetEditOptions(NULL)->AddConstraint(_T("알수없음"), 9999);
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 
 			m_bDirtyFlag = FALSE;	

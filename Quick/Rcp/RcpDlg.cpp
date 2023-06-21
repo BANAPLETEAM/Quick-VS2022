@@ -11628,36 +11628,47 @@ void CRcpDlg::HideSubHistoryDlgExeMe()
 	{
 		RCP_DLG_MAP::iterator it;
 		RCP_DLG_MAP *pMap = LU->GetRcpView()->GetRcpDlgMap();
-		for(it = pMap->begin(); it != pMap->end(); it++)
-		{
-			CRcpDlg *pDlg = it->first;
-			if(pDlg->GetSafeHwnd() != this->GetSafeHwnd())
+		if (!pMap)
+			return;
+
+		if (!pMap->size() <= 0)
+			return;
+
+		try {
+			for (it = pMap->begin(); it != pMap->end(); it++)
 			{
-				HIDE_DLG(pDlg->m_pCreditHistoryDlg);
-				if(!m_bHistoryMoveDown)
+				CRcpDlg* pDlg = it->first;
+				if (pDlg->GetSafeHwnd() != this->GetSafeHwnd())
 				{
-					HIDE_DLG(pDlg->m_pHistoryDlg);
-				}
-			}
-			else
-			{
-				if(LU->GetRcpView()->m_pLastSelRcpDlg != NULL)
-				{
-					if(LU->GetRcpView()->m_pLastSelRcpDlg->GetSafeHwnd() != this->GetSafeHwnd())
+					HIDE_DLG(pDlg->m_pCreditHistoryDlg);
+					if (!m_bHistoryMoveDown)
 					{
-						if(pDlg->m_pCreditHistoryDlg)
+						HIDE_DLG(pDlg->m_pHistoryDlg);
+					}
+				}
+				else
+				{
+					if (LU->GetRcpView()->m_pLastSelRcpDlg != NULL)
+					{
+						if (LU->GetRcpView()->m_pLastSelRcpDlg->GetSafeHwnd() != this->GetSafeHwnd())
 						{
-							if(pDlg->m_pCreditHistoryDlg->GetListRowCount() > 0)
-								pDlg->m_pCreditHistoryDlg->ShowWindow(SW_SHOW);
-							else
-								pDlg->m_pCreditHistoryDlg->ShowWindow(SW_HIDE);
+							if (pDlg->m_pCreditHistoryDlg)
+							{
+								if (pDlg->m_pCreditHistoryDlg->GetListRowCount() > 0)
+									pDlg->m_pCreditHistoryDlg->ShowWindow(SW_SHOW);
+								else
+									pDlg->m_pCreditHistoryDlg->ShowWindow(SW_HIDE);
+							}
+
+							if (!m_bHistoryMoveDown)
+								SHOW_DLG(pDlg->m_pHistoryDlg);
 						}
-						
-						if(!m_bHistoryMoveDown)
-							SHOW_DLG(pDlg->m_pHistoryDlg);
 					}
 				}
 			}
+		}
+		catch (CException* e) {
+			e->Delete();
 		}
 
 		LU->GetRcpView()->m_pLastSelRcpDlg = this;

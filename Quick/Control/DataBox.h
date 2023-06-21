@@ -233,7 +233,8 @@ public:
 			GetEditOptions(NULL)->AddConstraint(_T(sArray.GetAt(i)), nArray.GetAt(i));
 
 		GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-		GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+		GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+		GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 		GetEditOptions(NULL)->AddComboButton();
 		m_bDirtyFlag = FALSE;			
 	}

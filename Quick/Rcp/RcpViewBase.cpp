@@ -98,12 +98,18 @@ void CRcpViewBase::OnInitialUpdate()
 
 CRcpDlg* CRcpViewBase::IsRcpDlgVisible()
 {
-	RCP_DLG_MAP::iterator it;
-	for(it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-	{
-		if(it->first->IsWindowVisible())
-			return it->first;
+	try {
+		RCP_DLG_MAP::iterator it;
+		for (it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
+		{
+			if (it->first->IsWindowVisible())
+				return it->first;
+		}
 	}
+	catch(...) {
+		return NULL;
+	}
+
 	return NULL;
 }
 

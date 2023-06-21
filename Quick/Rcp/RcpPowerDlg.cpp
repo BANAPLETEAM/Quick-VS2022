@@ -25,7 +25,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T("부분"), 1);
 			GetEditOptions(NULL)->AddConstraint(_T("전체"), 2);
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 		}
 
@@ -72,7 +73,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T(" 정상"), 0);
 			GetEditOptions(NULL)->AddConstraint(_T("제한됨"), 1);
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 		}
 
