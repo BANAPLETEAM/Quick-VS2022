@@ -2478,9 +2478,9 @@ void CLogiFunc::MakeModaless()
 BOOL CLogiFunc::LengthCheck(HWND hwnd, long nApplyID, long nLengthStaticID, int nLength, CString strControlName)
 {
 	CString strApply = "", strTemp = "";
-
 	int nApplyControlLength = 0;
 	CWnd* pWnd = CWnd::FromHandle(GetDlgItem(hwnd, nApplyID));
+	pWnd->UpdateData();
 	pWnd->GetWindowText(strApply);
 
 	nApplyControlLength = GetStringLengthByAscII(strApply);
@@ -2489,7 +2489,7 @@ BOOL CLogiFunc::LengthCheck(HWND hwnd, long nApplyID, long nLengthStaticID, int 
 	{
 		strTemp.Format("%s  의 글자수가 정해진 것보다 큽니다", strControlName);
 		MessageBox(hwnd, strTemp, "확인", MB_ICONINFORMATION);
-		strApply = strApply.Mid(0, strApply.GetLength() - 2);
+		strApply = strApply.Mid(0, strApply.GetLength() - 1);
 		pWnd->SetFocus();
 		pWnd->SetWindowText(strApply);
 		((CEdit*)pWnd)->SetSel(strApply.GetLength(), strApply.GetLength());

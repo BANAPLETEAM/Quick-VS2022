@@ -19,6 +19,7 @@ typedef struct
 	int nAllocGroup;
 	CString strAddress;
 	CString strEtc;
+	CString strSSN;
 	CString strInnerMemo;
 	int nDepositType;
 	int nDepositAllocateType;

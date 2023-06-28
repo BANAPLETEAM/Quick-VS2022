@@ -684,6 +684,10 @@ COLORREF CPPHtmlDrawer::GetColorByName(LPCTSTR lpszColorName, COLORREF crDefColo
 	if (m_bIsEnable)
 	{
 		try {
+			CString strColorName(lpszColorName);
+			if (strColorName == "black")
+				return RGB(0, 0, 0);
+
 			iterMapColors iterMap = m_mapColors.find(lpszColorName);
 
 			if (iterMap != m_mapColors.end())

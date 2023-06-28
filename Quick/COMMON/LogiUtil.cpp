@@ -1303,7 +1303,24 @@ BOOL CLogiUtil::SendCopyDataToTelClient(char *szBuff, long nType, BOOL bInsert)
 
 CRcpView* CLogiUtil::GetRcpView()
 {
-	return m_pRcpView;
+	CWnd* pWnd = m_pwndCur;
+	if (pWnd == NULL) {
+		return NULL;
+	}
+
+	CRuntimeClass* p = pWnd->GetRuntimeClass();
+	CString strClass(p->m_lpszClassName);
+
+	if (strClass == "CRcpView") {
+		return (CRcpView*)pWnd;
+	}
+	else {
+		if (m_pRcpView->GetSafeHwnd()) {
+			return m_pRcpView;
+		}
+	}
+
+	return NULL;
 }
 
 void CLogiUtil::ShowMessenger()
