@@ -746,6 +746,7 @@ void CRcpView::InitControl()
 
 	m_RefreshCombo.SetCurSel(0);
 
+	m_bTooltipNoUse = IsDialogMode();
 	if(!m_bTooltipNoUse)
 	{
 		m_tooltip.Create(this, FALSE);
