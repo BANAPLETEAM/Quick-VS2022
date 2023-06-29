@@ -1305,10 +1305,7 @@ CRcpView* CLogiUtil::GetRcpView()
 {
 	CWnd* pWnd = m_pwndCur;
 	if (pWnd == NULL) {
-		if (m_pRcpView->GetSafeHwnd())
-			return m_pRcpView;
-		else
-			return NULL;
+		return NULL;
 	}
 
 	CRuntimeClass* p = pWnd->GetRuntimeClass();
