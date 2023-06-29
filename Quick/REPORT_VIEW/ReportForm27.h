@@ -41,6 +41,10 @@ public:
 	CDateTimeCtrl m_dtToCtl;
 	CDateButton m_DateBtn;
 
+	CButton m_chkPay2;
+	CButton m_chkPay3;
+	CButton m_chkPay7;
+
 	void RefreshCustomerList(BOOL bAll);
 	virtual void OnInitialUpdate();
 
@@ -59,6 +63,7 @@ public:
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
+	afx_msg void OnBnClickedCheck();
 };
 
 

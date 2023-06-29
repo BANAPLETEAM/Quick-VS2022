@@ -41,6 +41,9 @@ void CReportForm27::DoDataExchange(CDataExchange* pDX)
 	DDX_DateTimeCtrl(pDX, IDC_DTP_TO, m_dtTo);
 	DDX_Control(pDX, IDC_DATE_BTN, m_DateBtn);
 	DDX_Control(pDX, IDC_SEARCH_EDIT, m_edtSearch);
+	DDX_Control(pDX, IDC_CHECK1, m_chkPay2);
+	DDX_Control(pDX, IDC_CHECK2, m_chkPay3);
+	DDX_Control(pDX, IDC_CHECK3, m_chkPay7);
 }
 
 BEGIN_MESSAGE_MAP(CReportForm27, CMyFormView)
@@ -55,6 +58,9 @@ BEGIN_MESSAGE_MAP(CReportForm27, CMyFormView)
 	ON_COMMAND(ID_VISIBLE_COL, OnVisibleCol)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_VIEW_EXCEL, OnViewExcel)
+	ON_BN_CLICKED(IDC_CHECK1, &CReportForm27::OnBnClickedCheck)
+	ON_BN_CLICKED(IDC_CHECK2, &CReportForm27::OnBnClickedCheck)
+	ON_BN_CLICKED(IDC_CHECK3, &CReportForm27::OnBnClickedCheck)
 END_MESSAGE_MAP()
 
 
@@ -198,6 +204,10 @@ void CReportForm27::OnInitialUpdate()
 	SetResize(IDC_LEFT_LIST, sizingBottom);
 	SetResize(IDC_RIGHT_LIST, sizingRightBottom);
 
+	m_chkPay2.SetCheck(TRUE);
+	m_chkPay3.SetCheck(TRUE);
+	m_chkPay7.SetCheck(TRUE);
+
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 }
 
@@ -220,6 +230,11 @@ void CReportForm27::OnEnChangeSearchEdit()
 	}
 
 	m_lstLeft.Populate();
+}
+
+void CReportForm27::OnBnClickedCheck()
+{
+	OnBnClickedRefreshBtn();
 }
 
 void CReportForm27::OnBnClickedRefreshBtn()
@@ -263,10 +278,13 @@ void CReportForm27::OnBnClickedRefreshBtn()
 	CString strOPhone, strOMobile, strSPhone, strSMobile, strDPhone, strDMobile, strSDepart, strDDepart;
 	
 	CMkRecordset pRs(m_pMkDb);
-	CMkCommand pCmd(m_pMkDb, "select_credit_customer_report_4");
+	CMkCommand pCmd(m_pMkDb, "select_credit_customer_report_5");
 	pCmd.AddParameter(strCNoSum);
 	pCmd.AddParameter(m_dtFrom);
 	pCmd.AddParameter(m_dtTo);
+	pCmd.AddParameter(m_chkPay2.GetCheck() ? 2 : -1);
+	pCmd.AddParameter(m_chkPay3.GetCheck() ? 3 : -1);
+	pCmd.AddParameter(m_chkPay7.GetCheck() ? 7 : -1);
 
 	if(pRs.Execute(&pCmd) == FALSE) return;
  
