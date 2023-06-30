@@ -122,6 +122,20 @@ BEGIN_MESSAGE_MAP(CAddGroupDlg, CMyDialog)
 	ON_BN_CLICKED(IDC_GNO_FULLL_BTN, &CAddGroupDlg::OnBnClickedGnoFulllBtn)
 	ON_BN_CLICKED(IDC_GNO_PERSON_CHECK, &CAddGroupDlg::OnBnClickedGnoPersonCheck)
 	ON_BN_CLICKED(IDC_GNO_MULTI_CHECK, &CAddGroupDlg::OnBnClickedGnoMultiCheck)
+	ON_EN_CHANGE(IDC_GROUP_NAME_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_DEPT_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_NAME_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_MEMBER_TEL_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_ID_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_PWD_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_EMAIL_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_RIDER_DEPOSIT_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_DETAIL_ETC_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_PRESIDENT_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_BUSINESS_STATUS_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_BUSINEESS_NO_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_BUSINESS_CATEGORY_EDIT, &CAddGroupDlg::OnEnChangeEdit)
+	ON_EN_CHANGE(IDC_COMPANY_AREA_EDIT, &CAddGroupDlg::OnEnChangeEdit)
 END_MESSAGE_MAP()
 
 
@@ -663,17 +677,13 @@ BOOL CAddGroupDlg::PreTranslateMessage(MSG* pMsg)
 	switch(::GetDlgCtrlID(pMsg->hwnd))
 	{
 	case IDC_GROUP_NAME_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_DEPT_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
+		else if (pMsg->message == WM_KEYUP)
 		{
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_GROUP_NAME_EDIT, IDC_LENGTH_STATIC, 30, "그룹명");
-		}			
-		else if(pMsg->message == WM_KEYUP)
-		{
-			if(m_bAdd)
+			if (m_bAdd)
 			{
-				CString sChargeTypeName = ""; 
+				CString sChargeTypeName = "";
 				((CEdit*)GetDlgItem(IDC_GROUP_NAME_EDIT))->GetWindowText(sChargeTypeName);
 
 				m_cmbChargeType.SetWindowText(sChargeTypeName);
@@ -683,95 +693,61 @@ BOOL CAddGroupDlg::PreTranslateMessage(MSG* pMsg)
 		break;
 
 	case IDC_DEPT_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_NAME_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_DEPT_EDIT, IDC_LENGTH_STATIC, 50, "부서명");
 		break;
 
 	case IDC_NAME_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_MEMBER_TEL_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_NAME_EDIT, IDC_LENGTH_STATIC, 15, "담당자이름");
 		break;
 
 	case IDC_MEMBER_TEL_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_ID_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_MEMBER_TEL_EDIT, IDC_LENGTH_STATIC, 17, "대표번호");
 		break;
 
 	case IDC_ID_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_PWD_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_ID_EDIT, IDC_LENGTH_STATIC, 15, "아이디");
 		break;
 
 	case IDC_PWD_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_EMAIL_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_PWD_EDIT, IDC_LENGTH_STATIC, 15, "패스워드");
 		break;
 
 	case IDC_EMAIL_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_COPORATION_CHARGE_CHECK)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_EMAIL_EDIT, IDC_LENGTH_STATIC, 50, "이메일");
 		break;
 
 	case IDC_RIDER_DEPOSIT_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_DETAIL_ETC_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_RIDER_DEPOSIT_EDIT, IDC_LENGTH_STATIC, 3, "기사입금비율");
-		break;
-
-	case IDC_DETAIL_ETC_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
-		{
-			//GetDlgItem(IDC_PRESIDENT_EDIT)->SetFocus();
-		}
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_DETAIL_ETC_EDIT, IDC_LENGTH_STATIC, 500, "비고");
 		break;
 
 	case IDC_PRESIDENT_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_BUSINESS_STATUS_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_PRESIDENT_EDIT, IDC_LENGTH_STATIC, 10, "대표자");
 		break;
 
 	case IDC_BUSINESS_STATUS_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_BUSINEESS_NO_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINESS_STATUS_EDIT, IDC_LENGTH_STATIC, 20, "업태");
 		break;
 	case IDC_BUSINEESS_NO_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_BUSINESS_CATEGORY_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINEESS_NO_EDIT, IDC_LENGTH_STATIC, 10, "사업자번호");
 		break;
 	case IDC_BUSINESS_CATEGORY_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_COMPANY_AREA_EDIT)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINESS_CATEGORY_EDIT, IDC_LENGTH_STATIC, 20, "업종");
 		break;
 	case IDC_COMPANY_AREA_EDIT:
-		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
+		if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			GetDlgItem(IDC_OK_BTN)->SetFocus();
-		else if(pMsg->message == WM_KEYDOWN)
-			LF->LengthCheck(this->GetSafeHwnd(), IDC_COMPANY_AREA_EDIT, IDC_LENGTH_STATIC, 100, "사업장주소");
-
-		break;			
+		break;
 	default:
 		if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)
 			pMsg->wParam = NULL;
@@ -1230,4 +1206,65 @@ void CAddGroupDlg::GNoListAllUnCheck()
 void CAddGroupDlg::OnBnClickedGnoMultiCheck()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+void CAddGroupDlg::OnEnChangeEdit()
+{
+	CWnd* pWnd = GetFocus();
+	int uid = ::GetDlgCtrlID(pWnd->GetSafeHwnd());
+
+	switch (uid) {
+	case IDC_GROUP_NAME_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_GROUP_NAME_EDIT, IDC_LENGTH_STATIC, 30, "그룹명");
+		break;
+
+	case IDC_DEPT_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_DEPT_EDIT, IDC_LENGTH_STATIC, 50, "부서명");
+		break;
+
+	case IDC_NAME_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_NAME_EDIT, IDC_LENGTH_STATIC, 15, "담당자이름");
+		break;
+
+	case IDC_MEMBER_TEL_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_MEMBER_TEL_EDIT, IDC_LENGTH_STATIC, 17, "대표번호");
+		break;
+
+	case IDC_ID_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_ID_EDIT, IDC_LENGTH_STATIC, 15, "아이디");
+		break;
+
+	case IDC_PWD_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_PWD_EDIT, IDC_LENGTH_STATIC, 15, "패스워드");
+		break;
+
+	case IDC_EMAIL_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_EMAIL_EDIT, IDC_LENGTH_STATIC, 50, "이메일");
+		break;
+
+	case IDC_RIDER_DEPOSIT_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_RIDER_DEPOSIT_EDIT, IDC_LENGTH_STATIC, 3, "기사입금비율");
+		break;
+
+	case IDC_DETAIL_ETC_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_DETAIL_ETC_EDIT, IDC_LENGTH_STATIC, 500, "비고");
+		break;
+
+	case IDC_PRESIDENT_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_PRESIDENT_EDIT, IDC_LENGTH_STATIC, 10, "대표자");
+		break;
+
+	case IDC_BUSINESS_STATUS_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINESS_STATUS_EDIT, IDC_LENGTH_STATIC, 20, "업태");
+		break;
+	case IDC_BUSINEESS_NO_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINEESS_NO_EDIT, IDC_LENGTH_STATIC, 10, "사업자번호");
+		break;
+	case IDC_BUSINESS_CATEGORY_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_BUSINESS_CATEGORY_EDIT, IDC_LENGTH_STATIC, 20, "업종");
+		break;
+	case IDC_COMPANY_AREA_EDIT:
+		LF->LengthCheck(this->GetSafeHwnd(), IDC_COMPANY_AREA_EDIT, IDC_LENGTH_STATIC, 100, "사업장주소");
+		break;
+	}
 }

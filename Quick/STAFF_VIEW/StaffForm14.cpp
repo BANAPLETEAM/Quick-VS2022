@@ -1547,7 +1547,7 @@ BOOL CStaffForm14::UpdateUser()
 			return FALSE;
 	}
 
-	CMkCommand pCmd(m_pMkDb, "update_rider_info_19");
+	CMkCommand pCmd(m_pMkDb, "update_rider_info_20");
 	CMkParameter *parRet = pCmd.AddParameter(typeLong, typeReturn, sizeof(int), 0);
 	pCmd.AddParameter(m_nLastANo);
 	pCmd.AddParameter(m_bLastAdminTable);

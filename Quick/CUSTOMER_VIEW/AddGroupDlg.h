@@ -142,4 +142,5 @@ public:
 	afx_msg void OnBnClickedGnoFulllBtn();
 	afx_msg void OnBnClickedGnoPersonCheck();
 	afx_msg void OnBnClickedGnoMultiCheck();
+	afx_msg void OnEnChangeEdit();
 };

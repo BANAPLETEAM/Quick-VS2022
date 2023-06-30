@@ -459,7 +459,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T("미공유"), -1);
 			GetEditOptions(NULL)->AddConstraint(_T("무정산"), 21);
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 
 			m_bDirtyFlag = FALSE;	
@@ -631,7 +632,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T("5분"), 300);
 
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 
 			m_bDirtyFlag = FALSE;	

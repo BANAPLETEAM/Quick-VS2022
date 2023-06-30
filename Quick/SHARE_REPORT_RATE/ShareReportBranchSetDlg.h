@@ -16,7 +16,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T("X"), 0);
 			GetEditOptions(NULL)->AddConstraint(_T("O"), 1);
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 
 			m_bDirtyFlag = FALSE;	
@@ -60,7 +61,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T("지사에충전"), 0);
 			GetEditOptions(NULL)->AddConstraint(_T("본사에충전"), 1);
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 
 			m_bDirtyFlag = FALSE;	
@@ -105,7 +107,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T("기사수행"), 1);
 			GetEditOptions(NULL)->AddConstraint(_T("콜접수+기사수행"), 2);
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 
 			m_bDirtyFlag = FALSE;	
@@ -200,7 +203,8 @@ protected:
 			GetEditOptions(NULL)->AddConstraint(_T("콜당1500원제외"), -1500);
 			GetEditOptions(NULL)->AddConstraint(_T("전액모두지급"), 9999);
 			GetEditOptions(NULL)->m_bConstraintEdit = FALSE;
-			GetEditOptions(NULL)->m_bAllowEdit = FALSE;		
+			GetEditOptions(NULL)->m_bAllowEdit = TRUE;
+			GetEditOptions(NULL)->m_bExpandOnSelect = TRUE;
 			GetEditOptions(NULL)->AddComboButton();
 
 			m_bDirtyFlag = FALSE;	

@@ -397,7 +397,7 @@ void CMkMessenger::OnMsgDataRead(QPACKET *p)
 			CString strLog;
 			strLog.Format("m_pMsgClient = %X, m_pmi = %X\r\n", m_pMsgClient, m_pmi);
 
-			if(m_pMsgClient)
+			if(m_pMsgClient && m_pmi)
 			{
 				m_pMsgClient->Close();
 				MessageBox("다른 컴퓨터에서 동일한 아이디로 메신저 서버에 접속하여,"\

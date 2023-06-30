@@ -147,7 +147,7 @@ void CRiderInfoLogDlg::RefreshList()
 
 	CXTPGridRecord *pPreRecord = NULL;
 	long nRecordIndex = 0;
-
+	CString sSSN1, sSSN2;
 	for(int i = 0; i < pRs.GetRecordCount(); i++)
 	{
 		ST_RIDER_INFO_LOG *pstLog = new ST_RIDER_INFO_LOG;
@@ -206,6 +206,11 @@ void CRiderInfoLogDlg::RefreshList()
 		pRs.GetFieldValue("bInsRegister", pstLog->bInsRegister);
 		pRs.GetFieldValue("sVRCardNumber", pstLog->strVRCardNumber);
 		pRs.GetFieldValue("nPreInfoID", pstLog->nPreInfoID);
+		pRs.GetFieldValue("sSSN1", sSSN1);
+		pRs.GetFieldValue("sSSN2", sSSN2);
+
+		if (!sSSN1.IsEmpty() && !sSSN2.IsEmpty())
+			pstLog->strSSN.Format("%s-%s", sSSN1, sSSN2);
 
 		if(pstLog->nPreInfoID == 0)
 		{
@@ -262,6 +267,11 @@ void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
 			"이름변경", pData->strName, pOriginData->strName, pMainRecord);
+	}
+	if(pData->strSSN != pOriginData->strSSN)
+	{
+		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
+			"주민번호 변경", pData->strSSN, pOriginData->strSSN, pMainRecord);
 	}
 	if(pData->strTel != pOriginData->strTel)
 	{

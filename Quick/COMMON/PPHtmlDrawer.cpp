@@ -371,28 +371,35 @@ void CPPHtmlDrawer::AddSpecChar(LPCTSTR lpszAlias, LPCTSTR lpszValue)
 void CPPHtmlDrawer::ReplaceSpecChars()
 {
 	CPPString sAlias, sValue;
-	for (iter_mapStyles iter = m_mapSpecChars.begin(); iter != m_mapSpecChars.end(); ++iter)
-	{
-		sAlias = iter->first;
-		sValue = iter->second;
-		m_csHtmlText.Replace(sAlias, sValue);
-	} //for
+	try {
+		for (iter_mapStyles iter = m_mapSpecChars.begin(); iter != m_mapSpecChars.end(); ++iter)
+		{
+			sAlias = iter->first;
+			sValue = iter->second;
+			m_csHtmlText.Replace(sAlias, sValue);
+		} //for
 
-	m_csHtmlText.Remove(_T('\r'));
-	if (!m_bEnableEscapeSequences)
+		m_csHtmlText.Remove(_T('\r'));
+		if (!m_bEnableEscapeSequences)
+		{
+			//ENG: Remove escape sequences
+			//RUS: Удаляем специальны?символ?
+			m_csHtmlText.Remove(_T('\n'));
+			m_csHtmlText.Remove(_T('\t'));
+		}
+		else
+		{
+			//ENG: Replace escape sequences to HTML tags
+			//RUS: Заме?ем специальны?символ?HTML тэгами
+			m_csHtmlText.Replace(_T("\n"), _T("<br>"));
+			m_csHtmlText.Replace(_T("\t"), _T("<t>"));
+		}
+	} //try
+	catch (CException* e)
 	{
-		//ENG: Remove escape sequences
-		//RUS: Удаляем специальны?символ?
-		m_csHtmlText.Remove(_T('\n'));
-		m_csHtmlText.Remove(_T('\t'));
+		e->Delete();
 	}
-	else
-	{
-		//ENG: Replace escape sequences to HTML tags
-		//RUS: Заме?ем специальны?символ?HTML тэгами
-		m_csHtmlText.Replace(_T("\n"), _T("<br>"));
-		m_csHtmlText.Replace(_T("\t"), _T("<t>"));
-	} //if
+	//if
 } //End of ReplaceSpecChars
 
 /////////////////////////////////////////////////////////////////////////////
@@ -676,10 +683,19 @@ COLORREF CPPHtmlDrawer::GetColorByName(LPCTSTR lpszColorName, COLORREF crDefColo
 {
 	if (m_bIsEnable)
 	{
-		iterMapColors iterMap = m_mapColors.find(lpszColorName);
-		
-		if (iterMap != m_mapColors.end())
-			crDefColor = iterMap->second;
+		try {
+			CString strColorName(lpszColorName);
+			if (strColorName == "black")
+				return RGB(0, 0, 0);
+
+			iterMapColors iterMap = m_mapColors.find(lpszColorName);
+
+			if (iterMap != m_mapColors.end())
+				crDefColor = iterMap->second;
+		}
+		catch (CException* e) {
+			e->Delete();
+		}
 	}
 	else
 	{
