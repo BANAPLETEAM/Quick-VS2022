@@ -11,7 +11,7 @@ public:
 	{
 	}
 public:
-	ST_RIDER_STRUCT *pAllocRiderInfo;
+	ST_RIDER_STRUCT *pAllocRiderInfo = NULL;
 };
 
 class CXTPGridRecordItemCheck : public CXTPGridRecordItem

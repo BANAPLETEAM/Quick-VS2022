@@ -103,15 +103,15 @@ public:
 
 
 public:
-	DWORD m_dwData;
-	long m_nLong;
-	long m_nLong2;
-	long m_nLong3;
+	DWORD m_dwData = 0;
+	long m_nLong = 0;
+	long m_nLong2 = 0;
+	long m_nLong3 = 0;
 	CString m_strString;
 	CString m_strText;
 	CString m_strText2;
 	CString m_strText3;
-	BOOL m_bNoSort;
+	BOOL m_bNoSort = FALSE;
 	COleDateTime m_dtDate;
 
 	virtual void CXTPListCtrlRecord2::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);

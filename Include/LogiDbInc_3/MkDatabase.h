@@ -21,7 +21,7 @@ class CBanaLog;
 typedef struct 
 {
 	CString strServerAddr;
-	UINT nServerPort;
+	UINT nServerPort = 0;
 } SERVER_ADDR_INFO;
 
 typedef CArray<SERVER_ADDR_INFO, SERVER_ADDR_INFO> SERVER_LIST;
