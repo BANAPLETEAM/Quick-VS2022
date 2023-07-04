@@ -95,7 +95,6 @@ protected:
 	CHAR *m_pLastRecordsetChunk;
 	UINT m_nLastReccordsetSize;
 
-
 public:
 	CDisplayBarThread *m_pDBT;
 	CCriticalSection m_csQuery;
@@ -107,6 +106,7 @@ public:
 	static COMMAND_MAP m_mapRefCommand;
 	static CCriticalSection m_csRefCommand;
 
+	BOOL m_bDisplayBarCreate;
 
 protected:
 	DECLARE_MESSAGE_MAP()

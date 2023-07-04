@@ -82,6 +82,8 @@ CMkDatabase::CMkDatabase(CBanaLog* pLog)
 
 	m_pDBT = (CDisplayBarThread*)AfxBeginThread(RUNTIME_CLASS(CDisplayBarThread), 0, 0, 0);
 	m_pDBT->m_bAutoDelete = TRUE;
+
+	m_bDisplayBarCreate = FALSE;
 }
 
 CMkDatabase::~CMkDatabase()

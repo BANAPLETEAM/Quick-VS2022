@@ -587,22 +587,22 @@ void CIPass::InsertDestData(CWnd *pWnd)
 
 void CIPass::InsertChargeData(CWnd *pWnd)
 {	
-	CWnd *pDefault = GetSubWnd(pWnd, 17);
+	CWnd *pDefault = GetSubWnd(pWnd, 22);
 	pDefault = GetSubWnd(pDefault, 0);
 	AddCharge(pDefault, LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_BASIC.pEdit)));//기본요금
 
-	CWnd *pAdd = GetSubWnd(pWnd, 2);
+	CWnd *pAdd = GetSubWnd(pWnd, 7);
 	pAdd = GetSubWnd(pAdd, 0);
 	long nAdd = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_ADD.pEdit)));	
 	AddCharge(pAdd, LF->GetStringFromLong(nAdd));//추가
 
-	CWnd *pDis = GetSubWnd(pWnd, 12);
+	CWnd *pDis = GetSubWnd(pWnd, 17);
 	pDis = GetSubWnd(pDis, 0);
 	long nDis = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_DIS.pEdit)));
 	//long nChargeCompany = atoi(LF->RemoveComma(LF->GetStringFromEdit(&m_pRcpDlg->m_edtChargeCompany)));
 	AddCharge(pDis, LF->GetStringFromLong(nDis)); //할인
 
-	CWnd *pTran = GetSubWnd(pWnd, 14);
+	CWnd *pTran = GetSubWnd(pWnd, 19);
 	pTran = GetSubWnd(pTran, 0);
 
 	long nTran = atoi(LF->RemoveComma(LF->GetStringFromEdit(m_pRcpDlg->m_EDT_CHARGE_TRANS.pEdit)));	

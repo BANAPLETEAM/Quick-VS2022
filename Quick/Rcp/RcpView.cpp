@@ -3633,8 +3633,10 @@ void CRcpView::EditOrder(BOOL bAdd)
  
 BOOL CRcpView::PreTranslateMessage(MSG* pMsg)
 {
-	m_tooltip.RelayEvent(pMsg);
-
+	if (!m_bTooltipNoUse)
+	{
+		m_tooltip.RelayEvent(pMsg);
+	}
 
 	//마우스입력이 있는 동안에는 timer를 중지시킴
 	if(pMsg->message == WM_LBUTTONDOWN || pMsg->message == WM_RBUTTONDOWN ||

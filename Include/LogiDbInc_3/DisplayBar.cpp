@@ -52,9 +52,9 @@ int CDisplayBar::Create(CWnd *pWndParent)
 
 	m_pWndParent = pWndParent;
 	CString strWndClass = AfxRegisterWndClass(NULL,AfxGetApp()->LoadStandardCursor(IDC_ARROW),GetSysColorBrush(COLOR_WINDOW),NULL);
-	BOOL bRet = CreateEx(0,strWndClass,NULL,WS_POPUP,0,0,0,0, ::GetDesktopWindow(),NULL);
+	m_pMkDb->m_bDisplayBarCreate = CreateEx(0,strWndClass,NULL,WS_POPUP,0,0,0,0, ::GetDesktopWindow(),NULL);
 
-	if(bRet)
+	if(m_pMkDb->m_bDisplayBarCreate)
 	{
 		m_pctlProgress = new CTextProgressCtrl;
 		if(m_pctlProgress->Create(WS_CHILD | WS_VISIBLE, CRect(0, 0, 0, 0), this, IDC_PROGRSS_CTRL))
@@ -357,6 +357,9 @@ BYTE* CDisplayBar::Get24BitPixels(HBITMAP pBitmap, WORD *pwWidth, WORD *pwHeight
 
 void CDisplayBar::SetProgressText(CString strText, BOOL bRedraw)
 {
+	if (!m_pMkDb->m_bDisplayBarCreate)
+		return;
+
 	m_strProgressText = strText;
 	if(bRedraw)
 		m_pctlProgress->SetWindowText(strText);
@@ -364,6 +367,9 @@ void CDisplayBar::SetProgressText(CString strText, BOOL bRedraw)
 
 void CDisplayBar::SetProgressRate(double fRate, BOOL bRedraw)
 {
+	if (!m_pMkDb->m_bDisplayBarCreate)
+		return;
+
 	m_fProgressRate = fRate;
 	if(bRedraw)
 		m_pctlProgress->SetPos((int)(fRate*10));
@@ -374,6 +380,9 @@ void CDisplayBar::SetProgressRate(double fRate, BOOL bRedraw)
 
 void CDisplayBar::RefreshProgress()
 {
+	if (!m_pMkDb->m_bDisplayBarCreate)
+		return;
+
 	m_pctlProgress->SetWindowText(m_strProgressText);
 	m_pctlProgress->SetPos((int)(m_fProgressRate*10));
 
@@ -383,6 +392,9 @@ void CDisplayBar::RefreshProgress()
 
 void CDisplayBar::OnBnClickedCancelBtn()
 {
+	if (!m_pMkDb->m_bDisplayBarCreate)
+		return;
+
 	m_pctlProgress->SetWindowText("취소중입니다.");
 	if(m_hCancelEvent)
 		SetEvent(m_hCancelEvent);
@@ -391,6 +403,9 @@ void CDisplayBar::OnBnClickedCancelBtn()
 
 void CDisplayBar::SetWaitMode(BOOL bWaitMode, BOOL bIgnoreAlter)
 {
+	if (!m_pMkDb->m_bDisplayBarCreate)
+		return;
+
 	if(!bIgnoreAlter && m_bWaitMode == bWaitMode)
 		return;
 
