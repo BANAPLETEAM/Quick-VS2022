@@ -312,7 +312,7 @@ void COptionWorkTimeDlg::LoadTime()
 void COptionWorkTimeDlg::LoadData()
 {
 
-	m_ChargeList.DeleteAllItem();
+	m_ChargeList.DeleteAllItems();
 
 	CString strTimeChargeCount = ""; long nTimeChargeCount = 0;
 	CMkRecordset pRs(m_pMkDb);	
@@ -343,16 +343,15 @@ void COptionWorkTimeDlg::LoadData()
 			pRs.GetFieldValue("nBonggoCharge", nBonggoCharge);
 			pRs.GetFieldValue("nTruckCharge", nTruckCharge);
 
-			int nCol = 0;
-			m_ChargeList.MyAddItem(dtFromTime.Format("%H:%M") );
-			m_ChargeList.MyAddItem(dtToTime.Format("%H:%M") );
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nMotoCharge ));
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nDamaCharge) );
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nLaboCharge) );
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nBonggoCharge) );
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nTruckCharge) );
-			
-			m_ChargeList.EndItem();
+			CXTPGridRecord* record = new CXTPGridRecord;
+			record->AddItem(new CXTPGridRecordItemText(dtFromTime.Format("%H:%M")));
+			record->AddItem(new CXTPGridRecordItemText(dtToTime.Format("%H:%M")));
+			record->AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nMotoCharge)));
+			record->AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nDamaCharge)));
+			record->AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nLaboCharge)));
+			record->AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nBonggoCharge)));
+			record->AddItem(new CXTPGridRecordItemText(LF->GetMyNumberFormat(nTruckCharge)));
+			m_ChargeList.AddRecord(record);
 
 			pRs.MoveNext();
 		}
@@ -367,25 +366,29 @@ void COptionWorkTimeDlg::InitControl()
 {
 	m_cmbChargeDay.SetCurSel(0);
 
-	int nCol =0;
-	m_ChargeList.InsertColumn(nCol++,"시작시간", DT_CENTER	 , 80, TRUE, FALSE);
-	m_ChargeList.InsertColumn(nCol++,"완료시간", DT_CENTER	 , 80, TRUE, FALSE);
-	m_ChargeList.InsertColumn(nCol++, "오토", DT_RIGHT, 60, TRUE, FALSE);
-	m_ChargeList.InsertColumn(nCol++, "다마", DT_RIGHT, 60, TRUE, FALSE);
-	m_ChargeList.InsertColumn(nCol++, "라보", DT_RIGHT, 60, TRUE, FALSE);
-	m_ChargeList.InsertColumn(nCol++, "봉고", DT_RIGHT, 60, TRUE, FALSE);
-	m_ChargeList.InsertColumn(nCol++, "트럭", DT_RIGHT, 60, TRUE, FALSE);
-	m_ChargeList.InitControl();
+	CXTPGridColumn* pCol0 = m_ChargeList.AddColumn(new CXTPGridColumn(0, "시작시간", 80, FALSE));
+	CXTPGridColumn* pCol1 = m_ChargeList.AddColumn(new CXTPGridColumn(1, "완료시간", 80, FALSE));
+	CXTPGridColumn* pCol2 = m_ChargeList.AddColumn(new CXTPGridColumn(2, "오토", 60, FALSE));
+	CXTPGridColumn* pCol3 = m_ChargeList.AddColumn(new CXTPGridColumn(3, "다마", 60, FALSE));
+	CXTPGridColumn* pCol4 = m_ChargeList.AddColumn(new CXTPGridColumn(4, "라보", 60, FALSE));
+	CXTPGridColumn* pCol5 = m_ChargeList.AddColumn(new CXTPGridColumn(5, "봉고", 60, FALSE));
+	CXTPGridColumn* pCol6 = m_ChargeList.AddColumn(new CXTPGridColumn(6, "트럭", 60, FALSE));
 
-	nCol = 0;
-	/*m_ChargeList.MyAddItem(nCol++, "18:30", "시작", 80, TRUE, DT_LEFT);
-	m_ChargeList.MyAddItem(nCol++, "20:30", "종료", 80, TRUE, DT_LEFT);
-	m_ChargeList.MyAddItem(nCol++,       0, "오토", 60, TRUE, DT_LEFT);
-	m_ChargeList.MyAddItem(nCol++,       0, "라보", 60, TRUE, DT_LEFT);
-	m_ChargeList.MyAddItem(nCol++,		0, "봉고", 60, TRUE, DT_LEFT);
-	m_ChargeList.MyAddItem(nCol++,		0, "트럭", 60, TRUE, DT_LEFT);
-	m_ChargeList.EndItem();
-	*/
+	pCol0->GetEditOptions()->m_bAllowEdit = TRUE;
+	pCol1->GetEditOptions()->m_bAllowEdit = TRUE;
+	pCol2->GetEditOptions()->m_bAllowEdit = TRUE;
+	pCol3->GetEditOptions()->m_bAllowEdit = TRUE;
+	pCol4->GetEditOptions()->m_bAllowEdit = TRUE;
+	pCol5->GetEditOptions()->m_bAllowEdit = TRUE;
+	pCol6->GetEditOptions()->m_bAllowEdit = TRUE;
+
+	pCol0->SetAlignment(DT_CENTER);
+	pCol1->SetAlignment(DT_CENTER);
+	pCol2->SetAlignment(DT_RIGHT);
+	pCol3->SetAlignment(DT_RIGHT);
+	pCol4->SetAlignment(DT_RIGHT);
+	pCol5->SetAlignment(DT_RIGHT);
+	pCol6->SetAlignment(DT_RIGHT);
 
 	m_ChargeList.AllowEdit(TRUE);
 	m_ChargeList.GetReportHeader()->AllowColumnRemove(FALSE);
@@ -513,15 +516,15 @@ void COptionWorkTimeDlg::OnBnClickedCancelBtn()
 
 void COptionWorkTimeDlg::OnBnClickedAllDelBtn()
 {
-	m_ChargeList.DeleteAllItem();
+	m_ChargeList.DeleteAllItems();
 	m_ChargeList.Populate();
 }
 
 void COptionWorkTimeDlg::OnBnClickedRowDelBtn()
 {
-	for(int i =0; i < m_ChargeList.GetSelectedCount(); i++)
+	for(int i =0; i < m_ChargeList.GetSelectedRows()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = m_ChargeList.GetSelectedRecord(i);
+		CXTPGridRecord *pRecord = m_ChargeList.GetSelectedRows()->GetAt(i)->GetRecord();
 		pRecord->Delete();
 
 	}
@@ -535,14 +538,16 @@ void COptionWorkTimeDlg::OnCbnSelchangeDayCombo()
 
 void COptionWorkTimeDlg::OnBnClickedRowAddBtn()
 {
-	m_ChargeList.MyAddItem("");
-	m_ChargeList.MyAddItem("");
-	m_ChargeList.MyAddItem("");
-	m_ChargeList.MyAddItem("");
-	m_ChargeList.MyAddItem("");
-	m_ChargeList.MyAddItem("");
-	m_ChargeList.MyAddItem("");
-	m_ChargeList.EndItem();
+	CXTPGridRecord* record = new CXTPGridRecord;
+	record->AddItem(new CXTPGridRecordItemText(""));
+	record->AddItem(new CXTPGridRecordItemText(""));
+	record->AddItem(new CXTPGridRecordItemText(""));
+	record->AddItem(new CXTPGridRecordItemText(""));
+	record->AddItem(new CXTPGridRecordItemText(""));
+	record->AddItem(new CXTPGridRecordItemText(""));
+	record->AddItem(new CXTPGridRecordItemText(""));
+	m_ChargeList.AddRecord(record);
+
 	m_ChargeList.Populate();
 }
 
@@ -586,31 +591,29 @@ void COptionWorkTimeDlg::SaveCharge(BOOL bAllBranch)
 
 	CString sStartTime, sDestTime, sMoto, sDama, sLabo, sBonggo, sTruck;
 	CString sMotoTemp, sDamaTemp, sLaboTemp, sBonggoTemp, sTruckTemp;
-	for(int i = 0;  i < m_ChargeList.GetRecords()->GetCount(); i++)
+	for (int i = 0; i < m_ChargeList.GetRecords()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord =  (CMyXTPGridRecord *)m_ChargeList.GetRecords()->GetAt(i);
-		sStartTime += pRecord->GetItemSValue(0) +",";
-		sDestTime += pRecord->GetItemSValue(1) +",";
+		CXTPGridRecord* pRecord = m_ChargeList.GetRecords()->GetAt(i);
+		sStartTime += pRecord->GetItem(0)->GetCaption() + ",";
+		sDestTime += pRecord->GetItem(1)->GetCaption() + ",";
 
-		sMotoTemp = pRecord->GetItemSValue(2); sMotoTemp.Replace(",","");
-		sDamaTemp = pRecord->GetItemSValue(3); sDamaTemp.Replace(",","");
-		sLaboTemp = pRecord->GetItemSValue(4); sLaboTemp.Replace(",","");
-		sBonggoTemp = pRecord->GetItemSValue(5); sBonggoTemp.Replace(",","");
-		sTruckTemp = pRecord->GetItemSValue(6); sTruckTemp.Replace(",","");	
+		sMotoTemp = pRecord->GetItem(2)->GetCaption(); sMotoTemp.Replace(",", "");
+		sDamaTemp = pRecord->GetItem(3)->GetCaption(); sDamaTemp.Replace(",", "");
+		sLaboTemp = pRecord->GetItem(4)->GetCaption(); sLaboTemp.Replace(",", "");
+		sBonggoTemp = pRecord->GetItem(5)->GetCaption(); sBonggoTemp.Replace(",", "");
+		sTruckTemp = pRecord->GetItem(6)->GetCaption(); sTruckTemp.Replace(",", "");
 
-		if(sMotoTemp.GetLength() <= 0) sMotoTemp = "0";
-		if(sDamaTemp.GetLength() <= 0) sDamaTemp = "0";
-		if(sLaboTemp.GetLength() <= 0) sLaboTemp = "0";
-		if(sBonggoTemp.GetLength() <= 0) sBonggoTemp = "0";
-		if(sTruckTemp.GetLength() <= 0) sTruckTemp = "0";
+		if (sMotoTemp.GetLength() <= 0) sMotoTemp = "0";
+		if (sDamaTemp.GetLength() <= 0) sDamaTemp = "0";
+		if (sLaboTemp.GetLength() <= 0) sLaboTemp = "0";
+		if (sBonggoTemp.GetLength() <= 0) sBonggoTemp = "0";
+		if (sTruckTemp.GetLength() <= 0) sTruckTemp = "0";
 
-
-		sMoto		+= sMotoTemp +",";
-		sDama		+= sDamaTemp+",";
-		sLabo		+= sLaboTemp+",";
-		sBonggo	+= sBonggoTemp+",";	
-		sTruck		+= sTruckTemp+",";
-
+		sMoto += sMotoTemp + ",";
+		sDama += sDamaTemp + ",";
+		sLabo += sLaboTemp + ",";
+		sBonggo += sBonggoTemp + ",";
+		sTruck += sTruckTemp + ",";
 	}
 
 
@@ -651,97 +654,93 @@ BOOL COptionWorkTimeDlg::CheckCharge()
 		CString sMsg = "";
 		for(int i = 0; i < m_ChargeList.GetRecords()->GetCount(); i++)
 		{
-			CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_ChargeList.GetRecords()->GetAt(i);
+			CXTPGridRecord *pRecord = (CXTPGridRecord *)m_ChargeList.GetRecords()->GetAt(i);
 			
 			int nMoto = 0, nDama = 0, nBonggo = 0, nTruck = 0;
 			CString sMoto = "", sDama = "", sBonggo = "", sTruck = "";
-			sMoto = pRecord->GetItemSValue(2);		sMoto.Replace(",", ""); nMoto = atol(sMoto);
-			sDama = pRecord->GetItemSValue(3);		sDama.Replace(",",""); nDama = atol(sDama);
-			sBonggo = pRecord->GetItemSValue(4);	sBonggo.Replace(",", ""); nBonggo = atol(sBonggo);
-			sTruck = pRecord->GetItemSValue(5);		sTruck.Replace("," , ""); nTruck = atol(sTruck);
+			sMoto = pRecord->GetItem(2)->GetCaption();		sMoto.Replace(",", ""); nMoto = atol(sMoto);
+			sDama = pRecord->GetItem(3)->GetCaption();		sDama.Replace(",", ""); nDama = atol(sDama);
+			sBonggo = pRecord->GetItem(4)->GetCaption();	sBonggo.Replace(",", ""); nBonggo = atol(sBonggo);
+			sTruck = pRecord->GetItem(5)->GetCaption();		sTruck.Replace(",", ""); nTruck = atol(sTruck);
 
-
-			if( (nMoto + nDama + nBonggo + nTruck) == 0 )
+			if ((nMoto + nDama + nBonggo + nTruck) == 0)
 			{
-				sMsg.Format("시작시간 %s 분에 금액이 0입니다.", pRecord->GetItemSValue(0));
-				throw sMsg;
-			}
-		
-			if( (nMoto + nDama + nBonggo +nTruck) >=  4000000 )
-			{
-				sMsg.Format("시작시간 %s 분에 금액이 합쳐서 사백만원이상 입니다..", pRecord->GetItemSValue(0));
-				throw sMsg;
-			}
-			if( nMoto > 1000000 || nDama > 1000000 || nBonggo > 1000000 || nTruck > 1000000 )
-			{
-				sMsg.Format("시작시간 %s 분에 금액이 백만원을 초과할 수 없습니다.", pRecord->GetItemSValue(0));
+				sMsg.Format("시작시간 %s 분에 금액이 0입니다.", pRecord->GetItem(0)->GetCaption());
 				throw sMsg;
 			}
 
-
+			if ((nMoto + nDama + nBonggo + nTruck) >= 4000000)
+			{
+				sMsg.Format("시작시간 %s 분에 금액이 합쳐서 사백만원이상 입니다..", pRecord->GetItem(0)->GetCaption());
+				throw sMsg;
+			}
+			if (nMoto > 1000000 || nDama > 1000000 || nBonggo > 1000000 || nTruck > 1000000)
+			{
+				sMsg.Format("시작시간 %s 분에 금액이 백만원을 초과할 수 없습니다.", pRecord->GetItem(0)->GetCaption());
+				throw sMsg;
+			}
 		}
 		//  시간체크
 		COleDateTime dtOldSTemp(2000, 1,1,1,1,1), dtOldDTemp(2000, 1,1, 1,1,1);
 		for(int i = 0; i < m_ChargeList.GetRecords()->GetCount(); i++)
 		{
-
-			CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_ChargeList.GetRecords()->GetAt(i);
-			if(
-				( pRecord->GetItemSValue(0).GetLength() <= 0 || pRecord->GetItemSValue(0).GetLength() <= 0) 
+			CXTPGridRecord* pRecord = m_ChargeList.GetRecords()->GetAt(i);
+			if (
+				(pRecord->GetItem(0)->GetCaption().GetLength() <= 0 || pRecord->GetItem(0)->GetCaption().GetLength() <= 0)
 				||
-				( pRecord->GetItemSValue(1).GetLength() > 5 || pRecord->GetItemSValue(1).GetLength()  > 5) 
-			)
+				(pRecord->GetItem(1)->GetCaption().GetLength() > 5 || pRecord->GetItem(1)->GetCaption().GetLength() > 5)
+				)
 			{
 				sMsg.Format("%d행에 시간이 길이가 0 이하이거나 5 자리를 넘습니다.", i + 1);
 				throw sMsg;
 
 			}
-			if(pRecord->GetItemSValue(0).Mid(2, 1).Find(":") != 0 ||pRecord->GetItemSValue(1).Mid(2,1).Find(":") != 0)
+			if (pRecord->GetItem(0)->GetCaption().Mid(2, 1).Find(":") != 0 || pRecord->GetItem(1)->GetCaption().Mid(2, 1).Find(":") != 0)
 			{
 				sMsg.Format("%d행에 시간 형식이 아니거나 : 표시가 없습니다.", i + 1);
 				throw sMsg;
 			}
 
 			long  nMinite = 0, nHour = 0;
-			
-			nHour = atol(pRecord->GetItemSValue(0).Left(2));
-			nMinite = atol(pRecord->GetItemSValue(0).Right(2));
+
+			nHour = atol(pRecord->GetItem(0)->GetCaption().Left(2));
+			nMinite = atol(pRecord->GetItem(0)->GetCaption().Right(2));
 			COleDateTime dt(COleDateTime::GetCurrentTime()), dtSTemp, dtDTemp;
-			
-				if(nHour <= 9 && i > 0)  // 익일처리  // 첫행은 00:00 ~ 23:59
-					dtSTemp.SetDateTime(dt.GetYear(), dt.GetMonth(), dt.GetDay() + 1, nHour, nMinite, 0);
-				else
-					dtSTemp.SetDateTime(dt.GetYear(), dt.GetMonth(), dt.GetDay(), nHour, nMinite, 0);
+
+			if (nHour <= 9 && i > 0)  // 익일처리  // 첫행은 00:00 ~ 23:59
+				dtSTemp.SetDateTime(dt.GetYear(), dt.GetMonth(), dt.GetDay() + 1, nHour, nMinite, 0);
+			else
+				dtSTemp.SetDateTime(dt.GetYear(), dt.GetMonth(), dt.GetDay(), nHour, nMinite, 0);
 
 
-			if(dtSTemp.GetStatus() != COleDateTime::valid)
+			if (dtSTemp.GetStatus() != COleDateTime::valid)
 			{
 				sMsg.Format("%d행에  시작 시간이 올바르지 않습니다.", i + 1);
 				throw(sMsg);
 			}
-			nHour = atol(pRecord->GetItemSValue(1).Left(2));
-			nMinite = atol(pRecord->GetItemSValue(1).Right(2));
-			if(nHour <= 9 ) // 익일  6시이전까지
+			nHour = atol(pRecord->GetItem(1)->GetCaption().Left(2));
+			nMinite = atol(pRecord->GetItem(1)->GetCaption().Right(2));
+			if (nHour <= 9) // 익일  6시이전까지
 				dtDTemp.SetDateTime(dt.GetYear(), dt.GetMonth(), dt.GetDay() + 1, nHour, nMinite, 0);
 			else
 				dtDTemp.SetDateTime(dt.GetYear(), dt.GetMonth(), dt.GetDay(), nHour, nMinite, 0);
 
-			if(dtDTemp.GetStatus() != COleDateTime::valid)
+			if (dtDTemp.GetStatus() != COleDateTime::valid)
 			{
 				sMsg.Format("%d행에 끝 시간이 올바르지 않습니다.", i + 1);
 				throw(sMsg);
 			}
 
-			if(dtSTemp > dtDTemp)
+			if (dtSTemp > dtDTemp)
 			{
 				sMsg.Format("%d 행에 시작시간과 끝나는 시간이 작거나 같습니다.", i + 1);
 				throw sMsg;
 			}
 
 
-			if(dtOldDTemp >= dtSTemp || dtOldDTemp >= dtDTemp)
+			if (dtOldDTemp >= dtSTemp || dtOldDTemp >= dtDTemp)
 			{
-				sMsg.Format("%d 행에 이전 행보다 시간이 이전입니다.", i + 1 );
+				sMsg.Format("%d 행에 이전 행보다 시간이 이전입니다.", i + 1);
 				throw sMsg;
 			}
 			dtOldSTemp.SetDateTime(dtSTemp.GetYear(), dtSTemp.GetMonth(),

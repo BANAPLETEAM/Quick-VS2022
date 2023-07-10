@@ -103,7 +103,7 @@ void CK2ReportView::PrintPreview()
 	CView::OnFilePrintPreview();
 }
 
-CDataBox& CK2ReportView::GetDataCtrl() {
+CXTPListCtrl2& CK2ReportView::GetDataCtrl() {
 	return m_Data;
 	//return m_pData;
 

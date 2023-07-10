@@ -1,8 +1,7 @@
 #pragma once
-#include "databox.h"
 #include "afxwin.h"
 
-class CRiderAllocateLimit : public CDataBox
+class CRiderAllocateLimit : public CXTPListCtrl2
 {
 public:
 	void CRiderAllocateLimit::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
@@ -18,17 +17,17 @@ public:
 			//pItemMetrics->clrForeground = RGB(0, 200, 0);
 		}
 
-		if(this->GetItemDataString(nRow) == "0" && nCol == 8)
+		if(GetItemDataText(nRow) == "0" && nCol == 8)
 		{
 			pItemMetrics->clrBackground = RGB(220, 230, 220);
 			//pItemMetrics->clrForeground = RGB(0, 0, 255);
 		}
-		else if(this->GetItemDataString(nRow) == "1" && nCol == 5)
+		else if(GetItemDataText(nRow) == "1" && nCol == 5)
 		{
 			pItemMetrics->clrBackground = RGB(220, 230, 220);
 			//pItemMetrics->clrForeground = RGB(0, 0, 255);
 		}
-		else if(this->GetItemDataString(nRow) == "2" && (nCol == 6 || nCol == 7) )
+		else if(GetItemDataText(nRow) == "2" && (nCol == 6 || nCol == 7) )
 		{
 			pItemMetrics->clrBackground = RGB(220, 230, 220);
 			//pItemMetrics->clrForeground = RGB(0, 0, 255);

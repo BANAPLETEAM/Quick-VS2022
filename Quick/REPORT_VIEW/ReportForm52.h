@@ -8,7 +8,7 @@ typedef map<long, int> GNO_MAP;
 
 
 
-class CMyGroupReport52 : public CDataBox
+class CMyGroupReport52 : public CXTPListCtrl2
 {
 public:
 	CMyGroupReport52()
@@ -25,7 +25,7 @@ public:
 		CString strColName = pDrawArgs->pColumn->GetCaption();
 		COleDateTime dtNow(COleDateTime::GetCurrentTime());
 		CXTPGridColumn *pCol = pDrawArgs->pColumn;
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pDrawArgs->pRow->GetRecord();
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)pDrawArgs->pRow->GetRecord();
 		CString sState = "";
 		if(pRecord && pCol)
 		{

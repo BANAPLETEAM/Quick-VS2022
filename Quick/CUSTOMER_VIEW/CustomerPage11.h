@@ -130,7 +130,7 @@ public:
 	CComboBox m_cmbChargeTypeName;
 	CComboBox m_cmbBatchChargeTypeName;
 
-	CDataBox m_lstGroup;
+	CXTPListCtrl2 m_lstGroup;
 	CCustomerGroupList m_lstCustomer;
 
 	CGroupWorkButton m_btnGroupWork;

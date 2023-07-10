@@ -8827,28 +8827,28 @@ void Window::ScrollIntoView(long Left, long Top, long Width, long Height, const 
 /////////////////////////////////////////////////////////////////////////////
 // Windows operations
 
-LPDISPATCH Windows::GetApplication()
+LPDISPATCH WindowsExcel::GetApplication()
 {
 	LPDISPATCH result;
 	InvokeHelper(0x94, DISPATCH_PROPERTYGET, VT_DISPATCH, (void*)&result, NULL);
 	return result;
 }
 
-long Windows::GetCreator()
+long WindowsExcel::GetCreator()
 {
 	long result;
 	InvokeHelper(0x95, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
 	return result;
 }
 
-LPDISPATCH Windows::GetParent()
+LPDISPATCH WindowsExcel::GetParent()
 {
 	LPDISPATCH result;
 	InvokeHelper(0x96, DISPATCH_PROPERTYGET, VT_DISPATCH, (void*)&result, NULL);
 	return result;
 }
 
-VARIANT Windows::Arrange(long ArrangeStyle, const VARIANT& ActiveWorkbook, const VARIANT& SyncHorizontal, const VARIANT& SyncVertical)
+VARIANT WindowsExcel::Arrange(long ArrangeStyle, const VARIANT& ActiveWorkbook, const VARIANT& SyncHorizontal, const VARIANT& SyncVertical)
 {
 	VARIANT result;
 	static BYTE parms[] =
@@ -8858,14 +8858,14 @@ VARIANT Windows::Arrange(long ArrangeStyle, const VARIANT& ActiveWorkbook, const
 	return result;
 }
 
-long Windows::GetCount()
+long WindowsExcel::GetCount()
 {
 	long result;
 	InvokeHelper(0x76, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
 	return result;
 }
 
-LPDISPATCH Windows::GetItem(const VARIANT& Index)
+LPDISPATCH WindowsExcel::GetItem(const VARIANT& Index)
 {
 	LPDISPATCH result;
 	static BYTE parms[] =
@@ -8875,14 +8875,14 @@ LPDISPATCH Windows::GetItem(const VARIANT& Index)
 	return result;
 }
 
-LPUNKNOWN Windows::Get_NewEnum()
+LPUNKNOWN WindowsExcel::Get_NewEnum()
 {
 	LPUNKNOWN result;
 	InvokeHelper(0xfffffffc, DISPATCH_PROPERTYGET, VT_UNKNOWN, (void*)&result, NULL);
 	return result;
 }
 
-LPDISPATCH Windows::Get_Default(const VARIANT& Index)
+LPDISPATCH WindowsExcel::Get_Default(const VARIANT& Index)
 {
 	LPDISPATCH result;
 	static BYTE parms[] =

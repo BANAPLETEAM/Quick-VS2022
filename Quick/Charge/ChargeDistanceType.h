@@ -31,7 +31,7 @@ public:
 	afx_msg void OnBnClickedCloseButton();
 	afx_msg void OnCbnSelendcancelCompanyCombo2();
 	
-	CPSListCtrl m_List;
+	CXTPListCtrl2 m_List;
 	CComboBox m_cmbTypeName;
 	CComboBox m_cmbCompany;
 	

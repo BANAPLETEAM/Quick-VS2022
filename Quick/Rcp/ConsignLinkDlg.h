@@ -38,8 +38,8 @@ protected:
 	CFlatEdit2 m_edtTempCharge;
 	CFlatEdit2 m_edtCommissionCharge;
 	CFlatEdit2 m_edtTotalCharge;
-	CDataBox m_List;
-	CDataBox m_CompanyOrderList;
+	CXTPListCtrl2 m_List;
+	CXTPListCtrl2 m_CompanyOrderList;
 	CConsignDrawManager2* m_pPaintManager;
 	VEC_CASH_CHARGE m_vecCashCharge;
 

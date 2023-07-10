@@ -5,7 +5,7 @@
 #include "Quick.h"
 #include "TankTypeQDlg.h"
 #include ".\tanktypeqdlg.h"
-#include "DataBox.h"
+
 
 #define  SETTING_VIEW	2
 #define  NOT_ALL_APPLY	4
@@ -62,13 +62,26 @@ BOOL CTankTypeQDlg::OnInitDialog()
 
 	m_cmbCheck.SetCurSel(0);
 	m_cmbRate.SetCurSel(0);
+
+	m_List.AddColumn(new CXTPGridColumn(0, "No", 40))->SetAlignment(DT_CENTER);
+	m_List.AddColumn(new CXTPGridColumn(1, "지사명", 100))->SetAlignment(DT_LEFT);
+	m_List.AddColumn(new CXTPGridColumn(2, "셋팅보이기", 70))->SetAlignment(DT_CENTER);
+	m_List.AddColumn(new CXTPGridColumn(3, "셋팅비율", 90))->SetAlignment(DT_LEFT);
+	m_List.AddColumn(new CXTPGridColumn(4, "전부미적용", 80))->SetAlignment(DT_LEFT);
+	m_List.AddColumn(new CXTPGridColumn(5, "전부적용", 70))->SetAlignment(DT_LEFT);
+	m_List.AddColumn(new CXTPGridColumn(6, "콜카운트", 70))->SetAlignment(DT_LEFT);
+	m_List.AddColumn(new CXTPGridColumn(7, "정산탭기사정산", 100))->SetAlignment(DT_LEFT);
+	m_List.AddColumn(new CXTPGridColumn(8, "정산탭기사별건수", 110))->SetAlignment(DT_LEFT);
+	m_List.AddColumn(new CXTPGridColumn(9, "통계탭일별건수", 100))->SetAlignment(DT_LEFT);
+	m_List.Populate();
+
 	RefreshList();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 void CTankTypeQDlg::RefreshList()
 {
-	m_List.DeleteAllItem();
+	m_List.ResetContent();
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_tank_view_info");
@@ -80,17 +93,6 @@ void CTankTypeQDlg::RefreshList()
 	long nCompany, nTankType, nShowPartApply;
 	BOOL bShowTank; 
 	char buffer[10];
-	CStringArray sArray, sArray2; CUIntArray nArray,nArray2;
-	sArray.Add("정상");			nArray.Add(0);
-	sArray.Add("20%만보기");	nArray.Add(1);
-	sArray.Add("25%만보기"); 	nArray.Add(2);
-	sArray.Add("30%만보기"); 	nArray.Add(3);
-	sArray.Add("40%만보기"); 	nArray.Add(4);
-	sArray.Add("50%만보기"); 	nArray.Add(5);
-	sArray.Add("66%만보기"); 	nArray.Add(6);
-	sArray.Add("75%만보기"); 	nArray.Add(7);
-	sArray.Add("80%만보기"); 	nArray.Add(8);
-	sArray.Add("90%만보기"); 	nArray.Add(9);
 
 	for(int i = 0; i < pRs.GetRecordCount(); i++)
 	{
@@ -103,20 +105,11 @@ void CTankTypeQDlg::RefreshList()
 		BOOL bCallCount = FALSE, bRiderCalculate = FALSE, bRiderCount = FALSE, bBranchCalculate = FALSE;
 		SetInitColumn(nShowPartApply, bCallCount, bRiderCalculate, bRiderCount, bBranchCalculate);
 
-		m_List.MyAddItem(0,itoa(i+1, buffer,10),"No",40, FALSE,DT_CENTER);
-		m_List.MyAddItem(1,sBranchName,"지사명", 100, FALSE,DT_LEFT);
-		m_List.MyCheckAddItem(2,bShowTank,"셋팅보이기", 70,LVCFMT_CENTER);
-		m_List.MyComboAddItem(3,sArray, nArray, "셋팅비율", 90, DT_LEFT, nTankType);		
-		m_List.MyCheckAddItem(4,nShowPartApply == 0 ? TRUE : FALSE, "전부미적용", 80, DT_LEFT);
-		m_List.MyCheckAddItem(5,nShowPartApply == 100 ? TRUE : FALSE, "전부적용", 70, DT_LEFT);
-		m_List.MyCheckAddItem(6,bCallCount,		"콜카운트", 70, DT_LEFT);
-		m_List.MyCheckAddItem(7,bRiderCalculate,	"정산탭기사정산", 100, DT_LEFT);
-		m_List.MyCheckAddItem(8,bRiderCount,		"정산탭기사별건수", 110, DT_LEFT);
-		m_List.MyCheckAddItem(9,bBranchCalculate, "통계탭일별건수", 100, DT_LEFT);
+		CTankTypeQRecord* pRecord = new CTankTypeQRecord(LF->GetStringFromLong(i), sBranchName, bShowTank, nTankType,
+			nShowPartApply == 0 ? TRUE : FALSE, nShowPartApply == 100 ? TRUE : FALSE, bCallCount, bRiderCalculate, bRiderCount, bBranchCalculate);
 
-
-		m_List.InsertItemDataLong(nCompany);
-		m_List.EndItem();
+		m_List.AddRecord(pRecord);
+		m_List.SetItemLong(pRecord, nCompany);
 
 		pRs.MoveNext();
 
@@ -130,81 +123,51 @@ void CTankTypeQDlg::RefreshList()
 
 void CTankTypeQDlg::OnBnClickedApplyBtn()
 {
-
 	if(m_List.GetItemCount() == 0 )
 		return;
 
 	for(int i = 0; i < m_List.GetItemCount(); i++)
 	{
-		CMyXTPGridRecord* pRecord = (CMyXTPGridRecord*)m_List.GetRecords()->GetAt(i);
-		if(pRecord->m_bDirtyFlag)
+		CTankTypeQRecord* pRecord = (CTankTypeQRecord*)m_List.GetRecords()->GetAt(i);
+
+		long nCheck = 0;
+		long nCompany = m_List.GetItemLong(pRecord);
+		BOOL bSettingView = m_List.GetChecked(i, 2);
+		int	 nSettingRate = m_List.GetChecked(i, 3);
+		BOOL bNotAllApply = m_List.GetChecked(i, 4);
+		BOOL bAllApply = m_List.GetChecked(i, 5);
+		BOOL bCallCount = m_List.GetChecked(i, 6);
+		BOOL bRiderCalculate = m_List.GetChecked(i, 7);
+		BOOL bRiderCount = m_List.GetChecked(i, 8);
+		BOOL bBranchCalculate = m_List.GetChecked(i, 9);
+
+		if (bNotAllApply)
+			nCheck = 0;
+		else if (bAllApply)
+			nCheck = 100;
+		else
 		{
-
-			long nCheck = 0;
-			long nCompany = pRecord->GetItemDataLong();
-			BOOL bSettingView = m_List.GetItemCheck(i,2);
-			int	 nSettingRate = m_List.GetItemComboValue(i, 3);
-			BOOL bNotAllApply = m_List.GetItemCheck(i,4);
-			BOOL bAllApply = m_List.GetItemCheck(i,5);
-			BOOL bCallCount = m_List.GetItemCheck(i, 6);
-			BOOL bRiderCalculate = m_List.GetItemCheck(i,7);
-			BOOL bRiderCount = m_List.GetItemCheck(i,8);
-			BOOL bBranchCalculate = m_List.GetItemCheck(i,9);
-
-			if(bNotAllApply)
-				nCheck = 0;				
-			else if(bAllApply)
-				nCheck = 100;
-			else
-			{
-				nCheck += bCallCount ?  1 : 0;
-				nCheck += bRiderCalculate ?  2 : 0;
-				nCheck += bRiderCount ? 4 : 0;
-				nCheck += bBranchCalculate ? 8 : 0;
-			}
-
-			CMkCommand pCmd(m_pMkDb, "update_tank_type_apply_dis");
-			pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCompany);
-			pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), bSettingView);
-			pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCheck);  
-			pCmd.AddParameter(typeLong, typeInput, sizeof(long), nSettingRate);  
-			if(!pCmd.Execute()) 
-			{
-				MessageBox("적용중 도중에 실패하였습니다. 다시시도 하세요", "확인", MB_ICONINFORMATION);
-				return;
-			}
-
+			nCheck += bCallCount ? 1 : 0;
+			nCheck += bRiderCalculate ? 2 : 0;
+			nCheck += bRiderCount ? 4 : 0;
+			nCheck += bBranchCalculate ? 8 : 0;
 		}
 
-
+		CMkCommand pCmd(m_pMkDb, "update_tank_type_apply_dis");
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCompany);
+		pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), bSettingView);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCheck);
+		pCmd.AddParameter(typeLong, typeInput, sizeof(long), nSettingRate);
+		if (!pCmd.Execute())
+		{
+			MessageBox("적용중 도중에 실패하였습니다. 다시시도 하세요", "확인", MB_ICONINFORMATION);
+			return;
+		}
 	}
 	MessageBox("수정되었습니다.", "확인", MB_ICONINFORMATION);
-
-	/*
-
-
-	BRANCH_INFO *pBi = NULL;
-	if(m_ba.GetCount() >= 2)
-	{
-	for(int i = 0; i < m_ba.GetCount(); i ++)
-	{
-	pBi = m_ba.GetAt(i);
-	if(!pBi->bIntegrated && pBi->nCompanyCode == nCompany)
-	{
-	pBi->nTankType = pOptionDlgGeneral->m_cmbTankType.GetCurSel();
-	break;
-	}
-
-	}
-	}
-	else
-	{
-	pBi = m_ba.GetAt(0);
-	pBi->nTankType = pOptionDlgGeneral->m_cmbTankType.GetCurSel();
-	}
-	*/
-
 }
+
+
 void CTankTypeQDlg::SetInitColumn(int nShowPartApply, BOOL &bCallCount, BOOL &bRiderCalculate, 
 								 BOOL &bRiderCount, BOOL &bBranchCalculate)
 {
@@ -257,9 +220,9 @@ void CTankTypeQDlg::OnReportCheckItem(NMHDR * pNotifyStruct, LRESULT *p)
 	int nCol = pItemNotify->pColumn->GetItemIndex();
 
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pItemNotify->pRow->GetRecord();
+	CXTPGridRecord *pRecord = (CXTPGridRecord *)pItemNotify->pRow->GetRecord();
 
-	BOOL bCheck = m_List.GetItemCheck(nRow, nCol);
+	BOOL bCheck = m_List.GetChecked(nRow, nCol);
 
 	if(nCol == 4 && bCheck)
 	{		
@@ -301,11 +264,11 @@ void CTankTypeQDlg::OnBnClickedCancelBtn()
 void CTankTypeQDlg::OnBnClickedRateAllBtn()
 {
 	int nCurSel = m_cmbRate.GetCurSel();	
-	if(m_List.GetSelectedCount() > 1)
+	if(m_List.GetSelectedRows()->GetCount() > 1)
 	{
-		for(int i = 0; i < m_List.GetSelectedCount(); i++)
+		for(int i = 0; i < m_List.GetSelectedRows()->GetCount(); i++)
 		{
-			CMyComboRecordItem* pItem = (CMyComboRecordItem*)m_List.GetSelectedRecord(i)->GetItem(2);
+			CTankTypeQRecordItemCombo* pItem = (CTankTypeQRecordItemCombo*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(2);
 			pItem->SetValue(nCurSel);
 		}
 
@@ -314,7 +277,7 @@ void CTankTypeQDlg::OnBnClickedRateAllBtn()
 	{
 		for(int i = 0; i < m_List.GetRecords()->GetCount(); i++)
 		{
-			CMyComboRecordItem* pItem = (CMyComboRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(3);
+			CTankTypeQRecordItemCombo* pItem = (CTankTypeQRecordItemCombo*)m_List.GetRecords()->GetAt(i)->GetItem(3);
 			pItem->SetValue(nCurSel);
 		}	
 	}
@@ -355,18 +318,18 @@ void CTankTypeQDlg::SetCheckFunction(BOOL bCheck)
 	}
 	int nRecordCount  = 0;
 
-	if(m_List.GetSelectedCount() > 1)	
-		nRecordCount = m_List.GetSelectedCount();				
+	if(m_List.GetSelectedRows()->GetCount() > 1)	
+		nRecordCount = m_List.GetSelectedRows()->GetCount();				
 	else
 		nRecordCount = m_List.GetRecords()->GetCount();	
 
 
 	for(int i = 0; i < nRecordCount; i++)
 	{
-		CMyCheckRecordItem* pCheckItem;
-		CMyCheckRecordItem* pItem = (m_List.GetSelectedCount() > 1) ?
-			(CMyCheckRecordItem*)m_List.GetSelectedRecord(i)->GetItem(nCurSel) :
-		(CMyCheckRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(nCurSel);
+		CTankTypeQRecordItemCheck* pCheckItem;
+		CTankTypeQRecordItemCheck* pItem = (m_List.GetSelectedRows()->GetCount() > 1) ?
+			(CTankTypeQRecordItemCheck*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(nCurSel) :
+		(CTankTypeQRecordItemCheck*)m_List.GetRecords()->GetAt(i)->GetItem(nCurSel);
 
 		pItem->SetChecked(bCheck);
 
@@ -374,18 +337,18 @@ void CTankTypeQDlg::SetCheckFunction(BOOL bCheck)
 		{
 			for(int j = ALL_APPLY; j < BRANCH_COUNT +1; j++)
 			{
-				pCheckItem = (m_List.GetSelectedCount() > 1) ?
-					(CMyCheckRecordItem*)m_List.GetSelectedRecord(i)->GetItem(j) :
-				(CMyCheckRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(j);
+				pCheckItem = (m_List.GetSelectedRows()->GetCount() > 1) ?
+					(CTankTypeQRecordItemCheck*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(j) :
+				(CTankTypeQRecordItemCheck*)m_List.GetRecords()->GetAt(i)->GetItem(j);
 
 				if(bCheck)
 					pCheckItem->SetChecked(!bCheck);
 				else
 				{
 
-					pCheckItem = (m_List.GetSelectedCount() > 1) ?
-						(CMyCheckRecordItem*)m_List.GetSelectedRecord(i)->GetItem(NOT_ALL_APPLY) :
-					(CMyCheckRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(NOT_ALL_APPLY);
+					pCheckItem = (m_List.GetSelectedRows()->GetCount() > 1) ?
+						(CTankTypeQRecordItemCheck*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(NOT_ALL_APPLY) :
+					(CTankTypeQRecordItemCheck*)m_List.GetRecords()->GetAt(i)->GetItem(NOT_ALL_APPLY);
 					pCheckItem->SetChecked(FALSE);
 				}
 			}
@@ -395,38 +358,38 @@ void CTankTypeQDlg::SetCheckFunction(BOOL bCheck)
 
 			for(int j = CALL_COUNT; j < BRANCH_COUNT +1; j++)
 			{
-				pCheckItem =  (m_List.GetSelectedCount() > 1) ?
-					(CMyCheckRecordItem*)m_List.GetSelectedRecord(i)->GetItem(j):
-				(CMyCheckRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(j);
+				pCheckItem =  (m_List.GetSelectedRows()->GetCount() > 1) ?
+					(CTankTypeQRecordItemCheck*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(j):
+				(CTankTypeQRecordItemCheck*)m_List.GetRecords()->GetAt(i)->GetItem(j);
 				pCheckItem->SetChecked(bCheck);							
 			}
 
-			pCheckItem = (m_List.GetSelectedCount() > 1) ?
-				(CMyCheckRecordItem*)m_List.GetSelectedRecord(i)->GetItem(NOT_ALL_APPLY) :
-			(CMyCheckRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(NOT_ALL_APPLY);
+			pCheckItem = (m_List.GetSelectedRows()->GetCount() > 1) ?
+				(CTankTypeQRecordItemCheck*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(NOT_ALL_APPLY) :
+			(CTankTypeQRecordItemCheck*)m_List.GetRecords()->GetAt(i)->GetItem(NOT_ALL_APPLY);
 			pCheckItem->SetChecked(!bCheck);
 		}
 		else if(nCurSel >= CALL_COUNT && nCurSel <= BRANCH_COUNT)
 		{
 			for(int j = NOT_ALL_APPLY; j < ALL_APPLY +1; j++)
 			{
-				pCheckItem = (m_List.GetSelectedCount() > 1) ?
-					(CMyCheckRecordItem*)m_List.GetSelectedRecord(i)->GetItem(j):
-				(CMyCheckRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(j);
+				pCheckItem = (m_List.GetSelectedRows()->GetCount() > 1) ?
+					(CTankTypeQRecordItemCheck*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(j):
+				(CTankTypeQRecordItemCheck*)m_List.GetRecords()->GetAt(i)->GetItem(j);
 
 				if(bCheck)
 					pCheckItem->SetChecked(!bCheck);
 				else
 				{
-					pCheckItem = (m_List.GetSelectedCount() > 1) ?
-						(CMyCheckRecordItem*)m_List.GetSelectedRecord(i)->GetItem(nCurSel):
-					(CMyCheckRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(nCurSel);
+					pCheckItem = (m_List.GetSelectedRows()->GetCount() > 1) ?
+						(CTankTypeQRecordItemCheck*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(nCurSel):
+					(CTankTypeQRecordItemCheck*)m_List.GetRecords()->GetAt(i)->GetItem(nCurSel);
 					pCheckItem->SetChecked(FALSE);
 
-					pCheckItem = (m_List.GetSelectedCount() > 1) ?
-						(CMyCheckRecordItem*)m_List.GetSelectedRecord(i)->GetItem(ALL_APPLY):
-					(CMyCheckRecordItem*)m_List.GetRecordsGetAt(i)->GetItem(ALL_APPLY);
-					if(pCheckItem->GetCheck())
+					pCheckItem = (m_List.GetSelectedRows()->GetCount() > 1) ?
+						(CTankTypeQRecordItemCheck*)m_List.GetSelectedRows()->GetAt(i)->GetRecord()->GetItem(ALL_APPLY):
+					(CTankTypeQRecordItemCheck*)m_List.GetRecords()->GetAt(i)->GetItem(ALL_APPLY);
+					if(pCheckItem->IsChecked())
 						pCheckItem->SetChecked(FALSE);
 
 				}

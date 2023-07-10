@@ -19,9 +19,9 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
-	CDataBox m_lstSectionName;
-	CDataBox m_lstStart;
-	CDataBox m_lstDest;
+	CXTPListCtrl2 m_lstSectionName;
+	CXTPListCtrl2 m_lstStart;
+	CXTPListCtrl2 m_lstDest;
 
 	DECLARE_MESSAGE_MAP()
 public:
@@ -67,7 +67,7 @@ public:
 	void SaveDestList();
 	void AllStartDestDelList();
 	void ChargeTypeNameRefresh();
-	int GetType(CMyXTPGridRecord *pStartRecord, CMyXTPGridRecord *pDestRecord);
+	int GetType(int nStartType, int nDestType);
 
 	CChargeDongDlg2 * m_pChargeDongDlg;	
 

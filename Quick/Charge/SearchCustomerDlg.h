@@ -2,7 +2,7 @@
 
 
 #include "Quick.h"
-#include "DataBox.h"
+
 
 class CSearchCustomerDlg : public CMyDialog
 {
@@ -32,7 +32,7 @@ public:
 	void ChangeCustomer();
 	void Apply();
 
-	CDataBox m_lstSearch;
+	CXTPListCtrl2 m_lstSearch;
 
 	long m_nCompany;
 	long m_nReturnCNo;

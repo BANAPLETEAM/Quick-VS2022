@@ -131,6 +131,9 @@
     <Filter Include="XTPToolkitPro">
       <UniqueIdentifier>{5478f0a5-05f0-4db1-92c3-8a2cdf3bc9c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="INCLUDE\WebView2">
+      <UniqueIdentifier>{828da27f-c4a0-4d71-9841-c2de5398d8d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph\Graph.cpp">
@@ -607,9 +610,6 @@
     <ClCompile Include="CONTROL\CustomMyAfxMessgagebox.cpp">
       <Filter>CONTROL</Filter>
     </ClCompile>
-    <ClCompile Include="CONTROL\DataBox.cpp">
-      <Filter>CONTROL</Filter>
-    </ClCompile>
     <ClCompile Include="CONTROL\DateButton.cpp">
       <Filter>CONTROL</Filter>
     </ClCompile>
@@ -620,9 +620,6 @@
       <Filter>CONTROL</Filter>
     </ClCompile>
     <ClCompile Include="CONTROL\EditCell.cpp">
-      <Filter>CONTROL</Filter>
-    </ClCompile>
-    <ClCompile Include="CONTROL\explorer.cpp">
       <Filter>CONTROL</Filter>
     </ClCompile>
     <ClCompile Include="CONTROL\FlatButton.cpp">
@@ -2020,9 +2017,6 @@
     <ClCompile Include="STAFF_VIEW\RiderMsgDlg.cpp">
       <Filter>STAFF_VIEW</Filter>
     </ClCompile>
-    <ClCompile Include="STAFF_VIEW\RiderOrderLogDlg.cpp">
-      <Filter>STAFF_VIEW</Filter>
-    </ClCompile>
     <ClCompile Include="STAFF_VIEW\RiderShareBoardDlg.cpp">
       <Filter>STAFF_VIEW</Filter>
     </ClCompile>
@@ -2114,9 +2108,6 @@
       <Filter>STAFF_VIEW</Filter>
     </ClCompile>
     <ClCompile Include="STAFF_VIEW\TimeLimitDlg.cpp">
-      <Filter>STAFF_VIEW</Filter>
-    </ClCompile>
-    <ClCompile Include="STAFF_VIEW\WeatherDlg.cpp">
       <Filter>STAFF_VIEW</Filter>
     </ClCompile>
     <ClCompile Include="STAFF_VIEW\workStateChangeLogDlg.cpp">
@@ -2213,6 +2204,15 @@
       <Filter>COMMON</Filter>
     </ClCompile>
     <ClCompile Include="Control\XTPReportControlUniCode.cpp">
+      <Filter>CONTROL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\WebView\EdgeBrowser.cpp">
+      <Filter>INCLUDE\WebView2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\WebView\ViewComponent.cpp">
+      <Filter>INCLUDE\WebView2</Filter>
+    </ClCompile>
+    <ClCompile Include="CONTROL\explorer.cpp">
       <Filter>CONTROL</Filter>
     </ClCompile>
   </ItemGroup>
@@ -3221,9 +3221,6 @@
     <ClInclude Include="CONTROL\CustomMyAfxMessgagebox.h">
       <Filter>CONTROL</Filter>
     </ClInclude>
-    <ClInclude Include="CONTROL\DataBox.h">
-      <Filter>CONTROL</Filter>
-    </ClInclude>
     <ClInclude Include="CONTROL\DateButton.h">
       <Filter>CONTROL</Filter>
     </ClInclude>
@@ -3234,9 +3231,6 @@
       <Filter>CONTROL</Filter>
     </ClInclude>
     <ClInclude Include="CONTROL\EditCell.h">
-      <Filter>CONTROL</Filter>
-    </ClInclude>
-    <ClInclude Include="CONTROL\explorer.h">
       <Filter>CONTROL</Filter>
     </ClInclude>
     <ClInclude Include="CONTROL\FlatButton.h">
@@ -4658,9 +4652,6 @@
     <ClInclude Include="STAFF_VIEW\RiderMsgDlg.h">
       <Filter>STAFF_VIEW</Filter>
     </ClInclude>
-    <ClInclude Include="STAFF_VIEW\RiderOrderLogDlg.h">
-      <Filter>STAFF_VIEW</Filter>
-    </ClInclude>
     <ClInclude Include="STAFF_VIEW\RiderShareBoardDlg.h">
       <Filter>STAFF_VIEW</Filter>
     </ClInclude>
@@ -4752,9 +4743,6 @@
       <Filter>STAFF_VIEW</Filter>
     </ClInclude>
     <ClInclude Include="STAFF_VIEW\TimeLimitDlg.h">
-      <Filter>STAFF_VIEW</Filter>
-    </ClInclude>
-    <ClInclude Include="STAFF_VIEW\WeatherDlg.h">
       <Filter>STAFF_VIEW</Filter>
     </ClInclude>
     <ClInclude Include="STAFF_VIEW\workStateChangeLogDlg.h">
@@ -4859,6 +4847,18 @@
     <ClInclude Include="Control\XTPReportControlUniCode.h">
       <Filter>CONTROL</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\WebView\ComponentBase.h">
+      <Filter>INCLUDE\WebView2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\WebView\EdgeBrowser.h">
+      <Filter>INCLUDE\WebView2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\WebView\ViewComponent.h">
+      <Filter>INCLUDE\WebView2</Filter>
+    </ClInclude>
+    <ClInclude Include="CONTROL\explorer.h">
+      <Filter>CONTROL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\cursor1.cur">
@@ -4904,6 +4904,7 @@
     <None Include="..\Include\tlh\readme.md">
       <Filter>INCLUDE\tlh</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\alloc.bmp">
@@ -5317,5 +5318,8 @@
     <ResourceCompile Include="Quick.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

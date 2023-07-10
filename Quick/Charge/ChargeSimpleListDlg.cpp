@@ -54,14 +54,14 @@ void CChargeSimpleListDlg::OnBnClickedDongOutBtn()
 {
 	try
 	{
-		if(m_RegisterDongList.GetSelectedCount() <= 0)
+		if(m_RegisterDongList.GetSelectedRows()->GetCount() <= 0)
 			throw "삭제하실 지역을 1개라도 선택하여 주세요";
 
 	
-		for(int i = 0; i < m_RegisterDongList.GetSelectedCount(); i++)
+		for(int i = 0; i < m_RegisterDongList.GetSelectedRows()->GetCount(); i++)
 		{
 
-			CMyXTPGridRecord *pReocrd = m_RegisterDongList.GetSelectedRecord(i);
+			CXTPGridRecord *pReocrd = m_RegisterDongList.GetSelectedRows()->GetAt(i)->GetRecord();
 			pReocrd->Delete();			
 
 		}
@@ -85,7 +85,7 @@ void CChargeSimpleListDlg::OnBnClickedDongInputBtn()
 
 	try
 	{
-		if(m_DongList.GetSelectedCount() <= 0 )
+		if(m_DongList.GetSelectedRows()->GetCount() <= 0 )
 			throw("도, 시리스트에서 입력하실 데이터를 선택하세요");
 
 		CString sChareList = "";		
@@ -93,11 +93,11 @@ void CChargeSimpleListDlg::OnBnClickedDongInputBtn()
 
 		CStringArray sArr;
 
-		for(int i =0; i < m_DongList.GetSelectedCount(); i++)
+		for(int i =0; i < m_DongList.GetSelectedRows()->GetCount(); i++)
 		{
-			CMyXTPGridRecord *pReocrd = m_DongList.GetSelectedRecord(i);
-			long nID = pReocrd->GetItemDataLong();	
-			CString strSidoList = pReocrd->GetItemDataString();
+			CXTPGridRecord *pReocrd = m_DongList.GetSelectedRows()->GetAt(i)->GetRecord();
+			long nID = m_DongList.GetItemLong(pReocrd);
+			CString strSidoList = m_DongList.GetItemDataText(pReocrd);
 			sArr.Add(strSidoList);
 
 		}
@@ -119,27 +119,17 @@ void CChargeSimpleListDlg::OnBnClickedDongInputBtn()
 
 void CChargeSimpleListDlg::Compare(CStringArray &sArr)
 {
-	
-	
 	setSido::iterator itSaveSido;
-	
-	
-	for(int i = sArr.GetCount() - 1; i >= 0; i--)
-	{
-		
-		itSaveSido = 	m_setSaveSido.find(sArr.GetAt(i));
-		if(itSaveSido != m_setSaveSido.end())
+
+	for (int i = sArr.GetCount() - 1; i >= 0; i--) {
+		itSaveSido = m_setSaveSido.find(sArr.GetAt(i));
+		if (itSaveSido != m_setSaveSido.end())
 			sArr.RemoveAt(i);
-		
 	}
 
-	if(sArr.GetCount() > 0)
-	{
-		for(int j = 0; j < sArr.GetCount(); j++)
-		{
-			CMyXTPGridRecord *pRecord =  m_RegisterDongList.MyAddItem(0,sArr.GetAt(j), "지역", 100, FALSE, DT_LEFT	); 
-			pRecord->SetItemDataString(sArr.GetAt(j));
-			m_RegisterDongList.EndItem();
+	if (sArr.GetCount() > 0) {
+		for (int j = 0; j < sArr.GetCount(); j++) {
+			m_RegisterDongList.InsertItem(j, sArr.GetAt(j));
 			m_setSaveSido.insert(sArr.GetAt(j));
 		}
 	}
@@ -164,114 +154,68 @@ BOOL CChargeSimpleListDlg::OnInitDialog()
 
 void CChargeSimpleListDlg::RefreshSaveList()
 {
-
 	CString strRegisterSido = "";
 	CStringArray strArr;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_dongpos_save_simple");
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCompany);
-	if(!pRs.Execute(&pCmd)) return;
-
-	if(pRs.GetRecordCount() == 0 )
-	{
-		//MessageBox("데이터가 없습니다", "확인", MB_ICONINFORMATION);
-		return;
-	}
-
+	if (!pRs.Execute(&pCmd)) return;
+	if (pRs.GetRecordCount() == 0) return;
 
 	pRs.GetFieldValue("sRegisterSido", strRegisterSido);
 
-	if(strRegisterSido.GetLength() > 0)
-	{
-		LF->MyTokenize(strRegisterSido,",", FALSE, strArr);
+	if (strRegisterSido.GetLength() > 0) {
+		LF->MyTokenize(strRegisterSido, ",", FALSE, strArr);
 
-		for(long i=0; i<strArr.GetCount(); i++)
-		{
-			CString  strSido = "";			
-
-			strSido = strArr.GetAt(i);
-
-
-			CMyXTPGridRecord *pRecord = m_RegisterDongList.MyAddItem(0,strSido, "지역", 100, FALSE, DT_LEFT	);			
-			pRecord->SetItemDataString(strSido);
-			m_setSaveSido.insert(strSido);
-			m_RegisterDongList.EndItem();
+		for (long i = 0; i < strArr.GetCount(); i++) {
+			m_RegisterDongList.InsertItem(i, strArr.GetAt(i));
+			m_setSaveSido.insert(strArr.GetAt(i));
 			pRs.MoveNext();
 		}
 
-
-		m_RegisterDongList.Populate();	
-
+		m_RegisterDongList.Populate();
 	}
-
-	
 }
 
 void CChargeSimpleListDlg::RefreshList()
 {
-
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_dongpos_simple");
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCompany);
-	if(!pRs.Execute(&pCmd)) return;
+	if (!pRs.Execute(&pCmd)) return;
+	if (pRs.GetRecordCount() == 0) return;
 
-	if(pRs.GetRecordCount() == 0 )
-	{
-		MessageBox("데이터가 없습니다", "확인", MB_ICONINFORMATION);
-		return;
-	}
-
-	for(long i=0; i<pRs.GetRecordCount(); i++)
-	{
-		CString  sPreKeyRef,sKeyRef,sTempSiGu = "", sDong = "", sSido = "", sGugun = "";
-		long nGrade=0, nParentNo=0,nID=0, nPreGrade=0;
-
+	for (long i = 0; i < pRs.GetRecordCount(); i++) {
+		CString sSido;
+		long nID = 0;
 		pRs.GetFieldValue("sSido", sSido);
 
-
-		CMyXTPGridRecord *pRecord = m_DongList.MyAddItem(0,sSido, "지역", 100, FALSE, DT_LEFT	);
-
-		pRecord->SetItemDataLong(nID);		
-		pRecord->SetItemDataString(sSido);
-		m_DongList.EndItem();
+		m_DongList.InsertItem(i, sSido);
+		m_DongList.SetItemLong(i, nID);
 		pRs.MoveNext();
 	}
 
-
-	m_DongList.Populate();		
-
+	m_DongList.Populate();
 }
 
 
 void CChargeSimpleListDlg::OnBnClickedSaveBtn()
 {
-	
-	 /*if(m_RegisterDongList.GetRecords()->GetCount() <= 0)
-	 {
-		 OnOK();
-	 }*/
+	CString strSaveArea = "", strTemp = "";
+	for (int i = 0; i < m_RegisterDongList.GetRecords()->GetCount(); i++)
+	{
+		strTemp = m_RegisterDongList.GetItemText(i, 0);
+		strSaveArea += strTemp + ",";
+	}
 
-	 CString strSaveArea = "",strTemp = "";
-	 for(int i = 0; i < m_RegisterDongList.GetRecords()->GetCount(); i++)
-	 {	
-		 strTemp = m_RegisterDongList.GetItemDataString(i);
-		 strSaveArea += strTemp + ",";
+	CMkRecordset pRs(m_pMkDb);
+	CMkCommand pCmd(m_pMkDb, "update_dongpos_simple");
+	pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCompany);
+	pCmd.AddParameter(typeString, typeInput, strSaveArea.GetLength(), strSaveArea);
+	if (!pRs.Execute(&pCmd)) return;
 
-	 }
-		 
-	 
-		 CMkRecordset pRs(m_pMkDb);
-		 CMkCommand pCmd(m_pMkDb, "update_dongpos_simple");
-		 pCmd.AddParameter(typeLong, typeInput, sizeof(long), m_nCompany);
-		 pCmd.AddParameter(typeString, typeInput, strSaveArea.GetLength(), strSaveArea);
-		 if(!pRs.Execute(&pCmd)) return;
+	if (m_bChargeDongDlg3)
+		((CChargeDongDlg3*)GetParent())->SetRemoveRefreshList();
 
-		 if(m_bChargeDongDlg3)
-			((CChargeDongDlg3*)GetParent())->SetRemoveRefreshList();
-		
-		 OnOK();
-		
-
-	 
-
+	OnOK();
 }

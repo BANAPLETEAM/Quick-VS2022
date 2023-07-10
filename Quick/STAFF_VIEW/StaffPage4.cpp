@@ -8,7 +8,6 @@
 #include "WorkStopMemoDlg.h"
 #include "RiderMsgDlg.h"
 #include "RcpView.h"
-#include "RiderOrderLogDlg.h"
 
 #define MAX_DAY 100
 
@@ -54,7 +53,6 @@ BEGIN_MESSAGE_MAP(CStaffPage4, CMyFormView)
 	ON_BN_CLICKED(IDC_INCRESE_COL_BTN, OnBnClickedIncreseColBtn)
 	ON_NOTIFY(LVN_DELETEALLITEMS, IDC_LIST_REPORT, OnLvnDeleteallitemsListReport)
 	ON_NOTIFY(NM_CLICK, IDC_LIST_REPORT, OnNMClickListReport)
-	ON_NOTIFY(NM_DBLCLK, IDC_LIST_REPORT, OnNMDblclkListReport)
 END_MESSAGE_MAP()
 
 
@@ -527,25 +525,5 @@ void CStaffPage4::OnNMClickListReport(NMHDR *pNMHDR, LRESULT *pResult)
 
 	LU->ShowRiderInfoDlg(nCompany, nRNo);
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	*pResult = 0;
-}
-
-void CStaffPage4::OnNMDblclkListReport(NMHDR *pNMHDR, LRESULT *pResult)
-{ 
-	long index = m_XTPList.GetNextItem(-1, LVNI_SELECTED);
-
-	CString str = m_XTPList.GetItemText(index, 1);
-
-	if(str == "")
-		return;
-
-	CRiderOrderLogDlg dlg;
-	//dlg.m_nRiderCompany = _ttoi(m_List.GetItemText(index, m_nLastCompanyCount));
-	dlg.m_nRiderCompany = (long)m_XTPList.GetItemData(index);
-	dlg.m_nRNo = _ttoi(m_XTPList.GetItemText(index, 0));
-	dlg.m_strRName = m_XTPList.GetItemText(index, 2);
-
-	dlg.DoModal();
-	
 	*pResult = 0;
 }

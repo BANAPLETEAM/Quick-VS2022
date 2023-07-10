@@ -1,16 +1,7 @@
 
-
-
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
-
-
-#include "DataBox.h"
-
-
-
-
 
 
 #define   XTP_ID_REPORT_CONTROL3  100
@@ -25,7 +16,7 @@ protected:
 	
 public:
 
-	CDataBox&  GetDataCtrl();	
+	CXTPListCtrl2&  GetDataCtrl();	
 	CXTPGridPaintManager* GetPaintManager();
 
 
@@ -79,7 +70,7 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg int OnMouseActivate(CWnd* pDesktopWnd, UINT nHitTest, UINT message);
 	
-	CDataBox m_Data;  // Child report control window.
+	CXTPListCtrl2 m_Data;  // Child report control window.
 	
 protected:
 	

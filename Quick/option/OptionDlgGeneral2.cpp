@@ -934,5 +934,5 @@ void COptionDlgGeneral2::OnPaint()
 
 void COptionDlgGeneral2::OnBnClickedKakaoHelpBtn()
 {
-	ShellExecute(NULL, "open", "iexplore.exe", "http://0070.co.kr/helpapi/index_q.html", "", SW_SHOW); 
+	ShellExecute(NULL, "open", "msedge.exe", "http://0070.co.kr/helpapi/index_q.html", "", SW_SHOW); 
 }

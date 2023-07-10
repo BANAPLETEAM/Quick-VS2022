@@ -1,7 +1,7 @@
 
-#include "DataBox.h"
 
-class CReportForm28List : public CDataBox
+
+class CReportForm28List : public CXTPListCtrl2
 {
 public:
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics) 

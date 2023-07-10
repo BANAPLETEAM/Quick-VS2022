@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DataBox.h"
+
 
 class CReceiveMoneyDlg : public CMyDialog
 {
@@ -21,7 +21,7 @@ protected:
 	CDateTimeCtrl m_dtTo;
 	COleDateTime m_From;
 	COleDateTime m_To;	
-	CDataBox m_wndReport;
+	CXTPListCtrl2 m_wndReport;
 	CDateButton m_DateBtn;	
 	CMyStatic m_Stc1;
 

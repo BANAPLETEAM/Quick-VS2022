@@ -31,9 +31,9 @@ public:
 		int nRow = pDrawArgs->pRow->GetIndex();
 		CDC *pDC = pDrawArgs->pDC;	
 
-		CDataBox *pData = (CDataBox*)pDrawArgs->pRow->GetControl();
-		long nGNo = pData->GetItemDataLong2(nRow);		
-		long nCNo = pData->GetItemDataLong(nRow);		
+		CXTPListCtrl2 *pData = (CXTPListCtrl2*)pDrawArgs->pRow->GetControl();
+		long nGNo = pData->GetItemLong2(nRow);		
+		long nCNo = pData->GetItemLong(nRow);		
 		CRect rcItem = pDrawArgs->rcItem;
 		CString strText = pMetrics->strText;
 

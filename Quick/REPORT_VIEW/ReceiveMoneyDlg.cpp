@@ -142,7 +142,8 @@ void CReceiveMoneyDlg::RefreshList()
 	CString sTel1,sName, sDepart, sCompany, sEtc, sCompanyDepart, strBranchName;
 	COleDateTime dtInput, dtCanceldate; 
 
-	while(!pRs.IsEOF())
+
+	for (int i = 0; i < pRs.GetRecordCount(); i++)
 	{
 		pRs.GetFieldValue("nCardPaySeq", nCardPaySeq);
 		pRs.GetFieldValue("nAmount", nAmount);
@@ -174,18 +175,16 @@ void CReceiveMoneyDlg::RefreshList()
 		}		
 
 		
-		m_wndReport.MyAddItem(strBranchName);
-		m_wndReport.MyAddItem(dtInput.Format("%y-%m-%d %H:%M"));
-		m_wndReport.MyAddItem(bAdd? LF->GetMyNumberFormat(nAmount) : "");
-		m_wndReport.MyAddItem(bAdd? "" : LF->GetMyNumberFormat(nAmount));
-		m_wndReport.MyAddItem(GetSettleType(nType));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTax));
-		m_wndReport.MyAddItem(sCompanyDepart);
-		m_wndReport.MyAddItem(sName);
-		m_wndReport.MyAddItem(LF->GetDashPhoneNumber(sTel1));
-		m_wndReport.MyAddItem(sEtc);
-		m_wndReport.EndItem();		
-
+		m_wndReport.InsertItem(i, strBranchName);
+		m_wndReport.SetItemText(i, 1, dtInput.Format("%y-%m-%d %H:%M"));
+		m_wndReport.SetItemText(i, 2, bAdd? LF->GetMyNumberFormat(nAmount) : "");
+		m_wndReport.SetItemText(i, 3, bAdd? "" : LF->GetMyNumberFormat(nAmount));
+		m_wndReport.SetItemText(i, 4, GetSettleType(nType));
+		m_wndReport.SetItemText(i, 5, LF->GetMyNumberFormat(nTax));
+		m_wndReport.SetItemText(i, 6, sCompanyDepart);
+		m_wndReport.SetItemText(i, 7, sName);
+		m_wndReport.SetItemText(i, 8, LF->GetDashPhoneNumber(sTel1));
+		m_wndReport.SetItemText(i, 9, sEtc);
 		pRs.MoveNext();
 	}
 

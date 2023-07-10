@@ -1,10 +1,10 @@
 #pragma once
 
-#include "DataBox.h"
+
 
  //CReportForm20 대화 상자입니다.
 
-class CMileageReport : public CDataBox
+class CMileageReport : public CXTPListCtrl2
 {
 	public:
 		void CMileageReport::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics)
@@ -12,7 +12,7 @@ class CMileageReport : public CDataBox
 			int nCol = pDrawArgs->pColumn->GetIndex();
 			int nRow = pDrawArgs->pRow->GetIndex();
 
-			if(this->GetItemDataLong(nRow) == 1)
+			if(this->GetItemLong(nRow) == 1)
 			{
 				pItemMetrics->clrBackground = RGB(220, 230, 220);
 				pItemMetrics->clrForeground = RGB(0, 0, 255);
@@ -60,9 +60,9 @@ public:
 	CFlatEdit2 m_edtCashrate;
 
 	
-	CDataBox m_RiderList;	
+	CXTPListCtrl2 m_RiderList;	
 	CMileageReport m_OrderList;
-	CDataBox m_LogList;
+	CXTPListCtrl2 m_LogList;
 
 	COleDateTime m_tmFrom;
 	COleDateTime m_tmTo;

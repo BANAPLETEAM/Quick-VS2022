@@ -33,7 +33,6 @@
 #include "MyStaticTri.h"
 #include "MarkupStatic.h"
 #include "XTPListCtrl2.h"
-#include "DataBox.h"
 #include "DateButton.h"
 #include "FlatEdit2.h"
 #include "MyMarkupStatic.h"

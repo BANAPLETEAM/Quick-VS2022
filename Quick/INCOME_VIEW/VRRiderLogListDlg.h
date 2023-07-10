@@ -1,6 +1,6 @@
 #pragma once
 #include "afxcmn.h"
-#include "DataBox.h"
+
 #include "DateButton.h"
 // CCVRRiderLogList 대화 상자입니다.
 
@@ -22,9 +22,8 @@ protected:
 public:
 	afx_msg void OnBnClickedOnokBtn();
 	virtual BOOL OnInitDialog();
-	void RefreshList2();
-	//CListCtrl m_LogList;
-	CDataBox m_List;
+	void RefreshList();
+	CXTPListCtrl2 m_List;
 	long m_nCompany;
 	int m_nRNo;
 	CString m_sAccount;

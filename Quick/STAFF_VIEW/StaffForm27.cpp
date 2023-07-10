@@ -143,7 +143,7 @@ void CStaffForm27::OnNMClickListReport(NMHDR *pNMHDR, LRESULT *pResult)
 			CString image = m_lstReport.GetItemDataText(record);
 
 			if(!image.IsEmpty())
-				ShellExecute(NULL, "open", "iexplore.exe", image, "", SW_SHOW); 
+				ShellExecute(NULL, "open", "msedge.exe", image, "", SW_SHOW); 
 		}
 	}
 }

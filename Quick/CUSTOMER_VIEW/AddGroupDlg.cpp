@@ -156,9 +156,8 @@ BOOL CAddGroupDlg::OnInitDialog()
 
 	
 
-	m_lstGNo.InsertColumn(0, "회사", DT_LEFT, 80, FALSE, FALSE );
-	m_lstGNo.InsertColumn(1, "부서", DT_LEFT, 80, FALSE, FALSE );
-	m_lstGNo.m_bHeader = TRUE;
+	m_lstGNo.InsertColumn(0, "회사", DT_LEFT, 80);
+	m_lstGNo.InsertColumn(1, "부서", DT_LEFT, 80);
 	m_lstGNo.Populate();
 
 	for(int i = 0; i < 32; i++)  // PayMentAdd 초기화
@@ -281,10 +280,9 @@ void CAddGroupDlg::LoadGroup()
 			strTempName = m_cg.GetGroupData(nTempGNo)->strGroupName;
 			strTempDept = m_cg.GetGroupData(nTempGNo)->strDept;
 
-			m_lstGNo.MyAddItem(0, strTempName, "", 80,FALSE, DT_LEFT);
-			m_lstGNo.MyAddItem(1, strTempDept, "", 60,FALSE, DT_LEFT);
-			m_lstGNo.InsertItemDataLong(nTempGNo);
-			m_lstGNo.EndItem();
+			m_lstGNo.InsertItem(i, strTempName);
+			m_lstGNo.SetItemText(i, 1, strTempDept);
+			m_lstGNo.SetItemLong(i, nTempGNo);
 		}	
 
 		m_lstGNo.Populate();
@@ -978,7 +976,7 @@ void CAddGroupDlg::OnBnClickedGnoDelBtn()
 
 	for(int i = 0; i < m_lstGNo.GetSelectedRows()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = m_lstGNo.GetSelectedRowsGetAtGetRecord(i);
+		CXTPGridRecord *pRecord = m_lstGNo.GetSelectedRowsGetAtGetRecord(i);
 		pRecord->Delete();
 
 	}
@@ -1019,7 +1017,7 @@ CString CAddGroupDlg::GNoListString()
 	CString strGNoList = "",strTemp = "";
 	for(int i = 0; i < m_lstGNo.GetRecords()->GetCount(); i++)
 	{
-		strTemp.Format("%d," , m_lstGNo.GetRecordsGetAt(i)->GetItemDataLong());
+		strTemp.Format("%d," , m_lstGNo.GetItemLong(m_lstGNo.GetRecords()->GetAt(i)));
 		strGNoList += strTemp;
 	}
 
@@ -1049,7 +1047,7 @@ BOOL CAddGroupDlg::GNoListInputAllSame()
 	map<long,long>::iterator it;
 	for(int i = 0; i < m_lstGNo.GetRecords()->GetCount(); i++)
 	{
-		nTempGNo = m_lstGNo.GetRecordsGetAt(i)->GetItemDataLong();
+		nTempGNo = m_lstGNo.GetItemLong(m_lstGNo.GetRecords()->GetAt(i));
 		if(nTempGNo > 0)
 			mapGNo[nTempGNo] = nTempGNo;
 		
@@ -1086,7 +1084,7 @@ void CAddGroupDlg::GNoListInit()
 
 	if(m_lstGNo.GetSelectedRows()->GetCount() <= 0) return;
 
-	m_lstGNo.DeleteAllItem();
+	m_lstGNo.DeleteAllItems();
 	m_lstGNo.Populate();
 
 }
@@ -1094,17 +1092,14 @@ void CAddGroupDlg::GNoListPerson(long nGNo)
 {
 	GNoListInit();
 
-	
 	CString strTempName = "", strTempDept = "";
 	strTempName = m_cg.GetGroupData(nGNo)->strGroupName;
 	strTempDept = m_cg.GetGroupData(nGNo)->strDept;
 
-	m_lstGNo.MyAddItem(0, strTempName, "", 80,FALSE, DT_LEFT);
-	m_lstGNo.MyAddItem(1, strTempDept, "", 60,FALSE, DT_LEFT);
-	m_lstGNo.InsertItemDataLong(nGNo);
-	m_lstGNo.EndItem();
-
-	
+	int index = m_lstGNo.GetItemCount();
+	m_lstGNo.InsertItem(index, strTempName);
+	m_lstGNo.SetItemText(index, 1, strTempDept);
+	m_lstGNo.SetItemLong(index, nGNo);
 }	
 
 void CAddGroupDlg::GNoListAdd(long nGNo)
@@ -1113,7 +1108,7 @@ void CAddGroupDlg::GNoListAdd(long nGNo)
 	int nSame = 0;
 	for(int i =0; i < m_lstGNo.GetRecords()->GetCount(); i++)
 	{
-		if( m_lstGNo.GetItemDataLong(i) == nGNo)
+		if( m_lstGNo.GetItemLong(i) == nGNo)
 			nSame++;
 	}
 
@@ -1123,10 +1118,10 @@ void CAddGroupDlg::GNoListAdd(long nGNo)
 	strTempName = m_cg.GetGroupData(nGNo)->strGroupName;
 	strTempDept = m_cg.GetGroupData(nGNo)->strDept;
 
-	m_lstGNo.MyAddItem(0, strTempName, "", 80,FALSE, DT_LEFT);
-	m_lstGNo.MyAddItem(1, strTempDept, "", 60,FALSE, DT_LEFT);
-	m_lstGNo.InsertItemDataLong(nGNo);
-	m_lstGNo.EndItem();
+	int index = m_lstGNo.GetItemCount();
+	m_lstGNo.InsertItem(index, strTempName);
+	m_lstGNo.SetItemText(index, 1, strTempDept);
+	m_lstGNo.SetItemLong(index, nGNo);
 
 	m_lstGNo.Populate();
 }	
@@ -1167,10 +1162,10 @@ void CAddGroupDlg::GNoListAll()
 		strTempName = m_cg.GetGroupData(nTempGNo)->strGroupName;
 		strTempDept = m_cg.GetGroupData(nTempGNo)->strDept;
 
-		m_lstGNo.MyAddItem(0, strTempName, "", 80,FALSE, DT_LEFT);
-		m_lstGNo.MyAddItem(1, strTempDept, "", 60,FALSE, DT_LEFT);
-		m_lstGNo.InsertItemDataLong(nTempGNo);
-		m_lstGNo.EndItem();
+		int index = m_lstGNo.GetItemCount();
+		m_lstGNo.InsertItem(index, strTempName);
+		m_lstGNo.SetItemText(index, 1, strTempDept);
+		m_lstGNo.SetItemLong(index, nTempGNo);
 	}	
 	m_stcGNoReportCount.SetWindowText("지점수: " + LF->GetMyNumberFormat(sArr.GetCount()));
 	m_lstGNo.Populate();

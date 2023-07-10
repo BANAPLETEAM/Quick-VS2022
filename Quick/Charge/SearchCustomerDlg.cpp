@@ -59,17 +59,15 @@ BOOL CSearchCustomerDlg::OnInitDialog()
 	m_cmbSearchType.SetCurSel(0);
 	m_edtSearchName.SetFocus();
 
-	m_lstSearch.MyAddItem(0,"", "회사명", 100, FALSE, DT_LEFT);
-	m_lstSearch.MyAddItem(1,"", "부서명", 60, FALSE, DT_LEFT);
-	m_lstSearch.MyAddItem(2,"", "담당자", 60, FALSE, DT_LEFT);
-	m_lstSearch.MyAddItem(3,"", "대표번호", 80, FALSE, DT_LEFT);
-	m_lstSearch.MyAddItem(4,"", "휴대폰", 80, FALSE, DT_LEFT);
-	m_lstSearch.MyAddItem(5,"", "해당동", 60, FALSE, DT_LEFT);		
-	m_lstSearch.MyAddItem(6,"", "개별요금명", 100 , FALSE, DT_LEFT);
-	m_lstSearch.MyAddItem(7,"", "그룹명", 70 , FALSE, DT_LEFT);
-	m_lstSearch.MyAddItem(8,"", "등록일", 90, FALSE, DT_LEFT);
-	m_lstSearch.EndItem();
-	m_lstSearch.m_bHeader = TRUE;
+	m_lstSearch.InsertColumn(0, "회사명", 100, DT_LEFT);
+	m_lstSearch.InsertColumn(1, "부서명", 60, DT_LEFT);
+	m_lstSearch.InsertColumn(2, "담당자", 60, DT_LEFT);
+	m_lstSearch.InsertColumn(3, "대표번호", 80, DT_LEFT);
+	m_lstSearch.InsertColumn(4, "휴대폰", 80, DT_LEFT);
+	m_lstSearch.InsertColumn(5, "해당동", 60, DT_LEFT);		
+	m_lstSearch.InsertColumn(6, "개별요금명", 100, DT_LEFT);
+	m_lstSearch.InsertColumn(7, "그룹명", 70, DT_LEFT);
+	m_lstSearch.InsertColumn(8, "등록일", 90, DT_LEFT);
 	m_lstSearch.Populate();
 	
 	if(m_bTypeCustomerChange)
@@ -81,25 +79,23 @@ BOOL CSearchCustomerDlg::OnInitDialog()
 }
 void CSearchCustomerDlg::Apply()
 {
-	if(m_lstSearch.GetSelectedCount() <= 0)
+	if(m_lstSearch.GetSelectedRows()->GetCount() <= 0)
 	{
 		MessageBox("한행이라도 선택하여 주세요", "확인", MB_ICONINFORMATION);
 		return;
 	}
 
-
 	if(MessageBox("해당 고객들을 개별요금으로 편입하시겠습니까?", "확인", MB_YESNO) == IDNO)
-		return;	
+		return;
 
 	CString sCNo = "", sTotalCNo = "";
-	for(int i =0; i < m_lstSearch.GetSelectedCount(); i++)
+	for(int i =0; i < m_lstSearch.GetSelectedRows()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = m_lstSearch.GetSelectedRecord(i);
-		long nCNo = pRecord->GetItemDataLong();
+		long nCNo = m_lstSearch.GetItemLong(i);
 		sCNo.Format("%ld", nCNo);
 		sTotalCNo += sCNo + ",";
-
 	}
+
 	m_strCNoList = sTotalCNo;
 	OnOK();
 }
@@ -120,20 +116,20 @@ void CSearchCustomerDlg::OnBnClickedSelectCustomerBtn()
 }
 void CSearchCustomerDlg::ChangeCustomer()
 {
-	if(m_lstSearch.GetSelectedCount() <= 0)
+	if(m_lstSearch.GetSelectedRows()->GetCount() <= 0)
 	{
 		MessageBox("한행이라도 선택하여 주세요", "확인", MB_ICONINFORMATION);
 		return;
 	}
 
-	CMyXTPGridRecord *pRecord = m_lstSearch.GetSelectedRecord(0);
-	m_strReturnCustomer = pRecord->GetItemSValue(0);
-	m_strReturnDept = pRecord->GetItemSValue(1);
-	m_strReturnName = pRecord->GetItemSValue(2);
-	m_strReturnTel = pRecord->GetItemSValue(2);
-	m_strReturnHP = pRecord->GetItemSValue(4);
-	m_nReturnMemCNo = pRecord->GetItemDataLong2();	
-	m_nReturnCNo = pRecord->GetItemDataLong();	
+	CXTPGridRecord *pRecord = m_lstSearch.GetFirstSelectedRecord();
+	m_strReturnCustomer = pRecord->GetItem(0)->GetCaption();
+	m_strReturnDept = pRecord->GetItem(1)->GetCaption();
+	m_strReturnName = pRecord->GetItem(2)->GetCaption();
+	m_strReturnTel = pRecord->GetItem(3)->GetCaption();
+	m_strReturnHP = pRecord->GetItem(4)->GetCaption();
+	m_nReturnMemCNo = m_lstSearch.GetItemLong2(pRecord);
+	m_nReturnCNo = m_lstSearch.GetItemLong(pRecord);
 
 	OnOK();
 }
@@ -160,7 +156,7 @@ void CSearchCustomerDlg::OnBnClickedSearchBtn()
 		break;
 	}
 	if(m_lstSearch.GetRecords()->GetCount() > 0)
-		m_lstSearch.DeleteAllItem();
+		m_lstSearch.DeleteAllItems();
 
 	LU->LoadMemberCharge();
 	MAP_MEMBER_CHARGE_CNO::iterator itMem;
@@ -199,20 +195,17 @@ void CSearchCustomerDlg::OnBnClickedSearchBtn()
 
 			strGroupName = m_cg.GetGroupData(nGNo)->strGroupName;
 
-			m_lstSearch.MyAddItem(0, strCompany, "회사명", 100, FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(1, strDepart, "부서명", 60, FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(2, strName, "담당자", 60, FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(3, LF->GetDashPhoneNumber(strTel1), "대표번호", 80, FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(4, LF->GetDashPhoneNumber(strMobile), "휴대폰", 80, FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(5, strDong, "해당동", 60, FALSE, DT_LEFT);		
-			m_lstSearch.MyAddItem(6, strHistoryChargeName, "개별요금명", 100 , FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(7, strGroupName, "그룹명", 75 , FALSE, DT_LEFT);
-			m_lstSearch.MyAddItem(8, dtRegister.Format("%Y-%m-%d"), "등록일", 85, FALSE, DT_LEFT);
-			m_lstSearch.InsertItemDataLong(nCNo);		
-			m_lstSearch.InsertItemDataLong2(nMemCNo);		
-
-			m_lstSearch.EndItem();
-
+			m_lstSearch.InsertItem(i, strCompany);
+			m_lstSearch.SetItemText(i, 1, strDepart);
+			m_lstSearch.SetItemText(i, 2, strName);
+			m_lstSearch.SetItemText(i, 3, LF->GetDashPhoneNumber(strTel1));
+			m_lstSearch.SetItemText(i, 4, LF->GetDashPhoneNumber(strMobile));
+			m_lstSearch.SetItemText(i, 5, strDong);
+			m_lstSearch.SetItemText(i, 6, strHistoryChargeName);
+			m_lstSearch.SetItemText(i, 7, strGroupName);
+			m_lstSearch.SetItemText(i, 8, dtRegister.Format("%Y-%m-%d"));
+			m_lstSearch.SetItemLong(i, nCNo);		
+			m_lstSearch.SetItemLong2(i, nMemCNo);		
 			pRs2.MoveNext();	
 		}
 		

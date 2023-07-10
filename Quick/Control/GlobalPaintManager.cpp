@@ -250,7 +250,7 @@ void CConsignDrawManager2::DrawItemCaption(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArg
 	CRect rc = pDrawArgs->rcItem;
 	CDC *pDC = pDrawArgs->pDC;	
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)pDrawArgs->pRow->GetRecord();
+	CXTPGridRecord *pRecord = pDrawArgs->pRow->GetRecord();
 
 	CRect rcTitle = rc; 
 	rcTitle.top = rc.top + 2; 

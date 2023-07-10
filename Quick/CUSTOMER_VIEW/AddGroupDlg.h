@@ -90,7 +90,7 @@ public:
 	CButton m_btnGNoAdd;
 	CButton m_btnGNoDel;
 	CButton m_btnGNoFull;
-	CDataBox m_lstGNo;
+	CXTPListCtrl2 m_lstGNo;
 
 	CMyStatic m_stcGNoReportCount;
 	CMyStatic m_stcLengthStatic;

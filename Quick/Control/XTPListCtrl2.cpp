@@ -6,6 +6,10 @@
 #include "XTPListCtrl2.h"
 #include "MyReportPaintManager.h"
 
+#include "MyXTpReportView.h"
+#include "TaskFrame.h"
+#include "ViewPrintPreview.h"
+
 CFont* CXTPListCtrl2::m_pfntBold = NULL;
 
 /*
@@ -188,43 +192,20 @@ void CXTPListCtrl2::SetExternalControl(CWnd *pFilterCombo, CWnd *pFilterEdit, CW
 	}
 }
 
-
-int CXTPListCtrl2::InsertColumn(int nCol, CString strColumnHeading, int nAlignment, int nWidth)
+CXTPGridColumn* CXTPListCtrl2::InsertColumn(int nCol, CString strColumnHeading, int nAlignment, int nWidth, bool auto_size)
 {
 	InitControl();
 
 	//LVCFMT_RIGHT -> DT_RIGHT, LVCFMT_CENTER -> DT_CENTER
-	if(nAlignment == 0x02) 
+	if (nAlignment == 0x02)
 		nAlignment = 0x01;
-	else if(nAlignment == 0x01)
+	else if (nAlignment == 0x01)
 		nAlignment = 0x02;
 
 
-	CXTPGridColumn *p1 = AddColumn(new CXTPGridColumn(nCol, strColumnHeading, nWidth, TRUE));
+	CXTPGridColumn* p1 = AddColumn(new CXTPGridColumn(nCol, strColumnHeading, nWidth, auto_size));
 	p1->SetAlignment(nAlignment);
-	if(m_pFilterCombo)
-	{
-		int nItem = m_pFilterCombo->AddString(strColumnHeading);
-		m_pFilterCombo->SetItemData(nItem, nCol);
-	}
-
-	return 0;
-}
-
-CXTPGridColumn * CXTPListCtrl2::InsertColumnReturn(int nCol, CString strColumnHeading, int nAlignment, int nWidth)
-{
-	InitControl();
-
-	//LVCFMT_RIGHT -> DT_RIGHT, LVCFMT_CENTER -> DT_CENTER
-	if(nAlignment == 0x02) 
-		nAlignment = 0x01;
-	else if(nAlignment == 0x01)
-		nAlignment = 0x02;
-
-
-	CXTPGridColumn *p1 = AddColumn(new CXTPGridColumn(nCol, strColumnHeading, nWidth, TRUE));
-	p1->SetAlignment(nAlignment);
-	if(m_pFilterCombo)
+	if (m_pFilterCombo)
 	{
 		int nItem = m_pFilterCombo->AddString(strColumnHeading);
 		m_pFilterCombo->SetItemData(nItem, nCol);
@@ -233,7 +214,7 @@ CXTPGridColumn * CXTPListCtrl2::InsertColumnReturn(int nCol, CString strColumnHe
 	return p1;
 }
 
-CXTPGridColumn* CXTPListCtrl2::InsertColumn1(int nCol, CString strColumnHeading, int nAlignment, int nWidth)
+CXTPGridColumn * CXTPListCtrl2::InsertColumnReturn(int nCol, CString strColumnHeading, int nAlignment, int nWidth)
 {
 	InitControl();
 
@@ -373,6 +354,7 @@ void CXTPListCtrl2::SetItemText(int nItem, int nSubItem, long nNumber, int nImag
 	
 //	SetItemText(nItem, nSubItem, ltoa(nNumber, buffer, 10), nImage);
 	CXTPListCtrlRecord2 *pRecord = (CXTPListCtrlRecord2*)GetRecords()->GetAt(nItem);
+	((CXTPGridRecordItemText*)(pRecord->GetItem(nSubItem)))->SetCaption(LF->GetStringFromLong(nNumber));
 	((CXTPGridRecordItemNumber*)(pRecord->GetItem(nSubItem)))->SetValue(nNumber);
 	if(nImage >= 0)
 	{
@@ -450,6 +432,17 @@ void CXTPListCtrl2::SetItemLong3(CXTPGridRecord *pRecord, long nData)
 	((CXTPListCtrlRecord2*)pRecord)->m_nLong3 = nData;
 }
 
+void CXTPListCtrl2::SetItemLong4(int nItem, long nData)
+{
+	CXTPListCtrlRecord2* pRecord = (CXTPListCtrlRecord2*)GetRecords()->GetAt(nItem);
+	pRecord->m_nLong4 = nData;
+}
+
+void CXTPListCtrl2::SetItemLong4(CXTPGridRecord* pRecord, long nData)
+{
+	((CXTPListCtrlRecord2*)pRecord)->m_nLong4 = nData;
+}
+
 void CXTPListCtrl2::SetItemDate(CXTPGridRecord *pRecord, COleDateTime dtDate)
 {
 	((CXTPListCtrlRecord2*)pRecord)->m_dtDate = dtDate;
@@ -461,6 +454,19 @@ void CXTPListCtrl2::SetItemDate(int nItem, COleDateTime dtDate)
 	if(pRecords == NULL) return;
 	CXTPListCtrlRecord2 *pRecord = (CXTPListCtrlRecord2*)GetRecords()->GetAt(nItem);
 	pRecord->m_dtDate = dtDate;
+}
+
+void CXTPListCtrl2::SetItemDate2(CXTPGridRecord* pRecord, COleDateTime dtDate)
+{
+	((CXTPListCtrlLogiRecord*)pRecord)->m_dtDate2 = dtDate;
+}
+
+void CXTPListCtrl2::SetItemDate2(int nItem, COleDateTime dtDate)
+{
+	CXTPGridRecords* pRecords = GetRecords();
+	if (pRecords == NULL) return;
+	CXTPListCtrlLogiRecord* pRecord = (CXTPListCtrlLogiRecord*)GetRecords()->GetAt(nItem);
+	pRecord->m_dtDate2 = dtDate;
 }
 
 void CXTPListCtrl2::SetItemDataText(int nItem, CString sData)
@@ -512,6 +518,19 @@ COleDateTime CXTPListCtrl2::GetItemDate(int nItem)
 }
 
 COleDateTime CXTPListCtrl2::GetItemDate(CXTPGridRecord *pRecord)
+{
+	return ((CXTPListCtrlRecord2*)pRecord)->m_dtDate;
+}
+
+COleDateTime CXTPListCtrl2::GetItemDate2(int nItem)
+{
+	CXTPGridRows* pRows = GetRows();
+	CXTPGridRow* pRow = pRows->GetAt(nItem);
+	CXTPListCtrlRecord2* pRecord = (CXTPListCtrlRecord2*)pRow->GetRecord();
+	return pRecord->m_dtDate;
+}
+
+COleDateTime CXTPListCtrl2::GetItemDate2(CXTPGridRecord* pRecord)
 {
 	return ((CXTPListCtrlRecord2*)pRecord)->m_dtDate;
 }
@@ -577,6 +596,19 @@ long CXTPListCtrl2::GetItemLong3(CXTPGridRecord *pRecord)
 	return ((CXTPListCtrlRecord2*)pRecord)->m_nLong3;
 }
 
+long CXTPListCtrl2::GetItemLong4(int nItem)
+{
+	CXTPGridRows* pRows = GetRows();
+	CXTPGridRow* pRow = pRows->GetAt(nItem);
+	CXTPListCtrlRecord2* pRecord = (CXTPListCtrlRecord2*)pRow->GetRecord();
+	return pRecord->m_nLong4;
+}
+
+long CXTPListCtrl2::GetItemLong4(CXTPGridRecord* pRecord)
+{
+	return ((CXTPListCtrlRecord2*)pRecord)->m_nLong4;
+}
+
 CString CXTPListCtrl2::GetItemDataText(CXTPGridRecord *pRecord)
 {
 	return ((CXTPListCtrlRecord2*)pRecord)->m_strText;
@@ -619,6 +651,16 @@ CString CXTPListCtrl2::GetItemDataText3(int nItem)
 int CXTPListCtrl2::GetItemCount()
 {
 	return GetRecords()->GetCount();
+}
+
+long CXTPListCtrl2::GetSelectedItemCount()
+{
+	CXTPGridSelectedRows* pRows = GetSelectedRows();
+
+	if (pRows == NULL) return 0;
+	if (pRows->GetCount() == 0) 0;
+
+	return pRows->GetCount();
 }
 
 BOOL CXTPListCtrl2::GetChecked(int nRow, int nCol)
@@ -875,6 +917,24 @@ void CXTPListCtrl2::InsertSearchAllColumn(int nCol)
 	m_sac.insert(SEARCH_ALL_COLUMN::value_type(nCol+1, nCol+1));
 }
 
+void CXTPListCtrl2::DeleteItem(int nItem, BOOL bRefresh)
+{
+	CXTPGridRows* pRows = GetRows();
+	CXTPGridRow* pRow = pRows->GetAt(nItem);
+
+	if (pRow)
+	{
+		CXTPListCtrlLogiRecord* pRecord = (CXTPListCtrlLogiRecord*)pRow->GetRecord();
+		if (pRecord)
+		{
+			pRecord->Delete();
+			if (bRefresh)
+			{
+				Populate();
+			}
+		}
+	}
+}
 
 void CXTPListCtrl2::DeleteAllItems()
 {
@@ -1435,4 +1495,373 @@ void CXTPListCtrl2::ChangeItemTextBold(int nRecordCount, int nItemIndex, BOOL bE
 		CXTPGridRecordItem* pItem = pRecord->GetItem(nItemIndex);
 		pItem->SetBold(bEnable);
 	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+CXTPPrintListCtrl::CXTPPrintListCtrl()
+{
+	m_pTaskFrame = FALSE;
+}
+
+void CXTPPrintListCtrl::MyPrint()
+{
+	if (m_pTaskFrame)
+	{
+		m_pTaskFrame->ActivateFrame(SW_SHOW);
+		return;
+	}
+
+	CCreateContext contextT;
+	// currently selected client if possible.
+	contextT.m_pLastView = NULL;
+	contextT.m_pCurrentFrame = NULL;
+	contextT.m_pNewDocTemplate = NULL;
+	contextT.m_pCurrentDoc = NULL;
+	contextT.m_pNewViewClass = RUNTIME_CLASS(CK2ReportView);
+
+
+	m_pTaskFrame = new CTaskFrame(this);
+	DWORD dwStyle = WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE;
+	m_pTaskFrame->LoadFrame(IDR_MAINFRAME, dwStyle, 0, &contextT);
+	m_pTaskFrame->InitialUpdateFrame(NULL, FALSE);
+
+	m_pTaskFrame->ShowWindow(SW_SHOW);
+	CK2ReportView* pView = (CK2ReportView*)m_pTaskFrame->GetActiveView();
+
+	for (int i = 0; i < this->GetColumns()->GetCount(); i++)
+	{
+		CXTPGridColumn* pOldCol = this->GetColumns()->GetAt(i);
+
+		CXTPGridColumn* pCol = new CXTPGridColumn(i, pOldCol->GetCaption(), pOldCol->GetWidth(), pOldCol->IsAutoSize(),
+			pOldCol->GetIconID(), pOldCol->IsSortable(), pOldCol->IsVisible());
+		pView->GetDataCtrl().AddColumn(pCol);
+		//pView->GetDataCtrl().AddColumn(new CXTPGridColumn(i,pOldCol->GetCaption(),pOldCol->GetWidth()));
+
+	}
+
+	pView->SendMessage(ID_FILE_PRINT, (WPARAM)pView->GetSafeHwnd());
+	pView->SendMessage(ID_FILE_PRINT_PREVIEW, (WPARAM)pView->GetSafeHwnd());
+	pView->SendMessage(ID_FILE_PRINT_SETUP, (WPARAM)pView->GetSafeHwnd());
+}
+
+void CXTPPrintListCtrl::MyPrintPreview()
+{
+	/*if (m_pTaskFrame)
+	{
+	m_pTaskFrame->ShowWindow(SW_SHOW);
+	return;
+	}*/
+	CCreateContext contextT;
+	// currently selected client if possible.
+	contextT.m_pLastView = NULL;
+	contextT.m_pCurrentFrame = NULL;
+	contextT.m_pNewDocTemplate = NULL;
+	contextT.m_pCurrentDoc = NULL;
+	contextT.m_pNewViewClass = RUNTIME_CLASS(CViewPrintPreview);
+
+	m_pTaskFrame = new CTaskFrame(this);
+	DWORD dwStyle = WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE;
+	m_pTaskFrame->LoadFrame(IDR_MAINFRAME, dwStyle, 0, &contextT);
+	m_pTaskFrame->InitialUpdateFrame(NULL, FALSE);
+	CViewPrintPreview* pView = (CViewPrintPreview*)m_pTaskFrame->GetActiveView();
+	pView->m_pDataBox = this;
+
+	pView->OnFilePrintPreview(m_pTaskFrame);
+
+	m_pTaskFrame->ShowWindow(SW_SHOW);
+
+
+}
+
+
+void CXTPPrintListCtrl::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
+{
+
+	ASSERT(m_aPageStart.GetSize() == 0);
+	m_aPageStart.Add(0);
+	ASSERT(m_aPageStart.GetSize() > 0);
+
+
+}
+void CXTPPrintListCtrl::OnPrint(CDC* pDC, CPrintInfo* pInfo)
+{
+
+	UINT nPage = pInfo->m_nCurPage;
+	ASSERT(nPage <= (UINT)m_aPageStart.GetSize());
+	UINT nIndex = m_aPageStart[nPage - 1];
+
+	// print as much as possible in the current page.
+	nIndex = PrintPage(pDC, pInfo, pInfo->m_rectDraw, nIndex);
+
+	// update pagination information for page just printed
+	if (nPage == (UINT)m_aPageStart.GetSize())
+	{
+		if ((int)nIndex < GetRows()->GetCount())
+			m_aPageStart.Add(nIndex);
+	}
+	else
+	{
+		ASSERT(nPage < (UINT)m_aPageStart.GetSize());
+		m_aPageStart[nPage] = nIndex;
+	}
+
+}
+void CXTPPrintListCtrl::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo)
+{
+	m_aPageStart.RemoveAll();
+}
+
+void CXTPPrintListCtrl::Print(CDC* pDC, CPrintInfo* pInfo)
+{
+
+
+}
+
+
+
+
+long CXTPPrintListCtrl::PrintPage(CDC* pDC, CPrintInfo* pInfo, CRect rcPage, long nIndexStart)
+{
+	rcPage.DeflateRect(20, 20);
+
+	pDC->Draw3dRect(rcPage, 0, 0);
+
+	int nHeaderHeight = GetPaintManager()->GetHeaderHeight();
+
+	CRect rcHeader(rcPage.left + 1, rcPage.top + 1, rcPage.right - 1, rcPage.top + 1 + nHeaderHeight);
+
+	PrintHeader(pDC, rcHeader);
+
+	CRect rcRows(rcHeader.left, rcHeader.bottom, rcHeader.right, rcPage.bottom - 1);
+	nIndexStart = PrintRows(pDC, rcRows, nIndexStart);
+
+	CRect rcFooter(rcPage.left, rcPage.bottom, rcPage.right, rcPage.bottom + 20);
+	PrintFooter(pDC, pInfo, rcFooter);
+
+
+	return nIndexStart;
+}
+
+void CXTPPrintListCtrl::PrintHeader(CDC* pDC, CRect rcHeader)
+{
+	GetPaintManager()->FillHeaderControl(pDC, rcHeader);
+
+	int x = rcHeader.left;
+
+	CXTPGridColumns* pColumns = GetColumns();
+
+	for (int i = 0; i < pColumns->GetCount(); i++)
+	{
+		CXTPGridColumn* pColumn = pColumns->GetAt(i);
+		if (!pColumn->IsVisible())
+			continue;
+
+		int nWidth = GetColumnWidth(pColumn, rcHeader.Width());
+		CRect rcItem(x, rcHeader.top, x + nWidth, rcHeader.bottom);
+
+		GetPaintManager()->DrawColumn(pDC, pColumn, GetReportHeader(), rcItem);
+
+		x += nWidth;
+	}
+}
+
+
+int CXTPPrintListCtrl::GetColumnWidth(CXTPGridColumn* pColumnTest, int nTotalWidth)
+{
+	CXTPGridColumns* pColumns = GetColumns();
+
+	int nColumnsWidth = 0;
+	CXTPGridColumn* pLastAutoColumn = NULL;
+
+	for (int nColumn = 0; nColumn < pColumns->GetCount(); nColumn++)
+	{
+		CXTPGridColumn* pColumn = pColumns->GetAt(nColumn);
+		if (!pColumn->IsVisible())
+			continue;
+
+		if (pColumn->IsAutoSize())
+		{
+			pLastAutoColumn = pColumn;
+			nColumnsWidth += pColumn->GetWidth();
+		}
+		else
+		{
+			nTotalWidth -= pColumn->GetWidth();
+		}
+	}
+
+	for (int i = 0; i < pColumns->GetCount(); i++)
+	{
+		CXTPGridColumn* pColumn = pColumns->GetAt(i);
+		if (!pColumn->IsVisible())
+			continue;
+
+		int nWidth = pColumn->GetWidth();
+
+		if (pColumn->IsAutoSize())
+		{
+			if (pColumn == pLastAutoColumn)
+			{
+				nWidth = max(nTotalWidth, pColumn->GetMinWidth());
+			}
+			else
+			{
+				nColumnsWidth = max(1, nColumnsWidth);
+
+				nWidth =
+					max(int(pColumn->GetWidth() * nTotalWidth / nColumnsWidth), pColumn->GetMinWidth());
+
+				nTotalWidth -= nWidth;
+				nColumnsWidth -= pColumn->GetWidth();
+			}
+		}
+
+		if (pColumn == pColumnTest)
+			return nWidth;
+	}
+
+	return 0;
+}
+
+
+int CXTPPrintListCtrl::PrintRows(CDC* pDC, CRect rcClient, long nIndexStart)
+{
+	int y = rcClient.top;
+	CXTPGridRows* pRows = GetRows();
+
+	for (; nIndexStart < pRows->GetCount(); nIndexStart++)
+	{
+		CXTPGridRow* pRow = pRows->GetAt(nIndexStart);
+
+		int nHeight = pRow->GetHeight(pDC, 0);	//xtp업데이트 과정에서, 0이 추가되었다.(0은 프린트할경우에만 유효함)
+		if (pRow->IsPreviewVisible())
+		{
+			CXTPGridRecordItemPreview* pItem = pRow->GetRecord()->GetItemPreview();
+			nHeight += pItem->GetPreviewHeight(pDC, pRow, rcClient.Width());
+		}
+
+		CRect rcRow(rcClient.left, y, rcClient.right, y + nHeight);
+
+		if (rcRow.bottom > rcClient.bottom)
+			break;
+
+		PrintRow(pDC, pRow, rcRow);
+
+		y += rcRow.Height();
+	}
+	return nIndexStart;
+
+}
+
+void CXTPPrintListCtrl::PrintRow(CDC* pDC, CXTPGridRow* pRow, CRect rcRow)
+{
+	if (pRow->IsGroupRow())
+	{
+		GetPaintManager()->DrawGroupRow(pDC, (CXTPGridGroupRow*)pRow, rcRow, NULL); //xtp업데이트과정에서 NULL추가함
+		return;
+	}
+
+
+	XTP_REPORTRECORDITEM_DRAWARGS drawArgs;
+	drawArgs.pDC = pDC;
+	drawArgs.pControl = this;
+	drawArgs.pRow = pRow;
+	int nIndentWidth = this->GetHeaderIndent();
+	CXTPGridPaintManager* pPaintManager = GetPaintManager();
+
+	CXTPGridColumns* pColumns = GetColumns();
+	int nColumnCount = pColumns->GetCount();
+
+	// paint row background
+	pPaintManager->FillRow(pDC, pRow, rcRow);
+
+	CRect rcItem(rcRow);
+	rcItem.bottom = rcItem.top + pPaintManager->GetRowHeight(pDC, pRow);
+
+	CXTPGridRecord* pRecord = pRow->GetRecord();
+	if (pRecord) // if drawing record, not group
+	{
+		int x = rcRow.left;
+		// paint record items
+		for (int nColumn = 0; nColumn < nColumnCount; nColumn++)
+		{
+			CXTPGridColumn* pColumn = pColumns->GetAt(nColumn);
+			if (pColumn && pColumn->IsVisible() && pRow->IsItemsVisible())
+			{
+				rcItem.left = x;
+				x = rcItem.right = rcItem.left + GetColumnWidth(pColumn, rcRow.Width());
+				if (nColumn == 0)
+					rcItem.left += nIndentWidth;
+
+				CRect rcGridItem(rcItem);
+				rcGridItem.left--;
+
+				CXTPGridRecordItem* pItem = pRecord->GetItem(pColumn);
+
+				if (pItem)
+				{
+
+					// draw item
+					drawArgs.pColumn = pColumn;
+					drawArgs.rcItem = rcItem;
+					drawArgs.nTextAlign = pColumn->GetAlignment();
+					drawArgs.pItem = pItem;
+					// draw item
+					pItem->Draw(&drawArgs);
+				}
+
+				pPaintManager->DrawGrid(pDC, xtpReportOrientationHorizontal, rcGridItem);
+			}
+		}
+
+		if (nIndentWidth > 0)
+		{
+			// draw indent column
+			CRect rcIndent(rcRow);
+			rcIndent.right = rcRow.left + nIndentWidth;
+			pPaintManager->FillIndent(pDC, rcIndent);
+		}
+
+		if (pRow->IsPreviewVisible())
+		{
+			CXTPGridRecordItemPreview* pItem = pRecord->GetItemPreview();
+			int nPreviewHeight = pItem->GetPreviewHeight(pDC, pRow, rcRow.Width());
+
+			CRect rcPreviewItem(rcRow);
+			rcPreviewItem.DeflateRect(nIndentWidth, rcPreviewItem.Height() - nPreviewHeight, 0, 0);
+
+			drawArgs.rcItem = rcPreviewItem;
+			drawArgs.nTextAlign = DT_LEFT;
+			drawArgs.pItem = pItem;
+			drawArgs.pColumn = NULL;
+
+			drawArgs.pItem->Draw(&drawArgs);
+		}
+	}
+
+	BOOL bGridVisible = pPaintManager->IsGridVisible(FALSE);
+
+	CRect rcFocus(rcRow.left, rcRow.top, rcRow.right, rcRow.bottom - (bGridVisible ? 1 : 0));
+
+	if (pRow->GetIndex() < GetRows()->GetCount() - 1 && nIndentWidth > 0)
+	{
+		CXTPGridRow* pNextRow = GetRows()->GetAt(pRow->GetIndex() + 1);
+		ASSERT(pNextRow);
+		rcFocus.left = rcRow.left + min(nIndentWidth, pPaintManager->m_nTreeIndent * pNextRow->GetTreeDepth());
+	}
+
+	pPaintManager->DrawGrid(pDC, xtpReportOrientationHorizontal, rcFocus);
+}
+
+void CXTPPrintListCtrl::PrintFooter(CDC* pDC, CPrintInfo* pInfo, CRect rcFooter)
+{
+	CFont* pOldFont = pDC->SelectObject(&GetPaintManager()->m_fontText);
+
+	CString strPage;
+	strPage.Format(_T("%i"), pInfo->m_nCurPage);
+	pDC->SetTextColor(0);
+	pDC->DrawText(strPage, rcFooter, DT_CENTER | DT_SINGLELINE | DT_NOPREFIX);
+
+	pDC->SelectObject(pOldFont);
 }

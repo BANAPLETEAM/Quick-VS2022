@@ -35,7 +35,6 @@ public:
 	afx_msg void OnBnClickedIncreseColBtn();
 	afx_msg void OnLvnDeleteallitemsListReport(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMClickListReport(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnNMDblclkListReport(NMHDR *pNMHDR, LRESULT *pResult);
 
 	DECLARE_MESSAGE_MAP()
 

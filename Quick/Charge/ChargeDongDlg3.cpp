@@ -2125,7 +2125,7 @@ void CChargeDongDlg3::SetRemoveRefreshList()
 {
 	
 	
-	m_lstStart.DeleteAllItem();
+	m_lstStart.DeleteAllItems();
 	m_lstDest.GetRecords()->RemoveAll();
 
 	m_vecDest.clear();

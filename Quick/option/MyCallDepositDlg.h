@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "DataBox.h"
+
 
 #define  MAX_SUB_COUNT 5
 #define  MAX_MAIN_COUNT 3
@@ -40,7 +40,7 @@ public:
 };
 
 
-class CMyCallRiderRecord : public CMyXTPGridRecord
+class CMyCallRiderRecord : public CXTPGridRecord
 {
 
 
@@ -119,7 +119,7 @@ public:
 	
 	
 	
-	CDataBox m_ChargeList;
+	CXTPListCtrl2 m_ChargeList;
 
 	CComboBox m_cmbBranch;
 

@@ -53,7 +53,7 @@ void CAddGroupMemberDlg::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	CXTPGridSelectedRows *pRows = m_lstCustomer.GetSelectedRows();
 	if(pRows == NULL) return;
 
-	long nCNo = m_lstCustomer.GetItemDataLong(pRows->GetAt(0)->GetRecord()->GetIndex());
+	long nCNo = m_lstCustomer.GetItemLong(pRows->GetAt(0)->GetRecord()->GetIndex());
 
 	CCustomerPage11::OpenCustomerDlgByCNo(nCNo);	
 }
@@ -74,18 +74,15 @@ BOOL CAddGroupMemberDlg::OnInitDialog()
 	m_cmbSearch.SetCurSel(2);
 
 	m_lstCustomer.SetExtendedStyle(0);
-	m_lstCustomer.AddHeader(0,TRUE,"", "고객No", 50 );
-	m_lstCustomer.AddHeader(1,TRUE,"", "그룹명", 80 );
-	m_lstCustomer.AddHeader(2,TRUE,"", "상호명", 130 );
-	m_lstCustomer.AddHeader(3,TRUE,"", "부서", 70 );
-	m_lstCustomer.AddHeader(4,TRUE,"", "담당자", 70 );
-	m_lstCustomer.AddHeader(5,TRUE,"", "전화1", 80 );
-	//m_lstCustomer.AddHeader(6,TRUE,"", "핸드폰", 80 );
-	m_lstCustomer.AddHeader(6,TRUE,"", "기준동", 70 );
-	m_lstCustomer.AddHeader(7,TRUE,"", "위치정보", 50 );
-	
-	m_lstCustomer.m_bHeader = TRUE;
-	
+	m_lstCustomer.InsertColumn(0, "고객No", LVCFMT_CENTER, 40);
+	m_lstCustomer.InsertColumn(1, "그룹명", LVCFMT_LEFT, 80);
+	m_lstCustomer.InsertColumn(2, "상호명", LVCFMT_LEFT, 120);
+	m_lstCustomer.InsertColumn(3, "부서", LVCFMT_LEFT, 50);
+	m_lstCustomer.InsertColumn(4, "담당자", LVCFMT_LEFT, 50);
+	m_lstCustomer.InsertColumn(5, "전화1", LVCFMT_LEFT, 100);
+	m_lstCustomer.InsertColumn(6, "기준동", LVCFMT_LEFT, 70);
+	m_lstCustomer.InsertColumn(7, "위치정보", LVCFMT_LEFT, 50);
+
     m_lstCustomer.Populate();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -154,7 +151,7 @@ void CAddGroupMemberDlg::RefreshCustomer()
 	long	nCNo, nGNo,nID,nDisCount, nItem = 0;
 	long nPreCNo = -1;
 	// 0 전화번호;1고객번호 2 법인명(상호); 3 부서명; 4 담당자; 5 등록일; 6 오더일자
-	m_lstCustomer.DeleteAllItem();
+	m_lstCustomer.DeleteAllItems();
 	if(m_strSearch.IsEmpty()) 
 		return;
 
@@ -195,19 +192,16 @@ void CAddGroupMemberDlg::RefreshCustomer()
 		if(nCNo == nPreCNo)
 			nID = 0;
 
-		m_lstCustomer.MyAddItem(LF->RemoveZero(LF->GetStringFromLong(nID))); 
-		m_lstCustomer.MyAddItem(m_cg.GetGroupData(nGNo) == NULL? "" : m_cg.GetGroupData(nGNo)->strGroupName);
-		m_lstCustomer.MyAddItem(strCompany);
-		m_lstCustomer.MyAddItem(strDepart);
-		m_lstCustomer.MyAddItem(strName);
-		m_lstCustomer.MyAddItem(strTel1);
-		//m_lstCustomer.MyAddItem(strMobile);
-		m_lstCustomer.MyAddItem(strDong);
-		m_lstCustomer.MyAddItem(strLocation);
-
-		m_lstCustomer.InsertItemDataLong(nCNo);
-		m_lstCustomer.InsertItemDataLong2(nGNo);
-		m_lstCustomer.EndItem();
+		m_lstCustomer.InsertItem(nItem, LF->RemoveZero(LF->GetStringFromLong(nID)));
+		m_lstCustomer.SetItemText(nItem, 1, m_cg.GetGroupData(nGNo) == NULL? "" : m_cg.GetGroupData(nGNo)->strGroupName);
+		m_lstCustomer.SetItemText(nItem, 2, strCompany);
+		m_lstCustomer.SetItemText(nItem, 3, strDepart);
+		m_lstCustomer.SetItemText(nItem, 4, strName);
+		m_lstCustomer.SetItemText(nItem, 5, strTel1);
+		m_lstCustomer.SetItemText(nItem, 6, strDong);
+		m_lstCustomer.SetItemText(nItem, 7, strLocation);
+		m_lstCustomer.SetItemLong(nItem, nCNo);
+		m_lstCustomer.SetItemLong2(nItem, nGNo);
 
 		nPreCNo = nCNo;
 

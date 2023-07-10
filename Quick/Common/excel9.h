@@ -1591,12 +1591,12 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 // Windows wrapper class
 
-class Windows : public COleDispatchDriver
+class WindowsExcel : public COleDispatchDriver
 {
 public:
-	Windows() {}		// Calls COleDispatchDriver default constructor
-	Windows(LPDISPATCH pDispatch) : COleDispatchDriver(pDispatch) {}
-	Windows(const Windows& dispatchSrc) : COleDispatchDriver(dispatchSrc) {}
+	WindowsExcel() {}		// Calls COleDispatchDriver default constructor
+	WindowsExcel(LPDISPATCH pDispatch) : COleDispatchDriver(pDispatch) {}
+	WindowsExcel(const WindowsExcel& dispatchSrc) : COleDispatchDriver(dispatchSrc) {}
 
 // Attributes
 public:

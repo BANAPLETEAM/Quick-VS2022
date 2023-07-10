@@ -1,7 +1,5 @@
 #pragma once
 
-
-//#include "Explorer.h"
 #include "WebPage.h"
 
 class CMakeGroupReportSendDlg : public CDHtmlDialog
@@ -33,7 +31,6 @@ public:
 	long m_nGroupReportID;
 	BOOL m_bPayMent;
 	BOOL m_bBillCollection;
-	//CExplorer m_Explorer;
 	COleDateTime m_dtPayMent;
 	COleDateTime m_dtBillCollection;
 	CString m_strEmail;

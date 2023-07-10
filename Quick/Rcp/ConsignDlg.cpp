@@ -59,30 +59,36 @@ BOOL CConsignDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
+	m_Data.AddColumn(new CXTPGridColumn(0, "터미날,역", 90))->SetAlignment(DT_LEFT);
+	m_Data.AddColumn(new CXTPGridColumn(1, "Km", 45))->SetAlignment(DT_RIGHT);
+	m_Data.AddColumn(new CXTPGridColumn(2, "운송차량", 75))->SetAlignment(DT_CENTER);
+	m_Data.AddColumn(new CXTPGridColumn(3, "세부정보", 80))->SetAlignment(DT_LEFT);
+	m_Data.AddColumn(new CXTPGridColumn(4, "도착지", 80))->SetAlignment(DT_LEFT);
+	m_Data.AddColumn(new CXTPGridColumn(5, "금액", 55))->SetAlignment(DT_RIGHT);
+	m_Data.AddColumn(new CXTPGridColumn(6, "전화번호", 80))->SetAlignment(DT_LEFT);
+	m_Data.AddColumn(new CXTPGridColumn(7, "첫차", 60))->SetAlignment(DT_LEFT);
+	m_Data.AddColumn(new CXTPGridColumn(8, "막차", 60))->SetAlignment(DT_LEFT);
+	m_Data.AddColumn(new CXTPGridColumn(9, "배차간격", 80))->SetAlignment(DT_LEFT);
+	m_Data.AllowEdit(TRUE);
+	m_Data.Populate();
+
 	m_edtDest.SetWindowText(m_sDest);
-	
-		
-	//RefreshListArea();
 	m_edtDest.SetFocus();
+
 	SetTimer(DEST_FOCUS,700,NULL);
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	
+	return TRUE;
 }
+
 void CConsignDlg::RefreshListTerminal()
 {
-	m_Data.DeleteAllItem();
+	m_Data.DeleteAllItems();
 	UpdateData();
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_consign_terminal");
 	pCmd.AddParameter(m_sTerminal);
 	if(!pRs.Execute(&pCmd)) return;
-
-	CStringArray sArray; CUIntArray nArray;
-	sArray.Add("고속버스");			nArray.Add(0);
-	sArray.Add("시외버스");			nArray.Add(1);
-	sArray.Add("KTX"); 				nArray.Add(2);
-	sArray.Add("기차"); 			nArray.Add(3);
 
 	int nItem =0;
 	while(!pRs.IsEOF())
@@ -111,22 +117,11 @@ void CConsignDlg::RefreshListTerminal()
 		else
 			sKm = "N/A";
 
-		m_Data.MyAddItem(0,sTerminalName, "터미날,역", 90, FALSE,DT_LEFT );
-		m_Data.MyAddItem(1,sKm,		"Km",45, FALSE, DT_RIGHT);
-		m_Data.MyComboAddItem(2,sArray,nArray, "운송차량", 75,DT_CENTER,nTranWay );
-		m_Data.MyAddItem(3,sWayEtc, "세부정보",80, FALSE, DT_LEFT);
-		m_Data.MyAddItem(4,sDest, "도착지",80, FALSE, DT_LEFT);
-		m_Data.MyAddItem(5,LF->GetMyNumberFormat(nCharge), "금액",55, FALSE, DT_RIGHT);
-
-		m_Data.MyAddItem(6,sTel, "전화번호",80, FALSE, DT_LEFT);
-		m_Data.MyAddItem(7,sStart, "첫차",60, FALSE, DT_LEFT);
-		m_Data.MyAddItem(8,sEnd, "막차",60, FALSE, DT_LEFT);
-		m_Data.MyAddItem(9,sInterval, "배차간격",80, FALSE, DT_LEFT);
-		m_Data.InsertItemDataLong(nID); 
-		m_Data.InsertItemDataLong2(nCharge);
-		m_Data.InsertItemDataString(sEtc);
-		m_Data.EndItem();
-		m_Data.AllowEdit(TRUE);
+		CConsignRecord* record = new CConsignRecord(sTerminalName, sKm, nTranWay, sWayEtc, sDest, LF->GetMyNumberFormat(nCharge), sTel, sStart, sEnd, sInterval);
+		m_Data.AddRecord(record);
+		m_Data.SetItemLong(record, nID);
+		m_Data.SetItemLong2(record, nCharge);
+		m_Data.SetItemDataText(record, sEtc);
 		if(nItem == 0)
 			m_Data.SetSelectedRow(0);
 		nItem++;
@@ -139,7 +134,7 @@ void CConsignDlg::RefreshListTerminal()
 void CConsignDlg::RefreshListArea()
 {
 
-	m_Data.DeleteAllItem();
+	m_Data.DeleteAllItems();
 	UpdateData();
 
 	CMkRecordset pRs(m_pMkDb);
@@ -147,11 +142,6 @@ void CConsignDlg::RefreshListArea()
 	pCmd.AddParameter(m_sDest);
 	if(!pRs.Execute(&pCmd)) return;
 
-	CStringArray sArray; CUIntArray nArray;
-	sArray.Add("고속버스");			nArray.Add(0);
-	sArray.Add("시외버스");			nArray.Add(1);
-	sArray.Add("KTX"); 				nArray.Add(2);
-	sArray.Add("기차"); 			nArray.Add(3);
 	int nItem =0;
 	while(!pRs.IsEOF())
 	{
@@ -178,24 +168,13 @@ void CConsignDlg::RefreshListArea()
 		}
 		else
 			sKm = "N/A";
-		
 
-		m_Data.MyAddItem(0,sTerminalName, "터미날,역", 90, FALSE,DT_LEFT );
-		m_Data.MyAddItem(1,sKm,		"Km",45, FALSE, DT_RIGHT);
-		m_Data.MyComboAddItem(2,sArray,nArray, "운송차량", 75,DT_CENTER,nTranWay );
-		m_Data.MyAddItem(3,sWayEtc, "세부정보",80, FALSE, DT_LEFT);
-		m_Data.MyAddItem(4,sDest, "도착지",80, FALSE, DT_LEFT);
-		m_Data.MyAddItem(5,LF->GetMyNumberFormat(nCharge), "금액",55, FALSE, DT_RIGHT);
-		
-		m_Data.MyAddItem(6,sTel, "전화번호",80, FALSE, DT_LEFT);
-		m_Data.MyAddItem(7,sStart, "첫차",60, FALSE, DT_LEFT);
-		m_Data.MyAddItem(8,sEnd, "막차",60, FALSE, DT_LEFT);
-		m_Data.MyAddItem(9,sInterval, "배차간격",80, FALSE, DT_LEFT);
-		m_Data.InsertItemDataLong(nID); 
-		m_Data.InsertItemDataLong2(nCharge);
-		m_Data.InsertItemDataString(sEtc);
-		m_Data.EndItem();
-		m_Data.AllowEdit(TRUE);
+		CConsignRecord* record = new CConsignRecord(sTerminalName, sKm, nTranWay, sWayEtc, sDest, LF->GetMyNumberFormat(nCharge), sTel, sStart, sEnd, sInterval);
+		m_Data.AddRecord(record);
+		m_Data.SetItemLong(record, nID);
+		m_Data.SetItemLong2(record, nCharge);
+		m_Data.SetItemDataText(record, sEtc);
+
 		pRs.MoveNext();
 		if(nItem == 0)
 			m_Data.SetSelectedRow(0);
@@ -227,43 +206,35 @@ void CConsignDlg::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * result)
 	if(m_Data.GetItemCount() <= 0)
 		return;
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)m_Data.GetSelectedRecord();
-	m_edtEtc.SetWindowText(pRecord->GetItemDataString());
-
-
+	CConsignRecord* pRecord = (CConsignRecord*)m_Data.GetFirstSelectedRecord();
+	m_edtEtc.SetWindowText(m_Data.GetItemDataText(pRecord));
 }
+
 void CConsignDlg::OnReportItemChange(NMHDR * pNotifyStruct, LRESULT * result)
 {
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)m_Data.GetSelectedRecord();
-	m_nCharge = pRecord->GetItemDataLong2();
+	CConsignRecord* pRecord = (CConsignRecord*)m_Data.GetFirstSelectedRecord();
+	m_nCharge = m_Data.GetItemLong2(pRecord);
 }
+
 void CConsignDlg::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * result)
 {
 	if(m_Data.GetItemCount() <= 0)
 		return;
 
 	XTP_NM_REPORTRECORDITEM* pItemNotify = (XTP_NM_REPORTRECORDITEM*)pNotifyStruct;
-
-	//CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pItemNotify->pRow->GetRecord();
-
-	
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)m_Data.GetSelectedRecord();
-	m_nCharge = pRecord->GetItemDataLong2();
+	CConsignRecord* pRecord = (CConsignRecord*)m_Data.GetFirstSelectedRecord();
+	m_nCharge = m_Data.GetItemLong2(pRecord);
 	OnOK();
-
 }
-
 
 void CConsignDlg::OnBnClickedSendOk()
 {
-
 	if(m_Data.GetItemCount() <= 0)
 		return;
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)m_Data.GetSelectedRecord();
-	m_nCharge = pRecord->GetItemDataLong2();
+	CConsignRecord* pRecord = (CConsignRecord*)m_Data.GetFirstSelectedRecord();
+	m_nCharge = m_Data.GetItemLong2(pRecord);
 	OnOK();
-
 }
 
 void CConsignDlg::OnBnClickedNewBtn()
@@ -278,9 +249,10 @@ void CConsignDlg::OnBnClickedModifyBtn()
 	if(m_Data.GetItemCount() <= 0)
 		return;
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)m_Data.GetSelectedRecord();
+	CConsignRecord* pRecord = (CConsignRecord*)m_Data.GetFirstSelectedRecord();
+
 	CConsignModiDlg dlg;
-	dlg.m_nMod = pRecord->GetItemDataLong();
+	dlg.m_nMod = m_Data.GetItemLong(pRecord);
 	dlg.DoModal();
 }
 

@@ -36,10 +36,10 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	CDataBox m_BaranchList;
-	CDataBox m_SaveList;
+	CXTPListCtrl2 m_BaranchList;
+	CXTPListCtrl2 m_SaveList;
 
-	CDataBox m_NoAccountList;
+	CXTPListCtrl2 m_NoAccountList;
 
 	CMyButton m_RefreshBtn;
 

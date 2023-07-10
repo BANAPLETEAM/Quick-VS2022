@@ -144,7 +144,6 @@ CChargeHistoryMemDlg::CChargeHistoryMemDlg(CWnd* pParent /*=NULL*/)
 	m_bInit = FALSE;
 	m_dtInit.m_dt = 0;
 	m_nCNo = 0;
-	//m_sChargeName = "";
 	m_nResult = 0;
 	m_nMemCNo = 0;
 	m_nInitMemCNo = 0;
@@ -212,6 +211,15 @@ BOOL CChargeHistoryMemDlg::OnInitDialog()
 	CMyDialog::OnInitDialog();
 
 	//m_edtMainSearch.SetWindowText(m_sChargeName);
+
+	int nCol = 0;
+	m_lstMain.InsertColumn(nCol++, "노출", DT_CENTER, 45);
+	m_lstMain.InsertColumn(nCol++, "요금명", DT_LEFT, 170);
+	m_lstMain.InsertColumn(nCol++, "등록일", DT_LEFT, 60);
+	m_lstMain.InsertColumn(nCol++, "고객수", DT_RIGHT, 40);
+	m_lstMain.InsertColumn(nCol++, "요금갯수", DT_RIGHT, 40);
+	m_lstMain.InsertColumn(nCol++, "내용", DT_LEFT, 150);
+	m_lstMain.Populate();
 	
 	RefreshMainList();
 	m_cmbViewType.SetCurSel(0);
@@ -221,8 +229,7 @@ BOOL CChargeHistoryMemDlg::OnInitDialog()
 	m_btnWorkSub.InitButton(this);
 	m_chkShuttle.SetCheck(TRUE);
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+	return TRUE;
 }
 
 void CChargeHistoryMemDlg::RefreshMainList()
@@ -231,7 +238,7 @@ void CChargeHistoryMemDlg::RefreshMainList()
 		m_cmbViewType.SetCurSel(0);
 
 	if(m_lstMain.GetRecords()->GetCount() > 0)
-		m_lstMain.DeleteAllItem();
+		m_lstMain.DeleteAllItems();
 
 	LU->LoadMemberCharge();
 
@@ -240,19 +247,18 @@ void CChargeHistoryMemDlg::RefreshMainList()
 	for(it = m_mapMemberCharge1.begin(); it != m_mapMemberCharge1.end(); ++it)
 	{		
 		int nCol = 0;
-		m_lstMain.MyCheckAddItem(nCol++, (*it).second->bView, "노출", 45, DT_CENTER, TRUE);
-		m_lstMain.MyAddItem(nCol++,(*it).second->strMemCompany, "요금명", 170, FALSE, DT_LEFT);			
-		m_lstMain.MyAddItem(nCol++,(*it).second->dtRegister.Format("%Y-%m-%d"), "등록일", 60, FALSE, DT_LEFT);
-		m_lstMain.MyAddItem(nCol++,LF->GetMyNumberFormat((*it).second->nCusCount), "고객수", 40, FALSE, DT_RIGHT);
-		m_lstMain.MyAddItem(nCol++,LF->GetMyNumberFormat( (*it).second->nChargeCount ), "요금갯수", 40, FALSE, DT_RIGHT);
-		CMyXTPGridRecord *pRecord =m_lstMain.MyAddItem(nCol++,(*it).second->strMemo, "내용", 150, FALSE, DT_LEFT);		
-		m_lstMain.InsertItemDataLong((*it).second->nMemCNo);
-		m_lstMain.InsertItemDataLong2((*it).second->nCompany);
-		m_lstMain.InsertItemDataLong3((*it).second->nChargeCount);
+		m_lstMain.InsertCheckItem(nRow, "", -1, (*it).second->bView);
+		m_lstMain.SetItemText(nRow, 1, (*it).second->strMemCompany);
+		m_lstMain.SetItemText(nRow, 2, (*it).second->dtRegister.Format("%Y-%m-%d"));
+		m_lstMain.SetItemText(nRow, 3, LF->GetMyNumberFormat((*it).second->nCusCount));
+		m_lstMain.SetItemText(nRow, 4, LF->GetMyNumberFormat( (*it).second->nChargeCount));
+		m_lstMain.SetItemText(nRow, 5, (*it).second->strMemo);
 
-		m_lstMain.InsertItemDataString((*it).second->strMemCompany);
-		m_lstMain.InsertItemDataString2((*it).second->strMemo);
-		m_lstMain.EndItem();
+		m_lstMain.SetItemLong(nRow, (*it).second->nMemCNo);
+		m_lstMain.SetItemLong2(nRow, (*it).second->nCompany);
+		m_lstMain.SetItemLong3(nRow, (*it).second->nChargeCount);
+		m_lstMain.SetItemDataText(nRow, (*it).second->strMemCompany);
+		m_lstMain.SetItemDataText2(nRow, (*it).second->strMemo);
 
 		if(m_nMemCNo == (*it).second->nMemCNo)
 			nSelectRow = nRow;
@@ -264,25 +270,57 @@ void CChargeHistoryMemDlg::RefreshMainList()
 
 }
 
+void CChargeHistoryMemDlg::MakeColumn(UINT type)
+{
+	m_lstSub.GetReportHeader()->AllowColumnResize(FALSE);
+	m_lstSub.GetReportHeader()->AllowColumnRemove(FALSE);
+	m_lstSub.GetReportHeader()->AllowColumnReorder(FALSE);
 
+	if (type == ENUM_HIS_CHARGE) {
+		m_lstSub.InsertColumn(0, "No", DT_LEFT, 30)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(1, "구분", DT_LEFT, 45)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(2, "시", DT_LEFT, 35)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(3, "출발구", DT_LEFT, 50)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(4, "출발동", DT_LEFT, 60)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(5, "->", DT_LEFT, 27)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(6, "시", DT_LEFT, 35)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(7, "도착구", DT_LEFT, 50)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(8, "도착동", DT_LEFT, 60)->SetEditable(FALSE);
+		m_lstSub.InsertColumn(9, "오토", DT_RIGHT, 50)->SetEditable(TRUE);
+		m_lstSub.InsertColumn(10, "다마", DT_RIGHT, 50)->SetEditable(TRUE);
+		m_lstSub.InsertColumn(11, "봉고", DT_RIGHT, 50)->SetEditable(TRUE);
+		m_lstSub.InsertColumn(12, "트럭", DT_RIGHT, 50)->SetEditable(TRUE);
+		m_lstSub.AllowEdit(TRUE);
+	}
+	else if (type == ENUM_HIS_LIST) {
+		m_lstSub.InsertColumn(0, "회사명", DT_LEFT, 100);
+		m_lstSub.InsertColumn(1, "부서명", DT_LEFT, 90);
+		m_lstSub.InsertColumn(2, "담당자", DT_LEFT, 90);
+		m_lstSub.InsertColumn(3, "대표번호", DT_LEFT, 80);
+		m_lstSub.InsertColumn(4, "휴대폰", DT_LEFT, 80);
+		m_lstSub.InsertColumn(5, "해당동", DT_LEFT, 80);
+		m_lstSub.InsertColumn(6, "등록일", DT_LEFT, 90);
+		m_lstSub.AllowEdit(FALSE);
+	}
+
+	m_lstSub.Populate();
+}
 
 void CChargeHistoryMemDlg::RefreshSubCharge()
 {	
 	if(m_cmbViewType.GetCurSel() == 0)
 		m_cmbViewType.SetCurSel(1);
 
+	m_lstSub.ResetContent();
+	m_lstSub.GetColumns()->Clear();
 
-	m_lstSub.DeleteAllColumns();
-
-
-	if(m_lstSub.GetRecords()->GetCount() > 0)
-		m_lstSub.DeleteAllItem();
+	MakeColumn(ENUM_HIS_CHARGE);
 
 	if(m_lstMain.GetRecords()->GetCount() == 0)
 		return;
 
-	long nMemCNo = m_lstMain.GetSelectedRecord(0)->GetItemDataLong();
-	long nChargeInputCount = m_lstMain.GetSelectedRecord(0)->GetItemDataLong3();
+	long nMemCNo = m_lstMain.GetItemLong(m_lstMain.GetFirstSelectedRecord());
+	long nChargeInputCount = m_lstMain.GetItemLong3(m_lstMain.GetFirstSelectedRecord());
 	if(nChargeInputCount > 300000)
 	{
 		MessageBox("요금등록이 3만개 이상은 요금창으로 작업하세요");
@@ -296,10 +334,7 @@ void CChargeHistoryMemDlg::RefreshSubCharge()
 
 	pRs.Execute(&pCmd);
 	COleDateTime dtChangeTime;
-	m_lstSub.GetReportHeader()->AllowColumnResize(FALSE);
-	m_lstSub.GetReportHeader()->AllowColumnRemove(FALSE);
-	m_lstSub.GetReportHeader()->AllowColumnReorder(FALSE);
-	m_lstSub.AllowEdit(TRUE);
+	
 
 	long nMemCNoA, nType, nStartID, nDestID,nCompany, 
 		nMotoCharge, nDamaCharge, nBonggoCharge, nTruckCharge;
@@ -327,27 +362,22 @@ void CChargeHistoryMemDlg::RefreshSubCharge()
 		pRs.GetFieldValue("sDestGugun", strDestGugun);		
 		pRs.GetFieldValue("sDestDong", strDestDong);		
 
-		int nCol = 0;
-		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(i + 1), "No", 30, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(nCol++, strType, "구분", 45, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(nCol++, strStartSido, "시", 35, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(nCol++, strStartGugun, "출발구", 50, FALSE, DT_LEFT);		
-		m_lstSub.MyAddItem(nCol++, strStartDong, "출발동", 60, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(nCol++, "->", "->", 27, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(nCol++, strDestSido, "시", 35, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(nCol++, strDestGugun, "도착구", 50, FALSE, DT_LEFT);		
-		m_lstSub.MyAddItem(nCol++, strDestDong, "도착동", 60, FALSE, DT_LEFT);
-
-		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(nMotoCharge), "오토", 50, TRUE, DT_RIGHT);
-		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(nDamaCharge), "다마", 50, TRUE, DT_RIGHT);
-		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(nBonggoCharge), "봉고", 50, TRUE, DT_RIGHT);
-		m_lstSub.MyAddItem(nCol++, LF->GetMyNumberFormat(nTruckCharge), "트럭", 50, TRUE, DT_RIGHT);
-
-		m_lstSub.InsertItemDataLong(nStartID);		
-		m_lstSub.InsertItemDataLong2(nDestID);
-		
-		m_lstSub.EndItem();
-
+		int nCol = 1;
+		m_lstSub.InsertItem(0, LF->GetMyNumberFormat(i + 1));
+		m_lstSub.SetItemText(i, nCol++, strType);
+		m_lstSub.SetItemText(i, nCol++, strStartSido);
+		m_lstSub.SetItemText(i, nCol++, strStartGugun);
+		m_lstSub.SetItemText(i, nCol++, strStartDong);
+		m_lstSub.SetItemText(i, nCol++, "->");
+		m_lstSub.SetItemText(i, nCol++, strDestSido);
+		m_lstSub.SetItemText(i, nCol++, strDestGugun);
+		m_lstSub.SetItemText(i, nCol++, strDestDong);
+		m_lstSub.SetItemText(i, nCol++, LF->GetMyNumberFormat(nMotoCharge));
+		m_lstSub.SetItemText(i, nCol++, LF->GetMyNumberFormat(nDamaCharge));
+		m_lstSub.SetItemText(i, nCol++, LF->GetMyNumberFormat(nBonggoCharge));
+		m_lstSub.SetItemText(i, nCol++, LF->GetMyNumberFormat(nTruckCharge));
+		m_lstSub.SetItemLong(i, nStartID);
+		m_lstSub.SetItemLong2(i, nDestID);
 		pRs.MoveNext();
 	}
 
@@ -356,10 +386,10 @@ void CChargeHistoryMemDlg::RefreshSubCharge()
 
 void CChargeHistoryMemDlg::RefreshSubList()
 {	
-	m_lstSub.DeleteAllColumns();
+	m_lstSub.ResetContent();
+	m_lstSub.GetColumns()->Clear();
 
-	if(m_lstSub.GetRecords()->GetCount() > 0)
-		m_lstSub.DeleteAllItem();
+	MakeColumn(ENUM_HIS_LIST);
 
 	CMkCommand pCmd(m_pMkDb, "select_history_charge_member_sub2");
 	CMkRecordset pRs(m_pMkDb);
@@ -390,16 +420,15 @@ void CChargeHistoryMemDlg::RefreshSubList()
 		pRs.GetFieldValue("dtRegister", dtRegister);
 		pRs.GetFieldValue("nMemCNo", nMemCNo);		
 
-		m_lstSub.MyAddItem(0, strCompany, "회사명", 100, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(1, strDepart, "부서명", 90, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(2, strName, "담당자", 90, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(3, LF->GetDashPhoneNumber(strTel1), "대표번호", 80, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(4, LF->GetDashPhoneNumber(strMobile), "휴대폰", 80, FALSE, DT_LEFT);
-		m_lstSub.MyAddItem(5, strDong, "해당동", 80, FALSE, DT_LEFT);		
-		m_lstSub.MyAddItem(6, dtRegister.Format("%y-%m-%d"), "등록일", 90, FALSE, DT_LEFT);
-		m_lstSub.InsertItemDataLong(nCNo);		
-		m_lstSub.InsertItemDataLong2(nMemCNo);		
-		m_lstSub.EndItem();
+		m_lstSub.InsertItem(0, strCompany);
+		m_lstSub.SetItemText(i, 1, strDepart);
+		m_lstSub.SetItemText(i, 2, strName);
+		m_lstSub.SetItemText(i, 3, LF->GetDashPhoneNumber(strTel1));
+		m_lstSub.SetItemText(i, 4, LF->GetDashPhoneNumber(strMobile));
+		m_lstSub.SetItemText(i, 5, strDong);
+		m_lstSub.SetItemText(i, 6, dtRegister);
+		m_lstSub.SetItemLong(i, nCNo);
+		m_lstSub.SetItemLong2(i, nMemCNo);
 
 		pRs.MoveNext();
 	}
@@ -579,22 +608,22 @@ void CChargeHistoryMemDlg::NewCharge()
 
 void CChargeHistoryMemDlg::DeleteCharge()
 {
-	if( m_lstMain.GetSelectedCount() <= 0)
+	if( m_lstMain.GetSelectedRows()->GetCount() <= 0)
 	{
 		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
 	}
 
-	if( m_lstMain.GetSelectedCount() > 0)
+	if( m_lstMain.GetSelectedRows()->GetCount() > 0)
 	{
 		if(MessageBox("개별 요금을 정말로 삭제하시겠습니까?(※고객은 삭제안됨)" , "확인",  MB_YESNO) == IDNO)
 			return;		
 	}
 
-	for(int nItem =0;  nItem < m_lstMain.GetSelectedCount(); nItem++)
+	for(int nItem =0;  nItem < m_lstMain.GetSelectedRows()->GetCount(); nItem++)
 	{	
-		long nMemCNo = m_lstMain.GetSelectedRecord(nItem)->GetItemDataLong();
-		CMyXTPGridRecord *pRecord =  (CMyXTPGridRecord *)m_lstMain.GetSelectedRecord(nItem);
+		long nMemCNo = m_lstMain.GetItemLong(nItem);
+		CXTPGridRecord *pRecord =  (CXTPGridRecord *)m_lstMain.GetSelectedRows()->GetAt(nItem)->GetRecord();
 
 		CMkCommand pCmd(m_pMkDb, "select_history_charge_member_delete");
 		CMkRecordset pRs(m_pMkDb);
@@ -630,26 +659,26 @@ void CChargeHistoryMemDlg::DeleteCharge()
 
 	m_lstMain.Populate();
 
-	m_lstSub.DeleteAllItem();
+	m_lstSub.DeleteAllItems();
 	m_lstSub.Populate();
 
 
 }
 void CChargeHistoryMemDlg::OnModifyCharge()
 {
-	if( m_lstMain.GetSelectedCount() <= 0)
+	if( m_lstMain.GetSelectedRows()->GetCount() <= 0)
 	{
 		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
 	}
 
-	CString sChargeName = m_lstMain.GetSelectedRecord(0)->GetItemSValue(0);
-	CString sEtc = m_lstMain.GetSelectedRecord(0)->GetItemSValue(4);
+	CString sChargeName = m_lstMain.GetFirstSelectedRecord()->GetItem(0)->GetCaption();
+	CString sEtc = m_lstMain.GetFirstSelectedRecord()->GetItem(4)->GetCaption();
 	ModifyCharge(sChargeName, sEtc);
 }
 void CChargeHistoryMemDlg::ModifyCharge(CString sChargeName,CString sEtc)
 {
-	if( m_lstMain.GetSelectedCount() <= 0)
+	if( m_lstMain.GetSelectedRows()->GetCount() <= 0)
 	{
 		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
@@ -657,7 +686,7 @@ void CChargeHistoryMemDlg::ModifyCharge(CString sChargeName,CString sEtc)
 	CString strAddName = "";
 	CString strEtc = "";
 
-	UpdateData()	;
+	UpdateData();
 
 	CChangeHistoryNameDlg dlg;
 	dlg.m_sChargeName = sChargeName;
@@ -675,15 +704,15 @@ void CChargeHistoryMemDlg::ModifyCharge(CString sChargeName,CString sEtc)
 		return;
 	}
 
-	for(int i = 0; i < m_lstMain.GetSelectedCount(); i++)
+	for(int i = 0; i < m_lstMain.GetSelectedRows()->GetCount(); i++)
 	{
 		
-		CMyXTPGridRecord *pRecord = m_lstMain.GetSelectedRecord(i);
-		long nMemCNo = pRecord->GetItemDataLong();
+		CXTPGridRecord *pRecord = m_lstMain.GetSelectedRows()->GetAt(i)->GetRecord();
+		long nMemCNo = m_lstMain.GetItemLong(pRecord);
 		CMkCommand pCmd(m_pMkDb, "select_history_charge_name_update3");
 		CMkRecordset pRs(m_pMkDb);
 		pCmd.AddParameter(nMemCNo);		
-		pCmd.AddParameter(pRecord->GetItemDataLong2());
+		pCmd.AddParameter(m_lstMain.GetItemLong2(pRecord));
 		pCmd.AddParameter(strAddName);	
 		pCmd.AddParameter(strEtc);	
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
@@ -708,8 +737,8 @@ void CChargeHistoryMemDlg::ModifyCharge(CString sChargeName,CString sEtc)
 		
 		pRecord->GetItem(0)->SetCaption(strAddName);
 		pRecord->GetItem(4)->SetCaption(strEtc);
-		pRecord->SetItemDataString(strAddName);
-		pRecord->SetItemDataString(strEtc);
+		m_lstMain.SetItemDataText(pRecord, strAddName);
+		m_lstMain.SetItemDataText2(pRecord, strEtc);
 	}
 	m_lstMain.Populate();
 }
@@ -735,24 +764,23 @@ void CChargeHistoryMemDlg::OnNMlclkList(NMHDR *pNMHDR, LRESULT *pResult)
 	if(nRow < 0)
 		return;
 
-	if(m_lstMain.GetSelectedCount() <= 0)
+	if(m_lstMain.GetSelectedRows()->GetCount() <= 0)
 		return;
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstMain.GetSelectedRecord(0);
+	CXTPGridRecord *pRecord = (CXTPGridRecord *)m_lstMain.GetFirstSelectedRecord();
 		
 	if(pNMListView->pColumn->GetIndex() == 0)
 	{
-		long nCompany = pRecord->GetItemDataLong2();
-		long nMemCNo = pRecord->GetItemDataLong();
+		long nCompany = m_lstMain.GetItemLong2(pRecord);
+		long nMemCNo = m_lstMain.GetItemLong(pRecord);
 		if(nCompany <= 0  && nMemCNo <= 0)
 		{
 			MessageBox("해당요금의 정보가 오류입니다 로지소프트로 문의하세요", "확인" , MB_ICONINFORMATION);
 			return;
 		}
-		CMyCheckRecordItem *pRecordItem =  (CMyCheckRecordItem *)pRecord->GetItem(0);
-		if(pRecordItem)
+		if(pRecord->GetItem(0))
 		{
-			BOOL bCheck = pRecordItem->GetCheck();
+			BOOL bCheck = pRecord->GetItem(0)->GetCheckedState();
 			CMkCommand pCmd(m_pMkDb, "update_history_charge_name_view");
 			CMkRecordset pRs(m_pMkDb);
 			pCmd.AddParameter(nMemCNo);		
@@ -774,12 +802,12 @@ void CChargeHistoryMemDlg::OnNMlclkList(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 
 	CString sChargeName = "", sEtc = "";
-	sChargeName = pRecord->GetItemSValue(0);
-	sEtc = pRecord->GetItemSValue(5);
+	sChargeName = pRecord->GetItem(0)->GetCaption();
+	sEtc = pRecord->GetItem(5)->GetCaption();
 
 	m_edtChargeName.SetWindowText(sChargeName);
 	m_edtChargeEtc.SetWindowText(sEtc);
-	m_nMemCNo = pRecord->GetItemDataLong();
+	m_nMemCNo = m_lstMain.GetItemLong(pRecord);
 
 	if(m_cmbViewType.GetCurSel() == 0 )
 		RefreshSubList();
@@ -826,16 +854,16 @@ void CChargeHistoryMemDlg::OnNMDblclkList(NMHDR *pNMHDR, LRESULT *pResult)
 	if(nRow < 0)
 		return;
 
-	if(m_lstMain.GetSelectedCount() <= 0)
+	if(m_lstMain.GetSelectedRows()->GetCount() <= 0)
 		return;
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstMain.GetSelectedRecord(0);
+	CXTPGridRecord *pRecord = (CXTPGridRecord *)m_lstMain.GetFirstSelectedRecord();
 
 	if(pRecord == NULL)
 		return;
 
-	CString sChargeName = pRecord->GetItemSValue(0);
-	CString sEtc = pRecord->GetItemSValue(2);
+	CString sChargeName = pRecord->GetItem(0)->GetCaption();
+	CString sEtc = pRecord->GetItem(2)->GetCaption();
 	ModifyCharge(sChargeName, sEtc);
 
 	*pResult = 0;
@@ -850,7 +878,7 @@ void CChargeHistoryMemDlg::OnEnChangeMainSearchEdit()
 	if(strMainSearch.GetLength() <= 0)
 		m_lstMain.ShowAllRow();
 	else
-		m_lstMain.Filter(strMainSearch,0, -1, "-", FALSE);
+		m_lstMain.Filter(strMainSearch);
 }
 
 void CChargeHistoryMemDlg::OnEnChangeSubSearchEdit()
@@ -884,7 +912,7 @@ void CChargeHistoryMemDlg::OnBnClickedChargeViewButton()
 
 void CChargeHistoryMemDlg::SumCharge()
 {
-	if( m_lstMain.GetSelectedCount() <= 0)
+	if( m_lstMain.GetSelectedRows()->GetCount() <= 0)
 	{
 		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
@@ -910,16 +938,16 @@ void CChargeHistoryMemDlg::DeleteCustomer()
 		return;
 	}
 
-	if( m_lstSub.GetSelectedCount() <= 0)
+	if( m_lstSub.GetSelectedRows()->GetCount() <= 0)
 	{
 		LF->MsgBox("수정할 아이템을 선택하여 주세요");
 		return;
 	}
 
-	for(int nItem =0;  nItem < m_lstSub.GetSelectedCount(); nItem++)
+	for(int nItem =0;  nItem < m_lstSub.GetSelectedRows()->GetCount(); nItem++)
 	{	
-		long nSubCNo = m_lstSub.GetSelectedRecord(nItem)->GetItemDataLong();
-		CMyXTPGridRecord *pRecord =  (CMyXTPGridRecord *)m_lstSub.GetSelectedRecord(nItem);
+		long nSubCNo = m_lstSub.GetItemLong(nItem);
+		CXTPGridRecord *pRecord =  (CXTPGridRecord *)m_lstSub.GetSelectedRows()->GetAt(nItem)->GetRecord();
 
 		CMkCommand pCmd(m_pMkDb, "select_history_charge_member_sub_delete3");
 		CMkRecordset pRs(m_pMkDb);
@@ -1035,18 +1063,18 @@ void CChargeHistoryMemDlg::ChargeItemDelete()
 		return;
 	}
 
-	if(  m_lstSub.GetSelectedCount() <= 0 )
+	if(  m_lstSub.GetSelectedRows()->GetCount() <= 0 )
 	{
 		MessageBox("삭제할 요금을 선택하여 주세요", "확인", MB_ICONINFORMATION);
 		return;
 	}	
-	long nMemCNo = m_lstMain.GetSelectedRecord(0)->GetItemDataLong();
-	vector <CMyXTPGridRecord*> vecRecord;
-	for(int i = 0; i < m_lstSub.GetSelectedCount(); i++)
+	long nMemCNo = m_lstMain.GetItemLong(m_lstMain.GetFirstSelectedRecord());
+	vector <CXTPGridRecord*> vecRecord;
+	for(int i = 0; i < m_lstSub.GetSelectedRows()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = m_lstSub.GetSelectedRowsGetAtGetRecord(i);
-		long nStartID = pRecord->GetItemDataLong();
-		long nDestID = pRecord->GetItemDataLong2();
+		CXTPGridRecord *pRecord = m_lstSub.GetSelectedRowsGetAtGetRecord(i);
+		long nStartID = m_lstMain.GetItemLong(pRecord);
+		long nDestID = m_lstMain.GetItemLong2(pRecord);
 
 		CMkCommand pCmd(m_pMkDb, "delete_history_charge_item2011");
 		CMkRecordset pRs(m_pMkDb);
@@ -1065,7 +1093,7 @@ void CChargeHistoryMemDlg::ChargeItemDelete()
 	}
 	else
 	{
-		vector <CMyXTPGridRecord*>::iterator it;
+		vector <CXTPGridRecord*>::iterator it;
 		for(it = vecRecord.begin(); it != vecRecord.end(); ++ it)
 		{
 			(*it)->Delete();
@@ -1107,7 +1135,7 @@ void CChargeHistoryMemDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* 
 	try
 	{
 		long nCharge = 0, nDestDongID = 0, nCompany = 0;
-		CMyXTPGridRecord  *pRecord = NULL;
+		CXTPGridRecord  *pRecord = NULL;
 		CString sError= "";
 
 		if (!pItemNotify->pRow || !pItemNotify->pColumn)
@@ -1134,11 +1162,11 @@ void CChargeHistoryMemDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* 
 			throw("금액이 너무 많거나 적습니다. ");
 		}
 
-		pRecord = (CMyXTPGridRecord*)pItemNotify->pRow->GetRecord();		
+		pRecord = (CXTPGridRecord*)pItemNotify->pRow->GetRecord();		
 
 
-		long nStartID = pRecord->GetItemDataLong();
-		long nDestID = pRecord->GetItemDataLong2();
+		long nStartID = m_lstSub.GetItemLong(pRecord);
+		long nDestID = m_lstSub.GetItemLong2(pRecord);
 		
 		int nCarType = 0;
 

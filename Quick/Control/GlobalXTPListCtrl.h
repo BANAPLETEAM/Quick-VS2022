@@ -1,8 +1,6 @@
 
 #pragma once
 #include "XTPListCtrl2.h"
-#include "DataBox.h"
-
 
 
 #define TAKEROW 0
@@ -354,22 +352,22 @@ class CXTPGridControl12 : public CXTPGridControl
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 };
 
-class CGroupList : public CDataBox 
+class CGroupList : public CXTPListCtrl2
 {
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics);
 };
 
-class CGroupList2 : public CDataBox
+class CGroupList2 : public CXTPListCtrl2
 {	
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pItemMetrics);
 };
 
-class CustomerList :public CDataBox
+class CustomerList :public CXTPListCtrl2
 {
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics);
 };
 
-class CMembers : public CDataBox
+class CMembers : public CXTPListCtrl2
 {
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics);
 
@@ -378,7 +376,7 @@ public:
 	void SetGNo(long nGNo){m_nGNo = nGNo;}
 };
 
-class ChargeList : public CDataBox
+class ChargeList : public CXTPListCtrl2
 {
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pMetrics);
 
@@ -396,7 +394,7 @@ public :
 	}
 };
 
-class CMyMileageReport : public CDataBox
+class CMyMileageReport : public CXTPListCtrl2
 {
 public:
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);

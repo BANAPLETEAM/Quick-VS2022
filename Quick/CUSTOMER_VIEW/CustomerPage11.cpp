@@ -606,7 +606,7 @@ void CCustomerPage11::RefreshList()
 		return;
 	}
 
-	m_lstGroup.DeleteAllItem();	
+	m_lstGroup.DeleteAllItems();	
 
 
 	long nSel = 0;
@@ -1118,7 +1118,7 @@ void CCustomerPage11::AddGroupMember()
 	char buffer[20];
 
 	long nCNo = 0;
-	if(m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedCount() == 0) 	
+	if(m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedRows()->GetCount() == 0) 	
 	{
 		MessageBox("포함시킬 고객을 선택하세요", "확인", MB_ICONINFORMATION);
 		return;
@@ -1138,10 +1138,10 @@ void CCustomerPage11::AddGroupMember()
 	CString strNeedReportID = "";
 	CString strGNo = "";
 
-	for(int i = 0; i < m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedCount(); i++)
+	for(int i = 0; i < m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedRows()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedRows()->GetAt(i)->GetRecord();
-		long nGNo = (long)pRecord->GetItemDataLong2();
+		CXTPGridRecord *pRecord = (CXTPGridRecord*)m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedRows()->GetAt(i)->GetRecord();
+		long nGNo = (long)m_pAddGroupMemberDlg->m_lstCustomer.GetItemLong2(pRecord);
 
 		if(nGNo != 0)
 			strGNo += (CString)itoa(nGNo, buffer, 10) + ";";
@@ -1150,13 +1150,13 @@ void CCustomerPage11::AddGroupMember()
 	if(strGNo == "")
 		strGNo = "0;";
 
-	if(LF->CheckGroupReport(strGNo, m_nGNo, dtDate, m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedCount(), strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
+	if(LF->CheckGroupReport(strGNo, m_nGNo, dtDate, m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedRows()->GetCount(), strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
 		return;
 
-	for(int i = 0; i < m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedCount(); i++)
+	for(int i = 0; i < m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedRows()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedRows()->GetAt(i)->GetRecord();
-		nCNo = pRecord->GetItemDataLong();
+		CXTPGridRecord *pRecord = (CXTPGridRecord*)m_pAddGroupMemberDlg->m_lstCustomer.GetSelectedRows()->GetAt(i)->GetRecord();
+		nCNo = m_pAddGroupMemberDlg->m_lstCustomer.GetItemLong(pRecord);
 
 		CMkCommand pCmd(m_pMkDb, "update_group_input_1");
 		pCmd.AddParameter(LF->GetCurBranchInfo()->nCustomerTable);    
@@ -1400,7 +1400,7 @@ void CCustomerPage11::OnBnClickedChargetypenameBatchBtn()
 {
 
 	
-	if(m_lstGroup.GetSelectedCount() == 0)
+	if(m_lstGroup.GetSelectedRows()->GetCount() == 0)
 	{
 		LF->MsgBox("요금셋팅을 하실 그룹을 선택하세요");
 		return;
@@ -1412,7 +1412,7 @@ void CCustomerPage11::OnBnClickedChargetypenameBatchBtn()
 		bApply = FALSE;
 
 
-	for(int i = 0; i < m_lstGroup.GetSelectedCount(); i++)
+	for(int i = 0; i < m_lstGroup.GetSelectedRows()->GetCount(); i++)
 	{
 
 		CCustomerGroupRecord *pRecord = (CCustomerGroupRecord*)m_lstGroup.GetSelectedRows()->GetAt(i)->GetRecord();

@@ -2,7 +2,7 @@
 
 #include "ColorListCtrl.h"
 #include "ReportForm5.h"
-#include "DataBox.h"
+
 #include "OtherRegionBranchDlg.h"
 // CShareReportRateDlg6 폼 뷰입니다.
 
@@ -11,9 +11,9 @@
 
 typedef map<CString, CString> GROUP_MAP2;  // 왼쪽 도시그룹
 
-typedef vector<CMyXTPGridRecord*> CONSIGNCOMPANY_VEC;
+typedef vector<CXTPGridRecord*> CONSIGNCOMPANY_VEC;
 
-class CShareReport6 : public CDataBox
+class CShareReport6 : public CXTPListCtrl2
 {
 
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pItemMetrics )
@@ -24,11 +24,11 @@ class CShareReport6 : public CDataBox
 		int nCol = pDrawArgs->pColumn->GetIndex();
 		int nItemCol = pDrawArgs->pColumn->GetItemIndex();
 
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pDrawArgs->pRow->GetRecord();
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)pDrawArgs->pRow->GetRecord();
 
 		CString sContent = pDrawArgs->pItem->GetCaption(pDrawArgs->pColumn);
 
-		CString sCity = GetItemDataString(nRow);
+		CString sCity = nRow > 0 ? "" : GetItemDataText(nRow);
 		if(sCity.GetLength() > 0 &&  pDrawArgs->pRow->GetRecord()->GetChilds()->GetCount() > 0)
 		{	
 			LOGFONT accesscontrol_static_lfont = {14,0,0,0,FW_BOLD,0,0,0,HANGUL_CHARSET,0,0,0,0,"돋움"};			
@@ -45,12 +45,12 @@ class CShareReport6 : public CDataBox
 				pItemMetrics->clrBackground = RGB(255 ,0,0);
 			else if(nCol >= 4 && nCol <= 7 )
 			{
-					if( pRecord->GetItemDataInt() == 0 || pRecord->GetItemDataInt() == 2 ) // 0, 2 신규, 변경
+					if( GetItemLong(pRecord) == 0 || GetItemLong(pRecord) == 2 ) // 0, 2 신규, 변경
 						pItemMetrics->clrBackground = RGB(255, 255,0);
 					else
 						pItemMetrics->clrBackground = RGB(230, 230, 255);
 			}
-			else if(nCol == 8 && pRecord->GetItemDataLong3() > 0)
+			else if(nCol == 8 && GetItemLong3(pRecord) > 0)
 				pItemMetrics->clrBackground = RGB(255, 0,0);
 			else 
 				pItemMetrics->clrBackground = RGB(230, 230, 255);
@@ -107,8 +107,8 @@ public:
 	CString GetGroupRegion(CString sCity);
 	BOOL GeneralCheckData();
 	BOOL CheckData();
-	CMyXTPGridRecord*  InitSettingRegionGroup(CString sCity);
-	CMyXTPGridRecord* GetParentSettingRecord(CString sCity);
+	CXTPGridRecord*  InitSettingRegionGroup(CString sCity);
+	CXTPGridRecord* GetParentSettingRecord(CString sCity);
 	void LinkRefreshList();
 	BOOL IsConsignService(long nShareCode);
 public:

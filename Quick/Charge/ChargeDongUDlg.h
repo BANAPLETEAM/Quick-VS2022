@@ -1,6 +1,5 @@
 #pragma once
 
-#include "databox.h"
 #include "MyReportPaintManager.h"
 #include "UserDongPos.h"
 #include "ChargeDongButton.h"
@@ -8,7 +7,7 @@
 class CChargeWorkDlg;
 class CChargeDongSettingDlg;
 
-typedef map<long,CMyXTPGridRecord*> DEST_MAP;
+typedef map<long,CXTPGridRecord*> DEST_MAP;
 typedef vector<CPOIInfo*> POI_INFO_VEC;
 
 class CChargeDongUDlg : public CXTResizeDialog
@@ -73,12 +72,12 @@ public:
 	void ChildUnSelect(CXTPGridRow* pRow );
 	int InsertFind(CXTPGridRecords* pRecords, CString strWord );	
 	void OnLButtonUp(UINT nFlags, CPoint point);
-	void GetChild(CMyXTPGridRecord *pRecord, int nDepth);
-	void ChildInput(CMyXTPGridRecord* pDelRecord,CMyXTPGridRecord* pNewRecord );
+	void GetChild(CXTPGridRecord *pRecord, int nDepth);
+	void ChildInput(CXTPGridRecord* pDelRecord,CXTPGridRecord* pNewRecord );
 	void UserDongSave(BOOL bServerSave);
 	BOOL CheckAreaSelect();
 	CString CastString(long nValue);
-	void ChildPoiDeleteCharge(CMyXTPGridRecord *pReocrd, BOOL bShuttle);
+	void ChildPoiDeleteCharge(CXTPGridRecord *pReocrd, BOOL bShuttle);
 	void NewRefreshList();
 	void NewChargeGeneralAllDelete();	
 	void NewSetAllCharge(long nDestID, long nMotoCharge, long nDamaCharge, long nSpecificMoto, long nSpecificDama);	
@@ -88,7 +87,7 @@ public:
 	long ServerDataInput(int j, CString sName, CString sAllName, CString sFactPOI, 
 		CString sDepth, CString sDongID, CString sPOIID );
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	void ChildCount(CMyXTPGridRecord *pReocrd,long &nCount);
+	void ChildCount(CXTPGridRecord *pReocrd,long &nCount);
 
 
 	POI_INFO_VEC m_Vec;
@@ -97,8 +96,8 @@ public:
 	CChargeWorkDlg *m_pChargeWorkDlg;
 	CChargeDongSettingDlg *m_pChargeDongSettingDlg;
 	CXTPGridRow *m_pPreSelectRow;	
-	CDataBox m_lstSet;
-	CDataBox  m_lstSetDest;
+	CXTPListCtrl2 m_lstSet;
+	CXTPListCtrl2  m_lstSetDest;
 	DEST_MAP m_mapDest;
 	CChargeDongButton m_UserDongButton;
 	

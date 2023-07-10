@@ -213,5 +213,5 @@ BOOL CGeneralReceiptDlg::PreTranslateMessage(MSG* pMsg)
 
 void CGeneralReceiptDlg::OnBnClickedPreShowBtn()
 {
-	ShellExecute(NULL, "open", "iexplore.exe", "http://logisoft.co.kr/qCloud.html", "", SW_SHOW);
+	ShellExecute(NULL, "open", "msedge.exe", "http://logisoft.co.kr/qCloud.html", "", SW_SHOW);
 }

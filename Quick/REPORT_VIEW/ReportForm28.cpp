@@ -80,7 +80,6 @@ void CReportForm28::OnInitialUpdate()
 	m_DateBtn.OnMenuWeek();
 
 	int nCol = 0;	
-	m_wndReport.m_bHeader = TRUE;
 	m_wndReport.SetExtendedStyle(0);
 	m_wndReport.InsertColumn(nCol++, "순번", DT_CENTER, 40);
 	m_wndReport.InsertColumn(nCol++, "오더번호", DT_LEFT, 60);
@@ -138,7 +137,8 @@ void CReportForm28::RefreshList()
 	long nTotChargeTot =0 ,nTotChargeTrans =0,nTotConsignCommission =0, nTotBackOrderDeposit = 0,
 		nTotOtherCharge =0,nTotConsignSumCharge =0,  nTotConsignRateCharge=0; 
 	
-	for(int i=0; i<pRs.GetRecordCount(); i++) 
+	int i = 0;
+	for(i = 0; i<pRs.GetRecordCount(); i++) 
 	{ 
 		CString sBranchName,sSName,sDName,sConsignCity,sName,sTel;
 		COleDateTime dt1;
@@ -179,33 +179,29 @@ void CReportForm28::RefreshList()
 		//nOtherCharge = (nConsignSumCharge > 0) ? nConsignSumCharge - nChargeTrans - nConsignCommission : 0;
 		nConsignRateCharge = nBackOrderDeposit > 0 ?  int(nBackOrderDeposit * nConsignRate /100) : 0;
 
-		m_wndReport.MyAddItem(i);
-		m_wndReport.MyAddItem(nTNo);
-		m_wndReport.MyAddItem(LF->GetCurBranchInfo(nCompany)->strBranchName);
-		m_wndReport.MyAddItem(dt1.Format("%Y-%m-%d %H:%M"));
-		m_wndReport.MyAddItem(sConsignCity);
-		m_wndReport.MyAddItem(sName);
-		
-		m_wndReport.MyAddItem(sSName);
-		m_wndReport.MyAddItem(sDName);
-		m_wndReport.MyAddItem(LF->GetCarTypeFromLong(nCarType));
-		m_wndReport.MyAddItem(LF->GetPayTypeFromLong(nPayType));
-		m_wndReport.MyAddItem(LF->GetStateString(nState));
-		m_wndReport.MyAddItem(LF->GetStateString(nBackOrderState));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeBasic));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeAdd));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeDis));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeSum));		
-
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nChargeTrans));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nConsignCommission));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nBackOrderCharge));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nConsignSumCharge));
-
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nBackOrderDeposit));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nConsignRate));
-		m_wndReport.MyAddItem(LF->GetMyNumberFormat(nConsignRateCharge));	
-		m_wndReport.EndItem();
+		m_wndReport.InsertItem(i, LF->GetStringFromLong(i+1));
+		m_wndReport.SetItemText(i, 1, nTNo);
+		m_wndReport.SetItemText(i, 2, LF->GetCurBranchInfo(nCompany)->strBranchName);
+		m_wndReport.SetItemText(i, 3, dt1.Format("%Y-%m-%d %H:%M"));
+		m_wndReport.SetItemText(i, 4, sConsignCity);
+		m_wndReport.SetItemText(i, 5, sName);
+		m_wndReport.SetItemText(i, 6, sSName);
+		m_wndReport.SetItemText(i, 7, sDName);
+		m_wndReport.SetItemText(i, 8, LF->GetCarTypeFromLong(nCarType));
+		m_wndReport.SetItemText(i, 9, LF->GetPayTypeFromLong(nPayType));
+		m_wndReport.SetItemText(i, 10, LF->GetStateString(nState));
+		m_wndReport.SetItemText(i, 11, LF->GetStateString(nBackOrderState));
+		m_wndReport.SetItemText(i, 12, LF->GetMyNumberFormat(nChargeBasic));
+		m_wndReport.SetItemText(i, 13, LF->GetMyNumberFormat(nChargeAdd));
+		m_wndReport.SetItemText(i, 14, LF->GetMyNumberFormat(nChargeDis));
+		m_wndReport.SetItemText(i, 15, LF->GetMyNumberFormat(nChargeSum));		
+		m_wndReport.SetItemText(i, 16, LF->GetMyNumberFormat(nChargeTrans));
+		m_wndReport.SetItemText(i, 17, LF->GetMyNumberFormat(nConsignCommission));
+		m_wndReport.SetItemText(i, 18, LF->GetMyNumberFormat(nBackOrderCharge));
+		m_wndReport.SetItemText(i, 19, LF->GetMyNumberFormat(nConsignSumCharge));
+		m_wndReport.SetItemText(i, 20, LF->GetMyNumberFormat(nBackOrderDeposit));
+		m_wndReport.SetItemText(i, 21, LF->GetMyNumberFormat(nConsignRate));
+		m_wndReport.SetItemText(i, 22, LF->GetMyNumberFormat(nConsignRateCharge));	
 
 		
 		nTotChargeTot += nChargeSum;
@@ -218,33 +214,29 @@ void CReportForm28::RefreshList()
 		pRs.MoveNext();
 	}
 
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("합 계");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");
-
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem("");	
-	m_wndReport.MyAddItem("");	
-	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotChargeTot));
-	
-	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotChargeTrans));
-	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotConsignCommission));
-	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotOtherCharge));		
-
-	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotConsignSumCharge));
-	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotBackOrderDeposit));
-	m_wndReport.MyAddItem("");
-	m_wndReport.MyAddItem(LF->GetMyNumberFormat(nTotConsignRateCharge));	
-	m_wndReport.EndItem();
+	m_wndReport.InsertItem(i, "");
+	m_wndReport.SetItemText(i, 1, "");
+	m_wndReport.SetItemText(i, 2, "");
+	m_wndReport.SetItemText(i, 3, "");
+	m_wndReport.SetItemText(i, 4, "");
+	m_wndReport.SetItemText(i, 5, "");
+	m_wndReport.SetItemText(i, 6, "합 계");
+	m_wndReport.SetItemText(i, 7, "");
+	m_wndReport.SetItemText(i, 8, "");
+	m_wndReport.SetItemText(i, 9, "");
+	m_wndReport.SetItemText(i, 10, "");
+	m_wndReport.SetItemText(i, 11, "");
+	m_wndReport.SetItemText(i, 12, "");
+	m_wndReport.SetItemText(i, 13, "");	
+	m_wndReport.SetItemText(i, 14, "");	
+	m_wndReport.SetItemText(i, 15, LF->GetMyNumberFormat(nTotChargeTot));
+	m_wndReport.SetItemText(i, 16, LF->GetMyNumberFormat(nTotChargeTrans));
+	m_wndReport.SetItemText(i, 17, LF->GetMyNumberFormat(nTotConsignCommission));
+	m_wndReport.SetItemText(i, 18, LF->GetMyNumberFormat(nTotOtherCharge));		
+	m_wndReport.SetItemText(i, 19, LF->GetMyNumberFormat(nTotConsignSumCharge));
+	m_wndReport.SetItemText(i, 20, LF->GetMyNumberFormat(nTotBackOrderDeposit));
+	m_wndReport.SetItemText(i, 21, "");
+	m_wndReport.SetItemText(i, 22, LF->GetMyNumberFormat(nTotConsignRateCharge));	
 
 	pRs.Close();
 	m_wndReport.Populate();

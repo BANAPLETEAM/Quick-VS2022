@@ -1,6 +1,5 @@
 #pragma once
 
-#include "databox.h"
 #include "afxwin.h"
 #include "BranchSel.h"
 #include "MyStatic.h"
@@ -148,7 +147,7 @@ public:
 };
 
 
-class CMyDestReport3 : public CDataBox
+class CMyDestReport3 : public CXTPListCtrl2
 {
 public:
 	CMyDestReport3()
@@ -237,7 +236,7 @@ public:
 
 	CChargeWorkDlg *m_pChargeWorkDlg;
 
-	CDataBox  m_lstStart;
+	CXTPListCtrl2  m_lstStart;
 	CMyDestReport3 m_lstDest;
 
 	DEST_RECORD_MAP3 m_pDestRecord;

@@ -4150,7 +4150,7 @@ void CRcpView::OnReceiptGeneralPrintView()
 	CString sID ="";
 	CString sPass ="";	
 	long nCorporationID = 0;
-	CMyXTPGridRecord *pRecord = NULL;
+	CXTPGridRecord *pRecord = NULL;
 
 	CString str, strForm;
 	str = "C:\\Program Files\\Internet Explorer\\iexplore.exe";

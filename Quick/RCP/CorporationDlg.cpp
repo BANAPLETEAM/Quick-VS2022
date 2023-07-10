@@ -89,15 +89,13 @@ END_MESSAGE_MAP()
 
 LONG CCorporationDlg2::OnTabItemClick(WPARAM wParam, LPARAM lParam)
 {
-	
-	
 	RefreshMember();	
 	return 0;
 }
+
 BOOL CCorporationDlg2::OnInitDialog()
 {
 	CXTResizeDialog::OnInitDialog();
-
 		
 	CRect rtSTATIC_OPTION;
 	this->GetDlgItem(IDC_STATIC_OPTION)->GetWindowRect(rtSTATIC_OPTION);
@@ -119,6 +117,17 @@ BOOL CCorporationDlg2::OnInitDialog()
 	m_wndSplitter1.Create(WS_CHILD | WS_VISIBLE, rc, this, IDC_SPLITTER1);
 	m_wndSplitter1.SetRange(250, 250, -1);
 
+	CXTPGridColumn* pStartColumn = m_GroupList.AddColumn(new CXTPGridColumn(0, _T("그룹이름"), 140, FALSE));
+	pStartColumn->SetAlignment(DT_LEFT);
+	pStartColumn->SetTreeColumn(1);
+	m_GroupList.AddColumn(new CXTPGridColumn(1, _T("All"), 30))->SetAlignment(DT_CENTER);
+	m_GroupList.AddColumn(new CXTPGridColumn(2, _T("부서"), 80))->SetAlignment(DT_LEFT);
+	m_GroupList.AddColumn(new CXTPGridColumn(3, _T("법인요금"), 90))->SetAlignment(DT_LEFT);
+	m_GroupList.SetTreeIndent(30);
+	m_GroupList.SetGridColor(RGB(180, 180, 200));
+	m_GroupList.GetPaintManager()->m_strNoItems = "표시할 대상이 존재하지 않음";
+	m_GroupList.SetPaintManager(new CMyReportPaintManager);
+	m_GroupList.Populate();
 	
 	Refresh();
 	if(m_bPartView)
@@ -137,18 +146,14 @@ BOOL CCorporationDlg2::OnInitDialog()
 
 void CCorporationDlg2::RefreshMember()
 {
-
 	int nCur = m_wndTabControl.GetCurSel();
 	if(m_GroupList.GetRecords()->GetCount() == 0)
 		return;
 
-	
-
-	if(m_nGNo == 0)
-	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_GroupList.GetRows()->GetAt(0)->GetRecord();
-		m_nGNo = pRecord->GetItemDataLong();
-		if(m_nGNo == 0) return;
+	if (m_nGNo == 0) {
+		CXTPGridRecord* pRecord = m_GroupList.GetRows()->GetAt(0)->GetRecord();
+		m_nGNo = m_GroupList.GetItemLong(pRecord);
+		if (m_nGNo == 0) return;
 	}
 
 	switch(nCur)
@@ -220,71 +225,38 @@ void CCorporationDlg2::LocalRefeshGroup()
 
 	for(int nRow = 0; nRow < m_GroupList.GetRecords()->GetCount(); nRow++)
 	{
-		CMyXTPGridRecord *pRecord = m_GroupList.GetRecordsGetAt(nRow);
+		CXTPGridRecord* pRecord = m_GroupList.GetSelectedRowsGetAtGetRecord(nRow);
 		if(pRecord == NULL)
 		{
 			LF->MsgBox("작업중 오류 로지소프트로 문의하세요");
 			return;
 		}
-		
-		
-		if(nGNoKey == pRecord->m_nTreeParentNo)
-			m_GroupList.ShowRecord(pRecord);	
-		else
-			m_GroupList.HideRecord(pRecord);
-
-		
 	}
+
 	m_GroupList.Populate();
-	/*
-	CUSTOMER_GROUP_VEC::iterator it;
-	CUSTOMER_GROUP_VEC *pVec;
-
-
-	for(it = pVec->begin(); it != pVec->end(); ++ it)	
-	{	
-
-		nGNo = (*it)->nGNo;		
-
-		m_GroupList.TreeChildAddItem(0,m_cg.GetGroupData(nGNo)->sGroupName,	"그룹이름", 110,FALSE,DT_LEFT);
-		m_GroupList.MyAddItem(1,m_cg.GetGroupData(nGNo)->sDept,					"부서명",	60,FALSE,DT_LEFT);
-		m_GroupList.MyAddItem(2,m_cg.GetGroupData(nGNo)->sChargeName,			"법인요금", 60,FALSE,DT_LEFT);				
-		m_GroupList.SetItemDataLong(m_cg.GetGroupData(nGNo)->nGNo);
-		m_GroupList.SetItemDataLong2(m_cg.GetGroupData(nGNo)->nGroupOwner);
-
-		m_GroupList.EndItem();	
-
-	}
-	*/
-
-
 }
 
 void CCorporationDlg2::Refresh()
 {
-	m_GroupList.DeleteAllItem();
+	m_GroupList.DeleteAllItems();
+	CCorpGroupRecord* record = nullptr;
 
-	CString strGroupName, strDetail,sID,  strPassword, strDept, strMemberTel, strName, strChargeName;
-
-	long  nCharge = 0;
-
-	//m_nSelGroupID = 0;
-	
-	m_GroupList.DeleteAllItem();
-	MAP_CUSTOMER_GROUP::iterator it;
-
-	for(it = m_cg.GetGroup()->begin(); it != m_cg.GetGroup()->end(); ++it)
+	for(auto it = m_cg.GetGroup()->begin(); it != m_cg.GetGroup()->end(); ++it)
 	{
-		if(it->second->strGroupName.GetLength() == 0)
+		if (it->second->strGroupName.GetLength() == 0 || m_nGNo != it->second->nGNoKey)
 			continue;
 
-		m_GroupList.TreeChildDepthAddItem(0, it->second->strKeyRef, it->second->nGNoKey, it->second->strGroupName,"그룹이름", 140, FALSE, DT_LEFT);
-		m_GroupList.MyCheckAddItem(1, FALSE,"All",30, DT_CENTER,it->second->strKeyRef.GetLength() == 0 ? TRUE : FALSE);
-		m_GroupList.MyAddItem(2, it->second->strDept,"부서",80, FALSE, DT_LEFT);
-		m_GroupList.MyAddItem(3, m_mapChargeType[it->second->nCharge].strChargeName, "법인요금", 90, FALSE, DT_LEFT);		
-		m_GroupList.InsertItemDataLong(it->first);
-		m_GroupList.InsertItemDataLong2(it->second->nGroupOwner);
-		m_GroupList.EndItem();
+		if (m_nGNo == it->first) {
+			record = new CCorpGroupRecord(it->second->strGroupName, it->second->strKeyRef.GetLength() == 0,
+				it->second->strDept, it->second->strChargeName);
+			m_GroupList.SetItemLong(record, it->first);
+			m_GroupList.SetItemLong2(record, it->second->nGroupOwner);
+			m_GroupList.AddRecord(record);
+		}
+		else {
+			record->GetChilds()->Add(new CCorpGroupRecord(it->second->strGroupName, it->second->strKeyRef.GetLength() == 0,
+				it->second->strDept, it->second->strChargeName));
+		}
 	}
 
 	m_GroupList.Populate();
@@ -334,40 +306,37 @@ void CCorporationDlg2::OnNMClickGroupList(NMHDR *pNMHDR, LRESULT *pResult)
 
 	int nCol = pNMListView->pColumn->GetIndex();
 
-	if(m_GroupList.GetSelectedCount() == 0)
+	if(m_GroupList.GetSelectedRows()->GetCount() == 0)
 		return;
 
-	int nItem = m_GroupList.GetSelectedRow()->GetIndex();
-	if(nItem < 0)
+	int nItem = m_GroupList.GetSelectedItem();
+	if (nItem < 0)
 		return;
-	if(pNMListView->pRow == NULL)
+	if (pNMListView->pRow == NULL)
 		return;
 
 	int nRow = pNMListView->pRow->GetIndex();
-	if(nCol == 1)  // TotalColumn
+	if (nCol == 1)  // TotalColumn
 	{
-		BOOL bCheck = m_GroupList.GetItemCheck(nRow,nCol);
-		
-		for(int i = 0; i < m_GroupList.GetRecords()->GetCount(); i++)
+		BOOL bCheck = m_GroupList.GetChecked(nRow, nCol);
+
+		for (int i = 0; i < m_GroupList.GetRecords()->GetCount(); i++)
 		{
-			/*CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_GroupList.GetRecords()->GetAt(i);
-			long nGNo = pRecord->GetItemDataLong();
+			/*CXTPGridRecord *pRecord = (CXTPGridRecord *)m_GroupList.GetRecords()->GetAt(i);
+			long nGNo = pRecord->GetItemLong();
 			if(nGNo ==  )*/
 
 		}
 	}
 
-	m_nGNo = m_GroupList.GetItemDataLong(nItem);	
-	CXTPGridRecordItem *pItem = m_GroupList.GetSelectedRecord()->GetItem(1);	
-	m_bChild =  pItem->IsChecked() ? TRUE : FALSE;
-		//>HasChildren() ? TRUE : FALSE;
-	
+	m_nGNo = m_GroupList.GetItemLong(nItem);
+	CXTPGridRecordItem* pItem = m_GroupList.GetFirstSelectedRecord()->GetItem(1);
+	m_bChild = pItem->IsChecked() ? TRUE : FALSE;
+	//>HasChildren() ? TRUE : FALSE;
+
 	RefreshMember();
 	*pResult = 0;
 }
-
-
-
 
 
 void CCorporationDlg2::OnEnChangeSearchEdit()
@@ -382,7 +351,7 @@ void CCorporationDlg2::OnEnChangeSearchEdit()
 		return;
 	}
 	
-	CMyXTPGridRecord *pRecord = NULL;
+	CXTPGridRecord *pRecord = NULL;
 	VEC_CUSTOMER_GROUP::iterator it;
 		
 	CUIntArray *pIntArray;
@@ -404,12 +373,12 @@ void CCorporationDlg2::OnEnChangeSearchEdit()
 
 	for(int i = 0; i < m_GroupList.GetRecords()->GetCount(); i++)
 	{
-		pRecord = (CMyXTPGridRecord *)m_GroupList.GetRecords()->GetAt(i);			
+		pRecord = (CXTPGridRecord *)m_GroupList.GetRecords()->GetAt(i);			
 
 		for(int j=0; j < pIntArray->GetCount(); j++)
 		{
 			
-			if(pRecord->GetItemDataLong() == pIntArray->GetAt(j))
+			if(m_GroupList.GetItemLong(pRecord) == pIntArray->GetAt(j))
 				pRecord->SetVisible(TRUE);						
 			else
 				pRecord->SetVisible(FALSE);
@@ -493,69 +462,69 @@ void CCorporationDlg2::OnBnClickedCopyBtn()
 	try
 	{
 		int nCur = m_wndTabControl.GetCurSel();
-		CDataBox m_Data;
+		CXTPListCtrl2 m_Data;
 		switch(nCur)
 		{
 		case 0:
 			{
 				CMyTestView *pView1 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView1->GetDataCtrl();
-				if(pView1->GetDataCtrl().GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView1->GetDataCtrl();
+				if(pView1->GetDataCtrl().GetSelectedRows()->GetCount() == 0)
 					throw("복사하실 행을 선택하세요");	
-				if(m_Data.GetSelectedCount() == 0)
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("복사하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}
-				m_nCopyCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				m_nCopyGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());
+				m_nCopyCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				m_nCopyGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());
 			}					
 			break;
 		case 1:
 			{
 				CMyTestView1 *pView2 = (CMyTestView1 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView2->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView2->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("복사하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}
-				m_nCopyCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				m_nCopyGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());
+				m_nCopyCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				m_nCopyGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());
 			}
 			
 			break;
 		case 2:
 			{
 				CMyTestView2 *pView3 = (CMyTestView2 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView3->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView3->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("복사하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}
-				m_nCopyCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				m_nCopyGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());
+				m_nCopyCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				m_nCopyGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());
 			}
 			
 			break;
 		case 3:
 			{
 				CMyTestView *pView4 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView4->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView4->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("복사하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}
-				m_nCopyCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				m_nCopyGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());
+				m_nCopyCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				m_nCopyGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());
 			}			
 			break;
 
 		}
 
-		CXTPGridRow *pRow = m_Data.GetSelectedRow();
+		CXTPGridRow *pRow = m_Data.GetSelectedRows()->GetAt(0);
 		if(pRow)
 			pRow->SetSelected(FALSE);
 
@@ -592,16 +561,16 @@ void CCorporationDlg2::BatchWork(BOOL bAll)
 		case 0:
 			{
 				CMyTestView *pView1 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView1->GetDataCtrl();				
+				CXTPListCtrl2 &m_Data = pView1->GetDataCtrl();				
 
-				if(m_Data.GetSelectedCount() <= 0)
+				if(m_Data.GetSelectedRows()->GetCount() <= 0)
 					throw("붙여넣으실 행을 선택하세요");	
 
-				for(int i = 0; i < m_Data.GetSelectedCount(); i++)
+				for(int i = 0; i < m_Data.GetSelectedRows()->GetCount(); i++)
 				{
 					CXTPGridRecord *pRecord = m_Data.GetSelectedRows()->GetAt(i)->GetRecord();
-					nPasteCNo = m_Data.GetItemDataLong(pRecord->GetIndex());
-					nPasteGNo = m_Data.GetItemDataLong2(pRecord->GetIndex());
+					nPasteCNo = m_Data.GetItemLong(pRecord->GetIndex());
+					nPasteGNo = m_Data.GetItemLong2(pRecord->GetIndex());
 
 					BOOL bCheckID = FALSE, bCheckPwd = FALSE, bCheckHome = FALSE, bCheckEmail = FALSE;
 					bCheckID = pView1->m_bSelectCol[6];
@@ -666,16 +635,16 @@ void CCorporationDlg2::BatchWork(BOOL bAll)
 		case 1:
 			{
 				CMyTestView1 *pView2 = (CMyTestView1*)GetTabItem(nCur);
-				CDataBox &m_Data = pView2->GetDataCtrl();				
+				CXTPListCtrl2 &m_Data = pView2->GetDataCtrl();				
 
-				if(m_Data.GetSelectedCount() <= 0)
+				if(m_Data.GetSelectedRows()->GetCount() <= 0)
 					throw("붙여넣으실 행을 선택하세요");	
 
-				for(int i = 0; i < m_Data.GetSelectedCount(); i++)
+				for(int i = 0; i < m_Data.GetSelectedRows()->GetCount(); i++)
 				{
 					CXTPGridRecord *pRecord = m_Data.GetSelectedRows()->GetAt(i)->GetRecord();
-					nPasteCNo = m_Data.GetItemDataLong(pRecord->GetIndex());
-					nPasteGNo = m_Data.GetItemDataLong2(pRecord->GetIndex());
+					nPasteCNo = m_Data.GetItemLong(pRecord->GetIndex());
+					nPasteGNo = m_Data.GetItemLong2(pRecord->GetIndex());
 
 					BOOL bCheckDong = FALSE, bCheckAddress = FALSE, bCheckLocation = FALSE, bCheckMemo = FALSE, bCheckRiderMemo = FALSE;
 					bCheckDong = pView2->m_bSelectCol[2];
@@ -744,15 +713,15 @@ void CCorporationDlg2::BatchWork(BOOL bAll)
 		case 2:
 			{
 				CMyTestView2 *pView3 = (CMyTestView2 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView3->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView3->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 					throw("복사하실 행을 선택하세요");
 
-				for(int i = 0; i < m_Data.GetSelectedCount(); i++)
+				for(int i = 0; i < m_Data.GetSelectedRows()->GetCount(); i++)
 				{
 					CXTPGridRecord *pRecord = m_Data.GetSelectedRows()->GetAt(i)->GetRecord();
-					nPasteCNo = m_Data.GetItemDataLong(pRecord->GetIndex());
-					nPasteGNo = m_Data.GetItemDataLong2(pRecord->GetIndex());				
+					nPasteCNo = m_Data.GetItemLong(pRecord->GetIndex());
+					nPasteGNo = m_Data.GetItemLong2(pRecord->GetIndex());				
 
 					BOOL bCredit = FALSE, bCoupon = FALSE, bCouponCharge = FALSE, bCreditAfterDiscount = FALSE, 
 						bPriceGrade = FALSE, bMileageType = FALSE, bReportStartDay = FALSE, bReportEndDay = FALSE, 
@@ -854,14 +823,14 @@ void CCorporationDlg2::BatchWork(BOOL bAll)
 		case 3:
 			{
 				CMyTestView *pView4 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView4->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView4->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("복사하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}
-				m_nCopyCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				m_nCopyGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());
+				m_nCopyCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				m_nCopyGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());
 			}
 
 			break;
@@ -897,9 +866,9 @@ void CCorporationDlg2::OnBnClickedModifyBtn()
 		case 0:
 			{
 				CMyTestView *pView1 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView1->GetDataCtrl();
+				CXTPListCtrl2 &m_Data = pView1->GetDataCtrl();
 				
-				if(m_Data.GetSelectedCount() == 0)
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("수정하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
@@ -911,8 +880,8 @@ void CCorporationDlg2::OnBnClickedModifyBtn()
 		case 1:
 			{
 				CMyTestView1 *pView2 = (CMyTestView1 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView2->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView2->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("수정하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
@@ -924,8 +893,8 @@ void CCorporationDlg2::OnBnClickedModifyBtn()
 		case 2:
 			{
 				CMyTestView2 *pView3 = (CMyTestView2 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView3->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView3->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("수정하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
@@ -937,14 +906,14 @@ void CCorporationDlg2::OnBnClickedModifyBtn()
 		case 3:
 			{
 				/*CMyTestView *pView4 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView4->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView4->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("복사하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}
-				m_nCopyCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				m_nCopyGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());*/
+				m_nCopyCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				m_nCopyGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());*/
 			}			
 			break;
 
@@ -979,17 +948,17 @@ void CCorporationDlg2::OnBnClickedReceiptBtn()
 		case 0:
 			{
 				CMyTestView *pView1 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView1->GetDataCtrl();
+				CXTPListCtrl2 &m_Data = pView1->GetDataCtrl();
 
-				if(m_Data.GetSelectedCount() == 0)
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("수정하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}				
-				if(m_Data.GetSelectedCount() <= 0)
+				if(m_Data.GetSelectedRows()->GetCount() <= 0)
 					return;
 
-				m_nReceiptCNo = (long)m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
+				m_nReceiptCNo = (long)m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
 
 
 
@@ -998,16 +967,16 @@ void CCorporationDlg2::OnBnClickedReceiptBtn()
 		case 1:
 			{
 				CMyTestView1 *pView2 = (CMyTestView1 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView2->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView2->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("수정하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}				
-				if(m_Data.GetSelectedCount() <= 0)
+				if(m_Data.GetSelectedRows()->GetCount() <= 0)
 					return;
 
-				m_nReceiptCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
+				m_nReceiptCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
 
 			}
 
@@ -1015,17 +984,17 @@ void CCorporationDlg2::OnBnClickedReceiptBtn()
 		case 2:
 			{
 				CMyTestView2 *pView3 = (CMyTestView2 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView3->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView3->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("수정하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}
 				
-				if(m_Data.GetSelectedCount() <= 0)
+				if(m_Data.GetSelectedRows()->GetCount() <= 0)
 					return;
 
-				m_nReceiptCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
+				m_nReceiptCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
 
 			}
 
@@ -1033,14 +1002,14 @@ void CCorporationDlg2::OnBnClickedReceiptBtn()
 		case 3:
 			{
 				/*CMyTestView *pView4 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView4->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView4->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 				MessageBox("복사하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 				return;
 				}
-				m_nCopyCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				m_nCopyGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());*/
+				m_nCopyCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				m_nCopyGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());*/
 			}			
 			break;
 
@@ -1076,16 +1045,16 @@ void CCorporationDlg2::OnBnClickedGroupOwner()
 		case 0:
 			{
 				CMyTestView *pView1 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView1->GetDataCtrl();
+				CXTPListCtrl2 &m_Data = pView1->GetDataCtrl();
 
-				if(m_Data.GetSelectedCount() <= 0)
+				if(m_Data.GetSelectedRows()->GetCount() <= 0)
 					throw("수정하실 행을 선택하세요");
 					
-				if(m_Data.GetSelectedCount() > 1)
+				if(m_Data.GetSelectedRows()->GetCount() > 1)
 					throw("1개 이상을 그룹오너로 수정하실수 없습니다.");
 
-				nGroupOwnerCNo = (long)m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				long nGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());
+				nGroupOwnerCNo = (long)m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				long nGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());
 				if(nGroupOwnerCNo <= 0)
 					throw("고객 선택을 다시하여주세요");
 				else
@@ -1105,17 +1074,17 @@ void CCorporationDlg2::OnBnClickedGroupOwner()
 		case 1:
 			{
 				CMyTestView1 *pView2 = (CMyTestView1 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView2->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView2->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("수정하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}				
-				if(m_Data.GetSelectedCount() <= 0)
+				if(m_Data.GetSelectedRows()->GetCount() <= 0)
 					return;
 
-				nGroupOwnerCNo = (long)m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				long nGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());
+				nGroupOwnerCNo = (long)m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				long nGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());
 				if(nGroupOwnerCNo <= 0)
 					throw("고객 선택을 다시하여주세요");
 				else
@@ -1133,18 +1102,18 @@ void CCorporationDlg2::OnBnClickedGroupOwner()
 		case 2:
 			{
 				CMyTestView2 *pView3 = (CMyTestView2 *)GetTabItem(nCur);
-				CDataBox &m_Data = pView3->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView3->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 					MessageBox("수정하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 					return;
 				}
 
-				if(m_Data.GetSelectedCount() <= 0)
+				if(m_Data.GetSelectedRows()->GetCount() <= 0)
 					return;
 
-				nGroupOwnerCNo = (long)m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				long nGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());
+				nGroupOwnerCNo = (long)m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				long nGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());
 				if(nGroupOwnerCNo <= 0)
 					throw("고객 선택을 다시하여주세요");
 				else
@@ -1163,14 +1132,14 @@ void CCorporationDlg2::OnBnClickedGroupOwner()
 		case 3:
 			{
 				/*CMyTestView *pView4 = (CMyTestView *)GetTabItem(nCur);
-				CDataBox &m_Data = pView4->GetDataCtrl();
-				if(m_Data.GetSelectedCount() == 0)
+				CXTPListCtrl2 &m_Data = pView4->GetDataCtrl();
+				if(m_Data.GetSelectedRows()->GetCount() == 0)
 				{
 				MessageBox("복사하실 행을 선택하세요", "확인", MB_ICONINFORMATION);
 				return;
 				}
-				m_nCopyCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRecord()->GetIndex());
-				m_nCopyGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRecord()->GetIndex());*/
+				m_nCopyCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord()->GetIndex());
+				m_nCopyGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord()->GetIndex());*/
 			}			
 			break;
 
@@ -1288,18 +1257,10 @@ void CCorporationDlg2::OnLButtonUp(UINT nFlags, CPoint point)
 			if(pRow == NULL)
 				return;
 
-			CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*)pRow->GetRecord();
+			CXTPGridRecord *pRecord = (CXTPGridRecord*)pRow->GetRecord();
 
-			long nGNo = pRecord->GetItemDataLong();
-			CString strGroupName = m_cg.GetGroupData(pRecord->GetItemDataLong())->strGroupName;
-
-			//if(m_cg.GetGroupData(pRecord->GetItemDataLong())->nLevel != 0) // 최상위 그룹을 가져온다
-			//	nGNo = m_cg.GetGroupData(pRecord->m_nGNo)->nParentGNo;//
-			//else
-			//	nGNo = pRecord->m_nGNo;
-
-			//MakeListTree(nGNo);
-			//GetData(nGNo);
+			long nGNo = m_GroupList.GetItemLong(pRecord);
+			CString strGroupName = m_cg.GetGroupData(nGNo)->strGroupName;
 		}
 	}
 

@@ -60,7 +60,7 @@ public:
 	CButton m_chkNoWork6;
 	CButton m_chkNoWork7;
 	CButton m_chkInterCallWork;
-	CDataBox m_ChargeList;
+	CXTPListCtrl2 m_ChargeList;
 	CMyStatic m_stcTimeChareDataRow;
 	CMyStatic m_stcIntercallTimeDataRow;
 	CComboBox m_cmbChargeDay;

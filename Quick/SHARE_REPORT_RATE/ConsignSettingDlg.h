@@ -1,7 +1,7 @@
 #pragma once
 
 #include "FlatEdit2.h"
-#include "DataBox.h"
+
 #include "DateButton.h"
 // CConsignSettingDlg 대화 상자입니다.
 
@@ -41,7 +41,7 @@ public:
 
 	COleDateTime m_dtReserveDate;
 	
-	CDataBox m_SettingReport;
+	CXTPListCtrl2 m_SettingReport;
 	CButton m_btnConfirm;
 	CButton m_btnModify;
 	CButton m_btnCancelRequest;

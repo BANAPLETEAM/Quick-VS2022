@@ -32,6 +32,7 @@ public:
 		m_nLong = 0;
 		m_nLong2 = 0;
 		m_nLong3 = 0;
+		m_nLong4 = 0;
 		m_dwData = 0;
 		m_strString = "";
 		int nColIndex=0;
@@ -82,6 +83,7 @@ public:
 		m_nLong = 0;
 		m_nLong2 = 0;
 		m_nLong3 = 0;
+		m_nLong4 = 0;
 		m_dwData = 0;
 		m_strString = "";
 
@@ -103,21 +105,102 @@ public:
 
 
 public:
-	DWORD m_dwData = 0;
-	long m_nLong = 0;
-	long m_nLong2 = 0;
-	long m_nLong3 = 0;
+	DWORD m_dwData;
+	long m_nLong;
+	long m_nLong2;
+	long m_nLong3;
+	long m_nLong4;
 	CString m_strString;
 	CString m_strText;
 	CString m_strText2;
 	CString m_strText3;
-	BOOL m_bNoSort = FALSE;
+	BOOL m_bNoSort;
 	COleDateTime m_dtDate;
 
 	virtual void CXTPListCtrlRecord2::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS* pDrawArgs, XTP_GRIDRECORDITEM_METRICS* pItemMetrics);
 	long GetChecked(long nCol)	{return ((CCheckRecord*)GetItem(nCol))->IsChecked(); }
 };
 
+class CLMyXTPGridRecordItemText : public CXTPGridRecordItemText
+{
+public:
+	CLMyXTPGridRecordItemText(CString sValue = "") :CXTPGridRecordItemText(sValue) {
+
+		m_bItemDirtyFlag = FALSE;
+		m_bNotValueSpace = FALSE;
+		m_bDirectChange = TRUE;
+		m_sOldValue = "";
+	}
+	BOOL m_bItemDirtyFlag;
+	BOOL m_bNotValueSpace;
+	BOOL m_bDirectChange;
+	CString m_sOldValue;
+
+	void OldValueChange()
+	{
+		DirectValueView();
+
+		if (!m_bNotValueSpace)
+			SetValue(m_sOldValue);
+		else if (m_bNotValueSpace && m_sOldValue.GetLength() == 0)
+			SetValue("");
+		else
+			SetValue(m_sOldValue);
+
+		SetCaption(m_sOldValue);
+
+	}
+
+protected:
+	void SetChangeView(BOOL bTrue = TRUE, CXTPGridRecord* pRecord = NULL)
+	{
+		m_bItemDirtyFlag = TRUE;
+		//if (pRecord)
+		//	pRecord->m_bDirtyFlag = TRUE;
+
+		m_clrBackground = RGB(235, 238, 237);
+		m_bBoldText = TRUE;
+
+	}
+	void DirectValueView()
+	{
+		m_clrBackground = RGB(255, 255, 255);
+		m_bBoldText = FALSE;
+	}
+
+
+	virtual void OnEditChanged(XTP_REPORTRECORDITEM_ARGS* pItemArgs, LPCTSTR szText)
+	{
+		CString sNewValue(szText);
+		m_sOldValue = GetCaption(pItemArgs->pColumn);
+		CString str = GetValue();
+		CString str1 = pItemArgs->pItem->GetCaption(pItemArgs->pColumn);
+		CString str2 = ((CLMyXTPGridRecordItemText*)pItemArgs->pItem)->GetValue();
+		if (sNewValue.GetLength() == 0 && m_sOldValue.GetLength() > 0)
+			return;
+
+
+
+		if (m_sOldValue.Compare(sNewValue) != 0)
+		{
+			CXTPGridRecord* pRecord = pItemArgs->pRow->GetRecord();
+
+			if (m_bDirectChange)
+				DirectValueView();
+			else
+				SetChangeView(TRUE, pRecord);
+
+			if (!m_bNotValueSpace)
+				SetValue(sNewValue);
+			else if (m_bNotValueSpace && sNewValue.GetLength() == 0)
+				SetValue("");
+			else
+				SetValue(sNewValue);
+
+			SetCaption(sNewValue);
+		}
+	}
+};
 
 
 class CXTPListCtrl2 : public CXTPGridControl
@@ -178,8 +261,7 @@ public:
 	void SetItemNoSort(CXTPGridRecord *pRecord, BOOL bNoSort = TRUE);
 	void ReSortRows();
 
-	int InsertColumn(int nCol, CString strColumnHeading, int nAlignment, int nWidth);
-	CXTPGridColumn* InsertColumn1(int nCol, CString strColumnHeading, int nAlignment, int nWidth);
+	CXTPGridColumn* InsertColumn(int nCol, CString strColumnHeading, int nAlignment, int nWidth, bool auto_size = true);
 	void SetImageList(CImageList *pImageList, int nType);
 	void SetExtendedStyle(int nStyle);
 	void CheckCurColumnSortType();
@@ -206,8 +288,12 @@ public:
 	void SetItemLong2(int nItem, long nData);
 	void SetItemLong3(CXTPGridRecord *pRecord, long nData);
 	void SetItemLong3(int nItem, long nData);
+	void SetItemLong4(CXTPGridRecord* pRecord, long nData);
+	void SetItemLong4(int nItem, long nData);
 	void SetItemDate(int nItem, COleDateTime nData);
 	void SetItemDate(CXTPGridRecord *pRecord, COleDateTime dtDate);
+	void SetItemDate2(int nItem, COleDateTime dtDate);
+	void SetItemDate2(CXTPGridRecord* pRecord, COleDateTime dtDate);
 	void SetItemDataText(int nItem, CString sData);
 	void SetItemDataText2(int nItem, CString sData);
 	void SetItemDataText3(int nItem, CString sData);
@@ -221,6 +307,8 @@ public:
 	DWORD GetItemData(CXTPGridRecord *pRecord);
 	COleDateTime GetItemDate(int nItem);
 	COleDateTime GetItemDate(CXTPGridRecord *pRecord);
+	COleDateTime GetItemDate2(int nItem);
+	COleDateTime GetItemDate2(CXTPGridRecord* pRecord);
 	CString GetItemDataText(CXTPGridRecord *pRecord);
 	CString GetItemDataText2(CXTPGridRecord *pRecord);
 	CString GetItemDataText3(CXTPGridRecord *pRecord);
@@ -237,6 +325,8 @@ public:
 	long GetItemLong2(CXTPGridRecord *pRecord);
 	long GetItemLong3(int nItem);
 	long GetItemLong3(CXTPGridRecord *pRecord);
+	long GetItemLong4(int nItem);
+	long GetItemLong4(CXTPGridRecord* pRecord);
 	CString GetItemString(CXTPGridRecord *pRecord);
 	CString GetItemString(int nItem);
 	void SetItemString(CXTPGridRecord *pRecord, CString strData);
@@ -244,6 +334,7 @@ public:
 	void SetSelectedRow(long nRow);
 
 	int GetItemCount();
+	long GetSelectedItemCount();
 	void EnsureVisibleEx(int nItem); 
 
 	void HideRow(CXTPGridRow *pRow);
@@ -255,6 +346,7 @@ public:
 	void Filter(CString strFilter, int nFilterCol = 0, int nTypeData = ALL_TYPE_COL);
 	void InsertSearchAllColumn(int nCol);
 
+	void DeleteItem(int nItem, BOOL bRefresh = TRUE);
 	void DeleteAllItems();
 
 	void InsertTypeList(CString strTitle, int nCol, CString strKeyword, long dwItemData = -1);	
@@ -320,6 +412,11 @@ public:
 	void ChangeItemTextBold(int nRecordCount, int nItemIndex, BOOL bEnable);
 	void ChangeRecordTextBold(int nRecordCount, BOOL bEnable);
 	void ChangeRecordTextBold(CXTPGridRecord *pRecord, BOOL bEnable);
+
+	CXTPGridRecord* GetSelectedRowsGetAtGetRecord(int nSelectedRow)
+	{
+		return (CXTPGridRecord*)this->GetSelectedRows()->GetAt(nSelectedRow)->GetRecord();
+	}
 };
 
 
@@ -467,3 +564,37 @@ public:
 	void SetChecked(long nCol, BOOL bCheck) {((CCheckRecord*)GetItem(0))->SetChecked(bCheck); }
 };
 
+class CTaskFrame;
+class CXTPPrintListCtrl : public CXTPListCtrl2
+{
+public:
+	CXTPPrintListCtrl();
+	virtual ~CXTPPrintListCtrl() {}
+
+	/// print 관련
+	CUIntArray m_aPageStart;        // Printed indexes.
+
+	CTaskFrame* m_pTaskFrame;
+
+	void MyPrint();
+	void MyPrintPreview();
+
+	void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
+	void OnPrint(CDC* pDC, CPrintInfo* pInfo);
+	void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
+
+	//OnPrint 내부함수
+	long PrintPage(CDC* pDC, CPrintInfo* pInfo, CRect rcPage, long nIndexStart);
+	//PrintPage 내부함수
+	void PrintHeader(CDC* pDC, CRect rcHeader);
+	//PrintHeader 내부함수
+	int GetColumnWidth(CXTPGridColumn* pColumnTest, int nTotalWidth);
+
+	int PrintRows(CDC* pDC, CRect rcClient, long nIndexStart);
+	//PrintRows 내부함수
+	void PrintRow(CDC* pDC, CXTPGridRow* pRow, CRect rcRow);
+	void PrintFooter(CDC* pDC, CPrintInfo* pInfo, CRect rcFooter);
+
+	//BOOL CDataBox::PaginateTo(CDC* pDC, CPrintInfo* pInfo)
+	void Print(CDC* pDC, CPrintInfo* pInfo);
+};

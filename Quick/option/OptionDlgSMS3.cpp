@@ -705,7 +705,7 @@ void COptionDlgSMS3::OnBnClickedShowUrlBtn()
 	CString strItem = LF->GetStringFromEdit(&m_edtCompanyHomePage);
 
 	if(!strItem.IsEmpty())
-		ShellExecute(NULL, "open", "iexplore.exe", strItem, "", SW_SHOW);
+		ShellExecute(NULL, "open", "msedge.exe", strItem, "", SW_SHOW);
 }
 
 void COptionDlgSMS3::OnBnClickedShowUrlBtn2()
@@ -713,7 +713,7 @@ void COptionDlgSMS3::OnBnClickedShowUrlBtn2()
 	CString strItem = LF->GetStringFromEdit(&m_edtCompanyLogoImage);
 
 	if(!strItem.IsEmpty())
-		ShellExecute(NULL, "open", "iexplore.exe", strItem, "", SW_SHOW);
+		ShellExecute(NULL, "open", "msedge.exe", strItem, "", SW_SHOW);
 }
 
 void COptionDlgSMS3::OnBnClickedPreSmsBtn()

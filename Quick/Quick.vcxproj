@@ -147,7 +147,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir);$(SolutionDir)BRANCH_CONTROL;$(SolutionDir)CHARGE;$(SolutionDir)COMMON;$(SolutionDir)CONTROL;$(SolutionDir)CTI;$(SolutionDir)CUSTOMER_VIEW;$(SolutionDir)ETC_VIEW;$(SolutionDir)FRAME_WORK;$(SolutionDir)FUNCTION_VIEW;$(SolutionDir)GRAPH;$(SolutionDir)HOME_VIEW;$(SolutionDir)INCOME_VIEW;$(SolutionDir)MAP;$(SolutionDir)MESSENGER;$(SolutionDir)OPTION;$(SolutionDir)PANE;$(SolutionDir)POIDATA;$(SolutionDir)RCP;$(SolutionDir)RCP_INSUNG;$(SolutionDir)REPORT_RIDER_VIEW;$(SolutionDir)REPORT_VIEW;$(SolutionDir)SHARE_REPORT_RATE;$(SolutionDir)SMS;$(SolutionDir)SMTP;$(SolutionDir)STAFF_VIEW;$(SolutionDir)STAT_VIEW;$(SolutionDir)UPDATE_EXE_CHECK;$(SolutionDir)XTPToolkitPro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;..\Include\WebView;$(SolutionDir);$(SolutionDir)BRANCH_CONTROL;$(SolutionDir)CHARGE;$(SolutionDir)COMMON;$(SolutionDir)CONTROL;$(SolutionDir)CTI;$(SolutionDir)CUSTOMER_VIEW;$(SolutionDir)ETC_VIEW;$(SolutionDir)FRAME_WORK;$(SolutionDir)FUNCTION_VIEW;$(SolutionDir)GRAPH;$(SolutionDir)HOME_VIEW;$(SolutionDir)INCOME_VIEW;$(SolutionDir)MAP;$(SolutionDir)MESSENGER;$(SolutionDir)OPTION;$(SolutionDir)PANE;$(SolutionDir)POIDATA;$(SolutionDir)RCP;$(SolutionDir)RCP_INSUNG;$(SolutionDir)REPORT_RIDER_VIEW;$(SolutionDir)REPORT_VIEW;$(SolutionDir)SHARE_REPORT_RATE;$(SolutionDir)SMS;$(SolutionDir)SMTP;$(SolutionDir)STAFF_VIEW;$(SolutionDir)STAT_VIEW;$(SolutionDir)UPDATE_EXE_CHECK;$(SolutionDir)XTPToolkitPro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;JSON_DEBUG;_RCPPROJ;_QUICK;_HAS_STD_BYTE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -197,7 +197,7 @@
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <OmitFramePointers>false</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;$(SolutionDir);$(SolutionDir)BRANCH_CONTROL;$(SolutionDir)CHARGE;$(SolutionDir)COMMON;$(SolutionDir)CONTROL;$(SolutionDir)CTI;$(SolutionDir)CUSTOMER_VIEW;$(SolutionDir)ETC_VIEW;$(SolutionDir)FRAME_WORK;$(SolutionDir)FUNCTION_VIEW;$(SolutionDir)GRAPH;$(SolutionDir)HOME_VIEW;$(SolutionDir)INCOME_VIEW;$(SolutionDir)MAP;$(SolutionDir)MESSENGER;$(SolutionDir)OPTION;$(SolutionDir)PANE;$(SolutionDir)POIDATA;$(SolutionDir)RCP;$(SolutionDir)RCP_INSUNG;$(SolutionDir)REPORT_RIDER_VIEW;$(SolutionDir)REPORT_VIEW;$(SolutionDir)SHARE_REPORT_RATE;$(SolutionDir)SMS;$(SolutionDir)SMTP;$(SolutionDir)STAFF_VIEW;$(SolutionDir)STAT_VIEW;$(SolutionDir)UPDATE_EXE_CHECK;$(SolutionDir)XTPToolkitPro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include\POIDataLIb;..\Include\LogiDbInc_3;..\Include\TinyXml;..\Include\BugsLayerUtil;..\Include\CallPass;..\Include\TalMapX_1\MAP;..\Include\TalMapX_1\SR;..\Include\tlh;..\Include\Json;..\Include\WebView;$(SolutionDir);$(SolutionDir)BRANCH_CONTROL;$(SolutionDir)CHARGE;$(SolutionDir)COMMON;$(SolutionDir)CONTROL;$(SolutionDir)CTI;$(SolutionDir)CUSTOMER_VIEW;$(SolutionDir)ETC_VIEW;$(SolutionDir)FRAME_WORK;$(SolutionDir)FUNCTION_VIEW;$(SolutionDir)GRAPH;$(SolutionDir)HOME_VIEW;$(SolutionDir)INCOME_VIEW;$(SolutionDir)MAP;$(SolutionDir)MESSENGER;$(SolutionDir)OPTION;$(SolutionDir)PANE;$(SolutionDir)POIDATA;$(SolutionDir)RCP;$(SolutionDir)RCP_INSUNG;$(SolutionDir)REPORT_RIDER_VIEW;$(SolutionDir)REPORT_VIEW;$(SolutionDir)SHARE_REPORT_RATE;$(SolutionDir)SMS;$(SolutionDir)SMTP;$(SolutionDir)STAFF_VIEW;$(SolutionDir)STAT_VIEW;$(SolutionDir)UPDATE_EXE_CHECK;$(SolutionDir)XTPToolkitPro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_RCPPROJ;_QUICK;_HAS_STD_BYTE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>
       </StringPooling>
@@ -455,6 +455,8 @@
     <ClCompile Include="..\Include\TinyXml\tinyxml.cpp" />
     <ClCompile Include="..\Include\TinyXml\tinyxmlerror.cpp" />
     <ClCompile Include="..\Include\TinyXml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\Include\WebView\EdgeBrowser.cpp" />
+    <ClCompile Include="..\Include\WebView\ViewComponent.cpp" />
     <ClCompile Include="BRANCH_CONTROL\BranchListDlg.cpp" />
     <ClCompile Include="BRANCH_CONTROL\BranchMainBtn.cpp" />
     <ClCompile Include="BRANCH_CONTROL\BranchMainListDlg.cpp" />
@@ -565,7 +567,6 @@
     <ClCompile Include="CONTROL\CommonDlg1.cpp" />
     <ClCompile Include="CONTROL\CommonDlg2.cpp" />
     <ClCompile Include="CONTROL\CustomMyAfxMessgagebox.cpp" />
-    <ClCompile Include="CONTROL\DataBox.cpp" />
     <ClCompile Include="CONTROL\DateButton.cpp" />
     <ClCompile Include="CONTROL\DateButtonOneDay.cpp" />
     <ClCompile Include="CONTROL\DateSelectDlg.cpp" />
@@ -1069,7 +1070,6 @@
     <ClCompile Include="STAFF_VIEW\RiderMapSetDlg.cpp" />
     <ClCompile Include="STAFF_VIEW\RiderMsgAllDlg2.cpp" />
     <ClCompile Include="STAFF_VIEW\RiderMsgDlg.cpp" />
-    <ClCompile Include="STAFF_VIEW\RiderOrderLogDlg.cpp" />
     <ClCompile Include="STAFF_VIEW\RiderShareBoardDlg.cpp" />
     <ClCompile Include="STAFF_VIEW\RiderSMSDlg.cpp" />
     <ClCompile Include="STAFF_VIEW\RiderTraceMapDlg.cpp" />
@@ -1104,7 +1104,6 @@
     <ClCompile Include="STAFF_VIEW\TRSInsertRiderDlg.cpp" />
     <ClCompile Include="STAFF_VIEW\TRSRiderDlg.cpp" />
     <ClCompile Include="STAFF_VIEW\TRSRiderMsgDlg.cpp" />
-    <ClCompile Include="STAFF_VIEW\WeatherDlg.cpp" />
     <ClCompile Include="STAFF_VIEW\workStateChangeLogDlg.cpp" />
     <ClCompile Include="STAFF_VIEW\WorkTimeDlg.cpp" />
     <ClCompile Include="STAT_VIEW\CustomerPage7.cpp" />
@@ -1330,6 +1329,9 @@
     <ClInclude Include="..\Include\voip\VoicePacket.h" />
     <ClInclude Include="..\Include\voip\WalkieTalkieDlg.h" />
     <ClInclude Include="..\Include\voip\WriteSound.h" />
+    <ClInclude Include="..\Include\WebView\ComponentBase.h" />
+    <ClInclude Include="..\Include\WebView\EdgeBrowser.h" />
+    <ClInclude Include="..\Include\WebView\ViewComponent.h" />
     <ClInclude Include="BRANCH_CONTROL\BranchListDlg.h" />
     <ClInclude Include="BRANCH_CONTROL\BranchMainBtn.h" />
     <ClInclude Include="BRANCH_CONTROL\BranchMainListDlg.h" />
@@ -1433,7 +1435,6 @@
     <ClInclude Include="CONTROL\CommonDlg1.h" />
     <ClInclude Include="CONTROL\CommonDlg2.h" />
     <ClInclude Include="CONTROL\CustomMyAfxMessgagebox.h" />
-    <ClInclude Include="CONTROL\DataBox.h" />
     <ClInclude Include="CONTROL\DateButton.h" />
     <ClInclude Include="CONTROL\DateButtonOneDay.h" />
     <ClInclude Include="CONTROL\DateSelectDlg.h" />
@@ -1946,7 +1947,6 @@
     <ClInclude Include="STAFF_VIEW\RiderMapSetDlg.h" />
     <ClInclude Include="STAFF_VIEW\RiderMsgAllDlg2.h" />
     <ClInclude Include="STAFF_VIEW\RiderMsgDlg.h" />
-    <ClInclude Include="STAFF_VIEW\RiderOrderLogDlg.h" />
     <ClInclude Include="STAFF_VIEW\RiderShareBoardDlg.h" />
     <ClInclude Include="STAFF_VIEW\RiderSMSDlg.h" />
     <ClInclude Include="STAFF_VIEW\RiderTraceMapDlg.h" />
@@ -1981,7 +1981,6 @@
     <ClInclude Include="STAFF_VIEW\TRSInsertRiderDlg.h" />
     <ClInclude Include="STAFF_VIEW\TRSRiderDlg.h" />
     <ClInclude Include="STAFF_VIEW\TRSRiderMsgDlg.h" />
-    <ClInclude Include="STAFF_VIEW\WeatherDlg.h" />
     <ClInclude Include="STAFF_VIEW\workStateChangeLogDlg.h" />
     <ClInclude Include="STAFF_VIEW\WorkTimeDlg.h" />
     <ClInclude Include="STAT_VIEW\CustomerPage7.h" />
@@ -2026,6 +2025,7 @@
     <None Include="..\Include\tlh\msado27.tli" />
     <None Include="..\Include\tlh\msxml3.tlh" />
     <None Include="..\Include\tlh\readme.md" />
+    <None Include="packages.config" />
     <None Include="resource.hm" />
     <None Include="res\cursor1.cur" />
     <None Include="res\cursor3.cur" />
@@ -2183,10 +2183,19 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\Microsoft.Web.WebView2.1.0.1823.32\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.1823.32\build\native\Microsoft.Web.WebView2.targets')" />
+    <Import Project="packages\Microsoft.Windows.ImplementationLibrary.1.0.230629.1\build\native\Microsoft.Windows.ImplementationLibrary.targets" Condition="Exists('packages\Microsoft.Windows.ImplementationLibrary.1.0.230629.1\build\native\Microsoft.Windows.ImplementationLibrary.targets')" />
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties _x007B_8856F961-340A-11D0-A96B-00C04FD705A2_x007D_="CExplorer" RESOURCE_FILE="Quick.rc" />
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>이 프로젝트는 이 컴퓨터에 없는 NuGet 패키지를 참조합니다. 해당 패키지를 다운로드하려면 NuGet 패키지 복원을 사용하십시오. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkID=322105를 참조하십시오. 누락된 파일은 {0}입니다.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.1823.32\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.1823.32\build\native\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.Windows.ImplementationLibrary.1.0.230629.1\build\native\Microsoft.Windows.ImplementationLibrary.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Windows.ImplementationLibrary.1.0.230629.1\build\native\Microsoft.Windows.ImplementationLibrary.targets'))" />
+  </Target>
 </Project>

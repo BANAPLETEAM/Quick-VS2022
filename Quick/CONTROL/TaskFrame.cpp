@@ -33,7 +33,7 @@ CTaskFrame::CTaskFrame()
 {
 
 }
-CTaskFrame::CTaskFrame(CDataBox *pDataBox)
+CTaskFrame::CTaskFrame(CXTPListCtrl2 *pDataBox)
 {
 	m_pParentWnd =  pDataBox;
 	

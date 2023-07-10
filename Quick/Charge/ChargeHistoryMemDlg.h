@@ -1,5 +1,5 @@
 #pragma once
-#include "DataBox.h"
+
 #include "BtnST.h"
 
 //
@@ -19,14 +19,14 @@
 //} MEMBER_CNO;
 //// CChargeHistoryMemDlg 대화 상자입니다.
 //typedef::map<long, MEMBER_CNO*>MAP_MEMBER_CNO;
-//typedef::map<MEMBER_CNO*, CMyXTPGridRecord*>MAP_XTPRECORD_CNO;
+//typedef::map<MEMBER_CNO*, CXTPGridRecord*>MAP_XTPRECORD_CNO;
 
 
 #define  REGISTER_CUSOMER 100
 #define  DELETE_CUSOMER 10
 
 
-
+enum { ENUM_HIS_CHARGE = 0, ENUM_HIS_LIST = 1 };
 
 class CWorkBtn : public CButtonST
 {
@@ -75,7 +75,7 @@ CWnd *m_pWnd;
 
 };
 
-class CMainChargeList : public CDataBox
+class CMainChargeList : public CXTPListCtrl2
 {
 
 public:
@@ -92,7 +92,7 @@ public:
 		int nItemCol = pDrawArgs->pColumn->GetItemIndex();
 
 
-		if(GetItemDataLong(nRow) == m_nMemCNo)
+		if(GetItemLong(nRow) == m_nMemCNo)
 			pMetrics->clrBackground = RGB(255,125,165);
 
 
@@ -103,7 +103,7 @@ public:
 
 };
 
-class CSubChargeList : public CDataBox
+class CSubChargeList : public CXTPListCtrl2
 {
 
 public:
@@ -120,7 +120,7 @@ public:
 		int nItemCol = pDrawArgs->pColumn->GetItemIndex();
 
 
-		if(GetItemDataLong(nRow) == m_nCNo)
+		if(GetItemLong(nRow) == m_nCNo)
 			pMetrics->clrBackground = RGB(255,125,165);
 
 
@@ -189,6 +189,7 @@ public:
 	void NewCustomer();
 	void ChargeItemDelete();
 	void ReinitData();
+	void MakeColumn(UINT type);
 
 	CMainChargeList m_lstMain;
 	CSubChargeList m_lstSub;

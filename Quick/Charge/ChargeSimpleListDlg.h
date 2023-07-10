@@ -1,6 +1,6 @@
 #pragma once
 #include "afxwin.h"
-#include "DataBox.h"
+
 #include <vector>
 #include <set>
 
@@ -32,8 +32,8 @@ protected:
 	CEdit m_edtDong;
 	//CEdit m_edtNickName;
 	CEdit m_edtDongDetail;
-	CDataBox m_RegisterDongList;
-	CDataBox m_DongList;
+	CXTPListCtrl2 m_RegisterDongList;
+	CXTPListCtrl2 m_DongList;
 	
 	setSido m_setSido;
 	setSido m_setSaveSido;

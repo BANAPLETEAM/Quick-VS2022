@@ -131,6 +131,7 @@ void CShareReportRateDlg1::OnInitialUpdate()
 
 	//pCol5->SetVisible(FALSE);
 	//pCol6->SetVisible(FALSE);
+	pCol11->SetVisible(FALSE);
 
 	m_wndReport.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
 	m_wndReport.SetTreeIndent(10);
@@ -560,10 +561,10 @@ void CShareReportRateDlg1::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*
 
 	if(nCol == SR_HISTORY_COL)
 	{
-		CShareReportRateLogDlg dlg;
-		dlg.m_nShareCode1A = nShareCode1A;
-		dlg.m_nShareCode1B = nShareCode1B;
-		dlg.DoModal();
+		//CShareReportRateLogDlg dlg;
+		//dlg.m_nShareCode1A = nShareCode1A;
+		//dlg.m_nShareCode1B = nShareCode1B;
+		//dlg.DoModal();
 	}
 	else if(nCol == SR_TRANSFER_COL)
 	{

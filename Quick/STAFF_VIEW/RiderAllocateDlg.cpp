@@ -73,7 +73,7 @@ void CRiderAllocateDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	long nRow = pNMListView->pRow->GetIndex();
 	long nCol = pNMListView->pColumn->GetItemIndex();
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pNMListView->pRow->GetRecord();
+	CXTPGridRecord *pRecord = (CXTPGridRecord *)pNMListView->pRow->GetRecord();
 	long nCompany = m_List.GetItemLong(pRecord);
 	long nRNo = m_List.GetItemLong2(pRecord);
 	CString strRName = m_List.GetItemString(pRecord);

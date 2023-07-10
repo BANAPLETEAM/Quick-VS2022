@@ -104,25 +104,20 @@ BOOL CChargeDongSettingDlg::OnInitDialog()
 {
 	CXTResizeDialog::OnInitDialog();
 
-	m_lstStart.AddHeader(0, TRUE, "sStartName", "출발지", 180, DT_LEFT,FALSE);		
-	m_lstStart.AddHeader(1, TRUE, "sType", "표", 60, DT_LEFT,FALSE);			
-	m_lstStart.AddHeader(-1, FALSE, "nDongID",	"", 80, DT_LEFT,FALSE,TRUE);		
-	m_lstStart.AddHeader(-1, FALSE, "nType",	"", 80, DT_LEFT,FALSE,FALSE, TRUE);		
-	m_lstStart.SetExtendedStyle(NULL);
+	m_lstStart.InsertColumn(0, "출발지", LVCFMT_LEFT, 180);
+	m_lstStart.InsertColumn(1, "표", LVCFMT_LEFT, 60);
+	m_lstStart.InsertColumn(2, "", LVCFMT_LEFT, 80);
+	m_lstStart.InsertColumn(3, "", LVCFMT_LEFT, 80);
 	m_lstStart.Populate();
 
-
-	m_lstDest.AddHeader(0, TRUE, "sStartName", "도착지", 180, DT_LEFT,FALSE);		
-	m_lstDest.AddHeader(1, TRUE, "sType",		"구분", 60, DT_LEFT,FALSE);			
-	m_lstDest.AddHeader(-1, FALSE, "nDongID",	"", 80, DT_LEFT,FALSE,TRUE);		
-	m_lstDest.AddHeader(-1, FALSE, "nType",		"", 80, DT_LEFT,FALSE,FALSE,TRUE);		
-	m_lstDest.SetExtendedStyle(NULL);
+	m_lstDest.InsertColumn(0, "도착지", LVCFMT_LEFT, 180);
+	m_lstDest.InsertColumn(1, "구분", LVCFMT_LEFT, 60);
+	m_lstDest.InsertColumn(2, "", LVCFMT_LEFT, 80);
+	m_lstDest.InsertColumn(3, "", LVCFMT_LEFT, 80);
 	m_lstDest.Populate();
-	
-	m_lstSectionName.AddHeader(0, TRUE, "sChargeAreaName", "구간이름", 180, DT_LEFT,FALSE);		
-	m_lstSectionName.AddHeader(-1, FALSE, "nChargeAreaID", "No", 150, DT_CENTER,FALSE, TRUE);
-	//m_lstSectionName.AddHeader(1, TRUE, "nChargeAreaID", "nChargeAreaID", 50, DT_LEFT);		
-	m_lstSectionName.SetExtendedStyle(NULL);
+
+	m_lstSectionName.InsertColumn(0, "구간이름", LVCFMT_LEFT, 180);
+	m_lstSectionName.InsertColumn(1, "No", LVCFMT_CENTER, 150);
 	m_lstSectionName.Populate();
 
 	m_chkMoto.SetCheck(TRUE);
@@ -188,13 +183,31 @@ BOOL CChargeDongSettingDlg::OnInitDialog()
 void CChargeDongSettingDlg::RefreshSection()
 {
 
-	m_lstSectionName.DeleteAllItem();
+	m_lstSectionName.DeleteAllItems();
 
-	m_lstSectionName.CreateRsSetQuery("select_charge_setting_area_name");
-	m_lstSectionName.AddParameter(m_ci.m_nCompanyCode);	
-	m_lstSectionName.ExcuteBinding(TRUE);
+	CMkRecordset pRs(m_pMkDb);
+	CMkCommand pCmd(m_pMkDb, "select_charge_setting_area_name");
+	pCmd.AddParameter(m_ci.m_nCompanyCode);
 
+	if (!pRs.Execute(&pCmd))
+		return;
 
+	int index = 0;
+	while (!pRs.IsEOF())
+	{
+		int nChargeAreaID;
+		CString sChargeAreaName;
+		pRs.GetFieldValue("sChargeAreaName", sChargeAreaName);
+		pRs.GetFieldValue("nChargeAreaID", nChargeAreaID);
+
+		m_lstSectionName.InsertItem(index, sChargeAreaName);
+		m_lstSectionName.SetItemText(index, 1, LF->GetStringFromLong(nChargeAreaID));
+		m_lstSectionName.SetItemLong(index, nChargeAreaID);
+		pRs.MoveNext();
+	}
+
+	m_lstSectionName.Populate();
+	pRs.Close();
 }
 
 
@@ -205,26 +218,21 @@ void CChargeDongSettingDlg::OnReportSectionNameItemClick(NMHDR * pNotifyStruct, 
 	if (!pItemNotify->pRow || !pItemNotify->pColumn)
 		return;
 
-
 	BOOL bNoSavedItem = FALSE;
-	CMyXTPGridRecord *pNoSaveRecord;
+	CXTPGridRecord *pNoSaveRecord = NULL;
 	for(int i = 0; i < this->m_lstSectionName.GetItemCount(); i++)
 	{
-		pNoSaveRecord = m_lstSectionName.GetRecordsGetAt(i);
-		int nSavedChargeAreaID = pNoSaveRecord->GetItemDataLong();
-		if(nSavedChargeAreaID ==-1)
+		int nSavedChargeAreaID = _ttoi(m_lstSectionName.GetItemText(i, 1));
+		if (nSavedChargeAreaID == -1)
 		{
 			bNoSavedItem = TRUE;
 			break;
 		}
-
 	}
-
-
 
 	if(bNoSavedItem)
 	{
-		if((CMyXTPGridRecord*)pItemNotify->pRow->GetRecord() == pNoSaveRecord)
+		if((CXTPGridRecord*)pItemNotify->pRow->GetRecord() == pNoSaveRecord)
 			return;
 
 		CString strNoSaveAreaName = pNoSaveRecord->GetItem(0)->GetCaption(NULL);
@@ -232,52 +240,94 @@ void CChargeDongSettingDlg::OnReportSectionNameItemClick(NMHDR * pNotifyStruct, 
 		strNoSaveAreaName += " 저장하지 않고 타구역을 보시겠습니까? ";
 		if(MessageBox(strNoSaveAreaName, "확인", MB_ICONINFORMATION | MB_YESNO) == IDNO)
 		{
-
 			pItemNotify->pRow->SetSelected(FALSE);
-
-				
 			return;
-		}
-			
+		}	
 	}
 
-
-	
 	int nRow = pItemNotify->pRow->GetIndex();
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pItemNotify->pRow->GetRecord();
-	long nChargeAreaID = pRecord->GetItemDataLong();
+	CXTPGridRecord *pRecord = (CXTPGridRecord *)pItemNotify->pRow->GetRecord();
+	long nChargeAreaID = m_lstSectionName.GetItemLong(nRow);
 	if(nChargeAreaID <= 0)
 	{
 		LF->MsgBox("아직 저장되지 않은 지역입니다");
 		return;
 	}
+
 	RefreshRegisterStartArea(nChargeAreaID);
 	RefreshRegisterDestArea(nChargeAreaID);
 }
+
+
 void CChargeDongSettingDlg::RefreshRegisterStartArea(long nChargeAreaID)
 {
+	m_lstStart.DeleteAllItems();
 
+	CMkRecordset pRs(m_pMkDb);
+	CMkCommand pCmd(m_pMkDb, "select_charge_setting_area_start_list");
+	pCmd.AddParameter(nChargeAreaID);
+	pCmd.AddParameter(TRUE);
 
+	if (!pRs.Execute(&pCmd))
+		return;
 
-	m_lstStart.DeleteAllItem();
-	
-	m_lstStart.CreateRsSetQuery("select_charge_setting_area_start_list");
-	m_lstStart.AddParameter(nChargeAreaID);	
-	m_lstStart.AddParameter(TRUE,0);	
-	m_lstStart.ExcuteBinding(TRUE);
+	int index = 0;
+	while (!pRs.IsEOF())
+	{
+		int nDongID, nType;
+		CString sStartName, sType;
+		pRs.GetFieldValue("sStartName", sStartName);
+		pRs.GetFieldValue("sType", sType);
+		pRs.GetFieldValue("nDongID", nDongID);
+		pRs.GetFieldValue("nType", nType);
 
+		m_lstStart.InsertItem(index, sStartName);
+		m_lstStart.SetItemText(index, 1, sType);
+		m_lstStart.SetItemText(index, 2, LF->GetStringFromLong(nDongID));
+		m_lstStart.SetItemText(index, 3, LF->GetStringFromLong(nType));
+		m_lstStart.SetItemLong(index, nDongID);
+		m_lstStart.SetItemLong2(index, nType);
+		pRs.MoveNext();
+	}
+
+	m_lstStart.Populate();
+	pRs.Close();
 }
+
+
 void CChargeDongSettingDlg::RefreshRegisterDestArea(long nChargeAreaID)
 {
+	m_lstDest.DeleteAllItems();
 
-	m_lstDest.DeleteAllItem();
-	
-	m_lstDest.CreateRsSetQuery("select_charge_setting_area_start_list");
-	m_lstDest.AddParameter(nChargeAreaID);	
-	m_lstDest.AddParameter(FALSE,0);	
-	m_lstDest.ExcuteBinding(TRUE);
-	
+	CMkRecordset pRs(m_pMkDb);
+	CMkCommand pCmd(m_pMkDb, "select_charge_setting_area_start_list");
+	pCmd.AddParameter(nChargeAreaID);
+	pCmd.AddParameter(TRUE);
 
+	if (!pRs.Execute(&pCmd))
+		return;
+
+	int index = 0;
+	while (!pRs.IsEOF())
+	{
+		int nDongID, nType;
+		CString sStartName, sType;
+		pRs.GetFieldValue("sStartName", sStartName);
+		pRs.GetFieldValue("sType", sType);
+		pRs.GetFieldValue("nDongID", nDongID);
+		pRs.GetFieldValue("nType", nType);
+
+		m_lstDest.InsertItem(index, sStartName);
+		m_lstDest.SetItemText(index, 1, sType);
+		m_lstDest.SetItemText(index, 2, LF->GetStringFromLong(nDongID));
+		m_lstDest.SetItemText(index, 3, LF->GetStringFromLong(nType));
+		m_lstDest.SetItemLong(index, nDongID);
+		m_lstDest.SetItemLong2(index, nType);
+		pRs.MoveNext();
+	}
+
+	m_lstDest.Populate();
+	pRs.Close();
 }
 
 
@@ -293,7 +343,7 @@ void CChargeDongSettingDlg::OnBnClickedStartBillBtnServer()
 }
 void CChargeDongSettingDlg::GetStartDongID(BOOL bServer)
 {
-	CXTPGridRecord *pRecord = m_lstSectionName.GetSelectedRecord();
+	CXTPGridRecord *pRecord = m_lstSectionName.GetFirstSelectedRecord();
 
 	if(bServer && pRecord == NULL)
 	{
@@ -301,7 +351,7 @@ void CChargeDongSettingDlg::GetStartDongID(BOOL bServer)
 		return;
 	}
 
-	long nChargeAreaID = pRecord != NULL ? m_lstSectionName.GetSelectedRecord()->GetItemDataLong() : 0;
+	long nChargeAreaID = pRecord != NULL ? m_lstSectionName.GetItemLong(pRecord) : 0;
 
 	if(bServer && nChargeAreaID < 0 )
 	{
@@ -318,7 +368,7 @@ void CChargeDongSettingDlg::GetStartDongID(BOOL bServer)
 		long nStartListCount = m_lstStart.GetRecords()->GetCount();
 		for(int j = 0; j < nStartListCount; j++)
 		{
-			if(m_lstStart.GetRecordsGetAt(j)->GetItemDataLong() == pRecord->m_nDongID)
+			if(m_lstStart.GetItemLong(j) == pRecord->m_nDongID)
 			{
 				bFind = TRUE;
 				break;
@@ -355,28 +405,20 @@ void CChargeDongSettingDlg::GetStartDongID(BOOL bServer)
 		}
 		if(bServer)
 		{
-			m_lstStart.CreateComandSetQuery("insert_chargedong_setting");
-			m_lstStart.AddParameter(nChargeAreaID);
-			m_lstStart.AddParameter(nDongID);
-			m_lstStart.AddParameter(nType);
-			m_lstStart.AddParameter("");
-			m_lstStart.AddParameter(m_ci.m_nCompanyCode);
-			m_lstStart.AddParameter(TRUE);  // START or DEST
-			m_lstStart.AddParameter(nChargeAreaID);
-			m_lstStart.ExcuteCmd();
-
+			CMkRecordset pRs(m_pMkDb);
+			CMkCommand pCmd(m_pMkDb, "insert_chargedong_setting");
+			pCmd.AddParameter(nChargeAreaID);
+			pCmd.AddParameter(nDongID);
+			pCmd.AddParameter(nType);
+			pCmd.AddParameter("");
+			pCmd.AddParameter(m_ci.m_nCompanyCode);
+			pCmd.AddParameter(TRUE);  // START or DEST
+			pCmd.AddParameter(nChargeAreaID);
+			pRs.Execute(&pCmd);
 		}
-
-		
-		m_lstStart.MyAddItem(sStartName);
-		CMyXTPGridRecord *pStartRecord = m_lstStart.MyAddItem(sType);
-		pStartRecord->m_bDirtyFlag = TRUE;
-		m_lstStart.InsertItemDataLong(nDongID);
-		m_lstStart.InsertItemDataLong2(nType);
-		m_lstStart.EndItem();		
 	}
-	m_lstStart.Populate();
 
+	RefreshRegisterStartArea(nChargeAreaID);
 }
 
 
@@ -394,7 +436,7 @@ void CChargeDongSettingDlg::OnBnClickedDestBillBtnServer()
 
 void CChargeDongSettingDlg::GetDestDongID(BOOL bServer)
 {
-	long nChargeAreaID = this->m_lstSectionName.GetSelectedRecord()->GetItemDataLong();
+	long nChargeAreaID = m_lstSectionName.GetItemLong(m_lstSectionName.GetFirstSelectedRecord());
 	if(bServer && nChargeAreaID < 0 )
 	{
 		LF->MsgBox("지역선택을 다시하여주세요");
@@ -408,7 +450,7 @@ void CChargeDongSettingDlg::GetDestDongID(BOOL bServer)
 		long nDestListCount = m_lstDest.GetRecords()->GetCount();
 		for(int j = 0; j < nDestListCount; j++)
 		{
-			if(m_lstDest.GetRecordsGetAt(j)->GetItemDataLong() == pRecord->m_nDongID)
+			if (m_lstDest.GetItemLong(j) == pRecord->m_nDongID)
 			{
 				bFind = TRUE;
 				break;
@@ -444,34 +486,20 @@ void CChargeDongSettingDlg::GetDestDongID(BOOL bServer)
 
 		if(bServer)
 		{
-			m_lstDest.CreateComandSetQuery("insert_chargedong_setting");
-			m_lstDest.AddParameter(nChargeAreaID);
-			m_lstDest.AddParameter(nDongID);
-			m_lstDest.AddParameter(nType);
-			m_lstDest.AddParameter("");
-			m_lstDest.AddParameter(m_ci.m_nCompanyCode);
-			m_lstDest.AddParameter(FALSE);  // START or DEST
-			m_lstDest.AddParameter(nChargeAreaID);
-			m_lstDest.ExcuteCmd();
-
+			CMkRecordset pRs(m_pMkDb);
+			CMkCommand pCmd(m_pMkDb, "insert_chargedong_setting");
+			pCmd.AddParameter(nChargeAreaID);
+			pCmd.AddParameter(nDongID);
+			pCmd.AddParameter(nType);
+			pCmd.AddParameter("");
+			pCmd.AddParameter(m_ci.m_nCompanyCode);
+			pCmd.AddParameter(FALSE);  // START or DEST
+			pCmd.AddParameter(nChargeAreaID);
+			pRs.Execute(&pCmd);
 		}
-		
-		m_lstDest.MyAddItem(sStartName);
-		CMyXTPGridRecord *pDestRecord = m_lstDest.MyAddItem(sType);
-		pDestRecord->m_bDirtyFlag = TRUE;
-		m_lstDest.InsertItemDataLong(nDongID);
-		m_lstDest.InsertItemDataLong2(nType);
-		m_lstDest.EndItem();
-		
-
-		
-
-		/*m_lstDest.AddHeader(0, TRUE, "sStartName", "출발지", 80, DT_LEFT,TRUE);		
-		m_lstDest.AddHeader(1, TRUE, "sType", "표", 80, DT_LEFT,TRUE);			
-		m_lstDest.AddHeader(-1, TRUE, "nDongID",	"", 80, DT_LEFT,TRUE);		
-		m_lstDest.AddHeader(-1, TRUE, "nType", "출발지", 80, DT_LEFT,FALSE,TRUE);		*/
 	}
-	m_lstDest.Populate();
+
+	RefreshRegisterDestArea(nChargeAreaID);
 }
 
 
@@ -479,14 +507,13 @@ void CChargeDongSettingDlg::GetDestDongID(BOOL bServer)
 
 void CChargeDongSettingDlg::SaveDestList()
 {
-
-	if(m_lstDest.GetSelectedCount() == 0)
+	if (m_lstDest.GetSelectedRows()->GetCount() == 0)
 		return;
 
-	CMyXTPGridRecord *pSectionNameRecord = this->m_lstSectionName.GetSelectedRecord();
-	long nChargeAreaID = pSectionNameRecord->GetItemDataLong();
-	CString sChargeAreaName = m_lstSectionName.GetSelectedRecord()->GetItem(0)->GetCaption(NULL);
-	if(nChargeAreaID == -1 && sChargeAreaName.GetLength() == 0)
+	CXTPGridRecord* pSectionNameRecord = m_lstSectionName.GetFirstSelectedRecord();
+	long nChargeAreaID = m_lstSectionName.GetItemLong(pSectionNameRecord);
+	CString sChargeAreaName = pSectionNameRecord->GetItem(0)->GetCaption(NULL);
+	if (nChargeAreaID == -1 && sChargeAreaName.GetLength() == 0)
 	{
 		LF->MsgBox("지역 신규는 이름이 있어야 합니다.");
 		return;
@@ -495,115 +522,94 @@ void CChargeDongSettingDlg::SaveDestList()
 	BOOL bFail = FALSE;
 	BOOL bStart = FALSE;
 	long nNewChargeAreaID = nChargeAreaID;
-	for(int i= 0; i< m_lstDest.GetRecords()->GetCount(); i++)
+	for (int i = 0; i < m_lstDest.GetRecords()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = m_lstDest.GetRecordsGetAt(i);
-		
-		long nDongID = pRecord->GetItemDataLong();
-		long nType = pRecord->GetItemDataLong2();
-		
+		CXTPGridRecord* pRecord = m_lstDest.GetRecords()->GetAt(i);
+
+		long nDongID = m_lstDest.GetItemLong(pRecord);
+		long nType = m_lstDest.GetItemLong2(pRecord);
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "insert_chargedong_setting_delete");
 
 		pCmd.AddParameter(nChargeAreaID == -1 && i == 0 ? -1 : nNewChargeAreaID);
 		pCmd.AddParameter(nDongID);
-		pCmd.AddParameter(nType);			
+		pCmd.AddParameter(nType);
 		pCmd.AddParameter(sChargeAreaName);
 		pCmd.AddParameter(m_ci.m_nCompanyCode);
 		pCmd.AddParameter(bStart);
 		pCmd.AddParameter(i); // nRow 처음 0이면 지운다.
-		CMkParameter *parNewChargeAreaID = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
-		bFail =  pRs.Execute(&pCmd);
-			
+		CMkParameter* parNewChargeAreaID = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
+		bFail = pRs.Execute(&pCmd);
+
 
 		parNewChargeAreaID->GetValue(nNewChargeAreaID);
-		
-		pSectionNameRecord->SetItemDataLong(nNewChargeAreaID);  ///
-		if(bFail)
-			pRecord->m_bDirtyFlag = FALSE;
-		else
+
+		m_lstSectionName.SetItemLong(pSectionNameRecord, nNewChargeAreaID);
+		if (!bFail)
 		{
 			MessageBox("저장중 오류가 났습니다 다시 시도하세요");
 			return;
 		}
-
-		
-		
-
 	}
-	if(bFail)
+
+	if (bFail)
 		LF->MsgBox("도착지 동이 저장되었습니다");
-	m_lstDest.Populate();
 
-
+	m_lstSectionName.Populate();
 }
 
 
 void CChargeDongSettingDlg::SaveStartList()
 {
-	if(m_lstStart.GetSelectedCount() == 0)
+	if(m_lstStart.GetSelectedRows()->GetCount() == 0)
 		return;
-	CMyXTPGridRecord *pSectionNameRecord = this->m_lstSectionName.GetSelectedRecord();
-	long nChargeAreaID = pSectionNameRecord->GetItemDataLong();
-	CString sChargeAreaName = m_lstSectionName.GetSelectedRecord()->GetItem(0)->GetCaption(NULL);
-
-	if(nChargeAreaID == -1 && sChargeAreaName.GetLength() == 0)
+	
+	CXTPGridRecord* pSectionNameRecord = m_lstSectionName.GetFirstSelectedRecord();
+	long nChargeAreaID = m_lstSectionName.GetItemLong(pSectionNameRecord);
+	CString sChargeAreaName = pSectionNameRecord->GetItem(0)->GetCaption(NULL);
+	if (nChargeAreaID == -1 && sChargeAreaName.GetLength() == 0)
 	{
 		LF->MsgBox("지역 신규는 이름이 있어야 합니다.");
 		return;
 	}
 
-
 	BOOL bFail = FALSE;
 	BOOL bStart = TRUE;
 	long nNewChargeAreaID = nChargeAreaID;
-	for(int i= 0; i< m_lstStart.GetRecords()->GetCount(); i++)
+	for (int i = 0; i < m_lstStart.GetRecords()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = m_lstStart.GetRecordsGetAt(i);
-		
-		long nDongID = pRecord->GetItemDataLong();
-		long nType = pRecord->GetItemDataLong2();		
-		
-			
+		CXTPGridRecord* pRecord = m_lstStart.GetRecords()->GetAt(i);
+
+		long nDongID = m_lstStart.GetItemLong(pRecord);
+		long nType = m_lstStart.GetItemLong2(pRecord);
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "insert_chargedong_setting_delete");
 
 		pCmd.AddParameter(nChargeAreaID == -1 && i == 0 ? -1 : nNewChargeAreaID);
 		pCmd.AddParameter(nDongID);
-		pCmd.AddParameter(nType);			
+		pCmd.AddParameter(nType);
 		pCmd.AddParameter(sChargeAreaName);
 		pCmd.AddParameter(m_ci.m_nCompanyCode);
 		pCmd.AddParameter(bStart);
 		pCmd.AddParameter(i); // nRow 처음 0이면 지운다.
-		CMkParameter *parNewChargeAreaID = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
-		bFail =  pRs.Execute(&pCmd);
-		
+		CMkParameter* parNewChargeAreaID = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);
+		bFail = pRs.Execute(&pCmd);
 
 		parNewChargeAreaID->GetValue(nNewChargeAreaID);
-		pSectionNameRecord->SetItemDataLong(nNewChargeAreaID);  ///
-		
-		/*m_lstStart.CreateComandSetQuery("insert_chargedong_setting");
-		m_lstStart.AddParameter(nChargeAreaID);
-		m_lstStart.AddParameter(nDongID);
-		m_lstStart.AddParameter(nType);
-		bFail += m_lstDest.ExcuteCmd();*/
-		if(bFail)
-			pRecord->m_bDirtyFlag = FALSE;
-		else
+		m_lstSectionName.SetItemLong(pSectionNameRecord, nNewChargeAreaID);
+		if (!bFail)
 		{
 			MessageBox("저장중 오류가 났습니다 다시 시도하세요");
 			return;
 		}
-
-
 	}
-	if(bFail)
+
+	if (bFail)
 		LF->MsgBox("출발지 동이 저장되었습니다");
-	m_lstStart.Populate();
 
-
+	m_lstSectionName.Populate();
 }
 
 
@@ -620,11 +626,10 @@ void CChargeDongSettingDlg::OnBnClickedStartListDelBtnServer()
 
 void CChargeDongSettingDlg::DelStartList(BOOL bServer)
 {
-
-	if(m_lstStart.GetSelectedCount() == 0)
+	if(m_lstStart.GetSelectedRows()->GetCount() == 0)
 		return;
 
-	long nChargeAreaID = this->m_lstSectionName.GetSelectedRecord()->GetItemDataLong();
+	long nChargeAreaID = m_lstSectionName.GetItemLong(m_lstSectionName.GetFirstSelectedRecord());
 	if(bServer && nChargeAreaID < 0 )
 	{
 		LF->MsgBox("지역선택을 다시하여주세요");
@@ -636,9 +641,9 @@ void CChargeDongSettingDlg::DelStartList(BOOL bServer)
 	//CString sCount;
 	//sCount.Format("레코드: %d, 로우 : %d", nRecordcount, nRowcount);
 	//LF->MsgBox(sCount);*/
-	for(int i= 0 ; i <  m_lstStart.GetSelectedCount(); i++)
+	for(int i= 0 ; i <  m_lstStart.GetSelectedRows()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstStart.GetSelectedRows()->GetAt(i)->GetRecord();
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)m_lstStart.GetSelectedRows()->GetAt(i)->GetRecord();
 		if(pRecord == NULL)
 		{
 			LF->MsgBox("작업중 오류가 있습니다. 로지소프트로 문의하세요");
@@ -646,78 +651,58 @@ void CChargeDongSettingDlg::DelStartList(BOOL bServer)
 		}
 		if(bServer)
 		{
-			m_lstStart.CreateComandSetQuery("delete_charge_area_setting_detail");
-			m_lstStart.AddParameter(nChargeAreaID);
-			m_lstStart.AddParameter(pRecord->GetItemDataLong());
-			m_lstStart.AddParameter(m_ci.m_nCompanyCode);
-			m_lstStart.AddParameter(TRUE);
-			if(!m_lstStart.ExcuteCmd())
+			CMkRecordset pRs(m_pMkDb);
+			CMkCommand pCmd(m_pMkDb, "delete_charge_area_setting_detail");
+
+			pCmd.AddParameter(nChargeAreaID);
+			pCmd.AddParameter(m_lstStart.GetItemLong(pRecord));
+			pCmd.AddParameter(m_ci.m_nCompanyCode);
+			pCmd.AddParameter(TRUE);
+			if (!pRs.Execute(&pCmd))
 				return;
-
 		}
-		
-		pRecord->RemoveAll();
-		m_lstStart.GetRecords()->RemoveAt(pRecord->GetIndex());
-		
-	/*	CXTPGridRow *pRow = m_lstStart.GetSelectedRows()->GetAt(i);
-		m_lstStart.GetRows()->RemoveAt(pRow->GetIndex());	*/	
-		
-		
 	}
-	/*nRowcount = m_lstStart.GetRows()->GetCount();
-	nRecordcount = m_lstStart.GetRecords()->GetCount();
-	
-	sCount.Format("레코드: %d, 로우 : %d", nRecordcount, nRowcount);
-	LF->MsgBox(sCount);*/
 
-	
-	
-	m_lstStart.Populate();
-
+	RefreshRegisterStartArea(nChargeAreaID);
 }
 
 
 void CChargeDongSettingDlg::DelDestList(BOOL bServer)
 {
-
-	if(m_lstDest.GetSelectedCount() == 0)
+	if(m_lstDest.GetSelectedRows()->GetCount() == 0)
 		return;
 
-	long nChargeAreaID = this->m_lstSectionName.GetSelectedRecord()->GetItemDataLong();
-	if(bServer && nChargeAreaID < 0 )
+	long nChargeAreaID = m_lstSectionName.GetItemLong(m_lstSectionName.GetFirstSelectedRecord());
+	if (bServer && nChargeAreaID < 0)
 	{
 		LF->MsgBox("지역선택을 다시하여주세요");
 		return;
 	}
 
-	for(int i= 0; i< m_lstDest.GetSelectedCount(); i++)
+	for (int i = 0; i < m_lstDest.GetSelectedRows()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstDest.GetSelectedRows()->GetAt(i)->GetRecord();
+		CXTPGridRecord* pRecord = m_lstDest.GetSelectedRows()->GetAt(i)->GetRecord();
 
-		if(pRecord == NULL)
+		if (pRecord == NULL)
 		{
 			LF->MsgBox("작업중 오류가 있습니다. 로지소프트로 문의하세요");
 			return;
 		}
-		if(bServer)
+		if (bServer)
 		{
-			m_lstDest.CreateComandSetQuery("delete_charge_area_setting_detail");
-			m_lstDest.AddParameter(nChargeAreaID);
-			m_lstDest.AddParameter(pRecord->GetItemDataLong());
-			m_lstDest.AddParameter(m_ci.m_nCompanyCode);
-			m_lstDest.AddParameter(FALSE);
-			if(!m_lstDest.ExcuteCmd())
+			CMkRecordset pRs(m_pMkDb);
+			CMkCommand pCmd(m_pMkDb, "delete_charge_area_setting_detail");
+
+			pCmd.AddParameter(nChargeAreaID);
+			pCmd.AddParameter(m_lstDest.GetItemLong(pRecord));
+			pCmd.AddParameter(m_ci.m_nCompanyCode);
+			pCmd.AddParameter(FALSE);
+			if (!pRs.Execute(&pCmd))
 				return;
-
 		}
-		pRecord->RemoveAll();
-		m_lstDest.GetRecords()->RemoveAt(pRecord->GetIndex());
-
-
 	}
-	m_lstDest.Populate();
 
-
+	RefreshRegisterDestArea(nChargeAreaID);
 }
 
 void CChargeDongSettingDlg::OnBnClickedDestListDelBtn()
@@ -789,7 +774,7 @@ void CChargeDongSettingDlg::OnBnClickedSaveAmountBtn()
 			throw("트럭에 금액을 입력하세요");
 		}
 
-		CMyXTPGridRecord *pDestRecord = NULL, *pStartRecord = NULL;
+		CXTPGridRecord *pDestRecord = NULL, *pStartRecord = NULL;
 		BOOL bSuccess = FALSE;
 		int nStartCurRow = this->m_lstStart.GetRecords()->GetCount();
 		int nDestCurRow = this->m_lstDest.GetRecords()->GetCount();
@@ -800,15 +785,15 @@ void CChargeDongSettingDlg::OnBnClickedSaveAmountBtn()
 			throw("도착지에 데이터가 있어야 합니다");
 		for(int i = 0; i < nStartCurRow; i++)
 		{
-			pStartRecord = (CMyXTPGridRecord *)m_lstStart.GetRecords()->GetAt(i);			
+			pStartRecord = (CXTPGridRecord *)m_lstStart.GetRecords()->GetAt(i);			
 			for(int j=0; j < nDestCurRow; j++)
 			{
-				pDestRecord = (CMyXTPGridRecord *)m_lstDest.GetRecords()->GetAt(j);				
+				pDestRecord = (CXTPGridRecord *)m_lstDest.GetRecords()->GetAt(j);				
 				CMkCommand pCmd(m_pMkDb, "update_charge_dong_info_batch");
 				pCmd.AddParameter(typeLong, typeInput, sizeof(long),	nCompany);		
-				pCmd.AddParameter(typeLong, typeInput, sizeof(int),		GetType(pStartRecord, pDestRecord));
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long),	pStartRecord->GetItemDataLong());
-				pCmd.AddParameter(typeLong, typeInput, sizeof(long),	pDestRecord->GetItemDataLong());
+				pCmd.AddParameter(typeLong, typeInput, sizeof(int),		GetType(m_lstStart.GetItemLong2(pStartRecord), m_lstDest.GetItemLong2(pDestRecord)));
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long),	m_lstStart.GetItemLong(pStartRecord));
+				pCmd.AddParameter(typeLong, typeInput, sizeof(long),	m_lstDest.GetItemLong(pDestRecord));
 				pCmd.AddParameter(typeLong, typeInput, sizeof(long),	m_nMoto);
 				pCmd.AddParameter(typeLong, typeInput, sizeof(long),	m_nDama);
 				pCmd.AddParameter(typeLong, typeInput, sizeof(long),	m_nBonggo);
@@ -840,32 +825,30 @@ void CChargeDongSettingDlg::OnBnClickedSaveAmountBtn()
 	}
 }
 
-int CChargeDongSettingDlg::GetType(CMyXTPGridRecord *pStartRecord, CMyXTPGridRecord *pDestRecord)
+int CChargeDongSettingDlg::GetType(int nStartType, int nDestType)
 {
-	int nStartType = pStartRecord->GetItemDataLong2();
-	int nDestType = pDestRecord->GetItemDataLong2();
 	int nType = 0;
 
-	if(nStartType == 0 || nDestType == 0)
+	if (nStartType == 0 || nDestType == 0)
 		MessageBox("출발지및 도착지 타입이 잘못되었습니다.", "확인", MB_ICONINFORMATION);
 
-	if(nStartType == 3 && nDestType == 3)
+	if (nStartType == 3 && nDestType == 3)
 		nType = 8;
-	else if(nStartType == 3 && nDestType == 2)
+	else if (nStartType == 3 && nDestType == 2)
 		nType = 7;
-	else if(nStartType == 3 && nDestType == 1)
+	else if (nStartType == 3 && nDestType == 1)
 		nType = 6;
-	else if(nStartType == 2 && nDestType == 3)
+	else if (nStartType == 2 && nDestType == 3)
 		nType = 5;
-	else if(nStartType == 1 && nDestType == 3)
+	else if (nStartType == 1 && nDestType == 3)
 		nType = 4;
-	else if(nStartType == 2 && nDestType == 2)
+	else if (nStartType == 2 && nDestType == 2)
 		nType = 3;
-	else if(nStartType == 2 && nDestType == 1)
+	else if (nStartType == 2 && nDestType == 1)
 		nType = 2;
-	else if(nStartType == 1 && nDestType == 2)
+	else if (nStartType == 1 && nDestType == 2)
 		nType = 1;
-	else if(nStartType == 1 && nDestType == 1)
+	else if (nStartType == 1 && nDestType == 1)
 		nType = 0;
 	return nType;
 }
@@ -893,8 +876,8 @@ void CChargeDongSettingDlg::OnBnClickedStartdestDelBtn()
 }
 void CChargeDongSettingDlg::AllStartDestDelList()
 {
-	m_lstStart.DeleteAllItem();
-	m_lstDest.DeleteAllItem();
+	m_lstStart.DeleteAllItems();
+	m_lstDest.DeleteAllItems();
 }
 
 void CChargeDongSettingDlg::OnBnClickedStartdestBrinngBtn()
@@ -924,7 +907,7 @@ void CChargeDongSettingDlg::OnBnClickedStartdestBrinngBtn()
 		return;
 	}
 
-	CXTPGridRecord *pRecord = m_lstSectionName.GetSelectedRow()->GetRecord();
+	CXTPGridRecord *pRecord = m_lstSectionName.GetFirstSelectedRecord();
 	CString strAreaName = "";
 	strAreaName = pRecord->GetItem(0)->GetCaption(NULL);
 	if(strAreaName.GetLength() == 0)
@@ -974,57 +957,48 @@ void CChargeDongSettingDlg::OnBnClickedNewAreaBtn()
 				return;
 			}
 
-			for(int k = 0; k < m_lstSectionName.GetRows()->GetCount(); k++)
-				m_lstSectionName.GetRows()->GetAt(k)->SetSelected(FALSE);
-			m_lstSectionName.RedrawControl();
-
-			
-			CMyXTPGridRecord *pRecord = m_lstSectionName.MyAddItem(sChargeName);
-			m_lstSectionName.InsertItemDataLong(nNewChargeID);
-			m_lstSectionName.EndItem();
-			m_lstSectionName.Populate();
+			RefreshSection();
 
 			long nCount = m_lstSectionName.GetRows()->GetCount();
 			m_lstSectionName.GetRows()->GetAt(nCount - 1)->SetSelected(TRUE);
-	
 		}
 	}
 }
 
 void CChargeDongSettingDlg::OnBnClickedDeleteAreaBtn()
 {
-	if(this->m_lstSectionName.GetSelectedCount() == 0)
+	if(this->m_lstSectionName.GetSelectedRows()->GetCount() == 0)
 		return;
 	
-	if(MessageBox("해당 아이템을 삭제하시겠습니까?", "확인", MB_ICONINFORMATION | MB_YESNO) == IDYES)
-	{		
-		for(int i = 0; i < m_lstSectionName.GetSelectedCount(); i++)
+	if (MessageBox("해당 아이템을 삭제하시겠습니까?", "확인", MB_ICONINFORMATION | MB_YESNO) == IDYES)
+	{
+		for (int i = 0; i < m_lstSectionName.GetSelectedRows()->GetCount(); i++)
 		{
-			CMyXTPGridRecord *pRecord = m_lstSectionName.GetSelectedRecord(i);
-			long nChargeAreaID = pRecord->GetItemDataLong();
-			if(nChargeAreaID <= 0)
+			CXTPGridRecord* pRecord = m_lstSectionName.GetSelectedRowsGetAtGetRecord(i);
+			long nChargeAreaID = m_lstSectionName.GetItemLong(i);
+			if (nChargeAreaID <= 0)
 			{
 				m_lstSectionName.GetRecords()->RemoveAt(pRecord->GetIndex());
 				m_lstSectionName.Populate();
 			}
 			else
 			{
-				m_lstSectionName.CreateComandSetQuery("delete_charge_area_setting");
-				m_lstSectionName.AddParameter(nChargeAreaID);
-				m_lstSectionName.AddParameter(m_ci.m_nCompanyCode);
-				BOOL bSuccess = m_lstSectionName.ExcuteCmd();
-				
-				if(bSuccess == 0)
+				CMkRecordset pRs(m_pMkDb);
+				CMkCommand pCmd(m_pMkDb, "delete_charge_area_setting");
+				pCmd.AddParameter(nChargeAreaID);
+				pCmd.AddParameter(m_ci.m_nCompanyCode);
+
+				if (!pRs.Execute(&pCmd))
 				{
 					LF->MsgBox("삭제중오류가 났습니다. 다시시도하세요");
-					return; 
+					return;
 				}
 				else
 				{
 					m_lstSectionName.GetRecords()->RemoveAt(pRecord->GetIndex());
-				}			
+				}
 			}
-		}					
+		}
 		m_lstSectionName.Populate();
 	}
 }

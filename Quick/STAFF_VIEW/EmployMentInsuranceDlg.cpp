@@ -318,7 +318,7 @@ void CEmployMentInsuranceDlg::ShowImage(CString strImage)
 	if(strImage.IsEmpty())
 		MessageBox("이미지가 등록되지 않았습니다", "확인", MB_ICONINFORMATION);
 	else
-		ShellExecute(NULL, "open", "iexplore.exe", strImage, "", SW_SHOW); 
+		ShellExecute(NULL, "open", "msedge.exe", strImage, "", SW_SHOW); 
 }
 
 void CEmployMentInsuranceDlg::OnBnClickedButtonLocationSearchBtn()

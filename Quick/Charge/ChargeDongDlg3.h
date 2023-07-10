@@ -1,6 +1,5 @@
 #pragma once
 
-#include "databox.h"
 #include "afxwin.h"
 
 
@@ -363,7 +362,7 @@ public:
 	CChargeWorkDlg *m_pChargeWorkDlg;
 	CChargeDongSettingDlg *m_pChargeDongSettingDlg;
 	CXTPGridRow *m_pPreSelectRow;
-	CDataBox m_lstStart;
+	CXTPListCtrl2 m_lstStart;
 	CMyDestNewReport m_lstDest;
 	
 	DEST_NEW_RECORD_MAP m_pDestRecord;

@@ -291,8 +291,6 @@
 #define IDD_CHANGE_COLOR_DLG            522
 #define IDD_MOVE_ORDER_LOG_DLG          524
 #define IDD_RIDER_CANCEL_LOG_DLG        525
-#define IDD_DIALOG20                    526
-#define IDD_RIDER_ORDER_LOG_DLG         527
 #define IDD_LINE_DLG                    529
 #define IDC_ALL_BRANCH_CHECK            529
 #define IDD_ALLOCATE_BOARD_DLG          531
@@ -305,7 +303,6 @@
 #define IDD_CANCEL_DLG                  546
 #define IDD_DIALOG22                    547
 #define IDD_CUS_SMS_DLG                 547
-#define IDD_WEATHER_DLG                 548
 #define IDD_DIALOG24                    552
 #define IDD_TEST_DLG                    552
 #define IDD_DIALOG25                    553
@@ -479,6 +476,8 @@
 #define IDC_MIDDLE                      764
 #define IDC_VERTICAL                    766
 #define IDD_JINSANG_TEL_REG_DLG         768
+#define IDM_CREATION_MODE_TARGET_DCOMP	769
+#define IDC_BROWSER_STATIC				770
 #define IDB_HRPL_BTN2                   771
 #define IDB_HELP_BTN2                   771
 #define IDB_BITMAP25                    771

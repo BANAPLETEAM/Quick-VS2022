@@ -155,13 +155,6 @@ BOOL CChargeDistanceType::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	CImageList ImageList; 
-	ImageList.Create(1,17,ILC_COLOR,1,1); 
-
-	m_List.ModifyStyle(NULL, LVS_EDITLABELS | LVS_REPORT);
-	m_List.SetExtendedStyle( LVS_EX_FLATSB | LVS_EX_FULLROWSELECT |
-				LVS_EX_GRIDLINES | LVS_EX_SUBITEMIMAGES);
-
 	m_List.InsertColumn(0, "순서", LVCFMT_CENTER, 50);
 	m_List.InsertColumn(1, "시작거리",LVCFMT_CENTER, 70);
 	m_List.InsertColumn(2, "~",LVCFMT_CENTER, 30);
@@ -187,8 +180,12 @@ BOOL CChargeDistanceType::OnInitDialog()
 		m_List.InsertColumn(4, "요금",LVCFMT_RIGHT, 100);
 	}	
 	
-	m_List.SetDisableCol(0);	
-	m_List.SetDisableCol(2);
+	m_List.AllowEdit(TRUE);
+	m_List.GetColumns()->GetAt(0)->GetEditOptions()->m_bAllowEdit = FALSE;
+	m_List.GetColumns()->GetAt(1)->GetEditOptions()->m_bAllowEdit = TRUE;
+	m_List.GetColumns()->GetAt(2)->GetEditOptions()->m_bAllowEdit = FALSE;
+	m_List.GetColumns()->GetAt(3)->GetEditOptions()->m_bAllowEdit = TRUE;
+	m_List.Populate();
 
 	UpdateData(TRUE);
 	CBranchInfo *pBi = NULL;
@@ -254,8 +251,7 @@ void CChargeDistanceType::RefreshList()
 	pCmd2.AddParameter((int)m_cmbTypeName.GetItemData(index));		
 	pCmd2.Execute();
 
-	char buffer[10];
-	int		nItem = 0;		
+	int	nItem = 0;		
 	if(pRs2.Execute(&pCmd2))
 	{
 		CString sTypeName = "";						
@@ -277,36 +273,45 @@ void CChargeDistanceType::RefreshList()
 			strStartKm.Format("%.1f", start_km);
 			strEndKm.Format("%.1f", end_km);
 
-			m_List.InsertItem(nItem, LF->GetStringFromLong(number));
-			m_List.SetItemText(nItem, 1, strStartKm );
-			m_List.SetItemText(nItem, 3, strEndKm );
-			m_List.SetItemText(nItem, 4, LF->GetStringFromLong(amount));
+			CXTPGridRecord* record = new CXTPGridRecord;
+			record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(number)));
+			record->AddItem(new CXTPGridRecordItemText(strStartKm));
+			record->AddItem(new CXTPGridRecordItemText(""));
+			record->AddItem(new CXTPGridRecordItemText(strEndKm));
+			record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
 
-			if(m_bTruck) {		
+			if (m_bTruck) {
 				int col = 5;
-				pRs2.GetFieldValue("amount_truck_add_1_4", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_2_5", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_3_5", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_5", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_5_5", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_8", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_11", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_14", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_15", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_18", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
-				pRs2.GetFieldValue("amount_truck_add_25", amount); m_List.SetItemText(nItem, col++, LF->GetStringFromLong(amount));
+				pRs2.GetFieldValue("amount_truck_add_1_4", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_2_5", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_3_5", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_5", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_5_5", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_8", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_11", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_14", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_15", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_18", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
+				pRs2.GetFieldValue("amount_truck_add_25", amount); record->AddItem(new CXTPGridRecordItemText(LF->GetStringFromLong(amount)));
 			}
-		
-			
+
 			nItem++;
+			m_List.AddRecord(record);
 			pRs2.MoveNext();
 		}
 		
 		pRs2.Close();	
 	}
 
-	for(int i = nItem; i < 20; i++)
-		m_List.InsertItem(i, ltoa(i, buffer,10));
+	for (int i = nItem; i < 20; i++) {
+		int cnt = m_bTruck ? 16 : 5;
+		CXTPGridRecord* record = new CXTPGridRecord;
+		for (int j = 0; j < cnt; j++)
+			record->AddItem(new CXTPGridRecordItemText(""));
+		m_List.AddRecord(record);
+	}
+
+	m_List.Populate();
 }
 
 void CChargeDistanceType::OnCbnSelchangeTypeNameCombo()
@@ -317,7 +322,7 @@ void CChargeDistanceType::OnCbnSelchangeTypeNameCombo()
 void CChargeDistanceType::OnBnClickedRowAddButton()
 {
 	char buffer[10];
-	int nItem = m_List.GetSelectionMark();
+	int nItem = m_List.GetSelectedItem();
 	if(nItem > 0)
 		m_List.InsertItem(nItem, itoa(nItem,buffer,10) );
 	else
@@ -338,7 +343,7 @@ void CChargeDistanceType::OnBnClickedRowAddButton()
 
 void CChargeDistanceType::OnBnClickedRowDeleteButton()
 {
-	UINT i, uSelectedCount = m_List.GetSelectedCount();
+	UINT i, uSelectedCount = m_List.GetSelectedRows()->GetCount();
 	int  nItem = -1;
 	
 	if(uSelectedCount > 0)
@@ -351,7 +356,7 @@ void CChargeDistanceType::OnBnClickedRowDeleteButton()
 
 			
 		}
-		m_List.DeleteItem(nItem);		
+		m_List.DeleteItem(nItem);
 	}
 	else {
 		int nItem = m_List.GetItemCount();

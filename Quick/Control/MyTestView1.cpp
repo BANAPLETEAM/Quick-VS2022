@@ -70,7 +70,7 @@ void CMyTestView1::Refresh()
 	BOOL bGroupOwner;
 	char buffer[10];	
 
-	m_Data.DeleteAllItem();
+	m_Data.DeleteAllItems();
 	nItem = 1;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_member_etc");
@@ -95,21 +95,19 @@ void CMyTestView1::Refresh()
 		pRs.GetFieldValue("sMemo", sMemo);			
 		pRs.GetFieldValue("sRiderMemo", sRiderMemo);
 
-		m_Data.MyAddItem(0,CString(ltoa(nItem,buffer,10)),"No",25,FALSE, DT_CENTER);
-		m_Data.MyAddItem(1,sName,	"담당자",	100,FALSE,DT_LEFT);	
-		m_Data.MyAddItem(2,sDong,	"해당동",	80,FALSE,DT_LEFT);		
-		m_Data.MyAddItem(3,sAddress,	"번지",		110,TRUE,DT_LEFT);		
-		m_Data.MyAddItem(4,sLocation,"위치",		150,TRUE,DT_LEFT);		
-		m_Data.MyAddItem(5,sMemo,	"메모",		150,TRUE,DT_LEFT);				
-		m_Data.MyAddItem(6,sRiderMemo,"기사메모",130,TRUE,DT_LEFT);				
-		m_Data.InsertItemDataLong(nCNo);	
-		m_Data.InsertItemDataLong2(nGNo);			
-		m_Data.EndItem();	
-
+		m_Data.InsertItem(nItem, CString(ltoa(nItem, buffer, 10)));
+		m_Data.SetItemText(nItem, 1, sName);
+		m_Data.SetItemText(nItem, 2, sDong);
+		m_Data.SetItemText(nItem, 3, sAddress);
+		m_Data.SetItemText(nItem, 4, sLocation);
+		m_Data.SetItemText(nItem, 5, sMemo);
+		m_Data.SetItemText(nItem, 6, sRiderMemo);
+		m_Data.SetItemLong(nItem, nCNo);
+		m_Data.SetItemLong2(nItem++, nGNo);
 
 		pRs.MoveNext();
-		nItem++;
 	}
+
 	pRs.Close();
 	m_Data.Populate();
 }
@@ -136,11 +134,11 @@ void CMyTestView1::OnInitialUpdate()
 
 void CMyTestView1::ReportDblClick()
 {
-	if(m_Data.GetSelectedCount() < 0)
+	if(m_Data.GetSelectedRows()->GetCount() < 0)
 		return;
 
-	long nCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRow()->GetIndex());
-	long nGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRow()->GetIndex());
+	long nCNo = m_Data.GetItemLong(m_Data.GetFirstSelectedRecord());
+	long nGNo = m_Data.GetItemLong2(m_Data.GetFirstSelectedRecord());
 
 
 	if(nCNo <= 0)

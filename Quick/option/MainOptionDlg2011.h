@@ -51,7 +51,7 @@ public:
 	BOOL m_bLogView;
 	long m_nLogViewCompany;
 	long m_nLogID;
-	CDataBox m_List;
+	CXTPListCtrl2 m_List;
 	CMainOptionDlg2 *m_pMainOptionDlg;
 	BOOL m_bMainOptionDlgCreate;
 

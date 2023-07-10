@@ -1,6 +1,6 @@
 #pragma once
 #include "afxwin.h"
-#include "DataBox.h"
+
 
 // CChargeListSetDlg 대화 상자입니다.
 
@@ -29,8 +29,8 @@ protected:
 	CEdit m_edtDong;
 	CEdit m_edtNickName;
 	CEdit m_edtDongDetail;
-	CDataBox m_RegisterDongList;
-	CDataBox m_DongList;
+	CXTPListCtrl2 m_RegisterDongList;
+	CXTPListCtrl2 m_DongList;
 	CPOIUnit *m_pDongPoi;
 	long m_nDongID;
 
@@ -45,6 +45,7 @@ public:
 	afx_msg void OnBnClickedChargelistDelBtn();
 	afx_msg void OnBnClickedChargelistCopyBtn();
 
+	void MakeColumn();
 	void RefreshLegalDong();
 	void ChargeListInputCommbo();
 

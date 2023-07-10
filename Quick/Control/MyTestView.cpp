@@ -70,9 +70,9 @@ void CMyTestView::OnReportBeginDrag(NMHDR * /*pNotifyStruct*/, LRESULT * /*resul
 	::SetCursor(AfxGetApp()->LoadCursor(IDC_MOVEHOLD));
 	//SetCapture();
 }
+
 void CMyTestView::SetWnd(CWnd *pWnd)
 {
-
 	this->m_pParentWnd = pWnd;
 }	
 
@@ -83,16 +83,14 @@ void CMyTestView::Refresh()
 		return;
 	}		
 
-	long	nGNo,nCNo, nCompany,  nItem;
+	long nGNo,nCNo, nCompany,  nItem;
 	CString	sPW, sCompany, sDepart, sTel1, sMobile, sName, sDong, sLocation, sEmail, sMemo, sUserID, sLoginID, sLoginPw;
 	COleDateTime dtRegister;
 	char buffer[10];
 	BOOL bUseHomePage = FALSE;
 
-
-
-	m_Data.DeleteAllItem();
-	nItem = 1;
+	m_Data.DeleteAllItems();
+	nItem = 0;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_member_general3");
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
@@ -118,20 +116,18 @@ void CMyTestView::Refresh()
 		pRs.GetFieldValue("sLoginPw", sLoginPw);				
 		pRs.GetFieldValue("bUseHomePage", bUseHomePage);				
 
-
-		m_Data.MyAddItem(0,CString(ltoa(nItem,buffer,10)),"No",25,FALSE, DT_CENTER);
-		m_Data.MyAddItem(1,sCompany,"상호명",  90,FALSE,DT_LEFT);	
-		m_Data.MyAddItem(2,sDepart,"부서명",  80,FALSE,DT_LEFT);		
-		m_Data.MyAddItem(3,sName,"담당자",  70,FALSE,DT_LEFT);		
-		m_Data.MyAddItem(4,LF->GetDashPhoneNumber(sTel1),"전화",90,FALSE,  DT_LEFT);		
-		m_Data.MyAddItem(5,LF->GetDashPhoneNumber(sMobile),"핸드폰",90,FALSE,DT_LEFT);						
-		m_Data.MyAddItem(6,sLoginID,"아이디",  80,FALSE,DT_LEFT);				
-		m_Data.MyAddItem(7,sLoginPw, "패스워드",  70,FALSE,DT_LEFT);
-		m_Data.MyAddItem(8,bUseHomePage? "X":"0","홈페이지미사용",45,FALSE,DT_CENTER)	;
-		m_Data.MyAddItem(9,sEmail, "이메일",  150,FALSE,DT_LEFT);
-		m_Data.InsertItemDataLong(nCNo);	
-		m_Data.InsertItemDataLong2(nGNo);			
-		m_Data.EndItem();	
+		m_Data.InsertItem(nItem, CString(ltoa(nItem + 1,buffer,10)));
+		m_Data.SetItemText(nItem, 1, sCompany);
+		m_Data.SetItemText(nItem, 2, sDepart);
+		m_Data.SetItemText(nItem, 3, sName);
+		m_Data.SetItemText(nItem, 4, LF->GetDashPhoneNumber(sTel1));
+		m_Data.SetItemText(nItem, 5, LF->GetDashPhoneNumber(sMobile));
+		m_Data.SetItemText(nItem, 6, sLoginID);
+		m_Data.SetItemText(nItem, 7, sLoginPw);
+		m_Data.SetItemText(nItem, 8, bUseHomePage ? "X" : "0");
+		m_Data.SetItemText(nItem, 9, sEmail);
+		m_Data.SetItemLong(nItem, nCNo);
+		m_Data.SetItemLong2(nItem, nGNo);
 
 		pRs.MoveNext();
 		nItem++;
@@ -157,19 +153,27 @@ void CMyTestView::OnInitialUpdate()
 	m_Data.GetReportHeader()->AllowColumnRemove(FALSE);
 	m_Data.GetReportHeader()->AllowColumnResize(TRUE);
 	m_Data.GetReportHeader()->AllowColumnSort(TRUE);
+
+	m_Data.InsertColumn(0, "No", DT_CENTER, 25);
+	m_Data.InsertColumn(1, "상호명", DT_LEFT, 90);
+	m_Data.InsertColumn(2, "부서명", DT_LEFT, 80);
+	m_Data.InsertColumn(3, "담당자", DT_LEFT, 70);
+	m_Data.InsertColumn(4, "전화", DT_LEFT, 90);
+	m_Data.InsertColumn(5, "핸드폰", DT_LEFT, 90);
+	m_Data.InsertColumn(6, "아이디", DT_LEFT, 80);
+	m_Data.InsertColumn(7, "패스워드", DT_LEFT, 70);
+	m_Data.InsertColumn(8, "홈페이지미사용", DT_CENTER, 45);
+	m_Data.InsertColumn(9, "이메일", DT_LEFT, 150);
 	m_Data.Populate();
-
-
 }
 
 void CMyTestView::ReportDblClick()
 {
-	if(m_Data.GetSelectedCount() < 0)
+	if(m_Data.GetSelectedRows()->GetCount() < 0)
 		return;
 
-	long nCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRow()->GetIndex());
-	long nGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRow()->GetIndex());
-
+	long nCNo = m_Data.GetItemLong(m_Data.GetSelectedRows()->GetAt(0)->GetRecord());
+	long nGNo = m_Data.GetItemLong2(m_Data.GetSelectedRows()->GetAt(0)->GetRecord());
 
 	if(nCNo <= 0)
 		return;

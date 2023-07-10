@@ -1,13 +1,34 @@
 #pragma once
 
-
-// CTestDlg2 대화 상자입니다.
-
-
-#include "DataBox.h"
 #include "SplitterControl.h"
 
-class CGroupListCtrl : public CDataBox
+class CCorpGroupRecord : public CXTPGridRecord
+{
+protected:
+	class CCorpRecordItemCheck : public CXTPGridRecordItem
+	{
+	public:
+		CCorpRecordItemCheck(BOOL bCheck)
+		{
+			HasCheckbox(TRUE);
+			SetChecked(bCheck);
+		}
+
+	};
+
+public:
+	CCorpGroupRecord(CString group_name, bool is_check, CString dept, CString corp_charge) {
+		AddItem(new CXTPGridRecordItemText(group_name));
+		if (is_check)
+			AddItem(new CCorpRecordItemCheck(is_check));
+		else
+			AddItem(new CXTPGridRecordItemText(""));
+		AddItem(new CXTPGridRecordItemText(dept));
+		AddItem(new CXTPGridRecordItemText(corp_charge));
+	}
+};
+
+class CGroupListCtrl : public CXTPListCtrl2
 {
 	virtual void GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRECORDITEM_METRICS *pItemMetrics )
 	{
@@ -17,7 +38,7 @@ class CGroupListCtrl : public CDataBox
 		int nCol = pDrawArgs->pColumn->GetIndex();
 		int nItemCol = pDrawArgs->pColumn->GetItemIndex();
 
-		long nGroupOwnerCNo = GetItemDataLong2(nRow);
+		long nGroupOwnerCNo = GetItemLong2(nRow);
 		if(nGroupOwnerCNo > 0)
 		{	
 			LOGFONT accesscontrol_static_lfont = {14,0,0,0,FW_BOLD,0,0,0,HANGUL_CHARSET,0,0,0,0,"돋움"};			

@@ -114,8 +114,6 @@ BOOL CConsignSettingDlg::OnInitDialog()
 		m_btnModify.EnableWindow(TRUE);
 	}
 	
-
-	m_SettingReport.InitControl();
 	m_SettingReport.Populate();
 
 	if(!m_bNew)
@@ -242,7 +240,7 @@ void CConsignSettingDlg::DataInput()
 void CConsignSettingDlg::LogList()
 {
 	if(m_SettingReport.GetRecords()->GetCount() > 0)
-		m_SettingReport.DeleteAllItem();
+		m_SettingReport.DeleteAllItems();
 
 	int nNowRate = 0, nLogType = 0;
 	long nCompany= 0,nReceiveCompany = 0, nBeforeRate= 0,nAfterRate = 0,
@@ -288,10 +286,6 @@ void CConsignSettingDlg::LogList()
 		pRs.GetFieldValue("sWName", sWName);
 		pRs.GetFieldValue("bReserveAccept", bReserveAccept);
 
-	
-
-
-		int nCol = 0;
 		sOterLinkCompanyName = (nCompany == m_ci.GetShareCode1()) 
 			? sReceiveCompanyName : sCompanyName;
 		sWorkCompanyName = (nWCompany == m_ci.GetShareCode1())
@@ -299,20 +293,16 @@ void CConsignSettingDlg::LogList()
 		sCity = (nWCompany == m_ci.GetShareCode1())	
 			?  sCityReceiveCompany : sCityCompany  ;
 
-		m_SettingReport.MyAddItem(nCol++, dtLog.Format("%y-%m-%d %H:%M"), "생성일", 90,FALSE, DT_LEFT);
-		m_SettingReport.MyAddItem(nCol++, GetLogType(nLogType) , "타입", 45,FALSE, DT_LEFT);
-		m_SettingReport.MyAddItem(nCol++, sOterLinkCompanyName, "연계회사", 110,FALSE, DT_LEFT);	
-		m_SettingReport.MyAddItem(nCol++, sCity, "도시", 55,FALSE, DT_LEFT);	
-		m_SettingReport.MyAddItem(nCol++, nBeforeRate, "기존이율", 55,FALSE, DT_LEFT);
-		m_SettingReport.MyAddItem(nCol++, nAfterRate, "변경이율", 60,FALSE, DT_LEFT);
-		m_SettingReport.MyAddItem(nCol++, sWorkCompanyName , "작업회사", 80,FALSE, DT_LEFT);
-		m_SettingReport.MyAddItem(nCol++, sWName , "작업자", 50,FALSE, DT_LEFT);
-		m_SettingReport.MyAddItem(nCol++, bReserve ? "예약" : "",  "예약", 50,FALSE, DT_LEFT);
-		m_SettingReport.MyAddItem(nCol++, bReserve ? dtApplyReserve.Format("%y-%m-%d %H:%M") : "" , "예약일", 90,FALSE, DT_LEFT);
-		
-
-
-		m_SettingReport.EndItem();
+		m_SettingReport.InsertItem(i, dtLog.Format("%y-%m-%d %H:%M"));
+		m_SettingReport.SetItemText(i, 1, GetLogType(nLogType));
+		m_SettingReport.SetItemText(i, 2, sOterLinkCompanyName);
+		m_SettingReport.SetItemText(i, 3, sCity);	
+		m_SettingReport.SetItemText(i, 4, nBeforeRate);
+		m_SettingReport.SetItemText(i, 5, nAfterRate);
+		m_SettingReport.SetItemText(i, 6, sWorkCompanyName);
+		m_SettingReport.SetItemText(i, 7, sWName);
+		m_SettingReport.SetItemText(i, 8, bReserve ? "예약" : "");
+		m_SettingReport.SetItemText(i, 9, bReserve ? dtApplyReserve.Format("%y-%m-%d %H:%M") : "");
 		pRs.MoveNext();
 	}
 

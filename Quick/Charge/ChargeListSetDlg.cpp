@@ -59,7 +59,7 @@ void CChargeListSetDlg::OnBnClickedDongOutBtn()
 {
 	try
 	{
-		if(m_RegisterDongList.GetSelectedCount() <= 0)
+		if(m_RegisterDongList.GetSelectedRows()->GetCount() <= 0)
 			throw "삭제하실 지역을 1개라도 선택하여 주세요";
 
 		CString sChareList = "";
@@ -67,34 +67,17 @@ void CChargeListSetDlg::OnBnClickedDongOutBtn()
 		if(sChareList.GetLength() <= 0)
 			throw "요금표이름이 없습니다.";
 
-		for(int i = 0; i < m_RegisterDongList.GetSelectedCount(); i++)
+		for(int i = 0; i < m_RegisterDongList.GetSelectedRows()->GetCount(); i++)
 		{
+			long nID = m_RegisterDongList.GetItemLong(i);
+			int nGrade = m_RegisterDongList.GetItemLong2(i);
 
-			CMyXTPGridRecord *pReocrd = m_RegisterDongList.GetSelectedRecord(i);
-			long nID = pReocrd->GetItemDataLong();		
-			int nGrade = pReocrd->GetItemDataLong2();
-
-			m_RegisterDongList.CreateComandSetQuery("update_charge_list_output_dong");
-			m_RegisterDongList.AddParameter(LF->GetCurBranchInfo()->nPayTable);
-			m_RegisterDongList.AddParameter(nID);
-			m_RegisterDongList.AddParameter(sChareList);
-			m_RegisterDongList.ExcuteCmd();
-
-			CXTPGridRow *pRow = m_RegisterDongList.GetSelectedRows()->GetAt(i);	
-			
-			if(nGrade != 3)
-			{
-				if(pRow->GetChilds()->GetCount() > 0 )
-				{
-					int nRows = pRow->GetChilds()->GetCount();
-					for(int nRow = 0; nRow < nRows; nRow++)
-					{
-						CXTPGridRow *pChildRow = pRow->GetChilds()->GetAt(nRow);
-					}
-				}
-				
-			}
-			
+			CMkRecordset pRs(m_pMkDb);
+			CMkCommand pCmd(m_pMkDb, "update_charge_list_output_dong");
+			pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
+			pCmd.AddParameter(nID);
+			pCmd.AddParameter(sChareList);
+			pCmd.Execute();
 		}
 
 		OnCbnSelchangeChargelistCombo();
@@ -120,26 +103,22 @@ void CChargeListSetDlg::OnBnClickedNicknameInputBtn()
 		m_edtDongDetail.GetWindowText(sDongDetail);
 		if(sDongDetail.GetLength() <= 0 && sDongName.GetLength() <= 0)
 			throw("동정보가 일정하지 않습니다. 검색을 다시하여 주세요");
-
 		
 		CString sChareList = "";
 		m_cmbChargeList.GetLBText(m_cmbChargeList.GetCurSel(), sChareList);
 		if(sChareList.GetLength() <= 0)
 			throw "요금표 이름이 없거나 요금표이름을 섢택하세요";
 
-
 		if(m_nDongID <= 0 )
 			throw("동정보가 일정하지 않습니다. 검색을 다시하여 주세요");
 
-		m_DongList.CreateComandSetQuery("update_charge_list_input_dong");
-		m_DongList.AddParameter(LF->GetCurBranchInfo()->nPayTable);
-		m_DongList.AddParameter(m_nDongID);
-		m_DongList.AddParameter(sChareList);
-		m_DongList.AddParameter(sNickName);
-		m_DongList.ExcuteCmd();
-
-		
-
+		CMkRecordset pRs(m_pMkDb);
+		CMkCommand pCmd(m_pMkDb, "update_charge_list_input_dong");
+		pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
+		pCmd.AddParameter(m_nDongID);
+		pCmd.AddParameter(sChareList);
+		pCmd.AddParameter(sNickName);
+		pCmd.Execute();
 	}
 	catch (char* e)
 	{
@@ -154,10 +133,9 @@ void CChargeListSetDlg::OnBnClickedNicknameInputBtn()
 
 void CChargeListSetDlg::OnBnClickedDongInputBtn()
 {
-	
 	try
 	{
-		if(m_DongList.GetSelectedCount() <= 0 )
+		if(m_DongList.GetSelectedRows()->GetCount() <= 0 )
 			throw("법정동리스트에서 입력하실 데이터를 선택하세요");
 
 		CString sChareList = "";
@@ -165,18 +143,18 @@ void CChargeListSetDlg::OnBnClickedDongInputBtn()
 		if(sChareList.GetLength() <= 0)
 			throw "요금표이름이 없습니다.";
 
-		for(int i =0; i < m_DongList.GetSelectedCount(); i++)
+		for (int i = 0; i < m_DongList.GetSelectedRows()->GetCount(); i++)
 		{
-			CMyXTPGridRecord *pReocrd = m_DongList.GetSelectedRecord(i);
-			long nID = pReocrd->GetItemDataLong();		
+			long nID = m_DongList.GetItemLong(i);
 
-			m_DongList.CreateComandSetQuery("update_charge_list_input_dong");
-			m_DongList.AddParameter(LF->GetCurBranchInfo()->nPayTable);
-			m_DongList.AddParameter(nID);
-			m_DongList.AddParameter(sChareList);
-			m_DongList.ExcuteCmd();
-
+			CMkRecordset pRs(m_pMkDb);
+			CMkCommand pCmd(m_pMkDb, "update_charge_list_output_dong");
+			pCmd.AddParameter(LF->GetCurBranchInfo()->nPayTable);
+			pCmd.AddParameter(nID);
+			pCmd.AddParameter(sChareList);
+			pCmd.Execute();
 		}
+
 		OnCbnSelchangeChargelistCombo();
 
 	}
@@ -188,8 +166,6 @@ void CChargeListSetDlg::OnBnClickedDongInputBtn()
 	{
 		LF->MsgBox(s, "확인");
 	}
-	
-
 }
 
 BOOL CChargeListSetDlg::OnInitDialog()
@@ -234,30 +210,41 @@ void CChargeListSetDlg::ChargeListInputCommbo()
 	}		
 	pRs.Close();	
 
-};
+}
+
+void CChargeListSetDlg::MakeColumn()
+{
+	m_DongList.AddColumn(new CXTPGridColumn(0, "지역", 180))->SetAlignment(DT_LEFT);
+	m_DongList.AddColumn(new CXTPGridColumn(1, "해당동", 70))->SetAlignment(DT_LEFT);
+	m_DongList.SetTreeIndent(30);
+	m_DongList.SetGridColor(RGB(222, 222, 222));
+}
+
 void CChargeListSetDlg::RefreshLegalDong()
 {
+	m_DongList.ResetContent();
+	m_DongList.GetColumns()->Clear();
 
-		
-	m_DongList.CreateRsSetQuery("select_web_dongpos_all");
-	m_DongList.AddParameter(1);
-	CMkRecordset *pRs = m_DongList.Excute();
+	MakeColumn();
+
+	CMkRecordset pRs(m_pMkDb);
+	CMkCommand pCmd(m_pMkDb, "select_web_dongpos_all");
+	pCmd.AddParameter(1);
+	if (!pRs.Execute(&pCmd)) return;
+
 	CString  sPreKeyRef,sKeyRef,sTempSiGu = "", sDong = "", sSido = "", sGugun = "";
 	long nGrade=0, nParentNo=0,nID=0, nPreGrade=0;
 
-	
-	
-	if(!pRs) return;
+	CXTPGridRecord* pRecord = NULL;
 
-	while(!pRs->IsEOF())
+	while(!pRs.IsEOF())
 	{		
-
-		pRs->GetFieldValue("nID", nID);
-		pRs->GetFieldValue("sSido", sSido);
-		pRs->GetFieldValue("sGugun", sGugun);		
-		pRs->GetFieldValue("sDong", sDong);
-		pRs->GetFieldValue("nGrade", nGrade);
-		pRs->GetFieldValue("nParentNo", nParentNo);
+		pRs.GetFieldValue("nID", nID);
+		pRs.GetFieldValue("sSido", sSido);
+		pRs.GetFieldValue("sGugun", sGugun);		
+		pRs.GetFieldValue("sDong", sDong);
+		pRs.GetFieldValue("nGrade", nGrade);
+		pRs.GetFieldValue("nParentNo", nParentNo);
 
 		if(nGrade == 0)
 			sKeyRef = "";
@@ -294,25 +281,40 @@ void CChargeListSetDlg::RefreshLegalDong()
 		default :
 			sTempSiGu = sGugun;
 			break;
-		
 		}
 
-		m_DongList.TreeChildDepthAddItem(0,sKeyRef, nParentNo,sTempSiGu,"지역", 180, FALSE, DT_LEFT	);
-		CMyXTPGridRecord *pReocrd = m_DongList.MyAddItem(1,sDong, "해당동",70, FALSE,DT_LEFT);
-		pReocrd->SetItemDataLong(nID);
-		//m_DongList.MySetItemData(nID);
-		//m_DongList.SetItemRow(pRow);
-		m_DongList.EndItem();
+		if (pRecord) {
+			if (sPreKeyRef == sKeyRef) {
+				CXTPGridRecord *pChild = new CXTPGridRecord;
+				pChild->AddItem(new CXTPGridRecordItemText(sTempSiGu));
+				pChild->AddItem(new CXTPGridRecordItemText(sDong));
+				pRecord->GetChilds()->Add(pChild);
+				m_DongList.SetItemLong(pChild, nID);
+				m_DongList.SetItemDataText(pChild, sKeyRef);
+			}
+		}
+		else {
+			pRecord = new CXTPGridRecord;
+			pRecord->AddItem(new CXTPGridRecordItemText(sTempSiGu));
+			pRecord->AddItem(new CXTPGridRecordItemText(sDong));
+			m_DongList.AddRecord(pRecord);
+			m_DongList.SetItemLong(pRecord, nID);
+			m_DongList.SetItemDataText(pRecord, sKeyRef);
+		}
+
+		//m_DongList.TreeChildDepthAddItem(0,sKeyRef, nParentNo,sTempSiGu,"지역", 180, FALSE, DT_LEFT	);
+		//CXTPGridRecord *pReocrd = m_DongList.MyAddItem(1,sDong, "해당동",70, FALSE,DT_LEFT);
+		//pReocrd->SetItemDataLong(nID);
+		//m_DongList.EndItem();
 
 
 		nPreGrade  = nGrade;
 		sPreKeyRef = sKeyRef;
-		pRs->MoveNext();
+		pRs.MoveNext();
 
 	}
 	m_DongList.Populate();	
-	m_DongList.RecordSetCloseRelease(pRs);
-
+	pRs.Close();
 }
 
 void CChargeListSetDlg::OnCbnSelchangeChargelistCombo()
@@ -394,15 +396,15 @@ void CChargeListSetDlg::OnCbnSelchangeChargelistCombo()
 
 		}
 
-		m_RegisterDongList.TreeChildDepthAddItem(0,sKeyRef, nParentNo,sTempSiGu,"지역", 150, FALSE, DT_LEFT	);		
-		CMyXTPGridRecord *pRecord =	m_RegisterDongList.MyAddItem(1,sDong, "동", 60, FALSE, DT_LEFT);
-															m_RegisterDongList.MyAddItem(2,sNickName, "별칭", 70, FALSE, DT_LEFT);
-		pRecord->SetItemDataLong(nID);
-		pRecord->SetItemDataLong2(nGrade);
+		//m_RegisterDongList.TreeChildDepthAddItem(0,sKeyRef, nParentNo,sTempSiGu,"지역", 150, FALSE, DT_LEFT	);		
+		//CXTPGridRecord *pRecord =	m_RegisterDongList.MyAddItem(1,sDong, "동", 60, FALSE, DT_LEFT);
+		//													m_RegisterDongList.MyAddItem(2,sNickName, "별칭", 70, FALSE, DT_LEFT);
+		//pRecord->SetItemDataLong(nID);
+		//pRecord->SetItemDataLong2(nGrade);
 
 
-		//m_RegisterDongList.SetItemRow(pRow);
-		m_RegisterDongList.EndItem();
+		////m_RegisterDongList.SetItemRow(pRow);
+		//m_RegisterDongList.EndItem();
 
 			
 		nPreGrade  = nGrade;

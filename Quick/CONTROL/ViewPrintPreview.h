@@ -117,7 +117,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-class CDataBox;
+class CXTPListCtrl2;
 
 /////////////////////////////////////////////////////////////////////////////
 // CViewPrintPreview view
@@ -131,8 +131,7 @@ protected:
 
 	// Attributes
 public:
-	
-	CDataBox	*m_pDataBox;
+	CXTPPrintListCtrl *m_pDataBox;
 	
 
 	// Operations

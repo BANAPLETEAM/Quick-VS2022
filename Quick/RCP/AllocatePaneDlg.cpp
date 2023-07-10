@@ -191,7 +191,7 @@ void CAllocatePaneDlg::OnInitialUpdate()
 	m_nearReport.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);
 	m_nearReport.SetGridStyle(TRUE, xtpGridSolid);
 	m_nearReport.SetGridColor(RGB(212, 208, 200));
-	m_nearReport.SetImageList(&imageList);
+	m_nearReport.SetImageList(&imageList, LVSIL_SMALL);
 
 
 	//by mksong (2010-09-21 ¿ÀÈÄ 7:51)

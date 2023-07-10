@@ -123,7 +123,7 @@ void CReportForm2::InitReportColumn(BOOL bSMS)
  		m_lcData.InsertColumn(0, "체크",LVCFMT_LEFT,40);
 		m_lcData.InsertColumn(1,"사번",LVCFMT_LEFT,50);  
 		m_lcData.InsertColumn(2,"기사명",LVCFMT_LEFT,60); 
-		CXTPGridColumn *pColumn = m_lcData.InsertColumn1(3,"SMS문자",LVCFMT_LEFT,500);
+		CXTPGridColumn *pColumn = m_lcData.InsertColumn(3,"SMS문자",LVCFMT_LEFT,500);
 		m_lcData.InsertColumn(4,"SMS발송",LVCFMT_LEFT, 45);
 		m_lcData.InsertColumn(5,"휴대폰",LVCFMT_LEFT,90);
 		m_lcData.InsertColumn(6,"현금",LVCFMT_LEFT,70);

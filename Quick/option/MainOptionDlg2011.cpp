@@ -100,14 +100,13 @@ BOOL CMainOptionDlg2::OnInitDialog()
 	CMyDialog::OnInitDialog();
 
 	int nCol = 0;
-	m_List.InsertColumn(nCol++, "수정번호", DT_LEFT, 100, FALSE, FALSE );
-	m_List.InsertColumn(nCol++, "수정일시", DT_LEFT, 140, FALSE, FALSE );
-	m_List.InsertColumn(nCol++, "수정한탭", DT_LEFT, 120, FALSE, FALSE );
-	m_List.InsertColumn(nCol++, "작업자", DT_LEFT, 80, FALSE, FALSE );
-	m_List.InsertColumn(nCol++, "지사이름", DT_LEFT, 100, FALSE, FALSE );
-	m_List.InsertColumn(nCol++, "전체적용", DT_LEFT, 60, FALSE, FALSE );
-	m_List.m_bHeader = TRUE;
-	m_List.InitControl();
+	m_List.InsertColumn(nCol++, "수정번호", DT_LEFT, 100);
+	m_List.InsertColumn(nCol++, "수정일시", DT_LEFT, 140);
+	m_List.InsertColumn(nCol++, "수정탭", DT_LEFT, 120);
+	m_List.InsertColumn(nCol++, "작업자", DT_LEFT, 80);
+	m_List.InsertColumn(nCol++, "지사이름", DT_LEFT, 100);
+	m_List.InsertColumn(nCol++, "전체적용", DT_LEFT, 60);
+	m_List.Populate();
 
 	CRect rtSTATIC_OPTION;
 	this->GetDlgItem(IDC_STATIC_OPTION)->GetWindowRect(rtSTATIC_OPTION);
@@ -1426,7 +1425,7 @@ void CMainOptionDlg2::RefreshLogInfo()
 	long nCompany = -1;
 	CBranchInfo *pBi = m_cBranch.GetBranchInfo();
 
-	m_List.DeleteAllItem();	
+	m_List.DeleteAllItems();	
 
 
 	//CWaitCursor wait;
@@ -1434,9 +1433,31 @@ void CMainOptionDlg2::RefreshLogInfo()
 	CMkRecordset pRs(m_pMkDb);
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), pBi->nCompanyCode);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(BOOL), pBi->bIntegrated);
-	if(pRs.Execute(&pCmd)) 
-	m_List.MyAddItem(pRs,TRUE);
+	if (!pRs.Execute(&pCmd)) return;
 
+	int index = 0;
+
+	while (!pRs.IsEOF())
+	{
+		int no;
+		CString dt, tab, name, branch, apply;
+		pRs.GetFieldValue(m_List.GetColumns()->GetAt(0)->GetCaption(), no);
+		pRs.GetFieldValue(m_List.GetColumns()->GetAt(1)->GetCaption(), dt);
+		pRs.GetFieldValue(m_List.GetColumns()->GetAt(2)->GetCaption(), tab);
+		pRs.GetFieldValue(m_List.GetColumns()->GetAt(3)->GetCaption(), name);
+		pRs.GetFieldValue(m_List.GetColumns()->GetAt(4)->GetCaption(), branch);
+		pRs.GetFieldValue(m_List.GetColumns()->GetAt(5)->GetCaption(), apply);
+
+		m_List.InsertItem(index, LF->GetStringFromLong(no));
+		m_List.SetItemText(index, 1, dt);
+		m_List.SetItemText(index, 2, tab);
+		m_List.SetItemText(index, 3, name);
+		m_List.SetItemText(index, 4, branch);
+		m_List.SetItemText(index++, 5, apply);
+		pRs.MoveNext();
+	}
+
+	pRs.Close();
 	m_List.Populate();
 }
 

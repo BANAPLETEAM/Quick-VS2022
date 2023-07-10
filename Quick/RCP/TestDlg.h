@@ -1,5 +1,5 @@
 #pragma once
-#include "DataBox.h"
+
 
 // CTestDlg 대화 상자입니다.
 
@@ -40,7 +40,7 @@ typedef map<long , CK2Record*> MyData;
 
 
 
-class CVirtualDataBox :public CDataBox
+class CVirtualDataBox :public CXTPListCtrl2
 {
 public:
 	CK2Record *m_pRecord3;

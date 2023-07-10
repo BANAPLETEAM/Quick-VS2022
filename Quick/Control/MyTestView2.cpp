@@ -71,10 +71,10 @@ void CMyTestView2::Refresh()
 	char buffer[10];
 	BOOL bCoupon,  bGroupOwner,bCredit, bCreditAfterDiscount;
 
-	//	BOOL bChild = (m_GroupList.GetSelectedRecord()->HasChildren()) ?  TRUE : FALSE;
+	//	BOOL bChild = (m_GroupList.GetFirstSelectedRecord()->HasChildren()) ?  TRUE : FALSE;
 
-	m_Data.DeleteAllItem();
-	nItem = 1;
+	m_Data.DeleteAllItems();
+	nItem = 0;
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_group_member_calc");
 	pCmd.AddParameter(typeLong, typeInput, sizeof(long), LF->GetCurBranchInfo()->nCustomerTable);
@@ -111,103 +111,49 @@ void CMyTestView2::Refresh()
 		CString sCredit = bCredit ? "O" : "X";
 		CString sIsCoupon = bCoupon ? "O" : "X";
 
-		switch(nCouponType)
-		{
-		case 0:				
-			sCouponValue = LF->GetMyNumberFormat(nCouponCharge);
-			sCoupon = " %";
-			break;
-		case 1:				
-			sCouponValue = LF->GetMyNumberFormat(nCouponCharge);
-			sCoupon = " 원";
-			break;
-		case 2:
-			sCouponValue = "A";
-			sCoupon = "타입";
-			break;
-		case 3:
-			sCouponValue = "B";
-			sCoupon = "타입";
-			break;
-		case 4:
-			sCouponValue = "C";
-			sCoupon = "타입";
-			break;
-		case 5:
-			sCouponValue = "D";
-			sCoupon = "타입";
-			break;			
-		default:
-			sCouponValue = "N/A";
-			sCoupon = "";
-			break;
-		}
-		CString sCreditAfer = bCreditAfterDiscount? "O" : "X";
-		switch(nPriceGrade)
-		{
-		case 0:				
-			sPriceGrade = "A";
-			break;
-		case 1:				
-			sPriceGrade = "B";
-			break;
-		case 2:
-			sPriceGrade = "C";
-			break;
-		case 3:
-			sPriceGrade = "D";
-			break;
-		}
-		switch(nMileageType)
-		{
-		case 0:				
-			sMileValue = LF->GetMyNumberFormat(nCouponCharge);
-			sMile = " %";
-			break;
-		case 1:				
-			sMileValue = LF->GetMyNumberFormat(nCouponCharge);
-			sMile = " 원";
-			break;
-		case 2:
-			sMileValue = "A";
-			sMile = "타입";
-			break;
-		case 3:
-			sMileValue = "B";
-			sMile = "타입";
-			break;
-		case 4:
-			sMileValue = "C";
-			sMile = "타입";
-			break;
-		case 5:
-			sMileValue = "D";
-			sMile = "타입";
-			break;			
-		default:
-			sMileValue = "N/A";
-			sMile = "";
-			break;
+		switch (nCouponType) {
+		case 0: sCouponValue = LF->GetMyNumberFormat(nCouponCharge); sCoupon = " %"; break;
+		case 1: sCouponValue = LF->GetMyNumberFormat(nCouponCharge); sCoupon = " 원"; break;
+		case 2: sCouponValue = "A"; sCoupon = "타입"; break;
+		case 3: sCouponValue = "B"; sCoupon = "타입"; break;
+		case 4: sCouponValue = "C"; sCoupon = "타입"; break;
+		case 5: sCouponValue = "D"; sCoupon = "타입"; break;
+		default: sCouponValue = "N/A"; sCoupon = ""; break;
 		}
 
+		CString sCreditAfer = bCreditAfterDiscount ? "O" : "X";
+		switch (nPriceGrade) {
+		case 0:	sPriceGrade = "A"; break;
+		case 1:	sPriceGrade = "B"; break;
+		case 2: sPriceGrade = "C"; break;
+		case 3: sPriceGrade = "D"; break;
+		}
 
-		m_Data.MyAddItem(0,CString(ltoa(nItem,buffer,10)),"No",30,FALSE, DT_CENTER);
-		m_Data.MyAddItem(1,sName,				"담당자",	80,FALSE,DT_LEFT);	
-		m_Data.MyAddItem(2,sCredit,				"신용",		50,FALSE,DT_CENTER);		
-		m_Data.MyAddItem(3,sIsCoupon,			"쿠폰",		50,FALSE,DT_CENTER);		
-		m_Data.MyAddItem(4,sCouponValue + sCoupon,"쿠폰타입",70,FALSE,DT_CENTER);					
-		m_Data.MyAddItem(5,sCreditAfer,				"후정산",		55,FALSE,DT_CENTER);		
-		m_Data.MyAddItem(6,sPriceGrade + "타입",		"할인타입",		70,FALSE,DT_CENTER);			
-		m_Data.MyAddItem(7,sMileValue +sMile,		"마일리지",	60,FALSE,DT_LEFT);					
-		m_Data.MyAddItem(8,nReportStartDay,		"정산1",		50,FALSE,DT_RIGHT);		
-		m_Data.MyAddItem(9,nReportEndDay,		"정산2",	50,FALSE,DT_RIGHT);		
-		m_Data.MyAddItem(10,nIssueTaxBillDay,		"계산서",		50,FALSE,DT_RIGHT);		
-		m_Data.MyAddItem(11,nPayableDay,		"입금일",		50,FALSE,DT_RIGHT);					
-		m_Data.MyAddItem(12,LF->GetMyNumberFormat(nUncollectedAmount),"미수금",	70,FALSE,DT_RIGHT);				
+		switch (nMileageType) {
+		case 0: sMileValue = LF->GetMyNumberFormat(nCouponCharge); sMile = " %"; break;
+		case 1: sMileValue = LF->GetMyNumberFormat(nCouponCharge); sMile = " 원"; break;
+		case 2: sMileValue = "A"; sMile = "타입"; break;
+		case 3: sMileValue = "B"; sMile = "타입"; break;
+		case 4: sMileValue = "C"; sMile = "타입"; break;
+		case 5: sMileValue = "D"; sMile = "타입"; break;
+		default: sMileValue = ""; sMile = ""; break;
+		}
 
-		m_Data.InsertItemDataLong(nCNo);	
-		m_Data.InsertItemDataLong2(nGNo);			
-		m_Data.EndItem();	
+		m_Data.InsertItem(nItem, CString(ltoa(nItem, buffer, 10)));
+		m_Data.SetItemText(nItem, 1, sName);
+		m_Data.SetItemText(nItem, 2, sCredit);
+		m_Data.SetItemText(nItem, 3, sIsCoupon);
+		m_Data.SetItemText(nItem, 4, sCouponValue + sCoupon);
+		m_Data.SetItemText(nItem, 5, sCreditAfer);
+		m_Data.SetItemText(nItem, 6, sPriceGrade + "타입");
+		m_Data.SetItemText(nItem, 7, sMileValue + sMile);
+		m_Data.SetItemText(nItem, 8, LF->GetStringFromLong(nReportStartDay));
+		m_Data.SetItemText(nItem, 9, LF->GetStringFromLong(nReportEndDay));
+		m_Data.SetItemText(nItem, 10, LF->GetStringFromLong(nIssueTaxBillDay));
+		m_Data.SetItemText(nItem, 11, LF->GetStringFromLong(nPayableDay));
+		m_Data.SetItemText(nItem, 12, LF->GetMyNumberFormat(nUncollectedAmount));
+		m_Data.SetItemLong(nItem, nCNo);
+		m_Data.SetItemLong2(nItem++, nGNo);
 
 		pRs.MoveNext();
 		nItem++;
@@ -241,13 +187,11 @@ void CMyTestView2::OnInitialUpdate()
 }
 void CMyTestView2::ReportDblClick()
 {
-	if(m_Data.GetSelectedCount() < 0)
+	if(m_Data.GetSelectedRows()->GetCount() < 0)
 		return;
 
-	long nCNo = m_Data.GetItemDataLong(m_Data.GetSelectedRow()->GetIndex());
-	long nGNo = m_Data.GetItemDataLong2(m_Data.GetSelectedRow()->GetIndex());
-
-
+	long nCNo = m_Data.GetItemLong(m_Data.GetSelectedItem());
+	long nGNo = m_Data.GetItemLong2(m_Data.GetSelectedItem());
 	if(nCNo <= 0)
 		return;
 

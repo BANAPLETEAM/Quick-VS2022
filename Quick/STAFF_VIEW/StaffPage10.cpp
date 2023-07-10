@@ -455,7 +455,7 @@ void CStaffPage10::OnDelayAllocate()
 		return;
 	}
 
-	//CMyXTPGridRecord *pRecord = (CMyXTPGridRecord*) pRows->GetAt(0)->GetRecord();
+	//CXTPGridRecord *pRecord = (CXTPGridRecord*) pRows->GetAt(0)->GetRecord();
 
 	CXTPGridRecord *pRecordOne =  pRows->GetAt(0)->GetRecord();
 

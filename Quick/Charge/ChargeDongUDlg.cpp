@@ -186,6 +186,11 @@ BOOL CChargeDongUDlg::OnInitDialog()
 	m_lstSet.GetReportHeader()->AllowColumnRemove(FALSE);
 	m_lstSet.GetReportHeader()->AllowColumnSort(FALSE);
 	m_lstSet.GetReportHeader()->AllowColumnResize(TRUE);
+
+	m_lstSet.InsertColumn(0, "구분", DT_LEFT, 190)->SetEditable(FALSE);
+	m_lstSet.InsertColumn(1, "세부", DT_LEFT, 80)->SetEditable(FALSE);
+
+
 	m_lstSet.Populate();
 	
 	m_lstSetDest.GetPaintManager()->SetColumnStyle(xtpGridColumnResource);		
@@ -198,6 +203,12 @@ BOOL CChargeDongUDlg::OnInitDialog()
 	m_lstSetDest.GetReportHeader()->AllowColumnSort(FALSE);
 	m_lstSetDest.AllowEdit(TRUE);
 	
+	m_lstSetDest.InsertColumn(0, "구분", DT_LEFT, 190)->SetEditable(FALSE);
+	m_lstSetDest.InsertColumn(1, "세부", DT_LEFT, 80)->SetEditable(FALSE);
+	m_lstSetDest.InsertColumn(2, "오토/짐", DT_RIGHT, 60)->SetEditable(TRUE);
+	m_lstSetDest.InsertColumn(3, "다마라보", DT_RIGHT, 60)->SetEditable(TRUE);
+	m_lstSetDest.InsertColumn(4, "밴/봉고", DT_RIGHT, 60)->SetEditable(TRUE);
+	m_lstSetDest.InsertColumn(5, "트럭", DT_RIGHT, 60)->SetEditable(TRUE);
 	
 	m_lstSetDest.Populate();
 	
@@ -269,15 +280,15 @@ void CChargeDongUDlg::OnBnClickedEditBtn()
 			return;
 
 
-		CMyXTPGridRecord *pDestRecord = NULL;
-		CMyXTPGridRecord *pStartRecord = NULL;
+		CXTPGridRecord *pDestRecord = NULL;
+		CXTPGridRecord *pStartRecord = NULL;
 		BOOL bSuccess = FALSE;
 
 	
 
 		for(int i = 0; i < m_lstSet.GetSelectedRows()->GetCount(); i++)
 		{
-			CMyXTPGridRecord *pRecord = m_lstSet.GetSelectedRecord(i);
+			CXTPGridRecord *pRecord = m_lstSet.GetSelectedRows()->GetAt(i)->GetRecord();
 			 CXTPGridSelectedRows *pRows = m_lstSet.GetSelectedRows();
 			 CXTPGridRow *pRow = pRows->GetAt(i);
 		
@@ -296,7 +307,7 @@ void CChargeDongUDlg::OnBnClickedEditBtn()
 		
 		for(int i = 0; i < m_lstSetDest.GetSelectedRows()->GetCount(); i++)
 		{
-			CMyXTPGridRecord *pRecord = m_lstSetDest.GetSelectedRecord(i);		
+			CXTPGridRecord *pRecord = m_lstSetDest.GetSelectedRows()->GetAt(i)->GetRecord();		
 			CXTPGridSelectedRows *pSeletedRows = m_lstSetDest.GetSelectedRows();
 			CXTPGridRow *pRow = pSeletedRows->GetAt(i);
 
@@ -323,17 +334,17 @@ void CChargeDongUDlg::OnBnClickedEditBtn()
 		CString sError;
 		for(int i = 0; i < m_lstSet.GetSelectedRows()->GetCount(); i++)
 		{
-			pStartRecord = (CMyXTPGridRecord*)m_lstSet.GetSelectedRows()->GetAt(i);
+			pStartRecord = (CXTPGridRecord*)m_lstSet.GetSelectedRows()->GetAt(i);
 		
 			CXTPGridRow *pRow = m_lstSet.GetSelectedRows()->GetAt(i);
-			pStartRecord = (CMyXTPGridRecord*)pRow->GetRecord();
-			long nStartDongID = ((CPOIInfo*)pStartRecord->GetItemData())->nDongID;
+			pStartRecord = (CXTPGridRecord*)pRow->GetRecord();
+			long nStartDongID = ((CPOIInfo*)m_lstSet.GetItemData(pStartRecord))->nDongID;
 			
 			for(int j=0; j < m_lstSetDest.GetSelectedRows()->GetCount(); j++)
 			{
 				CXTPGridRow *pRow = m_lstSetDest.GetSelectedRows()->GetAt(j);
-				pDestRecord =  (CMyXTPGridRecord*)pRow->GetRecord();
-				long nDestDongID = ((CPOIInfo*)pDestRecord->GetItemData())->nDongID;
+				pDestRecord =  (CXTPGridRecord*)pRow->GetRecord();
+				long nDestDongID = ((CPOIInfo*)m_lstSetDest.GetItemData(pDestRecord))->nDongID;
 				
 
 				CMkCommand pCmd(m_pMkDb, "update_charge_dong_child2009_input");
@@ -349,7 +360,7 @@ void CChargeDongUDlg::OnBnClickedEditBtn()
 				pCmd.AddParameter(nGNo);
 				if(!pCmd.Execute()) 
 				{
-					sError = ((CPOIInfo*)pStartRecord->GetItemData())->sName + "에서 작업이 실패됬습니다.";
+					sError = ((CPOIInfo*)m_lstSet.GetItemData(pStartRecord))->sName + "에서 작업이 실패됬습니다.";
 					throw(sError);
 				}		
 						
@@ -372,8 +383,8 @@ void CChargeDongUDlg::OnBnClickedDeleteBtn()
 	if(!LF->POWER_CHECK(1101, "요금수정/삭제", TRUE))
 		return;
 
-	CMyXTPGridRecord *pDestRecord = NULL;
-	CMyXTPGridRecord *pStartRecord = NULL;
+	CXTPGridRecord *pDestRecord = NULL;
+	CXTPGridRecord *pStartRecord = NULL;
 	BOOL bSuccess = FALSE;
 	//DEST_RECORD_MAP2::iterator it;
 	
@@ -394,9 +405,9 @@ void CChargeDongUDlg::OnBnClickedDeleteBtn()
 		
 		CXTPGridSelectedRows *pSeletedRows = m_lstSet.GetSelectedRows();
 		CXTPGridRow *pRow = pSeletedRows->GetAt(i);
-		pStartRecord = (CMyXTPGridRecord*)pRow->GetRecord();
+		pStartRecord = (CXTPGridRecord*)pRow->GetRecord();
 			
-		long nStartDongID = ((CPOIInfo*)pStartRecord->GetItemData())->nDongID;	
+		long nStartDongID = ((CPOIInfo*)m_lstSet.GetItemData(pStartRecord))->nDongID;
 		
 		
 		for(int j=0; j < nDestCurRow; j++)
@@ -404,8 +415,8 @@ void CChargeDongUDlg::OnBnClickedDeleteBtn()
 		
 
 			CXTPGridRow *pRow = m_lstSetDest.GetSelectedRows()->GetAt(j);
-			pDestRecord = (CMyXTPGridRecord*)pRow->GetRecord();
-			long nDestDongID = ((CPOIInfo*)pDestRecord->GetItemData())->nDongID;
+			pDestRecord = (CXTPGridRecord*)pRow->GetRecord();
+			long nDestDongID = ((CPOIInfo*)m_lstSetDest.GetItemData(pDestRecord))->nDongID;
 
 			CMkCommand pCmd(m_pMkDb, "delete_charge_dong_total");
 			pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCompany);					
@@ -591,9 +602,9 @@ void CChargeDongUDlg::OnBnClickedChargeListBtn()
 void CChargeDongUDlg::OnViewListPrint()
 {
 
-	CMyXTPGridRecord *pReocrd = (CMyXTPGridRecord *)m_lstSet.GetSelectedRows()->GetAt(0)->GetRecord();
+	CXTPGridRecord *pReocrd = (CXTPGridRecord *)m_lstSet.GetSelectedRows()->GetAt(0)->GetRecord();
 
-	CPOIInfo * pPOIInfo = (CPOIInfo*)pReocrd->GetItemData();
+	CPOIInfo * pPOIInfo = (CPOIInfo*)m_lstSet.GetItemData(pReocrd);
 
 	
 	long nDongID = pPOIInfo->nDongID;
@@ -613,7 +624,7 @@ void CChargeDongUDlg::OnViewListPrint()
 
 BOOL CChargeDongUDlg::CheckAreaSelect()
 {
-	for(int i = 0; i < m_lstSet.GetSelectedCount(); i++)
+	for(int i = 0; i < m_lstSet.GetSelectedRows()->GetCount(); i++)
 	{
 		CXTPGridRow *pRow = m_lstSet.GetSelectedRows()->GetAt(i);
 		if(pRow->GetTreeDepth() == 0)
@@ -623,7 +634,7 @@ BOOL CChargeDongUDlg::CheckAreaSelect()
 		}
 	}
 
-	for(int i = 0; i < m_lstSetDest.GetSelectedCount(); i++)
+	for(int i = 0; i < m_lstSetDest.GetSelectedRows()->GetCount(); i++)
 	{
 		CXTPGridRow *pRow = m_lstSetDest.GetSelectedRows()->GetAt(i);
 		if(pRow->GetTreeDepth() == 0)
@@ -891,25 +902,7 @@ void CChargeDongUDlg::ChargeTypeNameRefresh()
 }
 
 void CChargeDongUDlg::CopyDestBtn()
-{
-	if(m_lstSetDest.GetColumns()->GetCount() == 0)
-	{
-	
-		m_lstSetDest.AddHeader(0, TRUE,"", "구분", 190, DT_LEFT, FALSE);
-		m_lstSetDest.AddHeader(1, TRUE,"", "세부", 80, DT_LEFT, FALSE);
-		m_lstSetDest.AddHeader(2, TRUE,"", "오토/짐", 60, DT_RIGHT, TRUE);
-		m_lstSetDest.AddHeader(3, TRUE,"", "다마라보", 60, DT_RIGHT, TRUE);
-		m_lstSetDest.AddHeader(4, TRUE,"", "밴/봉고", 60, DT_RIGHT, TRUE);
-		m_lstSetDest.AddHeader(5, TRUE,"", "트럭", 60, DT_RIGHT, TRUE);
-		
-		m_lstSetDest.GetColumns()->GetAt(2)->SetEditable(TRUE);
-		m_lstSetDest.GetColumns()->GetAt(3)->SetEditable(TRUE);
-		m_lstSetDest.GetColumns()->GetAt(4)->SetEditable(TRUE);
-        m_lstSetDest.GetColumns()->GetAt(5)->SetEditable(TRUE);
-		m_lstSetDest.AllowEdit(TRUE);
-	}
-
-	
+{	
 	if(m_lstSet.GetRecords()->GetCount() == 0)
 	{
 		m_lstSetDest.Populate();
@@ -918,7 +911,7 @@ void CChargeDongUDlg::CopyDestBtn()
 
 	m_lstSetDest.ResetContent(TRUE);
 
-	CMyXTPGridRecord *pPReAll[20];
+	CXTPGridRecord *pPReAll[20];
 
 	long nDongID = 0, nDepth = 0,  i = 0,  nPOIID = 0, nCount = 0;	
 	CString sDong, sAllName;
@@ -938,27 +931,26 @@ void CChargeDongUDlg::CopyDestBtn()
 		if(sDong.GetLength() == 0)
 			sDong = sAllName;
 
-		CMyXTPGridRecord *pChild = new CMyXTPGridRecord();					
-		pChild->MySubAddItem(sDong);
-		pChild->MySubAddItem(sAllName);
-		pChild->MySubAddItem("");
-		pChild->MySubAddItem("");
-		pChild->MySubAddItem("");
-		pChild->MySubAddItem("");
+		CXTPGridRecord *pChild = new CXTPGridRecord();					
+		pChild->AddItem(new CXTPGridRecordItemText(sDong));
+		pChild->AddItem(new CXTPGridRecordItemText(sAllName));
+		pChild->AddItem(new CXTPGridRecordItemText(""));
+		pChild->AddItem(new CXTPGridRecordItemText(""));
+		pChild->AddItem(new CXTPGridRecordItemText(""));
+		pChild->AddItem(new CXTPGridRecordItemText(""));
 
-		pChild->SetItemData((DWORD_PTR)it->second);
-		pChild->SetItemDataLong(nDongID);	
-		
+		m_lstSetDest.SetItemData(pChild, (DWORD_PTR)it->second);
+		m_lstSetDest.SetItemLong(pChild, nDongID);	
 
-		CMyXTPGridRecord *pRecord;
+		CXTPGridRecord *pRecord;
 		if(nDepth == 1)
 		{
-			pRecord = (CMyXTPGridRecord *)m_lstSetDest.AddRecord(pChild);				
+			pRecord = (CXTPGridRecord *)m_lstSetDest.AddRecord(pChild);				
 			pPReAll[1] = pRecord;
 		}
 		else
 		{
-			pRecord = (CMyXTPGridRecord *)pPReAll[nDepth-1]->GetChilds()->Add(pChild);					
+			pRecord = (CXTPGridRecord *)pPReAll[nDepth-1]->GetChilds()->Add(pChild);					
 			pPReAll[nDepth] = pRecord;		
 		}
 		
@@ -977,13 +969,12 @@ void::CChargeDongUDlg::LoadDong2(BOOL bUser)
 	if(!bUser && MessageBox("처음셋팅된(초기화) 값으로 작업됩니다. 그래도 작업하시겠습니까?", "확인", MB_ICONINFORMATION | MB_YESNO) ==IDNO)
 		return;
 
-
 	//m_Vec.clear();
 	long nCompany = (long)m_cmbCompany.GetItemData(m_cmbCompany.GetCurSel());	
 	long nDongID = 0, nDepth = 0,  i = 0, nPre1Dept = 0, nPOIID = 0, nID = 0, nDongDepth= 0;	
 	CString sDong, sAllName;
 	BOOL bFactPOI;
-	CMyXTPGridRecord *pPReAll[20];
+	CXTPGridRecord *pPReAll[20];
 	CPOIInfo *pPOI;
 	int nCount = 0 ;
 	
@@ -1013,12 +1004,6 @@ void::CChargeDongUDlg::LoadDong2(BOOL bUser)
 	pCmd2.AddParameter(bUser);		
 	if(pRs2.Execute(&pCmd2))
 	{
-		if(m_lstSet.GetColumns()->GetCount() == 0)
-		{
-			m_lstSet.AddHeader(0, TRUE,"", "구분", 190, DT_LEFT, FALSE);
-			m_lstSet.AddHeader(1, TRUE,"", "세부", 80, DT_LEFT, FALSE);
-		}
-	
 		while(!pRs2.IsEOF())
 		{	
 			if(bUser)
@@ -1033,13 +1018,10 @@ void::CChargeDongUDlg::LoadDong2(BOOL bUser)
 
 			pPOI = new CPOIInfo;
 			
-			
 			if(bUser)
 				pPOI->nPOIID = nID;
 			else
 				pPOI->nPOIID = nDongID;
-			
-			
 
 			pPOI->nDepth = nDepth;
 			pPOI->nDongID = nDongID;
@@ -1052,23 +1034,23 @@ void::CChargeDongUDlg::LoadDong2(BOOL bUser)
 			pPOI->nDongDepth = nDongDepth;
 				
 
-			CMyXTPGridRecord *pChild = new CMyXTPGridRecord();					
-			pChild->MySubAddItem(sDong.GetLength() ==0 ? sAllName : sDong);
-			pChild->MySubAddItem(sAllName);
-			pChild->SetItemData((DWORD_PTR)pPOI);
+			CXTPGridRecord *pChild = new CXTPGridRecord();					
+			pChild->AddItem(new CXTPGridRecordItemText(sDong.GetLength() ==0 ? sAllName : sDong));
+			pChild->AddItem(new CXTPGridRecordItemText(sAllName));
+			m_lstSet.SetItemData(pChild, (DWORD_PTR)pPOI);
 
 			if(nDepth == 1)
 			{
-				CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstSet.AddRecord(pChild);				
+				CXTPGridRecord *pRecord = (CXTPGridRecord *)m_lstSet.AddRecord(pChild);				
 				pPReAll[1] = pRecord;
-				((CPOIInfo*)pRecord->GetItemData())->pParent = NULL;
+				((CPOIInfo*)m_lstSet.GetItemData(pRecord))->pParent = NULL;
 
 			}
 			else
 			{
-				CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pPReAll[nDepth-1]->GetChilds()->Add(pChild);					
+				CXTPGridRecord *pRecord = (CXTPGridRecord *)pPReAll[nDepth-1]->GetChilds()->Add(pChild);					
 				pPReAll[nDepth] = pRecord;
-				((CPOIInfo*)pRecord->GetItemData())->pParent = (CPOIInfo*)pPReAll[nDepth-1]->GetItemData();
+				((CPOIInfo*)m_lstSet.GetItemData(pRecord))->pParent = (CPOIInfo*)m_lstSet.GetItemData(pPReAll[nDepth - 1]);
 
 			
 			}	
@@ -1104,15 +1086,9 @@ void::CChargeDongUDlg::UserDongPosLoad()
 {	
 	long nDongID = 0, nDepth = 0,  i = 0, nPre1Dept = 0, nPOIID = 0, nID = 0;	
 	CString sDong, sAllName;	
-	
-	if(m_lstSet.GetColumns()->GetCount() == 0)
-	{
-		m_lstSet.AddHeader(0, TRUE,"", "구분", 190, DT_LEFT, FALSE);
-		m_lstSet.AddHeader(1, TRUE,"", "세부", 80, DT_LEFT, FALSE);
-	}
 
 	long nCompany  = (long)m_cmbCompany.GetItemData(m_cmbCompany.GetCurSel());
-	CMyXTPGridRecord *pPReAll[20];
+	CXTPGridRecord *pPReAll[20];
 	int nPreDepth = 0;
 	USER_DONGPOS_MAP *pUserDongPosMap = NULL;
 	pUserDongPosMap = m_mapUDongPos.GetUserDongPos(nCompany);
@@ -1136,23 +1112,23 @@ void::CChargeDongUDlg::UserDongPosLoad()
 			sDong = it->second->sAllName;
 		sAllName = it->second->sAllName;		
 
-		CMyXTPGridRecord *pChild = new CMyXTPGridRecord();					
-		pChild->MySubAddItem(sDong);
-		pChild->MySubAddItem(sAllName);
-		pChild->SetItemData((DWORD_PTR)it->second);
+		CXTPGridRecord *pChild = new CXTPGridRecord();					
+		pChild->AddItem(new CXTPGridRecordItemText(sDong));
+		pChild->AddItem(new CXTPGridRecordItemText(sAllName));
+		m_lstSet.SetItemData(pChild, (DWORD_PTR)it->second);
 
 		if(nDepth == 1)
 		{
-			CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstSet.AddRecord(pChild);				
+			CXTPGridRecord *pRecord = (CXTPGridRecord *)m_lstSet.AddRecord(pChild);				
 			pPReAll[1] = pRecord;
-			((CPOIInfo*)pRecord->GetItemData())->pParent = NULL;
+			((CPOIInfo*)m_lstSet.GetItemData(pRecord))->pParent = NULL;
 
 		}
 		else
 		{
-			CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pPReAll[nDepth-1]->GetChilds()->Add(pChild);					
+			CXTPGridRecord *pRecord = (CXTPGridRecord *)pPReAll[nDepth-1]->GetChilds()->Add(pChild);					
 			pPReAll[nDepth] = pRecord;
-			((CPOIInfo*)pRecord->GetItemData())->pParent = (CPOIInfo*)pPReAll[nDepth-1]->GetItemData();
+			((CPOIInfo*)m_lstSet.GetItemData(pRecord))->pParent = (CPOIInfo*)m_lstSet.GetItemData(pPReAll[nDepth - 1]);
 
 		
 		}
@@ -1212,15 +1188,15 @@ void CChargeDongUDlg::OnLButtonUp(UINT nFlags, CPoint point)
 		{
 			CXTPGridRow *pRow = m_lstSet.HitTest(point);
 			int nRow = pRow->GetIndex();
-			CMyXTPGridRecord *pSelectRecord =  (CMyXTPGridRecord *)pRow->GetRecord();
-			CPOIInfo *pSelectPOI = (CPOIInfo *)pSelectRecord->GetItemData();
+			CXTPGridRecord *pSelectRecord =  (CXTPGridRecord *)pRow->GetRecord();
+			CPOIInfo *pSelectPOI = (CPOIInfo *)m_lstSet.GetItemData(pSelectRecord);
 
 			// 레코드 검사
-			for(int i = 0; i < m_lstSet.GetSelectedCount(); i++)
+			for(int i = 0; i < m_lstSet.GetSelectedRows()->GetCount(); i++)
 			{
-				CMyXTPGridRecord *pRecord = m_lstSet.GetSelectedRecord(i);
+				CXTPGridRecord *pRecord = m_lstSet.GetSelectedRows()->GetAt(i)->GetRecord();
 				CXTPGridRow *pRow = m_lstSet.GetSelectedRows()->GetAt(i);
-				CPOIInfo *pSelectedPOIInfo = (CPOIInfo*)pRecord->GetItemData();
+				CPOIInfo *pSelectedPOIInfo = (CPOIInfo*)m_lstSet.GetItemData(pRecord);
 				if(pSelectedPOIInfo == pSelectPOI)
 				{			
 					MessageBox("선택된 항목이 드래그하신 항목에 속해 있습니다.", "확인", MB_ICONINFORMATION);
@@ -1256,20 +1232,20 @@ void CChargeDongUDlg::OnLButtonUp(UINT nFlags, CPoint point)
 			CXTPGridSelectedRows *pMoveRows = m_lstSet.GetSelectedRows();
 
 			// 실제 레코드 옮기기
-			for(int i = 0; i < m_lstSet.GetSelectedCount(); i++)
+			for(int i = 0; i < m_lstSet.GetSelectedRows()->GetCount(); i++)
 			{
-				CMyXTPGridRecord *pDelRecord = m_lstSet.GetSelectedRecord(i);
-				CPOIInfo *pPOI = (CPOIInfo *)pDelRecord->GetItemData();
+				CXTPGridRecord *pDelRecord = m_lstSet.GetSelectedRows()->GetAt(i)->GetRecord();
+				CPOIInfo *pPOI = (CPOIInfo *)m_lstSet.GetItemData(pDelRecord);
 
 				CXTPGridRow *pMoveRow = pMoveRows->GetAt(i);
 
 
-				CMyXTPGridRecord *pNewRecord = new CMyXTPGridRecord();		// 새로운 레코드만들기	
+				CXTPGridRecord *pNewRecord = new CXTPGridRecord();		// 새로운 레코드만들기	
 				CXTPGridRecordItemText *pItemText = new CXTPGridRecordItemText(pPOI->sName);
 				CXTPGridRecordItemText *pItemText2 = new CXTPGridRecordItemText(pPOI->sAllName);
 				pNewRecord->AddItem(pItemText);			
 				pNewRecord->AddItem(pItemText2);			
-				pNewRecord->SetItemData(DWORD_PTR(pPOI));
+				m_lstSet.SetItemData(pNewRecord, DWORD_PTR(pPOI));
 				int nFind = InsertFind(pSelectRecord->GetChilds(), pPOI->sName);
 
 				if(nFind == 0)
@@ -1288,7 +1264,7 @@ void CChargeDongUDlg::OnLButtonUp(UINT nFlags, CPoint point)
 			long nCount = 0;
 			for(int i = 0; i < m_lstSet.GetRecords()->GetCount(); i++)
 			{
-				CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstSet.GetRecords()->GetAt(i);
+				CXTPGridRecord *pRecord = (CXTPGridRecord *)m_lstSet.GetRecords()->GetAt(i);
 				if(pRecord->GetChilds()->GetCount() > 0)
 					ChildCount(pRecord, nCount);
 				
@@ -1303,13 +1279,13 @@ void CChargeDongUDlg::OnLButtonUp(UINT nFlags, CPoint point)
 	CXTResizeDialog::OnLButtonUp(nFlags, point);
 }
 
-void CChargeDongUDlg::ChildCount(CMyXTPGridRecord *pReocrd,long &nCount)
+void CChargeDongUDlg::ChildCount(CXTPGridRecord *pReocrd,long &nCount)
 {
 	
 	for(int i = 0; i < pReocrd->GetChilds()->GetCount(); i++)
 	{
 		nCount++;
-		CMyXTPGridRecord *pChildRecord = (CMyXTPGridRecord *)pReocrd->GetChilds()->GetAt(i);
+		CXTPGridRecord *pChildRecord = (CXTPGridRecord *)pReocrd->GetChilds()->GetAt(i);
 		if(pChildRecord->GetChilds()->GetCount() > 0)
 			ChildCount(pChildRecord, nCount);
 
@@ -1345,43 +1321,39 @@ int CChargeDongUDlg::InsertFind(CXTPGridRecords* pRecords, CString strWord )
 }
 
 
-void CChargeDongUDlg::ChildInput(CMyXTPGridRecord* pDelRecord,CMyXTPGridRecord* pNewRecord )
+void CChargeDongUDlg::ChildInput(CXTPGridRecord* pDelRecord,CXTPGridRecord* pNewRecord )
 {
 	
 	long nCount = pDelRecord->GetChilds()->GetCount();
 	for(int i = 0; i < nCount; i++)
 	{
-		CMyXTPGridRecord* pChildDelRecord = (CMyXTPGridRecord*)pDelRecord->GetChilds()->GetAt(i);
-		CPOIInfo *pPOI = (CPOIInfo *)pChildDelRecord->GetItemData();
+		CXTPGridRecord* pChildDelRecord = (CXTPGridRecord*)pDelRecord->GetChilds()->GetAt(i);
+		CPOIInfo *pPOI = (CPOIInfo *)m_lstSet.GetItemData(pChildDelRecord);
 
-		CMyXTPGridRecord *pChildNewRecord = new CMyXTPGridRecord();			
+		CXTPGridRecord *pChildNewRecord = new CXTPGridRecord();			
 		CXTPGridRecordItemText *pItemText = new CXTPGridRecordItemText(pPOI->sName);
 		CXTPGridRecordItemText *pItemText2 = new CXTPGridRecordItemText(pPOI->sAllName);
 		pChildNewRecord->AddItem(pItemText);			
 		pChildNewRecord->AddItem(pItemText2);			
-		pChildNewRecord->SetItemData(DWORD_PTR(pPOI));
+		m_lstSet.SetItemData(pChildNewRecord, DWORD_PTR(pPOI));
 
 		pNewRecord->GetChilds()->Add(pChildNewRecord);
 
 		if(pChildDelRecord->GetChilds()->GetCount() > 0)
 			ChildInput(pChildDelRecord,pChildNewRecord );
-
-		//pChildDelRecord->Delete();
-		//
-		
-		
 	}
+
 	pDelRecord->GetChilds()->RemoveAll();
 }
 
 
-void CChargeDongUDlg::GetChild(CMyXTPGridRecord *pRecord, int nDepth)
+void CChargeDongUDlg::GetChild(CXTPGridRecord *pRecord, int nDepth)
 {
 	CPOIInfo *pPOIInfo;
 	for(int i = 0; i < pRecord->GetChilds()->GetCount(); i++)
 	{	
-		CMyXTPGridRecord *pChildRecord =(CMyXTPGridRecord *)pRecord->GetChilds()->GetAt(i);		
-		pPOIInfo = (CPOIInfo *)pChildRecord->GetItemData();
+		CXTPGridRecord *pChildRecord =(CXTPGridRecord *)pRecord->GetChilds()->GetAt(i);		
+		pPOIInfo = (CPOIInfo *)m_lstSet.GetItemData(pChildRecord);
 		pPOIInfo->nDepth = nDepth;
 
 		m_Vec.push_back(pPOIInfo);
@@ -1396,20 +1368,17 @@ void CChargeDongUDlg::GetChild(CMyXTPGridRecord *pRecord, int nDepth)
 
 }
 
-
-
 void CChargeDongUDlg::OnDelBottomBothPoiCharge()
 {
-	
-	if(m_lstSet.GetSelectedCount() > 1 || m_lstSet.GetSelectedCount() == 0)
+	if(m_lstSet.GetSelectedRows()->GetCount() > 1 || m_lstSet.GetSelectedRows()->GetCount() == 0)
 	{
 		MessageBox("선택을 한개만 하여주세요", "확인", MB_ICONINFORMATION);
 		return;
 	}
 
-	CMyXTPGridRecord *pReocrd = m_lstSet.GetSelectedRecord();
+	CXTPGridRecord *pReocrd = m_lstSet.GetFirstSelectedRecord();
 	CString sMsg, sPoi;
-	sPoi = ((CPOIInfo*)pReocrd->GetItemData())->sName;
+	sPoi = ((CPOIInfo*)m_lstSet.GetItemData(pReocrd))->sName;
 	sMsg.Format("%s 이하 지역의 요금데이터를 전부 지우시겠습니까? ", sPoi);
 
 	if(MessageBox(sPoi, "확인", MB_ICONINFORMATION | MB_YESNO) == IDYES)
@@ -1423,22 +1392,21 @@ void CChargeDongUDlg::OnDelBottomBothPoiCharge()
 		}
 
 	}
-
 }
+
 void CChargeDongUDlg::OnDelBottomPoiCharge()
 {
-
 	int i = 0;
 
-	if(m_lstSet.GetSelectedCount() > 1 || m_lstSet.GetSelectedCount() == 0)
+	if(m_lstSet.GetSelectedRows()->GetCount() > 1 || m_lstSet.GetSelectedRows()->GetCount() == 0)
 	{
 		MessageBox("선택을 한개만 하여주세요", "확인", MB_ICONINFORMATION);
 		return;
 	}
 
-	CMyXTPGridRecord *pReocrd = m_lstSet.GetSelectedRecord();
+	CXTPGridRecord *pReocrd = m_lstSet.GetFirstSelectedRecord();
 	CString sMsg, sPoi;
-	sPoi = ((CPOIInfo*)pReocrd->GetItemData())->sName;
+	sPoi = ((CPOIInfo*)m_lstSet.GetItemData(pReocrd))->sName;
 	sMsg.Format("%s 이하 지역의 요금데이터를 전부 지우시겠습니까? ", sPoi);
 	
 	if(MessageBox(sPoi, "확인", MB_ICONINFORMATION | MB_YESNO) == IDYES)
@@ -1452,17 +1420,16 @@ void CChargeDongUDlg::OnDelBottomPoiCharge()
 		}
 		
 	}
-
 }
 
-void CChargeDongUDlg::ChildPoiDeleteCharge(CMyXTPGridRecord *pReocrd, BOOL bShuttle)
+void CChargeDongUDlg::ChildPoiDeleteCharge(CXTPGridRecord *pReocrd, BOOL bShuttle)
 {
 	long nCompany = (long)m_cmbCompany.GetItemData(m_cmbCompany.GetCurSel());
 	for(int i = 0; i < pReocrd->GetChilds()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pChildRecord = (CMyXTPGridRecord *)pReocrd->GetChilds()->GetAt(i);
+		CXTPGridRecord *pChildRecord = (CXTPGridRecord *)pReocrd->GetChilds()->GetAt(i);
 		
-		long nStartDongID = ((CPOIInfo*)pChildRecord->GetItemData())->nDongID;
+		long nStartDongID = ((CPOIInfo*)m_lstSet.GetItemData(pChildRecord))->nDongID;
 		if(nStartDongID > 0)
 		{
 			CMkRecordset pRs2(m_pMkDb);
@@ -1534,7 +1501,7 @@ void CChargeDongUDlg::UserDongSave(BOOL bServerSave)
 	long nCount2 = 0;
 	for(int i = 0; i < m_lstSet.GetRecords()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstSet.GetRecords()->GetAt(i);
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)m_lstSet.GetRecords()->GetAt(i);
 		if(pRecord->GetChilds()->GetCount() > 0)
 			ChildCount(pRecord, nCount2);
 
@@ -1549,10 +1516,10 @@ void CChargeDongUDlg::UserDongSave(BOOL bServerSave)
 	CPOIInfo *pPOIInfo;
 	for(int i = 0; i < m_lstSet.GetRecords()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_lstSet.GetRecords()->GetAt(i);
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)m_lstSet.GetRecords()->GetAt(i);
 		CXTPGridRow *pRow = m_lstSet.GetRows()->GetAt(i);
 		
-		pPOIInfo = (CPOIInfo *)pRecord->GetItemData();
+		pPOIInfo = (CPOIInfo *)m_lstSet.GetItemData(pRecord);
 		pPOIInfo->nDepth = 1;
 
 		m_Vec.push_back(pPOIInfo);
@@ -1710,7 +1677,7 @@ void CChargeDongUDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* /*res
 		
 
 		long nCharge = 0, nDestDongID = 0, nCompany = 0;
-		CMyXTPGridRecord *pStartRecord = NULL, *pDestRecord = NULL;
+		CXTPGridRecord *pStartRecord = NULL, *pDestRecord = NULL;
 		CString sError= "";
 
 		if (!pItemNotify->pRow || !pItemNotify->pColumn)
@@ -1740,9 +1707,9 @@ void CChargeDongUDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* /*res
 			throw("금액이 너무 많거나 적습니다. ");
 		}
 
-		pDestRecord = (CMyXTPGridRecord*)pItemNotify->pRow->GetRecord();		
+		pDestRecord = (CXTPGridRecord*)pItemNotify->pRow->GetRecord();		
 		
-		nDestDongID = ((CPOIInfo*)pDestRecord->GetItemData())->nDongID;
+		nDestDongID = ((CPOIInfo*)m_lstSetDest.GetItemData(pDestRecord))->nDongID;
 		nCompany = (long)m_cmbCompany.GetItemData(m_cmbCompany.GetCurSel());
 
 		long nChargeType = m_cmbDiscountCompany.GetCurSel();
@@ -1755,10 +1722,10 @@ void CChargeDongUDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* /*res
 			throw("선택한 지점명이 비정상적입니다. 회사선택을 다시하여주세요");
 		
 
-		for(int i = 0; i < m_lstSet.GetSelectedCount(); i++)
+		for(int i = 0; i < m_lstSet.GetSelectedRows()->GetCount(); i++)
 		{			
-			pStartRecord = m_lstSet.GetSelectedRecord(i);
-			long nStartDongID = ((CPOIInfo*)pStartRecord->GetItemData())->nDongID;
+			pStartRecord = m_lstSet.GetSelectedRows()->GetAt(i)->GetRecord();
+			long nStartDongID = ((CPOIInfo*)m_lstSet.GetItemData(pStartRecord))->nDongID;
 			
 			CMkCommand pCmd(m_pMkDb, "update_charge_dong_child2009_input");
 			//pCmd.AddParameter(typeLong, typeInput, sizeof(long), nCompany);		
@@ -1773,16 +1740,11 @@ void CChargeDongUDlg::OnReportValueChanged(NMHDR*  pNotifyStruct, LRESULT* /*res
 			pCmd.AddParameter(nGNo);
 			if(!pCmd.Execute()) 
 			{
-				sError = ((CPOIInfo*)pStartRecord->GetItemData())->sName + "에서 작업이 실패됬습니다.";
+				sError = ((CPOIInfo*)m_lstSet.GetItemData(pStartRecord))->sName + "에서 작업이 실패됬습니다.";
 				throw(sError);
 			}
 
 		}
-		
-		pDestRecord->m_bDirtyFlag = FALSE;
-		
-		
-
 	}
 	catch (CString s)
 	{
@@ -1866,7 +1828,7 @@ return;
 		if(pEdit == NULL)
 			return;
 
-		CXTPGridRow *pRow = m_lstSetDest.GetSelectedRow();
+		CXTPGridRow *pRow = m_lstSetDest.GetSelectedRows()->GetAt(0);
 		CRect rect = pRow->GetNextSiblingRow()->GetRect();
 		
 		CPoint pt = rect.CenterPoint();
@@ -1905,8 +1867,8 @@ return;
 		/*
 		m_lstSetDest.SetFocus();
 
-		//((CMyXTPGridRecord*)pRow->GetNextSiblingRow()->GetRecord())->SetEditable(TRUE);
-		//((CMyXTPGridRecord*)pRow->GetNextSiblingRow()->GetRecord())-
+		//((CXTPGridRecord*)pRow->GetNextSiblingRow()->GetRecord())->SetEditable(TRUE);
+		//((CXTPGridRecord*)pRow->GetNextSiblingRow()->GetRecord())-
 		pRow->SetSelected(FALSE);
 		pRow->GetNextSiblingRow()->SetSelected(TRUE);
 		pRow->GetNextSiblingRow()->OnClick(pt);
@@ -2004,8 +1966,8 @@ void CChargeDongUDlg::OnReportNewStartItemClick(NMHDR * pNotifyStruct, LRESULT *
 
 	int nRow = pItemNotify->pRow->GetIndex();
 
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pItemNotify->pRow->GetRecord();
-	if(pRecord->GetItemData() == NULL)
+	CXTPGridRecord *pRecord = (CXTPGridRecord *)pItemNotify->pRow->GetRecord();
+	if(m_lstSet.GetItemData(pRecord) == NULL)
 		return;
 
 	if(m_lstSet.GetSelectedRows()->GetCount() > 1)
@@ -2027,7 +1989,7 @@ void CChargeDongUDlg::NewChargeGeneralAllDelete()
 
 	for(it = m_mapDest.begin(); it != m_mapDest.end(); it++)
 	{
-		CMyXTPGridRecord * pDestRecord = (CMyXTPGridRecord *)it->second;
+		CXTPGridRecord * pDestRecord = (CXTPGridRecord *)it->second;
 		
 		
 		((CLMyXTPGridRecordItemText*)pDestRecord->GetItem(2))->SetValue("");
@@ -2062,7 +2024,7 @@ void CChargeDongUDlg::NewSetAllCharge(long nDestID, long nMotoCharge, long nDama
 
 	if(it == m_mapDest.end()) return;
 
-	CMyXTPGridRecord * pDestRecord = (CMyXTPGridRecord *)it->second;
+	CXTPGridRecord * pDestRecord = (CXTPGridRecord *)it->second;
 
 	CString sMoto = nMotoCharge ==0 ? "" : ltoa(nMotoCharge,buffer,10);
 	CString sDama = nDamaCharge ==0 ? "" : ltoa(nDamaCharge,buffer,10);
@@ -2088,9 +2050,9 @@ void CChargeDongUDlg::NewRefreshList()
 	
 
 	int nRow = pRow->GetIndex();
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pRow->GetRecord();
+	CXTPGridRecord *pRecord = (CXTPGridRecord *)pRow->GetRecord();
 	CPOIInfo *pPOIInfo = NULL;
-	pPOIInfo = (CPOIInfo*)pRecord->GetItemData();
+	pPOIInfo = (CPOIInfo*)m_lstSet.GetItemData(pRecord);
 
 	if(pPOIInfo->bFactPOI == FALSE || pPOIInfo == NULL) 
 		return;

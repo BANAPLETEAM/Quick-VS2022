@@ -58,13 +58,25 @@ BOOL CVRRiderLogListDlg::OnInitDialog()
 	m_DateBtn.OnMenuToday();
 	m_cmbRider.SetCurSel(0);
 	UpdateData();
-	RefreshList2();
+
+	m_List.InsertColumn(0, "No.", LVCFMT_CENTER, 35);
+	m_List.InsertColumn(1, "작업일", LVCFMT_LEFT, 150);
+	m_List.InsertColumn(2, "지사명", LVCFMT_LEFT, 90);
+	m_List.InsertColumn(3, "사번", LVCFMT_LEFT, 45);
+	m_List.InsertColumn(4, "작업", LVCFMT_LEFT, 75);
+	m_List.InsertColumn(5, "계좌", LVCFMT_LEFT, 180);
+	m_List.InsertColumn(6, "구분", LVCFMT_LEFT, 65);
+	m_List.InsertColumn(7, "은행", LVCFMT_LEFT, 80);
+	m_List.InsertColumn(8, "작업자", LVCFMT_LEFT, 80);
+	m_List.Populate();
+
+	RefreshList();
 
 	return TRUE;
 }
 
 	
-void CVRRiderLogListDlg::RefreshList2()
+void CVRRiderLogListDlg::RefreshList()
 {
 	try
 	{
@@ -79,7 +91,7 @@ void CVRRiderLogListDlg::RefreshList2()
 		}
 
 		if(m_List.GetRecords()->GetCount() > 0)
-			m_List.DeleteAllItem();
+			m_List.DeleteAllItems();
 
 	
 		CString sAccount = m_sAccount;
@@ -137,16 +149,15 @@ void CVRRiderLogListDlg::RefreshList2()
 				sType = "자동할당";
 
 
-			m_List.MyAddItem(nCol++, nIndex, "No.", 35, FALSE, DT_CENTER);
-			m_List.MyAddItem(nCol++, dtInput.Format("%Y-%m-%d %H:%M:%S"), "작업일", 150, FALSE, DT_LEFT);
-			m_List.MyAddItem(nCol++, m_ci.GetBranchName(nCompany), "지사명", 90, FALSE, DT_LEFT);
-			m_List.MyAddItem(nCol++, nRNo, "사번", 45, FALSE, DT_LEFT);
-			m_List.MyAddItem(nCol++, sType, "작업", 75, FALSE, DT_LEFT);
-			m_List.MyAddItem(nCol++, sAccount, "계좌", 180, FALSE, DT_LEFT);
-			m_List.MyAddItem(nCol++, nOWnerCompany ==  0 ? "로지계좌" : "자체계좌" , "구분", 65, FALSE, DT_LEFT);
-			m_List.MyAddItem(nCol++, sBankCode, "은행", 80, FALSE, DT_LEFT);	
-			m_List.MyAddItem(nCol++, sWID, "작업자", 80, FALSE, DT_LEFT);	
-			m_List.EndItem();
+			m_List.InsertItem(nIndex, LF->GetStringFromLong(nIndex));
+			m_List.SetItemText(nIndex, 1, dtInput.Format("%Y-%m-%d %H:%M:%S"));
+			m_List.SetItemText(nIndex, 2, m_ci.GetBranchName(nCompany));
+			m_List.SetItemText(nIndex, 3, LF->GetStringFromLong(nRNo));
+			m_List.SetItemText(nIndex, 4, sType);
+			m_List.SetItemText(nIndex, 5, sAccount);
+			m_List.SetItemText(nIndex, 6, nOWnerCompany == 0 ? "로지계좌" : "자체계좌");
+			m_List.SetItemText(nIndex, 7, sBankCode);
+			m_List.SetItemText(nIndex, 8, sWID);
 
 			nIndex++;
 			pRs.MoveNext();
@@ -162,5 +173,5 @@ void CVRRiderLogListDlg::RefreshList2()
 
 void CVRRiderLogListDlg::OnBnClickedRefreshBtn()
 {
-	RefreshList2();
+	RefreshList();
 }

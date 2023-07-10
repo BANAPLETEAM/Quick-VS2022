@@ -126,15 +126,9 @@ HCURSOR CMyCallDepositDlg::OnQueryDragIcon()
 
 void CMyCallDepositDlg::RefreshList()
 {
-	
-	//DeleteExceptionList();
-
-	m_ChargeList.DeleteAllItem();
-
+	m_ChargeList.DeleteAllItems();
 	UpdateData();
 
-
-	
 	COleDateTime dt(COleDateTime::GetCurrentTime());;
 	CMkRecordset pRs(m_pMkDb);	
 	CMkCommand pCmd(m_pMkDb, "select_mycall_rider_deposit");	  	
@@ -159,35 +153,32 @@ void CMyCallDepositDlg::RefreshList()
 			pRs.GetFieldValue("nStartValue", nStartValue);
 			pRs.GetFieldValue("nEndValue", nEndValue);
 			pRs.GetFieldValue("nAmount", nAmount);			
-			
 
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nNum) );
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nStartValue));
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nEndValue ));
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nAmount ));
-			m_ChargeList.InsertItemDataLong(nNum);
-			m_ChargeList.InsertItemDataLong2(nCompany);
-			m_ChargeList.EndItem();
+			m_ChargeList.InsertItem(i, LF->GetMyNumberFormat(nNum) );
+			m_ChargeList.SetItemText(i, 1, LF->GetMyNumberFormat(nStartValue));
+			m_ChargeList.SetItemText(i, 2, LF->GetMyNumberFormat(nEndValue ));
+			m_ChargeList.SetItemText(i, 3, LF->GetMyNumberFormat(nAmount ));
+			m_ChargeList.SetItemLong(i, nNum);
+			m_ChargeList.SetItemLong2(i, nCompany);
 			pRs.MoveNext();
 		}
 		else
 		{
-			
-			m_ChargeList.MyAddItem(LF->GetMyNumberFormat(nNum) );
-			m_ChargeList.MyAddItem("");
-			m_ChargeList.MyAddItem("");
-			m_ChargeList.MyAddItem("");
-			m_ChargeList.InsertItemDataLong(nNum);
-			m_ChargeList.InsertItemDataLong2(nCompany);
-			m_ChargeList.EndItem();
+			m_ChargeList.InsertItem(i, LF->GetMyNumberFormat(nNum) );
+			m_ChargeList.SetItemText(i, 1, "");
+			m_ChargeList.SetItemText(i, 2, "");
+			m_ChargeList.SetItemText(i, 3, "");
+			m_ChargeList.SetItemLong(i, nNum);
+			m_ChargeList.SetItemLong2(i, nCompany);
 			nNum++;
 		}
 	}
 
-	
 	pRs.Close();
 	m_ChargeList.Populate();
 }
+
+
 void CMyCallDepositDlg::InitControl()
 {
 	

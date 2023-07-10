@@ -572,7 +572,7 @@ void CReportForm19::OnBnClickedMileageModifyBtn()
 		return;
 	}		
 	
-	//UINT i, uSelectedCount = m_lstData.GetSelectedCount();
+	//UINT i, uSelectedCount = m_lstData.GetSelectedRows()->GetCount();
 	UINT i, uSelectedCount = m_lstData.GetSelectedRows()->GetCount();
 	int  nItem = -1;
 	long nTNo = 0, nCNo = 0, nAmount= 0;
@@ -691,7 +691,7 @@ void CReportForm19::OnBnClickedBalanceSearchBtn()
 void CReportForm19::OnBnClickedButton1()
 {
 	CXTPGridRecords *pRecords = m_lstLeft.GetRecords();
-	m_lstLeft.DeleteAllItem();
+	m_lstLeft.DeleteAllItems();
 	m_lstLeft.Populate();
 	CXTPGridRecords *pRecord2s = new CXTPGridRecords;
 
@@ -1109,9 +1109,9 @@ void CReportForm19::OnBnClickedMialeageSmsBtn()
 		return;
 	
 	CXTPGridRecords *pRecords=NULL;
-	if(m_lstLeft.GetSelectedCount() > 1)
+	if(m_lstLeft.GetSelectedRows()->GetCount() > 1)
 	{
-		for(int i = 0; i < m_lstLeft.GetSelectedCount(); i++)
+		for(int i = 0; i < m_lstLeft.GetSelectedRows()->GetCount(); i++)
 		{
 			CXTPGridRow *pRow = m_lstLeft.GetSelectedRows()->GetAt(i);
 			pRecords->Add(pRow->GetRecord());

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DataBox.h"
+
 // CWebOrderDlg 대화 상자입니다.
 
 class CWebOrderDlg : public CMyDialog
@@ -27,7 +27,7 @@ public:
 	CDateTimeCtrl m_From;
 	CDateTimeCtrl  m_To;
 	void RefreshList();
-	CDataBox m_List;
+	CXTPListCtrl2 m_List;
 	CEdit m_edtEtc;
 	
 	CButton m_chkAll;

@@ -1212,7 +1212,7 @@ void CMembers::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRIDRE
 	int nCol = pDrawArgs->pColumn->GetIndex();
 	int nItemCol = pDrawArgs->pColumn->GetItemIndex();
 
-	if(GetItemDataLong2(nRow) == m_nGNo)
+	if(GetItemLong2(nRow) == m_nGNo)
 		pMetrics->clrBackground = RGB(255,125,165);
 }
 
@@ -1225,7 +1225,7 @@ void CGroupList2::GetItemMetrics(XTP_GRIDRECORDITEM_DRAWARGS *pDrawArgs, XTP_GRI
 	int nItemCol = pDrawArgs->pColumn->GetItemIndex();
 
 
-	long nCNo = GetItemDataLong2(nRow);
+	long nCNo = GetItemLong2(nRow);
 	if(nCNo > 0)
 	{	
 		LOGFONT accesscontrol_static_lfont = {14,0,0,0,FW_BOLD,0,0,0,HANGUL_CHARSET,0,0,0,0,"µ¸¿ò"};			

@@ -1,6 +1,26 @@
 #pragma once
 #include "afxwin.h"
-#include "DataBox.h"
+
+
+class CChargeListRecord : public CXTPGridRecord
+{
+public:
+	CChargeListRecord(CString group_name, CString dept, CString charge_name, int gno, int gno_key)
+	{
+		AddItem(new CXTPGridRecordItemText(group_name));
+		AddItem(new CXTPGridRecordItemText(dept));
+		AddItem(new CXTPGridRecordItemText(charge_name));
+
+		gno_ = gno;
+		gno_key_ = gno_key;
+	}
+
+	int GetGNo() { return gno_; }
+	int GetGNoKey() { return gno_key_; }
+
+	int gno_ = 0;
+	int gno_key_ = 0;
+};
 
 // CChargeListDlg 대화 상자입니다.
 
@@ -42,10 +62,10 @@ public:
 	void RegisterChargeView();
 	void AllGroupRefresh();
 
-	CDataBox m_lstGroupList;
-	CDataBox m_lstChargeList;
-	CDataBox m_lstAllGroupList;
-	CDataBox m_lstRegisterChargeList;
+	CXTPListCtrl2 m_lstGroupList;
+	CXTPListCtrl2 m_lstChargeList;
+	CXTPListCtrl2 m_lstAllGroupList;
+	CXTPListCtrl2 m_lstRegisterChargeList;
 
 	CFlatEdit2 m_edtSearchChargeWord;
 	CFlatEdit2 m_edtSearchGroup;

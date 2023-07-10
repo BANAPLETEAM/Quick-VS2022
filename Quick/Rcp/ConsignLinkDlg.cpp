@@ -165,7 +165,6 @@ BOOL CConsignLinkDlg::OnInitDialog()
 	m_List.InsertColumn(11, "총점", LVCFMT_LEFT, 0);
 
 	m_List.GetReportHeader()->AllowColumnSort(FALSE);
-	m_List.m_bHeader = TRUE;
 	m_List.Populate();
 
 
@@ -195,27 +194,23 @@ BOOL CConsignLinkDlg::OnInitDialog()
 	m_dtpDest.SetFormat("yyyy-MM-dd tth:mm:ss");
 
 	nCol = 0;
-	m_CompanyOrderList.InsertColumn(nCol++,"오더번호",DT_LEFT,65, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"출발지",	DT_LEFT,90, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"도착지",	DT_LEFT,90, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"상태",		DT_LEFT,40, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"접수",		DT_LEFT,100, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"배차",		DT_LEFT,50, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"픽업",		DT_LEFT,50, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"종료",		DT_LEFT,50, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"금액",		DT_RIGHT,45, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"기사",		DT_LEFT,45, FALSE, FALSE);
-	m_CompanyOrderList.InsertColumn(nCol++,"접수자",	DT_LEFT,60, FALSE, FALSE);
-	m_CompanyOrderList.InitControl();
+	m_CompanyOrderList.InsertColumn(nCol++, "오더번호",	DT_LEFT, 65);
+	m_CompanyOrderList.InsertColumn(nCol++, "출발지",	DT_LEFT, 90);
+	m_CompanyOrderList.InsertColumn(nCol++, "도착지",	DT_LEFT, 90);
+	m_CompanyOrderList.InsertColumn(nCol++, "상태",		DT_LEFT, 40);
+	m_CompanyOrderList.InsertColumn(nCol++, "접수",		DT_LEFT, 100);
+	m_CompanyOrderList.InsertColumn(nCol++, "배차",		DT_LEFT, 50);
+	m_CompanyOrderList.InsertColumn(nCol++, "픽업",		DT_LEFT, 50);
+	m_CompanyOrderList.InsertColumn(nCol++, "종료",		DT_LEFT, 50);
+	m_CompanyOrderList.InsertColumn(nCol++, "금액",		DT_RIGHT, 45);
+	m_CompanyOrderList.InsertColumn(nCol++, "기사",		DT_LEFT, 45);
+	m_CompanyOrderList.InsertColumn(nCol++, "접수자",	DT_LEFT, 60);
 	m_CompanyOrderList.Populate();
 	
-	
-
 	return 0;
 }
+
 // CConsignLinkDlg 메시지 처리기입니다.
-
-
 void CConsignLinkDlg::NewRefreshOrder()
 {
 	CRect rectBody;
@@ -528,7 +523,7 @@ void CConsignLinkDlg::RefreshDestOrder(long nRealConsignTNo)
 		return;
 		
 	if(m_CompanyOrderList.GetRecords()->GetCount() > 0)
-		m_CompanyOrderList.DeleteAllItem();
+		m_CompanyOrderList.DeleteAllItems();
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_consign_condition_list2011");		
@@ -543,24 +538,9 @@ void CConsignLinkDlg::RefreshDestOrder(long nRealConsignTNo)
 			sDAddress = "", sStartTerminalTel = "", sDestTerminalTel = "";
 		COleDateTime dtRegister, dtStartTerminal, dtDestTerminal, dt1, dt3, dt4,dtFinal;
 		long  nChargeSum,nState, nRNo ; // nDestConsignCompany
-		int nCol = 0;
-
-		/*pRs.GetFieldValue("dtRegister",dtRegister );
-		pRs.GetFieldValue("dtStartTerminal"	,dtStartTerminal );
-		pRs.GetFieldValue("dtDestTerminal",dtDestTerminal );
-		pRs.GetFieldValue("sItemNo"	,sItemNo );
-		pRs.GetFieldValue("sCarBusName"	,sCarBusName );
-		pRs.GetFieldValue("sCarNo"	,sCarNo);
-		pRs.GetFieldValue("sEtc"	,sEtc );
-		pRs.GetFieldValue("sDAddress"	,sDAddress);
-		pRs.GetFieldValue("sWName"	,sWName );
-		pRs.GetFieldValue("nDestConsignCompany"	,nDestConsignCompany );
-		*/
-		
 
 		pRs.GetFieldValue("sSName"	,sSName);
 		pRs.GetFieldValue("sDName"	,sDName);
-
 		pRs.GetFieldValue("dt1"	,dt1 );
 		pRs.GetFieldValue("dt3"	,dt3);
 		pRs.GetFieldValue("dt4"	,dt4);
@@ -570,21 +550,18 @@ void CConsignLinkDlg::RefreshDestOrder(long nRealConsignTNo)
 		pRs.GetFieldValue("sRName"	,sRName);
 		pRs.GetFieldValue("nRNo"	,nRNo);
 		pRs.GetFieldValue("sDestWName"	,sDestWName);
-		
 
-
-		m_CompanyOrderList.MyAddItem(nCol++, m_nConsignTNo,												"오더번호", 70, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, sSName,												"출발지", 90, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, sDName,												"도착지", 90, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, LF->GetStateString(nState),							"상태", 50, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, dt1.Format("%Y-%m-%d %H:%M"),		"접수", 120, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, nState >=30 ? dt3.Format("%H:%M") : "",	"배차", 60, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, nState >=30 ? dt4.Format("%H:%M") : "",	"픽업", 60, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, nState >=35 ? dtFinal.Format("%H:%M") : "", "종료", 60, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, LF->GetMyNumberFormat(nChargeSum),		"금액", 60, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, nRNo,													"기사", 50, FALSE, DT_LEFT);
-		m_CompanyOrderList.MyAddItem(nCol++, sWName,										"접수자", 60, FALSE, DT_LEFT);
-		m_CompanyOrderList.EndItem();
+		m_CompanyOrderList.InsertItem(i, LF->GetStringFromLong(m_nConsignTNo));
+		m_CompanyOrderList.SetItemText(i, 1, sSName);
+		m_CompanyOrderList.SetItemText(i, 2, sDName);
+		m_CompanyOrderList.SetItemText(i, 3, LF->GetStateString(nState));
+		m_CompanyOrderList.SetItemText(i, 4, dt1.Format("%Y-%m-%d %H:%M"));
+		m_CompanyOrderList.SetItemText(i, 5, nState >= 30 ? dt3.Format("%H:%M") : "");
+		m_CompanyOrderList.SetItemText(i, 6, nState >= 30 ? dt4.Format("%H:%M") : "");
+		m_CompanyOrderList.SetItemText(i, 7, nState >= 35 ? dtFinal.Format("%H:%M") : "");
+		m_CompanyOrderList.SetItemText(i, 8, LF->GetMyNumberFormat(nChargeSum));
+		m_CompanyOrderList.SetItemText(i, 9, nRNo);
+		m_CompanyOrderList.SetItemText(i, 10, sWName);
 		m_CompanyOrderList.Populate();
 
 		pRs.Close();
@@ -658,18 +635,18 @@ void CConsignLinkDlg::DelList()
 	{
 		for(int i = 0; i < m_List.GetRecords()->GetCount(); i++)
 		{
-			CMyXTPGridRecord *pRecord = 	m_List.GetRecordsGetAt(i);
-				ST_CONSIGN *pListInfo =(ST_CONSIGN *) pRecord->GetItemData();
-				if(pListInfo)
-				{
-					delete pListInfo;
-					pListInfo = NULL;
-				}
-				//pRecord->Delete();
+			CXTPGridRecord* pRecord = m_List.GetRecords()->GetAt(i);
+			ST_CONSIGN *pListInfo =(ST_CONSIGN *) m_List.GetItemData(pRecord);
+			if(pListInfo)
+			{
+				delete pListInfo;
+				pListInfo = NULL;
+			}
+			//pRecord->Delete();
 		}
 
 	}
-	m_List.DeleteAllItem();
+	m_List.DeleteAllItems();
 }
 
 void CConsignLinkDlg::RefreshList()
@@ -794,13 +771,10 @@ void CConsignLinkDlg::RefreshList()
 		pListInfo->strDestTerminalTel = strDestTerminalTel;
 		pListInfo->nCID = nCID;
 	
-
 		strStartNearKm.Format("%dKm", nStartNearKm);
 		strDestNearKm.Format("%dKm", nDestNearKm);
 		sTotalKm.Format("%dKm", nKm);
 
-		
-		nCol  = 0;
 		if(m_nConsignTNo > 0 && m_nTerminalWayID > 0)
 		{
 			if(m_nTerminalWayID == pListInfo->nCID )
@@ -812,44 +786,31 @@ void CConsignLinkDlg::RefreshList()
 			{
 				bCheck = FALSE;
 			}
-			
 		}		
 		
-		m_List.MyAddItem(nCol++,	bCheck ?	"연계중" : "",						"선택", 50, DT_CENTER, TRUE);
-		m_List.MyAddItem(nCol++,		strWayType,					 "차종", 120,FALSE, DT_LEFT );
-		m_List.MyAddItem(nCol++,				strStartTerminalName,	"출발지", 120,FALSE, DT_LEFT );
-		//m_List.MyAddItem(nCol++		,			sStartNearKm,				"거리", 60,FALSE, DT_LEFT );
-		m_List.MyAddItem(nCol++,				strDestTerminalName,	"도착지", 120,FALSE, DT_LEFT );
-		//m_List.MyAddItem(nCol++,				sDestNearKm,				"거리", 60,FALSE, DT_LEFT );
+		m_List.InsertItem(i, bCheck ? "연계중" : "");
+		m_List.SetItemText(i, 1, strWayType);
+		m_List.SetItemText(i, 2, strStartTerminalName);
+		m_List.SetItemText(i, 3, strDestTerminalName);
+		m_List.SetItemText(i, 4, LF->GetMyNumberFormat(nCharge));
+		m_List.SetItemText(i, 5, strStartTime);
+		m_List.SetItemText(i, 6, strDestTime);
+		m_List.SetItemText(i, 7, GetViewTime(nElapsedTime));
+		m_List.SetItemText(i, 8, LF->GetMyNumberFormat(nStartJumsu));
+		m_List.SetItemText(i, 9, LF->GetMyNumberFormat(nDestJumsu));
+		m_List.SetItemText(i, 10, LF->GetMyNumberFormat(nTotalRank));
 
+		m_List.SetItemLong(i, bCheck);
+		m_List.SetItemLong2(i, nDestTerminalPoi);
+		m_List.SetItemLong3(i, nCID);
+		m_List.SetItemData(i, (DWORD_PTR)pListInfo);
 
-		m_List.MyAddItem(nCol++,	LF->GetMyNumberFormat(nCharge), "금액", 80,FALSE, DT_LEFT );
-		m_List.MyAddItem(nCol++,				strStartTime,					"첫차",  50,FALSE, DT_LEFT );
-		m_List.MyAddItem(nCol++,				strDestTime,					"막차",  50,FALSE, DT_LEFT );		
-		m_List.MyAddItem(nCol++,				GetViewTime(nElapsedTime),					"간격",  50,FALSE, DT_LEFT );		
-
-		m_List.MyAddItem(nCol++,	LF->GetMyNumberFormat(nStartJumsu), "출점", 80,FALSE, DT_LEFT );
-		m_List.MyAddItem(nCol++,	LF->GetMyNumberFormat(nDestJumsu), "도점", 80,FALSE, DT_LEFT );
-		m_List.MyAddItem(nCol++,	LF->GetMyNumberFormat(nTotalRank), "총점", 80,FALSE, DT_LEFT );
-
-		
-		//m_List.MyAddItem(nCol++,	 GetViewTime(nElapsedTime), "경과시간", 70,FALSE, DT_LEFT );
-		//m_List.MyAddItem(nCol++,				sTotalKm,					"총거리",  50,FALSE, DT_LEFT );	
-		
-		//m_List.MyAddItem(nCol++,				sInterval,					"간격",  50,FALSE, DT_LEFT );		
-		//m_List.MyAddItem(nCol++,				sEtc,							"기타",  80,FALSE, DT_LEFT );
-		//m_List.MyAddItem(nCol++,				sListInterval,				"시간",  150,FALSE, DT_LEFT );
-		m_List.InsertItemDataLong(bCheck);
-		m_List.InsertItemDataLong2(nDestTerminalPoi);
-		m_List.InsertItemDataLong3(nCID);
-		m_List.InsertItemData((DWORD_PTR)pListInfo);
-
-		m_List.EndItem();
 		nRowNum++;
 		nPreWayType = nWayType;
 		bCheck = FALSE;
 		pRs.MoveNext();
 	}
+
 	pRs.Close();
 	m_List.Populate();
 
@@ -873,8 +834,6 @@ void CConsignLinkDlg::RefreshList()
 		CString sCommission = ""; m_edtCommissionCharge.GetWindowText(sCommission);
 		m_edtCommissionCharge.SetSel(0xFFFF);
 	}
-	
-
 }
 
 void CConsignLinkDlg::AddNewConsignLink( )
@@ -893,13 +852,13 @@ void CConsignLinkDlg::AddNewConsignLink( )
 	m_pRcpDlgWndFront->SetConsignMode(TRUE);
 	m_pRcpDlgWndFront->RefreshConsignCharge();
 
-	if(m_List.GetSelectedCount() <= 0  )
+	if(m_List.GetSelectedRows()->GetCount() <= 0  )
 	{
 		MessageBox("노선을 선택하여주세요", "확인", MB_ICONINFORMATION);
 		return;
 	}
-	CMyXTPGridRecord *pRecord = m_List.GetSelectedRecord(0);
-	ST_CONSIGN *pListInfo = (ST_CONSIGN *) pRecord->GetItemData();		
+	CXTPGridRecord *pRecord = m_List.GetFirstSelectedRecord();
+	ST_CONSIGN *pListInfo = (ST_CONSIGN*)m_List.GetItemData(pRecord);
 	m_pRcpDlgWndFront->m_nTerminalWayID = pListInfo->nCID;
 	
 	if(m_nOrderTNo > 0	)
@@ -944,8 +903,8 @@ void CConsignLinkDlg::EditConsignLink()
 
 	for(int i = 0; i < m_List.GetRecords()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = 	m_List.GetSelectedRecord(0);
-		ST_CONSIGN *pListInfo = (ST_CONSIGN *) pRecord->GetItemData();		
+		CXTPGridRecord *pRecord = m_List.GetFirstSelectedRecord();
+		ST_CONSIGN *pListInfo = (ST_CONSIGN *)m_List.GetItemData(pRecord);
 		if(pListInfo->nCID)
 		{
 			m_pRcpDlgWndFront->m_nTerminalWayID = pListInfo->nCID;
@@ -960,19 +919,11 @@ void CConsignLinkDlg::EditConsignLink()
 	m_pRcpDlgWndBack->EditOrder();
 	InitControl();
 	OnOK();			
-	
-	
 }
-
-
-
-
 
 
 void CConsignLinkDlg::AddNewConsign( )
 {
-	
-
 	m_pRcpDlgWndFront->SetConsignMode(FALSE);
 	
 	if(m_nOrderTNo > 0	)
@@ -989,52 +940,44 @@ void CConsignLinkDlg::AddNewConsign( )
 
 void CConsignLinkDlg::OnBnClickedWayChangeBtn()
 {
-
-	if(m_List.GetSelectedCount() <= 0)
+	if(m_List.GetSelectedRows()->GetCount() <= 0)
 		return;
 
 	if(m_List.GetRecords()->GetCount() <= 0)
 		return;
 
-	CMyXTPGridRecord *pSeletedRecord = m_List.GetSelectedRecord(0);
-	CMyXTPGridRecord *pRecord;
+	CXTPGridRecord *pSeletedRecord = m_List.GetFirstSelectedRecord();
+	CXTPGridRecord *pRecord;
 	long nSelect = FALSE;
 	for(int i = 0; i < m_List.GetRecords()->GetCount(); i++)
 	{
-		pRecord = m_List.GetRecordsGetAt(i);
-		nSelect = pRecord->GetItemDataLong();
+		pRecord = m_List.GetRecords()->GetAt(i);
+		nSelect = m_List.GetItemLong(pRecord);
 		if(pRecord == pSeletedRecord && nSelect == TRUE)
 		{
 			MessageBox("적용된 노선과 같습니다.", "확인", MB_ICONINFORMATION);
 			return;
 		}
 	}
-	ST_CONSIGN *pListInfo = (ST_CONSIGN *) pSeletedRecord->GetItemData();	
+	ST_CONSIGN *pListInfo = (ST_CONSIGN*)m_List.GetItemData(pSeletedRecord);
 	m_nTerminalWayID = pListInfo->nCID;
-	pSeletedRecord->SetItemDataLong(TRUE);
+	m_List.SetItemLong(pSeletedRecord, TRUE);
 	for(int i = 0; i < m_List.GetRecords()->GetCount(); i++)
 	{
-		((CXTPGridRecordItemText*)m_List.GetRecordsGetAt(i)->GetItem(0))->SetCaption(" ");
-
-		m_List.GetRecordsGetAt(i)->SetItemDataLong(FALSE);
+		((CXTPGridRecordItemText*)m_List.GetRecords()->GetAt(i)->GetItem(0))->SetCaption(" ");
+		m_List.SetItemLong(i, FALSE);
 	}
-
 
 	((CXTPGridRecordItemText*)pSeletedRecord->GetItem(0))->SetCaption("연계중");
 
-
 	ConsignListSelect(TRUE, FALSE);
 	m_List.Populate();
-
-
 }
 
 void CConsignLinkDlg::ConsingLinkOrderCancel()
 {
-	
 	if(m_nOrderTNo > 0 && m_nConsignTNo > 0)  // 연계오더
 	{	
-
 		long nDeleteReturn = 0;
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "delete_consign_link_order");															  
@@ -1046,7 +989,6 @@ void CConsignLinkDlg::ConsingLinkOrderCancel()
 		CMkParameter *pPar = pCmd.AddParameter(typeLong, typeOutput, sizeof(long), 0);		
 		if(!pRs.Execute(&pCmd)) return;	
 		pPar->GetValue(nDeleteReturn);
-
 
 		if(nDeleteReturn == 1)
 		{
@@ -1063,8 +1005,6 @@ void CConsignLinkDlg::ConsingLinkOrderCancel()
 		}
 		if(nDeleteReturn == 300)
 			MessageBox("연계중인 오더를 취소되지 못하였습니다.","확인", MB_ICONINFORMATION);	
-
-
 	}
 }
 
@@ -1194,19 +1134,14 @@ void CConsignLinkDlg::FrontOrderEtcMake(BOOL bDelete)
 	
 }
 
-
-
-
-
-
 void CConsignLinkDlg::MakePlaceInfo2(CRcpDlg *pRcpDlg, BOOL bStart)
 {
-	CMyXTPGridRecord * pRecord = NULL;
-	pRecord = m_List.GetSelectedRecord(0);
+	CXTPGridRecord * pRecord = NULL;
+	pRecord = m_List.GetFirstSelectedRecord();
 	if(pRecord == NULL)
 		return;
 
-	ST_CONSIGN *pListInfo = (ST_CONSIGN *) pRecord->GetItemData();	
+	ST_CONSIGN *pListInfo = (ST_CONSIGN *)m_List.GetItemData(pRecord);
 	long nDongID = 0 , nPosX = 0, nPosY = 0; CString strTerminal = "";
 	CPOIUnit *pPoi;
 
@@ -1253,16 +1188,16 @@ void CConsignLinkDlg::ConsignListSelect(BOOL bListSelect,  int nModifySelectRow)
 	if(m_List.GetRecords()->GetCount() <= 0)
 		return;
 
-	CMyXTPGridRecord * pRecord = NULL;
-	pRecord = !bListSelect  ? m_List.GetRecordsGetAt(0) : m_List.GetSelectedRecord(0); // nModifySelectRow
-	int nRowIndex = !bListSelect  ? 0 :  m_List.GetSelectedRow()->GetIndex();
+	CXTPGridRecord * pRecord = NULL;
+	pRecord = !bListSelect  ? m_List.GetRecords()->GetAt(0) : m_List.GetFirstSelectedRecord(); // nModifySelectRow
+	int nRowIndex = !bListSelect  ? 0 :  m_List.GetSelectedRows()->GetAt(0)->GetIndex();
 	if(pRecord == NULL)
 		return;
 
 	ST_CASH_CHARGE cashCharge;
 	long nBackOrderCompany = 0;
 	cashCharge = m_vecCashCharge[nRowIndex];	
-	ST_CONSIGN *pListInfo = (ST_CONSIGN *) pRecord->GetItemData();		
+	ST_CONSIGN *pListInfo = (ST_CONSIGN*)m_List.GetItemData(pRecord);
 	
 	// 작업0. 앞오더를 만든다		(도착지 만들기 )CRcpPlaceInfo =   MakePlaeInfo()
 	// 0-1 앞오더에  탁송료및 커미션 을 넣는다.	

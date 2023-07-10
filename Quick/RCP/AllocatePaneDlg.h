@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DataBox.h"
+
 #include "PPTooltip.h"
 #include "VirtualRecord.h"
 #include "MyReportControl.h"
@@ -84,7 +84,7 @@ public:
 	CString RemoveLeftZero(CString strText);
 
 	CXTPListCtrl2 m_List;
-	CDataBox m_nearReport;
+	CXTPListCtrl2 m_nearReport;
 	CXTFlatEdit m_edtSearch;
 	CCriticalSection m_csOrder;
 	MAP_RIDER_OWN_CALL2 m_mapRider;

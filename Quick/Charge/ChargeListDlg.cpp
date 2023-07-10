@@ -63,12 +63,36 @@ BOOL CChargeListDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	m_edtSearchChargeWord.SetFontSize(12);
-	m_edtSearchChargeWord.SetFocus();
+	m_lstChargeList.InsertColumn(0, "회사명", LVCFMT_LEFT, 100);
+	m_lstChargeList.InsertColumn(1, "요금제이름", LVCFMT_LEFT, 120);
+	m_lstChargeList.InsertColumn(2, "비고", LVCFMT_LEFT, 90);
+	m_lstChargeList.Populate();
 
-	
+	m_lstGroupList.InsertColumn(0, "그룹 이름", LVCFMT_LEFT, 130)->SetTreeColumn(TRUE);
+	m_lstGroupList.InsertColumn(1, "부서", LVCFMT_LEFT, 80);
+	m_lstGroupList.InsertColumn(2, "요금제 이름", LVCFMT_LEFT, 90);
 
-	
+	m_lstGroupList.SetTreeIndent(10);
+	m_lstGroupList.Populate();
+
+	m_lstAllGroupList.InsertColumn(0, "그룹 이름", LVCFMT_LEFT, 130)->SetTreeColumn(TRUE);
+	m_lstAllGroupList.InsertColumn(1, "부서", LVCFMT_LEFT, 80);
+	m_lstAllGroupList.InsertColumn(2, "요금제 이름", LVCFMT_LEFT, 90);
+	m_lstAllGroupList.SetTreeIndent(10);
+	m_lstAllGroupList.Populate();
+
+	m_lstRegisterChargeList.InsertColumn(0, "요금제이름", LVCFMT_LEFT, 100);
+	m_lstRegisterChargeList.InsertColumn(1, "출발구", LVCFMT_LEFT, 90);
+	m_lstRegisterChargeList.InsertColumn(2, "출발동", LVCFMT_LEFT, 65);
+	m_lstRegisterChargeList.InsertColumn(3, "타입", LVCFMT_LEFT, 60);
+	m_lstRegisterChargeList.InsertColumn(4, "도착구", LVCFMT_LEFT, 90);
+	m_lstRegisterChargeList.InsertColumn(5, "도착동", LVCFMT_LEFT, 65);
+	m_lstRegisterChargeList.InsertColumn(6, "오토바이", LVCFMT_RIGHT, 70);
+	m_lstRegisterChargeList.InsertColumn(7, "다마스", LVCFMT_RIGHT, 70);
+	m_lstRegisterChargeList.InsertColumn(8, "봉고", LVCFMT_RIGHT, 70);
+	m_lstRegisterChargeList.InsertColumn(9, "트럭", LVCFMT_RIGHT, 70);
+	m_lstRegisterChargeList.Populate();
+
 	RefreshList();
 	return TRUE;  
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -76,42 +100,22 @@ BOOL CChargeListDlg::OnInitDialog()
 
 void CChargeListDlg::RefreshList()
 {
+	m_lstChargeList.DeleteAllItems();
 
-	//m_lstChargeList.DeleteAllItems();
+	MAP_CHARGE_TYPE_NAME::iterator it;
 
-	//m_lstChargeList.DeleteAllItem();
-	//m_lstChargeList.SetQuery("select_charge_list");
-	//m_lstChargeList.AddPa("kkk");
-	//m_lstChargeList.AddPa("kkk");
-	//m_lstChargeList.AddPa("kkk");
-	//m_lstChargeList.AddPa("kkk");
-	//m_lstChargeList.Excute(TRUE);
-
-	m_lstChargeList.DeleteAllItem();
-
-	
-	MAP_CHARGE_TYPE_NAME::iterator it;		
-
-	long nItem =0, nCompany = 0;
-	CString strChargeName;
-	
+	long nItem = 0;
 
 	for(it = m_mapChargeType.begin(); it != m_mapChargeType.end(); ++it)
-	{/*
-		int nGNo = it->first;
-		int nCompany = it->second->nCompany;*/
-
-		strChargeName = it->second.strChargeName;
-		nCompany = it->second.nCompany;
-
-		if(strChargeName.GetLength() == 0)
+	{
+		if (it->second.strChargeName.GetLength() == 0)
 			continue;
 
-		m_lstChargeList.MyAddItem(0, m_ci.GetBranchName(nCompany),	"회사명",100, FALSE, DT_LEFT );
-		m_lstChargeList.MyAddItem(1, strChargeName, "요금제이름",120, FALSE, DT_LEFT );
-		m_lstChargeList.MyAddItem(2, it->second.strEtc, "비고", 90, FALSE ,DT_LEFT);
-		m_lstChargeList.InsertItemDataLong(it->first);
-		m_lstChargeList.EndItem();	
+		m_lstChargeList.InsertItem(nItem, m_ci.GetBranchName(it->second.nCompany));
+		m_lstChargeList.SetItemText(nItem, 1, it->second.strChargeName);
+		m_lstChargeList.SetItemText(nItem, 2, it->second.strEtc);
+		m_lstChargeList.SetItemLong(nItem, it->first);
+		nItem++;
 	}
 	m_lstChargeList.Populate();
 	
@@ -120,26 +124,36 @@ void CChargeListDlg::RefreshList()
 
 void CChargeListDlg::AllGroupRefresh()
 {
-	m_lstAllGroupList.DeleteAllItem();
+	m_lstAllGroupList.DeleteAllItems();
 
 	MAP_CUSTOMER_GROUP::iterator it;
+
+	CChargeListRecord* record = nullptr;
 
 	for(it = m_cg.GetGroup()->begin(); it != m_cg.GetGroup()->end(); ++it)
 	{
 		if(it->second->strGroupName.GetLength() == 0)
 			continue;
 
-		m_lstAllGroupList.TreeChildDepthAddItem(0,it->second->strKeyRef,it->second->nGNoKey,
-						it->second->strGroupName,"그룹이름",130, FALSE, DT_LEFT );
-		m_lstAllGroupList.MyAddItem(1,it->second->strDept,"부서",90, FALSE, DT_LEFT );
-		m_lstAllGroupList.MyAddItem(2,it->second->strChargeName, "요금제이름", 90, FALSE ,DT_LEFT);
-		m_lstAllGroupList.InsertItemDataLong(it->first);
-		m_lstAllGroupList.EndItem();	
-
+		if (record) {
+			if (record->GetGNoKey() == it->second->nGNoKey) {
+				record = new CChargeListRecord(it->second->strGroupName, it->second->strDept, it->second->strChargeName, it->first, it->second->nGNoKey);
+				m_lstAllGroupList.AddRecord(record);
+			}
+			else {
+				CXTPGridRecord* child_record =
+					new CChargeListRecord(it->second->strGroupName, it->second->strDept, it->second->strChargeName, it->first, it->second->nGNoKey);
+				record->GetChilds()->Add(child_record);
+			}
+		}
+		else {
+			record = new CChargeListRecord(it->second->strGroupName, it->second->strDept, it->second->strChargeName, it->first, it->second->nGNoKey);
+			m_lstAllGroupList.AddRecord(record);
+		}
 	}
+
 	m_lstAllGroupList.Populate();
 	m_lstAllGroupList.ExpandAll();
-
 }
 
 
@@ -164,7 +178,7 @@ void CChargeListDlg::OnEnChangeSearchChargeEdit()
 		return;
 	}
 	
-	CMyXTPGridRecord *pRecord = NULL;
+	CXTPGridRecord *pRecord = NULL;
 	MAP_CHARGE_TYPE_NAME::iterator it;
 	
 	CUIntArray IntArray;
@@ -186,15 +200,15 @@ void CChargeListDlg::OnEnChangeSearchChargeEdit()
 
 	for(int i = 0; i < m_lstChargeList.GetRecords()->GetCount(); i++)
 	{
-		pRecord = (CMyXTPGridRecord*)m_lstChargeList.GetRecords()->GetAt(i);	
+		pRecord = m_lstChargeList.GetRecords()->GetAt(i);
 
 
-		for(int j=0; j < IntArray.GetCount(); j++)
+		for (int j = 0; j < IntArray.GetCount(); j++)
 		{
 			//int m = pRecord->GetItemDataLong();
 
-			if(pRecord->GetItemDataLong() == IntArray.GetAt(j))
-				pRecord->SetVisible(TRUE);						
+			if (m_lstChargeList.GetItemLong(pRecord) == IntArray.GetAt(j))
+				pRecord->SetVisible(TRUE);
 			else
 				pRecord->SetVisible(FALSE);
 		}
@@ -244,15 +258,15 @@ void CChargeListDlg::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result
 
 void CChargeListDlg::RegisterChargeView()
 {
-	if(m_lstChargeList.GetSelectedCount() == 0 )
+	if(m_lstChargeList.GetSelectedRows()->GetCount() == 0 )
 		return;
 
-	CMyXTPGridRecord *pRecord = NULL;
-	pRecord = m_lstChargeList.GetSelectedRecord(0);
+	CXTPGridRecord *pRecord = NULL;
+	pRecord = m_lstChargeList.GetFirstSelectedRecord();
 
 	if(pRecord  == NULL)
 		return;	
-	long nChargeID = pRecord->GetItemDataLong();	
+	long nChargeID = m_lstChargeList.GetItemLong(pRecord);
 	
 	if(nChargeID <= 0)
 	{
@@ -260,10 +274,7 @@ void CChargeListDlg::RegisterChargeView()
 		return;
 	}
 
-	m_lstRegisterChargeList.DeleteAllItem();
-
-
-
+	m_lstRegisterChargeList.DeleteAllItems();
 
 	CMkRecordset pRs(m_pMkDb);
 	CMkCommand pCmd(m_pMkDb, "select_charge_id_list");
@@ -272,6 +283,7 @@ void CChargeListDlg::RegisterChargeView()
 	
 	if(!pRs.Execute(&pCmd)) return;
 
+	int nItem = 0;
 	CString sChargeName, sStartGu, sStartDong, sTypeView, sDestGu, sDestDong;
 	long nRsChargeID, nStartID,nTypeCode, nDestID,nMoto, nDama, nBonggo,nTruck,nRegisterChargeID;
 	while(!pRs.IsEOF())
@@ -291,81 +303,33 @@ void CChargeListDlg::RegisterChargeView()
 		pRs.GetFieldValue("봉고", nBonggo);
 		pRs.GetFieldValue("트럭", nTruck);
 		pRs.GetFieldValue("요금순번", nRegisterChargeID);
-		/*
-		//m_lstRegisterChargeList.AddHeader(TRUE, "요금제번호", "요금제번호" );
-		m_lstRegisterChargeList.AddHeader(TRUE, "요금제이름", "요금제이름", 100 );	
-		m_lstRegisterChargeList.AddHeader(TRUE, "출발구", "출발구", 80 );
-		m_lstRegisterChargeList.AddHeader(TRUE, "출발동", "출발동" ,60);
-		m_lstRegisterChargeList.AddHeader(TRUE, "타입코드", "타입코드",50 );
-		//m_lstRegisterChargeList.AddHeader(TRUE, "타입", "타입", 80 );
-		//m_lstRegisterChargeList.AddHeader(TRUE, "nDestID", "nDestID", 80 );
-		m_lstRegisterChargeList.AddHeader(TRUE, "도착구", "도착구",70 );
-		m_lstRegisterChargeList.AddHeader(TRUE, "도착동", "도착동",50 );
-		m_lstRegisterChargeList.AddHeader(TRUE, "오토바이", "오토",50,DT_RIGHT );
-		m_lstRegisterChargeList.AddHeader(TRUE, "다마스요금", "다마스",50,DT_RIGHT );
-		m_lstRegisterChargeList.AddHeader(TRUE, "봉고요금", "봉고",50,DT_RIGHT );
-		m_lstRegisterChargeList.AddHeader(TRUE, "트럭요금", "트럭",50,DT_RIGHT );
-		//m_lstRegisterChargeList.AddHeader(TRUE, "기타", "기타",50 );
-		//m_lstRegisterChargeList.AddHeader(TRUE, "요금순번", "요금순번",50 );
-		m_lstRegisterChargeList.m_bHeader = TRUE;
-		//m_lstRegisterChargeList.Populate();
-		*/
-		m_lstRegisterChargeList.MyAddItem(0,sChargeName,"요금제이름",100, FALSE, DT_LEFT);
-		m_lstRegisterChargeList.MyAddItem(1,sStartGu,"출발구",90, FALSE, DT_LEFT);
-		m_lstRegisterChargeList.MyAddItem(2,sStartDong,"출발동",65, FALSE, DT_LEFT);
-		m_lstRegisterChargeList.MyAddItem(3,sTypeView,"타입",60, FALSE, DT_LEFT);
-		m_lstRegisterChargeList.MyAddItem(4,sDestGu,"도착구",90, FALSE, DT_LEFT);
-		m_lstRegisterChargeList.MyAddItem(5,sDestDong,"도착동",65, FALSE, DT_LEFT);
-		m_lstRegisterChargeList.MyAddItem(6,nMoto,"오토바이",70, TRUE, DT_RIGHT);
-		m_lstRegisterChargeList.MyAddItem(7,nDama,"다마스",70, TRUE, DT_RIGHT);
-		m_lstRegisterChargeList.MyAddItem(8,nBonggo,"봉고",70, TRUE, DT_RIGHT);
-		m_lstRegisterChargeList.MyAddItem(9,nTruck,"트럭",70, TRUE, DT_RIGHT);		
-		m_lstRegisterChargeList.InsertItemDataLong(nRegisterChargeID);
-		m_lstRegisterChargeList.InsertItemDataLong2(nRsChargeID);
+
+		m_lstRegisterChargeList.InsertItem(nItem, sChargeName);
+		m_lstRegisterChargeList.SetItemText(nItem, 1, sStartGu);
+		m_lstRegisterChargeList.SetItemText(nItem, 2, sStartDong);
+		m_lstRegisterChargeList.SetItemText(nItem, 3, sTypeView);
+		m_lstRegisterChargeList.SetItemText(nItem, 4, sDestGu);
+		m_lstRegisterChargeList.SetItemText(nItem, 5, sDestDong);
+		m_lstRegisterChargeList.SetItemText(nItem, 6, nMoto);
+		m_lstRegisterChargeList.SetItemText(nItem, 7, nDama);
+		m_lstRegisterChargeList.SetItemText(nItem, 8, nBonggo);
+		m_lstRegisterChargeList.SetItemText(nItem, 9, nTruck);
+		m_lstRegisterChargeList.SetItemLong(nItem, nRegisterChargeID);
+		m_lstRegisterChargeList.SetItemLong2(nItem, nRsChargeID);
 		m_lstRegisterChargeList.AllowEdit(TRUE);
-		m_lstRegisterChargeList.EndItem();
 			
-		/*m_lstRegisterChargeList.MyAddItem(sChargeName);
-		m_lstRegisterChargeList.MyAddItem(sStartGu);	
-		m_lstRegisterChargeList.MyAddItem(sStartDong);	
-		m_lstRegisterChargeList.MyAddItem(sTypeView);	
-		m_lstRegisterChargeList.MyAddItem(sDestGu);	
-		m_lstRegisterChargeList.MyAddItem(sDestDong);	
-		m_lstRegisterChargeList.MyAddItem(nMoto);	
-		m_lstRegisterChargeList.MyAddItem(nDama);	
-		m_lstRegisterChargeList.MyAddItem(nBonggo);	
-		m_lstRegisterChargeList.MyAddItem(nTruck);	
-		m_lstRegisterChargeList.SetItemDataLong(nRegisterChargeID);		
-		m_lstRegisterChargeList.EndItem();*/
 		pRs.MoveNext();
 	}
 	pRs.Close();
 	m_lstRegisterChargeList.Populate();
-
-	/*m_lstRegisterChargeList.MyAddItem(,	"회사명",100, FALSE, DT_LEFT );
-	m_lstRegisterChargeList.MyAddItem(sChargeName,								"요금제이름",120, FALSE, DT_LEFT );
-	m_lstRegisterChargeList.MyAddItem(it->second.sEtc, "비고", 90, FALSE ,DT_LEFT);
-	m_lstRegisterChargeList.SetItemDataLong(it->first);
-	m_lstRegisterChargeList.EndItem();	
-
-	
-
-	m_lstRegisterChargeList.SetQuery("select_charge_id_list");
-	m_lstRegisterChargeList.AddParameter(2800);
-	m_lstRegisterChargeList.AddParameter(854);
-	m_lstRegisterChargeList.Excute(TRUE);*/
-		
-	
-
-
 }
 
 void CChargeListDlg::RegisterGroupView()
 {
-	m_lstGroupList.DeleteAllItem();
+	m_lstGroupList.DeleteAllItems();
 
-	CMyXTPGridRecord *pRecord = m_lstChargeList.GetSelectedRecord(0);
-	long nChargeID = pRecord->GetItemDataLong();
+	CXTPGridRecord *pRecord = m_lstChargeList.GetFirstSelectedRecord();
+	long nChargeID = m_lstChargeList.GetItemLong(pRecord);
 	if(nChargeID <= 0)
 	{
 		MessageBox("요금제 선택을 다시하여주세요", "확인", MB_ICONINFORMATION);
@@ -398,13 +362,24 @@ void CChargeListDlg::RegisterGroupView()
 	}	
 
 	int nCount = m_lstGroupList.GetRecords()->GetCount();
-	for(it = SearchGroupMap.begin(); it != SearchGroupMap.end(); ++it)
+	CChargeListRecord* record = nullptr;
+	for (it = SearchGroupMap.begin(); it != SearchGroupMap.end(); ++it)
 	{
-		m_lstGroupList.TreeChildDepthAddItem(0, it->second->strKeyRef, it->second->nGNoKey, it->second->strGroupName, "그룹이름",130,FALSE,DT_LEFT);
-		m_lstGroupList.MyAddItem(1, it->second->strDept, "부서",90,FALSE,DT_LEFT);
-		m_lstGroupList.MyAddItem(2,	it->second->nCharge > 0 ? m_mapChargeType[it->second->nCharge].strChargeName : "", "요금적용",100,FALSE,DT_LEFT);
-		m_lstGroupList.InsertItemDataLong(it->first);
-		m_lstGroupList.EndItem();
+		if (record) {
+			if (record->GetGNoKey() == it->second->nGNoKey) {
+				record = new CChargeListRecord(it->second->strGroupName, it->second->strDept, it->second->strChargeName, it->first, it->second->nGNoKey);
+				m_lstGroupList.AddRecord(record);
+			}
+			else {
+				CXTPGridRecord* child_record =
+					new CChargeListRecord(it->second->strGroupName, it->second->strDept, it->second->strChargeName, it->first, it->second->nGNoKey);
+				record->GetChilds()->Add(child_record);
+			}
+		}
+		else {
+			record = new CChargeListRecord(it->second->strGroupName, it->second->strDept, it->second->strChargeName, it->first, it->second->nGNoKey);
+			m_lstGroupList.AddRecord(record);
+		}
 	}
 
 	m_lstGroupList.Populate();
@@ -413,10 +388,10 @@ void CChargeListDlg::RegisterGroupView()
 
 void CChargeListDlg::OnBnClickedChargeNameModifyBtn()
 {
-	if(m_lstChargeList.GetSelectedCount() ==0)
+	if(m_lstChargeList.GetSelectedRows()->GetCount() ==0)
 		return;
 
-	int nRow = m_lstChargeList.GetSelectedRecord(0)->GetIndex();
+	int nRow = m_lstChargeList.GetFirstSelectedRecord()->GetIndex();
 
 	ChargeGroupModify(nRow);
 }
@@ -427,7 +402,7 @@ void CChargeListDlg::ChargeGroupModify(int nRow)
 	if(nRow < 0)
 		return;
 
-	long	nChargeID = m_lstChargeList.GetItemDataLong(nRow);
+	long	nChargeID = m_lstChargeList.GetItemLong(nRow);
 	CString strChargeName = m_lstChargeList.GetItemText(nRow, 1);
 	CString strEtc = m_lstChargeList.GetItemText(nRow, 2);
 
@@ -507,12 +482,15 @@ void CChargeListDlg::OnBnClickedChargeNameNewBtn()
 
 void CChargeListDlg::OnBnClickedChargeTypenameInputBtn()
 {
-	if(!m_lstAllGroupList.IsRowSelectCheck("옮기실 그룹의 아이템을 선택하여주세요"))
+	if (m_lstAllGroupList.GetSelectedItemCount() <= 0) {
+		MessageBox("옮기실 그룹의 아이템을 선택하여주세요");
 		return;
+	}
 
-	long nGNo = m_lstAllGroupList.GetSelectedRecord(0)->GetItemDataLong();
+	CChargeListRecord* record = (CChargeListRecord*)m_lstAllGroupList.GetFirstSelectedRecord();
+	long nGNo = record->GetGNo();
 
-	long nChargeID = 	m_lstChargeList.GetSelectedRecord()->GetItemDataLong();
+	long nChargeID = m_lstChargeList.GetItemLong(m_lstChargeList.GetFirstSelectedRecord());
 	m_cg.GetGroupData(nGNo)->nCharge = nChargeID;
     	
 	RegisterGroupView();
@@ -521,15 +499,16 @@ void CChargeListDlg::OnBnClickedChargeTypenameInputBtn()
 
 void CChargeListDlg::OnBnClickedChargeTypenameDelBtn()
 {
-	if(!m_lstGroupList.IsRowSelectCheck("요금에 등록된 그룹을 선택해주세요"))
+	if (m_lstGroupList.GetSelectedItemCount() <= 0) {
+		MessageBox("요금에 등록된 그룹을 선택하여주세요");
 		return;
+	}
 
-	for(int i = 0; i < m_lstGroupList.GetSelectedCount(); i++)
+	for(int i = 0; i < m_lstGroupList.GetSelectedRows()->GetCount(); i++)
 	{
-
-		CMyXTPGridRecord *pRecord = m_lstGroupList.GetSelectedRecord(i);
-		long nGNo = pRecord->GetItemDataLong();
-		if(nGNo == 0)
+		CChargeListRecord* record = (CChargeListRecord*)m_lstGroupList.GetSelectedRows()->GetAt(i)->GetRecord();
+		long nGNo = record->GetGNo();
+		if (nGNo == 0)
 			continue;
 
 		m_cg.GetGroupData(nGNo)->nCharge = 0;
@@ -548,7 +527,7 @@ void CChargeListDlg::OnEnChangeSearchGroupEdit()
 		return;
 	}
 
-	CMyXTPGridRecord *pRecord = NULL;
+	CXTPGridRecord *pRecord = NULL;
 	MAP_CUSTOMER_GROUP::iterator it;
 
 	CUIntArray IntArray;
@@ -573,16 +552,18 @@ void CChargeListDlg::OnEnChangeSearchGroupEdit()
 	for(int i = 0;  i < m_lstAllGroupList.GetRecords()->GetCount(); i++)
 	{
 		BOOL bFind = FALSE;
-		pRecord = (CMyXTPGridRecord*)m_lstAllGroupList.GetRecords()->GetAt(i);
-		for(int j=0; j < IntArray.GetCount();j++)
-		{
-			if(pRecord->GetItemDataLong() == IntArray.GetAt(j))			
+		CChargeListRecord* record = (CChargeListRecord*)m_lstAllGroupList.GetRecords()->GetAt(i);
+		if (record) {
+			for (int j = 0; j < IntArray.GetCount(); j++)
 			{
-				bFind = TRUE;
-				break;
-			}			
+				if (record->GetGNo() == IntArray.GetAt(j))
+				{
+					bFind = TRUE;
+					break;
+				}
+			}
+			record->SetVisible(bFind);
 		}
-		pRecord->SetVisible(bFind);
 	}
 
 	m_lstAllGroupList.Populate();
@@ -599,46 +580,46 @@ void CChargeListDlg::OnBnClickedModifyChargeBtn()
 
 	for(int i = 0; i < m_lstRegisterChargeList.GetRecords()->GetCount(); i++)
 	{
-		CMyXTPGridRecord *pRecord = m_lstRegisterChargeList.GetRecordsGetAt(i);
-		if(pRecord->m_bDirtyFlag)
+		if (CXTPGridRecord* pRecord = m_lstRegisterChargeList.GetRecords()->GetAt(i))
 		{
-			long nRegisterChargeID = pRecord->GetItemDataLong();
-			long nChargeID = pRecord->GetItemDataLong2();
+			long nRegisterChargeID = m_lstRegisterChargeList.GetItemLong(pRecord);
+			long nChargeID = m_lstRegisterChargeList.GetItemLong2(pRecord);
 
-			if(nRegisterChargeID <= 0 || nChargeID <= 0)
+			if (nRegisterChargeID <= 0 || nChargeID <= 0)
 			{
-				LF->MsgBox("수정중 데이터가 이상합니다 로지소프트로 문의하세요" );
+				LF->MsgBox("수정중 데이터가 이상합니다 로지소프트로 문의하세요");
 				return;
 			}
 
 			long nChargeType = m_cmbType.GetCurSel();
-			
-			for(int nCol = 6; nCol < 10; nCol++)
+
+			for (int nCol = 6; nCol < 10; nCol++)
 			{
-				CLMyXTPGridRecordItemNumber *pItem = (CLMyXTPGridRecordItemNumber *)pRecord->GetItem(nCol);
+				CXTPGridRecordItemNumber* pItem = (CXTPGridRecordItemNumber*)pRecord->GetItem(nCol);
 				int nChargeType = m_cmbType.GetCurSel();
 				BOOL bTwoWay = m_chkTwoWay.GetCheck();
 				BOOL bMotoCharge = 0, bDamaCharge = 0, bBonggoCharge = 0, bTruckCharge = 0;
-				if(pItem->m_bItemDirtyFlag)
-				{
-					bMotoCharge = (nCol == 6 ) ? TRUE : FALSE;
-					bDamaCharge = (nCol == 7 ) ? TRUE : FALSE;
-					bBonggoCharge= (nCol == 8 ) ? TRUE : FALSE;
-					bTruckCharge = (nCol == 9 ) ? TRUE : FALSE;
-					long nAmount = (long)pItem->GetValue();						
-					
-					m_lstRegisterChargeList.CreateComandSetQuery("update_register_charge_customer");			
-					m_lstRegisterChargeList.AddParameter(nRegisterChargeID);
-					m_lstRegisterChargeList.AddParameter(nChargeID);
-					m_lstRegisterChargeList.AddParameter(nAmount);
-					m_lstRegisterChargeList.AddParameter(bTwoWay,TRUE);
-					m_lstRegisterChargeList.AddParameter(bMotoCharge,TRUE);
-					m_lstRegisterChargeList.AddParameter(bDamaCharge,TRUE);
-					m_lstRegisterChargeList.AddParameter(bBonggoCharge,TRUE);
-					m_lstRegisterChargeList.AddParameter(bTruckCharge,TRUE);
-					m_lstRegisterChargeList.AddParameter(nChargeType);					
-					m_lstRegisterChargeList.ExcuteCmd(FALSE);
-				}
+				//if(pItem->m_bItemDirtyFlag)
+				//{
+				bMotoCharge = (nCol == 6) ? TRUE : FALSE;
+				bDamaCharge = (nCol == 7) ? TRUE : FALSE;
+				bBonggoCharge = (nCol == 8) ? TRUE : FALSE;
+				bTruckCharge = (nCol == 9) ? TRUE : FALSE;
+				long nAmount = (long)pItem->GetValue();
+
+				CMkRecordset rs(m_pMkDb);
+				CMkCommand cmd(m_pMkDb, "update_register_charge_customer");
+				cmd.AddParameter(nRegisterChargeID);
+				cmd.AddParameter(nChargeID);
+				cmd.AddParameter(nAmount);
+				cmd.AddParameter(bTwoWay);
+				cmd.AddParameter(bMotoCharge);
+				cmd.AddParameter(bDamaCharge);
+				cmd.AddParameter(bBonggoCharge);
+				cmd.AddParameter(bTruckCharge);
+				cmd.AddParameter(nChargeType);
+				rs.Execute(&cmd);
+				//}
 			}
 		}
 	}
@@ -650,8 +631,7 @@ void CChargeListDlg::OnBnClickedExcelBtn()
 	if(m_lstRegisterChargeList.GetItemCount() == 0)
 		return;
 
-	CMyXTPGridRecord *pRecord = m_lstChargeList.GetSelectedRecord(0);
-	long nChargeID = pRecord->GetItemDataLong();
+	long nChargeID = m_lstChargeList.GetItemLong(m_lstChargeList.GetFirstSelectedRecord());
 	if(nChargeID <= 0)
 		return;
 	CString strChargeName = m_mapChargeType[nChargeID].strChargeName;
@@ -669,22 +649,22 @@ void CChargeListDlg::OnBnClickedChargeWindowBtn()
 
 void CChargeListDlg::OnBnClickedChargeDeleteBtn()
 {	
-	if(m_lstChargeList.GetSelectedCount() == 0)
+	if(m_lstChargeList.GetSelectedRows()->GetCount() == 0)
 	{
 		LF->MsgBox("삭제하실 요금제를 선택하세요");
 		return;
 	}
 
-	int nDeleteChargeCount = m_lstChargeList.GetSelectedCount();
+	int nDeleteChargeCount = m_lstChargeList.GetSelectedRows()->GetCount();
 	CString  strChargeTypeName = "";
-	long nChargeTypeID = m_lstChargeList.GetSelectedRecord()->GetItemDataLong();
+	long nChargeTypeID = m_lstChargeList.GetItemLong(m_lstChargeList.GetFirstSelectedRecord());
 	strChargeTypeName.Format("%s외 %d개의 해당요금제를 삭제하시겠습니까?\n\r\n\r 요금제가 삭제되면 등록된 요금도 삭제됩니다.\n\r\n\r 삭제하시려면 예(Y)를 눌러주세요",
 		m_mapChargeType[nChargeTypeID].strChargeName, nDeleteChargeCount - 1);
 	if(MessageBox(strChargeTypeName,"확인", MB_ICONINFORMATION| MB_YESNO) == IDYES)
 	{
-		for(int i = 0; i < m_lstChargeList.GetSelectedCount(); i++)
+		for(int i = 0; i < m_lstChargeList.GetSelectedRows()->GetCount(); i++)
 		{
-			nChargeTypeID = m_lstChargeList.GetSelectedRecord(i)->GetItemDataLong();
+			nChargeTypeID = m_lstChargeList.GetItemLong(m_lstChargeList.GetRecords()->GetAt(i));
 			strChargeTypeName  =  m_mapChargeType[nChargeTypeID].strChargeName;
 			
 			CMkRecordset pRs(m_pMkDb);

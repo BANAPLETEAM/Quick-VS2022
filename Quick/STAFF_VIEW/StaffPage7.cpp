@@ -81,13 +81,13 @@ void CStaffPage7::InitControl()
 		}
 	}
 
-	m_columnData[kStaffNumber] = m_List.InsertColumn1(kStaffNumber, "사번", LVCFMT_CENTER, 50);
-	m_columnData[kDepart] = m_List.InsertColumn1(kDepart, "소 속", LVCFMT_CENTER, m_bIntegrated ? 50 : 0);
-	m_columnData[kIdentify] = m_List.InsertColumn1(kIdentify, "아이디",	LVCFMT_LEFT, 80);
-	m_columnData[kName] = m_List.InsertColumn1(kName, "성 명", LVCFMT_LEFT, 70);	
-	m_columnData[kWorkStop] = m_List.InsertColumn1(kWorkStop, "업무중지", LVCFMT_LEFT, 100);
-	m_columnData[kStopWarningRecommand] = m_List.InsertColumn1(kStopWarningRecommand, "중지/주의/경고/추천",LVCFMT_CENTER, 140);
-	m_columnData[kWorkMonth] = m_List.InsertColumn1(kWorkMonth, "근무개월",LVCFMT_CENTER, 70);
+	m_columnData[kStaffNumber] = m_List.InsertColumn(kStaffNumber, "사번", LVCFMT_CENTER, 50);
+	m_columnData[kDepart] = m_List.InsertColumn(kDepart, "소 속", LVCFMT_CENTER, m_bIntegrated ? 50 : 0);
+	m_columnData[kIdentify] = m_List.InsertColumn(kIdentify, "아이디",	LVCFMT_LEFT, 80);
+	m_columnData[kName] = m_List.InsertColumn(kName, "성 명", LVCFMT_LEFT, 70);
+	m_columnData[kWorkStop] = m_List.InsertColumn(kWorkStop, "업무중지", LVCFMT_LEFT, 100);
+	m_columnData[kStopWarningRecommand] = m_List.InsertColumn(kStopWarningRecommand, "중지/주의/경고/추천",LVCFMT_CENTER, 140);
+	m_columnData[kWorkMonth] = m_List.InsertColumn(kWorkMonth, "근무개월",LVCFMT_CENTER, 70);
 
 	m_List.Populate();
 }

@@ -81,17 +81,17 @@ void CCustomerPage7::InitColumn()
 	{
 		const char *szDong[] = {"출발지동", "도착지동", "",  "의뢰지동"};
 
-		m_columnData[kStartDong] = m_lcData.InsertColumn1(kStartDong ,szDong[nType],LVCFMT_LEFT, 150);
-		m_columnData[kArrivalDong] = m_lcData.InsertColumn1(kArrivalDong,"도착지동",LVCFMT_LEFT, 0);
-		m_columnData[kNumber] = m_lcData.InsertColumn1(kNumber,"건수",LVCFMT_LEFT,100);
-		m_columnData[kAmount] = m_lcData.InsertColumn1(kAmount,"금액",LVCFMT_RIGHT,200);
+		m_columnData[kStartDong] = m_lcData.InsertColumn(kStartDong, szDong[nType],LVCFMT_LEFT, 150);
+		m_columnData[kArrivalDong] = m_lcData.InsertColumn(kArrivalDong,"도착지동",LVCFMT_LEFT, 0);
+		m_columnData[kNumber] = m_lcData.InsertColumn(kNumber,"건수",LVCFMT_LEFT,100);
+		m_columnData[kAmount] = m_lcData.InsertColumn(kAmount,"금액",LVCFMT_RIGHT,200);
 	}
 	else 
 	{
-		m_columnData[kStartDong] =m_lcData.InsertColumn1(kStartDong,"출발지동",LVCFMT_LEFT, 150);
-		m_columnData[kArrivalDong] = m_lcData.InsertColumn1(kArrivalDong,"도착지동",LVCFMT_LEFT, 150);
-		m_columnData[kNumber] = m_lcData.InsertColumn1(kNumber,"건수",LVCFMT_LEFT,100);
-		m_columnData[kAmount] = m_lcData.InsertColumn1(kAmount,"금액",LVCFMT_RIGHT,200);
+		m_columnData[kStartDong] =m_lcData.InsertColumn(kStartDong,"출발지동",LVCFMT_LEFT, 150);
+		m_columnData[kArrivalDong] = m_lcData.InsertColumn(kArrivalDong,"도착지동",LVCFMT_LEFT, 150);
+		m_columnData[kNumber] = m_lcData.InsertColumn(kNumber,"건수",LVCFMT_LEFT,100);
+		m_columnData[kAmount] = m_lcData.InsertColumn(kAmount,"금액",LVCFMT_RIGHT,200);
 	}
 
 	m_lcData.Populate();

@@ -8,7 +8,7 @@ typedef map<long, int> GNO_MAP;
 
 
 
-class CMyGroupReport51 : public CDataBox
+class CMyGroupReport51 : public CXTPListCtrl2
 {
 public:
 	CMyGroupReport51()
@@ -23,10 +23,10 @@ public:
 
 		int nCol = pDrawArgs->pColumn->GetIndent();
 		CString strColName = pDrawArgs->pColumn->GetCaption();
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pDrawArgs->pRow->GetRecord();
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)pDrawArgs->pRow->GetRecord();
 		if(pRecord)
 		{
-			long nPayType = pRecord->GetItemData();
+			long nPayType = GetItemData(pRecord);
 
 			if(nPayType == 2 && strColName.Compare("ม๖บา") == 0)
 				pItemMetrics->clrForeground = RGB(255, 0, 0);

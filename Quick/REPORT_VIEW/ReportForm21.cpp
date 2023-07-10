@@ -560,14 +560,14 @@ CString CReportForm21::GetGNoList()
 
 	
 	CString sTempData = "";
-	if(m_lstGroup.GetSelectedCount() <= 0 ) return "";
+	if(m_lstGroup.GetSelectedRows()->GetCount() <= 0 ) return "";
 
 	CString sSelectGNoList = "";
 	m_mapGNoList.clear();
 		
 	CXTPGridRow *pRow;
 	long nGNo ;
-	for(int i = 0; i < m_lstGroup.GetSelectedCount(); i++ )
+	for(int i = 0; i < m_lstGroup.GetSelectedRows()->GetCount(); i++ )
 	{
 		pRow = m_lstGroup.GetSelectedRows()->GetAt(i);
 		if(pRow)

@@ -43,7 +43,7 @@ public:
 
 	CReport24TabControl m_wndTabControl;
 	CGroupList24 m_List;
-	CDataBox	m_LogList;
+	CXTPListCtrl2	m_LogList;
 
 	virtual void OnInitialUpdate();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);

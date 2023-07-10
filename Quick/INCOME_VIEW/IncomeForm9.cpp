@@ -83,7 +83,6 @@ void CIncomeForm9::OnInitialUpdate()
 	m_BaranchList.InsertColumn(1,"사용",LVCFMT_RIGHT, 45);
 	m_BaranchList.InsertColumn(2,"미사용",LVCFMT_RIGHT, 55);
 	m_BaranchList.InsertColumn(3,"구분",LVCFMT_LEFT, 55);
-	m_BaranchList.m_bHeader = TRUE;
 	m_BaranchList.Populate();
 
 	m_SaveList.InsertColumn(0,"소속",LVCFMT_LEFT,75);
@@ -95,7 +94,6 @@ void CIncomeForm9::OnInitialUpdate()
 	m_SaveList.InsertColumn(6,"은행",LVCFMT_RIGHT, 70);
 	m_SaveList.InsertColumn(7,"예금주",LVCFMT_RIGHT, 70);
 	m_SaveList.InsertColumn(8,"기타",LVCFMT_LEFT, 80);
-	m_SaveList.m_bHeader = TRUE;
 	m_SaveList.Populate();
 
 	m_NoAccountList.InsertColumn(0,"No",LVCFMT_LEFT,35);
@@ -103,7 +101,6 @@ void CIncomeForm9::OnInitialUpdate()
 	m_NoAccountList.InsertColumn(2,"은행",LVCFMT_LEFT,50);
 	m_NoAccountList.InsertColumn(3,"예금주",LVCFMT_LEFT,60);	
 	m_NoAccountList.InsertColumn(4,"기타",LVCFMT_LEFT,80);
-	m_NoAccountList.m_bHeader = TRUE;
 	m_NoAccountList.Populate();
 
 
@@ -246,7 +243,7 @@ void CIncomeForm9::NoAccountList()
 		m_NoAccountList.SetItemText(nIndex, 2,sBankCode);
 		m_NoAccountList.SetItemText(nIndex, 3,sAccountOwner);
 		m_NoAccountList.SetItemText(nIndex, 4,sEtc);
-		m_NoAccountList.InsertItemDataString(sAccount);
+		m_NoAccountList.SetItemDataText(nIndex, sAccount);
 		//m_NoAccountList.EndItem();
 		nIndex++;
 
@@ -303,9 +300,9 @@ void CIncomeForm9::AccountList()
 		m_SaveList.SetItemText(nIndex, 7, sAccountOwner);
 		m_SaveList.SetItemText(nIndex, 8, sEtc);
 		m_SaveList.SetItemData(nIndex,(DWORD_PTR)nCompany);
-		m_SaveList.InsertItemDataLong(nCompany);
-		m_SaveList.InsertItemDataLong2(nRNo);
-		m_SaveList.InsertItemDataString(sAccount);
+		m_SaveList.SetItemLong(nIndex, nCompany);
+		m_SaveList.SetItemLong2(nIndex, nRNo);
+		m_SaveList.SetItemDataText(nIndex, sAccount);
 		//m_SaveList.EndItem();
 		nIndex++;
 		pRs.MoveNext();
@@ -351,7 +348,7 @@ void CIncomeForm9::OnContextMenu(CWnd* pWnd, CPoint point)
 			
 
 			/*
-			if(m_NoAccountList.GetSelectedCount() <= 0)
+			if(m_NoAccountList.GetSelectedRows()->GetCount() <= 0)
 			throw("계좌가 1개이상이라도 선택 되어져야 합니다.");
 			*/
 
@@ -468,7 +465,7 @@ void CIncomeForm9::OnBranchRecovery()
 {
 	try
 	{
-		UINT uNoAcoountSelectedCount = 0; /*m_NoAccountList.GetSelectedCount();*/
+		UINT uNoAcoountSelectedCount = 0; /*m_NoAccountList.GetSelectedRows()->GetCount();*/
 		int  nNoAccountItem = -1;
 		long nResult = 0;
 		CString sAccount = "";	
@@ -537,7 +534,7 @@ void CIncomeForm9::OnBranchRecovery()
 
 		if(LF->GetCurBranchInfo()->bIntegrated == 1 )
 		throw("통합에서는 지원되지 않고 지사를 선택하시고 작업하세요");
-		UINT nSelectedCount = m_NoAccountList.GetSelectedCount();
+		UINT nSelectedCount = m_NoAccountList.GetSelectedRows()->GetCount();
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "insert_vraccount_personal_save_recovery");
@@ -724,14 +721,13 @@ void CIncomeForm9::OnBnClickedAutoAllotBtn()
 
 	for (i = 0;i < uSelectedCount; i++)
 	{
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)m_SaveList.GetSelectedRows()->GetAt(i)->GetRecord();
 
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_SaveList.GetSelectedRows()->GetAt(i)->GetRecord();
-
-		long nCompany = pRecord->GetItemDataLong();
-		int nRNo = pRecord->GetItemDataLong2();
+		long nCompany = m_SaveList.GetItemLong(pRecord);
+		int nRNo = m_SaveList.GetItemLong2(pRecord);
 
 		if(nCompany <= 0)
-			throw(" 회사코드가 오류입니다.  ");
+			throw("회사코드가 오류입니다.");
 
 		if(nRNo <= 0)
 			throw("기사 번호가 없습니다.");
@@ -777,7 +773,6 @@ void CIncomeForm9::OnBnClickedChoiceAllotBtn()
 			return;
 		}	
 
-
 		UINT i, uSaveSelectedCount = m_SaveList.GetSelectedRows()->GetCount();
 		UINT uNoAcoountSelectedCount = m_NoAccountList.GetSelectedRows()->GetCount();
 
@@ -794,7 +789,7 @@ void CIncomeForm9::OnBnClickedChoiceAllotBtn()
 
 		for(int m =0; m < uSaveSelectedCount; m++)
 		{
-			sAccount = m_SaveList.GetSelectedRecord(m)->GetItemDataString();
+			sAccount = m_SaveList.GetItemDataText(m);
 
 			if(sAccount.GetLength() > 0)
 				throw("선택하신 기사에 계좌가 할당되어 있습니다. 기사를 다시선택해주세요");
@@ -807,15 +802,13 @@ void CIncomeForm9::OnBnClickedChoiceAllotBtn()
 		{			
 			for (i = 0;i < uSaveSelectedCount; i++)
 			{
-
-
-				sAccount = m_NoAccountList.GetSelectedRecord(i)->GetItemDataString();
+				sAccount = m_NoAccountList.GetItemDataText(m_NoAccountList.GetSelectedRowsGetAtGetRecord(i));
 				if(sAccount.GetLength() <= 0)
 					throw("계좌가 없습니다.");
 
-				long nCompany = (long)m_SaveList.GetSelectedRecord(i)->GetItemDataLong();
+				long nCompany = (long)m_SaveList.GetItemLong(m_SaveList.GetSelectedRowsGetAtGetRecord(i));
 				int nRNo = -1; 
-				nRNo = (long)m_SaveList.GetSelectedRecord(i)->GetItemDataLong2();
+				nRNo = (long)m_SaveList.GetItemLong2(m_SaveList.GetSelectedRowsGetAtGetRecord(i));
 				if(nRNo == -1)
 					throw("기사 번호가 없습니다.");
 
@@ -841,12 +834,10 @@ void CIncomeForm9::OnBnClickedChoiceAllotBtn()
 					throw("해당직원은 계좌가 있습니다.");
 				else if(nParameter = 1000)
 					continue;
-
-
 			}
+
 			RefreshList();
 		}
-
 	}
 	catch (char* e)
 	{
@@ -857,14 +848,11 @@ void CIncomeForm9::OnBnClickedChoiceAllotBtn()
 
 void CIncomeForm9::OnBnClickedRecovertBtn()
 {
-
-
 	if(IsOnlyLogiAccount() )
 	{
 		MessageBox("로지전용계좌가 아닌 자체(신청한)계좌가  있어야 계좌를 회수 할 수 있습니다.", "확인", MB_ICONINFORMATION);
 		return;
 	}
-
 
 	long nCount = m_SaveList.GetSelectedRows()->GetCount();
 
@@ -883,9 +871,9 @@ void CIncomeForm9::OnBnClickedRecovertBtn()
 	int m = 0;
 	for(m = 0; m < nCount; m++)
 	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pRows->GetAt(m)->GetRecord();
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)pRows->GetAt(m)->GetRecord();
 
-		sAccount = pRecord->GetItemDataString();
+		sAccount = m_SaveList.GetItemDataText(pRecord);
 
 		if(sAccount.GetLength() == 0)
 		{
@@ -896,10 +884,10 @@ void CIncomeForm9::OnBnClickedRecovertBtn()
 
 	for(int i = 0;i < nCount; i++)
 	{
-		CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pRows->GetAt(m)->GetRecord();
-		long nCompany = pRecord->GetItemDataLong();
+		CXTPGridRecord *pRecord = (CXTPGridRecord *)pRows->GetAt(m)->GetRecord();
+		long nCompany = m_SaveList.GetItemLong(pRecord);
 		int nRNo = -1; 
-		nRNo = pRecord->GetItemDataLong2();
+		nRNo = m_SaveList.GetItemLong2(pRecord);
 
 		if(nRNo == -1)
 		{
@@ -907,7 +895,7 @@ void CIncomeForm9::OnBnClickedRecovertBtn()
 			return;
 		}
 
-		sAccount = pRecord->GetItemDataString();
+		sAccount = m_SaveList.GetItemDataText(pRecord);
 		if(sAccount.GetLength() == 0)
 		{
 			MessageBox("계좌가 지정되어있지 않습니다.", "확인", MB_ICONINFORMATION);
@@ -942,7 +930,7 @@ void CIncomeForm9::OnBnClickedRecovertBtn()
 
 void CIncomeForm9::OnBnClickedLogBtn()
 {
-	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)m_SaveList.GetSelectedRows()->GetAt(0)->GetRecord();
+	CXTPGridRecord *pRecord = (CXTPGridRecord *)m_SaveList.GetSelectedRows()->GetAt(0)->GetRecord();
 
 	if(pRecord == NULL)
 		return;
@@ -953,8 +941,8 @@ void CIncomeForm9::OnBnClickedLogBtn()
 		return;
 	}
 
-	long nCompany = pRecord->GetItemDataLong();
-	int nRNo = pRecord->GetItemDataLong2();
+	long nCompany = m_SaveList.GetItemLong(pRecord);
+	int nRNo = m_SaveList.GetItemLong2(pRecord);
 
 	m_pVRRiderLogListDlg = new CVRRiderLogListDlg;
 	m_pVRRiderLogListDlg->Create(IDD_VRRIDER_LOG_DLG,this);
@@ -1014,7 +1002,7 @@ void CIncomeForm9::OnNMRclickNoaccountList(NMHDR *pNMHDR, LRESULT *pResult)
 	//	CBranchInfo* pBi = NULL;
 	//	pBi = (CBranchInfo*)m_ba.GetAt(0);
 	//	
-	//	if(m_NoAccountList.GetSelectedCount() <= 0)
+	//	if(m_NoAccountList.GetSelectedRows()->GetCount() <= 0)
 	//		throw("계좌를 1개이상 선택해주세요");
 
 	//	CMenu menu;

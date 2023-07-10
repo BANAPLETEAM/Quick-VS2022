@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "resource.h"
 #include "ViewPrintPreview.h"
-#include "DataBox.h"
+
 #include "TaskFrame.h"
 
 #ifdef _DEBUG
@@ -428,18 +428,12 @@ void CViewPrintPreview::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo)
 
 void CViewPrintPreview::OnEndPrintPreview(CDC* pDC, CPrintInfo* pInfo, POINT point, CPreviewView* pView) 
 {
-	
 	// Show the original frame
-	
-	m_pDataBox->m_bPrintPreview = FALSE;
-
 	ASSERT_VALID(pDC);
 	ASSERT_VALID(pView);
 
 	CWrapperView::OnEndPrinting(pDC,pInfo);
 	return;
-	
-
 }
 
 BOOL CViewPrintPreview::PaginateTo(CDC* pDC, CPrintInfo* pInfo)

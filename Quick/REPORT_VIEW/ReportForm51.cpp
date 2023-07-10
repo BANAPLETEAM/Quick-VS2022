@@ -270,7 +270,8 @@ void CReportForm51::RefreshOrderList()
 	COleDateTime dt1;
 	char buffer[20];
 
-	for(int i=0; i<pRs.GetRecordCount(); i++)
+	int i;
+	for(i = 0; i < pRs.GetRecordCount(); i++)
 	{ 
 		nCol = 0;
 
@@ -298,38 +299,29 @@ void CReportForm51::RefreshOrderList()
 		pRs.GetFieldValue("sLoginID", strLoginID);
 		pRs.GetFieldValue("nCompany", nCompany);
 
-		
-		m_lstOrder.MyAddItem(itoa(nTNo, buffer, 10));
-		m_lstOrder.MyAddItem( dt1.Format("%Y-%m-%d %H:%M"));
-		m_lstOrder.MyAddItem( strOName);
-		m_lstOrder.MyAddItem( strOManager);
-		m_lstOrder.MyAddItem( strLoginID);
-		m_lstOrder.MyAddItem( strSDong);
-		m_lstOrder.MyAddItem( strDDong);
-		m_lstOrder.MyAddItem( LF->GetStateString(nState));
-		m_lstOrder.MyAddItem( LF->GetPayTypeFromLong(nPayType));
-		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeBasic));
-		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeAdd));
-		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeDis));
-		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeSum));
-		m_lstOrder.MyAddItem( LF->GetMyNumberFormat(nChargeTrans));
-		m_lstOrder.MyAddItem( strItemType);
-		m_lstOrder.MyAddItem( strEtc);		
-		m_lstOrder.MyAddItem( ltoa(nCompany, buffer,10));		
-		m_lstOrder.MyAddItem( ltoa(nGNo, buffer,10));		
-		/*m_lstOrder.SetItemLong(i, nCNo);		
-		m_lstOrder.SetItemLong2(i, nTNo);		
-		m_lstOrder.SetItemLong3(i, nState);		
-		m_lstOrder.SetItemString(i, strOName);		*/
-		m_lstOrder.InsertItemDataLong(nCNo);
-		m_lstOrder.InsertItemDataLong2(nTNo);
-		m_lstOrder.InsertItemDataLong3(nState);
-
-
-		m_lstOrder.InsertItemDataString(strOName);
-		m_lstOrder.InsertItemData(nPayType);
-		m_lstOrder.EndItem();
-
+		m_lstOrder.InsertItem(i, itoa(nTNo, buffer, 10));
+		m_lstOrder.SetItemText(i, 1, dt1.Format("%Y-%m-%d %H:%M"));
+		m_lstOrder.SetItemText(i, 2, strOName);
+		m_lstOrder.SetItemText(i, 3, strOManager);
+		m_lstOrder.SetItemText(i, 4, strLoginID);
+		m_lstOrder.SetItemText(i, 5, strSDong);
+		m_lstOrder.SetItemText(i, 6, strDDong);
+		m_lstOrder.SetItemText(i, 7, LF->GetStateString(nState));
+		m_lstOrder.SetItemText(i, 8, LF->GetPayTypeFromLong(nPayType));
+		m_lstOrder.SetItemText(i, 9, LF->GetMyNumberFormat(nChargeBasic));
+		m_lstOrder.SetItemText(i, 10, LF->GetMyNumberFormat(nChargeAdd));
+		m_lstOrder.SetItemText(i, 11, LF->GetMyNumberFormat(nChargeDis));
+		m_lstOrder.SetItemText(i, 12, LF->GetMyNumberFormat(nChargeSum));
+		m_lstOrder.SetItemText(i, 13, LF->GetMyNumberFormat(nChargeTrans));
+		m_lstOrder.SetItemText(i, 14, strItemType);
+		m_lstOrder.SetItemText(i, 15, strEtc);
+		m_lstOrder.SetItemText(i, 16, ltoa(nCompany, buffer, 10));
+		m_lstOrder.SetItemText(i, 17, ltoa(nGNo, buffer, 10));
+		m_lstOrder.SetItemLong(i, nCNo);
+		m_lstOrder.SetItemLong2(i, nTNo);
+		m_lstOrder.SetItemLong3(i, nState);
+		m_lstOrder.SetItemDataText(i, strOName);
+		m_lstOrder.SetItemData(i, nPayType);
 
 		//m_lstOrder.SetItemData(i, nPayType);
 
@@ -346,16 +338,16 @@ void CReportForm51::RefreshOrderList()
 	m_nCalculateSum = nChargeTotalSum;
 	m_nCalculateTrans = nChargeSumTrans;
 
-	for(int i =0;  i < 8; i ++)
-		m_lstOrder.MyAddItem("");
-	m_lstOrder.MyAddItem(7, LF->GetMyNumberFormat(nTotalCount -1) + "건", "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(8, LF->GetMyNumberFormat(nChargeSumBasic), "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(9, LF->GetMyNumberFormat(nChargeSumAdd), "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(10, LF->GetMyNumberFormat(nChargeSumDis), "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(11, LF->GetMyNumberFormat(nChargeTotalSum), "", 0, FALSE, DT_LEFT);
-	m_lstOrder.MyAddItem(12, LF->GetMyNumberFormat(nChargeSumTrans), "", 0, FALSE, DT_LEFT);	
-	m_lstOrder.MyAddItem(13, LF->GetMyNumberFormat(nChargeTotalSum + nChargeSumTrans), "", 0, FALSE, DT_LEFT);	
-	m_lstOrder.EndItem();
+	m_lstOrder.InsertItem(i, "");
+	for (int j = 1; j < 8; j++)
+		m_lstOrder.SetItemText(i, j, "");
+	m_lstOrder.SetItemText(i, 7, LF->GetMyNumberFormat(nTotalCount - 1));
+	m_lstOrder.SetItemText(i, 8, LF->GetMyNumberFormat(nChargeSumBasic));
+	m_lstOrder.SetItemText(i, 9, LF->GetMyNumberFormat(nChargeSumAdd));
+	m_lstOrder.SetItemText(i, 10, LF->GetMyNumberFormat(nChargeSumDis));
+	m_lstOrder.SetItemText(i, 11, LF->GetMyNumberFormat(nChargeTotalSum));
+	m_lstOrder.SetItemText(i, 12, LF->GetMyNumberFormat(nChargeSumTrans));
+	m_lstOrder.SetItemText(i, 13, LF->GetMyNumberFormat(nChargeTotalSum + nChargeSumTrans));
 	m_lstOrder.Populate();		
 }
 
@@ -439,11 +431,11 @@ void CReportForm51::OnOrderReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	CXTPGridRecord *pRecord = pRow->GetRecord();
 
 
-	long nTNo = m_lstOrder.GetItemDataLong2(pItemNotify->pRow->GetIndex());
+	long nTNo = m_lstOrder.GetItemLong2(pItemNotify->pRow->GetIndex());
 	//long nState = m_lstOrder.GetItemLong3(pRecord);
-	long nState = m_lstOrder.GetItemDataLong2(pItemNotify->pRow->GetIndex());
+	long nState = m_lstOrder.GetItemLong2(pItemNotify->pRow->GetIndex());
 	//CString strCName = m_lstOrder.GetItemString(pRecord);
-	CString strCName = m_lstOrder.GetItemDataRecordString(pItemNotify->pRow->GetIndex());
+	CString strCName = m_lstOrder.GetItemDataText(pItemNotify->pRow->GetRecord());
 	CString strCompany = m_lstOrder.GetItemText(pRow->GetIndex(),17 );
 	long nCompany = 0;
 	if(LF->IsNumeric(strCompany))
@@ -485,14 +477,14 @@ CString CReportForm51::GetGNoList()
 
 	
 	CString sTempData = "";
-	if(m_lstGroup.GetSelectedCount() <= 0 ) return "";
+	if(m_lstGroup.GetSelectedRows()->GetCount() <= 0 ) return "";
 
 	CString sSelectGNoList = "";
 	m_mapGNoList.clear();
 		
 	CXTPGridRow *pRow;
 	long nGNo ;
-	for(int i = 0; i < m_lstGroup.GetSelectedCount(); i++ )
+	for(int i = 0; i < m_lstGroup.GetSelectedRows()->GetCount(); i++ )
 	{
 		pRow = m_lstGroup.GetSelectedRows()->GetAt(i);
 		if(pRow)
@@ -572,7 +564,7 @@ void CReportForm51::OnLButtonUp(UINT nFlags, CPoint point)
 		if(pOrderRow == NULL)
 			return;
 
-		CMyXTPGridRecord *pOrderRecord = (CMyXTPGridRecord *)pOrderRow->GetRecord();
+		CXTPGridRecord *pOrderRecord = (CXTPGridRecord *)pOrderRow->GetRecord();
 		CString strOName = pOrderRecord->GetItem(4)->GetCaption(NULL);
 
 		CXTPGridRow * pGroupRow = m_lstGroup.HitTest(point);
@@ -600,8 +592,7 @@ void CReportForm51::OnLButtonUp(UINT nFlags, CPoint point)
 			if(LF->CheckGroupReport("0;", pDestRecord->m_nGNo, dtDate, 1, strNeedReportID) == FALSE) // 재정산이 필요한 리포트를 선정
 				return;
 
-			//long nCNo = m_lstOrder.GetItemLong(pOrderRecord);
-			long nCNo = pOrderRecord->GetItemDataLong();
+			long nCNo = m_lstOrder.GetItemLong(pOrderRecord);
 			CMkCommand pCmd(m_pMkDb, "move_not_grouporder_to_grouporder");
 			pCmd.AddParameter(nCNo);
 			pCmd.AddParameter(nDestGNo);
@@ -832,12 +823,12 @@ void CReportForm51::OnMakeGroupReport()
 void CReportForm51::OnBnClickedDeptWebViewBtn()
 {
 
-	if(m_lstOrder.GetSelectedCount() <= 0 )
+	if(m_lstOrder.GetSelectedRows()->GetCount() <= 0 )
 		return;
 
 
-	CMyXTPGridRecord *pRecord = NULL;
-	pRecord = m_lstOrder.GetSelectedRecord();	
+	CXTPGridRecord *pRecord = NULL;
+	pRecord = m_lstOrder.GetFirstSelectedRecord();	
 
 	CString str, strForm;
 	str = "C:\\Program Files\\Internet Explorer\\iexplore.exe";
@@ -910,12 +901,12 @@ void CReportForm51::OnBnClickedDeptWebViewBtn()
 void CReportForm51::OnBnClickedMainWebViewBtn()
 {
 
-	if(m_lstOrder.GetSelectedCount() <= 0 )
+	if(m_lstOrder.GetSelectedRows()->GetCount() <= 0 )
 		return;
 
 
-	CMyXTPGridRecord *pRecord = NULL;
-	pRecord = m_lstOrder.GetSelectedRecord();	
+	CXTPGridRecord *pRecord = NULL;
+	pRecord = m_lstOrder.GetFirstSelectedRecord();	
 
 	CString str, strForm;
 	str = "C:\\Program Files\\Internet Explorer\\iexplore.exe";

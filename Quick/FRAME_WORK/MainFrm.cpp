@@ -985,7 +985,7 @@ void CMainFrame::OnCallCount()
 
 void CMainFrame::OnRemoteControlWeb()
 {
-	ShellExecute(NULL, "open", "iexplore.exe", "https://113366.com", "", SW_SHOW);
+	ShellExecute(NULL, "open", "msedge.exe", "https://113366.com", "", SW_SHOW);
 }
 
 void CMainFrame::OnAllocateBoard()
