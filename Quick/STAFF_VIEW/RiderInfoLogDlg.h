@@ -17,6 +17,7 @@ typedef struct
 	COleDateTime dtEnter;
 	int nCarType;
 	int nAllocGroup;
+	int nBusinessCar;
 	CString strAddress;
 	CString strEtc;
 	CString strSSN;
@@ -124,6 +125,13 @@ public:
 public: 
 	CXTPListCtrl2 m_List;
 	CXTPGridControl m_ListDetail;
+
+	COleDateTime m_dtFrom;
+	COleDateTime m_dtTo;
+	CDateTimeCtrl m_dtFromCtl;
+	CDateTimeCtrl m_dtToCtl;
+
+	CDateButton m_btnDate;
 
 	CComboBox m_cmbBankID;
 

@@ -289,6 +289,7 @@ public:	// INLINE
 	int GetCarTypeFromString(CString strCarType);
 	int GetCarChargeType(long nCarType);
 	CString GetCarChargeTypeString(long nCarType);
+	CString GetBusinessCarTypeFromLong(long nCarType);
 	CString GetCarTypeFromLong(long nCarType, BOOL bHideBaseType = 0, long nTruckType = 0, CString strTon = "");
 	CString GetWayTypeFromLong(long nWayType, BOOL bHideBaseType = 0, long nLoadType = 0);
 	CString GetPayTypeFromLong(long nPayType, BOOL bHideBaseType = 0, long nCardState = 0);
@@ -448,6 +449,15 @@ AFX_INLINE int CLogiFunc::GetCarChargeType(long nCarType)
 		return 8;
 
 	return -1;
+}
+
+AFX_INLINE CString CLogiFunc::GetBusinessCarTypeFromLong(long nCarType)
+{
+	CString car_type = "-";
+	if (nCarType == 1) car_type = "영업용";
+	else if (nCarType == 2) car_type = "일반용";
+	else if (nCarType == 3) car_type = "오토,짐받이";
+	return car_type;
 }
 
 AFX_INLINE CString CLogiFunc::GetCarTypeFromLong(long nCarType, BOOL bHideBaseType, long nTruckType, CString strTon)

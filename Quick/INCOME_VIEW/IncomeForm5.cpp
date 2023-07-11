@@ -350,7 +350,7 @@ void CIncomeForm5::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resul
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	if(LU->GetRcpDlgAdmin())
+	if(LU->GetRcpView())
 	{
 		LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 			sCName,

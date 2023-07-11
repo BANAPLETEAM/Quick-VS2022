@@ -33,6 +33,11 @@ void CRiderInfoLogDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_REPORT_DETAIL, m_ListDetail);
 	DDX_Control(pDX, IDC_BANK_ID_COMBO, m_cmbBankID);
 	DDX_Control(pDX, IDC_RIDER_SEARCH_EDIT, m_edtSearch);
+	DDX_Control(pDX, IDC_DATETIMEPICKER1, m_dtFromCtl);
+	DDX_Control(pDX, IDC_DATETIMEPICKER2, m_dtToCtl);
+	DDX_DateTimeCtrl(pDX, IDC_DATETIMEPICKER1, m_dtFrom);
+	DDX_DateTimeCtrl(pDX, IDC_DATETIMEPICKER2, m_dtTo);
+	DDX_Control(pDX, IDC_DATE_BTN, m_btnDate);
 }
 
 
@@ -48,6 +53,9 @@ BOOL CRiderInfoLogDlg::OnInitDialog()
 
 	m_edtSearch.SetMyFont("맑은 고딕", 15, FW_BOLD);
 	m_edtSearch.SetUserOption(RGB(0, 0, 0), RGB(255, 255, 255), "기사번호/이름", FALSE, FALSE);
+
+	m_btnDate.InitDateButton(&m_dtFromCtl, &m_dtToCtl);
+	m_btnDate.OnMenuMonth();
 
 	InitControlData();
 	RefreshList();
@@ -138,10 +146,11 @@ void CRiderInfoLogDlg::RefreshList()
 	m_ListDetail.GetRecords()->RemoveAll();
 
 	CMkRecordset pRs(m_pMkDb);
-	CMkCommand pCmd(m_pMkDb, "select_rider_info_log_1"); 
+	CMkCommand pCmd(m_pMkDb, "select_rider_info_log_2"); 
 	pCmd.AddParameter(typeLong, typeInput, sizeof(int), LF->GetCurBranchInfo()->nCompanyCode);
 	pCmd.AddParameter(typeBool, typeInput, sizeof(int), LF->GetCurBranchInfo()->bIntegrated);
-
+	pCmd.AddParameter(m_dtFrom);
+	pCmd.AddParameter(m_dtTo);
 	if(!pRs.Execute(&pCmd))
 		return;
 
@@ -208,6 +217,7 @@ void CRiderInfoLogDlg::RefreshList()
 		pRs.GetFieldValue("nPreInfoID", pstLog->nPreInfoID);
 		pRs.GetFieldValue("sSSN1", sSSN1);
 		pRs.GetFieldValue("sSSN2", sSSN2);
+		pRs.GetFieldValue("bBusinessCar", pstLog->nBusinessCar);
 
 		if (!sSSN1.IsEmpty() && !sSSN2.IsEmpty())
 			pstLog->strSSN.Format("%s-%s", sSSN1, sSSN2);
@@ -302,6 +312,11 @@ void CRiderInfoLogDlg::InsertListData(CString strCount, ST_RIDER_INFO_LOG *pData
 	{
 		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"), 
 			"차종 변경", LF->GetCarTypeFromLong(pData->nCarType), LF->GetCarTypeFromLong(pOriginData->nCarType), pMainRecord);
+	}
+	if (pData->nBusinessCar != pOriginData->nBusinessCar)
+	{
+		pMainRecord = InsertChangeRecord(strCount, pData->nRNo, pData->strWName, pData->dtChange.Format("%m-%d %H:%M:%S"),
+			"영업차량 변경", LF->GetBusinessCarTypeFromLong(pData->nBusinessCar), LF->GetBusinessCarTypeFromLong(pOriginData->nBusinessCar), pMainRecord);
 	}
 	if(pData->nAllocGroup != pOriginData->nAllocGroup)
 	{
