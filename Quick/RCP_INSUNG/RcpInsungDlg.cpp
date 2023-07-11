@@ -12,6 +12,8 @@
 #include "RcpView.h"
 #include "SearchCustomerInsungRcpDlg.h"
 #include "historyInsungDlg.h"
+#include "RcpDlgAdmin.h"
+
 // CRcpInsungDlg 대화 상자입니다.
 
 #define TIMER_CID 5500
@@ -664,7 +666,7 @@ BOOL CRcpInsungDlg::PreTranslateMessage(MSG* pMsg)
 {
 	if(pMsg->message == WM_KEYDOWN)
 	{
-		m_pRcpView->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
+		LU->GetRcpDlgAdmin()->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
 		if(pMsg->wParam == VK_RETURN)		 
 	 	{		
 			if(pMsg->hwnd == m_EDT_CID.pEdit->GetSafeHwnd())
@@ -776,7 +778,7 @@ BOOL CRcpInsungDlg::PreTranslateMessage(MSG* pMsg)
 	}		
 	else if(pMsg->message == WM_LBUTTONDOWN)
 	{
-		m_pRcpView->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
+		LU->GetRcpDlgAdmin()->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
 		if(pMsg->hwnd == m_EDT_CHARGE_SUM.pEdit->GetSafeHwnd() ||
 			pMsg->hwnd == m_EDT_STATE.pEdit->GetSafeHwnd() ||
 			pMsg->hwnd == m_EDT_WNAME.pEdit->GetSafeHwnd())
@@ -796,7 +798,7 @@ BOOL CRcpInsungDlg::PreTranslateMessage(MSG* pMsg)
 	} 
 	else if(pMsg->message == WM_LBUTTONUP)
 	{
-		m_pRcpView->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
+		LU->GetRcpDlgAdmin()->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
 		if(pMsg->hwnd == m_btnRiderSearch.GetSafeHwnd())
 		{
 			OnBnClickedRiderSearchBtn();
@@ -814,7 +816,7 @@ BOOL CRcpInsungDlg::PreTranslateMessage(MSG* pMsg)
 	}
 	if(pMsg->message == WM_SYSKEYDOWN)
 	{
-		m_pRcpView->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
+		LU->GetRcpDlgAdmin()->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
 		if(pMsg->wParam =='s' || pMsg->wParam == 'S')
 		{
 			OnBnClickedNewBtn();

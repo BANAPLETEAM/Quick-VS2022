@@ -4,6 +4,7 @@
 #include "MyCall.h"
 #include "RcpView.h"
 #include "RcpPageCTIForm.h"
+#include "RcpDlgAdmin.h"
 
 IMPLEMENT_DYNAMIC(CTelserverDIDRouteDlg, CMyDialog)
 CTelserverDIDRouteDlg::CTelserverDIDRouteDlg(CWnd* pParent /*=NULL*/)
@@ -41,7 +42,7 @@ BOOL CTelserverDIDRouteDlg::OnInitDialog()
 {
 	CMyDialog::OnInitDialog();
 
-	m_pCall = &(LU->m_pRcpView->m_pCTIForm->m_call);
+	m_pCall = &(LU->GetRcpDlgAdmin()->m_pCTIForm->m_call);
 	m_pCall->SetDIDRouteDlg(this);
 
 	m_lstDIDRoute.InsertColumn(0, "Âø½Å DID", LVCFMT_CENTER, 80);

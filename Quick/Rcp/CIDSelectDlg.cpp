@@ -4,7 +4,7 @@
 #include "LogiUtil.h"
 #include "RcpView.h"
 #include "RcpPageCTIForm.h"
-
+#include "RcpDlgAdmin.h"
 
 IMPLEMENT_DYNAMIC(CCIDSelectDlg, CMyDialog)
 CCIDSelectDlg::CCIDSelectDlg(CWnd* pParent /*=NULL*/)
@@ -94,7 +94,7 @@ void CCIDSelectDlg::OnEnChangeSearchEdt()
 void CCIDSelectDlg::OnOK()
 {
 	CBranchInfo *pBi = m_cBranch.GetBranchInfo();
-	LU->GetRcpView()->m_pCTIForm->SelectCID(pBi);
+	LU->GetRcpDlgAdmin()->m_pCTIForm->SelectCID(pBi);
 	
 	CMyDialog::OnOK();
 }

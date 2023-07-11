@@ -51,6 +51,7 @@
 #include "ChargeForRiderLogDlg.h"
 #include "afxinet.h"
 #include "CSmtp.h"
+#include "RcpDlgAdmin.h"
 
 
 CLogiUtil::CLogiUtil(void)
@@ -120,6 +121,8 @@ CLogiUtil::CLogiUtil(void)
 	m_pConnListPane = NULL;
 	m_pGroupChatPane = NULL;
 	m_ei.dwProgramStartTick = GetTickCount();
+
+	m_pRcpDlgAdmin = new CRcpDlgAdmin;
 }
 
 CLogiUtil::~CLogiUtil(void)
@@ -161,6 +164,7 @@ void CLogiUtil::Destroy()
 	//DELETE_OBJECT(m_pMakeGroupReportNewDlg);
 	DELETE_OBJECT(m_pFunctionTableDlg);
 	DELETE_OBJECT(m_pTransInfoDlg);
+	DELETE_OBJECT(m_pRcpDlgAdmin);
 	
 	m_pMakeGroupReportNewDlg;
 }
@@ -3119,7 +3123,7 @@ void CLogiUtil::AddCall(CString strName, long nTNo, long nState)
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	GetRcpView()->CreateRcpDlg(NULL, 
+	GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 		strName,
 		nTNo, 
 		nState, "", TRUE, -1, 0, 0, FALSE, "");
@@ -3130,7 +3134,7 @@ void CLogiUtil::CreateRcpDlg(CString strName, long nTNo, long nState)
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	GetRcpView()->CreateRcpDlg(NULL, 
+	GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 		strName,
 		nTNo, 
 		nState, "", FALSE, -1, 0, 0, FALSE, "");

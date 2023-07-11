@@ -102,6 +102,7 @@
 #include "SetPoiDlg.h"
 #include "GenerateAppStateDlg2.h"
 #include "GenerateOpenAPIStateDlg.h"
+#include "RcpDlgAdmin.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -1617,7 +1618,7 @@ LONG CMainFrame::OnQueryChargeResponse(WPARAM wParam, LPARAM lParam)
 	long nUniqueID = (long)wParam;
 	long nCharge = (long)lParam;
 
-	CRcpDlg *pRcpDlg = LU->GetRcpView()->FindRcpDlgFromUniqueChargeID(nUniqueID);
+	CRcpDlg *pRcpDlg = LU->GetRcpDlgAdmin()->FindRcpDlgFromUniqueChargeID(nUniqueID);
 	if(pRcpDlg)
 		pRcpDlg->ChangeChargeFromQuery(nCharge);
 
@@ -1649,7 +1650,7 @@ LONG CMainFrame::OnRcpCopyData(WPARAM wParam, LPARAM lParam)
 
 		if(pBi)
 		{
-			CRcpDlg *pDlg = LU->GetRcpView()->CreateRcpDlg(pBi, "넘겨받음(" + strPhone + ")");
+			CRcpDlg *pDlg = LU->GetRcpDlgAdmin()->CreateRcpDlg(pBi, "넘겨받음(" + strPhone + ")");
 			if(pDlg)
 				pDlg->OnRcpCopyData(pData);
 		}
@@ -1792,7 +1793,7 @@ void CMainFrame::OnCompleteAfterEdit()
 
 void CMainFrame::OnRecvEditOrderState(long nTNo, long nTickCount, long nState, CString strWName)
 {
-	CRcpDlg *pRcpDlg = LU->GetRcpView()->FindRcpDlg(nTNo);
+	CRcpDlg *pRcpDlg = LU->GetRcpDlgAdmin()->FindRcpDlg(nTNo);
 	if(pRcpDlg && !pRcpDlg->m_bEditExampleDlg)
 		pRcpDlg->OnRecvEditOrderState(nTNo, nTickCount, nState, strWName);
 }
@@ -2016,7 +2017,7 @@ LRESULT CMainFrame::OnPopUpNotify(WPARAM wParam, LPARAM lParam)
 			if(it == m_TransMap.end())
 				return 0;
 	
-			LU->GetRcpView()->CreateRcpDlg(NULL, 
+			LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 				it->second->sOName,
 				it->second->nTNo, 
 				it->second->nState, "", FALSE, -1, 0, 0, FALSE, "");
@@ -2352,7 +2353,6 @@ LONG CMainFrame::OnRcpCopyDataDirect(WPARAM wParam, LPARAM lParam)
 	CString strPhone;
 	pData->GetValue("nCompany", nCompany);
 	pData->GetValue("m_strCID", strPhone);
-	CRcpView *pView = (CRcpView*)LU->GetRcpView();	
 	CBranchInfo *pBi = NULL;
 
 	for(int i = 0; i < m_ba.GetCount(); i++)
@@ -2366,7 +2366,7 @@ LONG CMainFrame::OnRcpCopyDataDirect(WPARAM wParam, LPARAM lParam)
 
 	if(pBi)
 	{
-		CRcpDlg *pDlg = pView->CreateRcpDlg(pBi, "추가접수(" + strPhone + ")");
+		CRcpDlg *pDlg = LU->GetRcpDlgAdmin()->CreateRcpDlg(pBi, "추가접수(" + strPhone + ")");
 		if(pDlg)
 			pDlg->OnRcpCopyData(pData);
 	}

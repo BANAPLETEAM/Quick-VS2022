@@ -18,6 +18,7 @@
 #include "RcpPageMissingCallForm.h"
 #include "RcpInsungDlg.h"
 #include "RcpPageWCountForm.h"
+#include "RcpDlgAdmin.h"
 
 // CRcpViewBase
 
@@ -29,8 +30,8 @@ CRcpViewBase::CRcpViewBase()
 	m_bDialogMode = FALSE;
 	m_nSavedFormHegiht = 0;
 	m_nFormHeight = AfxGetApp()->GetProfileInt("RcpPage", "FormHeight", TAB_FORM_HEIGHT);
-	
-	if(m_nFormHeight < 30 || m_nFormHeight > 500)
+
+	if (m_nFormHeight < 30 || m_nFormHeight > 500)
 		m_nFormHeight = TAB_FORM_HEIGHT;
 
 	m_pRecordFileForm = NULL;
@@ -39,24 +40,16 @@ CRcpViewBase::CRcpViewBase()
 
 CRcpViewBase::~CRcpViewBase()
 {
-	if(LU->GetRcpView() && (CRcpView*)this == (CRcpView*)LU->GetRcpView())
+	if (LU->GetRcpView() && (CRcpView*)this == (CRcpView*)LU->GetRcpView())
 	{
 		CString strTemp; long nSize;
 		SaveReportState(strTemp, nSize);
 	}
-/*
-	RCP_DLG_MAP::iterator it;
-	for(it != m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-		delete it->second;
-*/
-	m_mapRcpDlg.clear();
-
 }
 
 BEGIN_MESSAGE_MAP(CRcpViewBase, CMyFormView)
 	ON_WM_SIZE()
 	ON_WM_CREATE()
-	ON_MESSAGE(WM_CLOSE_RCPDLG, OnCloseRcpDlg)
 	ON_NOTIFY(XTP_NM_GRID_HEADER_RCLICK, IDC_REPORT_LIST_RCPPAGE, OnReportColumnRClick)
 END_MESSAGE_MAP()
 
@@ -71,7 +64,7 @@ void CRcpViewBase::OnInitialUpdate()
 
 	LU->MakePoiAndCusData();
 
-	m_pBi = m_ba.GetAt(0);
+	
 	m_bDialogMode = GetOwner()->GetRuntimeClass()->IsDerivedFrom(RUNTIME_CLASS(CDialog));
 
 	if(!IsDialogMode())
@@ -94,78 +87,6 @@ void CRcpViewBase::OnInitialUpdate()
 		}
 	}
 }
-
-
-CRcpDlg* CRcpViewBase::IsRcpDlgVisible()
-{
-	try {
-		RCP_DLG_MAP::iterator it;
-		for (it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-		{
-			if (it->first->IsWindowVisible())
-				return it->first;
-		}
-	}
-	catch(...) {
-		return NULL;
-	}
-
-	return NULL;
-}
-
-CRcpDlg* CRcpViewBase::FindRcpDlgFromUniqueChargeID(long nID)
-{
-	RCP_DLG_MAP::iterator it;
-	for(it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-	{
-		if(it->first->m_nQueryChargeUniqueID == nID)
-			return it->first;
-	}
-	return NULL;
-}
-
-CRcpDlg* CRcpViewBase::FindRcpDlg(long nTNo)
-{
-	RCP_DLG_MAP::iterator it;
-	for(it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-	{
-		if(it->first->m_nInitItem == nTNo)
-			return it->first;
-	}
-	return NULL;
-}
-
-CRcpDlg* CRcpViewBase::GetReadyToReuseDlg(UINT nServiceType)
-{
-	RCP_DLG_MAP::iterator it;
-	for(it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-	{
-		if(it->first->m_bReadyToReuse && !it->first->IsInsungDlg() == nServiceType)
-			return it->first;
-	}
-	return NULL;
-}
-
-CRcpDlg* CRcpViewBase::OpenRcpDlg(long nTNo)
-{
-	
-
-	if((long)m_mapRcpDlg.size() == ZERO)
-		return NULL;
-
-	RCP_DLG_MAP::iterator it;
-	for(it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-	{
-		if(it->first->m_nInitItem == nTNo)
-		{
-			it->first->InitData();
-			it->first->InitControlAfterGetData();
-			return it->first;
-		}
-	}
-	return NULL;
-}
-
 
 void CRcpViewBase::SetFormHeightMax()
 {
@@ -227,149 +148,6 @@ void CRcpViewBase::ShowAllControl(BOOL bShow, CWnd *pwndExcept)
 }
 
 
-LONG CRcpViewBase::OnCloseRcpDlg(WPARAM wParam, LPARAM lParam)
-{
-	CRcpDlg *pRcpDlg = (CRcpDlg*)wParam;
-
-	if(GetRcpDlgCount(pRcpDlg->m_pBi->nServiceType) <= 2)
-	{
-		pRcpDlg->ShowWindow(SW_HIDE);			
-		pRcpDlg->Construct(FALSE);
-		pRcpDlg->UpdateData(FALSE);
-		pRcpDlg->m_bReadyToReuse = TRUE;
-	}
-	else
-	{
-		m_mapRcpDlg.erase(pRcpDlg);
-		delete pRcpDlg;
-		pRcpDlg = NULL;
-	}
-
-	return 0;
-}
-
-CRcpDlg* CRcpViewBase::CreateRcpDlg(CBranchInfo *pBi, CString strTitle, int nItem, 
-								int nState, CString strCID, BOOL bAddCall, long nLineID, 
-								DWORD dwAnswerTick,long nWebID, BOOL bScheduleOrder, CString strYear,
-								long nOperatorID, BOOL bNewDlg,BOOL bConsign)
-{
-	if(!pBi) pBi = m_pBi;
-
-
-	if(!LF->IsUseNewDlg())
-		return CreateRcpDlgSub<CRcpDlg>(pBi, strTitle, nItem, nState, strCID, bAddCall, nLineID, 
-		dwAnswerTick, nWebID, bScheduleOrder, strYear, 
-		nOperatorID, bNewDlg, bConsign);
-	else
-		return CreateRcpDlgSub<CRcpInsungDlg>(pBi, strTitle, nItem, nState, strCID, bAddCall, nLineID, 
-		dwAnswerTick, nWebID, bScheduleOrder, strYear, 
-		nOperatorID, bNewDlg, bConsign);	
-}
-
-CWnd* CRcpViewBase::GetFocusControl()
-{
-	RCP_DLG_MAP::iterator it;
-	for(it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-	{
-		if(it->first->m_pFocusControl)
-			return it->first->m_pFocusControl;
-	}
-	return NULL;
-}
-
-void CRcpViewBase::SetFocusControl(CRcpDlg *pDlg, CWnd* pControl)
-{
-	RCP_DLG_MAP::iterator it;
-	for(it = m_mapRcpDlg.begin(); it != m_mapRcpDlg.end(); it++)
-	{
-		if(it->first->GetSafeHwnd() == pDlg->GetSafeHwnd())
-			it->first->m_pFocusControl = pControl;
-		else
-			it->first->m_pFocusControl = NULL;
-	}
-}
-
-template<typename T> CRcpDlg* 
-CRcpViewBase::CreateRcpDlgSub( CBranchInfo *pBi, CString strTitle, int nItem, 
-					   int nState, CString strCID, BOOL bAddCall, long nLineID, 
-					   DWORD dwAnswerTick,long nWebID, BOOL bScheduleOrder, CString strYear,
-					   long nOperatorID, BOOL bNewDlg, BOOL bConsign)
-{
-	BOOL bReuseMode = FALSE;
-
-	T *pRcpDlg = NULL;
-	CWnd *pFocusControl = GetFocusControl();
-
-	if(nItem > 0 && bNewDlg == FALSE)
-	{
-		pRcpDlg = (T*)OpenRcpDlg(nItem);
-		if(pRcpDlg) {
-			MoveNewRcpDlg(pRcpDlg, TRUE);			
-			return (T*)pRcpDlg;
-		}
-	} 
-
-	pRcpDlg = (T*)GetReadyToReuseDlg(!LF->IsUseNewDlg());
-	if(pRcpDlg)
-		bReuseMode = TRUE;
-
-	if(!bReuseMode)
-		pRcpDlg = new T;
-
-	pRcpDlg->m_bCopyDlg = bNewDlg;
-	pRcpDlg->m_nInitItem = nItem;	//nItem >= 0 이면 수정, -1 이면 신규모드(디폴트 -1임)
-	pRcpDlg->m_strCID = strCID;
-	pRcpDlg->m_nPreState = nState;
-	pRcpDlg->m_nLineID = nLineID;
-	pRcpDlg->m_dwAnswerTick = dwAnswerTick;
-	pRcpDlg->m_bScheduleOrder = bScheduleOrder;
-	pRcpDlg->m_strYear = strYear;
-	pRcpDlg->m_nOperatorID = nOperatorID;
-	pRcpDlg->m_bConsignLink = bConsign;
-	if(!pBi)
-		pRcpDlg->m_pBi = m_pBi;
-	else
-		pRcpDlg->m_pBi = pBi;
-
-	pRcpDlg->m_bAddCall = bAddCall;
-	pRcpDlg->m_pRcpView = (CRcpView*)this;
-	pRcpDlg->m_nWebID = nWebID;
-
-	if(!bReuseMode)
-	{
-		//if(!pRcpDlg->Create(GetServiceResoure(pBi->nServiceType), this))
-		if(!pRcpDlg->Create(GetServiceResoure(!LF->IsUseNewDlg()), this))
-		{
-			MessageBox("메인 접수창 생성 실패", "확인", MB_ICONERROR);
-			return NULL;
-		}
-
-		MoveNewRcpDlg(pRcpDlg);
-		m_mapRcpDlg.insert(RCP_DLG_MAP::value_type(pRcpDlg, pRcpDlg));
-	}
-	else
-	{
-		pRcpDlg->OnInitialUpdate();
-	}
-
-
-	if(!pRcpDlg->m_strExtraTitle.IsEmpty())
-	{
-		strTitle += " " + pRcpDlg->m_strExtraTitle;
-	}
-
-	if (strCID.GetLength() > 0)
-		m_pCTIForm->QueueWorkingMode();
-
-	pRcpDlg->SetTitleInfo(strTitle);
-	pRcpDlg->ShowWindow(pRcpDlg->IsIconic() ? SW_RESTORE : SW_SHOW);
-
-	if(LF->GetBranchInfo(m_ui.nCompany)->bPopupFocus && pFocusControl)
-		pFocusControl->SetFocus();
-
-	return (T*)pRcpDlg;
-}
-
 void CRcpViewBase::InitForm()
 {
 	if(IsDialogMode())
@@ -385,10 +163,10 @@ void CRcpViewBase::InitForm()
 	m_wndTabControl.GetPaintManager()->DisableLunaColors(TRUE);
 	m_wndTabControl.GetPaintManager()->SetPosition(xtpTabPositionTop);
 
-	m_pCTIForm = (CRcpPageCTIForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageCTIForm), _T("콜리스트"), 0, CRcpPageCTIForm::IDD);
-	m_pInfoForm = (CRcpPageInfoForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageInfoForm), _T("정보"), 0, CRcpPageInfoForm::IDD);
-	m_pMemoForm = (CRcpPageMemoForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageMemoForm), _T("메모장"), 0, CRcpPageMemoForm::IDD);
-	m_pWCountForm = (CRcpPageWCountForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageWCountForm), _T("접수자통계"), 0, CRcpPageWCountForm::IDD);
+	LU->GetRcpDlgAdmin()->m_pCTIForm = (CRcpPageCTIForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageCTIForm), _T("콜리스트"), 0, CRcpPageCTIForm::IDD);
+	LU->GetRcpDlgAdmin()->m_pInfoForm = (CRcpPageInfoForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageInfoForm), _T("정보"), 0, CRcpPageInfoForm::IDD);
+	LU->GetRcpDlgAdmin()->m_pMemoForm = (CRcpPageMemoForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageMemoForm), _T("메모장"), 0, CRcpPageMemoForm::IDD);
+	LU->GetRcpDlgAdmin()->m_pWCountForm = (CRcpPageWCountForm*)LU->AddView(this, &m_wndTabControl, RUNTIME_CLASS(CRcpPageWCountForm), _T("접수자통계"), 0, CRcpPageWCountForm::IDD);
 	
 	///* 20221223
 	if(AfxGetApp()->GetProfileInt("RcpMapSetup", "nNotCreateMapForm", 0) == 0)
@@ -408,10 +186,18 @@ void CRcpViewBase::InitForm()
 	MoveClient();
 }
 
+BOOL CRcpViewBase::RcpCreate(CRcpDlg* pDlg, UINT nServiceType)
+{
+	if (nServiceType == IDD_RCP_DLG)
+		return pDlg->Create(IDD_RCP_DLG, this);
+	else
+		return ((CRcpInsungDlg*)pDlg)->Create(IDD_RCP_INSUNG_DLG, this);
+}
+
 void CRcpViewBase::AddMapForm(BOOL bActive)
 {
-	if(!m_pMapForm)
-		m_pMapForm = (CRcpPageMapForm*)LU->AddView(this, &m_wndTabControl, 
+	if(!LU->GetRcpDlgAdmin()->m_pMapForm)
+		LU->GetRcpDlgAdmin()->m_pMapForm = (CRcpPageMapForm*)LU->AddView(this, &m_wndTabControl,
 					RUNTIME_CLASS(CRcpPageMapForm), _T("지도"), 0, 
 					CRcpPageMapForm::IDD, 1, bActive);
 }
@@ -753,46 +539,5 @@ void CRcpViewBase::OnShowFieldChooser()
 
 	BOOL bShow = !LU->GetFieldChooser()->IsVisible();
 	((CFrameWnd*)AfxGetMainWnd())->ShowControlBar(LU->GetFieldChooser(), bShow, FALSE);
-}
-
-void CRcpViewBase::MoveNewRcpDlg(CRcpDlg *pRcpDlg, BOOL bForceMoce)
-{
-	CRect rcDlg, rcSrcDlg;
-
-	if(GetRcpDlgCount(pRcpDlg->m_pBi->nServiceType) > 0 && bForceMoce == FALSE)
-	{
-		RCP_DLG_MAP::reverse_iterator it = m_mapRcpDlg.rbegin();
-		it->first->GetWindowRect(rcSrcDlg);
-		rcSrcDlg.OffsetRect(-25, 20);
-
-		pRcpDlg->GetWindowRect(rcDlg);
-		rcDlg.OffsetRect(rcSrcDlg.left - rcDlg.left, rcSrcDlg.top - rcDlg.top);
-
-	}
-	else
-	{		
-		CRect rcView;
-		GetWindowRect(rcView);
-		pRcpDlg->GetWindowRect(rcDlg);
-		pRcpDlg->ScreenToClient(rcDlg);
-		rcDlg.OffsetRect(rcView.right - rcDlg.Width() - 40, rcView.top + 40);
-		pRcpDlg->MoveWindow(rcDlg);
-	}
-
-	pRcpDlg->MoveWindow(rcDlg);
-}
-
-UINT CRcpViewBase::GetServiceResoure(long nServiceType)
-{	
-	if(nServiceType == 1)
-		return IDD_RCP_DLG;
-	else 
-		return IDD_RCP_INSUNG_DLG;
-	/*
-	if(nServiceType == SERVICE_TYPE_CARGO)
-		return IDD_RCP_CARGO_DLG;
-	else 
-		return IDD_RCP_DLG;
-		*/
 }
 

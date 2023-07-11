@@ -67,6 +67,7 @@
 #include "AddRiderShareInfoDlg.h"
 #include "CustomMyAfxMessgagebox.h"
 #include "IPass.h"
+#include "RcpDlgAdmin.h"
 
 #define ID_MENU_ITEM_SELECT 100
 #define ID_MENU_ITEM_EDIT 200
@@ -2468,7 +2469,7 @@ BOOL CRcpDlg::PreTranslateMessage(MSG* pMsg)
 
 	if(pMsg->message == WM_LBUTTONDOWN)
 	{
-		m_pRcpView->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
+		LU->GetRcpDlgAdmin()->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
 		HideSubHistoryDlgExeMe();
 
 		if(pMsg->hwnd == m_stcRiderInfo.GetSafeHwnd() || pMsg->hwnd == m_stcRiderCompany.GetSafeHwnd())
@@ -2515,7 +2516,7 @@ BOOL CRcpDlg::PreTranslateMessage(MSG* pMsg)
 	}
 	else if(pMsg->message == WM_KEYUP)
 	{ 
-		m_pRcpView->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
+		LU->GetRcpDlgAdmin()->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
 		return OnPretransMessageWM_KEYUP(pMsg);
 	}
 	else if(pMsg->message == WM_KEYDOWN)
@@ -2526,7 +2527,7 @@ BOOL CRcpDlg::PreTranslateMessage(MSG* pMsg)
 			return TRUE;
 		}
 
-		m_pRcpView->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
+		LU->GetRcpDlgAdmin()->SetFocusControl(this, CWnd::FromHandle(pMsg->hwnd));
 		if(pMsg->wParam == VK_RETURN)		
 		{		
 
@@ -3610,7 +3611,7 @@ long CRcpDlg::AddNewOrder(BOOL bWait, BOOL bSMS, BOOL bAfterCopy, long nConsignL
 
 				long nInsertID = -1;
 				if(LU->GetRcpView())
-					nInsertID = LU->GetRcpView()->m_pCTIForm->GetRecordFileNameInsertID(m_strCID);
+					nInsertID = LU->GetRcpDlgAdmin()->m_pCTIForm->GetRecordFileNameInsertID(m_strCID);
 
 				cmd.AddParameter(m_pBi->nDOrderTable);
 				CString strTemp = m_strCID;
@@ -3745,8 +3746,8 @@ void CRcpDlg::OnCancel()
 
 	if(m_strCID.GetLength() >  0)
 	{
-		LU->GetRcpView()->m_pCTIForm->RemoveRecordFileNameInsertID(m_strCID);
-		LU->GetRcpView()->m_pCTIForm->QueueRecvModeSecond();
+		LU->GetRcpDlgAdmin()->m_pCTIForm->RemoveRecordFileNameInsertID(m_strCID);
+		LU->GetRcpDlgAdmin()->m_pCTIForm->QueueRecvModeSecond();
 	}
 
 	if(m_pHistoryDlg)
@@ -3754,7 +3755,7 @@ void CRcpDlg::OnCancel()
 	if(m_pCreditHistoryDlg)
 		m_pCreditHistoryDlg->DeleteAllItems();
 
-	m_pRcpView->PostMessage(WM_CLOSE_RCPDLG, (WPARAM)this);
+	LU->GetRcpDlgAdmin()->CloseRcpDlg(this);
 }
 
 void CRcpDlg::UserCNSClose()
@@ -8006,7 +8007,7 @@ void CRcpDlg::OnRecvEditOrderState(long nTNo, long nTickCount, long nState, CStr
 			strWName, nTickCount);
 		if(IDYES == MessageBox(strMsg, "수정상태확인", MB_ICONQUESTION | MB_YESNO))
 		{
-			CRcpDlg *pDlg = m_pRcpView->CreateRcpDlg(NULL, 
+			CRcpDlg *pDlg = LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 				"수정상태확인",
 				m_nInitItem, 
 				m_nState, "", FALSE, -1, 0, 0, FALSE, m_strYear);
@@ -8326,8 +8327,8 @@ void CRcpDlg::ShowSearchPOIDlg(CString strKeyword, CRcpPlaceInfo *pPlace, BOOL b
 
 		m_pSearchPOIDlg->SetSearchSido(m_poiNew.GetSearchSido()->GetSido());
 
-		if(m_pRcpView->m_pMapForm && m_pRcpView->m_pMapForm->m_setinfo.nRcpDlgMoveMap)
-			m_pSearchPOIDlg->SetLogiMap(&m_pRcpView->m_pMapForm->m_wndOrderMap);
+		if(LU->GetRcpDlgAdmin()->m_pMapForm && LU->GetRcpDlgAdmin()->m_pMapForm->m_setinfo.nRcpDlgMoveMap)
+			m_pSearchPOIDlg->SetLogiMap(&LU->GetRcpDlgAdmin()->m_pMapForm->m_wndOrderMap);
 
 		//		m_poiNew.SetSearchSido(new CPOIBoundary(&m_poiNew, TRUE, "서울", "인천", "경기"));
 		//		if(!m_poiNew.SetCenterSido("서울"))
@@ -9456,9 +9457,9 @@ void CRcpDlg::OnMenuContextCID(UINT nID)
 		CString szDenialDuration;
 		szDenialDuration.Format("%d",dlg.m_nDuration*24*60);
 
-		if(m_pRcpView->m_pCTIForm->m_bConnected)
+		if(LU->GetRcpDlgAdmin()->m_pCTIForm->m_bConnected)
 		{
-			m_pRcpView->m_pCTIForm->m_call.DenialAnswer(dlg.m_sTelNumber, atol(szDenialDuration), dlg.m_sName, dlg.m_sDesc);
+			LU->GetRcpDlgAdmin()->m_pCTIForm->m_call.DenialAnswer(dlg.m_sTelNumber, atol(szDenialDuration), dlg.m_sName, dlg.m_sDesc);
 			MessageBox("진상고객 전화거부 등록하였습니다.", 
 				"진상고객 전화거부 등록(CTI)", 
 				MB_ICONINFORMATION);
@@ -11627,7 +11628,7 @@ void CRcpDlg::HideSubHistoryDlgExeMe()
 	if(LU->GetRcpView()->m_pLastSelRcpDlg != this)
 	{
 		RCP_DLG_MAP::iterator it;
-		RCP_DLG_MAP *pMap = LU->GetRcpView()->GetRcpDlgMap();
+		RCP_DLG_MAP *pMap = LU->GetRcpDlgAdmin()->GetRcpDlgMap();
 		if (!pMap)
 			return;
 
@@ -11758,7 +11759,7 @@ void CRcpDlg::OnBnClickedNewRcpDlgBtn()
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 	//최상위가 카고이면, 퀵메인을 넣어준다. 항상 퀵메인 접수창이 떠야한다.
-	LU->GetRcpView()->CreateRcpDlg(m_ci.IsCargoMain() ? m_ci.m_pQuickMainBranch : NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount());
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(m_ci.IsCargoMain() ? m_ci.m_pQuickMainBranch : NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount());
 }
 
 void CRcpDlg::OnBnClickedProPerBtn()

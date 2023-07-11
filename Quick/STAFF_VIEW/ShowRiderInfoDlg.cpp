@@ -19,6 +19,7 @@
 #include "TRSRiderDlg.h"
 #include "ChargeForRiderDlg.h"
 #include "RiderAdviceDlg2010.h"
+#include "RcpDlgAdmin.h"
 
 // CShowRiderInfoDlg 대화 상자입니다.
 
@@ -928,7 +929,7 @@ void CShowRiderInfoDlg::SendMsgCTIForm(CString strPhoneNumber)
 {
 	if(LU->GetRcpView())
 	{
-		CRcpPageCTIForm *pForm = LU->GetRcpView()->m_pCTIForm;
+		CRcpPageCTIForm *pForm = LU->GetRcpDlgAdmin()->m_pCTIForm;
 
 		if(pForm)
 		{
@@ -1014,17 +1015,17 @@ void CShowRiderInfoDlg::OnBnClickedChargeForBtn()
 
 void CShowRiderInfoDlg::OnBnClickedRideridAcceptBtn()
 {
-	LU->GetRcpView()->CreateRcpDlg(NULL, "신규", -1, 0, m_strDeviceID, FALSE, -10, GetTickCount());
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL, "신규", -1, 0, m_strDeviceID, FALSE, -10, GetTickCount());
 }
 
 void CShowRiderInfoDlg::OnBnClickedRiderphoneAcceptBtn()
 {
-	LU->GetRcpView()->CreateRcpDlg(NULL, "신규", -1, 0, m_strPhone, FALSE, -10, GetTickCount());
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL, "신규", -1, 0, m_strPhone, FALSE, -10, GetTickCount());
 }
 
 void CShowRiderInfoDlg::OnBnClickedCallAcceptBtn()
 {
-	LU->GetRcpView()->CreateRcpDlg(NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount());
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount());
 }
 
 void CShowRiderInfoDlg::OnStnClickedDrawStatic()

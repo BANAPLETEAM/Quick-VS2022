@@ -7,6 +7,7 @@
 #include "OrderLogDetailDlg.h"
 #include "RcpView.h"
 #include "TransferRiderDlg.h"
+#include "RcpDlgAdmin.h"
 // CStatForm6
 
 IMPLEMENT_DYNCREATE(CStatForm6, CMyFormView)
@@ -326,9 +327,9 @@ void CStatForm6::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*result*
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	if(LU->m_pRcpView)
+	if(LU->GetRcpDlgAdmin())
 	{
-		LU->m_pRcpView->CreateRcpDlg(NULL, 
+		LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 			sCName,
 			nTNo, 
 			nState, "", FALSE, -1, 0, 0, FALSE, "");

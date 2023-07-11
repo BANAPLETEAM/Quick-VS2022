@@ -10,6 +10,7 @@
 #include "StatForm6.h"
 #include "OrderLogDetailDlg.h"
 #include "RcpView.h"
+#include "RcpDlgAdmin.h"
 
 // CReportForm10
 
@@ -792,7 +793,7 @@ void CReportForm10::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resu
 		return;
 	}
 
-	LU->GetRcpView()->CreateRcpDlg(NULL, 
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 		strCName,
 		atoi(strTNo), 
 		nState, "", FALSE, -1, 0, 0, FALSE, "");

@@ -6,6 +6,7 @@
 #include "ReportForm26.h"
 #include "Graph.h"
 #include "RcpView.h"
+#include "RcpDlgAdmin.h"
 
 // CReportForm26
 
@@ -377,7 +378,7 @@ void CReportForm26::OnReportItemRightDblClick(NMHDR * pNotifyStruct, LRESULT * /
 		return;
 	}
 
-	LU->GetRcpView()->CreateRcpDlg(pBranch, 
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(pBranch,
 		sOName,
 		nTNo, 
 		nState, "", FALSE, MINUS_ONE, ZERO, ZERO, FALSE, "");

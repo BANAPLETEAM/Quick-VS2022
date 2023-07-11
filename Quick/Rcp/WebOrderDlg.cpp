@@ -5,7 +5,7 @@
 #include "resource.h"
 #include "WebOrderDlg.h"
 #include "RcpView.h"
-
+#include "RcpDlgAdmin.h"
 
 
 // CWebOrderDlg 대화 상자입니다.
@@ -217,7 +217,7 @@ void CWebOrderDlg::OnBnClickedReceiptBtn()
 	CString strPhone = pRecord->GetItem(4)->GetCaption(NULL);
 	strPhone.Replace("-","");
 
-	LU->GetRcpView()->CreateRcpDlg(pBi,strPhone,
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(pBi,strPhone,
 		-1,0, strPhone, FALSE, nLineGroup,0, m_List.GetItemLong(pRecord));
 }
 

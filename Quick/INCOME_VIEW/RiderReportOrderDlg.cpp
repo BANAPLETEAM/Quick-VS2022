@@ -5,6 +5,7 @@
 #include "resource.h"
 #include "RiderReportOrderDlg.h"
 #include "RcpView.h"
+#include "RcpDlgAdmin.h"
 
 // CRiderReportOrderDlg 대화 상자입니다.
 
@@ -47,7 +48,7 @@ void CRiderReportOrderDlg::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT *
 	}
 	
 	
-	LU->GetRcpView()->CreateRcpDlg(NULL, 
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 		sOName,
 		nTNo, 
 		nState);

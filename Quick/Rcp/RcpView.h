@@ -189,6 +189,8 @@ public:
 	MAP_RIDER m_RiderMap;
 
 	CRcpDlg *m_pLastSelRcpDlg;
+	CImageList m_listIcons;
+
 
 	void RemoveSearch(BOOL bSearchFilter);
 	void RefreshStateSecondSort();

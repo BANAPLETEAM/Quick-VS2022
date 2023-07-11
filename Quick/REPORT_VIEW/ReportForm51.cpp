@@ -10,6 +10,7 @@
 #include "MakeGroupReportNewDlg.h"
 #include "AfterReportDlg.h"
 #include "UnBillDlg.h"
+#include "RcpDlgAdmin.h"
 // CReportForm51
 
 IMPLEMENT_DYNCREATE(CReportForm51, CMyFormView)
@@ -465,7 +466,7 @@ void CReportForm51::OnOrderReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	LU->GetRcpView()->CreateRcpDlg(pBranchInfo, 
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(pBranchInfo,
 		strCName,
 		nTNo, 
 		nState, "", FALSE, -1, 0, 0, FALSE, "");

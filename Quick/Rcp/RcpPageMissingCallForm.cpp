@@ -3,6 +3,7 @@
 #include "RcpPageMissingCallForm.h"
 #include "RcpView.h"
 #include "RcpPageCTIForm.h"
+#include "RcpDlgAdmin.h"
 
 IMPLEMENT_DYNCREATE(CRcpPageMissingCallForm, CMyFormView)
 
@@ -164,7 +165,7 @@ void CRcpPageMissingCallForm::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESUL
 	if(nRow >= 0)
 	{
 		CXTPGridRecord *pRecord = m_List.GetRows()->GetAt(nRow)->GetRecord();
-		LU->GetRcpView()->m_pCTIForm->PopupRcpDlg(pRecord->GetItem(4)->GetCaption(NULL), pRecord->GetItem(3)->GetCaption(NULL), m_List.GetItemDataText(pRecord));
+		LU->GetRcpDlgAdmin()->m_pCTIForm->PopupRcpDlg(pRecord->GetItem(4)->GetCaption(NULL), pRecord->GetItem(3)->GetCaption(NULL), m_List.GetItemDataText(pRecord));
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "TelserverDIDRouteDlg.h"
 #include "RcpView.h"
 #include "RcpPageCTIForm.h"
+#include "RcpDlgAdmin.h"
 
 IMPLEMENT_DYNCREATE(CStatTelserverRouteLog, CMyFormView)
 
@@ -194,7 +195,7 @@ void CStatTelserverRouteLog::OnBnClickedDIDRoute()
 		MessageBox("접수창 이동후 텔서버에 접속시켜주세요.", "확인", MB_ICONINFORMATION);
 		return;
 	}
-	else if(!(LU->m_pRcpView->m_pCTIForm))
+	else if(!(LU->GetRcpDlgAdmin()->m_pCTIForm))
 	{
 		MessageBox("접수창 이동후 텔서버에 접속시켜주세요.", "확인", MB_ICONINFORMATION);
 		return;

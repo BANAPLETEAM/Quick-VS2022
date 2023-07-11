@@ -8,6 +8,7 @@
 #include "RcpDlg.h"
 #include "ScheduleOrderDlg.h"
 #include "MainFrm.h"
+#include "RcpDlgAdmin.h"
 
 // CScheduleOrderListDlg 대화 상자입니다.
 
@@ -217,7 +218,7 @@ void CScheduleOrderListDlg::OnBnClickedAddBtn()
 	CBranchInfo *pBranchInfo =LF->GetCurBranchInfo();
 	if(pBranchInfo)
 	{
-		LU->GetRcpView()->CreateRcpDlg(NULL, "정기오더 등록", -1, 0, "", FALSE, -10,GetTickCount(), 0, TRUE);
+		LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL, "정기오더 등록", -1, 0, "", FALSE, -10,GetTickCount(), 0, TRUE);
 		RefreshList();
 	}
 }
@@ -240,7 +241,7 @@ void CScheduleOrderListDlg::OnBnClickedEditOrderBtn()
 				return;
 			}
 
-			LU->GetRcpView()->CreateRcpDlg(pBranchInfo, "정기오더 수정", m_List.GetItemData(nItem), 10, 
+			LU->GetRcpDlgAdmin()->CreateRcpDlg(pBranchInfo, "정기오더 수정", m_List.GetItemData(nItem), 10,
 				"", FALSE, -10,0, 0, TRUE);
 			RefreshList();
 

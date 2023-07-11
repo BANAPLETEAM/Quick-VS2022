@@ -2215,6 +2215,9 @@
     <ClCompile Include="CONTROL\explorer.cpp">
       <Filter>CONTROL</Filter>
     </ClCompile>
+    <ClCompile Include="COMMON\RcpDlgAdmin.cpp">
+      <Filter>COMMON</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph\Graph.h">
@@ -4858,6 +4861,9 @@
     </ClInclude>
     <ClInclude Include="CONTROL\explorer.h">
       <Filter>CONTROL</Filter>
+    </ClInclude>
+    <ClInclude Include="COMMON\RcpDlgAdmin.h">
+      <Filter>COMMON</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

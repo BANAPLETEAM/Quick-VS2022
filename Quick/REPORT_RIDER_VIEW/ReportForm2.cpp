@@ -5,6 +5,7 @@
 #include "resource.h"
 #include "ReportForm2.h"
 #include "RcpView.h"
+#include "RcpDlgAdmin.h"
 
 // CReportForm2 대화 상자입니다.
 
@@ -1297,7 +1298,7 @@ void CReportForm2::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resul
 	}
 
 
-	LU->GetRcpView()->CreateRcpDlg(pBranch, 
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(pBranch,
 		sOName,
 		nTNo, 
 		nState, "", FALSE, MINUS_ONE, ZERO, ZERO, FALSE, "");

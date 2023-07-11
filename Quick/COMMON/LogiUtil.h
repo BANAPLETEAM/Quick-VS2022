@@ -304,4 +304,8 @@ public:
 	CLogiMapCns *m_pLogiMapCns;
 	CRiderSubInfoMap m_mapRiderSub;
 	CFunctionTableDlg * m_pFunctionTableDlg;		
+
+	class CRcpDlgAdmin* m_pRcpDlgAdmin = nullptr;
+	CRcpDlgAdmin* GetRcpDlgAdmin() { return m_pRcpDlgAdmin; }
+
 };

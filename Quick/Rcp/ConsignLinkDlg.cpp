@@ -11,6 +11,7 @@
 #include "RcpDlg.h"
 #include "RcpView.h"
 #include "Charge.h"
+#include "RcpDlgAdmin.h"
 #define TEMP_PLACE	0x1000
 // CConsignLinkDlg 대화 상자입니다.
 #define  CONSIGN_TYPE_START 100
@@ -246,7 +247,7 @@ void CConsignLinkDlg::NewRefreshOrder()
 	m_btnConsignCancle.EnableWindow(FALSE);
 
 	CBranchInfo *pConsignBi = LU->GetConsignMakeBranchInfo(m_sDestSido);
-	m_pRcpDlgWndBack  = LU->GetRcpView()->CreateRcpDlg(pConsignBi, "탁송후오더", -1);
+	m_pRcpDlgWndBack  = LU->GetRcpDlgAdmin()->CreateRcpDlg(pConsignBi, "탁송후오더", -1);
 	if(m_pRcpDlgWndBack)
 	{
 		m_pRcpDlgWndBack->m_pOrder->SearchCustomerCNo(nDestCompanyCNo,TRUE, TRUE, nDestCompanyCNoTelID);
@@ -287,7 +288,7 @@ void CConsignLinkDlg::RcpViewShow()
 	if(m_pRcpDlgWndFront == NULL)
 	{
 		CBranchInfo *pConsignFrontBi = LF->GetBranchInfo(m_nCompany);
-		m_pRcpDlgWndFront  = LU->GetRcpView()->CreateRcpDlg(pConsignFrontBi, "", m_nOrderTNo,FALSE, "", FALSE, -1, 0, 0, 0,"",0,0,TRUE);
+		m_pRcpDlgWndFront  = LU->GetRcpDlgAdmin()->CreateRcpDlg(pConsignFrontBi, "", m_nOrderTNo,FALSE, "", FALSE, -1, 0, 0, 0,"",0,0,TRUE);
 		m_pRcpDlgWndFront->ShowWindow(SW_HIDE);
 	}
 	m_btnConsignLink.SetWindowText("연 계 수 정");
@@ -307,7 +308,7 @@ void CConsignLinkDlg::RcpViewShow()
 	RefreshCharge();
 
 	CBranchInfo *pConsignBi = LU->GetConsignMakeBranchInfo("부산");
-	m_pRcpDlgWndBack  = LU->GetRcpView()->CreateRcpDlg(pConsignBi, "탁송후오더", m_nConsignTNo,FALSE, "", FALSE, -1, 0, 0, 0,"",0,0,TRUE);
+	m_pRcpDlgWndBack  = LU->GetRcpDlgAdmin()->CreateRcpDlg(pConsignBi, "탁송후오더", m_nConsignTNo,FALSE, "", FALSE, -1, 0, 0, 0,"",0,0,TRUE);
 
 	if(m_pRcpDlgWndBack)
 	{	
@@ -379,7 +380,7 @@ void CConsignLinkDlg::EditRefreshOrder()
 	RefreshCharge();
 
 	CBranchInfo *pConsignBi = LU->GetConsignMakeBranchInfo("부산");
-	m_pRcpDlgWndBack  = LU->GetRcpView()->CreateRcpDlg(pConsignBi, "탁송후오더", m_nConsignTNo,FALSE, "", FALSE, -1, 0, 0, 0,"",0,0,TRUE);
+	m_pRcpDlgWndBack  = LU->GetRcpDlgAdmin()->CreateRcpDlg(pConsignBi, "탁송후오더", m_nConsignTNo,FALSE, "", FALSE, -1, 0, 0, 0,"",0,0,TRUE);
 		  
 	if(m_pRcpDlgWndBack)
 	{		

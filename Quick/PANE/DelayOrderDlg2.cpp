@@ -8,6 +8,7 @@
 #include "EmptyCarDlg1.h"
 #include "AllocateDlg.h"
 #include "RcpMultiStateChange.h"
+#include "RcpDlgAdmin.h"
 
 // CDelayOrderDlg2
 IMPLEMENT_DYNCREATE(CDelayOrderDlg2, CMyFormView)
@@ -229,7 +230,7 @@ void CDelayOrderDlg2::OnAllocateReportItemDbClick(UINT nFlag, NMHDR * pNotifyStr
 	//아이템 번호를 넣어주면 수정모드로 시작한다.
 	//(상태를 넘기는 이유는 상태변경된걸 알려주기 위해서다.)
 
-	LU->GetRcpView()->CreateRcpDlg(NULL, 
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 		order->strOName, 
 		order->nTNo, 
 		order->nState);
@@ -258,7 +259,7 @@ void CDelayOrderDlg2::OnPickupReportItemDbClick(UINT nFlag, NMHDR * pNotifyStruc
 
 	//아이템 번호를 넣어주면 수정모드로 시작한다.
 	//(상태를 넘기는 이유는 상태변경된걸 알려주기 위해서다.)
-	LU->GetRcpView()->CreateRcpDlg(NULL, 
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 		order->strOName,
 		order->nTNo, 
 		order->nState);
@@ -286,7 +287,7 @@ void CDelayOrderDlg2::OnRcpReportItemDbClick(UINT nFlag, NMHDR * pNotifyStruct, 
 
 	//아이템 번호를 넣어주면 수정모드로 시작한다.
 	//(상태를 넘기는 이유는 상태변경된걸 알려주기 위해서다.)
-	LU->GetRcpView()->CreateRcpDlg(NULL, 
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 		order->strOName,
 		order->nTNo, 
 		order->nState);

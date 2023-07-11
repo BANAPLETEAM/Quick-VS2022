@@ -58,6 +58,8 @@
 #include "JinsangTelRegDlg.h"
 #include "JusoGoKr.h"
 
+#include "RcpDlgAdmin.h"
+
 #include <iterator>
 
 #define CALL_TO_RIDER 30
@@ -200,10 +202,6 @@ CRcpView::CRcpView()
 	m_pWebOrderDlg = NULL;
 
 	m_bBigUnderForm = 0;
-	m_pInfoForm = NULL;
-	m_pCTIForm = NULL;
-	m_pMapForm = NULL;
-	m_pMemoForm = NULL;
 	m_sYear = "";
 	m_bShareOrderRefresh = FALSE;
 	m_bMoveControl = FALSE;
@@ -671,9 +669,9 @@ void CRcpView::InitControl()
 	m_btnStateCancel.SetWindowText("취소");
 	m_btnStateEtc.SetWindowText("문의/공지");
 
-	m_vrOrder->SetCompanyCode(m_pBi->nCompanyCode);
-	m_vrOrder->SetDOrderCompany(m_pBi->nDOrderTable);
-	m_vrOrder->SetIntegrated(m_pBi->bIntegrated);
+	m_vrOrder->SetCompanyCode(LF->GetCurBranchInfo()->nCompanyCode);
+	m_vrOrder->SetDOrderCompany(LF->GetCurBranchInfo()->nDOrderTable);
+	m_vrOrder->SetIntegrated(LF->GetCurBranchInfo()->bIntegrated);
 	m_vrOrder->SetRcpTimeCol(99);
 	m_vrOrder->SetStartCol(99);
 	m_vrOrder->SetUseCountCol(99);
@@ -928,14 +926,14 @@ LONG CRcpView::OnRecvCid(WPARAM wParam, LPARAM lParam)
 		{
 			pCIDInfo->strPhone = LF->GetDashPhoneNumber(pCIDInfo->strPhone);
 
-			CreateRcpDlg(m_ba.GetCount() > 1 ? pBi : NULL, 
+			LU->GetRcpDlgAdmin()->CreateRcpDlg(m_ba.GetCount() > 1 ? pBi : NULL, 
 				pCIDInfo->strPhone, -1, 0, pCIDInfo->strPhone, FALSE, pCIDInfo->nLineID, pCIDInfo->dwTick,0,FALSE,"",nOperatorID);
 		}
 	}
 	else
 	{
 		if(m_bCreateRcpDlg) {
-			CreateRcpDlg(m_ba.GetCount() > 1 ? m_ba.GetAt(nGroupID) : NULL, 
+			LU->GetRcpDlgAdmin()->CreateRcpDlg(m_ba.GetCount() > 1 ? m_ba.GetAt(nGroupID) : NULL,
 				"번호없음", -1, 0, "", FALSE, pCIDInfo->nLineID, pCIDInfo->dwTick);
 		}
 	}
@@ -956,7 +954,7 @@ LONG CRcpView::OnReserveOrder(WPARAM wParam, LPARAM lParam)
 	//아이템 번호를 넣어주면 수정모드로 시작한다.
 	//(상태를 넘기는 이유는 상태변경된걸 알려주기 위해서다.)
 	CBranchInfo *pBi = LF->GetBranchInfo(GetItemCompany(m_vrOrder->GetItemRowFromTNo(m_nLastSelItemNo)));
-	CreateRcpDlg(pBi, *pstrName, m_nLastSelItemNo, STATE_INTERNET);	
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(pBi, *pstrName, m_nLastSelItemNo, STATE_INTERNET);
 
 	delete pstrName;
 	return 0;
@@ -1878,8 +1876,8 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		(*it).second.nRiderCompany = nRiderCompany;
 		(*it).second.dtRcp = dt1;
 
-		(*it).second.nShareLevel = (nCompany == m_pBi->nCompanyCode || 
-			nShareCode1 == m_pBi->nShareCode1) ? 1 : 2;
+		(*it).second.nShareLevel = (nCompany == LF->GetCurBranchInfo()->nCompanyCode || 
+			nShareCode1 == LF->GetCurBranchInfo()->nShareCode1) ? 1 : 2;
 
 		(*it).second.bCross = GetSecondCrossState(nCompany);
 
@@ -1993,7 +1991,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 		if(strRecvCID.GetLength() > 0)
 		{
 			if(pBI == NULL)
-				pBI = m_pBi;
+				pBI = LF->GetCurBranchInfo();
 			nOperatorID = GetRiderAndInsertOperatorLog(pBI->nCompanyCode, strRecvCID, nRCompany, nRNo);
 		}
 
@@ -2011,7 +2009,7 @@ long CRcpView::RefreshList(CString strRecvCID, CString strCallBranch, CBranchInf
 			m_bCreateRcpDlg = FALSE; 
 
 			if (strRecvCID.GetLength() > 0)
-				m_pCTIForm->QueueWorkingMode();
+				LU->GetRcpDlgAdmin()->m_pCTIForm->QueueWorkingMode();
 		}
 		else if(strRecvCID.GetLength() > 0) //고객전화
 		{
@@ -2289,7 +2287,7 @@ void CRcpView::ShowCustomerInfoInList(BOOL bUseFilter, CString strRecvCID)
 {
 	m_xList.m_bConfirmCall = bUseFilter;
 	m_xList.m_strRecvCID = strRecvCID;
-	m_xList.m_strCurBranch = m_pBi->strBranchName; //#### + "/" + m_pBi->strPhone;
+	m_xList.m_strCurBranch = LF->GetCurBranchInfo()->strBranchName; //#### + "/" + LF->GetCurBranchInfo()->strPhone;
 	m_xList.ShowCustomerInfo(TRUE);
 }	
 
@@ -2750,10 +2748,10 @@ long CRcpView::CheckFilter(BOOL *bUseFilter, OrderRecordList &order, OrderIndex 
 			}
 		}
 
-		if(!m_bShareOrderRefresh && !m_pBi->bIntegrated)
+		if(!m_bShareOrderRefresh && !LF->GetCurBranchInfo()->bIntegrated)
 		{
-			if(m_pBi->nCompanyCode != itOrder->second.nCompany &&
-				m_pBi->nCompanyCode != itOrder->second.nRiderCompany)
+			if(LF->GetCurBranchInfo()->nCompanyCode != itOrder->second.nCompany &&
+				LF->GetCurBranchInfo()->nCompanyCode != itOrder->second.nRiderCompany)
 			{
 				bFilter = TRUE;
 				continue;
@@ -2898,7 +2896,7 @@ long CRcpView::CheckFilterPredateDedicated(BOOL *bUseFilter, OrderRecordList &or
 	BOOL bDestValidRegion = CRegionSelectDlg::IsValidRegionArray(m_nSelectedRegionDestDongID);
 
 
-	if(!(m_pBi->bUseNewRegion && 
+	if(!(LF->GetCurBranchInfo()->bUseNewRegion && 
 	(CRegionSelectDlg::IsValidRegionArray(m_nSelectedRegionStartDongID) ||
 	CRegionSelectDlg::IsValidRegionArray(m_nSelectedRegionDestDongID))))
 	{
@@ -2911,7 +2909,7 @@ long CRcpView::CheckFilterPredateDedicated(BOOL *bUseFilter, OrderRecordList &or
 	{	
 		BOOL bFilter = FALSE;
 
-		if(m_pBi->bUseNewRegion && (bStartValidRegion || bDestValidRegion))
+		if(LF->GetCurBranchInfo()->bUseNewRegion && (bStartValidRegion || bDestValidRegion))
 		{
 			int nStartDongID = order[(*it).second].nStartRealDongID;
 			int nDestDongID = order[(*it).second].nDestRealDongID;
@@ -3084,7 +3082,7 @@ void CRcpView::OnBnClickedNewBtn()
 		return;
 
 	//최상위가 카고이면, 퀵메인을 넣어준다. 항상 퀵메인 접수창이 떠야한다.
-	CreateRcpDlg(m_ci.IsCargoMain() ? m_ci.m_pQuickMainBranch : NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount());
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(m_ci.IsCargoMain() ? m_ci.m_pQuickMainBranch : NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount());
 }
 
 void CRcpView::OnBnClickedCargoNewBtn()
@@ -3093,7 +3091,7 @@ void CRcpView::OnBnClickedCargoNewBtn()
 		return;
 
 	//항상 카고메인 접수창이 떠야한다.
-	CreateRcpDlg(m_ci.m_pCargoMainBranch, "신규", -1, 0, "", FALSE, -10, GetTickCount());
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(m_ci.m_pCargoMainBranch, "신규", -1, 0, "", FALSE, -10, GetTickCount());
 }
 
 void CRcpView::OnBnClickedCancelOBtn()
@@ -3282,30 +3280,30 @@ void CRcpView::MakeContextMenuUpCharge(long nState, BCMenu *pRMenu)
 {
 	if(nState == STATE_OK || nState == STATE_OK_ONLY_MAN)
 	{ 
-		if(m_pBi->nUseUpChargeForNotAllocate == 1)
+		if(LF->GetCurBranchInfo()->nUseUpChargeForNotAllocate == 1)
 		{ 
 			CString strTemp; 
 			long nItem = pRMenu->GetMenuItemCount(); 
 
-			if(m_pBi->nUpChargeForNotAllocate1 > 0 ||
-				m_pBi->nUpChargeForNotAllocate2 > 0 ||
-				m_pBi->nUpChargeForNotAllocate3 > 0)
+			if(LF->GetCurBranchInfo()->nUpChargeForNotAllocate1 > 0 ||
+				LF->GetCurBranchInfo()->nUpChargeForNotAllocate2 > 0 ||
+				LF->GetCurBranchInfo()->nUpChargeForNotAllocate3 > 0)
 			{
 				pRMenu->InsertMenu(nItem++, MF_BYPOSITION|MF_SEPARATOR,  (UINT)-1, LPCTSTR(NULL));
 
-				if(m_pBi->nUpChargeForNotAllocate1 > 0)
+				if(LF->GetCurBranchInfo()->nUpChargeForNotAllocate1 > 0)
 				{
-					strTemp.Format("요금 %d원 추가함", m_pBi->nUpChargeForNotAllocate1);
+					strTemp.Format("요금 %d원 추가함", LF->GetCurBranchInfo()->nUpChargeForNotAllocate1);
 					pRMenu->InsertMenu(nItem++, MF_BYPOSITION | MF_BYCOMMAND, ID_USE_UP_CHARGE1, strTemp);
 				}				
-				if(m_pBi->nUpChargeForNotAllocate2 > 0)
+				if(LF->GetCurBranchInfo()->nUpChargeForNotAllocate2 > 0)
 				{
-					strTemp.Format("요금 %d원 추가함", m_pBi->nUpChargeForNotAllocate2);
+					strTemp.Format("요금 %d원 추가함", LF->GetCurBranchInfo()->nUpChargeForNotAllocate2);
 					pRMenu->InsertMenu(nItem++, MF_BYPOSITION | MF_BYCOMMAND, ID_USE_UP_CHARGE2, strTemp);
 				}				
-				if(m_pBi->nUpChargeForNotAllocate3 > 0)
+				if(LF->GetCurBranchInfo()->nUpChargeForNotAllocate3 > 0)
 				{
-					strTemp.Format("요금 %d원 추가함", m_pBi->nUpChargeForNotAllocate3);
+					strTemp.Format("요금 %d원 추가함", LF->GetCurBranchInfo()->nUpChargeForNotAllocate3);
 					pRMenu->InsertMenu(nItem++, MF_BYPOSITION | MF_BYCOMMAND, ID_USE_UP_CHARGE3, strTemp);
 				}
 
@@ -3622,7 +3620,7 @@ void CRcpView::EditOrder(BOOL bAdd)
 		strName += CString(" ") + GetItemPhone(nItem);
 
 	m_nLastSelItemNo = GetItemTNo(nItem);
-	pDlg = CreateRcpDlg(LF->GetBranchInfo(GetItemCompany(nItem)),
+	pDlg = LU->GetRcpDlgAdmin()->CreateRcpDlg(LF->GetBranchInfo(GetItemCompany(nItem)),
 		strName,
 		m_nLastSelItemNo, 
 		GetItemState(nItem), "", bAdd, -1, 0, 0, FALSE, IsTodaySearch() ? "" : m_sYear);
@@ -4006,14 +4004,14 @@ BOOL CRcpView::PreTranslateMessage(MSG* pMsg)
 void CRcpView::SimpleSearch()
 {
 	CSimpleSearchDlg dlg;
-	dlg.m_nCompany = m_pBi->nDOrderTable;
-	dlg.m_bIntegrated = m_pBi->bIntegrated;	
+	dlg.m_nCompany = LF->GetCurBranchInfo()->nDOrderTable;
+	dlg.m_bIntegrated = LF->GetCurBranchInfo()->bIntegrated;	
 	if(dlg.DoModal() == IDOK)
 	{
 		if(dlg.m_nTNo == -1) return;
 		if(dlg.m_nState == -1) return;
 		if(dlg.m_sCName == "") return;
-		CreateRcpDlg(NULL, dlg.m_sCName,dlg.m_nTNo,dlg.m_nState);		
+		LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL, dlg.m_sCName,dlg.m_nTNo,dlg.m_nState);
 
 	}
 
@@ -4436,7 +4434,7 @@ void CRcpView::OnViewExcel()
 		}
 	}
 
-	LF->AddSecurityLog(m_pBi->nDOrderTable, 101, m_ui.nWNo, rows);  
+	LF->AddSecurityLog(LF->GetCurBranchInfo()->nDOrderTable, 101, m_ui.nWNo, rows);  
 	CMyExcel::ToExcel(sa, cols, rows);
 }
 
@@ -4699,7 +4697,7 @@ void CRcpView::OnTimer(UINT nIDEvent)
 
 		if(FALSE == lock.IsLocked() && 
 			!m_bRefreshWithCID &&  
-			!IsRcpDlgVisible() &&
+			!LU->GetRcpDlgAdmin()->IsRcpDlgVisible() &&
 			IsTodaySearch() && 
 			LU->GetCurView() == RCP_VIEW &&
 			m_bMultiSelectRefreshStop == FALSE)
@@ -4887,8 +4885,8 @@ void CRcpView::OnBnClickedShowNoticeBtn()
 		return;
 
 	CShowRcpNotice dlg;
-	dlg.m_nCompanyCode = m_pBi->nDOrderTable;
-	dlg.m_bIntegrated = m_pBi->bIntegrated;
+	dlg.m_nCompanyCode = LF->GetCurBranchInfo()->nDOrderTable;
+	dlg.m_bIntegrated = LF->GetCurBranchInfo()->bIntegrated;
 	dlg.DoModal();
 	RefreshList();
 }
@@ -4899,24 +4897,24 @@ void CRcpView::AddRcpNotice(long nTNo, COleDateTime dt, CString strUser, CString
 
 	CString strUser2 = "(" + strUser + ")";
 	int i = 0;
-	for(i = 0; i < m_pInfoForm->m_NoticeList.GetItemCount(); i++) 
+	for(i = 0; i < LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.GetItemCount(); i++)
 	{
-		if(m_pInfoForm->m_NoticeList.GetItemData(i) == nTNo)
+		if(LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.GetItemData(i) == nTNo)
 		{
-			m_pInfoForm->m_NoticeList.SetItemText(i, 0, dt.Format("[%H:%M:%S]"));
-			m_pInfoForm->m_NoticeList.SetItemText(i, 1, strUser2);
-			m_pInfoForm->m_NoticeList.SetItemText(i, 2, strNotice);
-			m_pInfoForm->m_NoticeList.SetItemText(i, 3, bRequestEditOrder ? " " : "");
+			LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.SetItemText(i, 0, dt.Format("[%H:%M:%S]"));
+			LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.SetItemText(i, 1, strUser2);
+			LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.SetItemText(i, 2, strNotice);
+			LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.SetItemText(i, 3, bRequestEditOrder ? " " : "");
 			break;
 		}
 	}
 
-	if(i == m_pInfoForm->m_NoticeList.GetItemCount()) {
-		m_pInfoForm->m_NoticeList.InsertItem(0, dt.Format("[%H:%M:%S]"));
-		m_pInfoForm->m_NoticeList.SetItemText(0, 1, strUser2);
-		m_pInfoForm->m_NoticeList.SetItemText(0, 2, strNotice);
-		m_pInfoForm->m_NoticeList.SetItemText(0, 3, bRequestEditOrder ? " " : "");
-		m_pInfoForm->m_NoticeList.SetItemData(0, nTNo);		
+	if(i == LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.GetItemCount()) {
+		LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.InsertItem(0, dt.Format("[%H:%M:%S]"));
+		LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.SetItemText(0, 1, strUser2);
+		LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.SetItemText(0, 2, strNotice);
+		LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.SetItemText(0, 3, bRequestEditOrder ? " " : "");
+		LU->GetRcpDlgAdmin()->m_pInfoForm->m_NoticeList.SetItemData(0, nTNo);		
 		if(!bRequestEditOrder)
 			ShowRcpPopupControl(strNotice, strUser, dt);
 	}
@@ -5035,8 +5033,8 @@ void CRcpView::OnMoveOrder()
 	}
 
 	/*
-	dlg.m_nCompanyCode = m_pBi->nCompanyCode;
-	dlg.m_nDOrderTable = m_pBi->nDOrderTable;
+	dlg.m_nCompanyCode = LF->GetCurBranchInfo()->nCompanyCode;
+	dlg.m_nDOrderTable = LF->GetCurBranchInfo()->nDOrderTable;
 	dlg.m_nCarType = GetItemCarType(nSelItem);
 
 
@@ -5089,11 +5087,11 @@ void CRcpView::ChangeOrderRider(long nTNo, long nState, long nRiderCompany, long
 
 void CRcpView::OnBnClickedShareOrder()
 { 
-	if(m_pBi->nShareCode1 == 0 &&
-		m_pBi->nShareCode2 == 0 &&
-		m_pBi->nShareCode3 == 0 &&
-		m_pBi->nShareCode4 == 0 &&
-		m_pBi->nShareCode5 == 0)
+	if(LF->GetCurBranchInfo()->nShareCode1 == 0 &&
+		LF->GetCurBranchInfo()->nShareCode2 == 0 &&
+		LF->GetCurBranchInfo()->nShareCode3 == 0 &&
+		LF->GetCurBranchInfo()->nShareCode4 == 0 &&
+		LF->GetCurBranchInfo()->nShareCode5 == 0)
 	{
 		CString strMsg;
 		strMsg =  "오더를 공유할 수 있는 협력사가 설정되어있지 않습니다.\n";
@@ -5258,43 +5256,43 @@ void CRcpView::InitBranchInfo()
 
 void CRcpView::ChangeBranch(CBranchInfo *pBi, BOOL bNotRefresh)
 {
-	if(m_pBi == pBi)
+	if(LF->GetCurBranchInfo() == pBi)
 		return;
 
-	m_pBi->strSort = m_strSort;
-	m_pBi->strFilter = m_strFilter;
-	m_pBi->strCID = m_strCID;
-	m_pBi->nCurTab = m_CurTab;
-	m_pBi->nLastSelItemNo = m_nLastSelItemNo;
-	m_pBi->nCurSel = m_nCurSel;
-	m_pBi->nCurCol = m_nCurCol;
-	m_pBi->bColAsc = m_bColAsc;
-	m_pBi->strPreCondition = m_strPreCondition;
-	m_pBi->strSortField = m_strSortField;
-	m_FromDT.GetTime(m_pBi->dtFrom);
-	m_ToDT.GetTime(m_pBi->dtTo);
+	LF->GetCurBranchInfo()->strSort = m_strSort;
+	LF->GetCurBranchInfo()->strFilter = m_strFilter;
+	LF->GetCurBranchInfo()->strCID = m_strCID;
+	LF->GetCurBranchInfo()->nCurTab = m_CurTab;
+	LF->GetCurBranchInfo()->nLastSelItemNo = m_nLastSelItemNo;
+	LF->GetCurBranchInfo()->nCurSel = m_nCurSel;
+	LF->GetCurBranchInfo()->nCurCol = m_nCurCol;
+	LF->GetCurBranchInfo()->bColAsc = m_bColAsc;
+	LF->GetCurBranchInfo()->strPreCondition = m_strPreCondition;
+	LF->GetCurBranchInfo()->strSortField = m_strSortField;
+	m_FromDT.GetTime(LF->GetCurBranchInfo()->dtFrom);
+	m_ToDT.GetTime(LF->GetCurBranchInfo()->dtTo);
 
-	m_pBi = pBi;
+	m_pbiCur = pBi;
 
-	m_strSort = m_pBi->strSort;
-	m_strFilter = m_pBi->strFilter;
-	m_strCID = m_pBi->strCID;
-	m_CurTab = m_pBi->nCurTab;
-	m_nLastSelItemNo = m_pBi->nLastSelItemNo;
-	m_nCurSel = m_pBi->nCurSel;
-	m_nCurCol = m_pBi->nCurCol;
-	m_bColAsc = m_pBi->bColAsc;
-	m_strPreCondition = m_pBi->strPreCondition;
-	m_strSortField = m_pBi->strSortField;
+	m_strSort = LF->GetCurBranchInfo()->strSort;
+	m_strFilter = LF->GetCurBranchInfo()->strFilter;
+	m_strCID = LF->GetCurBranchInfo()->strCID;
+	m_CurTab = LF->GetCurBranchInfo()->nCurTab;
+	m_nLastSelItemNo = LF->GetCurBranchInfo()->nLastSelItemNo;
+	m_nCurSel = LF->GetCurBranchInfo()->nCurSel;
+	m_nCurCol = LF->GetCurBranchInfo()->nCurCol;
+	m_bColAsc = LF->GetCurBranchInfo()->bColAsc;
+	m_strPreCondition = LF->GetCurBranchInfo()->strPreCondition;
+	m_strSortField = LF->GetCurBranchInfo()->strSortField;
 
-	m_FromDT.SetTime(m_pBi->dtFrom);
-	m_ToDT.SetTime(m_pBi->dtTo);
+	m_FromDT.SetTime(LF->GetCurBranchInfo()->dtFrom);
+	m_ToDT.SetTime(LF->GetCurBranchInfo()->dtTo);
 	m_dtLastForLimit = COleDateTime(2000, 1, 1, 1, 1, 1);
 
-	m_vrOrder->SetIntegrated(m_pBi->bIntegrated);
-	m_vrOrder->SetCompanyCode(m_pBi->nCompanyCode);
-	m_vrOrder->SetDOrderCompany(m_pBi->nDOrderTable);
-	//	m_vrOrder->SetUseNewRegion(m_pBi->bUseNewRegion);
+	m_vrOrder->SetIntegrated(LF->GetCurBranchInfo()->bIntegrated);
+	m_vrOrder->SetCompanyCode(LF->GetCurBranchInfo()->nCompanyCode);
+	m_vrOrder->SetDOrderCompany(LF->GetCurBranchInfo()->nDOrderTable);
+	//	m_vrOrder->SetUseNewRegion(LF->GetCurBranchInfo()->bUseNewRegion);
 
 	if(!bNotRefresh)
 		AllRefresh();
@@ -5489,10 +5487,10 @@ void CRcpView::OnReportItemClick(NMHDR * pNotifyStruct, LRESULT * /*result*/)
 
 void CRcpView::RefreshMapForm(OrderRecord *pOrder, BOOL bCIDPopup)
 {
-	if(m_pMapForm && pOrder)
+	if(LU->GetRcpDlgAdmin()->m_pMapForm && pOrder)
 	{
-		BOOL bMoveMap = m_pMapForm->m_setinfo.nRcpMoveMap || 
-						bCIDPopup && m_pMapForm->m_setinfo.nJoinWithCID;
+		BOOL bMoveMap = LU->GetRcpDlgAdmin()->m_pMapForm->m_setinfo.nRcpMoveMap ||
+						bCIDPopup && LU->GetRcpDlgAdmin()->m_pMapForm->m_setinfo.nJoinWithCID;
 
 		if(bCIDPopup)
 		{
@@ -5502,7 +5500,7 @@ void CRcpView::RefreshMapForm(OrderRecord *pOrder, BOOL bCIDPopup)
 				m_wndTabControl.SetCurSel(RCPPACE_MAP_FORM);
 			}
 
-			m_pMapForm->RefreshShowType(SHOW_TYPE_BOTH);
+			LU->GetRcpDlgAdmin()->m_pMapForm->RefreshShowType(SHOW_TYPE_BOTH);
 		}
 
 
@@ -5514,18 +5512,18 @@ void CRcpView::RefreshMapForm(OrderRecord *pOrder, BOOL bCIDPopup)
 				{
 					if(pOrder->nRiderCompany > 0 && pOrder->nRNo > 0)
 					{ 
-						m_pMapForm->SetTraceRider(pOrder->nRiderCompany, pOrder->nRNo, pOrder);
+						LU->GetRcpDlgAdmin()->m_pMapForm->SetTraceRider(pOrder->nRiderCompany, pOrder->nRNo, pOrder);
 					} 
 
 					if(pOrder->nStartPosX > 0 && pOrder->nStartPosY > 0)
-						m_pMapForm->AddStartPos(pOrder->nState < STATE_PICKUP, pOrder->nStartPosX, pOrder->nStartPosY, 
+						LU->GetRcpDlgAdmin()->m_pMapForm->AddStartPos(pOrder->nState < STATE_PICKUP, pOrder->nStartPosX, pOrder->nStartPosY,
 						pOrder->strStart.c_str(), pOrder->strSAddress.c_str());
 
 					if(pOrder->nDestPosX > 0 && pOrder->nDestPosY > 0)
-						m_pMapForm->AddDestPos(pOrder->nState >= STATE_PICKUP, pOrder->nDestPosX, pOrder->nDestPosY, 
+						LU->GetRcpDlgAdmin()->m_pMapForm->AddDestPos(pOrder->nState >= STATE_PICKUP, pOrder->nDestPosX, pOrder->nDestPosY,
 						pOrder->strDest.c_str(), pOrder->strDAddress.c_str());
 					else 
-						m_pMapForm->DeleteDest();	
+						LU->GetRcpDlgAdmin()->m_pMapForm->DeleteDest();
 
 				}
 			}			
@@ -5624,15 +5622,15 @@ BOOL CRcpView::MakeCall(int nCompany, CString strPhone, long nType)
 	strOriginPhone = strPhone;
 	strPhone = strCallingLine + strPhone;
 
-	if(m_pCTIForm->m_bConnected)
+	if(LU->GetRcpDlgAdmin()->m_pCTIForm->m_bConnected)
 	{
 		if(LF->GetBranchInfo(m_ui.nCompany)->bIPPBXType)
 		{
 			strDID = strDID + "OP" + strOriginPhone;
-			m_pCTIForm->m_call.MakeCall(strDID, strPhone);
+			LU->GetRcpDlgAdmin()->m_pCTIForm->m_call.MakeCall(strDID, strPhone);
 		}
 		else
-			m_pCTIForm->m_call.MakeCall(strOrderCompanyPhone, strPhone);
+			LU->GetRcpDlgAdmin()->m_pCTIForm->m_call.MakeCall(strOrderCompanyPhone, strPhone);
 
 		MessageBox("전화걸기를 요청하였습니다.", 
 			"전화걸기 시도", 
@@ -6139,8 +6137,8 @@ void CRcpView::OnBnClickedPickupBtn()
 
 void CRcpView::MoveOrder(CBranchInfo *pBi, BOOL bCopy)
 {
-	if(pBi->nCompanyCode == m_pBi->nCompanyCode &&
-		pBi->bIntegrated == m_pBi->bIntegrated) {
+	if(pBi->nCompanyCode == LF->GetCurBranchInfo()->nCompanyCode &&
+		pBi->bIntegrated == LF->GetCurBranchInfo()->bIntegrated) {
 			MessageBox("다른 지사를 선택하십시오!", "오더 이동실패", MB_ICONEXCLAMATION);
 	}
 	else if(pBi->bIntegrated) {
@@ -6201,7 +6199,7 @@ void CRcpView::MoveOrder(CBranchInfo *pBi, BOOL bCopy)
 				}
 			}
 
-			//			if(FALSE == m_pBi->bIntegrated) /* 해당행이 삭제 되었으므로 다시 선택된 행을 찾는다 올 가능성 큼 */
+			//			if(FALSE == LF->GetCurBranchInfo()->bIntegrated) /* 해당행이 삭제 되었으므로 다시 선택된 행을 찾는다 올 가능성 큼 */
 			//			{
 			//				pos = m_xList.GetSelectedRows()->GetFirstSelectedRowPosition();
 			//			}
@@ -7235,7 +7233,7 @@ AFX_INLINE BOOL CRcpView::CheckFilterSubCheckBox(OrderRecord *order)
 		return TRUE;
 	}
 
-	if(m_pBi->IsCargo())
+	if(LF->GetCurBranchInfo()->IsCargo())
 	{
 		/*
 		if(CRcpSearchTruckTypeDlg::m_bTruckType0 == FALSE && order->nTruckType == TRUCK_CARGO) return TRUE;
@@ -8255,7 +8253,7 @@ void CRcpView::OnBnClickedNewRcpDlgBtn()
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	CreateRcpDlg(NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount(), 0, FALSE, "", 0, TRUE);
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL, "신규", -1, 0, "", FALSE, -10, GetTickCount(), 0, FALSE, "", 0, TRUE);
 }
 
 void CRcpView::SearchRiderInfo()
@@ -8334,7 +8332,7 @@ void CRcpView::OnMakeNewRcpDlg()
 	//(상태를 넘기는 이유는 상태변경된걸 알려주기 위해서다.)
 	m_nLastSelItemNo = GetItemTNo(nSelItem);
 
-	CreateRcpDlg(LF->GetBranchInfo(GetItemCompany(nSelItem)),
+	LU->GetRcpDlgAdmin()->CreateRcpDlg(LF->GetBranchInfo(GetItemCompany(nSelItem)),
 		GetItemCName(nSelItem),
 		m_nLastSelItemNo, 
 		GetItemState(nSelItem),"",FALSE, -10, GetTickCount(), 
@@ -8787,10 +8785,10 @@ void CRcpView::OnRecPlayer()
 
 void CRcpView::PlayRecordFile(CString strDate, CString strFile)
 {
-	if(m_pCTIForm)
+	if(LU->GetRcpDlgAdmin()->m_pCTIForm)
 	{
 		TRACE("View %s %s \n", strDate, strFile);
-		m_pCTIForm->m_call.RecPlayMyKeyphone(strDate, strFile);
+		LU->GetRcpDlgAdmin()->m_pCTIForm->m_call.RecPlayMyKeyphone(strDate, strFile);
 	}
 }
 
@@ -9042,9 +9040,9 @@ void CRcpView::OnJinsangCallingDeny()
 	CString szDenialDuration;
 	szDenialDuration.Format("%d",dlg.m_nDuration*24*60);
 
-	if(m_pCTIForm->m_bConnected)
+	if(LU->GetRcpDlgAdmin()->m_pCTIForm->m_bConnected)
 	{
-		m_pCTIForm->m_call.DenialAnswer(dlg.m_sTelNumber, atol(szDenialDuration), dlg.m_sName, dlg.m_sDesc);
+		LU->GetRcpDlgAdmin()->m_pCTIForm->m_call.DenialAnswer(dlg.m_sTelNumber, atol(szDenialDuration), dlg.m_sName, dlg.m_sDesc);
 		MessageBox("진상고객 전화거부 등록하였습니다.", 
 			"진상고객 전화거부 등록(CTI)", 
 			MB_ICONINFORMATION);
@@ -9141,7 +9139,7 @@ LRESULT CRcpView::OnSaveCtiList(WPARAM wParam, LPARAM lParam)
 {
 	//ShellExecute(m_hWnd, "open", "regedit.exe", "/e c:\\aaa.reg HKEY_CURRENT_USER\\Software\\Logisoft\\Daeri\\ReportControl", NULL, SW_HIDE);
 
-	return m_pCTIForm->OnSaveReportState();
+	return LU->GetRcpDlgAdmin()->m_pCTIForm->OnSaveReportState();
 }
 
 LRESULT CRcpView::OnLoadCtiList(WPARAM wParam, LPARAM lParam)
@@ -9149,7 +9147,7 @@ LRESULT CRcpView::OnLoadCtiList(WPARAM wParam, LPARAM lParam)
 	//HKEY rootKey;	
 	//ShellExecute(NULL, "open", "c:\\aaa.reg", "", NULL, SW_SHOW);
 
-	return m_pCTIForm->OnLoadReportState();
+	return LU->GetRcpDlgAdmin()->m_pCTIForm->OnLoadReportState();
 	return 1;
 }
 
@@ -9225,17 +9223,17 @@ void CRcpView::ChangeDelayNoticeState(BOOL bSetting)
 
 void CRcpView::OnUseUpCharge1()
 {
-	UpChange(m_pBi->nUpChargeForNotAllocate1);
+	UpChange(LF->GetCurBranchInfo()->nUpChargeForNotAllocate1);
 }
 
 void CRcpView::OnUseUpCharge2()
 {
-	UpChange(m_pBi->nUpChargeForNotAllocate2);
+	UpChange(LF->GetCurBranchInfo()->nUpChargeForNotAllocate2);
 } 
 
 void CRcpView::OnUseUpCharge3()
 {
-	UpChange(m_pBi->nUpChargeForNotAllocate3);
+	UpChange(LF->GetCurBranchInfo()->nUpChargeForNotAllocate3);
 }
 
 void CRcpView::OnUseUpChargeRelease()
@@ -9262,7 +9260,7 @@ BOOL CRcpView::UpChange(long nCharge)
 		return FALSE;
 	}
 
-	if(m_pBi->nUseUpChargeForNotAllocate == 0)
+	if(LF->GetCurBranchInfo()->nUseUpChargeForNotAllocate == 0)
 		return FALSE;
 
 	LF->UpChargeForNotAllocate(GetItemTNo(nSelItem), nCharge, this);
@@ -9283,11 +9281,11 @@ long CRcpView::GetRiderAndInsertOperatorLog(long nCallCompany, CString strCID, l
 	cmd.AddParameter(m_ui.nCompany);
 	cmd.AddParameter(m_ui.nWNo);	
 	cmd.AddParameter(strCID);
-	cmd.AddParameter(m_pBi->nShareCode1);
-	cmd.AddParameter(m_pBi->nShareCode2);
-	cmd.AddParameter(m_pBi->nShareCode3);
-	cmd.AddParameter(m_pBi->nShareCode4);
-	cmd.AddParameter(m_pBi->nShareCode5);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nShareCode1);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nShareCode2);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nShareCode3);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nShareCode4);
+	cmd.AddParameter(LF->GetCurBranchInfo()->nShareCode5);
 
 	if(!rs.Execute(&cmd))
 		return -1;

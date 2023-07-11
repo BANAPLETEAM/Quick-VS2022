@@ -7,7 +7,7 @@
 #include "DepositRateDlg.h"
 #include "OrderLogDetailDlg.h"
 #include "RcpView.h"
-
+#include "RcpDlgAdmin.h"
 
 IMPLEMENT_DYNCREATE(CIncomeForm5, CMyFormView)
 CIncomeForm5::CIncomeForm5()
@@ -350,9 +350,9 @@ void CIncomeForm5::OnReportItemDblClick(NMHDR * pNotifyStruct, LRESULT * /*resul
 	if(!LF->POWER_CHECK(2001, "접수창 열기", TRUE))
 		return;
 
-	if(LU->m_pRcpView)
+	if(LU->GetRcpDlgAdmin())
 	{
-		LU->m_pRcpView->CreateRcpDlg(NULL, 
+		LU->GetRcpDlgAdmin()->CreateRcpDlg(NULL,
 			sCName,
 			nOrderTNo, 
 			nState, "", FALSE, -1, 0, 0, FALSE, "");
