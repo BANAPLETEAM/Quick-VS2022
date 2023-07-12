@@ -562,6 +562,9 @@ void CMyFormView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	CFormView::OnRButtonDown(nFlags, point);
 
+	if (m_bCopyView)
+		return;
+
 #ifndef _QUICK
 	CMenu rMenu;
 	rMenu.LoadMenu(IDR_CONTEXT_MENU);
@@ -576,15 +579,16 @@ void CMyFormView::OnRButtonDown(UINT nFlags, CPoint point)
 	CMenu *pRMenu = (CMenu*)rMenu.GetSubMenu(0);
 #endif
 
-	HDC hDC=NULL;
-	m_aryMonitors.RemoveAll();
-	hDC = CreateDC("DISPLAY", NULL, NULL, NULL);
-	if(hDC)
-	{
-		::EnumDisplayMonitors(hDC,NULL,MonitorEnumProc, (LPARAM)this);
-		DeleteDC(hDC);
-	}
+	//HDC hDC=NULL;
+	//m_aryMonitors.RemoveAll();
+	//hDC = CreateDC("DISPLAY", NULL, NULL, NULL);
+	//if(hDC)
+	//{
+	//	::EnumDisplayMonitors(hDC,NULL,MonitorEnumProc, (LPARAM)this);
+	//	DeleteDC(hDC);
+	//}
 
+	
 	if(m_aryMonitors.GetCount() <= 1)
 	{
 		pRMenu->RemoveMenu(ID_COPY_FORM_DLG_NEW_MONITOR, MF_BYCOMMAND);

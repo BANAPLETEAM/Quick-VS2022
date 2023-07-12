@@ -41,4 +41,5 @@ public:
 protected:
 	CXTPTabControl m_wndTabControl;
 	CView *m_pView;
+	CMyFormView* m_pFormView;
 };

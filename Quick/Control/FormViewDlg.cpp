@@ -24,6 +24,13 @@ CFormViewDlg::CFormViewDlg(CWnd* pParent, BOOL bAutoDelete)
 	m_bDisableFirstRefresh = FALSE;
 	m_bAutoDelete = bAutoDelete;
 	m_pwndTaskPanel = NULL;
+
+	if (pParent->GetRuntimeClass()->IsDerivedFrom(RUNTIME_CLASS(CFormView))) {
+		m_pFormView = (CMyFormView*)pParent;
+		LU->m_nCopyFormViewCnt++;
+	}
+	else
+		m_pFormView = NULL;
 }
 
 CFormViewDlg::~CFormViewDlg()
@@ -84,7 +91,7 @@ int CFormViewDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	{
 		m_pView = (CView*)m_pObject->CreateObject();
 
-		if(!m_pView ->Create(NULL, NULL, AFX_WS_DEFAULT_VIEW, 
+		if(!m_pView->Create(NULL, NULL, AFX_WS_DEFAULT_VIEW, 
 				CRect(0, 0, lpCreateStruct->cx, lpCreateStruct->cy), 
 				this, AFX_IDW_PANE_FIRST, NULL))
 		{
@@ -94,6 +101,7 @@ int CFormViewDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 		((CMyFormView*)m_pView)->m_pwndTaskPanel = m_pwndTaskPanel;
 		((CMyFormView*)m_pView)->m_pwndPaneNetwork = m_pwndPaneNetwork;
+		((CMyFormView*)m_pView)->m_bCopyView = TRUE;
 	}
 
 	return 0;
@@ -116,6 +124,11 @@ void CFormViewDlg::OnSize(UINT nType, int cx, int cy)
 
 void CFormViewDlg::OnClose()
 {
+	if (m_pFormView && m_pFormView->GetSafeHwnd())
+	{
+		LU->m_nCopyFormViewCnt--;
+	}
+
 	CMyDialog::OnClose();
 	if(m_bAutoDelete)
 		delete this;

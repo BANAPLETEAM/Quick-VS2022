@@ -303,7 +303,9 @@ public:
 	CChargeAdd *m_pChargeAdd;
 	CLogiMapCns *m_pLogiMapCns;
 	CRiderSubInfoMap m_mapRiderSub;
-	CFunctionTableDlg * m_pFunctionTableDlg;		
+	CFunctionTableDlg * m_pFunctionTableDlg;	
+
+	long m_nCopyFormViewCnt = 0;
 
 	class CRcpDlgAdmin* m_pRcpDlgAdmin = nullptr;
 	CRcpDlgAdmin* GetRcpDlgAdmin() { return m_pRcpDlgAdmin; }

@@ -68,6 +68,7 @@ public:
 
 	BOOL m_bResizeVer;
 	BOOL m_bResizeHori;
+	BOOL m_bCopyView = FALSE;
 
 	UINT m_nLeftControl;
 	UINT m_nRightControl;

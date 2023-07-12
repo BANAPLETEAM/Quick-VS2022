@@ -5810,6 +5810,8 @@ void CRcpView::NotifyDisplayTooltip(NMHDR * pNMHDR, LRESULT * result)
 {
 	*result = 0;
 	NM_PPTOOLTIP_DISPLAY * pNotify = (NM_PPTOOLTIP_DISPLAY*)pNMHDR;
+	if (LU->m_nCopyFormViewCnt > 0)
+		return;
 
 	if (NULL == pNotify->hwndTool)
 	{
@@ -5915,6 +5917,9 @@ void CRcpView::NotifyDisplayTooltip(NMHDR * pNMHDR, LRESULT * result)
 						sDetail = m_vrCur->GetOrderRecord(pRow->GetIndex())->strSDetail.c_str();
 					else if(pCol->GetItemIndex() == DEST_DONG_COL)
 						sDetail = m_vrCur->GetOrderRecord(pRow->GetIndex())->strDDetail.c_str();
+
+					if (sDetail.IsEmpty())
+						return;
 
 					htable.AddCol(sDetail);
 					htable.AddRow();
