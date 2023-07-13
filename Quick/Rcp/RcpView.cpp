@@ -3395,7 +3395,7 @@ void CRcpView::MakeContextMenu(BOOL bMenuFromRcpDlg, long nTNo)
 			pRMenu->EnableMenuItem(ID_STATE_FINISH,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 			pRMenu->EnableMenuItem(ID_STATE_SITE,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 			pRMenu->EnableMenuItem(ID_STATE_CARRY,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-			pRMenu->EnableMenuItem(ID_STATE_WAIT,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+			//pRMenu->EnableMenuItem(ID_STATE_WAIT,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 			pRMenu->EnableMenuItem(ID_OTHER_ALLOCATE,  MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 		}
 		else if(ibi->nState == STATE_SITE)
