@@ -568,6 +568,7 @@
     <ClCompile Include="CONTROL\CommonDlg1.cpp" />
     <ClCompile Include="CONTROL\CommonDlg2.cpp" />
     <ClCompile Include="CONTROL\CustomMyAfxMessgagebox.cpp" />
+    <ClCompile Include="CONTROL\DataBox.cpp" />
     <ClCompile Include="CONTROL\DateButton.cpp" />
     <ClCompile Include="CONTROL\DateButtonOneDay.cpp" />
     <ClCompile Include="CONTROL\DateSelectDlg.cpp" />
@@ -1437,6 +1438,7 @@
     <ClInclude Include="CONTROL\CommonDlg1.h" />
     <ClInclude Include="CONTROL\CommonDlg2.h" />
     <ClInclude Include="CONTROL\CustomMyAfxMessgagebox.h" />
+    <ClInclude Include="CONTROL\DataBox.h" />
     <ClInclude Include="CONTROL\DateButton.h" />
     <ClInclude Include="CONTROL\DateButtonOneDay.h" />
     <ClInclude Include="CONTROL\DateSelectDlg.h" />

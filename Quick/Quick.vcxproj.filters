@@ -2218,6 +2218,9 @@
     <ClCompile Include="COMMON\RcpDlgAdmin.cpp">
       <Filter>COMMON</Filter>
     </ClCompile>
+    <ClCompile Include="CONTROL\DataBox.cpp">
+      <Filter>CONTROL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph\Graph.h">
@@ -4865,6 +4868,9 @@
     <ClInclude Include="COMMON\RcpDlgAdmin.h">
       <Filter>COMMON</Filter>
     </ClInclude>
+    <ClInclude Include="CONTROL\DataBox.h">
+      <Filter>CONTROL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\cursor1.cur">
@@ -5324,5 +5330,8 @@
     <ResourceCompile Include="Quick.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

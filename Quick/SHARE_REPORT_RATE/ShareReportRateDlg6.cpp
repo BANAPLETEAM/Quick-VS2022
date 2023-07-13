@@ -95,17 +95,18 @@ void CShareReportRateDlg6::OnInitialUpdate()
 
 	int nCol = 0;
 	
-	m_SettingReport.InsertColumn(0, "지역", DT_LEFT, 50);
-	m_SettingReport.InsertColumn(1, "도시", DT_LEFT, 40);
-	m_SettingReport.InsertColumn(2, "회사명", DT_LEFT, 90);
-	m_SettingReport.InsertColumn(3, "현재율", DT_CENTER, 45);
-	m_SettingReport.InsertColumn(4, "상태", DT_LEFT, 55);
-	m_SettingReport.InsertColumn(5, "예약일", DT_LEFT, 60);
-	m_SettingReport.InsertColumn(6, "적용자", DT_CENTER, 45);
-	m_SettingReport.InsertColumn(7, "변경율", DT_CENTER, 45);
-	m_SettingReport.InsertColumn(8, "연계", DT_CENTER, 60);
-	m_SettingReport.InsertColumn(9, "수정적용일", DT_LEFT, 90);
-	m_SettingReport.InsertColumn(10, "최초적용", DT_LEFT, 70);
+	m_SettingReport.InsertColumn(nCol++, "지역",DT_LEFT,50, FALSE, TRUE);
+	m_SettingReport.InsertColumn(nCol++, "도시",	DT_LEFT,40, FALSE, FALSE);
+	m_SettingReport.InsertColumn(nCol++, "회사명",DT_LEFT,90, FALSE, FALSE);
+	m_SettingReport.InsertColumn(nCol++, "현재율",	DT_CENTER,45, FALSE, FALSE);
+	m_SettingReport.InsertColumn(nCol++, "상태",DT_LEFT,55, FALSE, FALSE);
+	m_SettingReport.InsertColumn(nCol++, "예약일",DT_LEFT,60, FALSE, FALSE);
+	m_SettingReport.InsertColumn(nCol++, "적용자",DT_CENTER,45, FALSE, FALSE);
+	m_SettingReport.InsertColumn(nCol++, "변경율",DT_CENTER,45, FALSE, FALSE);
+	m_SettingReport.InsertColumn(nCol++, "연계",DT_CENTER,60, FALSE, FALSE);	
+	m_SettingReport.InsertColumn(nCol++, "수정적용일",DT_LEFT, 90, FALSE, FALSE);	
+	m_SettingReport.InsertColumn(nCol++, "최초적용",DT_LEFT, 70, FALSE, FALSE);
+	m_SettingReport.InitControl();
 	m_SettingReport.GetReportHeader()->AllowColumnResize(FALSE);
 	m_SettingReport.GetReportHeader()->AllowColumnSort(FALSE);
 	m_SettingReport.GetReportHeader()->AllowColumnRemove(FALSE);
@@ -279,7 +280,7 @@ void CShareReportRateDlg6::LinkRefreshList()
 
 	if( m_SettingReport.GetRecords()->GetCount() > 0)
 	{
-		m_SettingReport.DeleteAllItems();
+		m_SettingReport.DeleteAllItem();
 		m_vecConsignCompany.clear();
 	}
 
@@ -352,33 +353,35 @@ void CShareReportRateDlg6::LinkRefreshList()
 				sApplyModify = "Other";
 			
 		
-			CXTPGridRecord* pParentRecord = GetParentSettingRecord(sTreeCity);
+			CMyXTPGridRecord *pParentRecord = GetParentSettingRecord(sTreeCity);		
 			pParentRecord->SetExpanded(TRUE);
-			CXTPGridRecord* pRecord = new CXTPGridRecord; 
-			pRecord->AddItem(new CXTPGridRecordItemText(""));
-			pRecord->AddItem(new CXTPGridRecordItemText(sCity));
-			pRecord->AddItem(new CXTPGridRecordItemText(sOtherCompanyName));
-			pRecord->AddItem(new CXTPGridRecordItemText(sNowRate));
-			pRecord->AddItem(new CXTPGridRecordItemText(CConsignSettingDlg::GetLogType(nState)));
-			pRecord->AddItem(new CXTPGridRecordItemText(bReserve && (nState == NEW_APPLY || nState == MODIFY_RATE) ? sDtReserve : ""));
-			pRecord->AddItem(new CXTPGridRecordItemText(sApplyModify));
-			pRecord->AddItem(new CXTPGridRecordItemText(sModifyRate));
-			pRecord->AddItem(new CXTPGridRecordItemText(sConSignLink));
-			pRecord->AddItem(new CXTPGridRecordItemText(sAcceptApplyDate));
-			pRecord->AddItem(new CXTPGridRecordItemText(sDtInitDay));
-			pParentRecord->GetChilds()->Add(pRecord);
+			CMyXTPGridRecord *pRecord =  (CMyXTPGridRecord *)pParentRecord->GetChilds()->Add(new CMyXTPGridRecord);
 
-			m_SettingReport.SetItemLong(pRecord, nOtherCompany);
-			m_SettingReport.SetItemLong2(pRecord, nID);
-			m_SettingReport.SetItemLong3(pRecord, nMyAccept);
-			m_SettingReport.SetItemLong4(pRecord, nModifyRequestCompany);
-			m_SettingReport.SetItemData(pRecord, nState);
+			pRecord->MySubAddItem("");
+			pRecord->MySubAddItem(sCity);
+			pRecord->MySubAddItem(sOtherCompanyName);		
+			pRecord->MySubAddItem( sNowRate);
 
-			if (nMyAccept == 0) {
-				m_vecConsignCompany.push_back(pRecord);
-			}
+			pRecord->MySubAddItem(CConsignSettingDlg::GetLogType(nState));		
+			pRecord->MySubAddItem(bReserve && (nState == NEW_APPLY || nState == MODIFY_RATE )	? 
+													sDtReserve : "");	
+			pRecord->MySubAddItem(sApplyModify);		
+			pRecord->MySubAddItem(sModifyRate);		
+			pRecord->MySubAddItem(sConSignLink );		
+			
+			pRecord->MySubAddItem(sAcceptApplyDate);				
+			pRecord->MySubAddItem(sDtInitDay);	
+			pRecord->SetItemDataLong(nOtherCompany );				
+			pRecord->SetItemDataLong2(nID);
+			pRecord->SetItemDataLong3(nMyAccept);
+			pRecord->SetItemDataLong4(nModifyRequestCompany);
 
-			//m_SettingReport.AddRecord(pRecord);
+			pRecord->SetItemDataInt(nState);		
+
+			//pRecord->SetExpanded(TRUE);
+			if(pRecord->GetItemDataLong3() == 0)
+				m_vecConsignCompany.push_back(pRecord);						
+
 			pRs.MoveNext();
 		}
 		pRs.Close();	
@@ -391,29 +394,45 @@ void CShareReportRateDlg6::LinkRefreshList()
 	m_SettingReport.Populate();
 }
 
-CXTPGridRecord* CShareReportRateDlg6::GetParentSettingRecord(CString sCity)
+CMyXTPGridRecord* CShareReportRateDlg6::GetParentSettingRecord(CString sCity)
 {
 	if(m_SettingReport.GetRecords()->GetCount() <= 0)
 		return InitSettingRegionGroup(sCity);
 
-	for(int i = 0; i < m_SettingReport.GetRecords()->GetCount(); i++)
+	for(int i =0; i < m_SettingReport.GetRecords()->GetCount(); i++)
 	{
-		CXTPGridRecord* pRecord = (CXTPGridRecord*)m_SettingReport.GetRecords()->GetAt(i);
-		if(m_SettingReport.GetItemDataText(pRecord) == sCity)
+		CMyXTPGridRecord* pRecord = (CMyXTPGridRecord*)m_SettingReport.GetRecords()->GetAt(i);
+		if( pRecord->GetItemDataString() == sCity)
 			return pRecord;
 	}
 
 	return InitSettingRegionGroup(sCity);
 }
 
-CXTPGridRecord*  CShareReportRateDlg6::InitSettingRegionGroup(CString sCity)
+CMyXTPGridRecord*  CShareReportRateDlg6::InitSettingRegionGroup(CString sCity)
 {
-	int index = m_SettingReport.GetItemCount();
-	m_SettingReport.InsertItem(index, sCity);
-	for (int i = 0; i < 10; i++)
-		m_SettingReport.SetItemText(index, i, "");
-	m_SettingReport.SetItemDataText(index, sCity);
-	return m_SettingReport.GetRecords()->GetAt(index);
+	int nCol = 0;
+
+
+	m_SettingReport.MyAddItem(nCol++,sCity, "지역",	50, FALSE, DT_LEFT);
+	m_SettingReport.MyAddItem(nCol++,"", "도시",		40, FALSE, DT_LEFT);
+	m_SettingReport.MyAddItem(nCol++,"", "회사명",		80, FALSE, DT_LEFT);
+	m_SettingReport.MyAddItem(nCol++,"", "상태",		80, FALSE, DT_LEFT);
+	m_SettingReport.MyAddItem(nCol++,"", "예약일",		90, FALSE, DT_LEFT);
+	m_SettingReport.MyAddItem(nCol++,"", "적용자",		50, FALSE, DT_LEFT);
+	m_SettingReport.MyAddItem(nCol++,"", "변경",		50, FALSE, DT_LEFT);
+	m_SettingReport.MyAddItem(nCol++,"", "연계",		80, FALSE, DT_LEFT);	
+	m_SettingReport.MyAddItem(nCol++,"", "수정적용일",  90, FALSE, DT_LEFT);		
+	m_SettingReport.MyAddItem(nCol++,"", "최초적용일",	90, FALSE, DT_LEFT);
+	CMyXTPGridRecord  *pRecord = 
+	m_SettingReport.MyAddItem(nCol++,"", "현재비율",		80, FALSE, DT_LEFT);	
+	//m_mapCitySeing[sCity] = pRecord;
+	m_SettingReport.InsertItemDataString(sCity);	
+	m_SettingReport.EndItem();
+
+
+
+	return pRecord;
 }
 
 
@@ -505,9 +524,14 @@ void CShareReportRateDlg6::OnBnClickedLinkBtn()
 
 BOOL CShareReportRateDlg6::IsConsignService(long nShareCode)
 {
-	if (m_vecConsignCompany.size() <= 0) return FALSE;
-	for (auto it = m_vecConsignCompany.begin(); it != m_vecConsignCompany.end(); ++it) {
-		if (nShareCode == m_SettingReport.GetItemLong(*it))
+	CONSIGNCOMPANY_VEC::iterator it;
+
+	if(	m_vecConsignCompany.size() <= 0 )
+		return FALSE;
+
+	for(it = m_vecConsignCompany.begin(); it != m_vecConsignCompany.end(); ++ it)
+	{
+		if( nShareCode ==  (*it)->GetItemDataLong() )
 			return TRUE;
 	}
 	return FALSE;
@@ -526,7 +550,7 @@ void CShareReportRateDlg6::OnReportLogItemClick(NMHDR * pNotifyStruct, LRESULT *
 	int nRow = pItemNotify->pRow->GetIndex();
 	int nCol = pItemNotify->pColumn->GetItemIndex();
 
-	if(m_SettingReport.GetSelectedRows()->GetCount() <= 0)
+	if(m_SettingReport.GetSelectedCount() <= 0)
 		return;
 
 	OnBnClickedLinkModifyBtn();
@@ -540,9 +564,9 @@ void CShareReportRateDlg6::OnBnClickedLinkModifyBtn()
 	}
 
 	CXTPGridRow *pRow = m_SettingReport.GetSelectedRows()->GetAt(0);
-	CXTPGridRecord *pRecord = (CXTPGridRecord *) pRow->GetRecord();	
+	CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *) pRow->GetRecord();	
 
-	if(m_SettingReport.GetItemLong(pRecord) <= 0 )
+	if(pRecord->GetItemDataLong() <= 0 )
 	{
 		MessageBox( "수정하실 회사를 선택하여 주세요", "확인" , MB_ICONINFORMATION);
 		return ;
@@ -561,9 +585,9 @@ void CShareReportRateDlg6::OnBnClickedLinkModifyBtn()
 	CConsignSettingDlg dlg;
 	dlg.m_nShareCode1 = m_ci.GetShareCode1();
 	dlg.m_bNew = FALSE;
-	dlg.m_nOtherCompany = m_SettingReport.GetItemLong(pRecord);
+	dlg.m_nOtherCompany = pRecord->GetItemDataLong();
 	dlg.m_nShareCode1 = m_ci.GetShareCode1();
-	dlg.m_nModifyID = m_SettingReport.GetItemLong2(pRecord);
+	dlg.m_nModifyID = pRecord->GetItemDataLong2();
 	
 	if( dlg.DoModal() == IDOK)
 		LinkRefreshList();
@@ -574,12 +598,12 @@ void CShareReportRateDlg6::OnBnClickedRejectBtn()
 {
 	try{
 
-		if(m_SettingReport.GetSelectedRows()->GetCount()<= 0	)
+		if(m_SettingReport.GetSelectedCount()<= 0	)
 			throw "거부할 항목을 선택해주세요";
 
-		CXTPGridRecord *pRecord = m_SettingReport.GetFirstSelectedRecord();
-		long nModifynRequestCompany = m_SettingReport.GetItemLong4(pRecord);
-		long nState = m_SettingReport.GetItemData(pRecord);
+		CMyXTPGridRecord *pRecord = m_SettingReport.GetSelectedRecord(0);
+		long nModifynRequestCompany = pRecord->GetItemDataLong4();
+		long nState = pRecord->GetItemDataInt();
 
 		if( !(nState == NEW_APPLY || nState == MODIFY_RATE )  )
 			throw "거부하실 항목이 아닙니다. ";
@@ -587,8 +611,8 @@ void CShareReportRateDlg6::OnBnClickedRejectBtn()
 		if( nModifynRequestCompany ==  m_ci.m_nShareCode1  )
 			throw "자사가 수정(요청)하신 항목이여 거부가 안되며 수정버튼을 눌러 삭제하여 주세요.";
 
-		long nOtherCompany = m_SettingReport.GetItemLong(pRecord);
-		long nID = m_SettingReport.GetItemLong2(pRecord);
+		long nOtherCompany = pRecord->GetItemDataLong();
+		long nID = pRecord->GetItemDataLong2();
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "delete_consignment_reject_company2011" );
@@ -639,12 +663,12 @@ void CShareReportRateDlg6::OnBnClickedAcceptBtn()
 {
 	try{
 
-		if(m_SettingReport.GetSelectedRows()->GetCount()<= 0	)
+		if(m_SettingReport.GetSelectedCount()<= 0	)
 			throw "거부할 항목을 선택해주세요";
 
-		CXTPGridRecord *pRecord = m_SettingReport.GetFirstSelectedRecord();
-		long nModifynRequestCompany = m_SettingReport.GetItemLong4(pRecord);
-		long nState = m_SettingReport.GetItemData(pRecord);
+		CMyXTPGridRecord *pRecord = m_SettingReport.GetSelectedRecord(0);
+		long nModifynRequestCompany = pRecord->GetItemDataLong4();
+		long nState = pRecord->GetItemDataInt();
 
 		if( !(nState == NEW_APPLY || nState == MODIFY_RATE )  )
 			throw "수락하실 항목이 아닙니다. ";
@@ -652,8 +676,8 @@ void CShareReportRateDlg6::OnBnClickedAcceptBtn()
 		if( nModifynRequestCompany ==  m_ci.m_nShareCode1  )
 			throw "자사가 수정(요청)하신 항목이여 수락이 안되며 수정버튼을 눌러 삭제하여 주세요.";
 
-		long nOtherCompany = m_SettingReport.GetItemLong(pRecord);
-		long nID = m_SettingReport.GetItemLong2(pRecord);
+		long nOtherCompany = pRecord->GetItemDataLong();
+		long nID = pRecord->GetItemDataLong2();
 
 		CMkRecordset pRs(m_pMkDb);
 		CMkCommand pCmd(m_pMkDb, "delete_consignment_accpt_company2011" );

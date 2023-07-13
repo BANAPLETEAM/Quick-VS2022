@@ -109,88 +109,86 @@ protected:
 
 
 
-class CLMyXTPGridRecordItemText : public CXTPGridRecordItemText
-{
-public:
-	CLMyXTPGridRecordItemText(CString sValue = ""):CXTPGridRecordItemText(sValue){ 
-
-		m_bItemDirtyFlag = FALSE;
-		m_bNotValueSpace = FALSE;
-		m_bDirectChange = TRUE;
-		m_sOldValue = "";
-	}
-	BOOL m_bItemDirtyFlag;
-	BOOL m_bNotValueSpace;
-	BOOL m_bDirectChange;
-	CString m_sOldValue;
-
-	void OldValueChange()
-	{
-		DirectValueView();
-
-		if(!m_bNotValueSpace)
-			SetValue(m_sOldValue);
-		else if(m_bNotValueSpace && m_sOldValue.GetLength() == 0)
-			SetValue("");
-		else
-			SetValue(m_sOldValue);			
-
-		SetCaption(m_sOldValue);
-
-	}
-protected:
-
-	void SetChangeView(BOOL bTrue = TRUE, CMyXTPGridRecord *pRecord = NULL)
-	{
-		m_bItemDirtyFlag = TRUE;
-		if(pRecord)
-			pRecord->m_bDirtyFlag = TRUE;
-
-		m_clrBackground = RGB(235,238,237);
-		m_bBoldText = TRUE;
-
-	}
-	void DirectValueView()
-	{
-		m_clrBackground = RGB(255,255,255);
-		m_bBoldText = FALSE;
-	}
-
-
-	virtual void OnEditChanged(	XTP_REPORTRECORDITEM_ARGS* pItemArgs, 	LPCTSTR szText		)
-	{
-		CString sNewValue(szText);
-		m_sOldValue = GetCaption(pItemArgs->pColumn);
-		CString str = GetValue();
-		CString str1 = pItemArgs->pItem->GetCaption(pItemArgs->pColumn);
-		CString str2 = ((CLMyXTPGridRecordItemText*)pItemArgs->pItem)->GetValue();
-		if(sNewValue.GetLength() == 0 && m_sOldValue.GetLength() > 0)
-			return;	
-
-
-
-		if(m_sOldValue.Compare(sNewValue) != 0)
-		{
-			CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pItemArgs->pRow->GetRecord();
-
-			if(m_bDirectChange)
-				DirectValueView();			
-			else
-				SetChangeView(TRUE, pRecord);					
-
-			if(!m_bNotValueSpace)
-				SetValue(sNewValue);
-			else if(m_bNotValueSpace && sNewValue.GetLength() == 0)
-				SetValue("");
-			else
-				SetValue(sNewValue);			
-
-			SetCaption(sNewValue);
-		}		
-	}
-
-
-};
+//class CLMyXTPGridRecordItemText : public CXTPGridRecordItemText
+//{
+//public:
+//	CLMyXTPGridRecordItemText(CString sValue = ""):CXTPGridRecordItemText(sValue){ 
+//
+//		m_bItemDirtyFlag = FALSE;
+//		m_bNotValueSpace = FALSE;
+//		m_bDirectChange = TRUE;
+//		m_sOldValue = "";
+//	}
+//	BOOL m_bItemDirtyFlag;
+//	BOOL m_bNotValueSpace;
+//	BOOL m_bDirectChange;
+//	CString m_sOldValue;
+//
+//	void OldValueChange()
+//	{
+//		DirectValueView();
+//
+//		if(!m_bNotValueSpace)
+//			SetValue(m_sOldValue);
+//		else if(m_bNotValueSpace && m_sOldValue.GetLength() == 0)
+//			SetValue("");
+//		else
+//			SetValue(m_sOldValue);			
+//
+//		SetCaption(m_sOldValue);
+//
+//	}
+//protected:
+//
+//	void SetChangeView(BOOL bTrue = TRUE, CMyXTPGridRecord *pRecord = NULL)
+//	{
+//		m_bItemDirtyFlag = TRUE;
+//		if(pRecord)
+//			pRecord->m_bDirtyFlag = TRUE;
+//
+//		m_clrBackground = RGB(235,238,237);
+//		m_bBoldText = TRUE;
+//
+//	}
+//	void DirectValueView()
+//	{
+//		m_clrBackground = RGB(255,255,255);
+//		m_bBoldText = FALSE;
+//	}
+//
+//
+//	virtual void OnEditChanged(	XTP_REPORTRECORDITEM_ARGS* pItemArgs, 	LPCTSTR szText		)
+//	{
+//		CString sNewValue(szText);
+//		m_sOldValue = GetCaption(pItemArgs->pColumn);
+//		CString str = GetValue();
+//		CString str1 = pItemArgs->pItem->GetCaption(pItemArgs->pColumn);
+//		CString str2 = ((CLMyXTPGridRecordItemText*)pItemArgs->pItem)->GetValue();
+//		if(sNewValue.GetLength() == 0 && m_sOldValue.GetLength() > 0)
+//			return;	
+//
+//
+//
+//		if(m_sOldValue.Compare(sNewValue) != 0)
+//		{
+//			CMyXTPGridRecord *pRecord = (CMyXTPGridRecord *)pItemArgs->pRow->GetRecord();
+//
+//			if(m_bDirectChange)
+//				DirectValueView();			
+//			else
+//				SetChangeView(TRUE, pRecord);					
+//
+//			if(!m_bNotValueSpace)
+//				SetValue(sNewValue);
+//			else if(m_bNotValueSpace && sNewValue.GetLength() == 0)
+//				SetValue("");
+//			else
+//				SetValue(sNewValue);			
+//
+//			SetCaption(sNewValue);
+//		}		
+//	}
+//};
 
 class CMyCheckRecordItem : public CXTPGridRecordItem
 {

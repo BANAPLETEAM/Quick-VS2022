@@ -2230,46 +2230,46 @@ void CDataBox::MyPrint()
 
 
 
-	if (m_pTaskFrame)
-	{
-		m_pTaskFrame->ActivateFrame(SW_SHOW);
-		return;
-	}
-	CCreateContext contextT;	
-	// currently selected client if possible.
-	contextT.m_pLastView       = NULL;
-	contextT.m_pCurrentFrame   = NULL;
-	contextT.m_pNewDocTemplate = NULL;
-	contextT.m_pCurrentDoc     = NULL;
-	contextT.m_pNewViewClass   = RUNTIME_CLASS(CK2ReportView);
+	//if (m_pTaskFrame)
+	//{
+	//	m_pTaskFrame->ActivateFrame(SW_SHOW);
+	//	return;
+	//}
+	//CCreateContext contextT;	
+	//// currently selected client if possible.
+	//contextT.m_pLastView       = NULL;
+	//contextT.m_pCurrentFrame   = NULL;
+	//contextT.m_pNewDocTemplate = NULL;
+	//contextT.m_pCurrentDoc     = NULL;
+	//contextT.m_pNewViewClass   = RUNTIME_CLASS(CK2ReportView);
 
 
-	m_pTaskFrame = new CTaskFrame(this);	
-	DWORD dwStyle = WS_OVERLAPPEDWINDOW|FWS_ADDTOTITLE;	
-	m_pTaskFrame->LoadFrame(IDR_MAINFRAME, dwStyle, 0, &contextT);		
-	m_pTaskFrame->InitialUpdateFrame(NULL, FALSE);
+	//m_pTaskFrame = new CTaskFrame(this);	
+	//DWORD dwStyle = WS_OVERLAPPEDWINDOW|FWS_ADDTOTITLE;	
+	//m_pTaskFrame->LoadFrame(IDR_MAINFRAME, dwStyle, 0, &contextT);		
+	//m_pTaskFrame->InitialUpdateFrame(NULL, FALSE);
 
-	m_pTaskFrame->ShowWindow(SW_SHOW);
-	CK2ReportView *pView = (CK2ReportView *)m_pTaskFrame->GetActiveView();
-
-
+	//m_pTaskFrame->ShowWindow(SW_SHOW);
+	//CK2ReportView *pView = (CK2ReportView *)m_pTaskFrame->GetActiveView();
 
 
 
-	for(int i = 0; i < this->GetColumns()->GetCount(); i++)
-	{
-		CXTPGridColumn *pOldCol = this->GetColumns()->GetAt(i);
 
-		CXTPGridColumn *pCol = new CXTPGridColumn(i,pOldCol->GetCaption(),pOldCol->GetWidth(),pOldCol->IsAutoSize(),
-			pOldCol->GetIconID(),pOldCol->IsSortable(),pOldCol->IsVisible());
-		pView->GetDataCtrl().AddColumn(pCol);
-		//pView->GetDataCtrl().AddColumn(new CXTPGridColumn(i,pOldCol->GetCaption(),pOldCol->GetWidth()));
 
-	}
+	//for(int i = 0; i < this->GetColumns()->GetCount(); i++)
+	//{
+	//	CXTPGridColumn *pOldCol = this->GetColumns()->GetAt(i);
 
-	pView->SendMessage(ID_FILE_PRINT, (WPARAM)pView->GetSafeHwnd());
-	pView->SendMessage(ID_FILE_PRINT_PREVIEW,(WPARAM)pView->GetSafeHwnd());
-	pView->SendMessage(ID_FILE_PRINT_SETUP,(WPARAM)pView->GetSafeHwnd());
+	//	CXTPGridColumn *pCol = new CXTPGridColumn(i,pOldCol->GetCaption(),pOldCol->GetWidth(),pOldCol->IsAutoSize(),
+	//		pOldCol->GetIconID(),pOldCol->IsSortable(),pOldCol->IsVisible());
+	//	pView->GetDataCtrl().AddColumn(pCol);
+	//	//pView->GetDataCtrl().AddColumn(new CXTPGridColumn(i,pOldCol->GetCaption(),pOldCol->GetWidth()));
+
+	//}
+
+	//pView->SendMessage(ID_FILE_PRINT, (WPARAM)pView->GetSafeHwnd());
+	//pView->SendMessage(ID_FILE_PRINT_PREVIEW,(WPARAM)pView->GetSafeHwnd());
+	//pView->SendMessage(ID_FILE_PRINT_SETUP,(WPARAM)pView->GetSafeHwnd());
 
 
 
@@ -2284,24 +2284,24 @@ void CDataBox::MyPrintPreview()
 	m_pTaskFrame->ShowWindow(SW_SHOW);
 	return;
 	}*/
-	CCreateContext contextT;	
+//	CCreateContext contextT;	
 	// currently selected client if possible.
-	contextT.m_pLastView       = NULL;
-	contextT.m_pCurrentFrame   = NULL;
-	contextT.m_pNewDocTemplate = NULL;
-	contextT.m_pCurrentDoc     = NULL;	
-	contextT.m_pNewViewClass   = RUNTIME_CLASS(CViewPrintPreview);
+	//contextT.m_pLastView       = NULL;
+	//contextT.m_pCurrentFrame   = NULL;
+	//contextT.m_pNewDocTemplate = NULL;
+	//contextT.m_pCurrentDoc     = NULL;	
+	//contextT.m_pNewViewClass   = RUNTIME_CLASS(CViewPrintPreview);
 
-	m_pTaskFrame = new CTaskFrame(this);	
-	DWORD dwStyle = WS_OVERLAPPEDWINDOW|FWS_ADDTOTITLE;	
-	m_pTaskFrame->LoadFrame(IDR_MAINFRAME, dwStyle, 0, &contextT);		
-	m_pTaskFrame->InitialUpdateFrame(NULL, FALSE);
-	CViewPrintPreview *pView = (CViewPrintPreview *)m_pTaskFrame->GetActiveView();	
-	pView->m_pDataBox = this;
+	//m_pTaskFrame = new CTaskFrame(this);	
+	//DWORD dwStyle = WS_OVERLAPPEDWINDOW|FWS_ADDTOTITLE;	
+	//m_pTaskFrame->LoadFrame(IDR_MAINFRAME, dwStyle, 0, &contextT);		
+	//m_pTaskFrame->InitialUpdateFrame(NULL, FALSE);
+	//CViewPrintPreview *pView = (CViewPrintPreview *)m_pTaskFrame->GetActiveView();	
+	//pView->m_pDataBox = this;
 
-	pView->OnFilePrintPreview(m_pTaskFrame);
+	//pView->OnFilePrintPreview(m_pTaskFrame);
 
-	m_pTaskFrame->ShowWindow(SW_SHOW);	
+	//m_pTaskFrame->ShowWindow(SW_SHOW);	
 
 
 }
